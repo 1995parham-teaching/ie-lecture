@@ -1,0 +1,9 @@
+---
+# Author Details
+author: 'Parham Alvani'
+defaults:
+  - scope:
+      path: "slides"
+    values:
+      lecture: true
+      layout: lecture
