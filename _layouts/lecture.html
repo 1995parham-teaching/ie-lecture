@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://github.com/aut-ce.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>{{page.title}}</title>
+
+    <link rel="stylesheet" href={{ "/slides/css/reveal.css" | relative_url }}>
+    <link rel="stylesheet" href={{ "/slides/css/theme/league.css" | relative_url }}>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href={{ "/slides/lib/css/monokai.css" | relative_url }}>
+
+    <!-- Parham theme! -->
+    <link rel="stylesheet" href={{ "/slides/css/theme.css" | relative_url }}>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '{{ "/slides/css/print/pdf.css" | relative_url }}' : '{{ "/slides/css/print/paper.css" | relative_url }}';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1 style="color: #ffea00;">{{page.title}}</h1>
+          <h5>Internet Engineering</h5>
+          <span class="cyan-select">Fall 2020</span><br>
+          <a style="color: #ff9900;" href="https://1995parham.me">@1995parham</a>
+        </section>
+        {{content}}
+      </div>
+    </div>
+
+    <script src={{ "/slides/lib/js/head.min.js" | relative_url }}></script>
+    <script src={{ "/slides/js/reveal.js" | relative_url }}></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+        slideNumber: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '{{ "/slides/plugin/highlight/highlight.js" | relative_url }}', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          {
+            src: '{{ "/slides/plugin/toc.js" | relative_url }}',
+            async: true,
+            condition: function() {
+              if (typeof toc !== undefined) {
+                return true;
+              } else {
+                return false;
+              }
+            },
+            callback: function() { toc.initToCOnLoad([
+              {% for topic in page.topics %}
+                "{{ topic }}",
+              {% endfor %}
+            ]); }
+          }
+        ]
+      });
+    </script>
+    <!-- logos and advertising -->
+    <a href="https://github.com/aut-ce/ie-lecture" target="_blank">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src={{ "/img/forkme_right_orange.png" | relative_url }} alt="Fork me on GitHub">
+    </a>
+  </body>
+</html>
