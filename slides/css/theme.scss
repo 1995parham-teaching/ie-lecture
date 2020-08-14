@@ -1,0 +1,34 @@
+---
+---
+
+$selects: (
+        "orange": #ff9100,
+        "green": #76ff03,
+        "cyan": #00e5ff,
+        "red": #ff0000,
+        "material": #ff80ab,
+        "violet": #9900ff,
+        "yellow": #ffcc00,
+);
+
+@each $name, $color in $selects {
+        .#{$name}-select {
+                color: $color;
+        }
+}
+
+.stackoverflow {
+        color: #f48024;
+}
+
+section > h2:first-child {
+        color: #ff033e !important;
+}
+
+table.cell td {
+        border: 5px solid #ccff00 !important;
+}
+
+.slide-background-content {
+        height: 100%;
+}
