@@ -1,0 +1,225 @@
+---
+index: 2
+title: HTTP
+topics:
+  - Introduction
+  - Cookie
+  - Proxy &amp; Cache
+  - Authentication
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>Introduction</h2>
+  <ul>
+    <li>HTTP is the transfer protocol for web applications</li>
+    <ul>
+      <li>
+        <span class="hl-orange">H</span><span class="hl-green">T</span><span class="hl-yellow">T</span><span class="hl-cyan">P</span>:
+        <span class="hl-orange">Hyper</span>
+        <span class="hl-green">Text</span>
+        <span class="hl-yellow">Transfer</span>
+        <span class="hl-cyan">Protocol</span>
+      </li>
+      <li>HTTP 1.0 (RFC 1945), HTTP 1.1 (RFC 2068), HTTP 2 (RFC 7540)</li>
+      <li>In fact, it can be used to transfer everything (not only hyper text)</li>
+      <ul>
+        <li>Text Documents e.g. HTML, XML, JSON, etc.</li>
+        <li>Multimedia e.g. JGP, GIF, MP4, MKV, etc.</li>
+        <li>Application e.g. PDF, ZIP, etc.</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Cont.)</h2>
+  <ul>
+    <li>HTTP uses the client/server paradigm</li>
+    <ul>
+      <li>HTTP server provides resource</li>
+      <li>HTTP client (usually web browser) gets resource</li>
+    </ul>
+    <li>But not pure client/server communication</li>
+    <ul>
+      <li>Proxies</li>
+      <li>Caches</li>
+      <li>...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Cont.)</h2>
+  <ul>
+    <li>HTTP is an <span class="hl-orange">application layer protocol</span></li>
+    <li>HTTP assumes reliable communication</li>
+    <ul>
+      <li>over TCP</li>
+      <li>default (server) port: 80</li>
+      <li>client port is chosen randomly per connection</li>
+    </ul>
+    <li>HTTP is <span class="hl-green">Stateless</span></li>
+    <ul>
+      <li>Server does not keep history/state of client</li>
+      <li>High performance &amp; Low Complexity</li>
+      <li>Problematic in some applications (sessions)</li>
+      <ul>
+        <li>Cookies</li>
+        <li>JSON Web Tokens</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Data Resources to Transfer</h2>
+  <ul>
+    <li>HTTP is the protocol to transfer data between server and client (usually from server to client)</li>
+    <li>Which data?</li>
+    <ul>
+      <li>It can be <span class="hl-green">anything</span></li>
+      <li>In web, usually, it is a resource/object on server</li>
+    </ul>
+    <li>Each resource must be <span class="hl-orange">identified</span>/<span class="hl-cyan">located</span> uniquely</li>
+    <ul>
+      <li>URI (Uniform Resource Identifier)</li>
+      <li>URI (Uniform Resource Locator)</li>
+    </ul>
+    <li>URIs <span class="hl-orange">identify</span> and URLs <span class="hl-cyan">locate</span>; however, locators are also identifiers, so</li>
+    <div class="box"><p>every URL is also a URI, but there are URIs which are not URLs.</p></div>
+  </ul>
+</section>
+<section>
+  <h2>URL</h2>
+  <div class="box"><p>
+      <span class="hl-orange">&lt;protocol(scheme)&gt;</span>
+      :// &lt;user&gt; : &lt;pass&gt; @ &lt;host&gt; : &lt;
+      port&gt; / <span class="hl-green">&lt;path&gt;</span> ? <span class="hl-cyan">&lt;query&gt;</span> # <span class="hl-red">&lt;frag&gt;</span>
+  </p></div>
+  <ul>
+    <li>https://sbu.ac.ir/SitePages/Home.aspx</li>
+    <li>https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE</li>
+    <li>file:///home/parham/Documents/Git/parham/dotfiles</li>
+    <li>http://libgen.is</li>
+  </ul>
+</section>
+<section>
+  <h2>URL (Cont.)</h2>
+  <ul>
+    <li><span class="hl-orange">Scheme</span>: The application layer protocol</li>
+    <li>HTTP: The web protocol</li>
+    <li>HTTPS: Secure HTTP</li>
+    <li>FTP: File Transfer Protocol</li>
+    <li>File: Access to a local file</li>
+    <li>javascript: Run javascript code</li>
+    <li>mailto: Send mail to given address</li>
+    <li>etc.</li>
+  </ul>
+</section>
+<section>
+  <h2>URL (Cont.)</h2>
+  <ul>
+    <li><span class="hl-green">Path</span>: The path of the object on host filesystem</li>
+    <li>E.g. web server root directory is <code>/var/www/</code></li>
+    <ul>
+      <li><code>http://www.example.com/1.html</code> &rarr; <code>/var/www/1.html</code></li>
+      <li><code>http://www.example.com/1/2/3.jpg</code> &rarr; <code>/var/www/1/2/3.jpg</code></li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>URL (Cont.)</h2>
+  <ul>
+    <li><span class="hl-cyan">Query</span>: A mechanism to pass information from client to active pages or forms</li>
+    <ul>
+      <li>Fill information in a university registration form</li>
+      <li>Ask Bing! to search a phrase</li>
+    </ul>
+    <li>Starts with "?"</li>
+    <li><code>name=value</code> format</li>
+    <li>"&amp;" is the border between multiple parameters</li>
+    <li>Try this out, by <a href="https://httpbin.org/get?name=Parham&family=Alvani">clicking me</a></li>
+  </ul>
+  <div class="box">
+    <h3>HTTPBin</h3>
+    <p>A simple HTTP Request &amp; Response Service.</p>
+  </div>
+</section>
+<section>
+  <h2>URL (Cont.d)</h2>
+  <ul>
+    <li><span class="hl-red">Frag</span>: A name for a part of resource</li>
+    <ul>
+      <li>A section in a document</li>
+    </ul>
+    <li>Handled by browser</li>
+    <ul>
+      <li>Browser gets whole resource (doc) from server</li>
+      <li>In display time, it jumps to the specific part</li>
+    </ul>
+    <li>Try this out, by <a href="https://github.com/gopasspw/gopass/#introduction">clicking me</a></li>
+  </ul>
+</section>
+<section>
+  <h2>URL (Cont.d)</h2>
+  <ul>
+    <li>URL is encoded by client before transmission</li>
+    <li>How: Each byte is divided into two 4-bit group, hexadecimal of the 4-bits are prefixed by %</li>
+    <ul>
+      <li><code>~</code> &rarr; <code>126</code> &rarr; <code>%7E</code></li>
+    </ul>
+    <li>What &amp; Why?</li>
+    <ul>
+      <li>Non-ASCII (e.g., Persian Characters, Emoji)</li>
+      <li>Reserved character when are not used for special role</li>
+      <li>Unsafe character, e.g. space, %, ...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>URL in Action</h2>
+  <ul>
+    <li>User asks the browser to retrieve a resource</li>
+    <li>Browser finds the ip address of &lt;host&gt; (DNS lookup)</li>
+    <li>Browser creates a TCP connection to the IP address and the &lt;port&gt;</li>
+    <li>Browser sends http requests throught the connection</li>
+    <li>Browser gets the response and processes it</li>
+  </ul>
+</section>
+<section>
+  <h2>URL in Action (Cont.)</h2>
+  <pre><code>
+2950	113.658623720	192.168.73.191	3.220.112.94	TCP	74	59890 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=335902154 TSecr=0 WS=128
+2956	113.848038152	3.220.112.94	192.168.73.191	TCP	74	80 → 59890 [SYN, ACK] Seq=0 Ack=1 Win=26847 Len=0 MSS=1460 SACK_PERM=1 TSval=1360379473 TSecr=335902154 WS=256
+2957	113.848146169	192.168.73.191	3.220.112.94	TCP	66	59890 → 80 [ACK] Seq=1 Ack=1 Win=64256 Len=0 TSval=335902344 TSecr=1360379473
+2958	113.848626070	192.168.73.191	3.220.112.94	HTTP	503	GET /bytes/1378 HTTP/1.1
+2962	114.079894429	3.220.112.94	192.168.73.191	TCP	66	80 → 59890 [ACK] Seq=1 Ack=438 Win=28160 Len=0 TSval=1360379525 TSecr=335902344
+2963	114.080912334	3.220.112.94	192.168.73.191	HTTP	1683	HTTP/1.1 200 OK
+2964	114.080950090	192.168.73.191	3.220.112.94	TCP	66	59890 → 80 [ACK] Seq=438 Ack=1618 Win=62720 Len=0 TSval=335902576 TSecr=1360379526
+  </code></pre>
+</section>
+<section>
+  <h2>How does HTTP work? <span class="hl-red">Transactions</span></h2>
+  <ul>
+    <li>HTTP data transfer is a collection of transactions</li>
+    <li>Each transaction is composed of 2 HTTP messages</li>
+    <li>Requests are identified by methods</li>
+    <ul>
+      <li><span class="hl-orange">Method</span>: The action that client asks from server</li>
+    </ul>
+    <li>Responses are identified by status codes</li>
+    <ul>
+      <li><span class="hl-green">Status</span>: The result of the requested action</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>References</h2>
+  <ul>
+    <li>Prof. Bahador Bakhshi Internet Eng.</li>
+    <li>https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn</li>
+  </ul>
+</section>
