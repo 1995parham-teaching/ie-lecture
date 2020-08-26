@@ -1,7 +1,7 @@
 ---
 ---
 
-$selects: (
+$highlights: (
         "orange": #ff9100,
         "green": #76ff03,
         "cyan": #00e5ff,
@@ -11,8 +11,8 @@ $selects: (
         "yellow": #ffcc00,
 );
 
-@each $name, $color in $selects {
-        .#{$name}-select {
+@each $name, $color in $highlights {
+        .hl-#{$name} {
                 color: $color;
         }
 }
@@ -31,4 +31,24 @@ table.cell td {
 
 .slide-background-content {
         height: 100%;
+}
+
+.box {
+        border-radius: 5px;
+        background-color: #919096;
+        box-shadow: 5px 5px 5px 0;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+}
+
+.box header {
+        background-color: #656469;
+        border-radius: 5px 5px 0 0;
+        color: #DD8F33;
+}
+
+.box p {
+        font-style: italic;
+        padding-left: 20px;
+        padding-right: 20px;
 }
