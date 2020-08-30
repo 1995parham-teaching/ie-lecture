@@ -4,7 +4,7 @@ title: HTTP
 topics:
   - Introduction
   - Cookie
-  - Proxy &amp; Cache
+  - Proxy & Cache
   - Authentication
 ---
 
@@ -469,6 +469,161 @@ data data data ...
       <li>Telnet can create TCP socket</li>
     </ul>
     <li>Play with the server by sending HTTP methods and checking the responses</li>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Headers</h2>
+  <ul>
+    <li>Headers are additional information that is sent by client to server and vice versa</li>
+    <ul>
+      <li>Most (allmost all) are optional</li>
+    </ul>
+    <li>Which headers?</li>
+    <ul>
+      <li>Information about client</li>
+      <li>Information about server</li>
+      <li>Information about the requested resource</li>
+      <li>Information about the response</li>
+      <li>Security/Authentication</li>
+      <li>...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Headers</h2>
+  <ul>
+    <li><span class="hl-orange">General</span> headers</li>
+    <ul>
+      <li>Appear both on request &amp; response messages</li>
+    </ul>
+    <li><span class="hl-green">Request</span> headers</li>
+    <ul>
+      <li>Information about request</li>
+    </ul>
+    <li><span class="hl-cyan">Response</span> headers</li>
+    <ul>
+      <li>Information about response</li>
+    </ul>
+    <li><span class="hl-yellow">Entity</span> headers</li>
+    <ul>
+      <li>Information about body (size, ...)
+    </ul>
+    <li><span class="hl-violet">Extension</span> headers</li>
+    <ul>
+      <li>New headers (not standard)</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>General Headers</h2>
+  <ul>
+    <li><span class="hl-orange">Date</span>: Date &amp; Time that message is created</li>
+    <li><span class="hl-green">Connection</span>: Close or Keep-Alive</li>
+    <ul>
+      <li>Close: Non-persistent connection</li>
+      <li>Kepp-Alive: Persistent connection</li>
+    </ul>
+    <li><span class="hl-yellow">Via</span>: Information about the intermediate nodes between two sides</li>
+    <ul>
+      <li>Proxy servers</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Request Headers</h2>
+  <ul>
+    <li><span class="hl-orange">Host</span>: The name of the server (<span class="hl-green">required</span>, why?)</li>
+    <li><span class="hl-cyan">Referer</span>: URL that contains requested URL</li>
+    <li>Information about the client</li>
+    <ul>
+      <li><span class="hl-yellow">User-Agent</span>: The client program</li>
+      <li><span class="hl-yellow">Accept</span>: The acceptable media types</li>
+      <li><span class="hl-yellow">Accept-Encoding</span>: The acceptable encoding</li>
+      <li><span class="hl-yellow">Accept-Language</span>: The acceptable language</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Request Headers (Cont.)</h2>
+  <ul>
+    <li><span class="hl-orange">Range</span>: Specific range (in byte) of resource</li>
+    <li><span class="hl-green">Authorization</span>: Response to the authenticate</li>
+    <ul>
+      <li>Will be discussed later</li>
+    </ul>
+    <li><span class="hl-yellow">Cookie</span>: To return back the cookies</li>
+    <ul>
+      <li>Will be discussed later</li>
+    </ul>
+    <li><span class="hl-cyan">If-Modified-Since</span>: Request is processed if the objected is modified since the specified time.</li>
+    <ul>
+      <li>Used in Web Caching</li>
+      <li>Will be discussed later</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Response Header</h2>
+  <ul>
+    <li><span class="hl-orange">Server</span>: Information about server</li>
+    <li><span class="hl-green">WWW-Authenticate</span>: Used to specify authentication parameters by server</li>
+    <li><span class="hl-yellow">Proxy-Authenticate</span>: Used to specify authentication parameters by proxy</li>
+    <li><span class="hl-cyan">Set-Cookie</span>: To send a cookie to client</li>
+    <li><span class="hl-red">Location</span>: The location of entity to redirect client</li>
+  </ul>
+</section>
+<section>
+  <h2>Response Header (Cont.)</h2>
+  <ul>
+    <li><span class="hl-orange">Last-Modified</span>: The date and time of last modification of entity</li>
+    <li><span class="hl-green">Content-Range</span>: Range of this entity in the entire resource</li>
+    <li><span class="hl-cyan">Expires</span>: The date and time at which the entity will expire</li>
+  </ul>
+</section>
+<section>
+  <h2>Entity Headers</h2>
+  <ul>
+    <li><span class="hl-orange">Content-Length</span>: The length of body (in byte)</li>
+    <li><span class="hl-green">Content-Type</span>: The type of entity</li>
+    <ul>
+      <li>MIME types: text/xml, image/gif</li>
+    </ul>
+    <li><span class="hl-red">Allow</span>: THe allowed request methods can be performed on the entity</li>
+    <ul>
+      <li>This is in response of OPTIONS method</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <h2>Stateless Problem</h2>
+  <ul>
+    <li>HTTP is a <span class="hl-orange">stateless</span> protocol</li>
+    <ul>
+      <li>Server does not remeber its client</li>
+    </ul>
+    <li>How to personalize pages (persoanl portal)?</li>
+    <ul>
+      <li>Use http header: X-Forwarded-For</li>
+      <ul>
+        <li>Is not usually sent by browsers</li>
+      </ul>
+      <li>Find client IP address from TCP connection</li>
+      <ul>
+        <li>The problem is <span class="hl-green">NAT</span></li>
+      </ul>
+      <li>Clients move but IP address does not</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Solution of Stateless Problem: Cookie</h2>
+  <ul>
+    <li>Cookie: are information (e.g. unique identfiers) sent by server to user (browser) which are returned back to server</li>
+    <li>How it works</li>
+    <li>Types</li>
   </ul>
 </section>
 <section>
