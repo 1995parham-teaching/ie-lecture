@@ -52,3 +52,9 @@ table.cell td {
         padding-left: 20px;
         padding-right: 20px;
 }
+
+section.hands-on {
+        ul::after {
+                content: url("../img/hands-on.gif");
+        }
+}
