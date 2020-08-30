@@ -18,11 +18,11 @@ const toc = {
         let node = document.createElement('li');
 
         if (section.dataset.selected && section.dataset.selected === title) {
-          node.className += 'material-select'
+          node.className += 'hl-material'
         }
 
         if (section.dataset.selected && titles[parseInt(section.dataset.selected)] === title) {
-          node.className += 'material-select'
+          node.className += 'hl-material'
         }
 
         node.appendChild(document.createTextNode(title));
