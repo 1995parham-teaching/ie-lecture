@@ -217,9 +217,266 @@ topics:
   </ul>
 </section>
 <section>
+  <h2>HTTP Transactions</h2>
+  <img src="./img/http-transactions.png" height="500px" alt="http-transactions">
+</section>
+<section>
+  <h2>HTTP Transactions in Web</h2>
+  <ul>
+    <li>(Tipically) each web page contains multiple resources</li>
+    <ul>
+      <li>The main skeleton HTML page</li>
+      <li>Some linked materials: figures, videos, JS, CSS, etc.</li>
+    </ul>
+    <li>Displaying a web page by a browser</li>
+    <ul>
+      <li>Get the HTML page (first transaction)</li>
+      <li>Try to display the page (redering)</li>
+      <li>Other resources are linked to the page</li>
+      <li>Get the resources (subsequent transactions)</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Transactions in Web (Cont.)</h2>
+  <ul>
+    <li>HTTP Transactions &amp; TCP Connections</li>
+    <ol>
+      <li><span class="hl-orange">Non-persistent</span></li>
+      <ul>
+        <li>A new TCP connection per object</li>
+        <li>Network overhead + Connection establish delay + Resource intesive</li>
+        <li>Parallel connections speed up browsing</li>
+      </ul>
+      <li><span class="hl-green">Persistent</span></li>
+      <ul>
+        <li>Get multiple objects using a single TCP connection</li>
+        <li>No extra processing &amp; networking overhead</li>
+        <li>Poor performance if implemented in serial manner</li>
+        <li>Pipeline requests speed up browsing (HTTP/1.1)</li>
+      </ul>
+    </ol>
+  </ul>
+</section>
+<section>
+  <h2>HTTP/2 for a Faster Web</h2>
+  <h3>HTTP Pipelining</h3>
+  <ul>
+    <li>HTTP Pipelining is <span class="hl-green">not difficult to deploy</span>, <span class="hl-orange">it is impossible.</span></li>
+    <li>it still allowed a single large or slow response to block all others that followed.</li>
+  </ul>
+  <h3>HTTP/2 Multiplexing</h3>
+  <ul>
+    <li>Multiplexing allows multiple request-response messages to be in flight over a single HTTP/2 connection, at the same time.</li>
+  </ul>
+</section>
+<section>
+  <h2>HTTP/2 for a Faster Web (Cont.)</h2>
+  <img src="./img/http2-transactions.png" height="500px" alt="http2-transactions">
+</section>
+<section class="hands-on">
+  <h2>HTTP Transactions in Web: Hands on</h2>
+  <ul>
+    <li>Get a HTML page from a server</li>
+    <li>Capture the packets</li>
+    <li>Investigate the transactions</li>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Messages</h2>
+  <ul>
+    <li>HTTP is <span class="hl-orange">text-based</span> protocol</li>
+    <ul>
+      <li>Human readable headers</li>
+      <li>The header is composed of some lines</li>
+    </ul>
+  </ul>
+  <img src="./img/message-structure.jpg" alt="message-structure" height="400px">
+</section>
+<section>
+  <pre><code class="plaintext">
+Method&lt;sp&gt;Path&lt;sp&gt;Version&lt;CRLF&gt;
+Header-Field:Header-Value&lt;CRLF&gt;
+...
+Header-Field:Header-Value&lt;CRLF&gt;
+&lt;CRLF&gt;
+Entity-Body
+  </code></pre>
+</section>
+<section>
+  <h2>HTTP Messages (Cont.)</h2>
+  <ul>
+    <li>E.g. HTTP request message</li>
+  </ul>
+  <pre><code>
+GET /index.html HTTP/1.1
+Host: www.aut.ac.ir
+User-Agent: Mozilla/36.0
+Accept-Language: en-us
+Connection: keep-alive
+  </code></pre>
+</section>
+<section>
+  <pre><code class="plaintext">
+Version&lt;sp&gt;Code&lt;sp&gt;Reason&lt;CRLF&gt;
+Header-Field:Header-Value&lt;CRLF&gt;
+...
+Header-Field:Header-Value&lt;CRLF&gt;
+&lt;CRLF&gt;
+Entity-Body
+  </code></pre>
+</section>
+<section>
+  <ul>
+    <li>E.g. HTTP response message</li>
+  </ul>
+  <pre><code>
+HTTP/1.1 200 OK
+Date: Sun, 02 Oct 2018 20:30:40
+Server: Apache/2.2.2
+Last-Modified: Mon, 03 May 2017 10:20:22
+Connection: keep-alive
+Content-Length: 3000
+
+data data data ...
+  </code></pre>
+</section>
+<section>
+  <h2>HTTP Methods</h2>
+  <ul>
+    <li>Methods are actions that client asks from server to do on the specified resource (given by the path parameter)</li>
+    <li>Which actions?</li>
+    <ul>
+      <li>Basic data communication operations</li>
+      <ul>
+        <li>Safe operations</li>
+        <ul>
+          <li>Get a resource from server</li>
+          <li>Send data to server</li>
+        </ul>
+        <li>Unsafe operations</li>
+        <ul>
+          <li>Delete a resource on server</li>
+          <li>Create/Replace a resource on server</li>
+        </ul>
+      </ul>
+      <li>Debugging and troubleshooting</li>
+      <ul>
+        <li>Get information about a resource</li>
+        <li>Check what server got from client</li>
+        <li>Get List of operations which can be applied on a resource</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Methods (Cont.)</h2>
+  <ul>
+    <li><span class="hl-orange">GET</span>: Retrieve resource from server</li>
+    <li><span class="hl-orange">HEAD</span>: Simlar to GET but the resource itself is not retrieved, just the HTTP response header</li>
+    <ul>
+      <li>Useful for debugging or some other applications</li>
+    </ul>
+    <li><span class="hl-orange">POST</span>: Submit data to be processed by the specified resource</li>
+    <ul>
+      <li>Data itself is enveloped in message body</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Methods (Cont.)</h2>
+  <ul>
+    <li><span class="hl-green">DELETE</span>: Remove the resource</li>
+    <ul>
+      <li>Not popular in web, can be used in other applications</li>
+    </ul>
+    <li><span class="hl-green">PUT</span>: Add message body as the specified resource to server</li>
+    <li><span class="hl-green">TRACE</span>: Server echoes back the recieved message</li>
+    <ul>
+      <li>For troubleshooting &amp; debugging</li>
+    </ul>
+    <li><span class="hl-green">OPTIONS</span>: Request the list of supported methods by server on the resource</li>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Responses</h2>
+  <ul>
+    <li>The message for the result/response of the requested action</li>
+    <li>Which responses?</li>
+    <ul>
+      <li>Basic responses</li>
+      <ul>
+        <li>Success</li>
+        <li>Failure</li>
+        <ul>
+          <li>Bad client request</li>
+          <li>Server problem</li>
+          <li>...</li>
+        </ul>
+      </ul>
+      <li>Others</li>
+      <ul>
+        <li>E.g., Redirection to other resources</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Responses (Cont.)</h2>
+  <ul>
+    <li><span class="hl-green">2xx</span></li>
+    <ul>
+      <li>200: OK</li>
+      <li>201: Created</li>
+      <li>204: No Content</li>
+    </ul>
+    <li><span class="hl-yellow">4xx</span></li>
+    <ul>
+      <li>400: Bad Request</li>
+      <li>401: Unauthorized (Authorization required)</li>
+      <li>403: Forbidden</li>
+      <li>404: Not Found</li>
+      <li>405: Method Not Allowedd</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Responses (Cont.)</h2>
+  <ul>
+    <li><span class="hl-red">5xx</span></li>
+    <ul>
+      <li>500: Internal Server Error</li>
+      <li>501: Not Implemented</li>
+      <li>503: Service Unavailable</li>
+    </ul>
+    <li><span class="hl-cyan">3xx</span></li>
+    <ul>
+      <li>301: Moved Permanently</li>
+      <li>307: Moved Temporarily</li>
+      <ul>
+        <li>Resource has been moved, Redirection</li>
+        <li>Location header contains the new location of resource</li>
+      </ul>
+      <li>304: Not Modified</li>
+    </ul>
+  </ul>
+</section>
+<section class="hands-on">
+  <h2>HTTP Messages Hands on</h2>
+  <ul>
+    <li>Connect to a web server</li>
+    <ul>
+      <li>Telnet can create TCP socket</li>
+    </ul>
+    <li>Play with the server by sending HTTP methods and checking the responses</li>
+  </ul>
+</section>
+<section>
   <h2>References</h2>
   <ul>
     <li>Prof. Bahador Bakhshi Internet Eng.</li>
     <li>https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn</li>
+    <li>https://cascadingmedia.com/insites/2015/03/http-2.html</li>
+    <li>https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9</li>
   </ul>
 </section>
