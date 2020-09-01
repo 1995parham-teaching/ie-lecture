@@ -36,11 +36,184 @@ topics:
     <ul>
       <li>What are/were the problems?</li>
       <li>How do/did we solve them?</li>
+      <ul>
+        <li>Which protocols and languages are used</li>
+      </ul>
     </ul>
     <li>Engineer approach</li>
     <ul>
       <li>Understand existing concepts &amp; technologies</li>
+      <ul>
+        <li>In class</li>
+      </ul>
       <li>Try examples &amp; sample projects</li>
+      <ul>
+        <li>By youself</li>
+      </ul>
     </ul>
   </ul>
+</section>
+<section>
+  <h2>The World-Wide Web</h2>
+  <ul>
+    <li>Original idea (Tim Berners-Lee, 1989)</li>
+    <ul>
+      <li>Public information sharing on Internet</li>
+      <li>Hypertext</li>
+      <ul>
+        <li>Documents are text which can be displayed/converted to desired output</li>
+        <li>Documents can be linked to each others: Web!</li>
+      </ul>
+    </ul>
+    <li>WWW: A system of interlinked hypertext</li>
+    <ul>
+      <li>Now, much more complex/interesting applications</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>How Does WWW Work?</h2>
+  <ul>
+    <li>Client-Server mechanism</li>
+    <li>Web servers: Process client’s requests</li>
+    <ul>
+      <li>File (text, image, video, ...) retrieval requests</li>
+      <li>Computation/Processing (DB lookup, transaction, ...) requests</li>
+    </ul>
+    <li>Web clients: Send the requests</li>
+    <ul>
+      <li>Browser: Interacts with client, Requests for server, Processes and displays response (rendering)</li>
+      <li>Other applications</li>
+      <ul>
+        <li>Search engines crawlers</li>
+        <li>Use server as a processing element (distributed computing)</li>
+        <li>...</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>WWW: From Old to Now</h2>
+  <ul>
+    <li><span class="hl-red">Static</span> Web Pages</li>
+    <li>Client requests a document from server</li>
+    <ul>
+      <li>A communication protocol: <span class="hl-orange">HTTP</span></li>
+    </ul>
+    <li>How to display the document in browser?</li>
+    <ul>
+      <li>Document structure definition language: <span class="hl-green">HTML</span></li>
+      <li>Representation of document: <span class="hl-cyan">CSS</span></li>
+      <li>Later, very later, some advance features: <span class="hl-yellow">HTML5</span></li>
+    </ul>
+  </ul>
+  <iframe src="http://example.com/"></iframe>
+</section>
+<section>
+  <h2>WWW: From Old to Now</h2>
+  <ul>
+    <li><span class="hl-red">Interactive</span> and <span class="hl-red">Dynamic</span> web page</li>
+    <li>Needs to interact with user (e.g., event handling in web pages)</li>
+    <ul>
+      <li>A programming language in browser: <span class="hl-orange">JavaScript</span></li>
+    </ul>
+    <li>Dynamic data from server (e.g., search result)</li>
+    <ul>
+      <li>A programming language in server: <span class="hl-green">Go</span></li>
+    </ul>
+    <li>Interactive &amp; Dynamic web page</li>
+    <ul>
+      <li>A communication mechanism between web page and server: <span class="hl-orange">JavaScript</span> &amp; <span class="hl-cyan">JSON</span></li>
+    </ul>
+  </ul>
+  <iframe src="http://www.alexyoder.net/tiny-twitch.html" style="border-width: 5px; background-color: white;"></iframe>
+</section>
+<section>
+  <h2>WWW: From Old to Now</h2>
+  <ul>
+    <li>Complex processing in server side</li>
+    <ul>
+      <li>So many common requirements</li>
+      <ul>
+        <li>Threading, Concurrency, Security, etc.</li>
+      </ul>
+      <li>Needs an application development framework</li>
+      <ul>
+        <li><span class="hl-orange">Web Applications Architectures</span></li>
+      </ul>
+    </ul>
+    <li>Distributed computing over web</li>
+    <ul>
+      <li>Machine-to-Machine communication</li>
+      <ul>
+        <li><span class="hl-yellow">Function invocation over web</span></li>
+      </ul>
+      <li>Needs a common protocols/API (e.g., Facebook API)</li>
+      <ul>
+        <li><span class="hl-green">Web services</span></li>
+      </ul>
+    </ul>
+  </ul>
+  <pre><code class="lang-json" id="swapi-result">Waiting...</code></pre>
+  <script>
+    fetch("https://swapi.dev/api/people/1/").then((resp) => resp.json()).then((data) => document.getElementById("swapi-result").textContent = JSON.stringify(data))
+  </script>
+</section>
+<section>
+  <h2>What we are going to learn at classes</h2>
+  <ul>
+    <li class="fragment fade-up" data-fragment-index="0">Introduction</li>
+    <li class="fragment fade-left" data-fragment-index="1">HTTP</li>
+    <li class="fragment fade-right" data-fragment-index="2">HTML</li>
+    <li class="fragment fade-down" data-fragment-index="3">CSS</li>
+    <li class="fragment fade-up" data-fragment-index="4">JSON</li>
+    <li class="fragment fade-left" data-fragment-index="5">JavaScript</li>
+    <li class="fragment fade-right" data-fragment-index="6">React</li>
+    <li class="fragment fade-down" data-fragment-index="7">Golang</li>
+    <li class="fragment fade-left" data-fragment-index="8">Web Applications</li>
+    <li class="fragment fade-right" data-fragment-index="9">Virtualization</li>
+  </ul>
+</section>
+<section>
+  <h2>What we are going to learn at TA's classes</h2>
+  <ul>
+    <li class="fragment fade-up" data-fragment-index="0">Git</li>
+    <li class="fragment fade-left" data-fragment-index="1">HTTP Client</li>
+    <li class="fragment fade-right" data-fragment-index="2">HTML/CSS</li>
+    <li class="fragment fade-down" data-fragment-index="3">JavaScript/React</li>
+    <li class="fragment fade-left" data-fragment-index="4">Backend Development</li>
+    <li class="fragment fade-right" data-fragment-index="5">Docker</li>
+  </ul>
+</section>
+<section>
+  <h2>What This Course Is Not</h2>
+  <ul>
+    <li>XYZ programming language course for web</li>
+    <ul>
+      <li>Many technologies for web development</li>
+      <li>You are already programmer</li>
+    </ul>
+    <li>In depth &amp; in detail technology review</li>
+    <ul>
+      <li>There are so many technologies</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Course Advantages</h2>
+</section>
+<section>
+  <h2>Course Possible Disadvantages</h2>
+</section>
+<section>
+  <h2>Assumptions on your knowledge & skills</h2>
+</section>
+<section>
+  <h2>Course Policies</h2>
+</section>
+<section>
+  <h2>Course Policies (Cont.)</h2>
+</section>
+<section>
+  <h2>Course Policies: Grading 😥</h2>
 </section>
