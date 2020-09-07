@@ -308,7 +308,7 @@ Entity-Body
   <ul>
     <li>E.g. HTTP request message</li>
   </ul>
-  <pre><code>
+  <pre><code class="language-http">
 GET /index.html HTTP/1.1
 Host: www.aut.ac.ir
 User-Agent: Mozilla/36.0
@@ -330,7 +330,7 @@ Entity-Body
   <ul>
     <li>E.g. HTTP response message</li>
   </ul>
-  <pre><code>
+  <pre><code class="language-http">
 HTTP/1.1 200 OK
 Date: Sun, 02 Oct 2018 20:30:40
 Server: Apache/2.2.2
@@ -623,7 +623,147 @@ data data data ...
   <ul>
     <li>Cookie: are information (e.g. unique identfiers) sent by server to user (browser) which are returned back to server</li>
     <li>How it works</li>
+    <ul>
+      <li>Server asks client to remember the information</li>
+      <ul>
+        <li><span class="hl-orange">Set-Cookie</span> header in response message</li>
+      </ul>
+      <li>Client gives back the information to server in every request</li>
+      <ul>
+        <li><span class="hl-green">Cookie</span> header in request messages</li>
+      </ul>
+      <li>Server customizes responses according to the cookie</li>
+    </ul>
     <li>Types</li>
+    <ul>
+      <li>Session cookies: To identify a session</li>
+      <li>Persistent cookies: To identify a client (browser)</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Cookies (Cont.)</h2>
+  <pre><code class="language-http">
+GET /cookies/set?name=parham&amp;family=alvani HTTP/1.1
+Host: httpbin.org
+
+  </code></pre>
+  <pre><code class="language-http">
+HTTP/1.1 302 FOUND
+Date: Mon, 07 Sep 2020 05:19:50 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 223
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Location: /cookies
+Set-Cookie: name=parham; Path=/
+Set-Cookie: family=alvani; Path=/
+  </code></pre>
+  <pre><code class="language-http">
+GET /cookies HTTP/1.1
+Host: httpbin.org
+Cookie: name=parham family=alvani
+
+  </code></pre>
+  <pre><code class="language-http">
+HTTP/1.1 200 OK
+Date: Mon, 07 Sep 2020 05:23:53 GMT
+Content-Type: application/json
+Content-Length: 58
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "cookies": {
+    "name": "parham family=alvani"
+  }
+}
+  </pre></code>
+</section>
+<section>
+  <h2>Cookies (Cont.)</h2>
+  <ul>
+    <li>Limitation</li>
+    <ul>
+      <li>Cannot be used to store large data</li>
+      <li>At least 300 cookies</li>
+      <li>at least 4096 bytes per cookie</li>
+      <li>at least 20 cookies per unique host or domain name</li>
+    </ul>
+    <li>Cookies are text files</li>
+    <ul>
+      <li>No virus spread</li>
+    </ul>
+    <li>There is not any request from server to read cookies</li>
+    <ul>
+      <li>By default cookies are sent by browser</li>
+      <li>Browser checks URL and finds appropriate cookies</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Cookies (Cont.)</h2>
+  <ul>
+    <li>Client can control cookies</li>
+    <ul>
+      <li>Disable cookies: no cookie is saved &amp; used</li>
+      <li>View &amp; Delete cookies</li>
+    </ul>
+    <li>Server can control cookies by its attributes</li>
+    <ul>
+      <li>Expiration time</li>
+      <li>Domain</li>
+      <li>Path</li>
+      <li>Security</li>
+      <li>...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Cookies Attributes</h2>
+  <ul>
+    <li><span class="hl-orange">Expire</span> &amp; <span class="hl-green">Max-Age</span>: The life time of the cookie</li>
+    <ul>
+      <li>Expire: An absolute time to delete cookie</li>
+      <li>Max-Age: The maximum life time (sec) of cookie</li>
+      <li>If exists, shows a permanent cookie</li>
+      <li>Send a past time (or negative) to delete a cookie</li>
+    </ul>
+    <li><span class="hl-cyan">Secure</span>: Cookie is sent only if channel is secure</li>
+    <ul>
+      <li>Specially useful for login sessions cookies</li>
+    </ul>
+    <li><span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is used</li>
+    <ul>
+      <li>JavaScript cannot access to the cookies</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Cookies Attributes: Domain & Path</h2>
+  <ul>
+    <li><span class="hl-orange">Domain</span> &amp; <span class="hl-green">Path</span> determine the scope of the cookie</li>
+    <ul>
+      <li>For which path and domain, the cookie is saved &amp; returned back by browser</li>
+    </ul>
+    <li>If these attributes are absent then browser assumes current host &amp; current path</li>
+    <ul>
+      <li>Browser returns back the cookie for the host &amp; path and also for all sub-paths</li>
+    </ul>
+    <li>If present then browser checks validity</li>
+    <ul>
+      <li>If they are valid then Browser returns back the cookie for that domain &amp; that path and also for all subdomains and sub-paths</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Cookies Attributes: Domain & Path</h2>
+</section>
+<section class="hands-on">
+  <h2>Cookies Attributes: Domain & Path: Hands on</h2>
+  <ul>
   </ul>
 </section>
 <section>
@@ -633,5 +773,6 @@ data data data ...
     <li>https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn</li>
     <li>https://cascadingmedia.com/insites/2015/03/http-2.html</li>
     <li>https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9</li>
+    <li>https://superuser.com/questions/97625/what-is-the-maximum-size-of-a-cookie-and-how-many-can-be-stored-in-a-browser-fo</li>
   </ul>
 </section>
