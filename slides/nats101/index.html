@@ -1,0 +1,104 @@
+---
+index: misc
+title: NATS101
+topics:
+  - Introduction
+  - Protocol
+---
+
+<section data-background-image="img/background.jpg">
+  <div class="header">
+    <h2>Introduction to</h2>
+    <h1>NATS</h1>
+    <h3>Parham Alvani</h3>
+    <h5><a href="https://1995parham.github.io">@1995parham</a></h5>
+  </div>
+</section>
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>History</h2>
+  <ul>
+    <li>NATS is a high-performance messaging system created by Derek Collison in 2010</li>
+    <li>It was originally built to serve as the message bus for Cloud Foundry</li>
+    <li>Handling internal communication among components of the system</li>
+  </ul>
+</section>
+<section>
+  <h2>It Addresses</h2>
+  <ul>
+    <li>Service Discovery</li>
+    <li>Low latency communication</li>
+    <li>Load balancing</li>
+    <li>Notification and events handling</li>
+  </ul>
+</section>
+<section>
+  <h2>Overview</h2>
+  <ol>
+    <li>Client publishes message on <q>foo</q> subject</li>
+    <li>Only clients subscribed to <q>foo</q> receive the message</li>
+  </ol>
+  <img src="img/overview.png">
+</section>
+<section>
+  <h2>How Simple!</h2>
+  <pre><code class="plaintext">
+INFO {"server_id":"NCNS32OEKOMMHTBVUYC7QWASFAP3BPEKGZG3QDIYRCBUL23WE3OVVBBO","server_name":"NCNS32OEKOMMHTBVUYC7QWASFAP3BPEKGZG3QDIYRCBUL23WE3OVVBBO","version":"2.1.7","proto":1,"git_commit":"bf0930e","go":"go1.13.10","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":1,"client_ip":"172.17.0.1"}
+SUB greetings 1
++OK
+PUB greetings 12
+Hello World!
++OK
+MSG greetings 1 12
+Hello World!
+  </code></pre>
+</section>
+<section>
+  <h2>Request/Response</h2>
+  <ol>
+    <li>Client connected to NATS publishes a request on a <q>help</q> subject</li>
+    <li>Worker client subscribed to <q>help</q>, processes requests, then sends response</li>
+    <li>Audit client is subscribed to all subjects via a wildcard, so also receives message but does not reply</li>
+    <li>Publisher receieves the response from the worker client</li>
+  </ol>
+  <img src="./img/rr.png">
+</section>
+<section>
+  <h2>Queue</h2>
+  <ol>
+    <li>Publisher sends multiple help requests on a <q>help</q> subject</li>
+    <li>Multiple worker clients subscribed to the <q>help</q> subject from a distributed queue</li>
+    <li>Each published request is randomly balanced to only one of the worker clients in the distributed queue</li>
+  </ol>
+  <img src="./img/queues.png">
+</section>
+<section>
+  <h2>NATS As an Always Available Dial Tone</h2>
+  <ul>
+    <li>The main design constraints that define the style of the NATS project are:</li>
+    <ul>
+      <li>Simplicity</li>
+      <li>Performance</li>
+      <li>Reliability</li>
+    </ul>
+    <li>It does not offer any <span class="hl-orange">Persistence</span> or <span class="hl-green">Buffering</span></li>
+    <li>It is true <span class="hl-red">Fire</span> and <span class="hl-cyan">Forget</span></li>
+  </ul>
+</section>
+<section>
+  <h2>Availability</h2>
+  <ul>
+    <li>NATS will try to protect itself at all costs to be available for all users</li>
+    <li>NATS client libraries, internally try to have an always established connection to one of the available NATS servers</li>
+    <li>In case a server fails, NATS will reconnect to another available server in the pool</li>
+    <li>NATS supports high-availablity via a clustering mode that is set up as a full-mesh of the servers</li>
+  </ul>
+</section>
+<section>
+  <h2>Slow Consumer</h2>
+</section>
