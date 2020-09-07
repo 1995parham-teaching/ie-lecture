@@ -2,7 +2,7 @@
 index: misc
 title: NATS101
 topics:
-  - Introduction
+- Introduction
 ---
 
 <section data-background-image="img/background.jpg">
@@ -42,7 +42,7 @@ topics:
     <li>Client publishes message on <q>foo</q> subject</li>
     <li>Only clients subscribed to <q>foo</q> receive the message</li>
   </ol>
-  <img src="img/overview.png">
+  <img src="./img/overview.png" alt="overview">
 </section>
 <section>
   <h2>How Simple!</h2>
@@ -65,7 +65,7 @@ Hello World!
     <li>Audit client is subscribed to all subjects via a wildcard, so also receives message but does not reply</li>
     <li>Publisher receieves the response from the worker client</li>
   </ol>
-  <img src="./img/rr.png">
+  <img src="./img/rr.png" alt="rr">
 </section>
 <section>
   <h2>Queue</h2>
@@ -74,7 +74,7 @@ Hello World!
     <li>Multiple worker clients subscribed to the <q>help</q> subject from a distributed queue</li>
     <li>Each published request is randomly balanced to only one of the worker clients in the distributed queue</li>
   </ol>
-  <img src="./img/queues.png">
+  <img src="./img/queues.png" alt="queues">
 </section>
 <section>
   <h2>NATS As an Always Available Dial Tone</h2>
@@ -127,22 +127,26 @@ Hello World!
     <li>When using it as part of the subject, we can create namespaces that can be later matched via wildcards</li>
   </ul>
   <table>
-    <tr>
-      <th>Subject</th>
-      <th>Matches</th>
-    </tr>
-    <tr>
-      <td>foo.*.bar</td>
-      <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
-    </tr>
-    <tr>
-      <td>foo.*</td>
-      <td>foo.hello</td>
-    </tr>
-    <tr>
-      <td>foo.&gt;</td>
-      <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Matches</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>foo.*.bar</td>
+        <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
+      </tr>
+      <tr>
+        <td>foo.*</td>
+        <td>foo.hello</td>
+      </tr>
+      <tr>
+        <td>foo.&gt;</td>
+        <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
+      </tr>
+    </tbody>
   </table>
 </section>
 <section>
