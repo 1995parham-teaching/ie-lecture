@@ -760,6 +760,22 @@ Access-Control-Allow-Credentials: true
 </section>
 <section>
   <h2>Cookies Attributes: Domain & Path</h2>
+  <ul>
+    <li>Validity check by major browsers</li>
+    <ul>
+      <li>Domain names must start with dot</li>
+      <ul>
+        <li>Some browsers accept names without dot as domain</li>
+      </ul>
+      <li>Don’t accept for other domains than the base domain</li>
+      <li>Don’t accept cookies for sub-domains</li>
+      <li>Accept cookies for higher domains</li>
+      <ul>
+        <li>Except the top level domains, e.g., .com, .ac.ir</li>
+      </ul>
+      <li>Accept cookies for other (sub or higher) paths</li>
+    </ul>
+  </ul>
 </section>
 <section class="hands-on">
   <h2>Cookies Attributes: Domain & Path: Hands on</h2>
