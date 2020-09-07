@@ -793,6 +793,7 @@ Access-Control-Allow-Credentials: true
     <li>Act as server for client</li>
     <li>Act as client for server</li>
   </ul>
+  <img src="./img/proxy.png" alt="proxy">
 </section>
 <section>
   <h2>HTTP Proxy Applications</h2>
@@ -826,6 +827,131 @@ Access-Control-Allow-Credentials: true
       <li>Reduce delay</li>
     </ul>
   </ul>
+</section>
+<section>
+  <h2>Caching Algorithm</h2>
+  <ul>
+    <li>If the object is not cached, it is got from server, saved in cache, and sent to client</li>
+    <li>Else, if object is in cache</li>
+    <ul>
+      <li>Cache server must return only fresh objects</li>
+      <li><span class="hl-red">Freshness check</span></li>
+    </ul>
+    <li>Objects life-time specified by server</li>
+    <ul>
+      <pre><code class="language-http">
+Cache-Control: max-age=<seconds>
+Cache-Control: max-stale[=<seconds>]
+Cache-Control: min-fresh=<seconds>
+Cache-Control: no-cache
+Cache-Control: no-store
+Cache-Control: no-transform
+Cache-Control: only-if-cached
+      </code></pre>
+    </ul>
+    <li>If requested object is not expired</li>
+    <ul>
+      <li>Cache server gives it to client</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Caching Algorithm (Cont.)</h2>
+  <ul>
+    <li>If requested object is expired</li>
+    <ul>
+      <li>Its freshness must be checked</li>
+    </ul>
+    <li>Freshness is checked by conditional request</li>
+    <ul>
+      <li>If-Modified-Since: current last-modified time</li>
+    </ul>
+    <li>Server responses</li>
+    <ul>
+      <li>304 Not modified response + new expire time</li>
+      <ul>
+        <li>Cached copy is valid until the specified time</li>
+      </ul>
+      <li>200 OK</li>
+      <ul>
+        <li>Server provides a new version of the object</li>
+        <li>Cache server updates cached copy</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h2>HTTP Authentication</h2>
+  <ul>
+    <li>All resources are not public in web; e.g.,</li>
+    <ul>
+      <li>Financial documents, Customer information, ...</li>
+    </ul>
+    <li>HTTP has two (similar) authentications</li>
+    <ul>
+      <li>Basic: Base64 encoded “user:pass”</li>
+      <li>Digest: Plain username + Digest of pass</li>
+    </ul>
+    <li>Steps are the same</li>
+    <ul>
+      <li>Client requests resource, Server challenges, Client asks User/Pass, Client responses, Server authenticates and allows</li>
+      <li>Authentication information are sent by every request until end of current session</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Authentication (Cont.)</h2>
+  <pre><code class="language-http">
+GET /basic-auth/admin/admin HTTP/1.1
+Host: httpbin.org
+Authorization: Basic YWRtaW46YWRtaW4=
+
+  </code></pre>
+  <pre><code class="language-http">
+HTTP/1.1 200 OK
+Date: Mon, 07 Sep 2020 14:14:25 GMT
+Content-Type: application/json
+Content-Length: 48
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "authenticated": true,
+  "user": "admin"
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Digest Authentication</h2>
+  <ul>
+    <li>Basic authentication is insecure</li>
+    <ul>
+      <li>Password is sent in base64 encoding</li>
+      <li>Attacker can easily find it</li>
+    </ul>
+    <li>Digest authentication: Don’t send password</li>
+    <ul>
+      <li>Send its digset (hash)</li>
+    </ul>
+    <li>Digest/hash function</li>
+    <ul>
+      <li>One way function, irreversible</li>
+    </ul>
+    <li>Attacker cannot find password</li>
+    <li>But! Reply attach</li>
+    <ul>
+      <li>Attacker resends the same digest then he will be authenticated</li>
+      <li>Use Nonce</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Digest Authentication (Cont.)</h2>
 </section>
 <section>
   <h2>References</h2>
