@@ -3,7 +3,6 @@ index: misc
 title: NATS101
 topics:
   - Introduction
-  - Protocol
 ---
 
 <section data-background-image="img/background.jpg">
@@ -91,14 +90,101 @@ Hello World!
   </ul>
 </section>
 <section>
-  <h2>Availability</h2>
-  <ul>
-    <li>NATS will try to protect itself at all costs to be available for all users</li>
-    <li>NATS client libraries, internally try to have an always established connection to one of the available NATS servers</li>
-    <li>In case a server fails, NATS will reconnect to another available server in the pool</li>
-    <li>NATS supports high-availablity via a clustering mode that is set up as a full-mesh of the servers</li>
-  </ul>
+  <section>
+    <h2>Availability</h2>
+    <ul>
+      <li>NATS will try to protect itself at all costs to be available for all users</li>
+      <li>NATS client libraries, internally try to have an always established connection to one of the available NATS servers</li>
+      <li>In case a server fails, NATS will reconnect to another available server in the pool</li>
+      <li>NATS supports high-availablity via a clustering mode that is set up as a <span class="hl-orange">full-mesh</span> of the servers</li>
+    </ul>
+  </section>
+  <section>
+    <img src="./img/ha.png" alt="ha">
+  </section>
 </section>
 <section>
   <h2>Slow Consumer</h2>
+  <ul>
+    <li>By default, if a client fails to drain the pending data that the server is holding for the client for over two seconds, the server will disconnect the client</li>
+    <li>Read more about it <a href="https://github.com/nats-io/nats-server/blob/c76dd8f67376bcf78ee09147e62242a29eccfa2e/server/client.go#L1270">here</a></li>
+  </ul>
+  <img src="./img/sc.png" alt="sc">
+</section>
+<section>
+  <h2>Ping/Pong</h2>
+  <ul>
+    <li>There is a PING/PONG interval happing that the client has to follow otherwise the server will reset the connection in case there are many PONG replies missing.</li>
+    <li>Server sends PING messages to client in each interval and client has to respond</li>
+    <li>Client also can send PING messages to the server</li>
+  </ul>
+  <img src="./img/ping-pong.png" alt="ping-pong">
+</section>
+<section>
+  <h2>Subject Names</h2>
+  <ul>
+    <li>The dot character (.) has special meaning as part of the subject</li>
+    <li>When using it as part of the subject, we can create namespaces that can be later matched via wildcards</li>
+  </ul>
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Matches</th>
+    </tr>
+    <tr>
+      <td>foo.*.bar</td>
+      <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
+    </tr>
+    <tr>
+      <td>foo.*</td>
+      <td>foo.hello</td>
+    </tr>
+    <tr>
+      <td>foo.&gt;</td>
+      <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
+    </tr>
+  </table>
+</section>
+<section>
+  <section class="hands-on">
+    <h2>Queue Subscribtions: Hands-on</h2>
+    <ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Worker 1 👷</h2>
+    <pre><code class="plaintext">
+INFO {"server_id":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","server_name":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","version":"2.1.8","proto":1,"git_commit":"c0b574f","go":"go1.14.8","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":4,"client_ip":"172.22.0.1"}
+SUB requests workers 5
++OK
+
+MSG requests 5 6
+second
+    </code></pre>
+  </section>
+  <section>
+    <h2>Worker 2 👷</h2>
+    <pre><code class="plaintext">
+INFO {"server_id":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","server_name":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","version":"2.1.8","proto":1,"git_commit":"c0b574f","go":"go1.14.8","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":5,"client_ip":"172.22.0.1"}
+SUB requests workers 55
++OK
+
+MSG requests 55 5
+first
+    </code></pre>
+  </section>
+  <section>
+    <h2>Publisher ✍️</h2>
+    <pre><code class="plaintext">
+INFO {"server_id":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","server_name":"NARXYLU3XEZSFYCFRV5WJ63GQS5WDV3WC4WAKCYDYY2IBGIETWJADZVS","version":"2.1.8","proto":1,"git_commit":"c0b574f","go":"go1.14.8","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":6,"client_ip":"172.22.0.1"}
+
+PUB requests 5
+first
++OK
+
+PUB requests 6
+second
++OK
+    </code></pre>
+  </section>
 </section>
