@@ -51,7 +51,7 @@ layout: none
           {% for lecture in lectures %}
           <tr>
             <td class="announcement-text">
-              <p>{{forloop.index}}. {{lecture.title}}</p>
+              <p>{{forloop.index}}. {% if lecture.index == 'misc' %}(misc){% endif %} {{lecture.title}}</p>
             </td>
             <td class="announcement-date">
               <div class ="button-container">
