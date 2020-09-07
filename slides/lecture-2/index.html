@@ -149,7 +149,7 @@ topics:
   </div>
 </section>
 <section>
-  <h2>URL (Cont.d)</h2>
+  <h2>URL (Cont.)</h2>
   <ul>
     <li><span class="hl-red">Frag</span>: A name for a part of resource</li>
     <ul>
@@ -164,7 +164,7 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>URL (Cont.d)</h2>
+  <h2>URL (Cont.)</h2>
   <ul>
     <li>URL is encoded by client before transmission</li>
     <li>How: Each byte is divided into two 4-bit group, hexadecimal of the 4-bits are prefixed by %</li>
@@ -294,43 +294,34 @@ topics:
   <img src="./img/message-structure.jpg" alt="message-structure" height="400px">
 </section>
 <section>
-  <pre><code class="plaintext">
+  <section>
+    <h2>HTTP Messages (Cont.)</h2>
+    <ul>
+      <li>E.g. HTTP request message</li>
+    </ul>
+    <pre><code class="language-http">
+GET /index.html HTTP/1.1
+Host: www.aut.ac.ir
+User-Agent: Mozilla/36.0
+Accept-Language: en-us
+Connection: keep-alive
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="plaintext">
 Method&lt;sp&gt;Path&lt;sp&gt;Version&lt;CRLF&gt;
 Header-Field:Header-Value&lt;CRLF&gt;
 ...
 Header-Field:Header-Value&lt;CRLF&gt;
 &lt;CRLF&gt;
 Entity-Body
-  </code></pre>
-</section>
-<section>
-  <h2>HTTP Messages (Cont.)</h2>
-  <ul>
-    <li>E.g. HTTP request message</li>
-  </ul>
-  <pre><code class="language-http">
-GET /index.html HTTP/1.1
-Host: www.aut.ac.ir
-User-Agent: Mozilla/36.0
-Accept-Language: en-us
-Connection: keep-alive
-  </code></pre>
-</section>
-<section>
-  <pre><code class="plaintext">
-Version&lt;sp&gt;Code&lt;sp&gt;Reason&lt;CRLF&gt;
-Header-Field:Header-Value&lt;CRLF&gt;
-...
-Header-Field:Header-Value&lt;CRLF&gt;
-&lt;CRLF&gt;
-Entity-Body
-  </code></pre>
-</section>
-<section>
-  <ul>
-    <li>E.g. HTTP response message</li>
-  </ul>
-  <pre><code class="language-http">
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>E.g. HTTP response message</li>
+    </ul>
+    <pre><code class="language-http">
 HTTP/1.1 200 OK
 Date: Sun, 02 Oct 2018 20:30:40
 Server: Apache/2.2.2
@@ -339,7 +330,18 @@ Connection: keep-alive
 Content-Length: 3000
 
 data data data ...
-  </code></pre>
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="plaintext">
+Version&lt;sp&gt;Code&lt;sp&gt;Reason&lt;CRLF&gt;
+Header-Field:Header-Value&lt;CRLF&gt;
+...
+Header-Field:Header-Value&lt;CRLF&gt;
+&lt;CRLF&gt;
+Entity-Body
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>HTTP Methods</h2>
@@ -349,12 +351,12 @@ data data data ...
     <ul>
       <li>Basic data communication operations</li>
       <ul>
-        <li>Safe operations</li>
+        <li><span class="hl-orange">Safe</span> operations</li>
         <ul>
           <li>Get a resource from server</li>
           <li>Send data to server</li>
         </ul>
-        <li>Unsafe operations</li>
+        <li><span class="hl-green">Unsafe</span> operations</li>
         <ul>
           <li>Delete a resource on server</li>
           <li>Create/Replace a resource on server</li>
@@ -363,8 +365,8 @@ data data data ...
       <li>Debugging and troubleshooting</li>
       <ul>
         <li>Get information about a resource</li>
-        <li>Check what server got from client</li>
-        <li>Get List of operations which can be applied on a resource</li>
+        <li>Check what the server has got from a client</li>
+        <li>Get the list of operations which can be applied on a resource</li>
       </ul>
     </ul>
   </ul>
@@ -406,8 +408,8 @@ data data data ...
     <ul>
       <li>Basic responses</li>
       <ul>
-        <li>Success</li>
-        <li>Failure</li>
+        <li><span class="hl-green">Success</span></li>
+        <li><span class="hl-red">Failure</span></li>
         <ul>
           <li>Bad client request</li>
           <li>Server problem</li>
@@ -857,7 +859,7 @@ Cache-Control: only-if-cached
 </section>
 <section>
   <h2>Caching Algorithm (Cont.)</h2>
-  <ul>
+  <ol>
     <li>If requested object is expired</li>
     <ul>
       <li>Its freshness must be checked</li>
@@ -878,7 +880,7 @@ Cache-Control: only-if-cached
         <li>Cache server updates cached copy</li>
       </ul>
     </ul>
-  </ul>
+  </ol>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -892,7 +894,7 @@ Cache-Control: only-if-cached
     </ul>
     <li>HTTP has two (similar) authentications</li>
     <ul>
-      <li>Basic: Base64 encoded “user:pass”</li>
+      <li>Basic: <span class="hl-orange">Base64</span> encoded <code class="hl-yellow">user:pass</code></li>
       <li>Digest: Plain username + Digest of pass</li>
     </ul>
     <li>Steps are the same</li>
@@ -901,6 +903,13 @@ Cache-Control: only-if-cached
       <li>Authentication information are sent by every request until end of current session</li>
     </ul>
   </ul>
+</section>
+<section>
+  <h2>Base64</h2>
+  <ul>
+    <li>Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format by translating it into a radix-64 representation.</li>
+  </ul>
+  <img src="./img/base64.png">
 </section>
 <section>
   <h2>HTTP Authentication (Cont.)</h2>
@@ -942,8 +951,8 @@ Access-Control-Allow-Credentials: true
     <ul>
       <li>One way function, irreversible</li>
     </ul>
-    <li>Attacker cannot find password</li>
-    <li>But! Reply attach</li>
+    <li>Attacker cannot find password 😌</li>
+    <li>But! Reply attack 😞</li>
     <ul>
       <li>Attacker resends the same digest then he will be authenticated</li>
       <li>Use Nonce</li>
@@ -952,6 +961,41 @@ Access-Control-Allow-Credentials: true
 </section>
 <section>
   <h2>Digest Authentication (Cont.)</h2>
+  <ol>
+    <li>Client requests a private resource</li>
+    <li>Server creates a nonce (the server only issues a new nonce for each <span class="hl-yellow">401</span> response</li>
+    <pre><code class="language-http">
+WWW-Authenticate: Digest realm="me@kennethreitz.com", nonce="9e97866f5105eddbf41ce75c4e5e8c14", qop="auth-int", opaque="96f27ba9bad9cd44429b8f4c1b1c060b", algorithm=MD5, stale=FALSE
+    </pre></code>
+    <li>Client computes digest of password &amp; nonce</li>
+    <pre><code class="plaintext">
+HA1 = MD5(username:realm:password)
+HA2 = MD5(method:digestURI)
+response = MD5(HA1:nonce:HA2)
+    </pre></code>
+    <li>Server looks up the password of username and computes hash(pass, nonce)</li>
+    <li>More details in RFC7616</li>
+  </ol>
+</section>
+<section>
+  <h2>Bearer Authentication</h2>
+  <ul>
+    <li><span class="hl-orange">Bearer authentication</span> (also called <span class="hl-green">token authentication</span>) is an HTTP authentication scheme that involves security tokens called bearer tokens</li>
+    <li>The name <span class="hl-orange">Bearer authentication</span> can be understood as <q class="hl-yellow">give access to the bearer of this token.</q></li>
+  </ul>
+</section>
+<section>
+  <h2>Security</h2>
+  <ul>
+    <li>Digest authentication protect password only</li>
+    <li>Data is completely insecure</li>
+    <li>No mechanism in HTTP to protect data</li>
+    <li>HTTP over SSL/TLS is the popular solution</li>
+    <ul>
+      <li>An encrypted tunnel between client &amp; server</li>
+      <li>Send HTTP traffic through the tunnel</li>
+    </ul>
+  </ul>
 </section>
 <section>
   <h2>References</h2>
@@ -961,5 +1005,7 @@ Access-Control-Allow-Credentials: true
     <li>https://cascadingmedia.com/insites/2015/03/http-2.html</li>
     <li>https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9</li>
     <li>https://superuser.com/questions/97625/what-is-the-maximum-size-of-a-cookie-and-how-many-can-be-stored-in-a-browser-fo</li>
+    <li>https://en.wikipedia.org/wiki/Base64</li>
+    <li>https://en.wikipedia.org/wiki/Digest_access_authentication</li>
   </ul>
 </section>
