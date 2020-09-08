@@ -47,15 +47,29 @@ layout: none
           </tr>
         </thead>
         <tbody>
-          {% assign lectures = site.html_pages | where: "lecture", true | sort: "index" %}
+          {% assign lectures = site.html_pages | where: "layout", "lecture" %}
+          {% assign miscs = lectures | where: "lecture", false %}
+          {% assign lectures = lectures | where: "lecture", true | sort: "index" %}
           {% for lecture in lectures %}
           <tr>
             <td class="announcement-text">
-              <p>{{forloop.index}}. {% if lecture.index == "misc" %}(misc){% endif %} {{lecture.title}}</p>
+              <p>{{ forloop.index }}. {{ lecture.title }}</p>
             </td>
             <td class="announcement-date">
               <div class ="button-container">
                 <a target="_blank" class="button" href="{{ lecture.path | relative_url }}">Slides</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          {% for misc in miscs %}
+          <tr>
+            <td class="announcement-text">
+              <p>{{ forloop.index }}. {{ misc.title }}</p>
+            </td>
+            <td class="announcement-date">
+              <div class ="button-container">
+                <a target="_blank" class="button" href="{{ misc.path | relative_url }}">Slides</a>
               </div>
             </td>
           </tr>
