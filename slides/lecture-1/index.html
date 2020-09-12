@@ -126,7 +126,16 @@ topics:
       <li>A communication mechanism between web page and server: <span class="hl-orange">JavaScript</span> &amp; <span class="hl-cyan">JSON</span></li>
     </ul>
   </ul>
-  <iframe src="http://www.alexyoder.net/tiny-twitch.html" style="border-width: 5px; background-color: white;"></iframe>
+  <div>
+    <script>
+      function locate(el) {
+        let r = Math.random() * 300;
+
+        el.style.margin = `${r}px 0 0 ${r}px`;
+      }
+    </script>
+    <button onclick="locate(this)">X</button>
+  </div>
 </section>
 <section>
   <h2>WWW: From Old to Now</h2>
