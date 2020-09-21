@@ -1,0 +1,296 @@
+---
+index: 3
+title: HTML
+topics:
+- Introduction
+- HTML
+- Body
+- Head
+- HTML in Practice
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>Introduction</h2>
+  <ul>
+    <li>Remark: The idea of WWW is document sharing</li>
+    <li>Main question: How to define the structure of document?</li>
+    <ul>
+      <li>Text, tables, figures, link, ...</li>
+    </ul>
+    <li>In 1980s</li>
+    <ul>
+      <li>Binary formats? Useless</li>
+      <ul>
+        <li>Different machines, no popular graphical desktops, no such popular format such as PDF, Doc, ...</li>
+      </ul>
+      <li>Text format</li>
+      <ul>
+        <li>It is okay, everyone knows ASCII</li>
+        <ul>
+          <li>But how to describe structure, layout, and formatting?</li>
+        </ul>
+        <li>Add meaning to each part of text using special predefined markup, E.g., It is heading, It is paragraph, It is table ...</li>
+        <li></li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Cont.)</h2>
+  <ul>
+    <li>HTML (Hyper Text Markup Language)</li>
+    <ul>
+      <li>A language to define structure of web docs</li>
+      <ul>
+        <li><span class="hl-orange">Tags</span> specify the structure</li>
+      </ul>
+    </ul>
+    <li<>HTML</li>
+    <ul>
+      <li>Was defined with SGML</li>
+      <li>Is not a programming language</li>
+      <ul>
+        <li>Cannot be used to describe computations</li>
+      </ul>
+      <li>HTML does/should not specify presentation</li>
+      <ul>
+        <li>Font family, style, color, ...</li>
+        <li>Cascading Style Sheet (CSS) is responsible for presentation</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Cont.)</h2>
+  <ul>
+    <li>HTML 1 (Berners-Lee, 1989): very basic, limited integration of multimedia</li>
+    <li>1993, Mosaic added many new features (e.g., integrated images)</li>
+    <li>HTML 2.0 (IETF, 1994): tried to standardize these &amo; other features</li>
+    <li>1994-96, Netscape &anp; IE added many new, divergent features</li>
+    <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
+    <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
+    <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
+    <li>HTML 5 (Web Hypertext Application Technology Working Group, W3C): New version of HTML4, XHTML 1.0</li>
+  </ul>
+</section>
+<section>
+  <h2>HTML Basics: Tags</h2>
+  <ul>
+    <li>XHTML is a text document collecting elements</li>
+    <li>Element: (usually) a tag pair (opening &amp; closing) + content between them</li>
+    <ul>
+      <li>E.g., &lt;h1&gt;This is header&lt;/h1&gt;</li>
+      <li>Not all tags have content</li>
+    </ul>
+    <li>Tags specify markups for the content</li>
+    <li>Tags</li>
+    <ul>
+      <li>&lt;tagname&gt;: opening (start) tag</li>
+      <li>&lt;/tagname&gt;: closing (end) tag</li>
+      <li>&lt;tagname /&gt;: self-closing tag</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTML Basics: Attributes</h2>
+  <ul>
+    <li>Each tag can have some attributes</li>
+    <ul>
+      <li>Attributes customize tags</li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;tagname attrib1=“setting” attrib2=“setting” ...&gt;
+...
+&lt;/tagname&gt;
+    </code></pre>
+    <li>Core attributes can be used for most of elements</li>
+    <ul>
+      <li>id: A unique identifier to element starting with "A-Z"</li>
+      <li>class: Assign a class to the element, multiple classes are allowed</li>
+      <li>title: Assign a title, the behavior depends on element</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTML Basics: Tag &amp; Attribute & Element</h2>
+  <img src="./img/html-tag.png"></img>
+</section>
+<section>
+  <h2>HTML Processing</h2>
+  <ul>
+    <li>HTML is just a text file; How does it work?</li>
+    <li>It is processed by applications for a specific purpose!</li>
+    <li>Search engine objectives:</li>
+    <ul>
+      <li>Analyze page, extract elements, prioritize, ranking, ...</li>
+      <li>Each tag has meaning, used for ranking</li>
+      <ul>
+        <li>E.g., paragraphs are not as important as headings</li>
+      </ul>
+    </ul>
+    <li>Web browser objectives:</li>
+    <ul>
+      <li>Display the document to client</li>
+      <li>Rendering</li>
+      <ul>
+        <li>Generate layout for the document</li>
+        <li>Display elements</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>HTML Processing: Rendering</h2>
+    <ul>
+      <li>The processing of displaying HMTL in browser</li>
+      <li>Not all tags are to be displayed</li>
+      <ul>
+        <li>E.g. Tags in &lt;head&gt;</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>For tags which should be displayed</li>
+      <ul>
+        <li>Tags by themselves are not displayed</li>
+        <li>Each tag has its own <span class="hl-green">default</span> presentation</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>If tag has content, the presentation is applied to content</li>
+      <pre><code class="lang-html">
+&lt;em&gt;I am important&lt;em&gt;
+      </code></pre>
+      <div class="box">
+        <em>I am important</em>
+      </div>
+      <li>If tag has not content, the presentation is displayed (if it is needed)</li>
+      <pre><code class="lang-html">
+I am a &lt;br /&gt; break
+      </code></pre>
+      <div class="box">
+        I am a <br /> break
+      </div>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>HTML Processing: Rendering (Cont.)</h2>
+  <ul>
+    <li>Web browsers by default start placing elements from <span class="hl-orange">left-top corner</span></li>
+    <ul>
+      <li><span class="hl-green">In-line</span> elements are placed from left to right</li>
+      <li>A new line is created for each <span class="hl-cyan">block-level</span> element</li>
+    </ul>
+    <li>Web browsers ignore</li>
+    <ul>
+      <li>Comments</li>
+      <pre><code class="lang-html">
+<!-- ... -->
+      </code></pre>
+      <li>Tags that don’t recognize</li>
+      <li>More than single whitespaces</li>
+      <ul>
+        <li>E.g., Multiple newlines + tabs + spaces → single space</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>The “Hello World” Example</h2>
+    <pre><code class="lang-html">
+<!-- This is the “Hello World” Example -->
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;First Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt; Hello World! &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/example.png">
+  </section>
+</section>
+<section>
+  <h2>Nested Tags</h2>
+  <ul>
+    <li>Nested Tags</li>
+    <ul>
+      <li>Tree of elements</li>
+      <li>Parent &amp; Child relationship</li>
+    </ul>
+  </ul>
+  <img src="./img/nested.png" style="background-color: white;"></img>
+</section>
+<section>
+  <h2>Special Characters/Symbols</h2>
+  <ul>
+    <li>Some characters and symbols are encoded</li>
+    <ul>
+      <li>Because cannot be used directly in text files</li>
+    </ul>
+  </ul>
+  <table>
+    <thead>
+      <th>Character</th>
+      <th>Coding</th>
+      <th>Number code</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>&lt;</td>
+        <td>&amp;lt;</td>
+        <td>&amp;#60;
+      </tr>
+      <tr>
+        <td>&gt;</td>
+        <td>&amp;gt;</td>
+        <td>&amp;#62;
+      </tr>
+      <tr>
+        <td>&amp;</td>
+        <td>&amp;amp;</td>
+        <td>&amp;#38</td>
+      </tr>
+      <tr>
+        <td>'&nbsp;'</td>
+        <td>&amp;nbsp;</td>
+        <td>&amp;#160;</td>
+      </tr>
+      <tr>
+        <td>&copy;</td>
+        <td>&amp;copy;</td>
+        <td>&amp;#169;</td>
+      </tr>
+      <tr>
+        <td>&lambda;</td>
+        <td>&amp;lambda;</td>
+        <td>&amp;#955;</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <h2>XHTML</h2>
+  <ul>
+    <li>HTML is an application of Standard General Markup Language (SGML)</li>
+    <li>XHTML is an application of Extensible Markup Language (XML)</li>
+  </ul>
+</section>
