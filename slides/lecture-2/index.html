@@ -104,6 +104,7 @@ topics:
     <li>https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE</li>
     <li>file:///home/parham/Documents/Git/parham/dotfiles</li>
     <li>http://libgen.is</li>
+    <li>ftp://speedtest.tele2.net</li>
   </ul>
 </section>
 <section>
@@ -353,32 +354,40 @@ Entity-Body
   </section>
 </section>
 <section>
-  <h2>HTTP Methods</h2>
-  <ul>
-    <li>Methods are actions that client asks from server to do on the specified resource (given by the path parameter)</li>
-    <li>Which actions?</li>
+  <section>
+    <h2>HTTP Methods</h2>
     <ul>
-      <li>Basic data communication operations</li>
+      <li>Methods are actions that client asks from server to do on the specified resource (given by the path parameter)</li>
+      <li>Which actions?</li>
       <ul>
-        <li><span class="hl-orange">Safe</span> operations</li>
+        <li>Basic data communication operations</li>
         <ul>
-          <li>Get a resource from server</li>
-          <li>Send data to server</li>
+          <li><span class="hl-orange">Safe</span> operations</li>
+          <ul>
+            <li>Get a resource from server</li>
+            <li>Send data to server</li>
+          </ul>
+          <li><span class="hl-green">Unsafe</span> operations</li>
+          <ul>
+            <li>Delete a resource on server</li>
+            <li>Create/Replace a resource on server</li>
+          </ul>
         </ul>
-        <li><span class="hl-green">Unsafe</span> operations</li>
-        <ul>
-          <li>Delete a resource on server</li>
-          <li>Create/Replace a resource on server</li>
-        </ul>
-      </ul>
-      <li>Debugging and troubleshooting</li>
-      <ul>
-        <li>Get information about a resource</li>
-        <li>Check what the server has got from a client</li>
-        <li>Get the list of operations which can be applied on a resource</li>
       </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>Debugging and troubleshooting</li>
+        <ul>
+          <li>Get information about a resource</li>
+          <li>Check what the server has got from a client</li>
+          <li>Get the list of operations which can be applied on a resource</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>HTTP Methods (Cont.)</h2>
@@ -994,6 +1003,30 @@ response = MD5(HA1:nonce:HA2)
   </ul>
 </section>
 <section>
+  <h2><a href="https://jwt.io/">JWT</a></h2>
+  <ul>
+    <li>JSON Web Tokens are an <span class="hl-orange">open</span>, <span class="hl-green">industry standard</span> <span class="hl-yellow">RFC 7519</span> method for representing claims securely between two parties.</li>
+  </ul>
+  <pre><code class="no-highlight">
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlBhcmhhbSBBbHZhbmkiLCJpYXQiOjE1MTYyMzkwMjIsInByb2plY3QiOiJhbiBhd2Vzb21lIHByb2plY3QifQ.
+gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
+  </code></pre>
+  <pre><code class="hl-json">
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+{
+  "sub": "1234567890",
+  "name": "Parham Alvani",
+  "iat": 1516239022,
+  "project": "an awesome project"
+}
+  </code></pre>
+</section>
+<section>
   <h2>Security</h2>
   <ul>
     <li>Digest authentication protect password only</li>
@@ -1008,7 +1041,7 @@ response = MD5(HA1:nonce:HA2)
 </section>
 <section>
   <h2>References</h2>
-  <ul>
+  <ol>
     <li>Prof. Bahador Bakhshi Internet Eng.</li>
     <li>https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn</li>
     <li>https://cascadingmedia.com/insites/2015/03/http-2.html</li>
@@ -1016,5 +1049,5 @@ response = MD5(HA1:nonce:HA2)
     <li>https://superuser.com/questions/97625/what-is-the-maximum-size-of-a-cookie-and-how-many-can-be-stored-in-a-browser-fo</li>
     <li>https://en.wikipedia.org/wiki/Base64</li>
     <li>https://en.wikipedia.org/wiki/Digest_access_authentication</li>
-  </ul>
+  </ol>
 </section>
