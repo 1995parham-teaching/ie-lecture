@@ -663,13 +663,14 @@ Entity-Body
   </ul>
 </section>
 <section>
-  <h2>Cookies (Cont.)</h2>
-  <pre><code class="language-http">
+  <section>
+    <h2>Cookies (Cont.)</h2>
+    <pre><code class="language-http">
 GET /cookies/set?name=parham&amp;family=alvani HTTP/1.1
 Host: httpbin.org
 
-  </code></pre>
-  <pre><code class="language-http">
+    </code></pre>
+    <pre><code class="language-http">
 HTTP/1.1 302 FOUND
 Date: Mon, 07 Sep 2020 05:19:50 GMT
 Content-Type: text/html; charset=utf-8
@@ -679,14 +680,15 @@ Server: gunicorn/19.9.0
 Location: /cookies
 Set-Cookie: name=parham; Path=/
 Set-Cookie: family=alvani; Path=/
-  </code></pre>
-  <pre><code class="language-http">
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="language-http">
 GET /cookies HTTP/1.1
 Host: httpbin.org
-Cookie: name=parham family=alvani
-
-  </code></pre>
-  <pre><code class="language-http">
+Cookie: name=parham; family=alvani
+    </code></pre>
+    <pre><code class="language-http">
 HTTP/1.1 200 OK
 Date: Mon, 07 Sep 2020 05:23:53 GMT
 Content-Type: application/json
@@ -701,7 +703,8 @@ Access-Control-Allow-Credentials: true
     "name": "parham family=alvani"
   }
 }
-  </pre></code>
+    </pre></code>
+  </section>
 </section>
 <section>
   <h2>Cookies (Cont.)</h2>
@@ -709,9 +712,9 @@ Access-Control-Allow-Credentials: true
     <li>Limitation</li>
     <ul>
       <li>Cannot be used to store large data</li>
-      <li>At least 300 cookies</li>
-      <li>at least 4096 bytes per cookie</li>
-      <li>at least 20 cookies per unique host or domain name</li>
+      <li><span class="hl-orange">At least 300</span> cookies</li>
+      <li><span class="hl-green">At least 4096</span> bytes per cookie</li>
+      <li><span class="hl-cyan">At least 20</span> cookies per unique host or domain name</li>
     </ul>
     <li>Cookies are text files</li>
     <ul>
@@ -743,24 +746,33 @@ Access-Control-Allow-Credentials: true
   </ul>
 </section>
 <section>
-  <h2>Cookies Attributes</h2>
-  <ul>
-    <li><span class="hl-orange">Expire</span> &amp; <span class="hl-green">Max-Age</span>: The life time of the cookie</li>
+  <section>
+    <h2>Cookies Attributes</h2>
     <ul>
-      <li>Expire: An absolute time to delete cookie</li>
-      <li>Max-Age: The maximum life time (sec) of cookie</li>
-      <li>If exists, shows a permanent cookie</li>
-      <li>Send a past time (or negative) to delete a cookie</li>
-    </ul>
-    <li><span class="hl-cyan">Secure</span>: Cookie is sent only if channel is secure</li>
+      <li><span class="hl-orange">Expire</span> &amp; <span class="hl-green">Max-Age</span>: The life time of the cookie</li>
+      <ul>
+        <li>Expire: An absolute time to delete cookie</li>
+        <li>Max-Age: The maximum life time (sec) of cookie</li>
+        <li>If exists, shows a permanent cookie</li>
+        <li>Send a past time (or negative) to delete a cookie</li>
+      </ul>
+      <li><span class="hl-cyan">Secure</span>: Cookie is sent only if channel is secure</li>
+      <ul>
+        <li>Specially useful for login sessions cookies</li>
+        <li>
+          A cookie with the Secure attribute is sent to the server only with an encrypted request over the <span class="hl-red">HTTPS protocol</span>,
+          never with unsecured <span class="hl-violet">HTTP (except on localhost)</span>, and therefore can't easily be accessed by a man-in-the-middle attacker.
+        </li>
+      </ul>
+  </section>
+  <section>
     <ul>
-      <li>Specially useful for login sessions cookies</li>
+      <li><span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is used</li>
+      <ul>
+        <li>JavaScript cannot access to the cookies</li>
+      </ul>
     </ul>
-    <li><span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is used</li>
-    <ul>
-      <li>JavaScript cannot access to the cookies</li>
-    </ul>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>Cookies Attributes: Domain & Path</h2>
@@ -837,7 +849,7 @@ Access-Control-Allow-Credentials: true
 <section>
   <h2>Caching</h2>
   <ul>
-    <li>➢Caching: save a copy of a resource and use it instead of requesting server</li>
+    <li>Caching: save a copy of a resource and use it instead of requesting server</li>
     <li>Browser has its own local caches</li>
     <li>Cache server is special proxy for caching</li>
     <li>Benefits</li>
