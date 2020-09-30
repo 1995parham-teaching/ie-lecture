@@ -292,5 +292,107 @@ I am a &lt;br /&gt; break
   <ul>
     <li>HTML is an application of Standard General Markup Language (SGML)</li>
     <li>XHTML is an application of Extensible Markup Language (XML)</li>
+    <li>XML is more restricted than SGML</li>
+    <ul>
+      <li>XHTML has more restrictions vs. HTML</li>
+      <li>xHTML is more well-defined</li>
+    </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>XHTML Rules (vs. HTML)</h2>
+    <ul>
+      <li>All tags have ending (closing) tags</li>
+      <ul>
+        <li>Some tags are self-closing</li>
+        <pre><code class="lang-html">
+&lt;br /&gt;
+        </code></pre>
+      </ul>
+      <li>Tags cannot be overlapped</li>
+      <ul>
+        <pre><code class="lang-html">
+&lt;strong&gt;&lt;em&gt;test&lt;/strong&gt;&lt;/em&gt;
+        </code></pre>
+        <li>Who is parent? Who is child?</li>
+      </ul>
+      <li>All tags are lowercase</li>
+      <li>Attributes' value must be in double quotation</li>
+      <li>Browsers ignore unknown tags and attributes</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Layout <span class="hl-cyan">(styles)</span> are separated from <span class="hl-yellow">markup</span></li>
+      <ul>
+        <li>Markup is used fro meaning &amp; structure</li>
+        <li>The <span class="hl-orange">obsolete</span> HTML <span class="hl-green">Big Element</span> (<code>&lt;big&gt;</code>) renders the enclosed text at a font size one level larger than the surrounding text (medium becomes large, for example).</li>
+        <li>The <span class="hl-orange">obsolete</span> HTML <span class="hl-green">Center Element</span> (<code>&lt;center&gt;</code>) is a block-level element that displays its block-level or inline contents centered horizontally within its containing element.</li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Anatomy of an HTML document</h2>
+  <pre><code class="lang-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;My test page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;img src="images/firefox-icon.png" alt="My test image"&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+  </code></pre>
+</section>
+<section>
+  <section>
+    <h2>Anatomy of an HTML document (Cont.)</h2>
+    <h3><code>&lt;!DOCTYPE html&gt;</code> the doctype</h3>
+    <ul>
+      <li>It is <span class="hl-orange">required</span> preamble.</li>
+      <li>In the mists of time, when HTML was young (around 1991/92), doctypes were meant to act as links to a set of rules that the HTML page had to follow to be considered good HTML, which could mean automatic error checking and other useful things.</li>
+      <li>However these days, they don't do much, and are basically just needed to make sure your document behaves correctly.</li>
+      <li>That's all you need to know for now.</li>
+    </ul>
+  </section>
+  <section>
+    <h3><code>&lt;html&gt;&lt;/html&gt;</code></h3>
+    <ul>
+      <li>This element wraps all the content on the entire page and is sometimes known as the root element.</li>
+    </ul>
+  </section>
+  <section>
+    <h3><code>&lt;head&gt;&lt;/head&gt;</code></h3>
+    <ul>
+      <li>This element acts as a container for all the stuff you want to include on the HTML page that <span class="hl-orange">isn't</span> the content you are showing to your page's viewers.</li>
+      <ul>
+        <li>keywords and a page description that you want to appear in search results</li>
+        <li>CSS to style our content</li>
+        <li>character set declarations</li>
+        <li>and more</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h3><code>&lt;meta&gt;&lt;/meta&gt;</code></h3>
+    <ul>
+      <li>This element sets the character set your document should use to UTF-8.</li>
+    </ul>
+  </section>
+  <section>
+    <h3><code>&lt;title&gt;&lt;/title&gt;</code></h3>
+    <ul>
+      <li>This sets the title of your page, which is the title that appears in the browser tab the page is loaded in.</li>
+    </ul>
+  </section>
+  <section>
+    <h3><code>&lt;bodt&gt;&lt;/body&gt;</code></h3>
+    <ul>
+      <li>This contains all the content that you want to show to web users when they visit your page.</li>
+    </ul>
+  </section>
 </section>
