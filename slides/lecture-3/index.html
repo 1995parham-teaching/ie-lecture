@@ -390,9 +390,140 @@ I am a &lt;br /&gt; break
     </ul>
   </section>
   <section>
-    <h3><code>&lt;bodt&gt;&lt;/body&gt;</code></h3>
+    <h3><code>&lt;body&gt;&lt;/body&gt;</code></h3>
     <ul>
       <li>This contains all the content that you want to show to web users when they visit your page.</li>
     </ul>
   </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <section>
+    <h2>HTML elements</h2>
+    <ul>
+      <li class="hl-green">Main root</li>
+      <li class="hl-cyan">Document metadata</li>
+      <li class="hl-yellow">Sectioning root</li>
+      <li class="hl-yellow">Content sectioning</li>
+      <li class="hl-yellow">Text content</li>
+      <li class="hl-yellow">Inline text semantics</li>
+      <li class="hl-yellow">Image and multimedia</li>
+      <li class="hl-yellow">Embedded content</li>
+      <li class="hl-yellow">Scripting</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li class='hl-yellow'>Table content</li>
+      <li class="hl-yellow">Forms</li>
+      <li class="hl-yellow">Interactive elements</li>
+      <li class="hl-yellow">Web Components</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Main root</h2>
+  <ul>
+    <li>The HTML <code class="hl-orange">&lt;html&gt;</code> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element.</li>
+    <li>All other elements must be descendants of this element.</li>
+  </ul>
+</section>
+<section>
+  <h2>Sectioning root</h2>
+  <ul>
+    <li>The HTML <code class="hl-orange">&lt;body&gt;</code> Element represents the content of an HTML document.</li>
+    <li>There can be only <span class="hl-yellow">one</span> <span class="hl-orange">&lt;body&gt;</span> element in a document.</li>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Content sectioning</h2>
+    <ul>
+      <li>Content sectioning elements allow you to organize the document content into logical pieces.</li>
+    </ul>
+  </section>
+  <section>
+    <li>The HTML <code class="hl-orange">&lt;h1&gt;–&lt;h6&gt;</code> elements represent six levels of section headings. <code class="hl-orange">&lt;h1&gt;</code> is the highest section level and &lt;h6&gt; is the lowest.</li>
+    <li>The HTML <code class="hl-orange">&lt;section&gt;</code> element represents a standalone section — which doesn't have a more specific semantic element to represent it — contained within an HTML document.</li>
+  </section>
+</section>
+<section>
+  <h2>Text content</h2>
+  <ul>
+    <li>The HTML <code class="hl-orange">&lt;p&gt;</code> element represents a paragraph.</li>
+    <li>The HTML <code class="hl-orange">&lt;pre&gt;</code> element represents preformatted text which is <span class="hl-yellow">to be presented exactly as written</span> in the HTML file.</li>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h2>Document metadata</h2>
+  <ul>
+    <li>Metadata contains information about the page.</li>
+    <li>This includes information about styles, scripts and data to help software (<span class="hl-orange">search engines</span>, <span class="hl-green">browsers</span>, etc.) use and render the page.</li>
+    <li>Metadata for styles and scripts may be defined in the page or link to another file that has the information.</li>
+  </ul>
+</section>
+<section>
+  <ul>
+    <li>The HTML Title element (<code class="hl-orange">&lt;title&gt;</code>) defines the document's title that is shown in a browser's title bar or a page's tab.</li>
+    <li>The HTML <code class="hl-orange">&lt;style&gt;</code> element contains style information for a document, or part of a document.</li>
+    <li>The HTML <code class="hl-orange">&lt;base&gt;</code> element specifies the base URL to use for all relative URLs in a document.</li>
+  </ul>
+</section>
+<section>
+  <section>
+    <ul>
+      <li>The HTML <code class="hl-orange">&lt;meta&gt;</code> element represents metadata that cannot be represented by other HTML meta-related elements</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>If the <span class="hl-green">name</span> attribute is set, the <span class="hl-cyan">meta</span> element provides document-level metadata, applying to the whole page.</li>
+        <ul>
+          <li><code class="hl-orange">author</code>: the name of the document's author.</li>
+          <li><code class="hl-violet">description</code>: a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.</li>
+          <li><code class="hl-yellow">generator</code>: the identifier of the software that generated the page.</li>
+          <li><code class="hl-red">keywords</code>: words relevant to the page's content separated by commas.</li>
+        </ul>
+        <pre><code class="hl-html">
+&lt;meta name="description" content="Free Web tutorials"&gt;
+&lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;
+&lt;meta name="author" content="John Doe"&gt;
+        </code></pre>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>If the <span class="hl-green">http-equiv</span> attribute is set, the <span class="hl-cyan">meta</span> element is a pragma directive, providing information equivalent to what can be given by a similarly-named HTTP header.</li>
+        <ul>
+          <li>Usually is <span class="hl-red">not</span> processed by web-server</li>
+          <li>Browser simulates the behavior of the effect of the header</li>
+        </ul>
+        <pre><code class="hl-html">
+&lt;!-- The number of seconds until the page should redirect to another  --&gt;
+&lt;meta http-equiv="refresh" content="3;url=https://www.mozilla.org"&gt;
+        </code></pre>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>If the <span class="hl-green">charset</span> attribute is set, the <span class="hl-cyan">meta</span> element is a charset declaration, giving the character encoding in which the document is encoded.</li>
+        <li>If the <span class="hl-green">itemprop</span> attribute is set, the <span class="hl-cyan">meta</span> element provides user-defined metadata.</li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <ul>
+    <li>The HTML External Resource Link element (<code class="hl-orange">&lt;link&gt;</code>) specifies relationships between the current document and an external resource. This element is most commonly used to link to <span class="hl-green">stylesheets</span>, but is also used to establish <span class="hl-cyan">site icons</span> (both "favicon" style icons and icons for the home screen and apps on mobile devices) among other things.</li>
+  </ul>
 </section>
