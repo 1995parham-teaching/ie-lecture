@@ -616,6 +616,22 @@ Entity-Body
   </ul>
 </section>
 <section>
+  <h2>Extension Headers</h2>
+  <ul>
+    <li>Custom proprietary headers have <span class="hl-orange">historically</span> been used with an <span class="hl-green">X-</span> prefix, but this convention was <span class="hl-yellow">deprecated</span> in June 2012</li>
+    <li>implementation-specific and private-use parameters could at least incorporate the organization's name</li>
+    <ul>
+      <li>ExampleInc-foo</li>
+      <li>VND.ExampleInc.foo (vnd stands for vendor)</li>
+    </ul>
+    <li>or primary domain name</li>
+    <ul>
+      <li>com.example.foo</li>
+      <li>http://example.com/foo</li>
+    </ul>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="1"></div>
 </section>
 <section>
@@ -623,7 +639,7 @@ Entity-Body
   <ul>
     <li>HTTP is a <span class="hl-orange">stateless</span> protocol</li>
     <ul>
-      <li>Server does not remeber its client</li>
+      <li>Server does not remember its client</li>
     </ul>
     <li>How to personalize pages (persoanl portal)?</li>
     <ul>
@@ -843,13 +859,42 @@ Access-Control-Allow-Credentials: true
   </div>
 </section>
 <section>
-  <h2>Proxy</h2>
-  <ul>
-    <li>Proxies sit between client and server</li>
-    <li>Act as server for client</li>
-    <li>Act as client for server</li>
-  </ul>
-  <img src="./img/proxy.png" alt="proxy">
+  <section>
+    <h2>Proxy</h2>
+    <ul>
+      <li>Proxies sit between client and server</li>
+      <li>Act as server for client</li>
+      <li>Act as client for server</li>
+    </ul>
+    <img src="./img/proxy.png" alt="proxy">
+  </section>
+  <section>
+    <h2>Forward Proxies</h2>
+    <ul>
+      <li>A forward proxy, or gateway, or just "proxy" provides proxy services to a client or a group of clients.</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Reverse Proxies</h2>
+    <ul>
+      <li>As the name implies, a reverse proxy does the <span class="hl-red">opposite</span> of what a forward proxy does:</li>
+      <li>A forward proxy acts in <span class="hl-orange">behalf of clients</span> (or requesting hosts), a reverse proxy acts in <span class="hl-green">behalf of servers</span>.</li>
+      <li>Forward proxies can hide the <span class="hl-yellow">identities of clients</span> whereas reverse proxies can hide the <span class="hl-violet">identities of servers</span>.</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Reverse proxies have several use cases, a few are:</li>
+      <ul>
+        <li><span class="hl-orange">Load balancing</span>: distribute the load to several web servers,</li>
+        <li><span class="hl-green">Cache static content</span>: offload the web servers by caching static content like pictures,</li>
+        <li><span class="hl-yellow">Compression</span>: compress and optimize content to speed up load time.</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <img src="./img/reverse-proxy.png" alt="reverse-proxy">
+  </section>
 </section>
 <section>
   <h2>HTTP Proxy Applications</h2>
