@@ -776,21 +776,31 @@ Access-Control-Allow-Credentials: true
   </section>
 </section>
 <section>
-  <h2>Cookies Attributes: Domain & Path</h2>
-  <ul>
-    <li><span class="hl-orange">Domain</span> &amp; <span class="hl-green">Path</span> determine the scope of the cookie</li>
+  <section>
+    <h2>Cookies Attributes: Domain & Path</h2>
     <ul>
-      <li>For which path and domain, the cookie is saved &amp; returned back by browser</li>
+      <li><span class="hl-orange">Domain</span> &amp; <span class="hl-green">Path</span> determine the scope of the cookie</li>
+      <ul>
+        <li>For which path and domain, the cookie is saved &amp; returned back by browser</li>
+      </ul>
+      <li>If <span class="hl-orange">Domain</span> is omitted, defaults to the host of the current document URL.</li>
+      <ul>
+        <li>Browser returns back the cookie for the domain and <span class="hl-red">not</span> <span class="hl-yellow">sub-domains</span></li>
+      </ul>
+      <li>If <span class="hl-green">Path</span> is omitted, defaults to the path of the current document URL.</li>
+      <ul>
+        <li>Browser returns back the cookie for the path and also for all sub-paths</li>
+      </ul>
     </ul>
-    <li>If these attributes are absent then browser assumes current host &amp; current path</li>
+  </section>
+  <section>
     <ul>
-      <li>Browser returns back the cookie for the host &amp; path and also for all sub-paths</li>
+      <li>If present then browser checks validity</li>
+      <ul>
+        <li>If they are valid then Browser returns back the cookie for that domain &amp; that path and also for all <span class="hl-yellow">sub-domains</li> and <span class="hl-yellow">sub-paths</span></li>
+      </ul>
     </ul>
-    <li>If present then browser checks validity</li>
-    <ul>
-      <li>If they are valid then Browser returns back the cookie for that domain &amp; that path and also for all subdomains and sub-paths</li>
-    </ul>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>Cookies Attributes: Domain & Path</h2>
@@ -800,6 +810,7 @@ Access-Control-Allow-Credentials: true
       <li>Domain names must start with dot</li>
       <ul>
         <li>Some browsers accept names without dot as domain</li>
+        <li><span class="hl-orange">Contrary</span> to <span class="hl-green">earlier specifications</span>, leading dots in domain names (.example.com) are ignored.</li>
       </ul>
       <li>Don’t accept for other domains than the base domain</li>
       <li>Don’t accept cookies for sub-domains</li>
@@ -808,8 +819,19 @@ Access-Control-Allow-Credentials: true
         <li>Except the top level domains, e.g., .com, .ac.ir</li>
       </ul>
       <li>Accept cookies for other (sub or higher) paths</li>
+      <ul>
+        <li>A path that <span class="hl-violet">must exist</span> in the requested URL, or the browser won't send the Cookie header.</li>
+      </ul>
     </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <img src="./img/cookies.png" />
+  </section>
+  <section>
+    <img src="./img/sub-domain-cookies.png" />
+  </section>
 </section>
 <section class="hands-on">
   <h2>Cookies Attributes: Domain & Path: Hands on</h2>
