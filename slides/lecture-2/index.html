@@ -915,71 +915,103 @@ Access-Control-Allow-Credentials: true
   </ul>
 </section>
 <section>
-  <h2>Caching</h2>
-  <ul>
-    <li>Caching: save a copy of a resource and use it instead of requesting server</li>
-    <li>Browser has its own local caches</li>
-    <li>Cache server is special proxy for caching</li>
-    <li>Benefits</li>
+  <section>
+    <h2>Caching</h2>
     <ul>
-      <li>Reduce redundant data transfer</li>
-      <li>Reduce network bottleneck</li>
-      <li>Reduce load on server</li>
-      <li>Reduce delay</li>
+      <li>Caching: save a copy of a resource and use it instead of requesting server</li>
+      <li>Browser has its own local caches</li>
+      <li>Cache server is special proxy for caching</li>
+      <li>Benefits</li>
+      <ul>
+        <li>Reduce redundant data transfer</li>
+        <li>Reduce network bottleneck</li>
+        <li>Reduce load on server</li>
+        <li>Reduce delay</li>
+      </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <img src="./img/http-cache-types.png" style="background-color: white;">
+  </section>
 </section>
 <section>
-  <h2>Caching Algorithm</h2>
-  <ul>
-    <li>If the object is not cached, it is got from server, saved in cache, and sent to client</li>
-    <li>Else, if object is in cache</li>
+  <section>
+    <h2>Caching Algorithm</h2>
     <ul>
-      <li>Cache server must return only fresh objects</li>
-      <li><span class="hl-red">Freshness check</span></li>
+      <li>If the object is not cached, it is got from server, saved in cache, and sent to client</li>
+      <li>Else, if object is in cache</li>
+      <ul>
+        <li>Cache server must return only fresh objects</li>
+        <li><span class="hl-red">Freshness check</span></li>
+      </ul>
+      <li>Objects life-time specified by server</li>
+      <li>The <code class="hl-orange">Cache-Control</code> HTTP/1.1 <span class="hl-green">general-header</span> field is used to specify directives for caching mechanisms in <span class="hl-yellow">both requests and responses</span>.</li>
     </ul>
-    <li>Objects life-time specified by server</li>
-    <ul>
-      <pre><code class="language-http">
-Cache-Control: max-age=<seconds>
-Cache-Control: max-stale[=<seconds>]
-Cache-Control: min-fresh=<seconds>
-Cache-Control: no-cache
+  </section>
+  <section>
+    <h3>Expiration</h3>
+    <p>the maximum amount of time a resource will be considered fresh.</p>
+    <pre><code class="language-http">
+Cache-Control: max-age=&lt;seconds&gt;
+    </code></pre>
+    <h3>No caching</h3>
+    <p>The cache should not store anything about the client request or server response.</p>
+    <pre><code class="language-http">
 Cache-Control: no-store
-Cache-Control: no-transform
-Cache-Control: only-if-cached
-      </code></pre>
-    </ul>
-    <li>If requested object is not expired</li>
+    </code></pre>
+  </section>
+  <section>
+    <h3>Cache but revalidate</h3>
+    <p>A cache will send the request to the origin server for validation before releasing a cached copy.</p>
+    <pre><code class="language-http">
+Cache-Control: no-cache
+    </code></pre>
+  </section>
+  <section>
     <ul>
-      <li>Cache server gives it to client</li>
+      <li>If requested object is not expired</li>
+      <ul>
+        <li>Cache server gives it to client</li>
+      </ul>
     </ul>
-  </ul>
+  </section>
 </section>
 <section>
-  <h2>Caching Algorithm (Cont.)</h2>
-  <ol>
-    <li>If requested object is expired</li>
-    <ul>
-      <li>Its freshness must be checked</li>
-    </ul>
-    <li>Freshness is checked by conditional request</li>
-    <ul>
-      <li>If-Modified-Since: current last-modified time</li>
-    </ul>
-    <li>Server responses</li>
-    <ul>
-      <li>304 Not modified response + new expire time</li>
+  <section>
+    <h2>Caching Algorithm (Cont.)</h2>
+    <ol>
+      <li>If requested object is expired</li>
       <ul>
-        <li>Cached copy is valid until the specified time</li>
+        <li>Its freshness must be checked</li>
       </ul>
-      <li>200 OK</li>
+      <li>Freshness is checked by conditional request</li>
       <ul>
-        <li>Server provides a new version of the object</li>
-        <li>Cache server updates cached copy</li>
+        <li><code class="hl-orange">If-Modified-Since</code>: current last-modified time</li>
+        <li><code class="hl-green">If-Node-Match</code>: the server will send back the requested resource, with a 200 status, only if it doesn't have an ETag matching the given ones.</li>
+        <ul>
+          <li>The <code class="hl-yellow">ETag</code> HTTP response header is an identifier for a specific version of a resource.</li>
+        </ul>
       </ul>
-    </ul>
-  </ol>
+  </section>
+  <section>
+    <ul>
+      <li>Server responses</li>
+      <ul>
+        <li>304 Not modified response + new expire time</li>
+        <ul>
+          <li>Cached copy is valid until the specified time</li>
+        </ul>
+        <li>200 OK</li>
+        <ul>
+          <li>Server provides a new version of the object</li>
+          <li>Cache server updates cached copy</li>
+        </ul>
+      </ul>
+    </ol>
+  </section>
+  <section>
+    <img src="./img/staleness.png" style="background-color: white; height: 50vh;">
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -1059,22 +1091,30 @@ Access-Control-Allow-Credentials: true
   </ul>
 </section>
 <section>
-  <h2>Digest Authentication (Cont.)</h2>
-  <ol>
-    <li>Client requests a private resource</li>
-    <li>Server creates a nonce (the server only issues a new nonce for each <span class="hl-yellow">401</span> response</li>
+  <section>
+    <h2>Digest Authentication (Cont.)</h2>
+    <ul>
+      <li>Client requests a private resource</li>
+      <li>Server creates a nonce (the server only issues a new nonce<br>for each <span class="hl-yellow">401</span> response</li>
+    </ul>
     <pre><code class="language-http">
-WWW-Authenticate: Digest realm="me@kennethreitz.com", nonce="9e97866f5105eddbf41ce75c4e5e8c14", qop="auth-int", opaque="96f27ba9bad9cd44429b8f4c1b1c060b", algorithm=MD5, stale=FALSE
+  WWW-Authenticate: Digest realm="me@kennethreitz.com", nonce="9e97866f5105eddbf41ce75c4e5e8c14", qop="auth-int", opaque="96f27ba9bad9cd44429b8f4c1b1c060b", algorithm=MD5, stale=FALSE
     </pre></code>
-    <li>Client computes digest of password &amp; nonce</li>
+  </section>
+  <section>
+    <ul>
+      <li>Client computes digest of password &amp; nonce</li>
+    </ul>
     <pre><code class="plaintext">
-HA1 = MD5(username:realm:password)
-HA2 = MD5(method:digestURI)
-response = MD5(HA1:nonce:HA2)
+  HA1 = MD5(username:realm:password)
+  HA2 = MD5(method:digestURI)
+  response = MD5(HA1:nonce:HA2)
     </pre></code>
-    <li>Server looks up the password of username and computes hash(pass, nonce)</li>
-    <li>More details in RFC7616</li>
-  </ol>
+    <ul>
+      <li>Server looks up the password of username and computes<br> <code>hash(pass, nonce)</code></li>
+      <li>More details in RFC7616</li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Bearer Authentication</h2>
@@ -1084,16 +1124,19 @@ response = MD5(HA1:nonce:HA2)
   </ul>
 </section>
 <section>
-  <h2><a href="https://jwt.io/">JWT</a></h2>
-  <ul>
-    <li>JSON Web Tokens are an <span class="hl-orange">open</span>, <span class="hl-green">industry standard</span> <span class="hl-yellow">RFC 7519</span> method for representing claims securely between two parties.</li>
-  </ul>
-  <pre><code class="no-highlight">
+  <section>
+    <h2><a href="https://jwt.io/">JWT</a></h2>
+    <ul>
+      <li>JSON Web Tokens are an <span class="hl-orange">open</span>, <span class="hl-green">industry standard</span> <span class="hl-yellow">RFC 7519</span> method for representing claims securely between two parties.</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="no-highlight">
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlBhcmhhbSBBbHZhbmkiLCJpYXQiOjE1MTYyMzkwMjIsInByb2plY3QiOiJhbiBhd2Vzb21lIHByb2plY3QifQ.
 gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
-  </code></pre>
-  <pre><code class="hl-json">
+    </code></pre>
+    <pre><code class="hl-json">
 {
   "alg": "HS256",
   "typ": "JWT"
@@ -1105,20 +1148,26 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
   "iat": 1516239022,
   "project": "an awesome project"
 }
-  </code></pre>
+    </code></pre>
+  </section>
 </section>
 <section>
-  <h2>Security</h2>
-  <ul>
-    <li>Digest authentication protect password only</li>
-    <li>Data is completely insecure</li>
-    <li>No mechanism in HTTP to protect data</li>
-    <li>HTTP over SSL/TLS is the popular solution</li>
+  <section>
+    <h2>Security</h2>
     <ul>
-      <li>An encrypted tunnel between client &amp; server</li>
-      <li>Send HTTP traffic through the tunnel</li>
+      <li>Digest authentication protect password only</li>
+      <li>Data is completely insecure</li>
+      <li>No mechanism in HTTP to protect data</li>
+      <li>HTTP over SSL/TLS is the popular solution</li>
+      <ul>
+        <li>An encrypted tunnel between client &amp; server</li>
+        <li>Send HTTP traffic through the tunnel</li>
+      </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <img src="./img/ssl.jpg" style="height: 75vh;">
+  </section>
 </section>
 <section>
   <h2>References</h2>
