@@ -7,4 +7,7 @@ steps:
   - name: htmlhint
     image: node
     commands:
-      - npx htmlhint index.html slides/**/index.html
+      - npx htmlhint ./_site
+    when:
+      branch:
+        - github-pages
