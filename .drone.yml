@@ -9,13 +9,11 @@ steps:
     commands:
       - bundle install
       - bundle exec jekyll build
-    when:
-      branch:
-        - master
   - name: htmlhint
     image: node
     commands:
       - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
-    when:
-      branch:
-        - master
+
+trigger:
+  branch:
+    - master
