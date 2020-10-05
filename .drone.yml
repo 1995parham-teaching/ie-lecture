@@ -4,7 +4,27 @@ name: default
 type: docker
 
 steps:
+  - name: jekyll
+    image: jekyll/jekyll/
+    commands:
+      - jekyll build
+    volumes:
+      - name: build
+        path: ./_site
+    when:
+      branch:
+        - master
   - name: htmlhint
     image: node
+    volumes:
+      - name: build
+        path: ./_site
     commands:
       - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
+    when:
+      branch:
+        - master
+
+volumes:
+  - name: build
+    temp: {}
