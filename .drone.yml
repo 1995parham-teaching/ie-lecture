@@ -5,7 +5,7 @@ type: docker
 
 steps:
   - name: jekyll
-    image: jekyll/jekyll/
+    image: jekyll/jekyll
     commands:
       - jekyll build
     volumes:
