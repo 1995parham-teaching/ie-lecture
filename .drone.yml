@@ -8,6 +8,3 @@ steps:
     image: node
     commands:
       - npx htmlhint ./_site
-    when:
-      branch:
-        - github-pages
