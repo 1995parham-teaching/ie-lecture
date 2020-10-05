@@ -7,4 +7,4 @@ steps:
   - name: htmlhint
     image: node
     commands:
-      - npx htmlhint index.html slides/**/index.html --color -R
+      - npx htmlhint index.html slides/**/index.html --color
