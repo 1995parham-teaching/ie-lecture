@@ -1010,6 +1010,7 @@ Cache-Control: no-cache
           <li>The <code class="hl-yellow">ETag</code> HTTP response header is an identifier for a specific version of a resource.</li>
         </ul>
       </ul>
+    </ul>
   </section>
   <section>
     <ul>
@@ -1118,7 +1119,7 @@ Access-Control-Allow-Credentials: true
     </ul>
     <pre><code class="language-http">
   WWW-Authenticate: Digest realm="me@kennethreitz.com", nonce="9e97866f5105eddbf41ce75c4e5e8c14", qop="auth-int", opaque="96f27ba9bad9cd44429b8f4c1b1c060b", algorithm=MD5, stale=FALSE
-    </pre></code>
+    </code></pre>
   </section>
   <section>
     <ul>
@@ -1128,7 +1129,7 @@ Access-Control-Allow-Credentials: true
   HA1 = MD5(username:realm:password)
   HA2 = MD5(method:digestURI)
   response = MD5(HA1:nonce:HA2)
-    </pre></code>
+    </code></pre>
     <ul>
       <li>Server looks up the password of username and computes<br> <code>hash(pass, nonce)</code></li>
       <li>More details in RFC7616</li>
