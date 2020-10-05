@@ -7,14 +7,14 @@
 
     <title>{{page.title}}</title>
 
-    <link rel="stylesheet" href={{ "/slides/css/reveal.css" | relative_url }}>
-    <link rel="stylesheet" href={{ "/slides/css/theme/league.css" | relative_url }}>
+    <link rel="stylesheet" href="{{ "/slides/css/reveal.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/slides/css/theme/league.css" | relative_url }}">
 
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href={{ "/slides/lib/css/monokai.css" | relative_url }}>
+    <link rel="stylesheet" href="{{ "/slides/lib/css/monokai.css" | relative_url }}">
 
     <!-- Parham theme! -->
-    <link rel="stylesheet" href={{ "/slides/css/theme.css" | relative_url }}>
+    <link rel="stylesheet" href="{{ "/slides/css/theme.css" | relative_url }}">
 
     <!-- Printing and PDF exports -->
     <script>
@@ -40,8 +40,8 @@
       </div>
     </div>
 
-    <script src={{ "/slides/lib/js/head.min.js" | relative_url }}></script>
-    <script src={{ "/slides/js/reveal.js" | relative_url }}></script>
+    <script src="{{ "/slides/lib/js/head.min.js" | relative_url }}"></script>
+    <script src="{{ "/slides/js/reveal.js" | relative_url }}"></script>
 
     <script>
       // More info https://github.com/hakimel/reveal.js#configuration
@@ -64,7 +64,7 @@
             },
             callback: function() { toc.initToCOnLoad([
               {% for topic in page.topics %}
-                "{{ topic }}",
+                "{{ topic | escape }}",
               {% endfor %}
             ]); }
           }
@@ -73,7 +73,7 @@
     </script>
     <!-- logos and advertising -->
     <a href="https://github.com/sbu-ce/ie-lecture" target="_blank">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src={{ "/img/forkme_right_orange.png" | relative_url }} alt="Fork me on GitHub">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ "/img/forkme_right_orange.png" | relative_url }}" alt="Fork me on GitHub">
     </a>
   </body>
 </html>
