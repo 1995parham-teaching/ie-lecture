@@ -10,7 +10,7 @@ steps:
       - jekyll build
     volumes:
       - name: build
-        path: ./_site
+        path: /docker/src
     when:
       branch:
         - master
@@ -18,7 +18,7 @@ steps:
     image: node
     volumes:
       - name: build
-        path: ./_site
+        path: .
     commands:
       - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
     when:
