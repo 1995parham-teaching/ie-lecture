@@ -5,26 +5,17 @@ type: docker
 
 steps:
   - name: jekyll
-    image: jekyll/jekyll
+    image: ruby
     commands:
-      - jekyll build
-    volumes:
-      - name: build
-        path: /docker/src
+      - bundle install
+      - bundle exec jekyll build
     when:
       branch:
         - master
   - name: htmlhint
     image: node
-    volumes:
-      - name: build
-        path: .
     commands:
       - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
     when:
       branch:
         - master
-
-volumes:
-  - name: build
-    temp: {}
