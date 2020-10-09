@@ -20,14 +20,17 @@ topics:
     <li>HTTP is the transfer protocol for web applications</li>
     <ul>
       <li>
-        <span class="hl-orange">H</span><span class="hl-green">T</span><span class="hl-yellow">T</span><span class="hl-cyan">P</span>:
+        <span class="hl-orange">H</span><span class="hl-green">T</span
+        ><span class="hl-yellow">T</span><span class="hl-cyan">P</span>:
         <span class="hl-orange">Hyper</span>
         <span class="hl-green">Text</span>
         <span class="hl-yellow">Transfer</span>
         <span class="hl-cyan">Protocol</span>
       </li>
       <li>HTTP 1.0 (RFC 1945), HTTP 1.1 (RFC 2068), HTTP 2 (RFC 7540)</li>
-      <li>In fact, it can be used to transfer everything (not only hyper text)</li>
+      <li>
+        In fact, it can be used to transfer everything (not only hyper text)
+      </li>
       <ul>
         <li>Text Documents e.g. HTML, XML, JSON, etc.</li>
         <li>Multimedia e.g. JGP, GIF, MP4, MKV, etc.</li>
@@ -55,7 +58,9 @@ topics:
 <section>
   <h2>Introduction (Cont.)</h2>
   <ul>
-    <li>HTTP is an <span class="hl-orange">application layer protocol</span></li>
+    <li>
+      HTTP is an <span class="hl-orange">application layer protocol</span>
+    </li>
     <li>HTTP assumes reliable communication</li>
     <ul>
       <li>over TCP</li>
@@ -77,31 +82,52 @@ topics:
 <section>
   <h2>Data Resources to Transfer</h2>
   <ul>
-    <li>HTTP is the protocol to transfer data between server and client (usually from server to client)</li>
+    <li>
+      HTTP is the protocol to transfer data between server and client (usually
+      from server to client)
+    </li>
     <li>Which data?</li>
     <ul>
       <li>It can be <span class="hl-green">anything</span></li>
       <li>In web, usually, it is a resource/object on server</li>
     </ul>
-    <li>Each resource must be <span class="hl-orange">identified</span>/<span class="hl-cyan">located</span> uniquely</li>
+    <li>
+      Each resource must be <span class="hl-orange">identified</span>/<span
+        class="hl-cyan"
+        >located</span
+      >
+      uniquely
+    </li>
     <ul>
       <li>URI (Uniform Resource Identifier)</li>
       <li>URL (Uniform Resource Locator)</li>
     </ul>
-    <li>URIs <span class="hl-orange">identify</span> and URLs <span class="hl-cyan">locate</span>; however, locators are also identifiers, so</li>
-    <div class="box"><p>every URL is also a URI, but there are URIs which are not URLs.</p></div>
+    <li>
+      URIs <span class="hl-orange">identify</span> and URLs
+      <span class="hl-cyan">locate</span>; however, locators are also
+      identifiers, so
+    </li>
+    <div class="box">
+      <p>every URL is also a URI, but there are URIs which are not URLs.</p>
+    </div>
   </ul>
 </section>
 <section>
   <h2>URL</h2>
-  <div class="box"><p>
+  <div class="box">
+    <p>
       <span class="hl-orange">&lt;protocol(scheme)&gt;</span>
-      :// &lt;user&gt; : &lt;pass&gt; @ &lt;host&gt; : &lt;
-      port&gt; / <span class="hl-green">&lt;path&gt;</span> ? <span class="hl-cyan">&lt;query&gt;</span> # <span class="hl-red">&lt;frag&gt;</span>
-  </p></div>
+      :// &lt;user&gt; : &lt;pass&gt; @ &lt;host&gt; : &lt; port&gt; /
+      <span class="hl-green">&lt;path&gt;</span> ?
+      <span class="hl-cyan">&lt;query&gt;</span> #
+      <span class="hl-red">&lt;frag&gt;</span>
+    </p>
+  </div>
   <ul>
     <li>https://sbu.ac.ir/SitePages/Home.aspx</li>
-    <li>https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE</li>
+    <li>
+      https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE
+    </li>
     <li>file:///home/parham/Documents/Git/parham/dotfiles</li>
     <li>http://libgen.is</li>
     <li>ftp://speedtest.tele2.net</li>
@@ -110,7 +136,9 @@ topics:
 <section>
   <h2>URL (Cont.)</h2>
   <ul>
-    <li><span class="hl-orange">Scheme</span>: The application layer protocol</li>
+    <li>
+      <span class="hl-orange">Scheme</span>: The application layer protocol
+    </li>
     <li>HTTP: The web protocol</li>
     <li>HTTPS: Secure HTTP</li>
     <li>FTP: File Transfer Protocol</li>
@@ -123,18 +151,30 @@ topics:
 <section>
   <h2>URL (Cont.)</h2>
   <ul>
-    <li><span class="hl-green">Path</span>: The path of the object on host filesystem</li>
+    <li>
+      <span class="hl-green">Path</span>: The path of the object on host
+      filesystem
+    </li>
     <li>E.g. web server root directory is <code>/var/www/</code></li>
     <ul>
-      <li><code>http://www.example.com/1.html</code> &rarr; <code>/var/www/1.html</code></li>
-      <li><code>http://www.example.com/1/2/3.jpg</code> &rarr; <code>/var/www/1/2/3.jpg</code></li>
+      <li>
+        <code>http://www.example.com/1.html</code> &rarr;
+        <code>/var/www/1.html</code>
+      </li>
+      <li>
+        <code>http://www.example.com/1/2/3.jpg</code> &rarr;
+        <code>/var/www/1/2/3.jpg</code>
+      </li>
     </ul>
   </ul>
 </section>
 <section>
   <h2>URL (Cont.)</h2>
   <ul>
-    <li><span class="hl-cyan">Query</span>: A mechanism to pass information from client to active pages or forms</li>
+    <li>
+      <span class="hl-cyan">Query</span>: A mechanism to pass information from
+      client to active pages or forms
+    </li>
     <ul>
       <li>Fill information in a university registration form</li>
       <li>Ask Bing! to search a phrase</li>
@@ -142,7 +182,12 @@ topics:
     <li>Starts with "?"</li>
     <li><code>name=value</code> format</li>
     <li>"&amp;" is the border between multiple parameters</li>
-    <li>Try this out, by <a href="https://httpbin.org/get?name=Parham&family=Alvani">clicking me</a></li>
+    <li>
+      Try this out, by
+      <a href="https://httpbin.org/get?name=Parham&family=Alvani"
+        >clicking me</a
+      >
+    </li>
   </ul>
   <div class="box">
     <h3>HTTPBin</h3>
@@ -161,22 +206,33 @@ topics:
       <li>Browser gets whole resource (doc) from server</li>
       <li>In display time, it jumps to the specific part</li>
     </ul>
-    <li>Try this out, by <a href="https://github.com/gopasspw/gopass/#introduction">clicking me</a></li>
+    <li>
+      Try this out, by
+      <a href="https://github.com/gopasspw/gopass/#introduction">clicking me</a>
+    </li>
   </ul>
 </section>
 <section>
   <h2>URL (Cont.)</h2>
   <ul>
-    <li><span class="hl-orange">Domain names</span> are <span class="hl-green">case insensitive</span> according to RFC 4343.</li>
-    <li>The rest of URL is sent to the server via the GET method and etc.
-      <q>This <span class="hl-yellow">may be</span> case sensitive or not.</q></li>
+    <li>
+      <span class="hl-orange">Domain names</span> are
+      <span class="hl-green">case insensitive</span> according to RFC 4343.
+    </li>
+    <li>
+      The rest of URL is sent to the server via the GET method and etc.
+      <q>This <span class="hl-yellow">may be</span> case sensitive or not.</q>
+    </li>
   </ul>
 </section>
 <section>
   <h2>URL (Cont.)</h2>
   <ul>
     <li>URL is encoded by client before transmission</li>
-    <li>How: Each byte is divided into two 4-bit group, hexadecimal of the 4-bits are prefixed by %</li>
+    <li>
+      How: Each byte is divided into two 4-bit group, hexadecimal of the 4-bits
+      are prefixed by %
+    </li>
     <ul>
       <li><code>~</code> &rarr; <code>126</code> &rarr; <code>%7E</code></li>
     </ul>
@@ -187,7 +243,9 @@ topics:
       <li>Unsafe character, e.g. space, %, ...</li>
     </ul>
     <div class="box">
-      <p>https://ganj.irandoc.ac.ir/api/v1/search/main?keywords=hellow%20world</p>
+      <p>
+        https://ganj.irandoc.ac.ir/api/v1/search/main?keywords=hellow%20world
+      </p>
     </div>
   </ul>
 </section>
@@ -201,7 +259,9 @@ topics:
   </section>
   <section>
     <ul>
-      <li>Browser creates a TCP connection to the IP address and the &lt;port&gt;</li>
+      <li>
+        Browser creates a TCP connection to the IP address and the &lt;port&gt;
+      </li>
       <li>Browser sends http requests throught the connection</li>
       <li>Browser gets the response and processes it</li>
     </ul>
@@ -226,17 +286,26 @@ topics:
     <li>Each transaction is composed of 2 HTTP messages</li>
     <li>Requests are identified by methods</li>
     <ul>
-      <li><span class="hl-orange">Method</span>: The action that client asks from server</li>
+      <li>
+        <span class="hl-orange">Method</span>: The action that client asks from
+        server
+      </li>
     </ul>
     <li>Responses are identified by status codes</li>
     <ul>
-      <li><span class="hl-green">Status</span>: The result of the requested action</li>
+      <li>
+        <span class="hl-green">Status</span>: The result of the requested action
+      </li>
     </ul>
   </ul>
 </section>
 <section>
   <h2>HTTP Transactions</h2>
-  <img src="./img/http-transactions.png" height="500px" alt="http-transactions">
+  <img
+    src="./img/http-transactions.png"
+    height="500px"
+    alt="http-transactions"
+  />
 </section>
 <section>
   <h2>HTTP Transactions in Web</h2>
@@ -263,7 +332,9 @@ topics:
       <li><span class="hl-orange">Non-persistent</span></li>
       <ul>
         <li>A new TCP connection per object</li>
-        <li>Network overhead + Connection establish delay + Resource intesive</li>
+        <li>
+          Network overhead + Connection establish delay + Resource intesive
+        </li>
         <li>Parallel connections speed up browsing</li>
       </ul>
       <li><span class="hl-green">Persistent</span></li>
@@ -280,17 +351,30 @@ topics:
   <h2>HTTP/2 for a Faster Web</h2>
   <h3>HTTP Pipelining</h3>
   <ul>
-    <li>HTTP Pipelining is <span class="hl-green">not difficult to deploy</span>, <span class="hl-orange">it is impossible.</span></li>
-    <li>it still allowed a single large or slow response to block all others that followed.</li>
+    <li>
+      HTTP Pipelining is <span class="hl-green">not difficult to deploy</span>,
+      <span class="hl-orange">it is impossible.</span>
+    </li>
+    <li>
+      it still allowed a single large or slow response to block all others that
+      followed.
+    </li>
   </ul>
   <h3>HTTP/2 Multiplexing</h3>
   <ul>
-    <li>Multiplexing allows multiple request-response messages to be in flight over a single HTTP/2 connection, at the same time.</li>
+    <li>
+      Multiplexing allows multiple request-response messages to be in flight
+      over a single HTTP/2 connection, at the same time.
+    </li>
   </ul>
 </section>
 <section>
   <h2>HTTP/2 for a Faster Web (Cont.)</h2>
-  <img src="./img/http2-transactions.png" height="500px" alt="http2-transactions">
+  <img
+    src="./img/http2-transactions.png"
+    height="500px"
+    alt="http2-transactions"
+  />
 </section>
 <section class="hands-on">
   <h2>HTTP Transactions in Web: Hands on</h2>
@@ -309,7 +393,11 @@ topics:
       <li>The header is composed of some lines</li>
     </ul>
   </ul>
-  <img src="./img/message-structure.jpg" alt="message-structure" height="400px">
+  <img
+    src="./img/message-structure.jpg"
+    alt="message-structure"
+    height="400px"
+  />
 </section>
 <section>
   <section>
@@ -365,7 +453,10 @@ Entity-Body
   <section>
     <h2>HTTP Methods</h2>
     <ul>
-      <li>Methods are actions that client asks from server to do on the specified resource (given by the path parameter)</li>
+      <li>
+        Methods are actions that client asks from server to do on the specified
+        resource (given by the path parameter)
+      </li>
       <li>Which actions?</li>
       <ul>
         <li>Basic data communication operations</li>
@@ -401,11 +492,17 @@ Entity-Body
   <h2>HTTP Methods (Cont.)</h2>
   <ul>
     <li><span class="hl-orange">GET</span>: Retrieve resource from server</li>
-    <li><span class="hl-orange">HEAD</span>: Simlar to GET but the resource itself is not retrieved, just the HTTP response header</li>
+    <li>
+      <span class="hl-orange">HEAD</span>: Simlar to GET but the resource itself
+      is not retrieved, just the HTTP response header
+    </li>
     <ul>
       <li>Useful for debugging or some other applications</li>
     </ul>
-    <li><span class="hl-orange">POST</span>: Submit data to be processed by the specified resource</li>
+    <li>
+      <span class="hl-orange">POST</span>: Submit data to be processed by the
+      specified resource
+    </li>
     <ul>
       <li>Data itself is enveloped in message body</li>
     </ul>
@@ -418,12 +515,21 @@ Entity-Body
     <ul>
       <li>Not popular in web, can be used in other applications</li>
     </ul>
-    <li><span class="hl-green">PUT</span>: Add message body as the specified resource to server</li>
-    <li><span class="hl-green">TRACE</span>: Server echoes back the recieved message</li>
+    <li>
+      <span class="hl-green">PUT</span>: Add message body as the specified
+      resource to server
+    </li>
+    <li>
+      <span class="hl-green">TRACE</span>: Server echoes back the recieved
+      message
+    </li>
     <ul>
       <li>For troubleshooting &amp; debugging</li>
     </ul>
-    <li><span class="hl-green">OPTIONS</span>: Request the list of supported methods by server on the resource</li>
+    <li>
+      <span class="hl-green">OPTIONS</span>: Request the list of supported
+      methods by server on the resource
+    </li>
   </ul>
 </section>
 <section>
@@ -496,13 +602,18 @@ Entity-Body
     <ul>
       <li>Telnet can create TCP socket</li>
     </ul>
-    <li>Play with the server by sending HTTP methods and checking the responses</li>
+    <li>
+      Play with the server by sending HTTP methods and checking the responses
+    </li>
   </ul>
 </section>
 <section>
   <h2>HTTP Headers</h2>
   <ul>
-    <li>Headers are additional information that is sent by client to server and vice versa</li>
+    <li>
+      Headers are additional information that is sent by client to server and
+      vice versa
+    </li>
     <ul>
       <li>Most (allmost all) are optional</li>
     </ul>
@@ -545,13 +656,19 @@ Entity-Body
 <section>
   <h2>General Headers</h2>
   <ul>
-    <li><span class="hl-orange">Date</span>: Date &amp; Time that message is created</li>
+    <li>
+      <span class="hl-orange">Date</span>: Date &amp; Time that message is
+      created
+    </li>
     <li><span class="hl-green">Connection</span>: Close or Keep-Alive</li>
     <ul>
       <li>Close: Non-persistent connection</li>
       <li>Kepp-Alive: Persistent connection</li>
     </ul>
-    <li><span class="hl-yellow">Via</span>: Information about the intermediate nodes between two sides</li>
+    <li>
+      <span class="hl-yellow">Via</span>: Information about the intermediate
+      nodes between two sides
+    </li>
     <ul>
       <li>Proxy servers</li>
     </ul>
@@ -560,22 +677,37 @@ Entity-Body
 <section>
   <h2>Request Headers</h2>
   <ul>
-    <li><span class="hl-orange">Host</span>: The name of the server (<span class="hl-green">required</span>, why?)</li>
-    <li><span class="hl-cyan">Referer</span>: URL that contains requested URL</li>
+    <li>
+      <span class="hl-orange">Host</span>: The name of the server (<span
+        class="hl-green"
+        >required</span
+      >, why?)
+    </li>
+    <li>
+      <span class="hl-cyan">Referer</span>: URL that contains requested URL
+    </li>
     <li>Information about the client</li>
     <ul>
       <li><span class="hl-yellow">User-Agent</span>: The client program</li>
       <li><span class="hl-yellow">Accept</span>: The acceptable media types</li>
-      <li><span class="hl-yellow">Accept-Encoding</span>: The acceptable encoding</li>
-      <li><span class="hl-yellow">Accept-Language</span>: The acceptable language</li>
+      <li>
+        <span class="hl-yellow">Accept-Encoding</span>: The acceptable encoding
+      </li>
+      <li>
+        <span class="hl-yellow">Accept-Language</span>: The acceptable language
+      </li>
     </ul>
   </ul>
 </section>
 <section>
   <h2>Request Headers (Cont.)</h2>
   <ul>
-    <li><span class="hl-orange">Range</span>: Specific range (in byte) of resource</li>
-    <li><span class="hl-green">Authorization</span>: Response to the authenticate</li>
+    <li>
+      <span class="hl-orange">Range</span>: Specific range (in byte) of resource
+    </li>
+    <li>
+      <span class="hl-green">Authorization</span>: Response to the authenticate
+    </li>
     <ul>
       <li>Will be discussed later</li>
     </ul>
@@ -583,7 +715,10 @@ Entity-Body
     <ul>
       <li>Will be discussed later</li>
     </ul>
-    <li><span class="hl-cyan">If-Modified-Since</span>: Request is processed if the objected is modified since the specified time.</li>
+    <li>
+      <span class="hl-cyan">If-Modified-Since</span>: Request is processed if
+      the objected is modified since the specified time.
+    </li>
     <ul>
       <li>Used in Web Caching</li>
       <li>Will be discussed later</li>
@@ -594,30 +729,60 @@ Entity-Body
   <h2>Response Header</h2>
   <ul>
     <li><span class="hl-orange">Server</span>: Information about server</li>
-    <li><span class="hl-green">WWW-Authenticate</span>: Used to specify authentication parameters by server</li>
-    <li><span class="hl-yellow">Proxy-Authenticate</span>: Used to specify authentication parameters by proxy</li>
+    <li>
+      <span class="hl-green">WWW-Authenticate</span>: Used to specify
+      authentication parameters by server
+    </li>
+    <li>
+      <span class="hl-yellow">Proxy-Authenticate</span>: Used to specify
+      authentication parameters by proxy
+    </li>
     <li><span class="hl-cyan">Set-Cookie</span>: To send a cookie to client</li>
-    <li><span class="hl-red">Location</span>: The location of entity to redirect client</li>
+    <li>
+      <span class="hl-red">Location</span>: The location of entity to redirect
+      client
+    </li>
   </ul>
 </section>
 <section>
   <h2>Response Header (Cont.)</h2>
   <ul>
-    <li><span class="hl-orange">Last-Modified</span>: The date and time of last modification of entity</li>
-    <li><span class="hl-green">Content-Range</span>: Range of this entity in the entire resource</li>
-    <li><span class="hl-cyan">Expires</span>: The date and time at which the entity will expire</li>
+    <li>
+      <span class="hl-orange">Last-Modified</span>: The date and time of last
+      modification of entity
+    </li>
+    <li>
+      <span class="hl-green">Content-Range</span>: Range of this entity in the
+      entire resource
+    </li>
+    <li>
+      <span class="hl-cyan">Expires</span>: The date and time at which the
+      entity will expire
+    </li>
   </ul>
 </section>
 <section>
   <h2>Entity Headers</h2>
   <ul>
-    <li><span class="hl-orange">Content-Length</span>: The length of body (in byte)</li>
+    <li>
+      <span class="hl-orange">Content-Length</span>: The length of body (in
+      byte)
+    </li>
     <li><span class="hl-green">Content-Type</span>: The type of entity</li>
     <ul>
       <li>MIME types: text/xml, image/gif</li>
-      <li>Check <a href="https://api.sahebcloud.ir/api/v1/slide/photo/5f691500beaad9694413b8f1">here</a></li>
+      <li>
+        Check
+        <a
+          href="https://api.sahebcloud.ir/api/v1/slide/photo/5f691500beaad9694413b8f1"
+          >here</a
+        >
+      </li>
     </ul>
-    <li><span class="hl-red">Allow</span>: The allowed request methods can be performed on the entity</li>
+    <li>
+      <span class="hl-red">Allow</span>: The allowed request methods can be
+      performed on the entity
+    </li>
     <ul>
       <li>This is in response of OPTIONS method</li>
     </ul>
@@ -626,8 +791,16 @@ Entity-Body
 <section>
   <h2>Extension Headers</h2>
   <ul>
-    <li>Custom proprietary headers have <span class="hl-orange">historically</span> been used with an <span class="hl-green">X-</span> prefix, but this convention was <span class="hl-yellow">deprecated</span> in June 2012</li>
-    <li>implementation-specific and private-use parameters could at least incorporate the organization's name</li>
+    <li>
+      Custom proprietary headers have
+      <span class="hl-orange">historically</span> been used with an
+      <span class="hl-green">X-</span> prefix, but this convention was
+      <span class="hl-yellow">deprecated</span> in June 2012
+    </li>
+    <li>
+      implementation-specific and private-use parameters could at least
+      incorporate the organization's name
+    </li>
     <ul>
       <li>ExampleInc-foo</li>
       <li>VND.ExampleInc.foo (vnd stands for vendor)</li>
@@ -675,12 +848,17 @@ Entity-Body
 <section>
   <h2>Solution of Stateless Problem: Cookie</h2>
   <ul>
-    <li>Cookie: are information (e.g. unique identfiers) sent by server to user (browser) which are returned back to server</li>
+    <li>
+      Cookie: are information (e.g. unique identfiers) sent by server to user
+      (browser) which are returned back to server
+    </li>
     <li>How it works</li>
     <ul>
       <li>Server asks client to remember the information</li>
       <ul>
-        <li><span class="hl-orange">Set-Cookie</span> header in response message</li>
+        <li>
+          <span class="hl-orange">Set-Cookie</span> header in response message
+        </li>
       </ul>
       <li>Client gives back the information to server in every request</li>
       <ul>
@@ -748,7 +926,10 @@ Access-Control-Allow-Credentials: true
       <li>Cannot be used to store large data</li>
       <li><span class="hl-orange">At least 300</span> cookies</li>
       <li><span class="hl-green">At least 4096</span> bytes per cookie</li>
-      <li><span class="hl-cyan">At least 20</span> cookies per unique host or domain name</li>
+      <li>
+        <span class="hl-cyan">At least 20</span> cookies per unique host or
+        domain name
+      </li>
     </ul>
     <li>Cookies are text files</li>
     <ul>
@@ -783,47 +964,125 @@ Access-Control-Allow-Credentials: true
   <section>
     <h2>Cookies Attributes</h2>
     <ul>
-      <li><span class="hl-orange">Expire</span> &amp; <span class="hl-green">Max-Age</span>: The life time of the cookie</li>
+      <li>
+        <span class="hl-orange">Expire</span> &amp;
+        <span class="hl-green">Max-Age</span>: The life time of the cookie
+      </li>
       <ul>
         <li>Expire: An absolute time to delete cookie</li>
         <li>Max-Age: The maximum life time (sec) of cookie</li>
         <li>If exists, shows a permanent cookie</li>
         <li>Send a past time (or negative) to delete a cookie</li>
       </ul>
-      <li><span class="hl-cyan">Secure</span>: Cookie is sent only if channel is secure</li>
+      <li>
+        <span class="hl-cyan">Secure</span>: Cookie is sent only if channel is
+        secure
+      </li>
       <ul>
         <li>Specially useful for login sessions cookies</li>
         <li>
-          A cookie with the Secure attribute is sent to the server only with an encrypted request over the <span class="hl-red">HTTPS protocol</span>,
-          never with unsecured <span class="hl-violet">HTTP (except on localhost)</span>, and therefore can't easily be accessed by a man-in-the-middle attacker.
+          A cookie with the Secure attribute is sent to the server only with an
+          encrypted request over the <span class="hl-red">HTTPS protocol</span>,
+          never with unsecured
+          <span class="hl-violet">HTTP (except on localhost)</span>, and
+          therefore can't easily be accessed by a man-in-the-middle attacker.
         </li>
       </ul>
     </ul>
   </section>
   <section>
     <ul>
-      <li><span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is used</li>
+      <li>
+        <span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is
+        used
+      </li>
       <ul>
         <li>JavaScript cannot access to the cookies</li>
       </ul>
+      <li>
+        <span class="hl-green">SameSite</span> allows you to declare if your
+        cookie should be restricted to a first-party or same-site context
+      </li>
+      <ul>
+        <li>
+          <span class="hl-orange">Lax</span>: Cookies are allowed to be sent
+          with top-level navigations and will be sent along with GET request
+          initiated by third party website. This is the default value in modern
+          browsers.
+        </li>
+        <li>
+          <span class="hl-orange">Strict</span>: Cookies will only be sent in a
+          first-party context and not be sent along with requests initiated by
+          third party websites.
+        </li>
+        <li>
+          <span class="hl-orange">None</span>: Cookies will be sent in all
+          contexts, i.e sending cross-origin is allowed.
+        </li>
+      </ul>
     </ul>
+  </section>
+  <section>
+    <h2>First-Party vs Third-Party Cookies</h2>
+    <ul>
+      <li>
+        First-party cookies are created by the host domain – the domain the user
+        is visiting.
+      </li>
+      <li>
+        Third-party cookies are those created by domains other than the one the
+        user is visiting at the time, and are mainly used for tracking and
+        online-advertising purposes.
+      </li>
+    </ul>
+    <img src="./img/cross-site-set-cookie-response-header.png" />
+  </section>
+  <section>
+    <h2>CSRF</h2>
+    <ul>
+      <li>
+        Cross-site request forgery (CSRF) attacks rely on the fact that cookies
+        are attached to <span class="hl-orange">any request</span> to a given
+        origin, <span class="hl-red">no matter</span> who initiates the request.
+      </li>
+    </ul>
+    <img src="img/csrf-attack.png" style="background-color: white" />
   </section>
 </section>
 <section>
   <section>
     <h2>Cookies Attributes: Domain &amp; Path</h2>
     <ul>
-      <li><span class="hl-orange">Domain</span> &amp; <span class="hl-green">Path</span> determine the scope of the cookie</li>
+      <li>
+        <span class="hl-orange">Domain</span> &amp;
+        <span class="hl-green">Path</span> determine the scope of the cookie
+      </li>
       <ul>
-        <li>For which path and domain, the cookie is saved &amp; returned back by browser</li>
+        <li>
+          For which path and domain, the cookie is saved &amp; returned back by
+          browser
+        </li>
       </ul>
-      <li>If <span class="hl-orange">Domain</span> is omitted, defaults to the host of the current document URL.</li>
+      <li>
+        If <span class="hl-orange">Domain</span> is omitted, defaults to the
+        host of the current document URL.
+      </li>
       <ul>
-        <li>Browser returns back the cookie for the domain and <span class="hl-red">not</span> <span class="hl-yellow">sub-domains</span></li>
+        <li>
+          Browser returns back the cookie for the domain and
+          <span class="hl-red">not</span>
+          <span class="hl-yellow">sub-domains</span>
+        </li>
       </ul>
-      <li>If <span class="hl-green">Path</span> is omitted, defaults to the path of the current document URL.</li>
+      <li>
+        If <span class="hl-green">Path</span> is omitted, defaults to the path
+        of the current document URL.
+      </li>
       <ul>
-        <li>Browser returns back the cookie for the path and also for all sub-paths</li>
+        <li>
+          Browser returns back the cookie for the path and also for all
+          sub-paths
+        </li>
       </ul>
     </ul>
   </section>
@@ -831,7 +1090,12 @@ Access-Control-Allow-Credentials: true
     <ul>
       <li>If present then browser checks validity</li>
       <ul>
-        <li>If they are valid then Browser returns back the cookie for that domain &amp; that path and also for all <span class="hl-yellow">sub-domains</span> and <span class="hl-yellow">sub-paths</span></li>
+        <li>
+          If they are valid then Browser returns back the cookie for that domain
+          &amp; that path and also for all
+          <span class="hl-yellow">sub-domains</span> and
+          <span class="hl-yellow">sub-paths</span>
+        </li>
       </ul>
     </ul>
   </section>
@@ -844,7 +1108,11 @@ Access-Control-Allow-Credentials: true
       <li>Domain names must start with dot</li>
       <ul>
         <li>Some browsers accept names without dot as domain</li>
-        <li><span class="hl-orange">Contrary</span> to <span class="hl-green">earlier specifications</span>, leading dots in domain names (.example.com) are ignored.</li>
+        <li>
+          <span class="hl-orange">Contrary</span> to
+          <span class="hl-green">earlier specifications</span>, leading dots in
+          domain names (.example.com) are ignored.
+        </li>
       </ul>
       <li>Don’t accept for other domains than the base domain</li>
       <li>Don’t accept cookies for sub-domains</li>
@@ -854,7 +1122,10 @@ Access-Control-Allow-Credentials: true
       </ul>
       <li>Accept cookies for other (sub or higher) paths</li>
       <ul>
-        <li>A path that <span class="hl-violet">must exist</span> in the requested URL, or the browser won't send the Cookie header.</li>
+        <li>
+          A path that <span class="hl-violet">must exist</span> in the requested
+          URL, or the browser won't send the Cookie header.
+        </li>
       </ul>
     </ul>
   </ul>
@@ -869,12 +1140,10 @@ Access-Control-Allow-Credentials: true
 </section>
 <section class="hands-on">
   <h2>Cookies Attributes: Domain &amp; Path: Hands on</h2>
-  <ul>
-  </ul>
+  <ul></ul>
 </section>
 <section>
-  <div class="toc" data-selected="2">
-  </div>
+  <div class="toc" data-selected="2"></div>
 </section>
 <section>
   <section>
@@ -884,34 +1153,58 @@ Access-Control-Allow-Credentials: true
       <li>Act as server for client</li>
       <li>Act as client for server</li>
     </ul>
-    <img src="./img/proxy.png" alt="proxy">
+    <img src="./img/proxy.png" alt="proxy" />
   </section>
   <section>
     <h2>Forward Proxies</h2>
     <ul>
-      <li>A forward proxy, or gateway, or just "proxy" provides proxy services to a client or a group of clients.</li>
+      <li>
+        A forward proxy, or gateway, or just "proxy" provides proxy services to
+        a client or a group of clients.
+      </li>
     </ul>
   </section>
   <section>
     <h2>Reverse Proxies</h2>
     <ul>
-      <li>As the name implies, a reverse proxy does the <span class="hl-red">opposite</span> of what a forward proxy does:</li>
-      <li>A forward proxy acts in <span class="hl-orange">behalf of clients</span> (or requesting hosts), a reverse proxy acts in <span class="hl-green">behalf of servers</span>.</li>
-      <li>Forward proxies can hide the <span class="hl-yellow">identities of clients</span> whereas reverse proxies can hide the <span class="hl-violet">identities of servers</span>.</li>
+      <li>
+        As the name implies, a reverse proxy does the
+        <span class="hl-red">opposite</span> of what a forward proxy does:
+      </li>
+      <li>
+        A forward proxy acts in
+        <span class="hl-orange">behalf of clients</span> (or requesting hosts),
+        a reverse proxy acts in <span class="hl-green">behalf of servers</span>.
+      </li>
+      <li>
+        Forward proxies can hide the
+        <span class="hl-yellow">identities of clients</span> whereas reverse
+        proxies can hide the
+        <span class="hl-violet">identities of servers</span>.
+      </li>
     </ul>
   </section>
   <section>
     <ul>
       <li>Reverse proxies have several use cases, a few are:</li>
       <ul>
-        <li><span class="hl-orange">Load balancing</span>: distribute the load to several web servers,</li>
-        <li><span class="hl-green">Cache static content</span>: offload the web servers by caching static content like pictures,</li>
-        <li><span class="hl-yellow">Compression</span>: compress and optimize content to speed up load time.</li>
+        <li>
+          <span class="hl-orange">Load balancing</span>: distribute the load to
+          several web servers,
+        </li>
+        <li>
+          <span class="hl-green">Cache static content</span>: offload the web
+          servers by caching static content like pictures,
+        </li>
+        <li>
+          <span class="hl-yellow">Compression</span>: compress and optimize
+          content to speed up load time.
+        </li>
       </ul>
     </ul>
   </section>
   <section>
-    <img src="./img/reverse-proxy.png" alt="reverse-proxy">
+    <img src="./img/reverse-proxy.png" alt="reverse-proxy" />
   </section>
 </section>
 <section>
@@ -936,7 +1229,10 @@ Access-Control-Allow-Credentials: true
   <section>
     <h2>Caching</h2>
     <ul>
-      <li>Caching: save a copy of a resource and use it instead of requesting server</li>
+      <li>
+        Caching: save a copy of a resource and use it instead of requesting
+        server
+      </li>
       <li>Browser has its own local caches</li>
       <li>Cache server is special proxy for caching</li>
       <li>Benefits</li>
@@ -949,21 +1245,29 @@ Access-Control-Allow-Credentials: true
     </ul>
   </section>
   <section>
-    <img src="./img/http-cache-types.png" style="background-color: white;">
+    <img src="./img/http-cache-types.png" style="background-color: white" />
   </section>
 </section>
 <section>
   <section>
     <h2>Caching Algorithm</h2>
     <ul>
-      <li>If the object is not cached, it is got from server, saved in cache, and sent to client</li>
+      <li>
+        If the object is not cached, it is got from server, saved in cache, and
+        sent to client
+      </li>
       <li>Else, if object is in cache</li>
       <ul>
         <li>Cache server must return only fresh objects</li>
         <li><span class="hl-red">Freshness check</span></li>
       </ul>
       <li>Objects life-time specified by server</li>
-      <li>The <code class="hl-orange">Cache-Control</code> HTTP/1.1 <span class="hl-green">general-header</span> field is used to specify directives for caching mechanisms in <span class="hl-yellow">both requests and responses</span>.</li>
+      <li>
+        The <code class="hl-orange">Cache-Control</code> HTTP/1.1
+        <span class="hl-green">general-header</span> field is used to specify
+        directives for caching mechanisms in
+        <span class="hl-yellow">both requests and responses</span>.
+      </li>
     </ul>
   </section>
   <section>
@@ -973,14 +1277,20 @@ Access-Control-Allow-Credentials: true
 Cache-Control: max-age=&lt;seconds&gt;
     </code></pre>
     <h3>No caching</h3>
-    <p>The cache should not store anything about the client request or server response.</p>
+    <p>
+      The cache should not store anything about the client request or server
+      response.
+    </p>
     <pre><code class="language-http">
 Cache-Control: no-store
     </code></pre>
   </section>
   <section>
     <h3>Cache but revalidate</h3>
-    <p>A cache will send the request to the origin server for validation before releasing a cached copy.</p>
+    <p>
+      A cache will send the request to the origin server for validation before
+      releasing a cached copy.
+    </p>
     <pre><code class="language-http">
 Cache-Control: no-cache
     </code></pre>
@@ -1004,10 +1314,20 @@ Cache-Control: no-cache
       </ul>
       <li>Freshness is checked by conditional request</li>
       <ul>
-        <li><code class="hl-orange">If-Modified-Since</code>: current last-modified time</li>
-        <li><code class="hl-green">If-None-Match</code>: the server will send back the requested resource, with a 200 status, only if it doesn't have an ETag matching the given ones.</li>
+        <li>
+          <code class="hl-orange">If-Modified-Since</code>: current
+          last-modified time
+        </li>
+        <li>
+          <code class="hl-green">If-None-Match</code>: the server will send back
+          the requested resource, with a 200 status, only if it doesn't have an
+          ETag matching the given ones.
+        </li>
         <ul>
-          <li>The <code class="hl-yellow">ETag</code> HTTP response header is an identifier for a specific version of a resource.</li>
+          <li>
+            The <code class="hl-yellow">ETag</code> HTTP response header is an
+            identifier for a specific version of a resource.
+          </li>
         </ul>
       </ul>
     </ul>
@@ -1029,7 +1349,10 @@ Cache-Control: no-cache
     </ul>
   </section>
   <section>
-    <img src="./img/staleness.png" style="background-color: white; height: 50vh;">
+    <img
+      src="./img/staleness.png"
+      style="background-color: white; height: 50vh"
+    />
   </section>
 </section>
 <section>
@@ -1044,23 +1367,36 @@ Cache-Control: no-cache
     </ul>
     <li>HTTP has two (similar) authentications</li>
     <ul>
-      <li>Basic: <span class="hl-orange">Base64</span> encoded <code class="hl-yellow">user:pass</code></li>
+      <li>
+        Basic: <span class="hl-orange">Base64</span> encoded
+        <code class="hl-yellow">user:pass</code>
+      </li>
       <li>Basic: The username itself cannot contain a colon.</li>
       <li>Digest: Plain username + Digest of pass</li>
     </ul>
     <li>Steps are the same</li>
     <ul>
-      <li>Client requests resource, Server challenges, Client asks User/Pass, Client responses, Server authenticates and allows</li>
-      <li>Authentication information are sent by every request until end of current session</li>
+      <li>
+        Client requests resource, Server challenges, Client asks User/Pass,
+        Client responses, Server authenticates and allows
+      </li>
+      <li>
+        Authentication information are sent by every request until end of
+        current session
+      </li>
     </ul>
   </ul>
 </section>
 <section>
   <h2>Base64</h2>
   <ul>
-    <li>Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format by translating it into a radix-64 representation.</li>
+    <li>
+      Base64 is a group of binary-to-text encoding schemes that represent binary
+      data in an ASCII string format by translating it into a radix-64
+      representation.
+    </li>
   </ul>
-  <img src="./img/base64.png">
+  <img src="./img/base64.png" />
 </section>
 <section>
   <h2>HTTP Authentication (Cont.)</h2>
@@ -1115,7 +1451,10 @@ Access-Control-Allow-Credentials: true
     <h2>Digest Authentication (Cont.)</h2>
     <ul>
       <li>Client requests a private resource</li>
-      <li>Server creates a nonce (the server only issues a new nonce<br>for each <span class="hl-yellow">401</span> response</li>
+      <li>
+        Server creates a nonce (the server only issues a new nonce<br />for each
+        <span class="hl-yellow">401</span> response
+      </li>
     </ul>
     <pre><code class="language-http">
   WWW-Authenticate: Digest realm="me@kennethreitz.com", nonce="9e97866f5105eddbf41ce75c4e5e8c14", qop="auth-int", opaque="96f27ba9bad9cd44429b8f4c1b1c060b", algorithm=MD5, stale=FALSE
@@ -1131,7 +1470,10 @@ Access-Control-Allow-Credentials: true
   response = MD5(HA1:nonce:HA2)
     </code></pre>
     <ul>
-      <li>Server looks up the password of username and computes<br> <code>hash(pass, nonce)</code></li>
+      <li>
+        Server looks up the password of username and computes<br />
+        <code>hash(pass, nonce)</code>
+      </li>
       <li>More details in RFC7616</li>
     </ul>
   </section>
@@ -1139,15 +1481,28 @@ Access-Control-Allow-Credentials: true
 <section>
   <h2>Bearer Authentication</h2>
   <ul>
-    <li><span class="hl-orange">Bearer authentication</span> (also called <span class="hl-green">token authentication</span>) is an HTTP authentication scheme that involves security tokens called bearer tokens</li>
-    <li>The name <span class="hl-orange">Bearer authentication</span> can be understood as <q class="hl-yellow">give access to the bearer of this token.</q></li>
+    <li>
+      <span class="hl-orange">Bearer authentication</span> (also called
+      <span class="hl-green">token authentication</span>) is an HTTP
+      authentication scheme that involves security tokens called bearer tokens
+    </li>
+    <li>
+      The name <span class="hl-orange">Bearer authentication</span> can be
+      understood as
+      <q class="hl-yellow">give access to the bearer of this token.</q>
+    </li>
   </ul>
 </section>
 <section>
   <section>
     <h2><a href="https://jwt.io/">JWT</a></h2>
     <ul>
-      <li>JSON Web Tokens are an <span class="hl-orange">open</span>, <span class="hl-green">industry standard</span> <span class="hl-yellow">RFC 7519</span> method for representing claims securely between two parties.</li>
+      <li>
+        JSON Web Tokens are an <span class="hl-orange">open</span>,
+        <span class="hl-green">industry standard</span>
+        <span class="hl-yellow">RFC 7519</span> method for representing claims
+        securely between two parties.
+      </li>
     </ul>
   </section>
   <section>
@@ -1186,17 +1541,23 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
     </ul>
   </section>
   <section>
-    <img src="./img/ssl.jpg" style="height: 75vh;">
+    <img src="./img/ssl.jpg" style="height: 75vh" />
   </section>
 </section>
 <section>
   <h2>References</h2>
   <ol>
     <li>Prof. Bahador Bakhshi Internet Eng.</li>
-    <li>https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn</li>
+    <li>
+      https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn
+    </li>
     <li>https://cascadingmedia.com/insites/2015/03/http-2.html</li>
-    <li>https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9</li>
-    <li>https://superuser.com/questions/97625/what-is-the-maximum-size-of-a-cookie-and-how-many-can-be-stored-in-a-browser-fo</li>
+    <li>
+      https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9
+    </li>
+    <li>
+      https://superuser.com/questions/97625/what-is-the-maximum-size-of-a-cookie-and-how-many-can-be-stored-in-a-browser-fo
+    </li>
     <li>https://en.wikipedia.org/wiki/Base64</li>
     <li>https://en.wikipedia.org/wiki/Digest_access_authentication</li>
   </ol>
