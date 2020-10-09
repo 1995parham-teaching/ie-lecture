@@ -2,11 +2,11 @@
 index: 3
 title: HTML
 topics:
-- Introduction
-- HTML
-- Body
-- Head
-- HTML in Practice
+  - Introduction
+  - HTML
+  - Body
+  - Head
+  - HTML in Practice
 ---
 
 <section>
@@ -27,7 +27,10 @@ topics:
     <ul>
       <li>Binary formats? Useless</li>
       <ul>
-        <li>Different machines, no popular graphical desktops, no such popular format such as PDF, Doc, ...</li>
+        <li>
+          Different machines, no popular graphical desktops, no such popular
+          format such as PDF, Doc, ...
+        </li>
       </ul>
       <li>Text format</li>
       <ul>
@@ -35,7 +38,10 @@ topics:
         <ul>
           <li>But how to describe structure, layout, and formatting?</li>
         </ul>
-        <li>Add meaning to each part of text using special predefined markup, E.g., It is heading, It is paragraph, It is table ...</li>
+        <li>
+          Add meaning to each part of text using special predefined markup,
+          E.g., It is heading, It is paragraph, It is table ...
+        </li>
         <li></li>
       </ul>
     </ul>
@@ -69,21 +75,31 @@ topics:
 <section>
   <h2>Introduction (Cont.)</h2>
   <ul>
-    <li>HTML 1 (Berners-Lee, 1989): very basic, limited integration of multimedia</li>
+    <li>
+      HTML 1 (Berners-Lee, 1989): very basic, limited integration of multimedia
+    </li>
     <li>1993, Mosaic added many new features (e.g., integrated images)</li>
-    <li>HTML 2.0 (IETF, 1994): tried to standardize these &amp; other features</li>
+    <li>
+      HTML 2.0 (IETF, 1994): tried to standardize these &amp; other features
+    </li>
     <li>1994-96, Netscape &amp; IE added many new, divergent features</li>
     <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
     <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
     <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
-    <li>HTML 5 (Web Hypertext Application Technology Working Group, W3C): New version of HTML4, XHTML 1.0</li>
+    <li>
+      HTML 5 (Web Hypertext Application Technology Working Group, W3C): New
+      version of HTML4, XHTML 1.0
+    </li>
   </ul>
 </section>
 <section>
   <h2>HTML Basics: Tags</h2>
   <ul>
     <li>XHTML is a text document collecting elements</li>
-    <li>Element: (usually) a tag pair (opening &amp; closing) + content between them</li>
+    <li>
+      Element: (usually) a tag pair (opening &amp; closing) + content between
+      them
+    </li>
     <ul>
       <li>E.g., &lt;h1&gt;This is header&lt;/h1&gt;</li>
       <li>Not all tags have content</li>
@@ -112,10 +128,15 @@ topics:
     <li>Core attributes can be used for most of elements</li>
     <ul>
       <li>id: A unique identifier to element starting with "A-Z"</li>
-      <li>class: Assign a class to the element, multiple classes are allowed</li>
+      <li>
+        class: Assign a class to the element, multiple classes are allowed
+      </li>
       <li>title: Specifies extra information about an element</li>
       <ul>
-        <li>The information is most often shown as a tooltip text when the mouse moves over the element.</li>
+        <li>
+          The information is most often shown as a tooltip text when the mouse
+          moves over the element.
+        </li>
       </ul>
     </ul>
   </ul>
@@ -164,7 +185,10 @@ topics:
       <li>For tags which should be displayed</li>
       <ul>
         <li>Tags by themselves are not displayed</li>
-        <li>Each tag has its own <span class="hl-green">default</span> presentation</li>
+        <li>
+          Each tag has its own
+          <span class="hl-green">default</span> presentation
+        </li>
       </ul>
     </ul>
   </section>
@@ -177,12 +201,15 @@ topics:
       <div class="box">
         <em>I am important</em>
       </div>
-      <li>If tag has not content, the presentation is displayed (if it is needed)</li>
+      <li>
+        If tag has not content, the presentation is displayed (if it is needed)
+      </li>
       <pre><code class="lang-html">
 I am a &lt;br /&gt; break
       </code></pre>
       <div class="box">
-        I am a <br /> break
+        I am a <br />
+        break
       </div>
     </ul>
   </section>
@@ -190,10 +217,19 @@ I am a &lt;br /&gt; break
 <section>
   <h2>HTML Processing: Rendering (Cont.)</h2>
   <ul>
-    <li>Web browsers by default start placing elements from <span class="hl-orange">left-top corner</span></li>
+    <li>
+      Web browsers by default start placing elements from
+      <span class="hl-orange">left-top corner</span>
+    </li>
     <ul>
-      <li><span class="hl-green">In-line</span> elements are placed from left to right</li>
-      <li>A new line is created for each <span class="hl-cyan">block-level</span> element</li>
+      <li>
+        <span class="hl-green">In-line</span> elements are placed from left to
+        right
+      </li>
+      <li>
+        A new line is created for each
+        <span class="hl-cyan">block-level</span> element
+      </li>
     </ul>
     <li>Web browsers ignore</li>
     <ul>
@@ -225,7 +261,7 @@ I am a &lt;br /&gt; break
     </code></pre>
   </section>
   <section>
-    <img src="./img/example.png">
+    <img src="./img/example.png" />
   </section>
 </section>
 <section>
@@ -237,10 +273,14 @@ I am a &lt;br /&gt; break
       <li>Parent &amp; Child relationship</li>
     </ul>
   </ul>
-  <img src="./img/nested.png" style="background-color: white;" />
+  <img src="./img/nested.png" style="background-color: white" />
 </section>
 <section>
-  <h2><a href="https://www.toptal.com/designers/htmlarrows/numbers/">Special Characters/Symbols</a></h2>
+  <h2>
+    <a href="https://www.toptal.com/designers/htmlarrows/numbers/"
+      >Special Characters/Symbols</a
+    >
+  </h2>
   <ul>
     <li>Some characters and symbols are encoded</li>
     <ul>
@@ -327,11 +367,25 @@ I am a &lt;br /&gt; break
   </section>
   <section>
     <ul>
-      <li>Layout <span class="hl-cyan">(styles)</span> are separated from <span class="hl-yellow">markup</span></li>
+      <li>
+        Layout <span class="hl-cyan">(styles)</span> are separated from
+        <span class="hl-yellow">markup</span>
+      </li>
       <ul>
         <li>Markup is used fro meaning &amp; structure</li>
-        <li>The <span class="hl-orange">obsolete</span> HTML <span class="hl-green">Big Element</span> (<code>&lt;big&gt;</code>) renders the enclosed text at a font size one level larger than the surrounding text (medium becomes large, for example).</li>
-        <li>The <span class="hl-orange">obsolete</span> HTML <span class="hl-green">Center Element</span> (<code>&lt;center&gt;</code>) is a block-level element that displays its block-level or inline contents centered horizontally within its containing element.</li>
+        <li>
+          The <span class="hl-orange">obsolete</span> HTML
+          <span class="hl-green">Big Element</span> (<code>&lt;big&gt;</code>)
+          renders the enclosed text at a font size one level larger than the
+          surrounding text (medium becomes large, for example).
+        </li>
+        <li>
+          The <span class="hl-orange">obsolete</span> HTML
+          <span class="hl-green">Center Element</span>
+          (<code>&lt;center&gt;</code>) is a block-level element that displays
+          its block-level or inline contents centered horizontally within its
+          containing element.
+        </li>
       </ul>
     </ul>
   </section>
@@ -357,23 +411,41 @@ I am a &lt;br /&gt; break
     <h3><code>&lt;!DOCTYPE html&gt;</code> the doctype</h3>
     <ul>
       <li>It is <span class="hl-orange">required</span> preamble.</li>
-      <li>In the mists of time, when HTML was young (around 1991/92), doctypes were meant to act as links to a set of rules that the HTML page had to follow to be considered good HTML, which could mean automatic error checking and other useful things.</li>
-      <li>However these days, they don't do much, and are basically just needed to make sure your document behaves correctly.</li>
+      <li>
+        In the mists of time, when HTML was young (around 1991/92), doctypes
+        were meant to act as links to a set of rules that the HTML page had to
+        follow to be considered good HTML, which could mean automatic error
+        checking and other useful things.
+      </li>
+      <li>
+        However these days, they don't do much, and are basically just needed to
+        make sure your document behaves correctly.
+      </li>
       <li>That's all you need to know for now.</li>
     </ul>
   </section>
   <section>
     <h3><code>&lt;html&gt;&lt;/html&gt;</code></h3>
     <ul>
-      <li>This element wraps all the content on the entire page and is sometimes known as the root element.</li>
+      <li>
+        This element wraps all the content on the entire page and is sometimes
+        known as the root element.
+      </li>
     </ul>
   </section>
   <section>
     <h3><code>&lt;head&gt;&lt;/head&gt;</code></h3>
     <ul>
-      <li>This element acts as a container for all the stuff you want to include on the HTML page that <span class="hl-orange">isn't</span> the content you are showing to your page's viewers.</li>
+      <li>
+        This element acts as a container for all the stuff you want to include
+        on the HTML page that <span class="hl-orange">isn't</span> the content
+        you are showing to your page's viewers.
+      </li>
       <ul>
-        <li>keywords and a page description that you want to appear in search results</li>
+        <li>
+          keywords and a page description that you want to appear in search
+          results
+        </li>
         <li>CSS to style our content</li>
         <li>character set declarations</li>
         <li>and more</li>
@@ -383,19 +455,27 @@ I am a &lt;br /&gt; break
   <section>
     <h3><code>&lt;meta&gt;&lt;/meta&gt;</code></h3>
     <ul>
-      <li>This element sets the character set your document should use to UTF-8.</li>
+      <li>
+        This element sets the character set your document should use to UTF-8.
+      </li>
     </ul>
   </section>
   <section>
     <h3><code>&lt;title&gt;&lt;/title&gt;</code></h3>
     <ul>
-      <li>This sets the title of your page, which is the title that appears in the browser tab the page is loaded in.</li>
+      <li>
+        This sets the title of your page, which is the title that appears in the
+        browser tab the page is loaded in.
+      </li>
     </ul>
   </section>
   <section>
     <h3><code>&lt;body&gt;&lt;/body&gt;</code></h3>
     <ul>
-      <li>This contains all the content that you want to show to web users when they visit your page.</li>
+      <li>
+        This contains all the content that you want to show to web users when
+        they visit your page.
+      </li>
     </ul>
   </section>
 </section>
@@ -429,35 +509,317 @@ I am a &lt;br /&gt; break
 <section>
   <h2>Main root</h2>
   <ul>
-    <li>The HTML <code class="hl-orange">&lt;html&gt;</code> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element.</li>
+    <li>
+      The HTML <code class="hl-orange">&lt;html&gt;</code> element represents
+      the root (top-level element) of an HTML document, so it is also referred
+      to as the root element.
+    </li>
     <li>All other elements must be descendants of this element.</li>
   </ul>
 </section>
 <section>
   <h2>Sectioning root</h2>
   <ul>
-    <li>The HTML <code class="hl-orange">&lt;body&gt;</code> Element represents the content of an HTML document.</li>
-    <li>There can be only <span class="hl-yellow">one</span> <span class="hl-orange">&lt;body&gt;</span> element in a document.</li>
+    <li>
+      The HTML <code class="hl-orange">&lt;body&gt;</code> Element represents
+      the content of an HTML document.
+    </li>
+    <li>
+      There can be only <span class="hl-yellow">one</span>
+      <span class="hl-orange">&lt;body&gt;</span> element in a document.
+    </li>
   </ul>
 </section>
 <section>
   <section>
     <h2>Content sectioning</h2>
     <ul>
-      <li>Content sectioning elements allow you to organize the document content into logical pieces.</li>
+      <li>
+        Content sectioning elements allow you to organize the document content
+        into logical pieces.
+      </li>
     </ul>
   </section>
   <section>
-    <li>The HTML <code class="hl-orange">&lt;h1&gt;–&lt;h6&gt;</code> elements represent six levels of section headings. <code class="hl-orange">&lt;h1&gt;</code> is the highest section level and &lt;h6&gt; is the lowest.</li>
-    <li>The HTML <code class="hl-orange">&lt;section&gt;</code> element represents a standalone section — which doesn't have a more specific semantic element to represent it — contained within an HTML document.</li>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;h1&gt;–&lt;h6&gt;</code> elements
+        represent six levels of section headings.
+        <code class="hl-orange">&lt;h1&gt;</code> is the highest section level
+        and &lt;h6&gt; is the lowest.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;section&gt;</code> element
+        represents a standalone section — which
+        <span class="hl-red">doesn't</span> have a more specific semantic
+        element to represent it — contained within an HTML document.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;footer&gt;</code> element
+        represents a footer for its nearest sectioning content or sectioning
+        root element. A footer typically contains information about the author
+        of the section, copyright data or links to related documents.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;header&gt;</code> element
+        represents introductory content, typically a group of introductory or
+        navigational aids. It may contain some heading elements but also a logo,
+        a search form, an author name, and other elements.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;nav&gt;</code> element represents a
+        section of a page whose purpose is to provide navigation links, either
+        within the current document or to other documents. Common examples of
+        navigation sections are menus, tables of contents, and indexes.
+      </li>
+    </ul>
   </section>
 </section>
 <section>
-  <h2>Text content</h2>
+  <section>
+    <h2>Text content</h2>
+    <ul>
+      <li>
+        Use HTML text content elements to organize blocks or sections of content
+        placed between the opening
+        <code class="hl-orange">&lt;body&gt;</code> and closing
+        <code class="hl-orange">&lt;/body&gt;</code> tags.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;p&gt;</code> element represents a
+        paragraph.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;pre&gt;</code> element represents
+        preformatted text which is
+        <span class="hl-yellow">to be presented exactly as written</span> in the
+        HTML file.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;ol&gt;</code> element represents an
+        ordered list of items — typically rendered as a numbered list.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;ul&gt;</code> element represents an
+        unordered list of items, typically rendered as a bulleted list.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;li&gt;</code> element is used to
+        represent an item in a list.
+      </li>
+      <ul>
+        <li>
+          The HTML <code class="hl-orange">&lt;dl&gt;</code> element represents
+          a description list.
+        </li>
+        <li>
+          The element encloses a list of groups of terms (specified using the
+          <code class="hl-orange">&lt;dt&gt;</code> element) and descriptions
+          (provided by <code class="hl-orange">&lt;dd&gt;</code>
+          elements).
+        </li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Inline text semantics</h2>
+    <ul>
+      <li>
+        Use the HTML inline text semantic to define the meaning, structure, or
+        style of a word, line, or any arbitrary piece of text.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;a&gt;</code> element (or anchor
+        element), with its href attribute, creates a hyperlink to web pages,
+        files, email addresses, locations in the same page, or anything else a
+        URL can address.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;span&gt;</code> element is a
+        generic inline container for phrasing content, which does not inherently
+        represent anything.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;br&gt;</code> element produces a
+        line break in text (carriage-return).
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;code&gt;</code> element displays
+        its contents styled in a fashion intended to indicate that the text is a
+        short fragment of computer code.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;em&gt;</code> element marks text
+        that has stress emphasis.
+      </li>
+      <li>
+        The HTML Strong Importance Element (<code class="hl-orange"
+          >&lt;strong&gt;</code
+        >) indicates that its contents have strong importance, seriousness, or
+        urgency.
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Image and multimedia</h2>
   <ul>
-    <li>The HTML <code class="hl-orange">&lt;p&gt;</code> element represents a paragraph.</li>
-    <li>The HTML <code class="hl-orange">&lt;pre&gt;</code> element represents preformatted text which is <span class="hl-yellow">to be presented exactly as written</span> in the HTML file.</li>
+    <li>
+      The HTML <code class="hl-orange">&lt;img&gt;</code> element embeds an
+      image into the document.
+    </li>
   </ul>
+</section>
+<section>
+  <h2>Embedded content</h2>
+  <ul>
+    <li>
+      The HTML Inline Frame element (
+      <code class="hl-orange">&lt;iframe&gt;</code>
+      ) represents a nested browsing context, embedding another HTML page into
+      the current one.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Scripting</h2>
+  <ul>
+    <li>
+      The HTML <code class="hl-orange">&lt;noscript&gt;</code> element defines a
+      section of HTML to be inserted if a script type on the page is unsupported
+      or if scripting is currently turned off in the browser.
+    </li>
+    <li>
+      The HTML <code class="hl-orange">&lt;script&gt;</code> element is used to
+      embed executable code or data; this is typically used to embed or refer to
+      JavaScript code.
+    </li>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Table content</h2>
+    <pre><code class="lang-html">
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Head Col 0&lt;/th&gt;
+          &lt;th&gt;Head Col 1&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Row 0 Col 0&lt;/td&gt;
+          &lt;td&gt;Row 0 Col 1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Row 1 Col 0&lt;/td&gt;
+          &lt;td&gt;Row 1 Col 1&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  </code></pre>
+  </section>
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Head Col 0</th>
+          <th>Head Col 1</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 0 Col 0</td>
+          <td>Row 0 Col 1</td>
+        </tr>
+        <tr>
+          <td>Row 1 Col 0</td>
+          <td>Row 1 Col 1</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<section>
+  <img src="./img/summary.png" />
+</section>
+<section>
+  <section>
+    <h2>Forms</h2>
+    <ul>
+      <li>Forms are used to get information from user</li>
+      <li>HTML is only responsible to gather the information</li>
+      <ul>
+        <li>It does not responsible to process</li>
+        <li>Data are processed by server side scripts</li>
+        <ul>
+          <li>
+            However, some preprocessing can also be performed in client slide
+          </li>
+        </ul>
+      </ul>
+      <li>Major form components</li>
+      <ul>
+        <li>The form element</li>
+        <li>Inputs</li>
+        <ul>
+          <li>Text, Checkboxs, radio buttons, select boxes, etc.</li>
+        </ul>
+        <li>Buttons</li>
+        <ul>
+          <li>Submit, cancel, etc.</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Forms are created by <code class="hl-orange">form</code></li>
+      <li>
+        Each form must have <code class="hl-green">action</code> and
+        <code class="hl-green">method</code> attributes
+      </li>
+      <ul>
+        <li><code class="hl-green">action</code> is a URL</li>
+        <ul>
+          <li>Server side script that process the data</li>
+        </ul>
+        <li>
+          <code class="hl-green">method</code> is a HTTP method used to send
+          data
+        </li>
+        <ul>
+          <li>
+            <code class="hl-yellow">get</code>: User input data is sent through
+            the <em class="hl-red">query part</em> of URL by HTTP GET method
+          </li>
+          <li>
+            <code class="hl-yellow">post</code>: User input data is sent as the
+            <em class="hl-red">body</em> of HTTP message by HTTP POST method
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -466,32 +828,69 @@ I am a &lt;br /&gt; break
   <h2>Document metadata</h2>
   <ul>
     <li>Metadata contains information about the page.</li>
-    <li>This includes information about styles, scripts and data to help software (<span class="hl-orange">search engines</span>, <span class="hl-green">browsers</span>, etc.) use and render the page.</li>
-    <li>Metadata for styles and scripts may be defined in the page or link to another file that has the information.</li>
+    <li>
+      This includes information about styles, scripts and data to help software
+      (<span class="hl-orange">search engines</span>,
+      <span class="hl-green">browsers</span>, etc.) use and render the page.
+    </li>
+    <li>
+      Metadata for styles and scripts may be defined in the page or link to
+      another file that has the information.
+    </li>
   </ul>
 </section>
 <section>
   <ul>
-    <li>The HTML Title element (<code class="hl-orange">&lt;title&gt;</code>) defines the document's title that is shown in a browser's title bar or a page's tab.</li>
-    <li>The HTML <code class="hl-orange">&lt;style&gt;</code> element contains style information for a document, or part of a document.</li>
-    <li>The HTML <code class="hl-orange">&lt;base&gt;</code> element specifies the base URL to use for all relative URLs in a document.</li>
+    <li>
+      The HTML Title element (<code class="hl-orange">&lt;title&gt;</code>)
+      defines the document's title that is shown in a browser's title bar or a
+      page's tab.
+    </li>
+    <li>
+      The HTML <code class="hl-orange">&lt;style&gt;</code> element contains
+      style information for a document, or part of a document.
+    </li>
+    <li>
+      The HTML <code class="hl-orange">&lt;base&gt;</code> element specifies the
+      base URL to use for all relative URLs in a document.
+    </li>
   </ul>
 </section>
 <section>
   <section>
     <ul>
-      <li>The HTML <code class="hl-orange">&lt;meta&gt;</code> element represents metadata that cannot be represented by other HTML meta-related elements</li>
+      <li>
+        The HTML <code class="hl-orange">&lt;meta&gt;</code> element represents
+        metadata that cannot be represented by other HTML meta-related elements
+      </li>
     </ul>
   </section>
   <section>
     <ul>
       <ul>
-        <li>If the <span class="hl-green">name</span> attribute is set, the <span class="hl-cyan">meta</span> element provides document-level metadata, applying to the whole page.</li>
+        <li>
+          If the <span class="hl-green">name</span> attribute is set, the
+          <span class="hl-cyan">meta</span> element provides document-level
+          metadata, applying to the whole page.
+        </li>
         <ul>
-          <li><code class="hl-orange">author</code>: the name of the document's author.</li>
-          <li><code class="hl-violet">description</code>: a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.</li>
-          <li><code class="hl-yellow">generator</code>: the identifier of the software that generated the page.</li>
-          <li><code class="hl-red">keywords</code>: words relevant to the page's content separated by commas.</li>
+          <li>
+            <code class="hl-orange">author</code>: the name of the document's
+            author.
+          </li>
+          <li>
+            <code class="hl-violet">description</code>: a short and accurate
+            summary of the content of the page. Several browsers, like Firefox
+            and Opera, use this as the default description of bookmarked pages.
+          </li>
+          <li>
+            <code class="hl-yellow">generator</code>: the identifier of the
+            software that generated the page.
+          </li>
+          <li>
+            <code class="hl-red">keywords</code>: words relevant to the page's
+            content separated by commas.
+          </li>
         </ul>
         <pre><code class="hl-html">
 &lt;meta name="description" content="Free Web tutorials"&gt;
@@ -504,9 +903,16 @@ I am a &lt;br /&gt; break
   <section>
     <ul>
       <ul>
-        <li>If the <span class="hl-green">http-equiv</span> attribute is set, the <span class="hl-cyan">meta</span> element is a pragma directive, providing information equivalent to what can be given by a similarly-named HTTP header.</li>
+        <li>
+          If the <span class="hl-green">http-equiv</span> attribute is set, the
+          <span class="hl-cyan">meta</span> element is a pragma directive,
+          providing information equivalent to what can be given by a
+          similarly-named HTTP header.
+        </li>
         <ul>
-          <li>Usually is <span class="hl-red">not</span> processed by web-server</li>
+          <li>
+            Usually is <span class="hl-red">not</span> processed by web-server
+          </li>
           <li>Browser simulates the behavior of the effect of the header</li>
         </ul>
         <pre><code class="hl-html">
@@ -519,14 +925,30 @@ I am a &lt;br /&gt; break
   <section>
     <ul>
       <ul>
-        <li>If the <span class="hl-green">charset</span> attribute is set, the <span class="hl-cyan">meta</span> element is a charset declaration, giving the character encoding in which the document is encoded.</li>
-        <li>If the <span class="hl-green">itemprop</span> attribute is set, the <span class="hl-cyan">meta</span> element provides user-defined metadata.</li>
+        <li>
+          If the <span class="hl-green">charset</span> attribute is set, the
+          <span class="hl-cyan">meta</span> element is a charset declaration,
+          giving the character encoding in which the document is encoded.
+        </li>
+        <li>
+          If the <span class="hl-green">itemprop</span> attribute is set, the
+          <span class="hl-cyan">meta</span> element provides user-defined
+          metadata.
+        </li>
       </ul>
     </ul>
   </section>
 </section>
 <section>
   <ul>
-    <li>The HTML External Resource Link element (<code class="hl-orange">&lt;link&gt;</code>) specifies relationships between the current document and an external resource. This element is most commonly used to link to <span class="hl-green">stylesheets</span>, but is also used to establish <span class="hl-cyan">site icons</span> (both "favicon" style icons and icons for the home screen and apps on mobile devices) among other things.</li>
+    <li>
+      The HTML External Resource Link element (<code class="hl-orange"
+        >&lt;link&gt;</code
+      >) specifies relationships between the current document and an external
+      resource. This element is most commonly used to link to
+      <span class="hl-green">stylesheets</span>, but is also used to establish
+      <span class="hl-cyan">site icons</span> (both "favicon" style icons and
+      icons for the home screen and apps on mobile devices) among other things.
+    </li>
   </ul>
 </section>
