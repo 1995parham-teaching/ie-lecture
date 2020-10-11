@@ -553,7 +553,7 @@ I am a &lt;br /&gt; break
         The HTML <code class="hl-orange">&lt;h1&gt;–&lt;h6&gt;</code> elements
         represent six levels of section headings.
         <code class="hl-orange">&lt;h1&gt;</code> is the highest section level
-        and &lt;h6&gt; is the lowest.
+        and <code class="hl-orange">&lt;h6&gt;</code> is the lowest.
       </li>
       <li>
         The HTML <code class="hl-orange">&lt;section&gt;</code> element
@@ -622,15 +622,17 @@ I am a &lt;br /&gt; break
         The HTML <code class="hl-orange">&lt;ul&gt;</code> element represents an
         unordered list of items, typically rendered as a bulleted list.
       </li>
-      <li>
-        The HTML <code class="hl-orange">&lt;li&gt;</code> element is used to
-        represent an item in a list.
-      </li>
       <ul>
         <li>
-          The HTML <code class="hl-orange">&lt;dl&gt;</code> element represents
-          a description list.
+          The HTML <code class="hl-orange">&lt;li&gt;</code> element is used to
+          represent an item in a list.
         </li>
+      </ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;dl&gt;</code> element represents a
+        description list.
+      </li>
+      <ul>
         <li>
           The element encloses a list of groups of terms (specified using the
           <code class="hl-orange">&lt;dt&gt;</code> element) and descriptions
@@ -639,6 +641,34 @@ I am a &lt;br /&gt; break
         </li>
       </ul>
     </ul>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;ul&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ol&gt;
+&lt;dl&gt;
+  &lt;dt&gt;Hello&lt;/dt&gt;
+  &lt;dd&gt;Means salam&lt;/dd&gt;
+&lt;/dl&gt;
+    </code></pre>
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <ol>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ol>
+    <dl>
+      <dt>Hello</dt>
+      <dd>Means salam</dd>
+    </dl>
   </section>
 </section>
 <section>
