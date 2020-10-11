@@ -127,11 +127,18 @@ topics:
     </code></pre>
     <li>Core attributes can be used for most of elements</li>
     <ul>
-      <li>id: A unique identifier to element starting with "A-Z"</li>
       <li>
-        class: Assign a class to the element, multiple classes are allowed
+        <code class="hl-yellow">id</code>: A unique identifier to element
+        starting with "A-Z"
       </li>
-      <li>title: Specifies extra information about an element</li>
+      <li>
+        <code class="hl-yellow">class</code>: Assign a class to the element,
+        multiple classes are allowed
+      </li>
+      <li>
+        <code class="hl-yellow">title</code>: Specifies extra information about
+        an element
+      </li>
       <ul>
         <li>
           The information is most often shown as a tooltip text when the mouse
@@ -338,7 +345,7 @@ I am a &lt;br /&gt; break
     <li>XML is more restricted than SGML</li>
     <ul>
       <li>XHTML has more restrictions vs. HTML</li>
-      <li>xHTML is more well-defined</li>
+      <li>XHTML is more well-defined</li>
     </ul>
   </ul>
 </section>
@@ -639,20 +646,110 @@ I am a &lt;br /&gt; break
     <h2>Inline text semantics</h2>
     <ul>
       <li>
-        Use the HTML inline text semantic to define the meaning, structure, or
-        style of a word, line, or any arbitrary piece of text.
-      </li>
-      <li>
-        The HTML <code class="hl-orange">&lt;a&gt;</code> element (or anchor
-        element), with its href attribute, creates a hyperlink to web pages,
-        files, email addresses, locations in the same page, or anything else a
-        URL can address.
+        Use the HTML inline text semantic to define the
+        <em class="hl-green">meaning</em>,
+        <strong class="hl-cyan">structure</strong>, or style of a word, line, or
+        any arbitrary piece of text.
       </li>
       <li>
         The HTML <code class="hl-orange">&lt;span&gt;</code> element is a
         generic inline container for phrasing content, which does not inherently
         represent anything.
       </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;q&gt;</code> element indicates that
+        the enclosed text is a short inline quotation. Most modern browsers
+        implement this by surrounding the text in quotation marks.
+      </li>
+      <li>
+        The HTML Citation element (<code class="hl-orange">&lt;cite&gt;</code>)
+        is used to describe a reference to a cited creative work, and must
+        include the title of that work.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;a&gt;</code> element (or anchor
+        element), with its <code class="hl-yellow">href</code> attribute,
+        creates a hyperlink to web pages, files, email addresses (mailto),
+        locations in the same page (fragment), or anything else a URL can
+        address.
+      </li>
+      <ul>
+        <li>
+          When scheme is not give in the URL &amp; base is not set in
+          <code class="hl-orange">&lt;head&gt;</code>, it is assumed as a file
+          in current domain
+        </li>
+        <ul>
+          <li>
+            <span class="hl-yellow">href</span>=“<span class="hl-red"
+              >http://</span
+            >www.google.com” open Google
+          </li>
+          <li>
+            <span class="hl-yellow">href</span>=“www.google.com” open a file in
+            current directory named www.google.com
+          </li>
+          <li>
+            <span class="hl-yellow">href</span>= “<span class="hl-red">/</span
+            >www.google.com” open a file in the root directory named
+            www.google.com
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>
+          For paths in <em class="hl-green">current domain</em>, similar to
+          filesystem, paths can be
+        </li>
+        <ul>
+          <li>
+            <span class="hl-cyan">Absolute</span>: Path starts from web server
+            root directory
+          </li>
+          <li>
+            <span class="hl-violet">Relative</span>: Path starts from current
+            directory
+          </li>
+        </ul>
+        <li>Scheme can be every supported protocol</li>
+        <li>
+          By default links are opened in the same window, to open link in new
+          window
+        </li>
+        <ul>
+          <li>Attribute <span class="hl-yellow">target</span>="_blank"</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>
+          <span class="hl-cyan">#frag</span> part in URL is used to jump middle
+          of a large document
+        </li>
+        <li>Step one: assign an ID/name to the part</li>
+        <pre><code class="lang-html">
+&lt;a id="SctionResult"&gt;Results&lt;/a&gt;
+&lt;a name="SctionResult"&gt;Results&lt;/a&gt;
+&lt;h2 id="SctionResult"&gt;Results&lt;/h2&gt;
+        </code></pre>
+        <li>
+          Step two: create link using <span class="hl-cyan">#frag</span> feature
+        </li>
+        <pre><code class="lang-html">
+To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
+        </code></pre>
+      </ul>
     </ul>
   </section>
   <section>
@@ -686,6 +783,20 @@ I am a &lt;br /&gt; break
       The HTML <code class="hl-orange">&lt;img&gt;</code> element embeds an
       image into the document.
     </li>
+    <ul>
+      <li>
+        <code class="hl-yellow">src</code>: address of file (local or remote)
+      </li>
+      <li>
+        <code class="hl-yellow">alt</code>: alternative message shown if image
+        cannot be displayed
+      </li>
+      <li>
+        align: alignment of image with respect to text line (deprecated, is
+        controller by CSS)
+      </li>
+      <li>There is no caption for images!!!Images are inline elements</li>
+    </ul>
   </ul>
 </section>
 <section>
@@ -820,6 +931,166 @@ I am a &lt;br /&gt; break
       </ul>
     </ul>
   </section>
+  <section>
+    <ul>
+      <li>
+        A from is composed of <code class="hl-orange">input</code> elements
+      </li>
+      <li>
+        Each component has <code class="hl-yellow">type</code>,
+        <code class="hl-yellow">name</code>, and
+        <code class="hl-yellow">value</code> attributes
+      </li>
+      <ul>
+        <li>
+          <code class="hl-yellow">type</code> specifies the type of component
+        </li>
+        <li>
+          <code class="hl-yellow">name</code> is the name of the component
+        </li>
+        <li><code class="hl-yellow">value</code> (except buttons)</li>
+        <ul>
+          <li>If not empty, is the default value</li>
+        </ul>
+      </ul>
+      <li>
+        On submission,
+        <code class="hl-yellow">name</code>=<em class="hl-red">value</em>
+        (user input or default) of the components in the form are sent to server
+        (using the
+        <code class="hl-green">action</code>
+        <code class="hl-cyan">method</code>: POST, GET)
+      </li>
+      <ul>
+        <li>Server processes the values according to the names</li>
+        <li>It must know the names</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Single-line text</li>
+      <ul>
+        <li>
+          <code class="hl-yellow">type</code>=<strong class="hl-green"
+            >"text"</strong
+          >
+        </li>
+      </ul>
+      <li>Password (instead of real input, other character is shown)</li>
+      <ul>
+        <li>
+          <code class="hl-yellow">type</code>=<strong class="hl-green"
+            >"password"</strong
+          >
+        </li>
+      </ul>
+      <li>Multi-line text</li>
+      <ul>
+        <li>
+          Instead of <code class="hl-orange">&lt;input&gt;</code>, we use
+          <code class="hl-orange">&lt;textarea&gt; &lt;/textarea&gt;</code>
+        </li>
+        <li>
+          <code class="hl-yellow">cols</code> &amp;
+          <code class="hl-yellow">rows</code> specifies # of columns &amp; rows
+        </li>
+      </ul>
+      <li>name=value of component is sent to server</li>
+      <ul>
+        <li>Password in plain text format 😱</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;form action="http://127.0.0.1" method="get"&gt;
+  Search:
+  &lt;input type="text" name="txtSearch" value="" size="20" maxlength="64" /&gt;
+  &lt;br /&gt;
+  Password:
+  &lt;input type="password" name="pass" value="" size="20" maxlength="64" /&gt;
+  &lt;br /&gt;
+  Text:
+  &lt;textarea name="inputtext" cols="30" rows="3"&gt;
+Please enter your message&lt;/textarea&gt;
+    </code></pre>
+    <form action="http://127.0.0.1" method="get">
+      Search:
+      <input type="text" name="txtSearch" value="" size="20" maxlength="64" />
+      <br />
+      Password:
+      <input type="password" name="pass" value="" size="20" maxlength="64" />
+      <br />
+      Text:
+      <textarea name="inputtext" cols="30" rows="3">
+Please enter your message</textarea
+      >
+    </form>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <code class="hl-yellow">type</code>=<strong class="hl-green"
+          >"checkbox"</strong
+        >
+      </li>
+      <li>If checked, its name=value is sent to server</li>
+      <ul>
+        <li>User cannot change/enter value</li>
+        <ul>
+          <li>
+            The <span class="hl-yellow">value</span> attribute is needed in some
+            cases
+          </li>
+          <li>If not given, it is assumed <span class="hl-red">“on”</span></li>
+        </ul>
+      </ul>
+      <li>To be checked by default</li>
+      <ul>
+        <li>
+          <code class="hl-yellow">checked</code>=<strong class="hl-green"
+            >"checked"</strong
+          >
+        </li>
+      </ul>
+      <li>To draw border around a group of components</li>
+      <ul>
+        <li>
+          <code class="hl-orange">&lt;fieldset&gt; &lt;/fieldset&gt;</code>
+        </li>
+      </ul>
+      <li>To assign name to the group</li>
+      <ul>
+        <li><code class="hl-orange">&lt;legend&gt; &lt;/legend&gt;</code></li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <form action="http://www.google.com" method="get">
+      <fieldset>
+        <legend><em>Web Development Skills</em></legend>
+        <input type="checkbox" name="skill_1" value="html" />
+        HTML<br />
+        <input
+          type="checkbox"
+          name="skill_2"
+          value="xhtml"
+          checked="checked"
+        />XHTML<br />
+        <input type="checkbox" name="skill_3“ value="CSS"> CSS<br />
+        <input
+          type="checkbox"
+          name="skill_4"
+          value="JavaScript"
+        />JavaScript<br />
+        <input type="checkbox" name="skill_5“ value="aspnet" />ASP.Net<br />
+        <input type="checkbox" name="skill_6" />
+        PHP <br />
+        <input type="submit" value="Submit" />
+      </fieldset>
+    </form>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -892,7 +1163,7 @@ I am a &lt;br /&gt; break
             content separated by commas.
           </li>
         </ul>
-        <pre><code class="hl-html">
+        <pre><code class="lang-html">
 &lt;meta name="description" content="Free Web tutorials"&gt;
 &lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;
 &lt;meta name="author" content="John Doe"&gt;
@@ -915,7 +1186,7 @@ I am a &lt;br /&gt; break
           </li>
           <li>Browser simulates the behavior of the effect of the header</li>
         </ul>
-        <pre><code class="hl-html">
+        <pre><code class="lang-html">
 &lt;!-- The number of seconds until the page should redirect to another  --&gt;
 &lt;meta http-equiv="refresh" content="3;url=https://www.mozilla.org"&gt;
         </code></pre>
