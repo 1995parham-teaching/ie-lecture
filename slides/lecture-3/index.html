@@ -42,7 +42,6 @@ topics:
           Add meaning to each part of text using special predefined markup,
           E.g., It is heading, It is paragraph, It is table ...
         </li>
-        <li></li>
       </ul>
     </ul>
   </ul>
@@ -203,7 +202,7 @@ topics:
     <ul>
       <li>If tag has content, the presentation is applied to content</li>
       <pre><code class="lang-html">
-&lt;em&gt;I am important&lt;em&gt;
+&lt;em&gt;I am important&lt;/em&gt;
       </code></pre>
       <div class="box">
         <em>I am important</em>
@@ -670,6 +669,15 @@ I am a &lt;br /&gt; break
       <dd>Means salam</dd>
     </dl>
   </section>
+  <section>
+    <ul>
+      <li>
+        The HTML Content Division element (<code class="hl-orange"
+          >&lt;div&gt;</code
+        >) is the generic container for flow content.
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -1131,6 +1139,144 @@ Please enter your message</textarea
     PHP &lt;br /&gt;
     &lt;input type="submit" value="Submit" /&gt;
   &lt;/fieldset&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <code class="hl-yellow">type</code>=<strong class="hl-green"
+          >"radio"</strong
+        >
+      </li>
+      <li>
+        Only one of button can be selected in a group of buttons with the same
+        <span class="hl-yellow">name</span>
+      </li>
+      <li>
+        <span class="hl-orange">name</span>=<span class="hl-green">value</span>
+        of the selected button will sent
+      </li>
+      <li>Again, user cannot change/enter the value</li>
+      <li>
+        If the value attribute is missing, the default value is
+        <span class="hl-red">“on”</span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <form action="www.aut.ac.ir" method="get">
+      <fieldset>
+        <legend>University Grade</legend>
+        <input type="radio" name="grade" value="B" /> BS <br />
+        <input type="radio" name="grade" value="M" /> MS <br />
+        <input type="radio" name="grade" value="P" /> PhD <br />
+        <input type="radio" name="grade" value="PD" /> Post Doc <br />
+        <input type="submit" value="Submit" />
+      </fieldset>
+    </form>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;form action="www.aut.ac.ir" method="get"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;University Grade&lt;/legend&gt;
+    &lt;input type="radio" name="grade" value="B" /&gt; BS &lt;br /&gt;
+    &lt;input type="radio" name="grade" value="M" /&gt; MS &lt;br /&gt;
+    &lt;input type="radio" name="grade" value="P" /&gt; PhD &lt;br /&gt;
+    &lt;input type="radio" name="grade" value="PD" /&gt; Post Doc &lt;br /&gt;
+    &lt;input type="submit" value="Submit" /&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>Select Boxes has the same functionality of radio buttons</li>
+      <li>Created by:</li>
+      <ul>
+        <li>
+          <code class="hl-cyan"
+            >&lt;select name="selname"&gt;&lt;/select&gt;</code
+          >
+        </li>
+        <li>
+          Options are given by
+          <code class="hl-yellow"
+            >&lt;option value="val"&gt; text &lt;/option&gt;</code
+          >
+        </li>
+      </ul>
+      <li>
+        <span class="hl-orange">slename</span>=<span class="hl-green">val</span>
+        of the selected item is sent to server
+      </li>
+      <li>
+        User cannot enter value; If the value attribute is missing, the
+        <span class="hl-red">text</span> is assumed as the value
+      </li>
+    </ul>
+  </section>
+  <section>
+    <form action="http://127.0.0.1/" method="get" name="frmColors">
+      Select color:
+      <select name="selColor">
+        <option value="r">Red</option>
+        <option value="g">Green</option>
+        <option value="b">Blue</option>
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;form action="http://127.0.0.1/" method="get" name="frmColors"&gt;
+  Select color:
+  &lt;select name="selColor"&gt;
+    &lt;option value="r"&gt;Red&lt;/option&gt;
+    &lt;option value="g"&gt;Green&lt;/option&gt;
+    &lt;option value="b"&gt;Blue&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>In &lt;input&gt;</li>
+      <ul>
+        <li>type="file"</li>
+        <li>accept= A MIME type to specify default acceptable file format</li>
+      </ul>
+      <li>In &lt;form&gt;</li>
+      <ul>
+        <li>method="post"</li>
+        <li>enctype="multipart/form-data"</li>
+        <li>To encode file as MIME message</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <form
+      action="http://127.0.0.1"
+      method="post"
+      name="fromImageUpload"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="fileUpload" accept="image/*" />
+      <input type="submit" value="Submit" />
+    </form>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;form
+  action="http://127.0.0.1"
+  method="post"
+  name="fromImageUpload"
+  enctype="multipart/form-data"
+&gt;
+  &lt;input type="file" name="fileUpload" accept="image/*" /&gt;
+  &lt;input type="submit" value="Submit" /&gt;
 &lt;/form&gt;
     </code></pre>
   </section>
