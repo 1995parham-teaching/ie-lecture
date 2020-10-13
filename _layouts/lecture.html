@@ -64,7 +64,7 @@
             },
             callback: function() { toc.initToCOnLoad([
               {% for topic in page.topics %}
-                "{{ topic | escape }}",
+                "{{ topic }}",
               {% endfor %}
             ]); }
           }
