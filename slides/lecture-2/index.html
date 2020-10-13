@@ -762,31 +762,49 @@ Entity-Body
   </ul>
 </section>
 <section>
-  <h2>Entity Headers</h2>
-  <ul>
-    <li>
-      <span class="hl-orange">Content-Length</span>: The length of body (in
-      byte)
-    </li>
-    <li><span class="hl-green">Content-Type</span>: The type of entity</li>
+  <section>
+    <h2>Entity Headers</h2>
     <ul>
-      <li>MIME types: text/xml, image/gif</li>
       <li>
-        Check
-        <a
-          href="https://api.sahebcloud.ir/api/v1/slide/photo/5f691500beaad9694413b8f1"
-          >here</a
-        >
+        <span class="hl-orange">Content-Length</span>: The length of body (in
+        byte)
       </li>
+      <li><span class="hl-green">Content-Type</span>: The type of entity</li>
+      <ul>
+        <li>MIME types: text/xml, image/gif</li>
+      </ul>
+      <li>
+        <span class="hl-red">Allow</span>: The allowed request methods can be
+        performed on the entity
+      </li>
+      <ul>
+        <li>This is in response of OPTIONS method</li>
+      </ul>
     </ul>
-    <li>
-      <span class="hl-red">Allow</span>: The allowed request methods can be
-      performed on the entity
-    </li>
-    <ul>
-      <li>This is in response of OPTIONS method</li>
-    </ul>
-  </ul>
+  </section>
+  <section>
+    <p>from <q>https://avatars1.githubusercontent.com/u/8181240?v=4</q></p>
+    <img
+      style="height: 100px"
+      src="https://avatars1.githubusercontent.com/u/8181240?v=4"
+    />
+    <pre><code id="mime-example" class="lang-json"></code></pre>
+    <script>
+      fetch("https://avatars1.githubusercontent.com/u/8181240?v=4", {
+        method: "HEAD",
+      }).then(
+        (resp) =>
+          (document.getElementById("mime-example").textContent = JSON.stringify(
+            Array.from(resp.headers.entries()).reduce(
+              (o, e) => Object.assign(o, { [e[0]]: e[1] }),
+              {}
+            ),
+            null,
+            2
+          ))
+      );
+    </script>
+  </section>
 </section>
 <section>
   <h2>Extension Headers</h2>
