@@ -758,6 +758,10 @@ I am a &lt;br /&gt; break
           </li>
         </ul>
         <li>Scheme can be every supported protocol</li>
+        <ul>
+          <li>E.g. <code>mailto</code> for sending email</li>
+          <li>E.g. <code>javascript</code> to run code</li>
+        </ul>
         <li>
           By default links are opened in the same window, to open link in new
           window
@@ -765,6 +769,12 @@ I am a &lt;br /&gt; break
         <ul>
           <li>Attribute <span class="hl-yellow">target</span>="_blank"</li>
         </ul>
+        <li>
+          Everything between
+          <code class="hl-orange">&lt;a&gt; &lt;/a&gt;</code> is considered as
+          link name
+        </li>
+        <li>Avoid spaces after <code>&lt;a&gt;</code> and before &lt;/a&gt;</li>
       </ul>
     </ul>
   </section>
@@ -866,8 +876,30 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
 <section>
   <section>
     <h2>Table content</h2>
+    <ul>
+      <li>
+        Tables are created by
+        <code class="hl-orange">&lt;table&gt; &lt;/table&gt;</code>
+      </li>
+      <li>
+        Each row is created by
+        <code class="hl-orange">&lt;tr&gt; &lt;/tr&gt;</code>
+      </li>
+      <li>
+        Each column inside a row is created by
+        <code class="hl-orange">&lt;td&gt; &lt;/td&gt;</code>
+      </li>
+      <li>
+        Heading of a column is by
+        <code class="hl-orange">&lt;th&gt; &lt;/th&gt;</code>
+      </li>
+      <li>Block-level element</li>
+    </ul>
+  </section>
+  <section>
     <pre><code class="lang-html">
     &lt;table&gt;
+      &lt;caption&gt;I am a lonely table&lt;/caption&gt;
       &lt;thead&gt;
         &lt;tr&gt;
           &lt;th&gt;Head Col 0&lt;/th&gt;
@@ -889,6 +921,9 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   </section>
   <section>
     <table>
+      <caption>
+        I am a lonely table
+      </caption>
       <thead>
         <tr>
           <th>Head Col 0</th>
@@ -988,7 +1023,9 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
         </li>
         <li><code class="hl-yellow">value</code> (except buttons)</li>
         <ul>
-          <li>If not empty, is the default value</li>
+          <li>
+            If not empty, is <strong class="hl-volet">the default value</strong>
+          </li>
         </ul>
       </ul>
       <li>
@@ -1073,7 +1110,11 @@ Please enter your message</textarea
           >"checkbox"</strong
         >
       </li>
-      <li>If checked, its name=value is sent to server</li>
+      <li>
+        If checked, its
+        <span class="hl-orange">name</span>=<span class="hl-green">value</span>
+        is sent to server
+      </li>
       <ul>
         <li>User cannot change/enter value</li>
         <ul>
@@ -1162,6 +1203,8 @@ Please enter your message</textarea
         If the value attribute is missing, the default value is
         <span class="hl-red">“on”</span>
       </li>
+      <li>The value attribute is (almost always) needed</li>
+      <li>The name is the same for all choices</li>
     </ul>
   </section>
   <section>
@@ -1213,7 +1256,7 @@ Please enter your message</textarea
       </li>
       <li>
         User cannot enter value; If the value attribute is missing, the
-        <span class="hl-red">text</span> is assumed as the value
+        <span class="hl-red">"text"</span> is assumed as the value
       </li>
     </ul>
   </section>
@@ -1243,15 +1286,19 @@ Please enter your message</textarea
   </section>
   <section>
     <ul>
-      <li>In &lt;input&gt;</li>
+      <li>File Input</li>
+      <li>In <code class="hl-orange">&lt;input&gt;</code></li>
       <ul>
-        <li>type="file"</li>
-        <li>accept= A MIME type to specify default acceptable file format</li>
+        <li><code class="hl-yellow">type</code>="file"</li>
+        <li>
+          <code class="hl-yellow">accept</code>= A MIME type to specify default
+          acceptable file format
+        </li>
       </ul>
-      <li>In &lt;form&gt;</li>
+      <li>In <code class="hl-orange">&lt;form&gt;</code></li>
       <ul>
-        <li>method="post"</li>
-        <li>enctype="multipart/form-data"</li>
+        <li><code class="hl-yellow">method</code>="post"</li>
+        <li><code class="hl-yellow">enctype</code>="multipart/form-data"</li>
         <li>To encode file as MIME message</li>
       </ul>
     </ul>
@@ -1277,6 +1324,56 @@ Please enter your message</textarea
 &gt;
   &lt;input type="file" name="fileUpload" accept="image/*" /&gt;
   &lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>Buttons: &lt;button&gt; label &lt;/button&gt;</li>
+      <ul>
+        <li>
+          <code class="hl-yellow">type</code> The default behavior of the
+          button. Possible values are:
+        </li>
+        <ul>
+          <li>
+            <code class="hl-green">"submit"</code>: To submit data to server.
+          </li>
+          <li>
+            <code class="hl-green">"reset"</code>: To reset all inputs to
+            default values.
+          </li>
+          <li>
+            <code class="hl-green">"button"</code>: To run client side script.
+          </li>
+        </ul>
+      </ul>
+      <li>
+        The <code class="hl-yellow">name</code> of the button, submitted as a
+        pair with the button’s value as part of the form data.
+      </li>
+      <li>
+        Defines the <code class="hl-yellow">value</code> associated with the
+        button’s name when it’s submitted with the form data.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <form action="http://127.0.0.1/" method="get">
+      <input type="text" name="input" value="Default Value" /> <br />
+      <button type="submit">Submit Me</button><br />
+      <button type="reset">Reset</button> <br />
+      <button type="button">Click Me</button> <br />
+    </form>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;form action="http://127.0.0.1/" method="get"&gt;
+  &lt;input type="text" name="input" value="Default Value" /&gt; &lt;br /&gt;
+  &lt;input type="submit" value="Submit" /&gt; &lt;br /&gt;
+  &lt;button type="reset"&gt; Reset&lt;/button&gt; &lt;br /&gt;
+  &lt;input type="button" value="Button" /&gt; &lt;br /&gt;
+  &lt;input type="image" src="google_logo.gif" /&gt;
 &lt;/form&gt;
     </code></pre>
   </section>
@@ -1411,4 +1508,76 @@ Please enter your message</textarea
       icons for the home screen and apps on mobile devices) among other things.
     </li>
   </ul>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <h2>HTML Remarks</h2>
+  <ul>
+    <li>HTML is open source</li>
+    <ul>
+      <li>We can find how others do amazing things in web</li>
+      <li>Learning by reading the others' codes</li>
+      <ul>
+        <li>Copy/Paste is strictly prohibited (copyright)</li>
+      </ul>
+    </ul>
+    <li>HTML is not a programming language</li>
+    <ul>
+      <li>No compiler or interpreter</li>
+      <ul>
+        <li>So, what happen if there is an error?</li>
+        <ul>
+          <li>Depends on browser</li>
+          <li>Developer should check with multiple browsers</li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTML Development Toolbox</h2>
+  <ul>
+    <li>
+      <a href="http://en.wikipedia.org/wiki/List_of_HTML_editors">
+        A HTML editor
+      </a>
+    </li>
+    <ul>
+      <li>A simple text editor e.g. notepad :-P, …</li>
+      <li>HTML source code editor (syntax highlight, …) E.g. Aptana, ….</li>
+      <li>
+        WYSIWYG editors (you have not work with tags) E.g. MS. FrontPage, Word
+        (export to HTML), …
+      </li>
+    </ul>
+    <li>A rendering software</li>
+    <ul>
+      <li>Common browsers Try different browsers</li>
+    </ul>
+    <li>Additional debugging tools</li>
+  </ul>
+</section>
+<section>
+  <li>HTML Debugging</li>
+  <ul>
+    <li>Browser reads HTML document</li>
+    <ul>
+      <li>Parses its tree</li>
+      <li>Document Object Model (DOM) tree</li>
+      <ul>
+        <li>Shows how browser interprets your HTML file</li>
+      </ul>
+    </ul>
+    <li>Google Chrome <strong>Inspect Element</strong></li>
+    <li>Firefox Developer Edition</li>
+  </ul>
+</section>
+<section>
+  <h2>References</h2>
+  <ol>
+    <li>Prof. Bahador Bakhshi Internet Eng.</li>
+    <li>https://developer.mozilla.org/en-US/docs/Web/HTML</li>
+  </ol>
 </section>
