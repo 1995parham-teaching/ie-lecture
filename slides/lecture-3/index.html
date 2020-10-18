@@ -1033,7 +1033,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
         <code class="hl-yellow">name</code>=<em class="hl-red">value</em>
         (user input or default) of the components in the form are sent to server
         (using the
-        <code class="hl-green">action</code>
+        <code class="hl-green">action</code> and
         <code class="hl-cyan">method</code>: POST, GET)
       </li>
       <ul>
@@ -1147,7 +1147,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://www.google.com" method="get">
+    <form action="http://127.0.0.1" method="get">
       <fieldset>
         <legend><em>Web Development Skills</em></legend>
         <input type="checkbox" name="skill_1" value="html" />
@@ -1166,7 +1166,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://www.google.com" method="get"&gt;
+&lt;form action="http://127.0.0.1" method="get"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;&lt;em&gt;Web Development Skills&lt;/em&gt;&lt;/legend&gt;
     &lt;input type="checkbox" name="skill_1" value="html" /&gt;
@@ -1264,7 +1264,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://127.0.0.1/" method="get" name="frmColors">
+    <form action="http://127.0.0.1/" method="get">
       Select color:
       <select name="selColor">
         <option value="r">Red</option>
@@ -1276,7 +1276,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://127.0.0.1/" method="get" name="frmColors"&gt;
+&lt;form action="http://127.0.0.1/" method="get"&gt;
   Select color:
   &lt;select name="selColor"&gt;
     &lt;option value="r"&gt;Red&lt;/option&gt;
@@ -1302,17 +1302,16 @@ Please enter your message</textarea
       <ul>
         <li><code class="hl-yellow">method</code>="post"</li>
         <li><code class="hl-yellow">enctype</code>="multipart/form-data"</li>
-        <li>To encode file as MIME message</li>
+        <li>
+          The type that allows file
+          <code class="hl-orange">&lt;input&gt;</code> element(s) to upload file
+          data.
+        </li>
       </ul>
     </ul>
   </section>
   <section>
-    <form
-      action="http://127.0.0.1"
-      method="post"
-      name="fromImageUpload"
-      enctype="multipart/form-data"
-    >
+    <form action="http://127.0.0.1" method="post" enctype="multipart/form-data">
       <input type="file" name="fileUpload" accept="image/*" />
       <input type="submit" value="Submit" />
     </form>
@@ -1322,7 +1321,6 @@ Please enter your message</textarea
 &lt;form
   action="http://127.0.0.1"
   method="post"
-  name="fromImageUpload"
   enctype="multipart/form-data"
 &gt;
   &lt;input type="file" name="fileUpload" accept="image/*" /&gt;
