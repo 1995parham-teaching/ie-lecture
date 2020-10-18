@@ -1089,6 +1089,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   Text:
   &lt;textarea name="inputtext" cols="30" rows="3"&gt;
 Please enter your message&lt;/textarea&gt;
+&lt;/form&gt;
     </code></pre>
     <form action="http://127.0.0.1" method="get">
       Search:
@@ -1254,9 +1255,11 @@ Please enter your message</textarea
         <span class="hl-orange">slename</span>=<span class="hl-green">val</span>
         of the selected item is sent to server
       </li>
+      <li>User cannot enter value</li>
       <li>
-        User cannot enter value; If the value attribute is missing, the
-        <span class="hl-red">"text"</span> is assumed as the value
+        If <code class="hl-yellow">value</code>
+        attribute is omitted, the value is taken from the text content of the
+        <code class="hl-orange">option</code> element.
       </li>
     </ul>
   </section>
@@ -1370,10 +1373,9 @@ Please enter your message</textarea
     <pre><code class="lang-html">
 &lt;form action="http://127.0.0.1/" method="get"&gt;
   &lt;input type="text" name="input" value="Default Value" /&gt; &lt;br /&gt;
-  &lt;input type="submit" value="Submit" /&gt; &lt;br /&gt;
-  &lt;button type="reset"&gt; Reset&lt;/button&gt; &lt;br /&gt;
-  &lt;input type="button" value="Button" /&gt; &lt;br /&gt;
-  &lt;input type="image" src="google_logo.gif" /&gt;
+  &lt;button type="submit"&gt;Submit Me&lt;/button&gt;&lt;br /&gt;
+  &lt;button type="reset"&gt;Reset&lt;/button&gt; &lt;br /&gt;
+  &lt;button type="button"&gt;Click Me&lt;/button&gt; &lt;br /&gt;
 &lt;/form&gt;
     </code></pre>
   </section>
