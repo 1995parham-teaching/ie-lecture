@@ -356,6 +356,7 @@ h1, h2, h3, h4, h5, h6 {
   </ul>
 </section>
 <section>
+  <h2>Element Selector</h2>
   <pre><code class="lang-html">
 &lt;head&gt;
   &lt;style type="text/css"&gt;
@@ -369,5 +370,272 @@ h1, h2, h3, h4, h5, h6 {
   &lt;h1&gt; Testing Element Selector &lt;/h1&gt;
   &lt;p&gt; This is a paragraph &lt;/p&gt;
 &lt;/body&gt;
-</code></pre>
+  </code></pre>
+</section>
+<section>
+  <h2><code class="hl-yellow">id</code> Selector</h2>
+  <ul>
+    <li>Assign ID to elements</li>
+    <pre><code class="lang-html">
+&lt;h2 id="blue_heading"&gt; This is blue heading &lt;/h2&gt;
+&lt;h2 id="red_heading"&gt; This is red heading &lt;/h2&gt;
+    </code></pre>
+    <li>Define style for each ID</li>
+    <pre><code class="lang-css">
+#blue_heading {color:blue;}
+#red_heading {color:red;}
+    </code></pre>
+  </ul>
+</section>
+<section>
+  <h2><code class="hl-yellow">class</code> Selector</h2>
+  <ul>
+    <li>Assign class to element</li>
+    <pre><code class="lang-html">
+&lt;h3 class="blue_heading"&gt; This is blue heading 1&lt;/h3&gt;
+&lt;h3 class="red_heading"&gt; This is red heading 1&lt;/h3&gt;
+&lt;h3 class="blue_heading"&gt; This is blue heading 2&lt;/h3&gt;
+&lt;h3 class="red_heading"&gt; This is red heading 2&lt;/h3&gt;
+    </code></pre>
+    <li>Define style of each class</li>
+    <pre><code class="lang-css">
+.blue_heading {color:blue;}
+.red_heading {color:red;}
+    </code></pre>
+  </ul>
+</section>
+<section>
+  <h2>Combined Element & Class Selector</h2>
+  <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  .all {color: blue;}
+  h2.all {color: red;}
+  h3.all {color: black;}
+&lt;/style&gt;
+
+&lt;h1 class="all"&gt; Heading 1 &lt;/h1&gt;
+&lt;h2 class="all"&gt; Heading 2 &lt;/h2&gt;
+&lt;h3 class="all"&gt; Heading 3 &lt;/h3&gt;
+&lt;h4 class="all"&gt; Heading 4 &lt;/h4&gt;
+&lt;h5 class="all"&gt; Heading 5 &lt;/h5&gt;
+  </code></pre>
+</section>
+<section>
+  <h2>Multiple Classes</h2>
+  <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  .red {color:red;}
+  .bold {font-weight:bold;}
+&lt;/style&gt;
+
+&lt;body&gt;
+  &lt;p class="red"&gt; This is a red paragraph &lt;/p&gt;
+  &lt;p class="bold"&gt; This is a bold paragraph &lt;/p&gt;
+  &lt;p class="red bold"&gt; This is a red-bold paragraph &lt;/p&gt;
+&lt;/body&gt;
+  </code></pre>
+</section>
+<section>
+  <h2>
+    <code class="hl-orange">&lt;div&gt;</code> and
+    <code class="hl-orange">&lt;span&gt;</code> in CSS
+  </h2>
+  <ul>
+    <li>HTML:</li>
+    <pre><code class="lang-html">
+&lt;div class="green_color"&gt;
+This is a green div. But, &lt;span id="red_color"&gt; this is red &lt;/span&gt; using span.
+&lt;/div&gt;
+    </code></pre>
+    <li>CSS</li>
+    <pre><code class="lang-css">
+.green_color {
+  color:green;
+  font-weight:bold;
+}
+#red_color {color:red;}
+    </code></pre>
+  </ul>
+</section>
+<section>
+  <h2>Attribute Selector</h2>
+  <pre><code class="lang-html">
+&lt;p&gt; A paragraph without "id" attribute &lt;/p&gt;
+&lt;p myid="test1"&gt; A paragraph with id=test1 &lt;/p&gt;
+&lt;p myid="test2"&gt; A paragraph with id=test2 &lt;/p&gt;
+&lt;p myid="test3"&gt; A paragraph with id=test3 &lt;/p&gt;
+  </code></pre>
+  <pre><code class="lang-css">
+p[myid] {color:red}
+p[myid="test3"] {color:blue}
+  </code></pre>
+</section>
+<section>
+  <h2>Pseudo-Classes</h2>
+  <ul>
+    <li>HTML elements have states</li>
+    <ul>
+      <li>(Almost) all elements: mouse over, clicked, ...</li>
+      <li>&lt;a&gt;: Normal (Unvisited), Visited, ...</li>
+    </ul>
+    <li>Pseudo-classes are used to style the states</li>
+    <ul>
+      <li>active, first-child, last-child, ...</li>
+    </ul>
+    <li>E.g.</li>
+    <pre><code class="lang-css">
+a:link {color:#FF0000}
+a:visited {color:#00FF00}
+p:hover {color:#FF00FF} 
+a:active {color:#FFFFFF} 
+    </code></pre>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Pseudo-Elements</h2>
+    <ul>
+      <li>first-letter (in heading &amp; paragraph)</li>
+      <pre><code class="lang-css">
+p::first-letter {font-size: 200%;}
+    </code></pre>
+      <li>first-line (in paragraph)</li>
+      <pre><code class="lang-css">
+p::first-line {color: red;}
+    </code></pre>
+      <li>selection</li>
+      <pre><code class="lang-css">
+::selection {font-size: 2em;}
+    </code></pre>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>before &amp; after</li>
+      <ul>
+        <li>
+          Mainly used with
+          <code class="lang-css">{ content: url(something); }</code>
+          to insert an object before &amp; after and element
+        </li>
+      </ul>
+      <pre><code class="lang-css">
+.google::after{
+  content: url("google_logo.gif");
+}
+    </code></pre>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Pseudo-Classes/Elements (Contd.)</h2>
+  <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  p code:first-child {color: blue;}
+  p:first-letter {font-size: 200%;}
+  p:first-line {color: red;}
+  .google:after{content:url("google_logo.gif");}
+&lt;/style&gt;
+
+&lt;p&gt;
+  This is the first &lt;code&gt; code &lt;/code&gt;,
+  this is second &lt;code&gt; code &lt;/code&gt;. &lt;br /&gt;
+  &lt;span class="google"&gt;Google&lt;/span&gt;
+  is a big company.
+&lt;/p&gt;
+  </code></pre>
+  <img src="./img/peseudo.png" />
+</section>
+<section>
+  <h2>DOM based: Child Selector</h2>
+  <ul>
+    <li>When we want to select elements which are inside other elements</li>
+    <li>
+      To select a (direct) child of parent parent &gt; child {property: value;}
+    </li>
+  </ul>
+
+  <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  ol {color: red;}
+  ol &gt; li {color: blue;}
+&lt;/style&gt;
+
+&lt;ol&gt;
+  &lt;li&gt; Item 1 &lt;/li&gt;
+  &lt;ul&gt; &lt;li&gt; Netsted 1&lt;/li&gt; &lt;/ul&gt;
+  &lt;li&gt; Item 2 &lt;/li&gt;
+  &lt;dl&gt; &lt;dt&gt; def: &lt;dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/ol&gt;
+  </code></pre>
+  <img src="./img/child-selector.png" />
+</section>
+<section>
+  <h2>DOM based: Descendant Selector</h2>
+  <ul>
+    <li>To select descendant of a tag tag descendant {property: value;}</li>
+  </ul>
+  <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  ol {color: red;}
+  ol li {color: blue;}
+&lt;/style&gt;
+
+&lt;ol&gt;
+  &lt;li&gt; Item 1 &lt;/li&gt;
+  &lt;ul&gt; &lt;li&gt; Netsted 1&lt;/li&gt; &lt;/ul&gt;
+  &lt;li&gt; Item 2 &lt;/li&gt;
+  &lt;dl&gt; &lt;dt&gt; def: &lt;dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/ol&gt;
+  </code></pre>
+  <img src="./img/descendant-selector.png" />
+</section>
+<section>
+  <h2>DOM based: Sibling Selector</h2>
+  <ul>
+    <li>When we want to select elements which are next to other elements</li>
+    <li>To select tag2 which is immediate successive sibling of tag1</li>
+    <pre><code class="lang-css">
+tag1 + tag2 {property: value;}
+    </code></pre>
+    <li>To select tag2 which is a successive sibling of tag1</li>
+    <pre><code class="lang-css">
+tag1 ~ tag2 {property: value;}
+    </code></pre>
+  </ul>
+</section>
+<section>
+  <h2>DOM based: Sibling Selector</h2>
+  <pre><code class="lang-css">
+h2+p {color:red;}
+h3~p {color:green;}
+  </code></pre>
+
+  <pre><code class="lang-html">
+&lt;h2&gt; Heading 2 &lt;/h2&gt;
+&lt;p&gt; Next sibling of h2 &lt;/p&gt;
+&lt;p&gt; Another sibling of h2 &lt;/p&gt;
+
+&lt;h3&gt; Heading 3 &lt;/h3&gt;
+&lt;p&gt; Next sibling of h3 &lt;/p&gt;
+&lt;p&gt; Another sibling of h3 &lt;/p&gt;
+  </code></pre>
+  <img src="./img/sibling-selector.png" />
+</section>
+<section>
+  <h2>CSS Selectors Summary</h2>
+  <ul>
+    <li>*: universal selector (all elements)</li>
+    <li>HTML Tags: h1, …, h6, p, li, table, tr, …</li>
+    <li>Class: .</li>
+    <li>ID: #</li>
+    <li>General attribute: []</li>
+    <li>Child: &gt;</li>
+    <li>Descendant: (space)</li>
+    <li>Sibling: + ~</li>
+    <li>Pseudo-class: active, hover, …</li>
+    <li>Pseudo-element: first-child, before, after, …</li>
+  </ul>
 </section>
