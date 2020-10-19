@@ -1,0 +1,373 @@
+---
+index: 4
+title: CSS
+topics:
+  - Introduction
+  - Style Types
+  - Selectors
+  - Cascading
+  - Box-Model
+  - Layout Design
+  - Miscellaneous
+  - CSS Tools
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>Introduction</h2>
+  <ul>
+    <li>HTML: Structure of web pages; moreover</li>
+    <ul>
+      <li>HTML elements have a default presentation</li>
+      <li>
+        Some elements and attributes are used for presentation (physical
+        formatting)
+      </li>
+    </ul>
+
+    <pre><code class="lang-html">&lt;em&gt;&lt;font size=10 color=red&gt; test &lt;/font&gt;&lt;/em&gt;</code></pre>
+    <li>No reusability</li>
+    <ul>
+      <li>Tremendous repeated formatting tags</li>
+    </ul>
+    <li>Structure and Formatting mixed up mess</li>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Contd.)</h2>
+  <ul>
+    <li>(in XHTML) Separation between</li>
+    <ul>
+      <li>Content &amp; Structure</li>
+      <li>Presentation</li>
+    </ul>
+    <li>Content &amp; Structure are specified by XHTML tags</li>
+    <ul>
+      <li>
+        Cascading Style Sheet (CSS) defines the presentation and style of web
+        pages
+      </li>
+      <ul>
+        <li>How elements are presented in web pages!!</li>
+        <li>Override the default presentation of elements</li>
+        <ul>
+          <li>
+            CSS is optional, if presentation is not specified, browser uses its
+            own default presentation for HTML elements
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Contd.)</h2>
+  <ul>
+    <li>Created by Hakon Wium Lie of MIT in 1994</li>
+    <li>
+      The W3C standards (CSS 1,2,3,4) to control visual presentation of web
+      pages
+    </li>
+    <li>Uses a different syntax than HTML/XHTML</li>
+    <ul>
+      <li>A different language</li>
+    </ul>
+    <li>Works with the common visual browsers</li>
+    <li>
+      Greatly simplifies visual design, site management and content maintenance
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Introduction (Contd.)</h2>
+  <ul>
+    <li>Advantages</li>
+    <ul>
+      <li>Reuse styling rules in multiple pages</li>
+      <ul>
+        <li>Make easier site management</li>
+        <li>Saves time</li>
+      </ul>
+      <li>More control over layout</li>
+      <li>Styles + JavaScript dynamic presentation</li>
+      <li>Multiple presentation of the same content</li>
+      <li>Media dependent presentation</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>CSS Styles</h2>
+  <ul>
+    <li>Styles are defined by rules</li>
+    <ul>
+      <li>Selector + Declaration block (property + value)</li>
+    </ul>
+    <li>General structure of style rules</li>
+  </ul>
+  <pre><code class="lang-css">
+selector1, ..., selectorN {
+  property1: value1, ..., valueN;
+  property2: value1, ..., valueN;
+  ...
+  /* this is comment */
+}
+  </code></pre>
+  <img src="./img/css-structure.gif" />
+</section>
+<section>
+  <h2>Selectors</h2>
+  <ul>
+    <li>Tag based</li>
+    <li>Class based</li>
+    <li>ID based</li>
+    <li>DOM tree based</li>
+    <li>Attribute based</li>
+    <li>…</li>
+    <li>We will discuss later in more details</li>
+  </ul>
+</section>
+<section>
+  <h2>Sample Properties</h2>
+  <ul>
+    <li>Font:</li>
+    <ul>
+      <li>font-family</li>
+      <li>font-size</li>
+      <li>font-style</li>
+    </ul>
+    <li>Text:</li>
+    <ul>
+      <li>text-align</li>
+      <li>color</li>
+      <li>letter-spacing</li>
+      <li>word-spacing</li>
+    </ul>
+    <li>Background:</li>
+    <ul>
+      <li>background-color</li>
+      <li>background-image</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Sample Properties (Contd.)</h2>
+  <ul>
+    <li>Table</li>
+    <ul>
+      <li>spacing</li>
+      <li>color</li>
+      <li>alignment</li>
+    </ul>
+    <li>List</li>
+    <ul>
+      <li>style</li>
+      <li>style-image</li>
+    </ul>
+    <li>Box Model</li>
+    <ul>
+      <li>border-color, border-style, border-width</li>
+      <li>width, ...</li>
+      <li>background-color, ...</li>
+    </ul>
+    <li>Position: bottom, left, right, ...</li>
+  </ul>
+</section>
+<section>
+  <h2>Values</h2>
+  <ul>
+    <li>Values depend on property</li>
+    <li>Predefined keywords</li>
+    <ul>
+      <li>left, right, italic, none, ...</li>
+    </ul>
+    <li>Color</li>
+    <ul>
+      <li>red, green, blue, ...</li>
+      <li>
+        #<span class="hl-red">XX</span><span class="hl-green">YY</span
+        ><span class="hl-cyan">ZZ</span> where 00 &lt;= XX,YY,ZZ &lt;=FF
+      </li>
+      <li>
+        rgb(<span class="hl-red">XX</span>, <span class="hl-green">YY</span>,
+        <span class="hl-cyan">ZZ</span>) where 0 &lt;= XX,YY,ZZ &lt;=255
+      </li>
+      <li>...</li>
+    </ul>
+    <li>Size &amp; Length &amp; Font-size &amp; ...</li>
+    <ul>
+      <li>Absolute: cm, in, mm, pt, px, …</li>
+      <li>
+        Relative: %, em, ex, rem, vw, vh, vmin, vmax, … (we discuss later)
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <h2>Inline Styles</h2>
+  <ul>
+    <li>Add styles to each tag within HTML file</li>
+    <ul>
+      <li>Used to format a single HTML element</li>
+      <li>Selector is implicitly specified</li>
+      <li>Style is given as an attribute</li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;h1 style="color:red; font-family: sans-sarif"&gt;Test Heading 1&lt;/h1&gt;
+    </code></pre>
+    <li>Element based</li>
+    <ul>
+      <li>Hard to update</li>
+      <li>Violates structure-style sepration</li>
+      <li>(Only for) styling exceptional element</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Internal (embed) Styles</h2>
+  <ul>
+    <li>A style is used in the entire HTML file</li>
+    <li>
+      Used to control style of elements (e.g. all h1) in a single web page
+    </li>
+  </ul>
+  <pre><code class="lang-html">
+&lt;head&gt;
+  &lt;style type="text/css"&gt;
+  h1 {
+    color: red;
+    font-family: sans-serif;
+  }
+  &lt;/style&gt;
+&lt;/head&gt;
+  </code></pre>
+</section>
+<section>
+  <h2>External Styles</h2>
+  <ul>
+    <li>A text file containing style rules</li>
+    <li>Used to control style in multiple web pages</li>
+    <li>Example</li>
+    <ul>
+      <li>A text document with <code>.css</code> extension contains</li>
+      <pre><code class="lang-css">
+h1, h2, h3, h4, h5, h6 {
+  color: #FF0000;
+  font-family: sans-serif;
+}
+      </code></pre>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>External Styles (Contd.)</h2>
+  <ul>
+    <li>
+      External style file is used in HTML web page through linking it to the web
+      page
+    </li>
+  </ul>
+  <pre><code class="lang-html">
+&lt;head&gt;
+  &lt;title&gt;External CSS&lt;/title&gt;
+  &lt;link href="external_css.css" rel="stylesheet" type="text/css" /&gt;
+&lt;/head&gt;
+  </code></pre>
+</section>
+<section>
+  <h2>External Styles Advantages</h2>
+  <ul>
+    <li>Avoid repeating styles for each page</li>
+    <ul>
+      <li>It is easier to update whole site</li>
+    </ul>
+    <li>CSS can be cached independent of HTML</li>
+    <li>Different style sheets can be attached to the same document</li>
+    <ul>
+      <li>Personalized &amp; Customization &amp; Media dependent</li>
+    </ul>
+    <li>A style sheet can import and use styles from other style sheets</li>
+  </ul>
+</section>
+<section>
+  <h2>Media Depended Presentation</h2>
+  <ul>
+    <li>Web page presentation can be depended on media</li>
+    <li>Available media types</li>
+    <pre><code class="lang-html">
+&lt;style type="text/css" media="screen"&gt;
+&lt;link rel="stylesheet" href="style.css" media="all"&gt;
+    </code></pre>
+    <ul>
+      <li>all</li>
+      <li>screen</li>
+      <li>print</li>
+      <li>...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Media Depended Presentation</h2>
+  <img src="./img/media-css-1.png" />
+  <img src="./img/media-css-2.png" />
+</section>
+<section>
+  <h2>Media Depended Presentation</h2>
+  <img src="./img/media-css-3.png" />
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <h2>CSS Selectors</h2>
+  <ul>
+    <li>*: universal selector (all elements)</li>
+    <li>HTML Tags</li>
+    <li>Attribute based</li>
+    <ul>
+      <li>Special attributes</li>
+      <ul>
+        <li>Class based: per-class style</li>
+        <li>ID based: per-element styles</li>
+        <li>In combination with tag names</li>
+      </ul>
+      <li>In general attribute name, value, ...</li>
+    </ul>
+    <li>DOM tree based</li>
+    <ul>
+      <li>Child &amp; Descendant, Sibling, ...</li>
+    </ul>
+    <li>Pseudo-class &amp; Pseudo-element</li>
+  </ul>
+</section>
+<section>
+  <ul>
+    <li>
+      We may not need all these selectors at the beginning; however, they are
+      powerful tools that simplify complex CSS rules
+    </li>
+  </ul>
+</section>
+<section>
+  <pre><code class="lang-html">
+&lt;head&gt;
+  &lt;style type="text/css"&gt;
+    * {color: blue}
+    h1 {text-decoration: underline}
+    p {font-style: italic}
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt; Testing Element Selector &lt;/h1&gt;
+  &lt;p&gt; This is a paragraph &lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+</section>
