@@ -530,6 +530,7 @@ a:active {color:#FFFFFF} 
   <section>
     <h2>Pseudo-Elements</h2>
     <ul>
+      <li>lets you style a specific part of the selected element(s).</li>
       <li>first-letter (in heading &amp; paragraph)</li>
       <pre><code class="lang-css">
 p::first-letter {font-size: 200%;}
@@ -706,4 +707,124 @@ h3~p {color:green;}
     </p>
   </div>
 </section>
-<section></section>
+<section>
+  <section>
+    <h2>Cascading (Contd.)</h2>
+    <p>test.css</p>
+    <pre><code class="lang-css">
+p {
+  font-style: italic;
+}
+    </code></pre>
+    <p>index.html</p>
+    <pre><code class="lang-html">
+&lt;head&gt;
+  &lt;link href="test.css"
+   rel="stylesheet"
+   type="text/css" /&gt;
+  &lt;style type="text/css"&gt;
+    p {color: blue;}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt; Test Text 1&lt;/p&gt;
+  &lt;p style="font-weight: bold;"&gt; Test Text 2 &lt;/p&gt;
+&lt;/body&gt;
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/cascading-example-1.png" />
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Inheritance</h2>
+    <ul>
+      <li>HTML document is interpreted as a tree</li>
+      <ul>
+        <li>DOM tree</li>
+      </ul>
+      <li>Children inherit some styles from their parent</li>
+      <ul>
+        <li>Not all properties, e.g. border</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-css">
+p {font-style: italic;}
+code {color: red;}
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/cascading-example-2.png" />
+  </section>
+</section>
+<section>
+  <h2>Conflicting Styles &amp; Overriding</h2>
+  <ul>
+    <li>
+      What happen if multiple style rules specify different values for the same
+      property of an element?
+    </li>
+    <ul>
+      <ul>
+        <li>
+          External style:
+          <pre><code class="lang-css">p {color: red}</code></pre>
+        </li>
+        <li>
+          Internal style:
+          <pre><code class="lang-css">p {color: blue}</code></pre>
+        </li>
+      </ul>
+      <li>They are conflicting</li>
+    </ul>
+    <li>What is the final rule?</li>
+    <ul>
+      <li>It depends on</li>
+      <ul>
+        <li>Rule types, order, …</li>
+      </ul>
+      <li>Specified by the overriding algorithm</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Overriding</h2>
+  <ul>
+    <li>In general,</li>
+    <ul>
+      <li>Priority 1: more specific (increase by specificity)</li>
+      <ol>
+        <li>
+          <ul>
+            <li>Type selectors (e.g., <code>h1</code>)</li>
+            <li>pseudo-elements (e.g., <code>::before</code>).</li>
+          </ul>
+        </li>
+        <li>
+          <ul>
+            <li>Class selectors (e.g., <code>.example</code>)</li>
+            <li>attributes selectors (e.g., <code>[type="radio"]</code>)</li>
+            <li>pseudo-classes (e.g., <code>:hover</code>)</li>
+          </ul>
+        </li>
+        <li>ID selectors (e.g., <code>#example</code>).</li>
+        <li>Inline</li>
+      </ol>
+    </ul>
+  </ul>
+</section>
+<section>
+  <img src="img/specifishity.png" />
+</section>
+<section>
+  <h2>Overriding</h2>
+  <ul>
+    <li>
+      Priority 2: more closer to the element if they are specific as the same as
+      each other (e.g., both are id selector)
+    </li>
+  </ul>
+</section>
