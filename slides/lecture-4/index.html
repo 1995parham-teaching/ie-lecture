@@ -524,6 +524,13 @@ a:visited {color:#00FF00}
 p:hover {color:#FF00FF} 
 a:active {color:#FFFFFF} 
     </code></pre>
+    <pre><code class="lang-css">
+/* Selects any <p> that is the first element
+   among its siblings */
+p:first-child {
+  color: lime;
+}
+    </code></pre>
   </ul>
 </section>
 <section>
@@ -568,7 +575,7 @@ p::first-line {color: red;}
     <h2>Pseudo-Classes/Elements (Contd.)</h2>
     <pre><code class="lang-html">
 &lt;style type="text/css"&gt;
-  p code::first-child {color: blue;}
+  p code:first-child {color: blue;}
   p::first-letter {font-size: 200%;}
   p::first-line {color: red;}
   .google::after{content:url("google_logo.gif");}
@@ -795,7 +802,10 @@ code {color: red;}
   <ul>
     <li>In general,</li>
     <ul>
-      <li>Priority 1: more specific (increase by specificity)</li>
+      <li>
+        Priority 1: more <span class="hl-orange">specific</span> (increase by
+        specificity)
+      </li>
       <ol>
         <li>
           <ul>
@@ -823,8 +833,73 @@ code {color: red;}
   <h2>Overriding</h2>
   <ul>
     <li>
-      Priority 2: more closer to the element if they are specific as the same as
-      each other (e.g., both are id selector)
+      Priority 2: more <span class="hl-orange">closer</span> to the element if
+      they are specific as the same as each other (e.g., both are id selector)
     </li>
+    <ul>
+      <li>Inline &gt; Internal</li>
+      <li>Inline &gt; External</li>
+      <li>Internal &lt;?&gt; External</li>
+      <ul>
+        <li>The style that comes after the other</li>
+      </ul>
+    </ul>
+    <li>styles override more general styles</li>
+    <ul>
+      <li>Children’s style overrides parent’s style</li>
+    </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>Overriding (Contd.)</h2>
+    <pre><code class="lang-html">
+&lt;style type="text/css"&gt;
+  p {
+    color: red;
+  }
+  p.c {
+    color: blue;
+  }
+  p#i {
+    color: green;
+  }
+&lt;/style&gt;
+
+&lt;p class="c" id="i" style="color: black"&gt;This is test&lt;/p&gt;
+&lt;p class="c" id="i"&gt;This is test&lt;/p&gt;
+&lt;p class="c"&gt;This is test&lt;/p&gt;
+&lt;p&gt;This is test&lt;/p&gt;
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/overriding-example.png" />
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Overriding (Contd.)</h2>
+    <ul>
+      <li>To prevent overriding, add <code>!important</code></li>
+      <li>
+        Be careful: inherited properties are overridden even if they are
+        important
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;style&gt;
+h1{font-style: italic;
+color: blue !important}
+&lt;/style&gt;
+
+&lt;h1&gt; Heading 1 &lt;/h1&gt;
+&lt;h1 style="font-style: normal;color: red"&gt;Heading 1&lt;/h1&gt;
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/important-example.png" />
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
 </section>
