@@ -525,7 +525,7 @@ p:hover {color:#FF00FF} 
 a:active {color:#FFFFFF} 
     </code></pre>
     <pre><code class="lang-css">
-/* Selects any <p> that is the first element
+/* Selects any &lt;p&gt; that is the first element
    among its siblings */
 p:first-child {
   color: lime;
@@ -827,7 +827,7 @@ code {color: red;}
   </ul>
 </section>
 <section>
-  <img src="img/specifishity.png" />
+  <img src="img/specifishity.png" style="height: 800px" />
 </section>
 <section>
   <h2>Overriding</h2>
@@ -902,4 +902,289 @@ color: blue !important}
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <h2>CSS Box Model</h2>
+  <ul>
+    <li>Each HTML element is a box</li>
+    <ul>
+      <li>Content</li>
+      <li>Padding</li>
+      <li>Border</li>
+      <li>Margin</li>
+    </ul>
+  </ul>
+  <img src="./img/box-model.png" style="height: 400px" />
+</section>
+<section>
+  <h2>CSS Box Model Properties</h2>
+  <ul>
+    <li>Borders</li>
+    <ul>
+      <li>Color, Width, Style, ...</li>
+      <li>Individual or altogether</li>
+    </ul>
+    <li>Spaces (Padding &amp; Margins)</li>
+    <ul>
+      <li>Individual or altogether</li>
+    </ul>
+    <li>Content</li>
+    <ul>
+      <li>Dimensions</li>
+      <ul>
+        <li>
+          But, are <span class="hl-red">NOT</span> applicable for inline
+          elements
+        </li>
+      </ul>
+      <li>Background</li>
+      <ul>
+        <li>Color</li>
+        <li>Image</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>CSS Box Model (Contd.)</h2>
+    <ul>
+      <li>Border</li>
+      <ul>
+        <li>
+          <code>border-left</code>, <code>border-right</code>,
+          <code>border-bottom</code>, <code>border-top</code>
+        </li>
+        <li><code>border</code>: All borders</li>
+      </ul>
+      <li>Padding</li>
+      <ul>
+        <li>
+          <code>padding-left</code> , <code>padding-right</code> ,
+          <code>padding-top</code> , <code>padding-bottom</code>
+        </li>
+        <li><code>padding</code>: All padding</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Margin</li>
+      <ul>
+        <li>
+          <code>margin-left</code> , <code>margin-right</code> ,
+          <code>margin-top</code>, <code>margin-bottom</code>
+        </li>
+        <li><code>margin</code>: All margins</li>
+        <li>
+          Centering block elements:
+          <pre><code class="lang-css">margin-left: auto; margin-right: auto;</code></pre>
+        </li>
+      </ul>
+      <li>Content (dimensions)</li>
+      <ul>
+        <li>
+          <code>width</code>, <code>height</code>, <code>max-width</code>, …
+        </li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>CSS Box Model (Contd.)</h2>
+  <pre><code class="lang-css">
+.demo.1 {
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+  margin-left:0.5cm;
+  padding-left:3cm;
+  margin-right:3cm;
+  padding-right:0.5cm;
+}
+  </code></pre>
+  <pre><code class="lang-html">
+This is the &lt;span class="demo one"&gt;first box&lt;/span&gt;, and this is the
+&lt;span class="demo one"&gt;second box&lt;/span&gt;
+  </code></pre>
+  <style>
+    .demo.one {
+      border-style: solid;
+      border-width: 3px;
+      border-color: black;
+      margin-left: 0.5cm;
+      padding-left: 3cm;
+      margin-right: 3cm;
+      padding-right: 0.5cm;
+    }
+  </style>
+  This is the <span class="demo one">first box</span>, and this is the
+  <span class="demo one">second box</span>
+</section>
+<section>
+  <h2>Vertical Margin Collapse</h2>
+  <div style="display: flex">
+    <ul>
+      <li>
+        When a bottom margin of one element meets the top margin of another,
+        only the larger of the two will show
+      </li>
+      <li>
+        This only applies to vertical margins; the same is not true for left and
+        right margins
+      </li>
+    </ul>
+    <img src="./img/vertical-margin-collapse.png" />
+  </div>
+</section>
+<section
+  data-background-image="./img/linux.jpg"
+  data-background-position="center"
+>
+  <style>
+    p.demo.two {
+      background-color: white;
+      font-size: 3em;
+    }
+    p#red {
+      width: 50%;
+      border-style: solid;
+      border-width: 8px;
+      border-color: white;
+      background-color: #cf0000;
+    }
+  </style>
+  <p class="demo two">This is a normal paragraph.</p>
+  <p class="demo two" id="red">This is the red paragraph.</p>
+</section>
+<section>
+  <h2>Content: Background</h2>
+  <pre><code class="lang-css">
+body{
+  background-image: url("linux.jpg");
+}
+p {
+  background-color: white;
+  font-size: 3em;
+}
+p#red{
+  width: 50%;
+  border-style: solid;
+  border-width: 8px;
+  border-color: white;
+  background-color: #CF0000;
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Content: Background Image</h2>
+  <ul>
+    <li>Background image repetition</li>
+    <ul>
+      <li><code>background-repeat</code></li>
+      <ul>
+        <li><code>repeat (default)</code></li>
+        <li><code>no-repeat</code></li>
+        <li><code>repeat-x</code></li>
+        <li><code>repeat-y</code></li>
+      </ul>
+    </ul>
+    <li>Avoid background image scrolling</li>
+    <ul>
+      <li><code>background-attachment: fixed</code></li>
+    </ul>
+    <li>Background image position</li>
+    <ul>
+      <li><code>background-attachment: fixed</code></li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Content: Background Image (Contd.)</h2>
+  <img src="./img/background-image.png" />
+</section>
+<section>
+  <h2>Block vs. Inline</h2>
+  <ul>
+    <li>Block-level elements:</li>
+    <ul>
+      <li>The default height is the height of the content</li>
+      <li>The default width is the length of the page</li>
+      <li>We can set height &amp; width in CSS</li>
+      <li>Can have inline or block elements as children</li>
+      <li>Flow top to bottom</li>
+      <ul>
+        <li>All block-level elements appear on their own line</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Block vs. Inline (Contd.)</h2>
+  <ul>
+    <li>Inline elements:</li>
+    <ul>
+      <li>The height is the height of the content</li>
+      <li>The width is the width of the content</li>
+      <li>We cannot set the height &amp; width in CSS</li>
+      <li>Can have inline or block elements as children</li>
+      <li>You can't put block elements inside inline elements.</li>
+      <li>Flow left to right</li>
+      <ul>
+        <li>
+          Inline elements appear on the same line unless the line wraps or
+          there’s an explicit line break
+        </li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Block vs. Inline (Contd.)</h2>
+    <style>
+      .demo.three {
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        width: 10cm;
+        height: 5cm;
+        background-color: red;
+      }
+      .demo.four {
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        width: 10cm;
+        height: 5cm;
+      }
+    </style>
+    This is the
+    <div class="demo three">div box</div>
+    , and this is the
+    <span class="demo three">
+      span box that contains
+      <div class="demo four">a div child</div>
+      !!!!!!</span
+    >
+  </section>
+  <section>
+    <pre><code class="lang-css">
+.demo.three {
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  width: 10cm;
+  height: 5cm;
+  background-color: red;
+}
+.demo.four {
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  width: 10cm;
+  height: 5cm;
+}
+    </code></pre>
+  </section>
 </section>
