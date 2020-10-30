@@ -1188,3 +1188,348 @@ p#red{
     </code></pre>
   </section>
 </section>
+<section>
+  <div class="toc" data-selected="5"></div>
+</section>
+<section>
+  <h2>Layout Design = Element Positioning</h2>
+  <ul>
+    <li>Three positioning schemes</li>
+    <ul>
+      <li>Normal</li>
+      <ul>
+        <li>Block-level elements flow from top to bottom</li>
+        <li>Inline elements flow from left to right</li>
+      </ul>
+      <li>Specific position</li>
+      <ul>
+        <li>Element is taken out from normal flow</li>
+        <li>It is placed in the specified position</li>
+      </ul>
+      <li>Float</li>
+      <ul>
+        <li>Elements is taken out from normal flow</li>
+        <li>It is placed as far right/left as possible to previous element</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Specified Positioning</h2>
+    <ul>
+      <li>
+        Positioning of <span class="hl-orange">block-level</span> element can be
+        specified using the <code class="hl-green">position</code> property
+      </li>
+    </ul>
+  </section>
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Value</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="4">position</td>
+          <td>static</td>
+          <td>default position = Normal</td>
+        </tr>
+        <tr>
+          <td>relative</td>
+          <td>offset from its normal static position</td>
+        </tr>
+        <tr>
+          <td>absolute</td>
+          <td>a fixed position within its containing element</td>
+        </tr>
+        <tr>
+          <td>fixed</td>
+          <td>a fixed position within the browser window</td>
+        </tr>
+        <tr>
+          <td>top, bottom, left, right</td>
+          <td colspan="2">positions of box's corners</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+<section>
+  <h2>Relative Positioning</h2>
+  <ul>
+    <li>
+      A relative positioned element is positioned relative to its
+      <span class="hl-orange">normal position</span>
+    </li>
+    <li>
+      The reserved space (box model: content + padding + margin) for the element
+      is still preserved in normal flow
+    </li>
+    <li>Position is specified by top, left, right, bottom properties, e.g.,</li>
+    <dl>
+      <dt><code>top: +20px</code></dt>
+      <dd>move the element 20px downward</dd>
+
+      <dt><code>top: -20px</code></dt>
+      <dd>move the element 20px upward</dd>
+
+      <dt><code>bottom: -20px</code></dt>
+      <dd>move the element 20px downward</dd>
+
+      <dt><code>bottom: +20px</code></dt>
+      <dd>move the element 20px upward</dd>
+    </dl>
+  </ul>
+</section>
+<section>
+  <section>
+    <style>
+      p.demo.five {
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        width: 300px;
+      }
+
+      #m {
+        position: relative;
+        left: 50%;
+        top: 150px;
+        border-color: red;
+      }
+    </style>
+
+    <p class="demo five">The paragraph 1</p>
+    <p class="demo five" id="m">The paragraph 2</p>
+    <p class="demo five">The paragraph 3</p>
+    <p class="demo five">The paragraph 4</p>
+  </section>
+  <section>
+    <pre><code class="lang-css">
+p.demo.five {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  width: 300px;
+}
+
+#m {
+  position: relative;
+  left: 50%;
+  top: 150px;
+  border-color: red;
+}
+    </code></pre>
+  </section>
+</section>
+<section>
+  <h2>Absolute Positioning</h2>
+  <ul>
+    <li>
+      An absolute position element is positioned relative to the first
+      <span class="hl-orange">parent</span>
+      element that has a
+      <span class="hl-green">position other than static</span>
+    </li>
+    <ul>
+      <li>
+        If no such element is found, the containing block is
+        <code>&lt;html&gt;</code>
+      </li>
+    </ul>
+    <li>Absolute positioned elements are removed from the normal flow</li>
+    <ul>
+      <li>
+        The document and other elements behave like the positioned element does
+        not exist (no space for content, padding, margin)
+      </li>
+      <li>The positioned elements can overlap other elements</li>
+      <li>
+        Position is specified by <code class="hl-orange">top</code>,
+        <code class="hl-orange">left</code>,
+        <code class="hl-orange">right</code>,
+        <code class="hl-orange">bottom</code> properties
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Fixed Positioning</h2>
+  <ul>
+    <li>
+      An element with fixed position is positioned
+      <span class="hl-orange">relative to the browser window</span>
+    </li>
+    <ul>
+      <li>Its position does not change by scrolling the page</li>
+      <li>Very useful for menus</li>
+    </ul>
+    <li>These elements are removed from the normal flow</li>
+    <ul>
+      <li>
+        The document and other elements behave like the fixed positioned element
+        does not exist (no content, padding, margin)
+      </li>
+      <li>Fixed positioned elements can overlap other elements</li>
+    </ul>
+    <li>
+      Position is specified by <code class="hl-orange">top</code>,
+      <code class="hl-orange">left</code>, <code class="hl-orange">right</code>,
+      <code class="hl-orange">bottom</code> properties
+    </li>
+  </ul>
+</section>
+<section>
+  <style>
+    #top {
+      position: absolute;
+      left: 100px;
+      top: 10px;
+    }
+
+    #centerfix {
+      position: fixed;
+      left: 100px;
+      top: 100px;
+    }
+
+    #overlap {
+      position: relative;
+      left: -10px;
+      top: -30px;
+    }
+
+    p.demo.six {
+      border-style: solid;
+      width: 150px;
+      height: 40px;
+    }
+
+    div.demo.six {
+      border-style: solid;
+      border-color: blue;
+    }
+  </style>
+
+  <p class="demo six" id="top">Top</p>
+  <div class="demo six" id="centerfix">
+    <p class="demo six">Center fix</p>
+    <p class="demo six" id="overlap">
+      <br />
+      Overload
+    </p>
+  </div>
+</section>
+<section>
+  <h2>Controlling Overlap Order</h2>
+  <ul>
+    <li>Elements can overlap other elements</li>
+    <ul>
+      <li>When positioned out of the normal flow</li>
+    </ul>
+    <li>The <code>z-index</code> specifies the stack order of an element</li>
+    <ul>
+      <li>Positive or negative stack order</li>
+      <li>Larger value foreground</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Float Design</h2>
+    <ul>
+      <li>Floating effects</li>
+      <ul>
+        <li>
+          Element is pushed left or right as far as
+          <span class="hl-orange">possible</span> in the row that it would be
+          positioned in when the normal flow is used
+        </li>
+        <ul>
+          <li>
+            Float outer edge touches containing block edge or outer edge of
+            another float elements
+          </li>
+        </ul>
+        <li>Space is reserved for the element</li>
+        <li>
+          Content (text) of other elements
+          <span class="hl-cyan">wraps around</span> it
+        </li>
+        <ul>
+          <li>
+            Float elements <span class="hl-green">do not</span> fill a row
+            individually even if are block-level
+          </li>
+          <li>No break before/after block-level elements</li>
+        </ul>
+        <li>Other elements (typically) don’t overlap with floats</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Configured using</li>
+      <ul>
+        <li><code>float: left | right | none</code></li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Display Property</h2>
+  <ul>
+    <li>
+      Displaying elements are mainly influenced by the
+      <code class="hl-orange">display</code> property
+    </li>
+    <ul>
+      <li>
+        <code class="hl-green">inline</code>: no break after or before, no
+        width/height
+      </li>
+      <li>
+        <code class="hl-green">block</code>: break after and before, fill a
+        line, width/height are modifiable
+      </li>
+      <li>
+        <code class="hl-green">inline-block</code>: inside is formatted as
+        block-level box, the element formatted as an inline-level box
+      </li>
+      <ul>
+        <li>Are like inline but can have a width and a height</li>
+      </ul>
+      <li><code class="hl-green">flex</code></li>
+      <li><code class="hl-green">grid</code></li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>inline-block Display Example</h2>
+    <style type="text/css">
+      .demo.inline {
+        display: inline;
+      }
+      .demo.inlineblock {
+        display: inline-block;
+        width: 180px;
+        height: 100px;
+        border-style: solid;
+        border-width: 3px;
+      }
+    </style>
+    <div class="demo inline">1</div>
+    <div class="demo inline">
+      <span>2</span>
+      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
+      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
+      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
+    </div>
+  </section>
+</section>
