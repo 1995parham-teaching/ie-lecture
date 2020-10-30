@@ -1406,12 +1406,14 @@ p.demo.five {
 
     p.demo.six {
       border-style: solid;
+      border-width: 1px;
       width: 150px;
       height: 40px;
     }
 
     div.demo.six {
       border-style: solid;
+      border-width: 1px;
       border-color: blue;
     }
   </style>
@@ -1426,18 +1428,36 @@ p.demo.five {
   </div>
 </section>
 <section>
-  <h2>Controlling Overlap Order</h2>
-  <ul>
-    <li>Elements can overlap other elements</li>
+  <section>
+    <h2>Controlling Overlap Order</h2>
     <ul>
-      <li>When positioned out of the normal flow</li>
+      <li>Elements can overlap other elements</li>
+      <ul>
+        <li>When positioned out of the normal flow</li>
+      </ul>
+      <li>The <code>z-index</code> specifies the stack order of an element</li>
+      <ul>
+        <li>Positive or negative stack order</li>
+        <li>Larger value foreground</li>
+      </ul>
     </ul>
-    <li>The <code>z-index</code> specifies the stack order of an element</li>
-    <ul>
-      <li>Positive or negative stack order</li>
-      <li>Larger value foreground</li>
-    </ul>
-  </ul>
+  </section>
+  <section>
+    <style type="text/css">
+      img.demo.seven {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+      }
+      h1.demo.seven {
+        color: red;
+      }
+    </style>
+
+    <h1 class="demo seven">This is a Linux</h1>
+    <img class="demo seven" src="./img/linux.jpg" />
+  </section>
 </section>
 <section>
   <section>
@@ -1482,6 +1502,67 @@ p.demo.five {
   </section>
 </section>
 <section>
+  <h2>Vertical Margin Collapse in Float</h2>
+  <ul>
+    <li>Vertical margins are not collapsed for floats</li>
+    <li>
+      In the following example 456 fills the gap and also respects to 123 margin
+    </li>
+  </ul>
+  <style>
+    p.demo.eight {
+      border-style: solid;
+      border-width: 1px;
+      width: 45%;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      height: 80px;
+    }
+    .demo.float {
+      float: right;
+    }
+  </style>
+
+  <p class="demo eight" style="width: 100%">Top</p>
+  <p class="demo eight float">123</p>
+  <p class="demo eight">456</p>
+</section>
+<section>
+  <h2>Clearing around Float Elements</h2>
+  <ul>
+    <li>
+      Remark: Contents of other elements wrap around previously positioned float
+      object
+    </li>
+    <li>
+      To stop wrapping content of an element around a float object, the
+      <code class="hl-orange">normal</code> element must have
+      <code class="hl-yellow">clear</code> attribute
+    </li>
+    <ul>
+      <li>
+        <code class="hl-orange">clear</code> attribute can be set to
+        <code class="hl-green">left</code>, <code class="hl-green">right</code>,
+        or <code class="hl-green">both</code>
+      </li>
+    </ul>
+    <li>Setting clear attribute of element to left (right)</li>
+    <ul>
+      <li>
+        My content does not wrap around any float object that is in left (right)
+        side of me
+      </li>
+      <li>
+        In other words, the content of the element is rendered if the float
+        object wouldn't be float
+      </li>
+    </ul>
+    <li>
+      Applicable only for <strong class="hl-red">block-level</strong> elements
+    </li>
+  </ul>
+</section>
+<section>
   <h2>Display Property</h2>
   <ul>
     <li>
@@ -1512,7 +1593,7 @@ p.demo.five {
 <section>
   <section>
     <h2>inline-block Display Example</h2>
-    <style type="text/css">
+    <style>
       .demo.inline {
         display: inline;
       }
@@ -1532,4 +1613,121 @@ p.demo.five {
       <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
     </div>
   </section>
+  <section>
+    <pre><code class="lang-css">
+.demo.inline {
+  display: inline;
+}
+.demo.inlineblock {
+  display: inline-block;
+  width: 180px;
+  height: 100px;
+  border-style: solid;
+  border-width: 3px;
+}
+    </code></pre>
+    <pre><code class="lang-html">
+&lt;div class="demo inline"&gt;1&lt;/div&gt;
+&lt;div class="demo inline"&gt;
+  &lt;span&gt;2&lt;/span&gt;
+  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
+  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
+  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+  </section>
+</section>
+<section>
+  <h2>flexbox</h2>
+  <ul>
+    <li><span class="hl-orange">One</span>-dimensional layout model</li>
+    <li>Composed of flex container and flex items</li>
+    <ul>
+      <li>Properties of flex container: direction and wrapping</li>
+      <li>The main axis (flex-direction)</li>
+      <li>row, row-reverse, column, column-reverse</li>
+    </ul>
+    <li>Properties of flex items: grow, shrink, justify, …</li>
+  </ul>
+</section>
+<section>
+  <h2>flexbox Example - 1</h2>
+  <div
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      border-width: 1px;
+      border-style: dashed;
+      border-color: orange;
+    "
+  >
+    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+  </div>
+  <div
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      border-width: 1px;
+      border-style: dashed;
+      border-color: orange;
+    "
+  >
+    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+  </div>
+  <div
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      border-width: 1px;
+      border-style: dashed;
+      border-color: orange;
+    "
+  >
+    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+  </div>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      border-width: 1px;
+      border-style: dashed;
+      border-color: orange;
+    "
+  >
+    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+  </div>
+</section>
+<section>
+  <h2>Grid</h2>
+  <ul>
+    <li><span class="orange">Two</span>-dimensional layout model</li>
+    <ul>
+      <li>
+        Divides a page into major regions, defines the relationship in terms of
+        size, position, and layer, between parts
+      </li>
+    </ul>
+    <li>Grid vs. Tables</li>
+    <ul>
+      <li>Like tables, enables to align elements into columns and rows</li>
+      <li>However, many more layouts are possible</li>
+      <li>
+        E.g., child elements could position themselves so they actually overlap
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="6"></div>
+</section>
+<section>
+  <div class="toc" data-selected="7"></div>
 </section>
