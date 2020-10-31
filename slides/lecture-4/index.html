@@ -1402,7 +1402,7 @@ p.demo.five {
 
     #centerfix {
       position: fixed;
-      left: 100px;
+      left: 150px;
       top: 100px;
     }
 
@@ -1426,12 +1426,47 @@ p.demo.five {
     }
   </style>
 
+  <div style="float: right; width: 50%">
+    <pre><code class="lang-css">
+#top {
+  position: absolute;
+  left: 100px;
+  top: 10px;
+}
+
+#centerfix {
+  position: fixed;
+  left: 150px;
+  top: 100px;
+}
+
+#overlap {
+  position: relative;
+  left: -10px;
+  top: -30px;
+}
+
+p.demo.six {
+  border-style: solid;
+  border-width: 1px;
+  width: 150px;
+  height: 40px;
+}
+
+div.demo.six {
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+}
+    </code></pre>
+  </div>
+
   <p class="demo six" id="top">Top</p>
   <div class="demo six" id="centerfix">
     <p class="demo six">Center fix</p>
     <p class="demo six" id="overlap">
       <br />
-      Overload
+      Overlap
     </p>
   </div>
 </section>
@@ -1815,5 +1850,249 @@ p.demo.five {
   <div class="toc" data-selected="6"></div>
 </section>
 <section>
+  <section>
+    <h2>Element Sizing</h2>
+    <ul>
+      <li>Absolute values (Useful?!)</li>
+      <dl>
+        <dt><code>cm</code></dt>
+        <dd>centimeters</dd>
+
+        <dt><code>mm</code></dt>
+        <dd>millimeters</dd>
+
+        <dt><code>in</code></dt>
+        <dd>inches (1in = 96px = 2.54cm)</dd>
+
+        <dt><code>px</code></dt>
+        <dd>pixels (1px = 1/96th of 1in)</dd>
+
+        <dt><code>pt</code></dt>
+        <dd>points (1pt = 1/72th of 1in)</dd>
+      </dl>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Relative values</li>
+      <dl>
+        <dt>em</dt>
+        <dd>Relative to the font-size of the element</dd>
+        <dt>rem</dt>
+        <dd>Relative to font-size of the root element</dd>
+        <dt>vw / vh</dt>
+        <dd>Relative to 1% of the width / height of the viewport</dd>
+        <dt>vmin / vmax</dt>
+        <dd>Relative to 1% of viewport's smaller / larger dimension</dd>
+        <dt>%</dt>
+        <dd>Relative to the parent element</dd>
+      </dl>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Media Query</h2>
+  <ul>
+    <li>Apply conditional rules according to media</li>
+    <pre><code class="lang-css">
+@media mediatype and (feature and|or|not feature) { CSS-rules; }
+    </code></pre>
+    <li>
+      Types: <code>all</code> , <code>print</code>, <code>screen</code>,
+      <code>speech</code>
+    </li>
+    <li>Features</li>
+    <ul>
+      <li>
+        <code>max-height</code>, <code>max-resolution</code>,
+        <code>max-width</code>, <code>min-aspect-ratio</code>,
+        <code>min-color</code>, <code>min-height</code>, ...
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>CSS Functions</h2>
+  <ul>
+    <li>CSS functions are used as a value for various CSS properties, e.g.,</li>
+    <ul>
+      <li>
+        Color: <code>rgb()</code>, <code>rgba()</code>, <code>usl()</code>, …
+      </li>
+      <li>Content: <code>url()</code>, <code>image()</code>, …</li>
+      <li>
+        Variables &amp; Calculation: <code>var()</code>, <code>calc()</code>, …
+      </li>
+      <li>
+        Transformation: <code>scale()</code>, <code>skew()</code>,
+        <code>rotate()</code>, …
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>CSS Variables</h2>
+  <pre><code class="lang-css">
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+}
+
+body { background-color: var(--blue); }
+
+h2 { border-bottom: 2px solid var(--blue); }
+
+.container {
+  color: var(--blue);
+  background-color: var(--white);
+  padding: 15px;
+}
+
+button {
+  background-color: var(--white);
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 5px;
+}
+  </code></pre>
+</section>
+<section>
+  <section>
+    <h2>CSS Animations</h2>
+    <pre><code class="lang-css">
+/* The animation code */
+@keyframes example {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;}
+  50%  {background-color:blue; left:200px; top:200px;}
+  75%  {background-color:green; left:0px; top:200px;}
+  100% {background-color:red; left:0px; top:0px;}
+}
+
+/* The element to apply the animation to */
+#the-animation {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background-color: red;
+  animation-name: example;
+  animation-duration: 4s;
+}
+    </code></pre>
+  </section>
+  <section>
+    <style>
+      /* The animation code */
+      @keyframes moving {
+        0% {
+          background-color: red;
+          left: 0px;
+          top: 0px;
+        }
+        25% {
+          background-color: yellow;
+          left: 200px;
+          top: 0px;
+        }
+        50% {
+          background-color: blue;
+          left: 200px;
+          top: 200px;
+        }
+        75% {
+          background-color: green;
+          left: 0px;
+          top: 200px;
+        }
+        100% {
+          background-color: red;
+          left: 0px;
+          top: 0px;
+        }
+      }
+
+      @keyframes rotating {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(30deg);
+        }
+        50% {
+          transform: rotate(60deg);
+        }
+        75% {
+          transform: rotate(90deg);
+        }
+        100% {
+          transform: rotate(120deg);
+        }
+      }
+
+      /* The element to apply the animation to */
+      #the-moving-animation {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        background-color: red;
+        animation-name: moving;
+        animation-duration: 4s;
+      }
+
+      #the-rotating-animation {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        background-color: orange;
+        animation-name: rotating;
+        animation-duration: 4s;
+      }
+    </style>
+
+    <div style="display: flex; justify-content: space-evenly">
+      <div id="the-moving-animation"></div>
+      <div id="the-rotating-animation"></div>
+    </div>
+  </section>
+</section>
+<section>
   <div class="toc" data-selected="7"></div>
+</section>
+<section>
+  <h2>CSS Tools</h2>
+  <ul>
+    <li>Validation</li>
+    <ul>
+      <li>W3C validator</li>
+      <li>Firefox add-ones</li>
+      <li>Chrome “inspect element”</li>
+    </ul>
+    <li>On the fly CSS modification</li>
+    <ul>
+      <li>Firefox Web Developer CSS Editor</li>
+      <li>Chrome “inspect element”</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>What is the Next?! CSS3 (& CSS4)</h2>
+  <ul>
+    <li>The next standard of CSS</li>
+    <li>CSS3 is split up into modules</li>
+    <ul>
+      <li>About 30 modules</li>
+      <li>CSS 4 has more modules</li>
+    </ul>
+    <li>The CSS4 specification is still under development</li>
+    <ul>
+      <li>
+        Many of the new CSS3 properties have been implemented in modern browsers
+      </li>
+      <li>
+        <a href="https://css4-selectors.com/browser-selector-test/"
+          >Browser CSS Selector Test</a
+        >
+      </li>
+    </ul>
+  </ul>
 </section>
