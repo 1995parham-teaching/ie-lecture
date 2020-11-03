@@ -4,8 +4,7 @@ title: JavaScript
 topics:
   - Introduction
   - JavaScript Basic
-  - JavaScript & DOM
-  - JavaScript & CSS
+  - JavaScript & DOM & CSS
   - Event Handling
   - Web Applications
   - Summary
@@ -185,7 +184,7 @@ defer&gt; &lt;/script&gt;
   <section>
     <ul>
       <li>
-        Variables are declared by <code class="hl-red">var</code> and
+        Variables are declared by <code class="hl-red"></code> and
         <code class="hl-green">let</code> (is optional)
       </li>
       <ul>
@@ -205,15 +204,15 @@ f();
   </section>
   <section>
     <div class="box" style="text-align: left">
-      It is Not Recommended to declare a variable without var keyword. It can
+      It is Not Recommended to declare a variable without keyword. It can
       accidently overwrite an existing global variable. Scope of the variables
-      declared without var keyword become global irrespective of where it is
+      declared without keyword become global irrespective of where it is
       declared. Global variables can be accessed from anywhere in the web page.
     </div>
   </section>
   <section>
     <ul>
-      <li><code class="hl-red">var</code> has a function scope</li>
+      <li><code class="hl-red"></code> has a function scope</li>
       <li><code class="hl-green">let</code> has a block scope</li>
     </ul>
   </section>
@@ -233,13 +232,13 @@ f();
         Primitive: Number, String, Boolean, Undefined, and Null
         <ul>
           <li>They are <em>immutable</em></li>
-          <code>let <var>x</var> = "abc"; <var>x</var>[0]='Z';</code>
+          <code>let x = "abc"; x[0]='Z';</code>
           does NOT work!!!
         </ul>
       </li>
 
       <li>
-        Objects: e.g., <code>var w = window;</code>
+        Objects: e.g., <code> w = window;</code>
         <ul>
           <li>Wrapper objects for primitives, String for string</li>
           <li>Arrays are some special objects</li>
@@ -254,7 +253,7 @@ f();
     <h2>JavaScript Basic: Variables Scope</h2>
     <ul>
       <li>
-        By default (either <code>var</code> or not) scope is either
+        By default (either <code></code> or not) scope is either
         <em>global</em> or <em>function</em>
       </li>
       <ul>
@@ -265,7 +264,7 @@ f();
         <pre><code>
 function f() {
   while(true) {
-    var x = 20;
+     x = 20;
   }
   // x = 20 here
 }
@@ -287,7 +286,7 @@ function f() {
   }
   // x is not accessible here
 }
-    </code></pre>
+      </code></pre>
     </ul>
   </section>
 </section>
@@ -336,24 +335,21 @@ function f() {
     <li>Function definition</li>
     <div class="code">
       <code
-        >function <var>Name</var>(<var>input1</var>, <var>input2</var>,
-        <var>...</var>){<br />
-        <var> &nbsp; &nbsp; ...</var><br />
-        &nbsp; &nbsp; return <var>result</var>;<br />
+        >function Name(input1, input2, ...){<br />
+        &nbsp; &nbsp; ...<br />
+        &nbsp; &nbsp; return result;<br />
         }</code
       >
     </div>
     <li>No output type, no input arguments type</li>
-    <li>
-      Function call: <code>var <var>a</var> = <var>func(...)</var>;</code>
-    </li>
+    <li>Function call: <code> a = func(...);</code></li>
     <ul class="l2">
       <li>Input argument are called by value!</li>
       <li>Call by reference is not easy, single value array can be used</li>
     </ul>
     <li>
       Function assignment:
-      <code><var>object</var>.onclick = <var>func</var>;</code>
+      <code>object.onclick = func;</code>
     </li>
     <li>Function in Function definition is allowed</li>
     <li>
@@ -368,30 +364,26 @@ function f() {
     <li>Function as a value!!!</li>
     <div class="code">
       <code
-        >let <var>f</var> = function (<var>input1</var>, <var>input2</var>,
-        <var>...</var>){<br />
-        <var> &nbsp; &nbsp; ...</var><br />
-        &nbsp; &nbsp; return <var>result</var>;<br />
+        >let f = function (input1, input2, ...){<br />
+        &nbsp; &nbsp; ...<br />
+        &nbsp; &nbsp; return result;<br />
         }</code
       >
     </div>
     <li>Arrow Functions</li>
     <div class="code">
       <code
-        >let <var>f</var> = (<var>input1</var>, <var>input2</var>,
-        <var>...</var>) =&gt; {<br />
-        <var> &nbsp; &nbsp; ...</var><br />
-        &nbsp; &nbsp; return <var>result</var>;<br />
+        >let f = (input1, input2, ...) =&gt; {<br />
+        &nbsp; &nbsp; ...<br />
+        &nbsp; &nbsp; return result;<br />
         }</code
       >
     </div>
     <div class="code">
-      <code
-        >let <var>sq</var> = <var>x</var> =&gt; <var>x</var> * <var>x</var><br
-      /></code>
+      <code>let sq = x =&gt; x * x<br /></code>
     </div>
     <div class="code">
-      <code>let <var>f</var> = () =&gt; 0<br /></code>
+      <code>let f = () =&gt; 0<br /></code>
     </div>
   </ul>
 </section>
@@ -400,37 +392,34 @@ function f() {
   <ul class="l1">
     <li>To prompt a dialog to user and get input</li>
     <div class="code">
-      <code>var <var>input</var> = prompt("</code>Please enter your name<code
-        >");</code
-      >
+      <code> input = prompt("</code>Please enter your name<code>");</code>
     </div>
     <input
       type="button"
       value="Run"
-      onclick="var input = prompt('Please enter your name');"
+      onclick=" input = prompt('Please enter your name');"
     />
     <ul class="l2">
       <li><code>prompt</code> returns <em>string</em></li>
       <ul class="l3">
         <li>
           To convert string to integer:
-          <code>var <var>i</var> = parseInt("10");</code>
+          <code> i = parseInt("10");</code>
         </li>
         <li>
           To convert string to float:
-          <code>var <var>f</var> = parseFloat("20.2");</code>
+          <code> f = parseFloat("20.2");</code>
         </li>
       </ul>
     </ul>
     <li>To get confirmation from user</li>
     <div class="code">
-      <code>var <var>question</var> = confirm("</code>Do you want to
-      continue?<code>");</code>
+      <code> question = confirm("</code>Do you want to continue?<code>");</code>
     </div>
     <input
       type="button"
       value="Run"
-      onclick="var question = confirm('Do you want to continue?');"
+      onclick=" question = confirm('Do you want to continue?');"
     />
     <ul class="l2">
       <li><code>confirm</code> returns a boolean</li>
@@ -446,7 +435,7 @@ function f() {
   <ul class="l1">
     <li>To show a message in an alert window</li>
     <div class="code">
-      <code>window.alert(<var>"We study 'Internet Engineering'"</var>);</code>
+      <code>window.alert("We study 'Internet Engineering'");</code>
     </div>
     <input
       type="button"
@@ -455,7 +444,7 @@ function f() {
     />
     <li>Object <code>document</code> has a <code>write</code> method</li>
     <div class="code">
-      <code>document.write(<var>"A sample message"</var>);</code>
+      <code>document.write("A sample message");</code>
     </div>
     <input
       type="button"
@@ -464,14 +453,11 @@ function f() {
     />
     <li>Most objects have <code>innerHTML</code> attribute</li>
     <div class="code">
-      <code>&lt;span id=<var>"testbox"</var>&gt;</code>This is my innerHTML<code
+      <code>&lt;span id="testbox"&gt;</code>This is my innerHTML<code
         >&lt;/span&gt;</code
       >
       <br />
-      <code
-        >document.getElementById(<var>"testbox"</var>).innerHTML =
-        <var>"This is box"</var>;</code
-      >
+      <code>document.getElementById("testbox").innerHTML = "This is box";</code>
     </div>
     <input
       type="button"
@@ -493,27 +479,18 @@ function f() {
         <li>The key can be integer or everything else</li>
       </ul>
       <li>Arrays with integer index (key)</li>
-      <code
-        >var <var>a</var> = [<var>1</var>, <var>2</var>, <var>3</var>];</code
-      >
+      <code> a = [1, 2, 3];</code>
       <br />
-      <code
-        >var <var>a</var> = new Array (<var>10</var>, <var>20</var>, ...);</code
-      >
+      <code> a = new Array (10, 20, ...);</code>
       <br />
-      <code
-        >var <var>a</var> = new Array(); &nbsp; <var>a</var>[10] =
-        <var>"HTML"</var>; <var>a</var>[120] = <var>"JS"</var>;</code
-      >
+      <code> a = new Array(); &nbsp; a[10] = "HTML"; a[120] = "JS";</code>
       <li>General associative array</li>
-      <code>var <var>style</var> = new Array()</code>
+      <code> style = new Array()</code>
       <br />
-      <code
-        >var <var>style</var> = {<var>color</var>: <var>"Blue"</var>,
-        <var>size</var>: <var>"20pt"</var>};</code
+      <code> style = {color: "Blue", size: "20pt"};</code
       ><br />
-      <code>var <var>c</var> = <var>style</var>["<var>color</var>"]; </code>
-      <code>var <var>c</var> = <var>style</var>.<var>color</var>; </code>
+      <code> c = style["color"]; </code>
+      <code> c = style.color; </code>
     </ul>
     <li>
       Methods: <code>concat</code>, <code>shift</code>, <code>unshift</code>,
@@ -544,21 +521,21 @@ function f() {
     <code>random</code
     >, ...
     <li>Number:</li>
-    <code>var <var>num</var></code
+    <code> num</code
     ><br />
-    <code><var>num</var>.toExponential</code>
+    <code>num.toExponential</code>
     and
-    <code><var>num</var>.toFixed</code>
+    <code>num.toFixed</code>
     <li>Date:</li>
-    <code><var>var</var> d = new Date()</code>
+    <code> d = new Date()</code>
     <br />
     <code>d.toString()</code
     >: &nbsp
     <span id="dateres"> </span>
     <br />
     <script type="text/javascript">
-      var d = new Date();
-      var res = document.getElementById("dateres");
+      d = new Date();
+      res = document.getElementById("dateres");
       res.innerHTML = d.toString();
     </script>
     <code>d.</code
@@ -604,7 +581,7 @@ function f() {
     </li>
   </ul>
   <pre style="font-size: 70%; margin: 0px"><code>
-var book={
+ book={
   name: "OOP in JS",
   price: 100,
   publish: 2020,
@@ -628,7 +605,7 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
     </li>
   </ul>
   <pre style="font-size: 70%; margin: 0px"><code>
-  var book = new Object();
+   book = new Object();
   book.name = "OOP in JS";
   book.price = 100;
   book.publish = 2020;
@@ -650,7 +627,7 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
     </li>
   </ul>
   <pre><code>
-var book={
+ book={
   name: "OOP in JS",
   _price: 0,
   get price(){return this._price + "$";},
@@ -726,7 +703,7 @@ window.alert("name is "+ book.name +", price is "+ book.price);
     <li>
       Object instantiation &amp; deletion: <code>new</code>, <code>delete</code>
     </li>
-    <li>Properties declaration (optional): <code>var</code></li>
+    <li>Properties declaration (optional): <code></code></li>
     <li>
       Method declaration: function definition without <code>function</code>
     </li>
@@ -823,5 +800,579 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
       <li>Output is a data-structure called "DOM"</li>
       <li>Browser provides <em>API</em> to access the DOM</li>
     </ul>
+  </ul>
+</section>
+<section>
+  <h2>DOM</h2>
+  <ul class="l1">
+    <li>
+      Document Object Model (DOM) is the output of parsing XHTML file by browser
+    </li>
+    <ul class="l2">
+      <li>XHTML document is represented by DOM in browser</li>
+    </ul>
+    <li>Each XHTML element is represented by an <em>object</em></li>
+    <ul class="l2">
+      <li>
+        However, there are other objects (called BOM) that are not corresponding
+        to HTML elements; e.g., <code>window</code> is the browser window
+      </li>
+    </ul>
+
+    <li>A tree of object corresponding to XHTML tag hierarchy</li>
+    <li>Each object has</li>
+    <ul class="l2">
+      <li>Properties corresponding to XHMTL properties (not all properties)</li>
+      <li>Methods corresponsing to events and actions</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>DOM &amp; JavaScript</h2>
+  <ul class="l1">
+    <li>JavaScript is powerful in web since it accesses to DOM</li>
+    <ul class="l2">
+      <li>JavaScript + DOM = Dynamic XHTML</li>
+    </ul>
+    <li><em>Read</em> access in order to</li>
+    <ul class="l2">
+      <li>Check properties (conditional reaction)</li>
+      <li>Validate inputs</li>
+      <li>Handle events</li>
+    </ul>
+    <li>
+      <em>Write</em> access in order to
+      <ul class="l2">
+        <li>Modify content</li>
+        <li>Modify styles</li>
+        <li>Add/Remove objects to/from DOM</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>DOM Object Access by Name</h2>
+  <pre><code class="lang-hmtl">
+      &lt;form name="nametest"&gt; <br />
+      &lt;input name="output" type="text" value="Default Text"&gt;
+      &lt;/form&gt;
+  </code></pre>
+
+  <form name="nametest">
+    <input name="output" type="text" value="Default Text" />
+  </form>
+
+  <div class="code">
+    <code> document.nametest.output.value='New Value'; </code>
+  </div>
+  <input
+    type="button"
+    value="Run"
+    onclick="document.nametest.output.value='New Value';"
+  />
+
+  <ul class="l1">
+    <li>We need to assign a name to all parents &amp; children</li>
+    <ul class="l2">
+      <li>
+        Children are <em>not</em> directly accessible by
+        <code>document.childname</code>
+      </li>
+    </ul>
+    <li>Is not really useful and practical</li>
+  </ul>
+</section>
+<section>
+  <h2>DOM Object Access</h2>
+
+  <ul class="l1">
+    <li>element<code>.getElementById("id")</code></li>
+    <ul class="l2">
+      <li>
+        returns the object with given "id" in <em>sub-tree</em> rooted at
+        element
+      </li>
+    </ul>
+    <li>element<code>.getElementsByClassName("classname")</code></li>
+    <ul class="l2">
+      <li>
+        returns an array of object whose class is "classname" in
+        <em>sub-tree</em> rooted at element
+      </li>
+    </ul>
+    <li>element<code>.getElementsByTagName("tagname")</code></li>
+    <ul class="l2">
+      <li>
+        returns an array of objects whose tag is "tagname" in
+        <em>sub-tree</em> rooted at element
+      </li>
+    </ul>
+    <li>element<code>.getElementsByName("name")</code></li>
+    <ul class="l2">
+      <li>
+        returns an array of objects whose name is "name" in
+        <em>sub-tree</em> rooted at element
+      </li>
+    </ul>
+
+    <li>element<code>.querySelector("CSS Selector")</code></li>
+    <ul class="l2">
+      <li>
+        returns the first element matches the CSS selector in
+        <em>sub-tree</em> rooted at element
+      </li>
+    </ul>
+
+    <li>
+      Element <em>must be</em> exists (browser reads XHTML file line-by-line)
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Access to DOM Objects Example</h2>
+  <div id="box1" style="border-style: solid"></div>
+  <pre><code class="lang-html">
+&lt;div id="box1"&gt;
+  </code></pre>
+
+  <div class="testbox" style="border-style: solid"></div>
+  <pre><code class="lang-html">
+&lt;div class="testbox"&gt;
+  </code></pre>
+
+  <pre><code>
+document.getElementById("box1").innerHTML="I am the new message"
+  </code></pre>
+  <input
+    type="button"
+    value="Run"
+    onclick="document.getElementById('box1').innerHTML='I am the new message'"
+  />
+
+  <pre><code class="lang-javascript">
+let da = document.getElementsByClassName("testbox");
+da[0].innerHTML="I am another new message";
+  </code></pre>
+  <input
+    type="button"
+    value="Run"
+    onclick="let da = document.getElementsByClassName('testbox');
+    da[0].innerHTML='I am another new message';"
+  />
+</section>
+<section>
+  <h2>Samples of DOM Object's Properties</h2>
+  <ul class="l1">
+    <li>element.<code>innerHTML</code></li>
+    <ul class="l2">
+      <li>Text value of element</li>
+    </ul>
+    <li>element.<code>children</code></li>
+    <ul class="l2">
+      <li>Array of children elements</li>
+    </ul>
+    <li>element.<code>parentNode</code></li>
+    <ul class="l2">
+      <li>The parent of element</li>
+    </ul>
+    <li>element.<code>style</code></li>
+    <ul class="l2">
+      <li>The styling rules of element</li>
+    </ul>
+    <li>element.<code>value</code></li>
+    <ul class="l2">
+      <li>The value of input elements</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>CSS &amp; JavaScript</h2>
+  <ul class="l1">
+    <li>(Most) objects (document's children) have <code>style</code> child</li>
+    <li>
+      CSS style properties of each object are the children of <code>style</code>
+    </li>
+    <li>
+      CSS and DOM use different name (syntax) for the same style. E.g.,
+      Background color:
+    </li>
+    <ul class="2">
+      <li>In CSS: <code>background-color</code></li>
+      <li>In DOM: <code>backgroundColor</code></li>
+    </ul>
+    <li>To access a CSS style property in JavaScript:</li>
+    <code>object.style.PropertyNameInDOM</code>
+  </ul>
+</section>
+<section>
+  <h2>CSS &amp; JavaScript Example</h2>
+  <pre><code class="lang-javascript">
+let color;
+index = prompt("Enter 1 for blue, 2 for red, 3 for green");
+switch(parseInt(index)) {
+  case 1:
+    color = "blue"; break;
+  case 2:
+    color = "red"; break;
+  case 3:
+    color = "green"; break;
+  default:
+    color = "black"; break;
+}
+
+document.body.style.backgroundColor = color;
+/*or
+(document.getElementsByTagName("body"))[0].style.backgroundColor =
+color;
+*/
+    </code></pre>
+  <input type="button" value="Run" onclick="changeColor();" />
+  <script>
+    function changeColor() {
+      let color;
+      index = prompt("Enter 1 for blue, 2 for red, 3 for green");
+      switch (parseInt(index)) {
+        case 1:
+          color = "blue";
+          break;
+        case 2:
+          color = "red";
+          break;
+        case 3:
+          color = "green";
+          break;
+        default:
+          color = "black";
+          break;
+      }
+      //document.body.style.backgroundColor = color;
+      document.getElementsByTagName("body")[0].style.backgroundColor = color;
+    }
+  </script>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h2>Events</h2>
+
+  <ul class="l1">
+    <li>Okay, JS can make page dynamic</li>
+    <li>But, why would a page be dynamic?</li>
+    <li>Because some <em>events</em> happened in the page</li>
+    <ul class="l2">
+      <li>Client does something; e.g., click on button</li>
+      <li>There is a periodical update; e.g., check for new emails</li>
+      <li>New content is received from server; e.g., chat message</li>
+    </ul>
+    <li>Who does know what happened? Browser</li>
+    <li>
+      Browser runs a JS code for each event (which is usually an empty function)
+    </li>
+    <li>How does browser know which function should be called?</li>
+    <ul>
+      <li>JS has to <em>register</em> itself for the event!</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Events &amp; Their Handling (in more details)</h2>
+
+  <ul class="l1">
+    <li>There are many predefined events in browsers</li>
+    <ul class="l2">
+      <li>Mouse click</li>
+      <li>Key press</li>
+      <li>...</li>
+    </ul>
+    <li>
+      These events occur on an <em>element</em>: e.g., mouse click on a button
+    </li>
+    <ul class="l2">
+      <li>Not all elements have all events</li>
+    </ul>
+
+    <li>DOM Objects have event handler methods</li>
+    <ul class="l2">
+      <li>Event handler is called by browser when event occur on object</li>
+      <ul class="l3">
+        <li>
+          E.g., <code>onclick</code> is called when object (html element) is
+          clicked
+        </li>
+      </ul>
+      <li>Most event handlers are empty by default</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Event Handling in JavaScripts</h2>
+
+  <ul class="l1">
+    <li>To do somethings when an event occurs</li>
+    <ul class="l2">
+      <li>The event handling</li>
+    </ul>
+    <li>Override the corresponding event handler</li>
+    <li>In HTML, using element attibute</li>
+    <code>&lt;tag onclick="\\ JavaScript code/function()"&gt;</code>
+    <li>In JavaScript, using DOM object</li>
+    <code>object.onclick=function</code>
+  </ul>
+</section>
+<section>
+  <h2>Sample Events</h2>
+
+  <table style="font-size: 0.57em">
+    <thead>
+      <tr>
+        <th align="left" width="30%">Event</th>
+        <th align="left" width="70%">Occurs when...</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>onabort</td>
+        <td>a user aborts page loading</td>
+      </tr>
+      <tr>
+        <td>onblur</td>
+        <td>a user leaves an object</td>
+      </tr>
+      <tr>
+        <td>onchange</td>
+        <td>a user changes the value of an object</td>
+      </tr>
+      <tr>
+        <td>onclick</td>
+        <td>a user clicks on an object</td>
+      </tr>
+      <tr>
+        <td>ondblclick</td>
+        <td>a user double-clicks on an object</td>
+      </tr>
+      <tr>
+        <td>onfocus</td>
+        <td>a user makes an object active</td>
+      </tr>
+      <tr>
+        <td>onkeydown</td>
+        <td>a keyboard key is on its way down</td>
+      </tr>
+      <tr>
+        <td>onkeypress</td>
+        <td>a keyboard key is pressed</td>
+      </tr>
+      <tr>
+        <td>onkeyup</td>
+        <td>a keyboard key is released</td>
+      </tr>
+      <tr>
+        <td>onload</td>
+        <td>a page is finished loading.</td>
+      </tr>
+      <tr>
+        <td>onmousedown</td>
+        <td>a user presses a mouse-button</td>
+      </tr>
+      <tr>
+        <td>onmousemove</td>
+        <td>a cursor moves on an object</td>
+      </tr>
+      <tr>
+        <td>onmouseover</td>
+        <td>a cursor moves over an object</td>
+      </tr>
+      <tr>
+        <td>onmouseout</td>
+        <td>a cursor moves off an object</td>
+      </tr>
+      <tr>
+        <td>onmouseup</td>
+        <td>a user releases a mouse-button</td>
+      </tr>
+      <tr>
+        <td>onreset</td>
+        <td>a user resets a form</td>
+      </tr>
+      <tr>
+        <td>onselect</td>
+        <td>a user selects content on a page</td>
+      </tr>
+      <tr>
+        <td>onsubmit</td>
+        <td>a user submits a form</td>
+      </tr>
+      <tr>
+        <td>onunload</td>
+        <td>a user closes a page</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>JavaScript Event Handling Example</h2>
+  <pre><code class="lang-html">
+  &lt;input
+    id="clickbtn"
+    type="button"
+    value="click"
+    onmouseover="document.getElementById('msg').innerHTML='Click Here'"
+    onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
+    onmousedown="mouseDown()"
+  /&gt;
+  &lt;div id="msg" style="width: 50%; border-style: solid"&gt;&lt;/div&gt;
+  &lt;script type="text/javascript"&gt;
+     counter = 0;
+    function mouseDown() {
+      counter++;
+      document.getElementById("msg").innerHTML = "A new click";
+    }
+
+    function mouseUp() {
+      window.alert("Total # of clicks =  " + counter);
+    }
+    document.getElementById("clickbtn").onmouseup = mouseUp;
+  &lt;/script&gt;
+  </code></pre>
+  <input
+    id="clickbtn"
+    type="button"
+    value="click"
+    onmouseover="document.getElementById('msg').innerHTML='Click Here'"
+    onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
+    onmousedown="mouseDown()"
+  />
+  <div id="msg" style="width: 50%; border-style: solid"></div>
+  <script type="text/javascript">
+    counter = 0;
+    function mouseDown() {
+      counter++;
+      document.getElementById("msg").innerHTML = "A new click";
+    }
+
+    function mouseUp() {
+      window.alert("Total # of clicks =  " + counter);
+    }
+    document.getElementById("clickbtn").onmouseup = mouseUp;
+  </script>
+</section>
+<section>
+  <h2>How to Pass Inputs to Event Handlers?</h2>
+
+  <ul class="l1">
+    <li>It is easy when the handler is registered in HTML</li>
+    <div class="code">
+      <code
+        >function setBgColor(color){ document.body.style.backgroundColor =
+        color; }<br />
+        &lt;button onclick="setBgColor('red')"&gt;Red&lt;/button&gt;
+        <br />
+        &lt;button onclick="setBgColor('green')"&gt;Green&lt;/button&gt;
+      </code>
+    </div>
+    <script type="text/javascript">
+      function setBgColor(color) {
+        document.body.style.backgroundColor = color;
+      }
+    </script>
+    <button onclick="setBgColor('red')">Red</button>
+    <button onclick="setBgColor('green')">Green</button>
+
+    <li>
+      <em>Find out</em> the required information (specially when the handler is
+      registered in JS)
+    </li>
+
+    <div class="code">
+      <code
+        >color:&lt;input type="text" id="color"&gt;&lt;/text&gt;<br />
+        &lt;button id="set"&gt;set&lt;/button&gt;<br /><br />
+
+        function setBgColor2(){ document.body.style.backgroundColor =
+        document.getElementById("color").value; }<br />
+        document.getElementById("set").onclick=setBgColor2;
+      </code>
+    </div>
+
+    color:<input type="text" id="color" />
+    <button id="set">set</button>
+
+    <script type="text/javascript">
+      function setBgColor2() {
+        document.body.style.backgroundColor = document.getElementById(
+          "color"
+        ).value;
+      }
+      document.getElementById("set").onclick = setBgColor2;
+    </script>
+  </ul>
+</section>
+<section>
+  <h2>How to Pass Inputs to Event Handlers (cont'd)?</h2>
+  <ul class="l1">
+    <li>
+      Use <code><em>this</em></code> only when the handler is registered in JS
+    </li>
+
+    <div class="code">
+      <code>
+        function setBgColor3(){<br />
+        &nbsp;&nbsp;&nbsp; window.alert("this =" + this);<br />
+        &nbsp;&nbsp;&nbsp; document.body.style.backgroundColor =
+        <em>this</em>.innerHTML;<br />
+        }<br />
+
+        document.getElementById("r").onclick=setBgColor3;<br />
+        document.getElementById("b").onclick=setBgColor3;<br /><br />
+
+        &lt;button id="r"&gt;Red&lt;/button&gt; <br />
+        &lt;button id="b"&gt;Blue&lt;/button&gt; <br />
+        &lt;button onclick="document.body.style.backgroundColor =
+        this.innerHTML;"&gt;Green&lt;/button&gt; <br />
+        &lt;button onclick="setBgColor3();"&gt;Black&lt;/button&gt;
+        <br />
+      </code>
+    </div>
+
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    <button id="r">Red</button>
+    <button id="b">Blue</button>
+
+    <script type="text/javascript">
+      function setBgColor3() {
+        window.alert("this =" + this);
+        document.body.style.backgroundColor = this.innerHTML;
+      }
+
+      document.getElementById("r").onclick = setBgColor3;
+      document.getElementById("b").onclick = setBgColor3;
+    </script>
+
+    <button onclick="document.body.style.backgroundColor = this.innerHTML;">
+      Green
+    </button>
+    <button onclick="setBgColor3();">Black</button>
+  </ul>
+</section>
+<section>
+  <h2>Dynamic Event Handler Registration</h2>
+
+  <ul class="l1">
+    <li>Remark, event handlers can be registered by JavaScript</li>
+    <ul class="l2">
+      <li>
+        <code>object.onclick=function</code>
+      </li>
+    </ul>
+    <li>Other methods to dynamically register event handlers</li>
+    <ul class="l2">
+      <li>Assign multiple event handlers</li>
+      <li>Reset event handler to default</li>
+    </ul>
+    <li>Add event handler</li>
+    object<code>.addEventListener(eventName, function)</code>
+    <li>Remove event handler</li>
+    object<code>.removeEventListener(eventName, function)</code>
   </ul>
 </section>
