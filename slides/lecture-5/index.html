@@ -1376,3 +1376,225 @@ color;
     object<code>.removeEventListener(eventName, function)</code>
   </ul>
 </section>
+<section>
+  <h2>Dynamic Event Handler Example</h2>
+  <pre><code class="lang-html">
+&lt;button onclick="AddEventHandler ();"&gt;
+  Add a 'click' event listener to the blue button
+&lt;/button&gt;
+&lt;button onclick="RemoveEventHandler ();"&gt;Remove the event listener&lt;/button&gt;
+&lt;button id="blueButton" style="background-color: blue"&gt;Bule Button&lt;/button&gt;
+
+&lt;script type="text/javascript"&gt;
+  function blueClick1() {
+    alert("You have clicked on me!!!");
+  }
+
+  function blueClick2() {
+    alert("Yahoooo!!!!");
+  }
+
+  function AddEventHandler() {
+    let blueButton = document.getElementById("blueButton");
+    blueButton.addEventListener("click", blueClick1);
+    blueButton.addEventListener("click", blueClick2);
+  }
+
+  function RemoveEventHandler() {
+    let blueButton = document.getElementById("blueButton");
+    blueButton.removeEventListener("click", blueClick1);
+  }
+&lt;/script&gt;
+  </code></pre>
+  <button onclick="AddEventHandler ();">
+    Add a 'click' event listener to the blue button
+  </button>
+  <button onclick="RemoveEventHandler ();">Remove the event listener</button>
+  <button id="blueButton" style="background-color: blue">Bule Button</button>
+
+  <script type="text/javascript">
+    function blueClick1() {
+      alert("You have clicked on me!!!");
+    }
+
+    function blueClick2() {
+      alert("Yahoooo!!!!");
+    }
+
+    function AddEventHandler() {
+      let blueButton = document.getElementById("blueButton");
+      blueButton.addEventListener("click", blueClick1);
+      blueButton.addEventListener("click", blueClick2);
+    }
+
+    function RemoveEventHandler() {
+      let blueButton = document.getElementById("blueButton");
+      blueButton.removeEventListener("click", blueClick1);
+    }
+  </script>
+</section>
+<section>
+  <h2>
+    Event Propagation &amp; the <code class="hl-orange">event</code> object
+  </h2>
+
+  <ul>
+    <li>What happen if both parent and child handle the same event?!</li>
+    <ul>
+      <li>
+        The event is said to propagate outward, from the node where it happened
+        to that node’s parent node and on to the root of the document.
+      </li>
+    </ul>
+
+    <li>By default, the event object is passed to all event handler</li>
+    <ul>
+      <li>
+        At any point, an event handler can call the
+        <code>stopPropagation</code> method on the event object to prevent
+        handlers further up from receiving the event.
+      </li>
+    </ul>
+  </ul>
+  <div id="parent" style="border: solid">
+    I am parent <br />
+    <button id="click-btn-1">click me</button>
+  </div>
+  <script>
+    let counter = 0;
+    function mouseDown(event) {
+      window.alert("child handler");
+      counter++;
+      event.mymessage = "Salaam" + counter;
+    }
+
+    document.getElementById("click-btn-1").addEventListener("click", mouseDown);
+    document
+      .getElementById("parent")
+      .addEventListener("click", function (event) {
+        window.alert(`child says: ${event.mymessage}`);
+      });
+  </script>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <h2>Application 1: Dynamic Element Generation</h2>
+  <ul class="l1">
+    <li>The solution of R1 (new item per new email)</li>
+    <ul class="l2">
+      <li>Add/Remove objects to/from DOM using JavaScript</li>
+    </ul>
+    <li>Create an element</li>
+    <code>document.createElement(element type)</code>
+    <li>Set or Get attribute</li>
+    <code>element.getAttribute(name)</code>
+    or
+    <code>element.setAttribute(name,value)</code>
+    <li>Append &amp; Insert the new element as a child of parent</li>
+    <code>parent.appendChild(child)</code>
+    <code>parent.insertBefore(NewChild, ExistingChild)</code>
+    <li>To delete or replace child</li>
+    <code>parent.removeChild(child)</code>
+    <code>parent.replaceChild(NewChild, OldChild)</code>
+  </ul>
+</section>
+<section>
+  <h2>Content Generation Example</h2>
+  <script type="text/javascript">
+    let id = 0;
+    function addNewP() {
+      id++;
+      let parent = document.getElementById("main");
+      let newp = document.createElement("p");
+      newp.id = "newp" + id;
+      newp.innerHTML = "I am new paragraph";
+      parent.appendChild(newp);
+    }
+
+    let replace = 0;
+    function replaceNewP() {
+      replace++;
+      if (replace <= id) {
+        let parent = document.getElementById("main");
+        let newp = document.getElementById("newp" + replace);
+        let newer = document.createElement("span");
+        newer.style.borderStyle = "solid";
+        newer.innerHTML = "I replace the new paragraph";
+        parent.replaceChild(newer, newp);
+      } else {
+        replace = id;
+      }
+    }
+  </script>
+
+  <form>
+    <input type="button" value="Add New Paragraph" onclick="addNewP();" />
+    <input
+      type="button"
+      value="Replace New Paragraph"
+      onclick="replaceNewP();"
+    />
+  </form>
+</section>
+<section>
+  <h2>Application 2: Form Validation</h2>
+  <ul>
+    <li>The solution of R2 (checking email format)</li>
+    <li>
+      One of the major applications of JavaScript: <em>Form Validation</em>
+    </li>
+    <ul>
+      <li>To check input data correctness before submitting to server</li>
+      <li>To save bandwidth, time, and server load</li>
+    </ul>
+    <li><em>Note</em>: Data cannot be validated completely in client-side</li>
+    <ul>
+      <li>In client side we check format (pattern/syntax)</li>
+      <ul>
+        <li>Checking format, e.g., Date or Time pattern</li>
+        <li>Checking length, e.g. Password length</li>
+      </ul>
+    </ul>
+    <li>Steps:</li>
+    <ul>
+      <li>1) Read the input</li>
+      <li>2) Check the format/pattern (by regular expression)</li>
+      <li>3) Don't allow to sumbit if there is error</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Form Validation in JavaScript</h2>
+  <ul>
+    <li>At first, we should access to input (form) data, then validate</li>
+    <li>
+      For <code>text</code>, <code>password</code>, and <code>textarea</code>
+    </li>
+    <ul>
+      <li>
+        The input text is accessible via <code>.value</code> of the
+        corresponding object
+      </li>
+    </ul>
+    <li>For <code>select</code></li>
+    <ul>
+      <li>
+        The value of selected <code>option</code> is given by
+        <code><var>SelectObject</var>.value</code>
+      </li>
+    </ul>
+    <li>For <code>checkbox</code> and <code>radio</code></li>
+    <ul>
+      <li>Enumerate all options (children)</li>
+      <li><code>.checked == true</code> is selected</li>
+      <li>
+        The value of the selected child is given by its <code>.value</code>
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="5"></div>
+</section>
