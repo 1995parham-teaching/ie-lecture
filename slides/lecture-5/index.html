@@ -822,7 +822,7 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
     <li>A tree of object corresponding to XHTML tag hierarchy</li>
     <li>Each object has</li>
     <ul class="l2">
-      <li>Properties corresponding to XHMTL properties (not all properties)</li>
+      <li>Properties corresponding to HTML properties (not all properties)</li>
       <li>Methods corresponsing to events and actions</li>
     </ul>
   </ul>
@@ -852,7 +852,7 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
 </section>
 <section>
   <h2>DOM Object Access by Name</h2>
-  <pre><code class="lang-hmtl">
+  <pre><code class="lang-html">
       &lt;form name="nametest"&gt; <br />
       &lt;input name="output" type="text" value="Default Text"&gt;
       &lt;/form&gt;
@@ -1594,6 +1594,406 @@ color;
       </li>
     </ul>
   </ul>
+</section>
+<section>
+  <form>
+    <textarea rows="3" cols="20" id="txtID"> </textarea>
+    <input
+      type="button"
+      value="Convert"
+      onclick="upperCaseArea('txtID', 'outID')"
+    />
+  </form>
+  <span style="font-size: 0.7em">
+    Output will be here:
+    <span id="outID" style="border-style: solid"> &nbsp; </span></span
+  >
+
+  <script type="text/javascript">
+    function upperCaseArea(textareaID, outputID) {
+      var textareaObject = document.getElementById(textareaID);
+      var content = textareaObject.value.toUpperCase();
+      var outputObject = document.getElementById(outputID);
+      var outputMessage = content;
+      outputObject.innerHTML = outputMessage;
+    }
+  </script>
+</section>
+<section>
+  <h2>JavaScript Form Validation Exmaple</h2>
+
+  <form>
+    <input type="checkbox" name="osSelect" value="Linux" /> Linux,
+    <input type="checkbox" name="osSelect" value="Windows" /> Windows,
+    <input type="checkbox" name="osSelect" value="Mac" /> Mac,
+    <input type="checkbox" name="osSelect" value="Unix" /> Unix &nbsp; &nbsp;
+    <input
+      type="button"
+      value="Find OS"
+      onclick="findOS('osSelect', 'osSelectOut')"
+    />
+  </form>
+  <span id="osSelectOut" style="font-size: 15pt"> </span>
+
+  <script type="text/javascript">
+    function findOS(inputCheckBoxs, Outputdiv) {
+      var boxes = document.getElementsByName(inputCheckBoxs);
+      var outputMessage = "Ok, you are master in ";
+      for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked)
+          outputMessage = outputMessage + " " + boxes[i].value + ", ";
+      }
+      var output = document.getElementById(Outputdiv);
+      document.getElementById(Outputdiv).innerHTML = outputMessage;
+    }
+  </script>
+</section>
+<section>
+  <h2>Form Validation by Regular Expression</h2>
+
+  <code>reg_expr = /expression/;</code>
+  <code>reg_expr.test(string)</code> or
+  <code>string.match(reg_expr)</code> returns true, if the pattern is
+  <em>found in</em> the string.
+  <table style="margin-top: 15px; margin-bottom: 15px">
+    <tr>
+      <td><code>c*</code></td>
+      <td>&ge; 0 of c</td>
+      <td><code>c+</code></td>
+      <td>&ge; 1 of c</td>
+    </tr>
+
+    <tr>
+      <td><code>c?</code></td>
+      <td>0 or 1 of c</td>
+      <td><code>c{x}</code></td>
+      <td>x times of c</td>
+    </tr>
+
+    <tr>
+      <td><code>.</code></td>
+      <td>A char (no new line)</td>
+      <td><code>c1|c2</code></td>
+      <td>c1 or c2</td>
+    </tr>
+
+    <tr>
+      <td><code>[]</code></td>
+      <td>Any combination of given characters</td>
+      <td><code>[^]</code></td>
+      <td>Any string without the given characters</td>
+    </tr>
+
+    <tr>
+      <td><code>\d</code></td>
+      <td>A digit</td>
+      <td><code>\D</code></td>
+      <td>Every thing except digits</td>
+    </tr>
+    <tr>
+      <td><code>^c </code></td>
+      <td>Beginning match</td>
+      <td><code>c$</code></td>
+      <td>End match</td>
+    </tr>
+  </table>
+
+  <code>var m = /^ab*c+d{3}z$/;</code> "acz": False; "abbccdddz": True;
+  "ffabbccdddz": False <br />
+  <code>var m = /ab*c+d{3}z/;</code> "abbccdddz": True; "ffabbccdddz": True;
+  "ffabbccdddzggg": True <br />
+  To match Date format: <code>/^\d{4}\/\d{1,2}\/\d{1,2}$/</code>
+</section>
+<section>
+  <h2>Valid Form Submission</h2>
+  <form
+    action="http://127.0.0.1"
+    name="passwordform"
+    onsubmit="checkpassword(event);"
+  >
+    <fieldset>
+      <legend>Password Manager</legend>
+      <table>
+        <tr>
+          <td>User name:</td>
+          <td>
+            <input type="text" name="username" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>New Password :</td>
+          <td>
+            <input type="password" name="password" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>Reenter New Password:</td>
+          <td>
+            <input type="password" name="repassword" value="" />
+          </td>
+        </tr>
+      </table>
+      <input type="submit" value="Change Password" />
+    </fieldset>
+  </form>
+
+  <script type="text/javascript">
+    function checkpassword(event) {
+      var p1 = document.passwordform.password.value;
+      var p2 = document.passwordform.repassword.value;
+      if (p1.length < 6) {
+        alert("To short password, re-enter");
+        event.preventDefault();
+      } else if (p1 == p2) {
+        alert("Password will be changed");
+      } else {
+        alert("Incorrect password");
+        event.preventDefault();
+      }
+    }
+    //document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
+  </script>
+</section>
+<section>
+  <h2>Application 3: Working with Document</h2>
+  <ul class="l1">
+    <li>
+      <code>document</code> object is created by browser for each HTML page
+      (document) that is viewed
+    </li>
+    <li>
+      Its properties provide useful information to read/write about the HTML
+      document
+    </li>
+
+    <table>
+      <tr>
+        <td style="width: 45%">
+          <code>anchors</code>, <code>applets</code>, <code>forms</code>,
+          <code>images</code>, <code>links</code>
+        </td>
+        <td>Array of different types of HTML elements</td>
+      </tr>
+      <tr>
+        <td><code>body</code></td>
+        <td>The object corresponding to <code>&lt;body&gt;</code></td>
+      </tr>
+      <tr>
+        <td><code>dir</code></td>
+        <td>Document direction</td>
+      </tr>
+      <tr>
+        <td><code>title</code></td>
+        <td>Title of the document</td>
+      </tr>
+      <tr>
+        <td>Information about HTTP</td>
+        <td>Last modified, port, referrer, ...</td>
+      </tr>
+    </table>
+  </ul>
+</section>
+<section>
+  <h2>Document Object Example</h2>
+
+  <p id="referrer"></p>
+  <script>
+    document.getElementById("referrer").innerHTML =
+      "<br /><code>referrer: </code>" +
+      document.referrer +
+      "<code><br />URL: </code>" +
+      document.URL +
+      "<code><br /> location.protocol: </code>" +
+      document.location.protocol +
+      "<code><br /> domain: </code>" +
+      document.domain +
+      "<code><br /> location.pathname: </code>" +
+      document.location.pathname +
+      "<code><br />";
+  </script>
+
+  <form>
+    <input type="button" value="Change Sides" id="change_dir" />
+  </form>
+  <script type="text/javascript">
+    var the_button = document.getElementById("change_dir");
+    the_button.onclick = function () {
+      document.dir = document.dir != "ltr" ? "ltr" : "rtl";
+    };
+  </script>
+</section>
+<section>
+  <h2>Application 4: Working with Browser</h2>
+  <ul class="l1">
+    <li>
+      The <code>window</code> objects provide useful properties and methods to
+      work with browser window
+    </li>
+    <ul class="l2">
+      <li>Properties to access browser window size</li>
+      <li>Methods &amp; properties to work browser history</li>
+      <li>Method to open/close/change browser window</li>
+      <li>Method to run periodic functions</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>window Object</h2>
+
+  <ul class="l1">
+    <li>
+      The <code>window</code> object is created for each window/tab that appears
+      on the screen
+    </li>
+    <li>Major properties</li>
+  </ul>
+  <table border="1" cellspacing="0">
+    <tr>
+      <td><code>document</code></td>
+      <td>This is the <code>document</code> object (that we have seen)</td>
+    </tr>
+    <tr>
+      <td><code>history</code></td>
+      <td>
+        Provides information on the browser history of the current window;
+        method to go forward and backward in the history
+      </td>
+    </tr>
+    <tr>
+      <td>*<code>Height</code> *<code>Width</code></td>
+      <td>Height &amp; width of window or screen</td>
+    </tr>
+    <tr>
+      <td><code>location</code></td>
+      <td>URL of the window</td>
+    </tr>
+  </table>
+</section>
+<section>
+  <h2>window Properties</h2>
+  <script type="text/javascript">
+    window.onresize = function () {
+      let tooSmall = 0;
+
+      if (window.innerHeight < 500 || window.innerWidth < 500) {
+        tooSmall = 1;
+        document.body.innerHTML = "";
+
+        msg = document.createElement("h1");
+        msg.innerHTML = "The window is too small, please resize!!!";
+        document.body.appendChild(msg);
+      }
+
+      if (
+        tooSmall == 1 &&
+        window.innerHeight > 500 &&
+        window.innerWidth > 500
+      ) {
+        tooSmall = 0;
+        location.reload();
+      }
+    };
+  </script>
+  <ul class="l1">
+    <li>Window Size (in pixel)</li>
+    <li>Please resize to see what happens</li>
+    <table id="dimension" cellspacing="10pt" cellpadding="10pt">
+      <tr>
+        <td><code>screen.height</code>:</td>
+        <td></td>
+        <td><code>screen.width</code>:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>screen.availHeight</code>:</td>
+        <td></td>
+        <td><code>screen.availWidth</code>:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>outerHeight</code>:</td>
+        <td></td>
+        <td><code>outerWidth</code>:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>innerHeight</code>:</td>
+        <td></td>
+        <td><code>innerWidth</code>:</td>
+        <td></td>
+      </tr>
+    </table>
+    <!--<li>Zoom in/out decreases/increases inner* because it makes pixels bigger/smaller</li>-->
+
+    <li>History length: <span id="history"></span></li>
+    <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
+  </ul>
+  <script type="text/javascript">
+    var t = document.getElementById("dimension");
+    t.children[0].children[0].children[1].innerHTML = window.screen.height;
+    t.children[0].children[0].children[3].innerHTML = window.screen.width;
+
+    t.children[0].children[1].children[1].innerHTML = window.screen.availHeight;
+    t.children[0].children[1].children[3].innerHTML = window.screen.availWidth;
+
+    t.children[0].children[2].children[1].innerHTML = window.outerHeight;
+    t.children[0].children[2].children[3].innerHTML = window.outerWidth;
+
+    t.children[0].children[3].children[1].innerHTML = window.innerHeight;
+    t.children[0].children[3].children[3].innerHTML = window.innerWidth;
+
+    document.getElementById("history").innerHTML = window.history.length;
+    document.getElementById("location").innerHTML = window.location;
+  </script>
+</section>
+<section>
+  <h2>window Object Methods</h2>
+  <table
+    border="1"
+    style="margin-top: 15px; margin-left: auto; margin-right: auto; width: 90%"
+  >
+    <tr>
+      <td><code>forward()</code>, <code>back()</code></td>
+      <td>One time forward or back in history</td>
+    </tr>
+    <tr>
+      <td><code>stop()</code>, <code>close()</code></td>
+      <td>Stop page loading or close it</td>
+    </tr>
+    <!--
+			<tr>
+				<td><code>find()</code> </td> <td>Show find dialog</td>
+			</tr>
+
+			<tr>
+				<td><code>moveTo(<var>top</var>, <var>left</var>)</code></td> <td>Move top-left corner to given coordinates</td>
+			</tr>
+			-->
+    <tr>
+      <td><code>open()</code></td>
+      <td>Create new window</td>
+    </tr>
+    <!--
+			<tr>
+				<td><code>resizeTo(<var>w</var>, <var>h</var>)</code></td> <td>Resize window to given size</td>
+			</tr>
+			-->
+    <tr>
+      <td>
+        <code>a = setTimeout</code><br /><code>("function()",time(s))</code
+        ><br /><code>setInterval</code>
+      </td>
+      <td>Call function after given time</td>
+    </tr>
+    <tr>
+      <td>
+        <code>clearTimeout</code><code>(a)</code><br /><code
+          >clearInterval</code
+        >
+      </td>
+      <td>Call function after given time</td>
+    </tr>
+  </table>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
