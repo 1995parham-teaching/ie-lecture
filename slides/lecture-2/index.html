@@ -1394,10 +1394,13 @@ Cache-Control: no-cache
     </ul>
     <li>Steps are the same</li>
     <ul>
-      <li>
-        Client requests resource, Server challenges, Client asks User/Pass,
-        Client responses, Server authenticates and allows
-      </li>
+      <ol>
+        <li>Client-side app (browser) request resource from server</li>
+        <li>Server refuses with 401 Unauthorized</li>
+        <li>Client-side app ask Username &amp; Password from user</li>
+        <li>Client send Username &amp; Password to server</li>
+        <li>Server authenticates and allows.</li>
+      </ol>
       <li>
         Authentication information are sent by every request until end of
         current session
@@ -1414,7 +1417,7 @@ Cache-Control: no-cache
       representation.
     </li>
   </ul>
-  <img src="./img/base64.png" style="height: 54vh"/>
+  <img src="./img/base64.png" style="height: 54vh" />
 </section>
 <section>
   <h2>HTTP Authentication (Cont.)</h2>
