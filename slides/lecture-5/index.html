@@ -19,7 +19,7 @@ topics:
 <section>
   <h2>Introduction (Why JavaScript?)</h2>
   <ul>
-    <li>XHTML + CSS create <em class="hl-orange">Static</em> webpages</li>
+    <li>HTML + CSS create <em class="hl-orange">Static</em> webpages</li>
     <li>We need</li>
     <ul>
       <li>interact with user (event handling)</li>
@@ -38,35 +38,42 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>What is JavaScript?</h2>
-  <ul>
-    <li>
-      JavaScript is an <em class="hl-orange">object-based</em>,
-      <em class="hl-green">client-side</em>, and
-      <em class="hl-cyan">scripting</em> languages to make web pages dynamic
-    </li>
-
-    <li>
-      Object-based: NOT class-based, no difference between classes &amp;
-      instances
-    </li>
-    <li>Client-side: Run by client side program (the web browser)</li>
-    <li>
-      Scripting: Doesn't require to be compiled before run. All interpretation
-      is done on-the-fly by the client
-    </li>
-    <li>
-      Additional facts about JS:
-      <ul>
-        <li>JavaScript is not related to Java.</li>
-        <li>Its standard name is ECMAScript (Stable version: ES 2018)</li>
-        <li>
-          Sever side and other applications (e.g., GNOME Shell) are not
-          discussed here.
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <section>
+    <h2>What is JavaScript?</h2>
+    <ul>
+      <li>
+        JavaScript is an <em class="hl-orange">object-based</em>,
+        <em class="hl-green">client-side</em>, and
+        <em class="hl-cyan">scripting</em> languages to make web pages dynamic
+      </li>
+      <li>
+        Object-based: <span class="hl-red">NOT</span> class-based, no difference
+        between classes &amp; instances
+      </li>
+      <li>Client-side: Run by client side program (the web browser)</li>
+      <li>
+        Scripting: Doesn't require to be compiled before run. All interpretation
+        is done on-the-fly by the client
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Additional facts about JS:
+        <ul>
+          <li>JavaScript is not related to Java.</li>
+          <li>Its standard name is ECMAScript (Stable version: ES 2020)</li>
+          <li>
+            Sever side and other applications (e.g.,
+            <a href="https://gitlab.gnome.org/GNOME/gjs/blob/master/doc/Home.md"
+              >GNOME Shell</a
+            >) are not discussed here.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -116,8 +123,7 @@ topics:
       </code></pre>
       <li>Link to external JavaScript</li>
       <pre><code class="lang-html">
-&lt;script type="text/javascript" src="external.js"
-defer&gt; &lt;/script&gt;
+&lt;script type="text/javascript" src="external.js" defer&gt;&lt;/script&gt;
       </code></pre>
       <li>
         JavaScript code can be put in both <code>head</code> and
@@ -184,7 +190,7 @@ defer&gt; &lt;/script&gt;
   <section>
     <ul>
       <li>
-        Variables are declared by <code class="hl-red"></code> and
+        Variables are declared by <code class="hl-red">var</code> and
         <code class="hl-green">let</code> (is optional)
       </li>
       <ul>
@@ -203,50 +209,62 @@ f();
     </ul>
   </section>
   <section>
-    <div class="box" style="text-align: left">
-      It is Not Recommended to declare a variable without keyword. It can
-      accidently overwrite an existing global variable. Scope of the variables
-      declared without keyword become global irrespective of where it is
-      declared. Global variables can be accessed from anywhere in the web page.
-    </div>
+    <ul>
+      <li>It is Not Recommended to declare a variable without keyword.</li>
+      <li>It can accidently overwrite an existing global variable.</li>
+      <li>
+        Scope of the variables declared without keyword become global
+        irrespective of where it is declared.
+      </li>
+      <li>Global variables can be accessed from anywhere in the web page.</li>
+    </ul>
   </section>
   <section>
     <ul>
-      <li><code class="hl-red"></code> has a function scope</li>
+      <li><code class="hl-red">var</code> has a function scope</li>
       <li><code class="hl-green">let</code> has a block scope</li>
     </ul>
   </section>
 </section>
 <section>
-  <h2>JavaScript Basic: Variables</h2>
-  <ul>
-    <li>No type is given in variable declaration</li>
+  <section>
+    <h2>JavaScript Basic: Variables</h2>
     <ul>
-      <li>Similar to other scripting (interpreted) languages</li>
-      <li>Type is identified by value</li>
-      <li>Type of variable can be changed</li>
+      <li>No type is given in variable declaration</li>
+      <ul>
+        <li>Similar to other scripting (interpreted) languages</li>
+        <li>Type is identified by value</li>
+        <li>Type of variable can be changed</li>
+      </ul>
     </ul>
-    <li>Two main types</li>
+  </section>
+  <section>
     <ul>
-      <li>
-        Primitive: Number, String, Boolean, Undefined, and Null
-        <ul>
-          <li>They are <em>immutable</em></li>
-          <code>let x = "abc"; x[0]='Z';</code>
-          does NOT work!!!
-        </ul>
-      </li>
-
-      <li>
-        Objects: e.g., <code> w = window;</code>
-        <ul>
-          <li>Wrapper objects for primitives, String for string</li>
-          <li>Arrays are some special objects</li>
-          <li>Objects are <em>mutable</em></li>
-        </ul>
-      </li>
+      <li>Two main types</li>
+      <ul>
+        <li>
+          Primitive: Number, String, Boolean, BigInt, Symbol, Undefined, and
+          Null
+          <ul>
+            <li>They are <em>immutable</em></li>
+            <pre><code class="lang-javascript">
+let x = "abc";
+x[0]='Z';
+// does NOT work!!!
+            </code></pre>
+          </ul>
+        </li>
+        <li>
+          Objects: e.g., <code> w = window;</code>
+          <ul>
+            <li>Wrapper objects for primitives, String for string</li>
+            <li>Arrays are some special objects</li>
+            <li>Objects are <em>mutable</em></li>
+          </ul>
+        </li>
+      </ul>
     </ul>
-  </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -264,7 +282,7 @@ f();
         <pre><code>
 function f() {
   while(true) {
-     x = 20;
+     var x = 20;
   }
   // x = 20 here
 }
@@ -313,15 +331,15 @@ function f() {
 </section>
 <section>
   <h2>JavaScript Basic: Conditional Statements &amp; Loops</h2>
-  <ul class="l1">
+  <ul>
     <li>Conditional statements (the same as C)</li>
-    <ul class="l2">
+    <ul>
       <li><code>if</code>-<code>else</code></li>
       <li><code>switch</code>-<code>case</code></li>
       <li>Ternary operator <code>? :</code></li>
     </ul>
     <li>Loops (the same as C)</li>
-    <ul class="l2">
+    <ul>
       <li><code>while</code></li>
       <li><code>for</code></li>
       <li><code>do</code>-<code>while</code></li>
@@ -330,243 +348,278 @@ function f() {
   </ul>
 </section>
 <section>
-  <h2>JavaScript Basic: Functions</h2>
-  <ul class="l1">
-    <li>Function definition</li>
-    <div class="code">
-      <code
-        >function Name(input1, input2, ...){<br />
-        &nbsp; &nbsp; ...<br />
-        &nbsp; &nbsp; return result;<br />
-        }</code
-      >
-    </div>
-    <li>No output type, no input arguments type</li>
-    <li>Function call: <code> a = func(...);</code></li>
-    <ul class="l2">
-      <li>Input argument are called by value!</li>
-      <li>Call by reference is not easy, single value array can be used</li>
-    </ul>
-    <li>
-      Function assignment:
-      <code>object.onclick = func;</code>
-    </li>
-    <li>Function in Function definition is allowed</li>
-    <li>
-      Function declarations are not part of the regular top-to-bottom flow of
-      control
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>JavaScript Basic: Functions (Contd.)</h2>
-  <ul class="l1">
-    <li>Function as a value!!!</li>
-    <div class="code">
-      <code
-        >let f = function (input1, input2, ...){<br />
-        &nbsp; &nbsp; ...<br />
-        &nbsp; &nbsp; return result;<br />
-        }</code
-      >
-    </div>
-    <li>Arrow Functions</li>
-    <div class="code">
-      <code
-        >let f = (input1, input2, ...) =&gt; {<br />
-        &nbsp; &nbsp; ...<br />
-        &nbsp; &nbsp; return result;<br />
-        }</code
-      >
-    </div>
-    <div class="code">
-      <code>let sq = x =&gt; x * x<br /></code>
-    </div>
-    <div class="code">
-      <code>let f = () =&gt; 0<br /></code>
-    </div>
-  </ul>
-</section>
-<section>
-  <h2>JavaScript Basic: Input &amp; Output</h2>
-  <ul class="l1">
-    <li>To prompt a dialog to user and get input</li>
-    <div class="code">
-      <code> input = prompt("</code>Please enter your name<code>");</code>
-    </div>
-    <input
-      type="button"
-      value="Run"
-      onclick=" input = prompt('Please enter your name');"
-    />
-    <ul class="l2">
-      <li><code>prompt</code> returns <em>string</em></li>
-      <ul class="l3">
-        <li>
-          To convert string to integer:
-          <code> i = parseInt("10");</code>
-        </li>
-        <li>
-          To convert string to float:
-          <code> f = parseFloat("20.2");</code>
-        </li>
+  <section>
+    <h2>JavaScript Basic: Functions</h2>
+    <ul>
+      <li>Function definition</li>
+      <pre><code class="lang-javascript">
+function Name(input1, input2, ...){
+  ...
+  return result;
+}
+    </code></pre>
+      <li>No output type, no input arguments type</li>
+      <li>Function call: <code> a = func(...);</code></li>
+      <ul>
+        <li>Input argument are called by value!</li>
+        <li>Call by reference is not easy, single value array can be used</li>
       </ul>
     </ul>
-    <li>To get confirmation from user</li>
-    <div class="code">
-      <code> question = confirm("</code>Do you want to continue?<code>");</code>
-    </div>
-    <input
-      type="button"
-      value="Run"
-      onclick=" question = confirm('Do you want to continue?');"
-    />
-    <ul class="l2">
-      <li><code>confirm</code> returns a boolean</li>
-      <ul class="l3">
-        <li>Ok: True</li>
-        <li>Cancel: False</li>
-      </ul>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>JavaScript Basic: Input &amp; Output</h2>
-  <ul class="l1">
-    <li>To show a message in an alert window</li>
-    <div class="code">
-      <code>window.alert("We study 'Internet Engineering'");</code>
-    </div>
-    <input
-      type="button"
-      value="Run"
-      onclick="window.alert('We study \'Internet Engineering\'');"
-    />
-    <li>Object <code>document</code> has a <code>write</code> method</li>
-    <div class="code">
-      <code>document.write("A sample message");</code>
-    </div>
-    <input
-      type="button"
-      value="Run"
-      onclick="document.write('A sample message');"
-    />
-    <li>Most objects have <code>innerHTML</code> attribute</li>
-    <div class="code">
-      <code>&lt;span id="testbox"&gt;</code>This is my innerHTML<code
-        >&lt;/span&gt;</code
-      >
-      <br />
-      <code>document.getElementById("testbox").innerHTML = "This is box";</code>
-    </div>
-    <input
-      type="button"
-      value="Run"
-      onclick="document.getElementById('testbox').innerHTML = 'This is box';"
-    />
-    <span id="testbox" style="border-style: solid">This is my innerHTML</span>
-  </ul>
-</section>
-<section>
-  <h2>Arrays</h2>
-  <ul class="l1">
-    <li>Arrays in JS are associative</li>
-    <ul class="l2">
+  </section>
+  <section>
+    <ul>
       <li>
-        In fact, they are objects that create a map between keys and values
+        Function assignment:
+        <code>object.onclick = func;</code>
       </li>
-      <ul class="l3">
-        <li>The key can be integer or everything else</li>
-      </ul>
-      <li>Arrays with integer index (key)</li>
-      <code> a = [1, 2, 3];</code>
-      <br />
-      <code> a = new Array (10, 20, ...);</code>
-      <br />
-      <code> a = new Array(); &nbsp; a[10] = "HTML"; a[120] = "JS";</code>
-      <li>General associative array</li>
-      <code> style = new Array()</code>
-      <br />
-      <code> style = {color: "Blue", size: "20pt"};</code
-      ><br />
-      <code> c = style["color"]; </code>
-      <code> c = style.color; </code>
+      <li>Function in Function definition is allowed</li>
+      <li>
+        Function declarations are not part of the regular top-to-bottom flow of
+        control
+      </li>
     </ul>
-    <li>
-      Methods: <code>concat</code>, <code>shift</code>, <code>unshift</code>,
-      <code>sort</code>, <code>reverse</code>, <code>indexOf</code>, ...
-    </li>
-  </ul>
+  </section>
 </section>
 <section>
-  <h2>Sample Libraries: Math, Number &amp; Date Objects</h2>
-  <ul>
-    <li>Math:</li>
-    <code>abs</code
-    >,
-    <code>sin</code
-    >,
-    <code>asin</code
-    >,
-    <code>ceil</code
-    >,
-    <code>floor</code
-    >,
-    <code>log</code
-    >,
-    <code>exp</code
-    >,
-    <code>pow</code
-    >,
-    <code>random</code
-    >, ...
-    <li>Number:</li>
-    <code> num</code
-    ><br />
-    <code>num.toExponential</code>
-    and
-    <code>num.toFixed</code>
-    <li>Date:</li>
-    <code> d = new Date()</code>
-    <br />
-    <code>d.toString()</code
-    >: &nbsp
+  <section>
+    <h2>JavaScript Basic: Functions (Contd.)</h2>
+    <ul>
+      <li>Function as a value</li>
+      <pre><code class="lang-javascript">
+let f = function (input1, input2, ...) {
+    ...
+    return result;
+}
+    </code></pre>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Arrow Functions</li>
+      <pre><code class="lang-javascript">
+let f = (input1, input2, ...) =&gt; {
+  ...
+  return result;
+}
+    </code></pre>
+      <pre><code>
+let sq = x =&gt; x * x
+    </code></pre>
+      <pre><code>
+let f = () =&gt; 0
+    </code></pre>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>JavaScript Basic: Input &amp; Output</h2>
+    <ul>
+      <li>To prompt a dialog to user and get input</li>
+      <pre><code class="lang-javascript">
+let input = prompt("Please enter your name");
+    </code></pre>
+      <input
+        type="button"
+        value="Run"
+        onclick="let input = prompt('Please enter your name');"
+      />
+      <ul>
+        <li><code>prompt</code> returns <em>string</em></li>
+        <ul>
+          <li>
+            To convert string to integer:
+            <pre><code class="lang-javascript">i = parseInt("10");</code></pre>
+          </li>
+          <li>
+            To convert string to float:
+            <pre><code class="lang-javascript">f = parseFloat("20.2");</code></pre>
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>To get confirmation from user</li>
+      <pre><code class="lang-javascript">
+let question = confirm("Do you want to continue?");
+      </code></pre>
+      <input
+        type="button"
+        value="Run"
+        onclick="let question = confirm('Do you want to continue?');"
+      />
+      <ul>
+        <li><code>confirm</code> returns a boolean</li>
+        <ul>
+          <li>Ok: <code>true</code></li>
+          <li>Cancel: <code>false</code></li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>JavaScript Basic: Input &amp; Output</h2>
+    <ul>
+      <li>To show a message in an alert window</li>
+      <pre><code class="lang-javascript">
+window.alert("We study 'Internet Engineering'");
+    </code></pre>
+      <input
+        type="button"
+        value="Run"
+        onclick="window.alert('We study \'Internet Engineering\'');"
+      />
+      <li>Object <code>document</code> has a <code>write</code> method</li>
+      <pre><code class="lang-javascript">
+document.write("A sample message");
+    </code></pre>
+      <input
+        type="button"
+        value="Run"
+        onclick="document.write('A sample message');"
+      />
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Most objects have <code>innerHTML</code> attribute</li>
+      <pre><code class="lang-html">
+&lt;span id="testbox"&gt;This is my innerHTML&lt;/span&gt;
+
+&lt;script&gt;
+document.getElementById("testbox").innerHTML = "This is box";
+&lt;/script&gt;
+    </code></pre>
+      <span
+        id="testbox"
+        style="border-width: 1px; padding: 10px; border-style: solid"
+        >This is my innerHTML</span
+      >
+      <input
+        type="button"
+        value="Run"
+        onclick="document.getElementById('testbox').innerHTML = 'This is box';"
+      />
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Arrays</h2>
+    <ul>
+      <li>Arrays in JS are associative</li>
+      <li>
+        Neither the length of a JavaScript array nor the types of its elements
+        are fixed
+      </li>
+      <ul>
+        <li>
+          In fact, they are objects that create a map between keys and values
+        </li>
+        <ul>
+          <li>The key can be integer or everything else</li>
+        </ul>
+        <li>Arrays with integer index (key)</li>
+        <pre><code class="lang-javascript">
+let a = [1, 2, 3];
+let a = new Array (10, 20, ...);
+let a = new Array();
+a[10] = "HTML";
+a[120] = "JS";
+      </code></pre>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Methods: <code>concat</code>, <code>shift</code>, <code>unshift</code>,
+        <code>sort</code>, <code>reverse</code>, <code>indexOf</code>, ...
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+let friends = ["Saman", "Sepehr", "Hessam"];
+friends.length // 3
+friends.push("Ali") // 4
+friends.concat("Ali") // ["Saman", "Sepehr", "Hessam", "Ali", "Ali"]
+let last = friends.pop() // "Ali"
+last // "Ali"
+friends.map(i =&gt; i.toUpperCase()) // ["SAMAN", "SEPEHR", "HESSAM", "ALI"]
+friends.filter(i =&gt; i.startsWith("S")) // ["Saman", "Sepehr"]
+    </code></pre>
+    <pre><code class="lang-javascript">
+let num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+num.reduce((i, sum) =&gt; sum + i, 0) // 45
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Sample Libraries: Math, Number &amp; Date Objects</h2>
+    <ul>
+      <li>Math:</li>
+      <code>abs</code
+      >,
+      <code>sin</code
+      >,
+      <code>asin</code
+      >,
+      <code>ceil</code
+      >,
+      <code>floor</code
+      >,
+      <code>log</code
+      >,
+      <code>exp</code
+      >,
+      <code>pow</code
+      >,
+      <code>random</code
+      >, ...
+      <li>Number:</li>
+      <pre><code class="lang-javascript">
+let num;
+num.toExponential
+num.toFixed
+    </code></pre>
+      <li>Date:</li>
+      <pre><code class="lang-javascript">
+let d = new Date();
+d.toString(); // "Thu Nov 05 2020 09:50:38 GMT+0330 (Iran Standard Time)"
+    </code></pre>
+    </ul>
+  </section>
+  <section>
     <span id="dateres"> </span>
-    <br />
     <script type="text/javascript">
       d = new Date();
       res = document.getElementById("dateres");
       res.innerHTML = d.toString();
     </script>
-    <code>d.</code
-    >set/get
-    <code>FullYear</code
-    >,
-    <code>Month</code
-    >,
-    <code>Date</code
-    >,
-    <code>Hours</code
-    >,
-    <code>Minutes</code
-    >,
+    <code>d.</code>set/get <code>FullYear</code>, <code>Month</code>,
+    <code>Date</code>, <code>Hours</code>, <code>Minutes</code>,
     <code>Seconds</code>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>Objects</h2>
-  <ul class="l1">
+  <ul>
     <li>Remark 1: Everything is object if it is not primitive</li>
     <li>
       Remark 2: JS is not a classic OOP language
-      <ul class="l2">
+      <ul>
         <li>Does not have full support of all OOP features</li>
         <li>Different implementation of the OOP concepts (inheritance, ...)</li>
       </ul>
     </li>
     <li>
       Remark 1 + Remark 2 --&gt; ???!!!
-      <ul class="l2">
+      <ul>
         <li>Dealing with a single object</li>
         <li>OOP (like) object instantiation</li>
       </ul>
@@ -575,12 +628,12 @@ function f() {
 </section>
 <section>
   <h2>Single Object</h2>
-  <ul class="l1" style="margin-bottom: 0px">
+  <ul>
     <li>
       An object is a collection of variables (fields) and functions (methods)
     </li>
   </ul>
-  <pre style="font-size: 70%; margin: 0px"><code>
+  <pre><code class="lang-javascript">
  book={
   name: "OOP in JS",
   price: 100,
@@ -597,24 +650,22 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
 </section>
 <section>
   <h2>Single Object (cont'd)</h2>
-
-  <ul class="l1" style="margin-bottom: 0px">
+  <ul>
     <li>
       Creating an (empty) object by the <code>Object</code> object and
       <code>new</code>
     </li>
   </ul>
-  <pre style="font-size: 70%; margin: 0px"><code>
-   book = new Object();
-  book.name = "OOP in JS";
-  book.price = 100;
-  book.publish = 2020;
-  book.getPrice = function(){ return this.price; };
-  book.setPrice = function (x){this.price=x;};
-  book.setPrice(1000);
-  window.alert("name is "+ book.name +", price is "+ book.getPrice());
-    </code>
-  </pre>
+  <pre><code class="lang-javascript">
+book = new Object();
+book.name = "OOP in JS";
+book.price = 100;
+book.publish = 2020;
+book.getPrice = function(){ return this.price; };
+book.setPrice = function (x){this.price=x;};
+book.setPrice(1000);
+window.alert("name is "+ book.name +", price is "+ book.getPrice());
+  </code></pre>
 </section>
 <section>
   <h2>Object Accessors</h2>
