@@ -8,6 +8,7 @@ body {
         background-repeat: no-repeat;
         background-size: cover;
         background-image: url("{{ '/img/bg.jpg' | relative_url }}");
+        background-attachment: fixed;
 
         padding-top: 30px;
 }
