@@ -10,7 +10,7 @@ body {
         background-image: url("{{ '/img/bg.jpg' | relative_url }}");
         background-attachment: fixed;
 
-        padding-top: 30px;
+        padding-top: 100px;
 }
 
 .container {
@@ -75,11 +75,9 @@ body {
 .reference {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
         margin-top: 50px;
-
-        .text {
-                margin-left: 50px;
-        }
 
         .image {
                 max-height: 300px;
