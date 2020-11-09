@@ -1717,59 +1717,71 @@ p.demo.five {
   </ul>
 </section>
 <section>
-  <h2>flexbox Example - 1</h2>
-  <div
-    style="
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      border-width: 1px;
-      border-style: dashed;
-      border-color: orange;
-    "
-  >
-    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
-    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
-  </div>
-  <div
-    style="
-      display: flex;
-      flex-direction: row;
-      justify-content: left;
-      border-width: 1px;
-      border-style: dashed;
-      border-color: orange;
-    "
-  >
-    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
-    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
-  </div>
-  <div
-    style="
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      border-width: 1px;
-      border-style: dashed;
-      border-color: orange;
-    "
-  >
-    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
-    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
-  </div>
-  <div
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      border-width: 1px;
-      border-style: dashed;
-      border-color: orange;
-    "
-  >
-    <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
-    <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
-  </div>
+  <section>
+    <h2>flexbox Example</h2>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border-width: 1px;
+        border-style: dashed;
+        border-color: orange;
+      "
+    >
+      <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+      <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        border-width: 1px;
+        border-style: dashed;
+        border-color: orange;
+      "
+    >
+      <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+      <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        border-width: 1px;
+        border-style: dashed;
+        border-color: orange;
+      "
+    >
+      <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+      <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-width: 1px;
+        border-style: dashed;
+        border-color: orange;
+      "
+    >
+      <div style="background-color: rgba(0, 191, 255, 0.1)">One</div>
+      <div style="background-color: rgba(255, 0, 64, 0.1)">Two</div>
+    </div>
+  </section>
+  <section>
+    <pre><code class="lang-css">
+display: flex;
+flex-direction: row;
+flex-direction: column;
+
+justify-content: center;
+justify-content: space-evenly;
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>Grid</h2>
@@ -1831,6 +1843,11 @@ p.demo.five {
         <dd>Relative to 1% of viewport's smaller / larger dimension</dd>
         <dt>%</dt>
         <dd>Relative to the parent element</dd>
+        <dt>fr</dt>
+        <dd>
+          Fr is a fractional unit and 1fr is for 1 part of the available space.
+          (CSS Grid Layout)
+        </dd>
       </dl>
     </ul>
   </section>
@@ -2000,6 +2017,16 @@ button {
       <div id="the-rotating-animation"></div>
     </div>
   </section>
+</section>
+<section>
+  <h2>Hidden Elements</h2>
+  <ul>
+    <li>
+      <code>visibility:hidden</code> It is not visible but gets up it’s original
+      space whereas
+    </li>
+    <li><code>display:none</code> It is hidden and takes no space</li>
+  </ul>
 </section>
 <section>
   <div class="toc" data-selected="7"></div>
