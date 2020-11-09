@@ -1471,7 +1471,7 @@ p.demo.five {
         </ul>
         <li>Space is reserved for the element</li>
         <li>
-          Content (text) of other elements
+          <span class="hl-yellow">Content (text)</span> of other elements
           <span class="hl-cyan">wraps around</span> it
         </li>
         <ul>
@@ -1517,8 +1517,8 @@ p.demo.five {
   </style>
 
   <p class="demo eight" style="width: 100%">Top</p>
-  <p class="demo eight float">123</p>
-  <p class="demo eight">456</p>
+  <p class="demo eight float">float: right; width: 45%;</p>
+  <p class="demo eight">width: 45%;</p>
 </section>
 <section>
   <h2>Clearing around Float Elements</h2>
@@ -1632,6 +1632,44 @@ p.demo.five {
       <p>This is footer.</p>
     </div>
   </section>
+</section>
+<section>
+  <style>
+    div.demo.nine {
+      border-radius: 5px;
+      margin: 0 1.5%;
+      width: 45%;
+    }
+  </style>
+  <div>
+    <div
+      class="demo nine"
+      style="float: right; background-color: rgba(242, 161, 22, 0.5)"
+    >
+      float
+    </div>
+    <div class="demo nine" style="background-color: rgba(84, 242, 22, 0.5)">
+      non-float
+    </div>
+  </div>
+  <div>
+    <div
+      class="demo nine"
+      style="float: right; background-color: rgba(242, 161, 22, 0.5)"
+    >
+      float
+    </div>
+    <div
+      class="demo nine"
+      style="
+        width: 100%;
+        text-align: right;
+        background-color: rgba(84, 242, 22, 0.5);
+      "
+    >
+      non-float
+    </div>
+  </div>
 </section>
 <section>
   <h2>Display Property</h2>
