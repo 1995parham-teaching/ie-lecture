@@ -254,10 +254,21 @@ x[0]='Z';
             </code></pre>
           </ul>
         </li>
+      </ul>
+  </section>
+  <section>
+      <ul>
         <li>
           Objects: e.g., <code> w = window;</code>
           <ul>
             <li>Wrapper objects for primitives, String for string</li>
+            <ul>
+              <li>
+                When we treat a primitive value like it was an object (i.e. by
+                accessing properties and methods), JavaScript creates, under the
+                hood, a wrapper to wrap this value and expose it as an object.
+              </li>
+            </ul>
             <li>Arrays are some special objects</li>
             <li>Objects are <em>mutable</em></li>
           </ul>
