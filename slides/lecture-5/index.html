@@ -170,6 +170,12 @@ topics:
   </ul>
 </section>
 <section>
+  <h2>Hello World</h2>
+  <pre><code class="lang-javascript">
+console.log('Hello World')
+  </code></pre>
+</section>
+<section>
   <section>
     <h2>JavaScript Syntax</h2>
     <ul>
@@ -386,8 +392,15 @@ function Name(input1, input2, ...){
       <li>Function in Function definition is allowed</li>
       <li>
         Function declarations are not part of the regular top-to-bottom flow of
-        control
+        control (JavaScript Hoisting)
       </li>
+      <pre><code class='lang-javascript'>
+square(5);
+
+function square(y) {
+  return y * y;
+}
+      </code></pre>
     </ul>
   </section>
 </section>
