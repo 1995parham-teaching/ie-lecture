@@ -574,13 +574,13 @@ friends.push("Ali") // 4
 friends.concat("Ali") // ["Saman", "Sepehr", "Hessam", "Ali", "Ali"]
 let last = friends.pop() // "Ali"
 last // "Ali"
-friends.map(i =&gt; i.toUpperCase()) // ["SAMAN", "SEPEHR", "HESSAM", "ALI"]
+friends.map(i =&gt; i.toUpperCase()) // ["SAMAN", "SEPEHR", "HESSAM"]
 friends.filter(i =&gt; i.startsWith("S")) // ["Saman", "Sepehr"]
     </code></pre>
     <pre><code class="lang-javascript">
 let num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-num.reduce((i, sum) =&gt; sum + i, 0) // 45
+num.reduce((sum, i) =&gt; sum + i, 0) // 45
     </code></pre>
   </section>
 </section>
@@ -609,9 +609,9 @@ num.reduce((i, sum) =&gt; sum + i, 0) // 45
       >, ...
       <li>Number:</li>
       <pre><code class="lang-javascript">
-let num;
-num.toExponential
-num.toFixed
+let num = 1.1;
+num.toExponential() // '1.1e0'
+num.toFixed() // '1'
     </code></pre>
       <li>Date:</li>
       <pre><code class="lang-javascript">
@@ -660,7 +660,7 @@ d.toString(); // "Thu Nov 05 2020 09:50:38 GMT+0330 (Iran Standard Time)"
     </li>
   </ul>
   <pre><code class="lang-javascript">
- book={
+let book = {
   name: "OOP in JS",
   price: 100,
   publish: 2020,
@@ -683,7 +683,7 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
     </li>
   </ul>
   <pre><code class="lang-javascript">
-book = new Object();
+let book = new Object();
 book.name = "OOP in JS";
 book.price = 100;
 book.publish = 2020;
@@ -695,16 +695,16 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
 </section>
 <section>
   <h2>Object Accessors</h2>
-  <ul class="l1" style="margin-bottom: 0px">
+  <ul>
     <li>
       To control to access to object's fields use getter and setter
-      <ul class="l2">
+      <ul>
         <li>The fields are not protected/private (like Java)</li>
       </ul>
     </li>
   </ul>
-  <pre><code>
- book={
+  <pre><code class="lang-javascript">
+let book = {
   name: "OOP in JS",
   _price: 0,
   get price(){return this._price + "$";},
@@ -724,18 +724,18 @@ window.alert("name is "+ book.name +", price is "+ book.price);
 </section>
 <section>
   <h2>OOP: Instantiating Multiple Objects</h2>
-  <ul class="l1">
+  <ul>
     <li>
       To be more OOP-like, we need
-      <ul class="l2">
+      <ul>
         <li>Differentiation between class and object</li>
         <li>Instantiating via constructor</li>
       </ul>
     </li>
     <li>
       Traditional/Base/Conceptual/Common approach:
-      <ul class="l2">
-        <li>A function is also a type of object!!!</li>
+      <ul>
+        <li>A function is also a type of object</li>
         <li>Functions are used to define objects as the constructor</li>
         <li>
           Inheritance is
@@ -749,7 +749,7 @@ window.alert("name is "+ book.name +", price is "+ book.price);
     </li>
     <li>
       Easier/New (ECMA 2015) approach:
-      <ul class="l2">
+      <ul>
         <li>
           No new concept, syntactical sugar over JavaScript's existing
           prototype-based inheritance
@@ -775,7 +775,7 @@ window.alert("name is "+ book.name +", price is "+ book.price);
 </section>
 <section>
   <h2>Objects</h2>
-  <ul class="l1">
+  <ul>
     <li>Class definition: <code>class</code></li>
     <li>
       Object instantiation &amp; deletion: <code>new</code>, <code>delete</code>
@@ -786,7 +786,7 @@ window.alert("name is "+ book.name +", price is "+ book.price);
     </li>
     <li>Access to properties/methods: <code>.</code></li>
     <li>This object: <code>this</code></li>
-    <ul class="l2">
+    <ul>
       <li>Needed to access properties in methods</li>
     </ul>
     <li>
@@ -803,7 +803,8 @@ window.alert("name is "+ book.name +", price is "+ book.price);
 </section>
 <section>
   <h2>Objects Example</h2>
-  <pre><code>function MyObject(valx){
+  <pre><code class="lang-javascript">
+function MyObject(valx){
   window.alert("A new MyObject!!!");
   this.x = valx;
   this.getX = function(){
@@ -812,7 +813,9 @@ window.alert("name is "+ book.name +", price is "+ book.price);
 }
 obj1 = new MyObject(10);
 window.alert(obj1.getX());
+
 // ==========================================
+
 class NewObject extends MyObject{
   constructor(valy){
     super(100);
@@ -831,7 +834,7 @@ window.alert(obj2.newx);
 </section>
 <section>
   <h2>Objects Example</h2>
-  <pre style="font-size: 60%; margin: 0px"><code>
+  <pre><code class="lang-javascript">
 class AnotherObject extends NewObject{
   constructor(){
     super(50000);
@@ -855,24 +858,53 @@ obj3 = new AnotherObject();
 obj3.setX();
 window.alert(obj3.x +" "+ obj3.y);
 window.alert(AnotherObject.add(obj3.getX(),obj3.y));
-  </code>
-  </pre>
+  </code></pre>
+</section>
+<section>
+  <h2>Prototype</h2>
+  <ul>
+    <li>
+      Prototypes are the mechanism by which JavaScript objects inherit features
+      from one another.
+    </li>
+    <li>
+      In our code we define the constructor, then we create an instance object
+      from the constructor, then we add a new method to the constructor's
+      prototype:
+    </li>
+    <pre><code class="lang-javascript">
+function Person(first, last, age, gender, interests) {
+  // property and method definitions
+}
+
+let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
+
+Person.prototype.farewell = function() {
+  alert(this.name.first + ' has left the building. Bye for now!');
+};
+  </code></pre>
+    <li>
+      But the farewell() method is still available on the person1 object
+      instance — its members have been automatically updated to include the
+      newly defined farewell() method.
+    </li>
+  </ul>
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
 </section>
 <section>
   <h2>JavaScript in Web</h2>
-  <ul class="l1">
+  <ul>
     <li>Basic functionality of JS in Web: <em>Dynamic pages</em></li>
-    <ul class="l2">
+    <ul>
       <li>Create and delete HTML elements</li>
       <li>Modify HTML element contents</li>
       <li>Modify element's styles</li>
     </ul>
     <li>Question: How to access HTML elements from JavaScript?</li>
     <li>Answer: <em>DOM</em></li>
-    <ul class="l2">
+    <ul>
       <li>Web browser parses HTML document</li>
       <li>Output is a data-structure called "DOM"</li>
       <li>Browser provides <em>API</em> to access the DOM</li>
@@ -881,15 +913,15 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
 </section>
 <section>
   <h2>DOM</h2>
-  <ul class="l1">
+  <ul>
     <li>
       Document Object Model (DOM) is the output of parsing XHTML file by browser
     </li>
-    <ul class="l2">
+    <ul>
       <li>XHTML document is represented by DOM in browser</li>
     </ul>
     <li>Each XHTML element is represented by an <em>object</em></li>
-    <ul class="l2">
+    <ul>
       <li>
         However, there are other objects (called BOM) that are not corresponding
         to HTML elements; e.g., <code>window</code> is the browser window
@@ -898,7 +930,7 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
 
     <li>A tree of object corresponding to XHTML tag hierarchy</li>
     <li>Each object has</li>
-    <ul class="l2">
+    <ul>
       <li>Properties corresponding to HTML properties (not all properties)</li>
       <li>Methods corresponsing to events and actions</li>
     </ul>
@@ -906,20 +938,20 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
 </section>
 <section>
   <h2>DOM &amp; JavaScript</h2>
-  <ul class="l1">
+  <ul>
     <li>JavaScript is powerful in web since it accesses to DOM</li>
-    <ul class="l2">
+    <ul>
       <li>JavaScript + DOM = Dynamic XHTML</li>
     </ul>
     <li><em>Read</em> access in order to</li>
-    <ul class="l2">
+    <ul>
       <li>Check properties (conditional reaction)</li>
       <li>Validate inputs</li>
       <li>Handle events</li>
     </ul>
     <li>
       <em>Write</em> access in order to
-      <ul class="l2">
+      <ul>
         <li>Modify content</li>
         <li>Modify styles</li>
         <li>Add/Remove objects to/from DOM</li>
@@ -930,55 +962,56 @@ window.alert(AnotherObject.add(obj3.getX(),obj3.y));
 <section>
   <h2>DOM Object Access by Name</h2>
   <pre><code class="lang-html">
-      &lt;form name="nametest"&gt; <br />
-      &lt;input name="output" type="text" value="Default Text"&gt;
-      &lt;/form&gt;
+&lt;form name="nametest"&gt;
+&lt;input name="output" type="text" value="Default Text"&gt;
+&lt;/form&gt;
   </code></pre>
 
   <form name="nametest">
     <input name="output" type="text" value="Default Text" />
   </form>
 
-  <div class="code">
-    <code> document.nametest.output.value='New Value'; </code>
-  </div>
+  <pre>
+    <code class="lang-javascript"> document.nametest.output.value='New Value'; </code>
+  </pre>
   <input
     type="button"
     value="Run"
     onclick="document.nametest.output.value='New Value';"
   />
 
-  <ul class="l1">
+  <ul>
     <li>We need to assign a name to all parents &amp; children</li>
-    <ul class="l2">
+    <!--
+    <ul>
       <li>
         Children are <em>not</em> directly accessible by
         <code>document.childname</code>
       </li>
     </ul>
+    -->
     <li>Is not really useful and practical</li>
   </ul>
 </section>
 <section>
   <h2>DOM Object Access</h2>
-
-  <ul class="l1">
+  <ul>
     <li>element<code>.getElementById("id")</code></li>
-    <ul class="l2">
+    <ul>
       <li>
         returns the object with given "id" in <em>sub-tree</em> rooted at
         element
       </li>
     </ul>
     <li>element<code>.getElementsByClassName("classname")</code></li>
-    <ul class="l2">
+    <ul>
       <li>
         returns an array of object whose class is "classname" in
         <em>sub-tree</em> rooted at element
       </li>
     </ul>
     <li>element<code>.getElementsByTagName("tagname")</code></li>
-    <ul class="l2">
+    <ul>
       <li>
         returns an array of objects whose tag is "tagname" in
         <em>sub-tree</em> rooted at element
