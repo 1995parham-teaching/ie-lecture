@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="119.5 281.5 291 379" width="291" height="379">
+  <defs>
+    <font-face font-family="Courier New" font-size="14" panose-1="2 7 3 9 2 2 5 2 4 4" units-per-em="1000" underline-position="-232.91016" underline-thickness="41.015625" slope="0" x-height="422.85156" cap-height="571.28906" ascent="832.5195" descent="-300.29297" font-weight="400">
+      <font-face-src>
+        <font-face-name name="CourierNewPSMT"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.10.2 
+    <dc:date>2019-04-23 21:57:02 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none" stroke="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Graphic_2">
+        <rect x="120" y="282" width="290" height="378" fill="#ededff"/>
+        <rect x="120" y="282" width="290" height="378" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(125 287)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Window</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <rect x="130" y="312" width="266.98413" height="338" fill="#ffc0c0"/>
+        <rect x="130" y="312" width="266.98413" height="338" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(135 317)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Document</tspan>
+        </text>
+      </g>
+      <g id="Graphic_8">
+        <rect x="143.01587" y="340" width="246.98413" height="80" fill="#ffffc0"/>
+        <rect x="143.01587" y="340" width="246.98413" height="80" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(148.01587 345)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <rect x="143.01587" y="430" width="246.98413" height="130" fill="#ffffc0"/>
+        <rect x="143.01587" y="430" width="246.98413" height="130" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(148.01587 435)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
+        </text>
+      </g>
+      <g id="Graphic_10">
+        <rect x="150" y="460" width="230" height="30" fill="#c0ffff"/>
+        <rect x="150" y="460" width="230" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(155 465)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
+        </text>
+      </g>
+      <g id="Graphic_11">
+        <rect x="150" y="500" width="230" height="30" fill="#c0ffff"/>
+        <rect x="150" y="500" width="230" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(155 505)" fill="black">
+          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
