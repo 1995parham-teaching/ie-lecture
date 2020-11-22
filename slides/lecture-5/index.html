@@ -1148,29 +1148,41 @@ da[0].innerHTML="I am another new message";
   />
 </section>
 <section>
-  <h2>Samples of DOM Object's Properties</h2>
-  <ul>
-    <li>element.<code>innerHTML</code></li>
+  <section>
+    <h2>Samples of DOM Object's Properties</h2>
     <ul>
-      <li>Text value of element</li>
+      <li><span class="hl-orange">Element</span>.<code>innerHTML</code></li>
+      <ul>
+        <li>HTML or XML markup contained within the element</li>
+        <li>
+          Setting the value of innerHTML
+          <strong class="hl-yellow">removes</strong> all of the element's
+          descendants and replaces them with nodes constructed by parsing the
+          HTML given in the value.
+        </li>
+      </ul>
+      <li><span class="hl-green">ParentNode</span>.<code>children</code></li>
+      <ul>
+        <li>Array of children elements</li>
+      </ul>
+      <li><span class="hl-cyan">ChildNode</span>.<code>parentNode</code></li>
+      <ul>
+        <li>The parent of element</li>
+      </ul>
     </ul>
-    <li>element.<code>children</code></li>
+  </section>
+  <section>
     <ul>
-      <li>Array of children elements</li>
+      <li><span class="hl-violet">HTMLElement</span>.<code>style</code></li>
+      <ul>
+        <li>The styling rules of element</li>
+      </ul>
+      <li><span class="hl-violet">HTMLElement</span>.<code>value</code></li>
+      <ul>
+        <li>The value of input elements</li>
+      </ul>
     </ul>
-    <li>element.<code>parentNode</code></li>
-    <ul>
-      <li>The parent of element</li>
-    </ul>
-    <li>element.<code>style</code></li>
-    <ul>
-      <li>The styling rules of element</li>
-    </ul>
-    <li>element.<code>value</code></li>
-    <ul>
-      <li>The value of input elements</li>
-    </ul>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>CSS &amp; JavaScript</h2>
@@ -1538,7 +1550,7 @@ document.getElementById("b").onclick = setBgColor3;
 
 &lt;button id="b"&gt;Blue&lt;/button&gt;
 
-&lt;button onclick="document.body.style.backgroundColor =
+&lt;button onclick="this.style.backgroundColor =
 this.innerHTML;"&gt;Green&lt;/button&gt;
 
 &lt;!-- how we can fix this? --&gt;
@@ -1675,6 +1687,38 @@ object.removeEventListener(eventName, function)
         </li>
       </ul>
     </ul>
+  </section>
+  <section>
+    <pre><code class="lang-html">
+&lt;div id="parent" style="border: solid"&gt;
+  I am parent &lt;br /&gt;
+  &lt;button id="click-btn-1"&gt;click me&lt;/button&gt;
+&lt;/div&gt;
+    </code></pre>
+    <pre><code class="lang-javascript">
+// counter have been declared before
+counter = 0;
+function childHandler(event) {
+  window.alert("child handler");
+  counter++;
+  // add message to the event
+  event.message = `You have clicked me ${counter} times`;
+}
+
+document
+  .getElementById("click-btn-1")
+  .addEventListener("click", childHandler);
+
+document.getElementById("parent").addEventListener("click", (event) =&gt; {
+  window.alert(
+    `child message that is added into event: ${
+      event.message ?? "use clickme button"
+    }`
+  );
+});
+    </code></pre>
+  </section>
+  <section>
     <div id="parent" style="border: solid">
       I am parent <br />
       <button id="click-btn-1">click me</button>
@@ -1741,6 +1785,27 @@ myButton.onclick = function(event){alert('Hello world')}
   </section>
 </section>
 <section>
+  <h2>
+    <code class="hl-green">event.target</code> vs.
+    <code class="hl-orange">this</code>
+  </h2>
+  <ul>
+    <li>
+      There is a difference between <span class="hl-orange">this</span> and
+      <span class="hl-green">event.target</span>, and quite a
+      <strong class="hl-yellow">significant</strong> one.
+    </li>
+    <li>
+      <span class="hl-orange">this</span> always refers to the DOM element the
+      listener was attached to
+    </li>
+    <li>
+      <span class="hl-green">event.target</span> is the actual DOM element that
+      was clicked
+    </li>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="4"></div>
 </section>
 <section>
@@ -1750,12 +1815,12 @@ myButton.onclick = function(event){alert('Hello world')}
       <li>Add/Remove objects to/from DOM using JavaScript</li>
       <li>Create an element</li>
       <pre><code class="lang-javascript">
-document.createElement(element type)
+document.createElement(tagName)
     </code></pre>
       <li>Set or Get attribute</li>
       <pre><code class="lang-javascript">
 element.getAttribute(name)
-element.setAttribute(name,value)
+element.setAttribute(name, value)
     </code></pre>
     </ul>
   </section>
@@ -1764,81 +1829,118 @@ element.setAttribute(name,value)
       <li>Append &amp; Insert the new element as a child of parent</li>
       <pre><code class="lang-javascript">
 parent.appendChild(child)
-parent.insertBefore(NewChild, ExistingChild)
+parent.insertBefore(newChild, existingChild)
       </code></pre>
       <li>To delete or replace child</li>
       <pre><code class="lang-javascript">
 parent.removeChild(child)
-parent.replaceChild(NewChild, OldChild)
+parent.replaceChild(newChild, oldChild)
       </code></pre>
     </ul>
   </section>
 </section>
 <section>
-  <h2>Content Generation Example</h2>
-  <script type="text/javascript">
-    let id = 0;
-    function addNewP() {
-      id++;
-      let parent = document.getElementById("main");
-      let newp = document.createElement("p");
-      newp.id = "newp" + id;
-      newp.innerHTML = "I am new paragraph";
-      parent.appendChild(newp);
-    }
-
-    let replace = 0;
-    function replaceNewP() {
-      replace++;
-      if (replace <= id) {
+  <section>
+    <h2>Content Generation Example</h2>
+    <script type="text/javascript">
+      let id = 0;
+      function addNewP() {
+        id++;
         let parent = document.getElementById("main");
-        let newp = document.getElementById("newp" + replace);
-        let newer = document.createElement("span");
-        newer.style.borderStyle = "solid";
-        newer.innerHTML = "I replace the new paragraph";
-        parent.replaceChild(newer, newp);
-      } else {
-        replace = id;
+        let newp = document.createElement("p");
+        newp.id = "newp" + id;
+        newp.innerHTML = "I am new paragraph";
+        parent.appendChild(newp);
       }
-    }
-  </script>
 
-  <div id="main"></div>
+      let replace = 0;
+      function replaceNewP() {
+        replace++;
+        if (replace <= id) {
+          let parent = document.getElementById("main");
+          let newp = document.getElementById("newp" + replace);
+          let newer = document.createElement("span");
+          newer.style.borderStyle = "solid";
+          newer.innerHTML = "I replace the new paragraph";
+          parent.replaceChild(newer, newp);
+        } else {
+          replace = id;
+        }
+      }
+    </script>
 
-  <form>
-    <input type="button" value="Add New Paragraph" onclick="addNewP();" />
-    <input
-      type="button"
-      value="Replace New Paragraph"
-      onclick="replaceNewP();"
-    />
-  </form>
+    <div id="main"></div>
+
+    <form>
+      <input type="button" value="Add New Paragraph" onclick="addNewP();" />
+      <input
+        type="button"
+        value="Replace New Paragraph"
+        onclick="replaceNewP();"
+      />
+    </form>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+let id = 0;
+function addNewP() {
+  id++;
+  let parent = document.getElementById("main");
+  let newp = document.createElement("p");
+  newp.id = "newp" + id;
+  newp.innerHTML = "I am new paragraph";
+  parent.appendChild(newp);
+}
+    </code></pre>
+    <pre><code class="lang-javascript">
+let replace = 0;
+function replaceNewP() {
+  replace++;
+  if (replace &lt;= id) {
+    let parent = document.getElementById("main");
+    let newp = document.getElementById("newp" + replace);
+    let newer = document.createElement("span");
+    newer.style.borderStyle = "solid";
+    newer.innerHTML = "I replace the new paragraph";
+    parent.replaceChild(newer, newp);
+  } else {
+    replace = id;
+  }
+}
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>Application 2: Form Validation</h2>
   <ul>
-    <li>The solution of R2 (checking email format)</li>
     <li>
-      One of the major applications of JavaScript: <em>Form Validation</em>
+      One of the major applications of JavaScript:
+      <em class="hl-orange">Form Validation</em>
     </li>
     <ul>
       <li>To check input data correctness before submitting to server</li>
       <li>To save bandwidth, time, and server load</li>
     </ul>
-    <li><em>Note</em>: Data cannot be validated completely in client-side</li>
+    <li>
+      <em>Note</em>: Data <strong class="hl-yellow">cannot</strong> be validated
+      completely in client-side
+    </li>
     <ul>
-      <li>In client side we check format (pattern/syntax)</li>
+      <li>
+        In client side we check
+        <em class="hl-green">format</em> (pattern/syntax)
+      </li>
       <ul>
         <li>Checking format, e.g., Date or Time pattern</li>
         <li>Checking length, e.g. Password length</li>
       </ul>
     </ul>
     <li>Steps:</li>
-    <ul>
-      <li>1) Read the input</li>
-      <li>2) Check the format/pattern (by regular expression)</li>
-      <li>3) Don't allow to sumbit if there is error</li>
-    </ul>
+    <ol>
+      <li>Read the input</li>
+      <li>Check the format/pattern (by regular expression)</li>
+      <li>Don't allow to sumbit if there is an error</li>
+    </ol>
   </ul>
 </section>
 <section>
@@ -1846,63 +1948,69 @@ parent.replaceChild(NewChild, OldChild)
   <ul>
     <li>At first, we should access to input (form) data, then validate</li>
     <li>
-      For <code>text</code>, <code>password</code>, and <code>textarea</code>
+      For <code class="hl-orange">text</code>,
+      <code class="hl-orange">password</code>, and
+      <code class="hl-orange">textarea</code>
     </li>
     <ul>
       <li>
-        The input text is accessible via <code>.value</code> of the
-        corresponding object
+        The input text is accessible via <code class="hl-green">.value</code> of
+        the corresponding object
       </li>
     </ul>
-    <li>For <code>select</code></li>
+    <li>For <code class="hl-orange">select</code></li>
     <ul>
       <li>
-        The value of selected <code>option</code> is given by
-        <code><var>SelectObject</var>.value</code>
+        The value of selected <code class="hl-orange">option</code> is given by
+        <code class="hl-green">SelectObject.value</code>
       </li>
     </ul>
-    <li>For <code>checkbox</code> and <code>radio</code></li>
+    <li>
+      For <code class="hl-orange">checkbox</code> and
+      <code class="hl-orange">radio</code>
+    </li>
     <ul>
       <li>Enumerate all options (children)</li>
-      <li><code>.checked == true</code> is selected</li>
+      <li><code class="hl-green">.checked == true</code> is selected</li>
       <li>
-        The value of the selected child is given by its <code>.value</code>
+        The value of the selected child is given by its
+        <code class="hl-green">.value</code>
       </li>
     </ul>
   </ul>
 </section>
 <section>
   <form>
-    <textarea rows="3" cols="20" id="txtID"> </textarea>
-    <input
-      type="button"
-      value="Convert"
-      onclick="upperCaseArea('txtID', 'outID')"
-    />
+    <textarea rows="3" cols="20" id="txtID"> </textarea><br />
+    <input type="button" value="Convert" id="btnID" />
   </form>
-  <span style="font-size: 0.7em">
-    Output will be here:
-    <span id="outID" style="border-style: solid"> &nbsp; </span></span
-  >
+  <p style="font-size: 0.7em">
+    Output will be here:<br />
+    <span id="outID"> </span>
+  </p>
 
   <script type="text/javascript">
     function upperCaseArea(textareaID, outputID) {
-      var textareaObject = document.getElementById(textareaID);
-      var content = textareaObject.value.toUpperCase();
-      var outputObject = document.getElementById(outputID);
-      var outputMessage = content;
-      outputObject.innerHTML = outputMessage;
+      return () => {
+        let textareaObject = document.getElementById(textareaID);
+        let content = textareaObject.value.toUpperCase();
+        let outputObject = document.getElementById(outputID);
+        let outputMessage = content;
+        outputObject.innerHTML = `<code class="hl-orange">${outputMessage}</code>`;
+      };
     }
+
+    document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
   </script>
 </section>
 <section>
   <h2>JavaScript Form Validation Exmaple</h2>
-
   <form>
     <input type="checkbox" name="osSelect" value="Linux" /> Linux,
     <input type="checkbox" name="osSelect" value="Windows" /> Windows,
     <input type="checkbox" name="osSelect" value="Mac" /> Mac,
-    <input type="checkbox" name="osSelect" value="Unix" /> Unix &nbsp; &nbsp;
+    <input type="checkbox" name="osSelect" value="Unix" /> Unix
+    <br />
     <input
       type="button"
       value="Find OS"
@@ -1925,60 +2033,79 @@ parent.replaceChild(NewChild, OldChild)
   </script>
 </section>
 <section>
-  <h2>Form Validation by Regular Expression</h2>
+  <section>
+    <h2>Form Validation by Regular Expression</h2>
+    <pre><code class="lang-javascript">
+reg_expr = /expression/;
 
-  <code>reg_expr = /expression/;</code>
-  <code>reg_expr.test(string)</code> or
-  <code>string.match(reg_expr)</code> returns true, if the pattern is
-  <em>found in</em> the string.
-  <table style="margin-top: 15px; margin-bottom: 15px">
-    <tr>
-      <td><code>c*</code></td>
-      <td>&ge; 0 of c</td>
-      <td><code>c+</code></td>
-      <td>&ge; 1 of c</td>
-    </tr>
+// The test() method executes a search for a match between a regular expression and a specified string.
+// Returns true or false.
+reg_expr.test(string)
 
-    <tr>
-      <td><code>c?</code></td>
-      <td>0 or 1 of c</td>
-      <td><code>c{x}</code></td>
-      <td>x times of c</td>
-    </tr>
+// The match method retrieves the matches when matching a string against a regular expression.
+string.match(reg_expr)
+  </code></pre>
+  </section>
+  <section>
+    <table>
+      <tr>
+        <td><code>c*</code></td>
+        <td>&ge; 0 of c</td>
+        <td><code>c+</code></td>
+        <td>&ge; 1 of c</td>
+      </tr>
 
-    <tr>
-      <td><code>.</code></td>
-      <td>A char (no new line)</td>
-      <td><code>c1|c2</code></td>
-      <td>c1 or c2</td>
-    </tr>
+      <tr>
+        <td><code>c?</code></td>
+        <td>0 or 1 of c</td>
+        <td><code>c{x}</code></td>
+        <td>x times of c</td>
+      </tr>
 
-    <tr>
-      <td><code>[]</code></td>
-      <td>Any combination of given characters</td>
-      <td><code>[^]</code></td>
-      <td>Any string without the given characters</td>
-    </tr>
+      <tr>
+        <td><code>.</code></td>
+        <td>A char (no new line)</td>
+        <td><code>c1|c2</code></td>
+        <td>c1 or c2</td>
+      </tr>
 
-    <tr>
-      <td><code>\d</code></td>
-      <td>A digit</td>
-      <td><code>\D</code></td>
-      <td>Every thing except digits</td>
-    </tr>
-    <tr>
-      <td><code>^c </code></td>
-      <td>Beginning match</td>
-      <td><code>c$</code></td>
-      <td>End match</td>
-    </tr>
-  </table>
+      <tr>
+        <td><code>[]</code></td>
+        <td>Any combination of given characters</td>
+        <td><code>[^]</code></td>
+        <td>Any string without the given characters</td>
+      </tr>
 
-  <code>var m = /^ab*c+d{3}z$/;</code> "acz": False; "abbccdddz": True;
-  "ffabbccdddz": False <br />
-  <code>var m = /ab*c+d{3}z/;</code> "abbccdddz": True; "ffabbccdddz": True;
-  "ffabbccdddzggg": True <br />
-  To match Date format: <code>/^\d{4}\/\d{1,2}\/\d{1,2}$/</code>
+      <tr>
+        <td><code>\d</code></td>
+        <td>A digit</td>
+        <td><code>\D</code></td>
+        <td>Every thing except digits</td>
+      </tr>
+      <tr>
+        <td><code>^c </code></td>
+        <td>Beginning match</td>
+        <td><code>c$</code></td>
+        <td>End match</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+let m = /^ab*c+d{3}z$/;
+// "acz": False
+// "abbccdddz": True
+// "ffabbccdddz": False
+
+let m = /ab*c+d{3}z/;
+// "abbccdddz": True
+// "ffabbccdddz": True
+// "ffabbccdddzggg": True
+
+// To match Date format:
+let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>Valid Form Submission</h2>
@@ -2017,6 +2144,7 @@ parent.replaceChild(NewChild, OldChild)
     function checkpassword(event) {
       var p1 = document.passwordform.password.value;
       var p2 = document.passwordform.repassword.value;
+
       if (p1.length < 6) {
         alert("To short password, re-enter");
         event.preventDefault();
@@ -2031,8 +2159,59 @@ parent.replaceChild(NewChild, OldChild)
   </script>
 </section>
 <section>
+  <section>
+    <h2><code>Event.preventDefault</code></h2>
+    <p>
+      The Event interface's preventDefault() method tells the user agent that if
+      the event does not get explicitly handled, its default action should not
+      be taken as it normally would be.
+    </p>
+  </section>
+  <section>
+    <p>Toggling a checkbox is the default action of clicking on a checkbox.</p>
+    <pre><code class="lang-javascript">
+document.querySelector("#id-checkbox").addEventListener("click", function(event) {
+  document.getElementById("output-box").innerHTML += "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
+  event.preventDefault();
+});
+    </code></pre>
+    <pre><code class="lang-html">
+&lt;p&gt;Please click on the checkbox control.&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;label for="id-checkbox"&gt;Checkbox:&lt;/label&gt;
+  &lt;input type="checkbox" id="id-checkbox"/&gt;
+&lt;/form&gt;
+
+&lt;div id="output-box"&gt;&lt;/div&gt;
+    </code></pre>
+  </section>
+  <section>
+    <p>Please click on the checkbox control.</p>
+
+    <form>
+      <label for="id-checkbox">Checkbox:</label>
+      <input type="checkbox" id="id-checkbox" />
+    </form>
+
+    <div id="output-box"></div>
+
+    <script>
+      document.querySelector("#id-checkbox").addEventListener(
+        "click",
+        function (event) {
+          document.getElementById("output-box").innerHTML +=
+            "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
+          event.preventDefault();
+        },
+        false
+      );
+    </script>
+  </section>
+</section>
+<section>
   <h2>Application 3: Working with Document</h2>
-  <ul class="l1">
+  <ul>
     <li>
       <code>document</code> object is created by browser for each HTML page
       (document) that is viewed
