@@ -2210,20 +2210,23 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
   </section>
 </section>
 <section>
-  <h2>Application 3: Working with Document</h2>
-  <ul>
-    <li>
-      <code>document</code> object is created by browser for each HTML page
-      (document) that is viewed
-    </li>
-    <li>
-      Its properties provide useful information to read/write about the HTML
-      document
-    </li>
-
+  <section>
+    <h2>Application 3: Working with Document</h2>
+    <ul>
+      <li>
+        <code class="hl-orange">document</code> object is created by browser for
+        each HTML page (document) that is viewed
+      </li>
+      <li>
+        Its properties provide useful information to read/write about the HTML
+        document
+      </li>
+    </ul>
+  </section>
+  <section>
     <table>
       <tr>
-        <td style="width: 45%">
+        <td>
           <code>anchors</code>, <code>applets</code>, <code>forms</code>,
           <code>images</code>, <code>links</code>
         </td>
@@ -2242,34 +2245,36 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
         <td>Title of the document</td>
       </tr>
       <tr>
+        <td>
+          <code>cookie</code>, <code>location</code>, <code>domain</code>, ...
+        </td>
         <td>Information about HTTP</td>
-        <td>Last modified, port, referrer, ...</td>
       </tr>
     </table>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>Document Object Example</h2>
 
-  <p id="referrer"></p>
+  <table id="http-info"></table>
   <script>
-    document.getElementById("referrer").innerHTML =
-      "<br /><code>referrer: </code>" +
-      document.referrer +
-      "<code><br />URL: </code>" +
-      document.URL +
-      "<code><br /> location.protocol: </code>" +
-      document.location.protocol +
-      "<code><br /> domain: </code>" +
-      document.domain +
-      "<code><br /> location.pathname: </code>" +
-      document.location.pathname +
-      "<code><br />";
+    document.getElementById("http-info").innerHTML =
+      "<tr><td><code>referrer</code></td>" +
+      `<td>${document.referrer}</td></tr>` +
+      "<tr><td><code>URL</code></td>" +
+      `<td>${document.URL}</td></td>` +
+      "<tr><td><code>location.protocol: </code></td>" +
+      `<td>${document.location.protocol}</td></tr>` +
+      "<tr><td><code>domain: </code></td>" +
+      `<td>${document.domain}</td></tr>` +
+      "<tr><td><code>location.pathname: </code></td>" +
+      `<td>${document.location.pathname}</td></tr>`;
   </script>
 
   <form>
     <input type="button" value="Change Sides" id="change_dir" />
   </form>
+  <p>من یک متن فارسی هستم</p>
   <script type="text/javascript">
     var the_button = document.getElementById("change_dir");
     the_button.onclick = function () {
@@ -2279,12 +2284,12 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
 </section>
 <section>
   <h2>Application 4: Working with Browser</h2>
-  <ul class="l1">
+  <ul>
     <li>
-      The <code>window</code> objects provide useful properties and methods to
-      work with browser window
+      The <code class="hl-orange">window</code> objects provide useful
+      properties and methods to work with browser window
     </li>
-    <ul class="l2">
+    <ul>
       <li>Properties to access browser window size</li>
       <li>Methods &amp; properties to work browser history</li>
       <li>Method to open/close/change browser window</li>
@@ -2293,66 +2298,80 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
   </ul>
 </section>
 <section>
-  <h2>window Object</h2>
-
-  <ul class="l1">
-    <li>
-      The <code>window</code> object is created for each window/tab that appears
-      on the screen
-    </li>
-    <li>Major properties</li>
-  </ul>
-  <table border="1" cellspacing="0">
-    <tr>
-      <td><code>document</code></td>
-      <td>This is the <code>document</code> object (that we have seen)</td>
-    </tr>
-    <tr>
-      <td><code>history</code></td>
-      <td>
-        Provides information on the browser history of the current window;
-        method to go forward and backward in the history
-      </td>
-    </tr>
-    <tr>
-      <td>*<code>Height</code> *<code>Width</code></td>
-      <td>Height &amp; width of window or screen</td>
-    </tr>
-    <tr>
-      <td><code>location</code></td>
-      <td>URL of the window</td>
-    </tr>
-  </table>
+  <section>
+    <h2>window Object</h2>
+    <ul>
+      <li>
+        The <code>window</code> object is created for each window/tab that
+        appears on the screen
+      </li>
+      <li>Major properties</li>
+    </ul>
+  </section>
+  <section>
+    <table>
+      <tr>
+        <td><code>document</code></td>
+        <td>This is the <code>document</code> object (that we have seen)</td>
+      </tr>
+      <tr>
+        <td><code>history</code></td>
+        <td>
+          Provides information on the browser history of the current window;
+          method to go forward and backward in the history
+        </td>
+      </tr>
+      <tr>
+        <td>*<code>Height</code> *<code>Width</code></td>
+        <td>Height &amp; width of window or screen</td>
+      </tr>
+      <tr>
+        <td><code>location</code></td>
+        <td>URL of the window</td>
+      </tr>
+    </table>
+  </section>
 </section>
-<section>
+<section name="window-properties">
   <h2>window Properties</h2>
   <script type="text/javascript">
+    let tooSmall = 0;
+    let content;
+
     window.onresize = function () {
-      let tooSmall = 0;
+      console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
+      console.log(`small: ${tooSmall}`);
 
-      if (window.innerHeight < 500 || window.innerWidth < 500) {
+      if (
+        tooSmall == 0 &&
+        (window.innerHeight < 250 || window.innerWidth < 500)
+      ) {
         tooSmall = 1;
-        document.body.innerHTML = "";
+        let el = document.getElementsByName("window-properties")[0];
+        if (el != null) {
+          content = el.innerHTML;
+          el.innerHTML = "";
 
-        msg = document.createElement("h1");
-        msg.innerHTML = "The window is too small, please resize!!!";
-        document.body.appendChild(msg);
+          msg = document.createElement("h1");
+          msg.innerHTML = "The window is too small, please resize!!!";
+          el.appendChild(msg);
+        }
       }
 
       if (
         tooSmall == 1 &&
-        window.innerHeight > 500 &&
-        window.innerWidth > 500
+        window.innerHeight >= 250 &&
+        window.innerWidth >= 500
       ) {
         tooSmall = 0;
-        location.reload();
+        document.getElementsByName("window-properties")[0].innerHTML = content;
       }
     };
   </script>
-  <ul class="l1">
+  <ul>
     <li>Window Size (in pixel)</li>
     <li>Please resize to see what happens</li>
-    <table id="dimension" cellspacing="10pt" cellpadding="10pt">
+    <table id="dimension">
       <tr>
         <td><code>screen.height</code>:</td>
         <td></td>
@@ -2384,7 +2403,7 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
     <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
   </ul>
   <script type="text/javascript">
-    var t = document.getElementById("dimension");
+    let t = document.getElementById("dimension");
     t.children[0].children[0].children[1].innerHTML = window.screen.height;
     t.children[0].children[0].children[3].innerHTML = window.screen.width;
 
@@ -2402,56 +2421,173 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
   </script>
 </section>
 <section>
-  <h2>window Object Methods</h2>
-  <table
-    border="1"
-    style="margin-top: 15px; margin-left: auto; margin-right: auto; width: 90%"
-  >
-    <tr>
-      <td><code>forward()</code>, <code>back()</code></td>
-      <td>One time forward or back in history</td>
-    </tr>
-    <tr>
-      <td><code>stop()</code>, <code>close()</code></td>
-      <td>Stop page loading or close it</td>
-    </tr>
-    <!--
-			<tr>
-				<td><code>find()</code> </td> <td>Show find dialog</td>
-			</tr>
+  <section>
+    <h2>window Object Methods</h2>
+    <table>
+      <tr>
+        <td><code>forward()</code>, <code>back()</code></td>
+        <td>One time forward or back in history</td>
+      </tr>
+      <tr>
+        <td><code>stop()</code>, <code>close()</code></td>
+        <td>Stop page loading or close it</td>
+      </tr>
+      <tr>
+        <td><code>open()</code></td>
+        <td>Create new window</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <p>Alert "Hello" every 3 seconds (3000 milliseconds)</p>
+    <pre><code class="lang-javascript">
+let hello = setInterval(() =&gt; alert("Hello"), 3000);
+clearInterval(hello)
+    </code></pre>
+    <button id="intSet">Set</button>
+    <button id="intClear">Clear</button>
 
-			<tr>
-				<td><code>moveTo(<var>top</var>, <var>left</var>)</code></td> <td>Move top-left corner to given coordinates</td>
-			</tr>
-			-->
-    <tr>
-      <td><code>open()</code></td>
-      <td>Create new window</td>
-    </tr>
-    <!--
-			<tr>
-				<td><code>resizeTo(<var>w</var>, <var>h</var>)</code></td> <td>Resize window to given size</td>
-			</tr>
-			-->
-    <tr>
-      <td>
-        <code>a = setTimeout</code><br /><code>("function()",time(s))</code
-        ><br /><code>setInterval</code>
-      </td>
-      <td>Call function after given time</td>
-    </tr>
-    <tr>
-      <td>
-        <code>clearTimeout</code><code>(a)</code><br /><code
-          >clearInterval</code
-        >
-      </td>
-      <td>Call function after given time</td>
-    </tr>
-  </table>
+    <script>
+      let helloInt = -1;
+
+      document.getElementById("intSet").onclick = () => {
+        helloInt = setInterval(() => alert("Hello"), 3000);
+      };
+
+      document.getElementById("intClear").onclick = () => {
+        if (helloInt == -1) {
+          alert("please start the interval");
+        }
+        clearInterval(helloInt);
+        helloInt = -1;
+      };
+    </script>
+  </section>
+  <section>
+    <p>Alert "Hello" every 3 seconds (3000 milliseconds)</p>
+    <pre><code class="lang-javascript">
+let hello = setTimeoutl(() =&gt; alert("Hello"), 3000);
+clearTimeout(hello)
+    </code></pre>
+    <button id="tSet">Set</button>
+    <button id="tClear">Clear</button>
+
+    <script>
+      let helloT = -1;
+
+      document.getElementById("tSet").onclick = () => {
+        helloT = setTimeout(() => {
+          alert("Hello");
+          helloT = -1;
+        }, 3000);
+      };
+
+      document.getElementById("tClear").onclick = () => {
+        if (helloT == -1) {
+          alert("please start the interval");
+        }
+        clearTimeout(helloT);
+        helloT = -1;
+      };
+    </script>
+  </section>
+</section>
+<section>
+  <h2>Concurrency model and the event loop</h2>
+  <p>
+    JavaScript has a concurrency model based on an
+    <strong class="hl-orange">event loop</strong>, which is responsible for
+    executing the code, collecting and processing events, and executing queued
+    sub-tasks.
+  </p>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
+</section>
+<section>
+  <h2>Debugging 🐛</h2>
+  <ul>
+    <li>Use the DOM tab to find methods &amp; properties</li>
+    <li>
+      Basic debugging via console,
+      <code>console.log()/info()/warn()/error()</code>
+    </li>
+    <li>Advanced debugging via real debuggers; e.g., FireFox debugger</li>
+    <li>Best Practices</li>
+    <ul>
+      <li>Avoid Global Variables</li>
+      <li>Always Declare Local Variables</li>
+      <li>Beware of Automatic Type Conversions</li>
+      <li>Use === Comparison</li>
+    </ul>
+    <li>Use powerful IDEs for development</li>
+  </ul>
+</section>
+<section>
+  <h2>Warnings ⚠️</h2>
+  <ul>
+    <li>JavaScript is a big, complex language</li>
+    <ul>
+      <li>
+        It's easy to get started in JavaScript, but if you need to use it
+        heavily, must invest more time in learning it well
+      </li>
+    </ul>
+    <li>
+      JavaScript is <span class="hl-red">not</span> totally platform independent
+    </li>
+    <ul>
+      <li>Expect different browsers to behave differently</li>
+    </ul>
+    <li><span class="hl-orange">this</span> is a bit confusing!</li>
+    <ul>
+      <li>
+        this referes to the owner of the executing function (in most cases it
+        the is "document" or "window" object!!!, not the element)
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>What are the Nexts?!</h2>
+  <ul>
+    <li>JavaScript Libraries</li>
+    <ul>
+      <li>To make life easier</li>
+      <li>jQuery, Modernizr, MooTools, ...</li>
+    </ul>
+    <li>JavaScript Frameworks</li>
+    <ul>
+      <li>To make life easier even more</li>
+      <li>Angular JS, Vue.js, React.js, Ember.js, ...</li>
+    </ul>
+    <li>JavaScript server-side programming!!!</li>
+    <ul>
+      <li>Node.js, Hapi.js, Socket.io, Meteor.js, ...</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>What are the Nexts?!</h2>
+  <ul>
+    <li>Other languages: TypeScript</li>
+    <ul>
+      <li>Object oriented</li>
+      <li>Static typing</li>
+      <li>Supports modules and interfaces</li>
+      <li>Transpiled into JavaScript</li>
+      <li>Safe in complex large applications</li>
+    </ul>
+    <li>Other languages: C, C++, ... 😱</li>
+    <ul>
+      <li>
+        Set of tool-chains (compiler, library, VM, ...) to run other languages
+        in client side
+      </li>
+      <li>asm.js and WebAssembly</li>
+      <li>High performance</li>
+    </ul>
+  </ul>
 </section>
 <section>
   <h2>References</h2>
