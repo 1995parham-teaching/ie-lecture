@@ -932,34 +932,41 @@ Person.prototype.farewell = function() {
   </ul>
 </section>
 <section>
-  <h2>DOM</h2>
-  <ul>
-    <li>
-      Document Object Model (DOM) is the output of parsing HTML file by browser
-    </li>
-    <ul>
-      <li>HTML document is represented by DOM in browser</li>
-    </ul>
-    <li>Each HTML element is represented by an <em>object</em></li>
+  <section>
+    <h2>DOM</h2>
     <ul>
       <li>
-        However, there are other objects (called BOM) that are not corresponding
-        to HTML elements; e.g., <code>window</code> is the browser window
+        Document Object Model (DOM) is the output of parsing HTML file by
+        browser
       </li>
+      <ul>
+        <li>HTML document is represented by DOM in browser</li>
+      </ul>
+      <li>Each HTML element is represented by an <em>object</em></li>
+      <ul>
+        <li>
+          However, there are other objects (called BOM) that are not
+          corresponding to HTML elements; e.g., <code>window</code> is the
+          browser window
+        </li>
+      </ul>
+      <li>A tree of object corresponding to HTML tag hierarchy</li>
+      <li>Each object has</li>
+      <ul>
+        <li>
+          Properties corresponding to
+          <em class="hl-orange">HTML properties</em> (not all properties)
+        </li>
+        <li>
+          Methods corresponsing to <em class="hl-green">events</em> and
+          <em class="hl-yellow">actions</em>
+        </li>
+      </ul>
     </ul>
-    <li>A tree of object corresponding to HTML tag hierarchy</li>
-    <li>Each object has</li>
-    <ul>
-      <li>
-        Properties corresponding to
-        <em class="hl-orange">HTML properties</em> (not all properties)
-      </li>
-      <li>
-        Methods corresponsing to <em class="hl-green">events</em> and
-        <em class="hl-yellow">actions</em>
-      </li>
-    </ul>
-  </ul>
+  </section>
+  <section>
+    <img src="./img/dom-structure.svg" />
+  </section>
 </section>
 <section>
   <h2>DOM &amp; JavaScript</h2>
@@ -1644,78 +1651,128 @@ object.removeEventListener(eventName, function)
   </script>
 </section>
 <section>
-  <h2>
-    Event Propagation &amp; the <code class="hl-orange">event</code> object
-  </h2>
+  <section>
+    <h2>
+      Event Propagation &amp; the <code class="hl-orange">event</code> object
+    </h2>
 
-  <ul>
-    <li>What happen if both parent and child handle the same event?!</li>
+    <ul>
+      <li>What happen if both parent and child handle the same event?!</li>
+      <ul>
+        <li>
+          The event is said to propagate outward, from the node where it
+          happened to that node’s parent node and on to the root of the
+          document.
+        </li>
+      </ul>
+
+      <li>By default, the event object is passed to all event handler</li>
+      <ul>
+        <li>
+          At any point, an event handler can call the
+          <code class="hl-green">stopPropagation</code> method on the event
+          object to prevent handlers further up from receiving the event.
+        </li>
+      </ul>
+    </ul>
+    <div id="parent" style="border: solid">
+      I am parent <br />
+      <button id="click-btn-1">click me</button>
+    </div>
+    <script>
+      // counter have been declared before
+      counter = 0;
+      function childHandler(event) {
+        window.alert("child handler");
+        counter++;
+        // add message to the event
+        event.message = `You have clicked me ${counter} times`;
+      }
+
+      document
+        .getElementById("click-btn-1")
+        .addEventListener("click", childHandler);
+
+      document.getElementById("parent").addEventListener("click", (event) => {
+        window.alert(
+          `child message that is added into event: ${
+            event.message ?? "use clickme button"
+          }`
+        );
+      });
+    </script>
+  </section>
+  <section>
+    <h3>HTML Attribute</h3>
+    <pre><code class="lang-html">
+&lt;button onclick="alert('Hello world!')"&gt;
+    </code></pre>
+    <p>
+      The JavaScript code in the attribute is passed the Event object via the
+      <code class="hl-orange">event</code> parameter.
+    </p>
+    <h3>DOM element properties</h3>
+    <pre><code class="lang-javascript">
+// Assuming myButton is a button element
+myButton.onclick = function(event){alert('Hello world')}
+    </code></pre>
+    <p>
+      The function can be defined to take an
+      <code class="hl-green">event</code> parameter.
+    </p>
+  </section>
+  <section>
     <ul>
       <li>
-        The event is said to propagate outward, from the node where it happened
-        to that node’s parent node and on to the root of the document.
+        The Event interface represents an event which takes place in the DOM.
       </li>
-    </ul>
-
-    <li>By default, the event object is passed to all event handler</li>
-    <ul>
       <li>
-        At any point, an event handler can call the
-        <code class="hl-green">stopPropagation</code> method on the event object
-        to prevent handlers further up from receiving the event.
+        <code class="hl-orange">Event.target</code> A reference to the target to
+        which the event was originally dispatched.
+      </li>
+      <li>
+        <code class="hl-green">Event.type</code> The name of the event.
+        Case-insensitive.
       </li>
     </ul>
-  </ul>
-  <div id="parent" style="border: solid">
-    I am parent <br />
-    <button id="click-btn-1">click me</button>
-  </div>
-  <script>
-    // counter have been declared before
-    counter = 0;
-    function childHandler(event) {
-      window.alert("child handler");
-      counter++;
-      // add message to the event
-      event.message = `You have clicked me ${counter} times`;
-    }
-
-    document
-      .getElementById("click-btn-1")
-      .addEventListener("click", childHandler);
-
-    document.getElementById("parent").addEventListener("click", (event) => {
-      window.alert(
-        `child message that is added into event: ${
-          event.message ?? "use clickme button"
-        }`
-      );
-    });
-  </script>
+  </section>
+  <section>
+    <img src="./img/eventflow.png" />
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
 </section>
 <section>
-  <h2>Application 1: Dynamic Element Generation</h2>
-  <ul>
-    <li>The solution of R1 (new item per new email)</li>
+  <section>
+    <h2>Application 1: Dynamic Element Generation</h2>
     <ul>
       <li>Add/Remove objects to/from DOM using JavaScript</li>
+      <li>Create an element</li>
+      <pre><code class="lang-javascript">
+document.createElement(element type)
+    </code></pre>
+      <li>Set or Get attribute</li>
+      <pre><code class="lang-javascript">
+element.getAttribute(name)
+element.setAttribute(name,value)
+    </code></pre>
     </ul>
-    <li>Create an element</li>
-    <code>document.createElement(element type)</code>
-    <li>Set or Get attribute</li>
-    <code>element.getAttribute(name)</code>
-    or
-    <code>element.setAttribute(name,value)</code>
-    <li>Append &amp; Insert the new element as a child of parent</li>
-    <code>parent.appendChild(child)</code>
-    <code>parent.insertBefore(NewChild, ExistingChild)</code>
-    <li>To delete or replace child</li>
-    <code>parent.removeChild(child)</code>
-    <code>parent.replaceChild(NewChild, OldChild)</code>
-  </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Append &amp; Insert the new element as a child of parent</li>
+      <pre><code class="lang-javascript">
+parent.appendChild(child)
+parent.insertBefore(NewChild, ExistingChild)
+      </code></pre>
+      <li>To delete or replace child</li>
+      <pre><code class="lang-javascript">
+parent.removeChild(child)
+parent.replaceChild(NewChild, OldChild)
+      </code></pre>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Content Generation Example</h2>
@@ -1745,6 +1802,8 @@ object.removeEventListener(eventName, function)
       }
     }
   </script>
+
+  <div id="main"></div>
 
   <form>
     <input type="button" value="Add New Paragraph" onclick="addNewP();" />
@@ -2214,4 +2273,12 @@ object.removeEventListener(eventName, function)
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
+</section>
+<section>
+  <h2>References</h2>
+  <ul>
+    <li>
+      https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction
+    </li>
+  </ul>
 </section>
