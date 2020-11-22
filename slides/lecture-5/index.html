@@ -1235,79 +1235,88 @@ document.getElementById("colorBox").style.backgroundColor = color;
 </section>
 <section>
   <h2>Events</h2>
-
   <ul>
     <li>Okay, JS can make page dynamic</li>
     <li>But, why would a page be dynamic?</li>
-    <li>Because some <em>events</em> happened in the page</li>
+    <li>Because some <em class="hl-orange">events</em> happened in the page</li>
     <ul>
       <li>Client does something; e.g., click on button</li>
       <li>There is a periodical update; e.g., check for new emails</li>
       <li>New content is received from server; e.g., chat message</li>
     </ul>
-    <li>Who does know what happened? Browser</li>
+    <li>
+      Who does know what happened? <strong class="hl-yellow">Browser</strong>
+    </li>
     <li>
       Browser runs a JS code for each event (which is usually an empty function)
     </li>
     <li>How does browser know which function should be called?</li>
     <ul>
-      <li>JS has to <em>register</em> itself for the event!</li>
+      <li>
+        JS has to <em class="hl-green">register</em> itself for the event!
+      </li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>Events &amp; Their Handling (in more details)</h2>
-
-  <ul class="l1">
-    <li>There are many predefined events in browsers</li>
-    <ul class="l2">
-      <li>Mouse click</li>
-      <li>Key press</li>
-      <li>...</li>
-    </ul>
-    <li>
-      These events occur on an <em>element</em>: e.g., mouse click on a button
-    </li>
-    <ul class="l2">
-      <li>Not all elements have all events</li>
-    </ul>
-
-    <li>DOM Objects have event handler methods</li>
-    <ul class="l2">
-      <li>Event handler is called by browser when event occur on object</li>
-      <ul class="l3">
-        <li>
-          E.g., <code>onclick</code> is called when object (html element) is
-          clicked
-        </li>
+  <section>
+    <h2>Events &amp; Their Handling (in more details)</h2>
+    <ul>
+      <li>There are many predefined events in browsers</li>
+      <ul>
+        <li>Mouse click</li>
+        <li>Key press</li>
+        <li>...</li>
       </ul>
-      <li>Most event handlers are empty by default</li>
+      <li>
+        These events occur on an <em>element</em>: e.g., mouse click on a button
+      </li>
+      <ul>
+        <li>Not all elements have all events</li>
+      </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <ul>
+      <li>DOM Objects have event handler methods</li>
+      <ul>
+        <li>Event handler is called by browser when event occur on object</li>
+        <ul>
+          <li>
+            E.g., <code>onclick</code> is called when object (html element) is
+            clicked
+          </li>
+        </ul>
+        <li>Most event handlers are empty by default</li>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Event Handling in JavaScripts</h2>
-
-  <ul class="l1">
+  <ul>
     <li>To do somethings when an event occurs</li>
-    <ul class="l2">
+    <ul>
       <li>The event handling</li>
     </ul>
     <li>Override the corresponding event handler</li>
     <li>In HTML, using element attibute</li>
-    <code>&lt;tag onclick="\\ JavaScript code/function()"&gt;</code>
+    <pre><code class="lang-html">
+&lt;tag onclick="\\ JavaScript code or function()"&gt;
+    </code></pre>
     <li>In JavaScript, using DOM object</li>
-    <code>object.onclick=function</code>
+    <pre><code class="lang-javascript">
+object.onclick=function
+    </code></pre>
   </ul>
 </section>
 <section>
   <h2>Sample Events</h2>
-
   <table style="font-size: 0.57em">
     <thead>
       <tr>
-        <th align="left" width="30%">Event</th>
-        <th align="left" width="70%">Occurs when...</th>
+        <th style="width: 30%">Event</th>
+        <th style="width: 70%">Occurs when...</th>
       </tr>
     </thead>
     <tbody>
@@ -1393,27 +1402,27 @@ document.getElementById("colorBox").style.backgroundColor = color;
 <section>
   <h2>JavaScript Event Handling Example</h2>
   <pre><code class="lang-html">
-  &lt;input
-    id="clickbtn"
-    type="button"
-    value="click"
-    onmouseover="document.getElementById('msg').innerHTML='Click Here'"
-    onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
-    onmousedown="mouseDown()"
-  /&gt;
-  &lt;div id="msg" style="width: 50%; border-style: solid"&gt;&lt;/div&gt;
-  &lt;script type="text/javascript"&gt;
-     counter = 0;
-    function mouseDown() {
-      counter++;
-      document.getElementById("msg").innerHTML = "A new click";
-    }
+&lt;input
+  id="clickbtn"
+  type="button"
+  value="click"
+  onmouseover="document.getElementById('msg').innerHTML='Click Here'"
+  onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
+  onmousedown="mouseDown()"
+/&gt;
+&lt;div id="msg" style="width: 50%"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+  let counter = 0;
+  function mouseDown() {
+    counter++;
+    document.getElementById("msg").innerHTML = "A new click";
+  }
 
-    function mouseUp() {
-      window.alert("Total # of clicks =  " + counter);
-    }
-    document.getElementById("clickbtn").onmouseup = mouseUp;
-  &lt;/script&gt;
+  function mouseUp() {
+    window.alert("Total # of clicks =  " + counter);
+  }
+  document.getElementById("clickbtn").onmouseup = mouseUp;
+&lt;/script&gt;
   </code></pre>
   <input
     id="clickbtn"
@@ -1423,9 +1432,9 @@ document.getElementById("colorBox").style.backgroundColor = color;
     onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
     onmousedown="mouseDown()"
   />
-  <div id="msg" style="width: 50%; border-style: solid"></div>
+  <div id="msg" style="width: 50%"></div>
   <script type="text/javascript">
-    counter = 0;
+    let counter = 0;
     function mouseDown() {
       counter++;
       document.getElementById("msg").innerHTML = "A new click";
@@ -1438,132 +1447,153 @@ document.getElementById("colorBox").style.backgroundColor = color;
   </script>
 </section>
 <section>
-  <h2>How to Pass Inputs to Event Handlers?</h2>
+  <section>
+    <h2>How to Pass Inputs to Event Handlers?</h2>
+    <ul>
+      <li id="change-my-color">
+        It is easy when the handler is registered in HTML
+      </li>
+      <pre><code class="lang-javascript">
+function setBgColor(color) {
+  document.getElementById('change-my-color').style.backgroundColor = color;
+}
+      </code></pre>
+      <pre><code class="lang-html">
+&lt;button onclick="setBgColor('red')"&gt;Red&lt;/button&gt;
+&lt;button onclick="setBgColor('green')"&gt;Green&lt;/button&gt;
+      </code></pre>
+      <script type="text/javascript">
+        function setBgColor(color) {
+          document.getElementById(
+            "change-my-color"
+          ).style.backgroundColor = color;
+        }
+      </script>
+      <button onclick="setBgColor('red')">Red</button>
+      <button onclick="setBgColor('green')">Green</button>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li id="change-my-color-2">
+        <em class="hl-orange">Find out</em> the required information (specially
+        when the handler is registered in JS)
+      </li>
+      <pre><code class="lang-html">
+color: &lt;input type="text" id="color" /&gt;
+&lt;button id="set"&gt;set&lt;/button&gt;
+    </code></pre>
+      <pre><code class="lang-javascript">
+function setBgColor2() {
+  document.getElementById('change-my-color-2').style.backgroundColor =
+  document.getElementById("color").value;
+}
+document.getElementById("set").onclick = setBgColor2;
+    </code></pre>
 
-  <ul class="l1">
-    <li>It is easy when the handler is registered in HTML</li>
-    <div class="code">
-      <code
-        >function setBgColor(color){ document.body.style.backgroundColor =
-        color; }<br />
-        &lt;button onclick="setBgColor('red')"&gt;Red&lt;/button&gt;
-        <br />
-        &lt;button onclick="setBgColor('green')"&gt;Green&lt;/button&gt;
-      </code>
-    </div>
-    <script type="text/javascript">
-      function setBgColor(color) {
-        document.body.style.backgroundColor = color;
-      }
-    </script>
-    <button onclick="setBgColor('red')">Red</button>
-    <button onclick="setBgColor('green')">Green</button>
+      color:
+      <input type="text" id="color" />
+      <button id="set">set</button>
 
-    <li>
-      <em>Find out</em> the required information (specially when the handler is
-      registered in JS)
-    </li>
-
-    <div class="code">
-      <code
-        >color:&lt;input type="text" id="color"&gt;&lt;/text&gt;<br />
-        &lt;button id="set"&gt;set&lt;/button&gt;<br /><br />
-
-        function setBgColor2(){ document.body.style.backgroundColor =
-        document.getElementById("color").value; }<br />
-        document.getElementById("set").onclick=setBgColor2;
-      </code>
-    </div>
-
-    color:<input type="text" id="color" />
-    <button id="set">set</button>
-
-    <script type="text/javascript">
-      function setBgColor2() {
-        document.body.style.backgroundColor = document.getElementById(
-          "color"
-        ).value;
-      }
-      document.getElementById("set").onclick = setBgColor2;
-    </script>
-  </ul>
+      <script type="text/javascript">
+        function setBgColor2() {
+          document.getElementById(
+            "change-my-color-2"
+          ).style.backgroundColor = document.getElementById("color").value;
+        }
+        document.getElementById("set").onclick = setBgColor2;
+      </script>
+    </ul>
+  </section>
 </section>
 <section>
-  <h2>How to Pass Inputs to Event Handlers (cont'd)?</h2>
-  <ul class="l1">
-    <li>
-      Use <code><em>this</em></code> only when the handler is registered in JS
-    </li>
+  <section>
+    <h2>How to Pass Inputs to Event Handlers (cont'd)?</h2>
+    <ul>
+      <li>
+        Use <code class="hl-orange"><em>this</em></code> only when the handler
+        is registered in JS
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function setBgColor3() {
+  window.alert("this = " + this);
+  this.style.backgroundColor = this.innerHTML.toLowerCase();
+}
 
-    <div class="code">
-      <code>
-        function setBgColor3(){<br />
-        &nbsp;&nbsp;&nbsp; window.alert("this =" + this);<br />
-        &nbsp;&nbsp;&nbsp; document.body.style.backgroundColor =
-        <em>this</em>.innerHTML;<br />
-        }<br />
+document.getElementById("r").onclick = setBgColor3;
+document.getElementById("b").onclick = setBgColor3;
+    </code></pre>
+    <pre><code class="lang-html">
+&lt;button id="r"&gt;Red&lt;/button&gt;
 
-        document.getElementById("r").onclick=setBgColor3;<br />
-        document.getElementById("b").onclick=setBgColor3;<br /><br />
+&lt;button id="b"&gt;Blue&lt;/button&gt;
 
-        &lt;button id="r"&gt;Red&lt;/button&gt; <br />
-        &lt;button id="b"&gt;Blue&lt;/button&gt; <br />
-        &lt;button onclick="document.body.style.backgroundColor =
-        this.innerHTML;"&gt;Green&lt;/button&gt; <br />
-        &lt;button onclick="setBgColor3();"&gt;Black&lt;/button&gt;
-        <br />
-      </code>
-    </div>
+&lt;button onclick="document.body.style.backgroundColor =
+this.innerHTML;"&gt;Green&lt;/button&gt;
 
-    &nbsp; &nbsp; &nbsp; &nbsp;
+&lt;!-- how we can fix this? --&gt;
+&lt;button onclick="setBgColor3();"&gt;Black&lt;/button&gt;
+&lt;button onclick="setBgColor3.bind(this)();"&gt;Black&lt;/button&gt;
+    </code></pre>
+  </section>
+  <section>
     <button id="r">Red</button>
     <button id="b">Blue</button>
 
     <script type="text/javascript">
       function setBgColor3() {
-        window.alert("this =" + this);
-        document.body.style.backgroundColor = this.innerHTML;
+        window.alert("this = " + this);
+        this.style.backgroundColor = this.innerHTML.toLowerCase();
       }
 
       document.getElementById("r").onclick = setBgColor3;
       document.getElementById("b").onclick = setBgColor3;
     </script>
 
-    <button onclick="document.body.style.backgroundColor = this.innerHTML;">
+    <button
+      onclick="this.style.backgroundColor = this.innerHTML.toLowerCase();"
+    >
       Green
     </button>
     <button onclick="setBgColor3();">Black</button>
-  </ul>
+    <button onclick="setBgColor3.bind(this)();">Black</button>
+  </section>
 </section>
 <section>
   <h2>Dynamic Event Handler Registration</h2>
-
-  <ul class="l1">
+  <ul>
     <li>Remark, event handlers can be registered by JavaScript</li>
-    <ul class="l2">
-      <li>
-        <code>object.onclick=function</code>
-      </li>
-    </ul>
+    <pre><code class="lang-javascript">
+object.onclick = function
+    </code></pre>
     <li>Other methods to dynamically register event handlers</li>
-    <ul class="l2">
+    <ul>
       <li>Assign multiple event handlers</li>
       <li>Reset event handler to default</li>
     </ul>
     <li>Add event handler</li>
-    object<code>.addEventListener(eventName, function)</code>
+    <pre><code class="lang-javascript">
+object.addEventListener(eventName, function)
+    </code></pre>
     <li>Remove event handler</li>
-    object<code>.removeEventListener(eventName, function)</code>
+    <pre><code class="lang-javascript">
+object.removeEventListener(eventName, function)
+    </code></pre>
   </ul>
 </section>
 <section>
   <h2>Dynamic Event Handler Example</h2>
   <pre><code class="lang-html">
-&lt;button onclick="AddEventHandler ();"&gt;
+&lt;button onclick="AddEventHandler();"&gt;
   Add a 'click' event listener to the blue button
 &lt;/button&gt;
-&lt;button onclick="RemoveEventHandler ();"&gt;Remove the event listener&lt;/button&gt;
-&lt;button id="blueButton" style="background-color: blue"&gt;Bule Button&lt;/button&gt;
+
+&lt;button onclick="RemoveEventHandler();"&gt;Remove the event listener&lt;/button&gt;
+
+&lt;button id="blueButton" style="background-color: #00bfff"&gt;Bule Button&lt;/button&gt;
 
 &lt;script type="text/javascript"&gt;
   function blueClick1() {
@@ -1590,7 +1620,7 @@ document.getElementById("colorBox").style.backgroundColor = color;
     Add a 'click' event listener to the blue button
   </button>
   <button onclick="RemoveEventHandler ();">Remove the event listener</button>
-  <button id="blueButton" style="background-color: blue">Bule Button</button>
+  <button id="blueButton" style="background-color: #00bfff">Bule Button</button>
 
   <script type="text/javascript">
     function blueClick1() {
@@ -1631,8 +1661,8 @@ document.getElementById("colorBox").style.backgroundColor = color;
     <ul>
       <li>
         At any point, an event handler can call the
-        <code>stopPropagation</code> method on the event object to prevent
-        handlers further up from receiving the event.
+        <code class="hl-green">stopPropagation</code> method on the event object
+        to prevent handlers further up from receiving the event.
       </li>
     </ul>
   </ul>
@@ -1641,19 +1671,26 @@ document.getElementById("colorBox").style.backgroundColor = color;
     <button id="click-btn-1">click me</button>
   </div>
   <script>
-    let counter = 0;
-    function mouseDown(event) {
+    // counter have been declared before
+    counter = 0;
+    function childHandler(event) {
       window.alert("child handler");
       counter++;
-      event.mymessage = "Salaam" + counter;
+      // add message to the event
+      event.message = `You have clicked me ${counter} times`;
     }
 
-    document.getElementById("click-btn-1").addEventListener("click", mouseDown);
     document
-      .getElementById("parent")
-      .addEventListener("click", function (event) {
-        window.alert(`child says: ${event.mymessage}`);
-      });
+      .getElementById("click-btn-1")
+      .addEventListener("click", childHandler);
+
+    document.getElementById("parent").addEventListener("click", (event) => {
+      window.alert(
+        `child message that is added into event: ${
+          event.message ?? "use clickme button"
+        }`
+      );
+    });
   </script>
 </section>
 <section>
@@ -1661,9 +1698,9 @@ document.getElementById("colorBox").style.backgroundColor = color;
 </section>
 <section>
   <h2>Application 1: Dynamic Element Generation</h2>
-  <ul class="l1">
+  <ul>
     <li>The solution of R1 (new item per new email)</li>
-    <ul class="l2">
+    <ul>
       <li>Add/Remove objects to/from DOM using JavaScript</li>
     </ul>
     <li>Create an element</li>
