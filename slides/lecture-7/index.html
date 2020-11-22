@@ -1,0 +1,206 @@
+---
+index: 7
+title: Go Programming
+topics:
+  - History
+  - Advantages
+  - Say Hello
+  - Programming Elements
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+  <img src="img/history.png" alt="gopher-riding-rex" height="320px" />
+</section>
+<section>
+  <p class="material-italic">Go is</p>
+  <ul>
+    <li>Modern</li>
+    <li>Generic Purpose</li>
+    <li>Open Source</li>
+  </ul>
+  <p class="material-italic">Programming Language</p>
+</section>
+<section>
+  <ul>
+    <li>I as officially announced at the end of 2009</li>
+    <li>It began as an internal Google project</li>
+    <li>
+      Its spiritual fathers are
+      <ul>
+        <li>Robert Griesemer</li>
+        <li>Ken Thomson</li>
+        <li>Rob Pike</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+  <img src="img/advantages.png" alt="gopher-rocks" height="320px" />
+</section>
+<section>
+  <ul>
+    <li>Go code is easy to read and easy to understand</li>
+    <li>Go supports Garbage Collection</li>
+    <li>Go does not have a preprocssor</li>
+    <li>
+      Go uses static linking by default, which means that the binary files
+      produced can be easily transferred to other machines with the same OS.
+    </li>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+  <img src="img/say-hello.png" alt="teaching-gopher" height="320px" />
+</section>
+<section>
+  <pre><code data-trim data-noescape class="go">
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Printf("Hello, World\n")
+}
+          </code></pre>
+</section>
+<section>
+  <h2>&lt;Code Time.go&gt;</h2>
+  <p>
+    Write <span class="material-bold">Hello World</span> in Go but Before that
+    you must install the go and your favorite text editor
+  </p>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h3>Constants</h3>
+  <p>Maintained precisely:</p>
+  <pre><code data-trim data-noescape class="go">
+const e = 2.71828182845904523536028747135266249775724709369995957496696763
+const third = 1/3
+          </code></pre>
+  <p>Typed or without type:</p>
+  <pre><code data-trim data-noescape class="go">
+const M64 int64 = 1&lt;&lt;20
+const M = 1&lt;&lt;20
+          </code></pre>
+  <p>Evaluated at compile-time:</p>
+  <pre><code data-trim data-noescape class="go">
+const big = 1&lt;&lt;100 / 1e30  // valid constant expression
+          </code></pre>
+</section>
+<section>
+  <h3>Variables</h3>
+  <p>Statically typed:</p>
+  <pre><code data-trim data-noescape class="go">
+var x int
+var s, t string
+          </code></pre>
+  <p>Implicitly or explicitly initialized:</p>
+  <pre><code data-trim data-noescape class="go">
+var x int
+var s, t string = "foo", "bar"  // multiple assignment
+
+var x = 42                      // int
+var s, b = "foo", true          // string, bool
+          </code></pre>
+  <p>Short variable declaration (inside functions only):</p>
+  <pre><code data-trim data-noescape class="go">
+x := 42
+s, b := "foo", true
+          </code></pre>
+  <p>
+    Can safely take address of
+    <span class="material-italic">any</span> variable!
+  </p>
+  <pre><code data-trim data-noescape class="go">
+return &amp;x
+          </code></pre>
+</section>
+<section>
+  <h3>Statements</h3>
+  <ul>
+    <li>Curly braces (C style)</li>
+    <li>Multiple assignments and some other new constructs</li>
+    <li>
+      Statements are <span class="material-italic">not</span> Expressions.
+    </li>
+    <li>
+      Many cleanups:
+      <ul>
+        <li>mandatory braces</li>
+        <li>no parentheses for conditionals</li>
+        <li>implicit break in switches</li>
+        <li>no semicolons</li>
+        <li>...</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <h3>Statements</h3>
+  <pre><code data-trim data-noescape class="go">
+a, b = b, a // swap
+
+f, err = os.Open(filename) // multiple assignment
+
+if x &lt; y {
+	return x
+} else {
+	return y
+}
+
+switch day {
+case Mon:
+	...
+  // break is implicit
+case Tue, Wed:
+	...
+}
+          </code></pre>
+</section>
+<section>
+  <h3>Statements</h3>
+  <ul>
+    <li>Unified <span class="material-italic">for</span> syntax</li>
+    <pre><code data-trim data-noescape class="go">
+for {
+  // loop forever
+}
+              </code></pre>
+    <li>
+      <span class="material-italic">range</span> over arrays, slices, and maps
+    </li>
+    <pre><code data-trim data-noescape class="go">
+for i, num := range numbers { ... }
+for city, pop := range population { ... }
+              </code></pre>
+  </ul>
+</section>
+<section>
+  <h3>Interaction</h3>
+  <pre><code data-trim data-noescape class="go">
+package "main"
+
+import "fmt"
+
+func main() {
+  var n int
+  fmt.Scanf("%d", &amp;n)
+  fmt.Printf("%d\n", n)
+}
+            </code></pre>
+</section>
+<section>
+  <h2>&lt;Code Time.go&gt;</h2>
+  <p>
+    Write a program that read n from the stdin and detects that it is a prime
+    number or not.
+  </p>
+</section>
