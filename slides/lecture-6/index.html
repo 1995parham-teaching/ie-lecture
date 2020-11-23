@@ -22,5 +22,306 @@ topics:
       <li>Web server is not involved after page is loaded</li>
       <li>JavaScript reacts to user events</li>
     </ul>
+    <li>
+      However, most web <span class="hl-orange">applications</span> needs data
+      from server after the page is loaded
+    </li>
+    <ul>
+      <li>A common (standard) format to exchange data</li>
+      <li>
+        A mechanism to communication: <code class="hl-yellow">fetch</code>
+      </li>
+    </ul>
+    <li>(Almost) Always the data is structed</li>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Introduction (Contd.)</h2>
+    <ul>
+      <li>
+        In general (not only in web) to
+        <strong class="hl-yellow">store</strong> or
+        <strong class="hl-violet">transport</strong> data, we need a common
+        format, to specify the stucture of data; e.g.,
+      </li>
+      <ul>
+        <li>Documents: PDF, DOCx, PPTx, ...</li>
+        <li>Objects: Java Object Serialization/Deserialization</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        How to define the data structure?
+        <ul>
+          <li>
+            <em class="hl-orange">Binary</em> format (similar to binary files)
+          </li>
+          <ul>
+            <li>Difficult to develop &amp; debug</li>
+            <li>machine depended</li>
+            <li>...</li>
+          </ul>
+          <li><em class="hl-green">Text</em> format (similar to text files)</li>
+          <ul>
+            <li>Easy to develop &amp; debug</li>
+            <li>human readable</li>
+            <li>...</li>
+          </ul>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Introduction (cont’d)</h2>
+    <ul>
+      <li>Example: Data structure of a class</li>
+      <ul>
+        <li>Course name, teacher, # of students, each student information</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-go">
+type Course struct {
+  Name     string
+  Teacher  string
+  Students []Student
+  Capacity int
+}
+
+type Student struct {
+  FirstName string
+  LastName  string
+  ID        string
+}
+
+c := Course {
+  Name: "IE",
+  Teacher: "Bahador Bakhshi",
+  Students: []Student{
+    { FirstName: "Parham", LastName: "Alvani", ID: "9231058" },
+  },
+  Capacity: 30,
+}
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="lang-json">
+{
+  "name": "IE",
+  "teacher": "Bahador Bakhshi",
+  "students": [
+    { "first_name": "Parham", "last_name": "Alvani", "id": "9231058" }
+  ],
+  "capacity": 30
+}
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="plaintext">
+A4                                   # map(4)
+   64                                # text(4)
+      6E616D65                       # "name"
+   62                                # text(2)
+      4945                           # "IE"
+   67                                # text(7)
+      74656163686572                 # "teacher"
+   6F                                # text(15)
+      42616861646F722042616B68736869 # "Bahador Bakhshi"
+   68                                # text(8)
+      73747564656E7473               # "students"
+   81                                # array(1)
+      A3                             # map(3)
+         6A                          # text(10)
+            66697273745F6E616D65     # "first_name"
+         66                          # text(6)
+            50617268616D             # "Parham"
+         69                          # text(9)
+            6C6173745F6E616D65       # "last_name"
+         66                          # text(6)
+            416C76616E69             # "Alvani"
+         62                          # text(2)
+            6964                     # "id"
+         67                          # text(7)
+            39323331303538           # "9231058"
+   68                                # text(8)
+      6361706163697479               # "capacity"
+   18 1E                             # unsigned(30)
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="plaintext">
+IE
+Bahador Bakhshi
+30
+1
+Parham
+Alvani
+9231058
+    </code></pre>
+  </section>
+</section>
+<section>
+  <h2>JSON</h2>
+  <ul>
+    <li>JavaScripters’ approach</li>
+    <li>
+      JSON: <span class="hl-orange">J</span>ava<span class="hl-green">S</span
+      >cript <span class="hl-cyan">O</span>bject
+      <span class="hl-violet">N</span>otation
+    </li>
+    <li>Data is represented as a JS (POD) object</li>
+    <li>Standards: RFC 8259, ECMA-404</li>
+  </ul>
+  <pre><code class="lang-json">
+{
+  "name": "IE",
+  "teacher": "Bahador Bakhshi",
+  "students": [
+    { "first_name": "Parham", "last_name": "Alvani", "id": "9231058" }
+  ],
+  "capacity": 30
+}
+    </code></pre>
+</section>
+<section>
+  <section>
+    <h2>JSON Syntax</h2>
+    <ul>
+      <li>Data is in name-value pairs</li>
+      <ul>
+        <li>
+          Field name in double quotes, followed by a colon, followed by a value
+        </li>
+        <li>
+          In JSON, the <em class="hl-orange">keys</em> <strong class="hl-yellow"
+            >must</strong
+          >
+          be strings
+        </li>
+      </ul>
+      <li>Data is separated by commas</li>
+      <ul>
+        <li>Data Types:</li>
+        <ul>
+          <li>string</li>
+          <li>number</li>
+          <li>object</li>
+          <li>array</li>
+          <li>boolean</li>
+          <li>null</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Curly braces hold objects</li>
+      <li>Square brackets hold arrays</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Why to Study JSON: Benefits</h2>
+  <ul>
+    <li>Simplify data sharing &amp; transport</li>
+    <ul>
+      <li>JSON is text based and platform independent</li>
+    </ul>
+    <li>
+      JSON is <span class="hl-orange">simple</span>,
+      <span class="hl-green">efficient</span>, and
+      <span class="hl-cyan">popular</span>
+    </li>
+    <li>Extensive libraries to process JSON</li>
+    <ul>
+      <li>To validate, to present, …</li>
+    </ul>
+    <li>In web application, data separation from HTML</li>
+    <ul>
+      <li>E.g., table structure by HTML, table data by JSON</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <h2>Documentation & Validation</h2>
+  <ul>
+    <li>Assume that application A exchange data with application B</li>
+    <li>How does A’s developer document the data format?</li>
+    <ul>
+      <li>How does the receiver know the structure of the data?</li>
+      <ul>
+        <li>In English?</li>
+        <li>By samples?</li>
+      </ul>
+    </ul>
+    <li>How can the receiver validate the data?</li>
+  </ul>
+</section>
+<section>
+  <h2>Valid Data</h2>
+  <ul>
+    <li>Syntax</li>
+    <ul>
+      <li>Syntax rules</li>
+      <ul>
+        <li>E.g., all keys must be double quoted in JSON</li>
+      </ul>
+      <li>Error makes the parser fails to parse the file</li>
+    </ul>
+    <li>Symantec (structure)</li>
+    <ul>
+      <li>Application specific rules</li>
+      <ul>
+        <li>E.g. student must have ID</li>
+      </ul>
+      <li>Error makes the application fails</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>How to Validate structure?</h2>
+  <ul>
+    <li>Application specific programs need to check structure of data</li>
+    <ul>
+      <li>Different applications needs different programs</li>
+      <li>Change in data structure needs code modification</li>
+    </ul>
+    <li>General validator + reference document</li>
+    <ul>
+      <li>Reference document</li>
+      <li>JSON: JSON Schema</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <img src="./img/reference-based-validation.png" />
+</section>
+<section>
+  <h2>The Reference Documents Usage</h2>
+  <ul>
+    <li>The Reference document is the answer of</li>
+    <ul>
+      <li>
+        <span class="hl-orange">Documentation</span>: It describes the structure
+        of data which is human readable
+      </li>
+      <li>
+        <span class="hl-yellow">Interaction</span>: The description is machine
+        readable
+      </li>
+      <li>
+        <span class="hl-green">Validation</span>: There are validators to
+        validate the data based on it
+      </li>
+    </ul>
   </ul>
 </section>
