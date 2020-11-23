@@ -2493,13 +2493,304 @@ clearTimeout(hello)
   </section>
 </section>
 <section>
-  <h2>Concurrency model and the event loop</h2>
-  <p>
-    JavaScript has a concurrency model based on an
-    <strong class="hl-orange">event loop</strong>, which is responsible for
-    executing the code, collecting and processing events, and executing queued
-    sub-tasks.
-  </p>
+  <section>
+    <h2>Concurrency model and the event loop</h2>
+    <p>
+      JavaScript has a concurrency model based on an
+      <strong class="hl-orange">event loop</strong>, which is responsible for
+      executing the code, collecting and processing events, and executing queued
+      sub-tasks.
+    </p>
+  </section>
+  <section>
+    <h3>Stack</h3>
+    <p>Function calls form a stack of frames.</p>
+    <h3>Heap</h3>
+    <p>
+      Objects are allocated in a heap which is just a name to denote a large
+      (mostly unstructured) region of memory.
+    </p>
+    <h3>Queue</h3>
+    <p>
+      A JavaScript runtime uses a message queue, which is a list of messages to
+      be processed. Each message has an associated function which gets called in
+      order to handle the message.
+    </p>
+  </section>
+  <section>
+    <h2>Event Loop</h2>
+    <ul>
+      <li>
+        The event loop got its name because of how it's usually implemented,
+        which usually resembles:
+      </li>
+      <pre><code class="lang-javascript">
+while (queue.waitForMessage()) {
+  queue.processNextMessage()
+}
+      </code></pre>
+      <li>
+        queue.waitForMessage() waits synchronously for a message to arrive (if
+        one is not already available and waiting to be handled).
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Each message is processed
+        <span class="hl-orange">completely</span> before any other message is
+        processed.
+      </li>
+      <li>
+        This offers some nice properties when
+        <span class="hl-yellow">reasoning</span> about your program, including
+        the fact that whenever a function runs, it cannot be
+        <span class="hl-green">pre-empted</span> and will run
+        <span class="hl-cyan">entirely</span> before any other code runs (and
+        can modify data the function manipulates).
+      </li>
+      <li>
+        A <span class="hl-red">downside</span> of this model is that if a
+        message takes <span class="hl-violet">too long to complete</span>, the
+        web application is unable to process user interactions like click or
+        scroll.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Zero Delays</h2>
+    <ul>
+      <li>
+        Zero delay doesn't actually mean the call back will fire-off after zero
+        milliseconds.
+      </li>
+      <li>
+        Calling setTimeout with a delay of 0 (zero) milliseconds doesn't execute
+        the callback function after the given interval.
+      </li>
+    </ul>
+    <p id="event-loop"></p>
+    <script>
+      (function () {
+        let el = document.getElementById("event-loop");
+
+        el.innerHTML += "this is the start<br />";
+
+        setTimeout(function cb() {
+          el.innerHTML += "Callback 1: this is a msg from call back<br />";
+        }); // has a default time value of 0
+
+        el.innerHTML += "this is just a message <br />";
+
+        setTimeout(function cb1() {
+          el.innerHTML += "Callback 2: this is a msg from call back<br />";
+        }, 0);
+
+        el.innerHTML += "this is the end<br />";
+      })();
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+(function () {
+  let el = document.getElementById("event-loop");
+
+  el.innerHTML += "this is the start&lt;br /&gt;";
+
+  setTimeout(function cb() {
+    el.innerHTML += "Callback 1: this is a msg from call back&lt;br /&gt;";
+  }); // has a default time value of 0
+
+  el.innerHTML += "this is just a message &lt;br /&gt;";
+
+  setTimeout(function cb1() {
+    el.innerHTML += "Callback 2: this is a msg from call back&lt;br /&gt;";
+  }, 0);
+
+  el.innerHTML += "this is the end&lt;br /&gt;";
+})();
+    </code></pre>
+  </section>
+  <section>
+    <h2>Never Blocking</h2>
+    <ul>
+      <li>
+        A very interesting property of the event loop model is that JavaScript,
+        unlike a lot of other languages, never blocks.
+      </li>
+      <li>
+        Handling I/O is typically performed via events and callbacks, so when
+        the application is waiting for an IndexedDB query to return or an XHR
+        request to return, it can still process other things like user input.
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>navigator Object</h2>
+  <ul>
+    <li>Checking browser software</li>
+    <li><code>navigator</code></li>
+    <ul>
+      <li>Properties to read browser characteristic</li>
+    </ul>
+  </ul>
+  <table>
+    <tr>
+      <td><code>appCodeName</code>:</td>
+      <td id="appCodeName"></td>
+    </tr>
+    <tr>
+      <td><code>appName</code>:</td>
+      <td id="appName"></td>
+    </tr>
+    <tr>
+      <td><code>appVersion</code>:</td>
+      <td id="appVersion"></td>
+    </tr>
+    <tr>
+      <td><code>language</code>:</td>
+      <td id="language"></td>
+    </tr>
+    <tr>
+      <td><code>platform</code>:</td>
+      <td id="platform"></td>
+    </tr>
+    <tr>
+      <td>
+        <code
+          ><a href="http://webaim.org/blog/user-agent-string-history/"
+            >userAgent</a
+          ></code
+        >:
+      </td>
+      <td id="userAgent"></td>
+    </tr>
+  </table>
+
+  <script type="text/javascript">
+    document.getElementById("appCodeName").innerHTML = navigator.appCodeName;
+    document.getElementById("appName").innerHTML = navigator.appName;
+    document.getElementById("appVersion").innerHTML = navigator.appVersion;
+    document.getElementById("language").innerHTML = navigator.language;
+    document.getElementById("platform").innerHTML = navigator.platform;
+    document.getElementById("userAgent").innerHTML = navigator.userAgent;
+  </script>
+</section>
+<section>
+  <section>
+    <h2>Application 5: JavaScript Access to Cookies</h2>
+    <ul>
+      <li>Saving client preferences</li>
+      <li>Remark: Cookie is a solution for HTTP statelessness problem</li>
+      <ul>
+        <li>Server sets cookies on first connection: name=value</li>
+        <li>Client returns back the cookies in subsequent communications</li>
+        <li>Server knows who the client is and provides its state</li>
+      </ul>
+      <li>
+        Cookies can be used by JavaScript as small storage in
+        <em class="hl-orange">client side!</em>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>because browser</li>
+      <ul>
+        <li>stores &amp; loads them automatically</li>
+        <li>provides API to access them by JS</li>
+      </ul>
+      <li>
+        <em>Note</em>: disrespect of originator, cookies
+        <span class="hl-green">are sent</span> to server automatically!
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>JavaScript Access to Cookies</h2>
+  <ul>
+    <li>
+      All cookies (set by server or JS itself) are accessible by JavaScript
+    </li>
+    <ul>
+      <li>
+        Except the cookies with
+        <code class="hl-orange">httpOnly</code> attribute
+      </li>
+    </ul>
+    <li>Extremely easy approach to read or write cookies</li>
+    <ul>
+      <li>
+        Cookies are saved in <code class="hl-green">document.cookie</code> as a
+        string
+      </li>
+      <li>
+        To add a cookie, set "name=value" string in
+        <code class="hl-green">document.cookie</code>
+      </li>
+      <li>
+        To read a cookie, parse <code class="hl-green">document.cookie</code>
+      </li>
+    </ul>
+    <li>
+      <em>Note</em>: Chrome by default ignores cookies set by
+      <em>file</em> schema.
+    </li>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>JavaScript in Action with an Email Clienty</h2>
+    <ul>
+      <li>Add new item per new received email</li>
+      <ul>
+        <li>
+          <code>document.createElement(), <var>parent.</var>appendChild()</code>
+        </li>
+      </ul>
+      <li>Check email format when composing</li>
+      <ul>
+        <li>
+          <code><var>regex</var>.test(<var>input</var>.value())</code>
+        </li>
+      </ul>
+      <li>Information about HTTP (e.g., HTTP or HTTPS?)</li>
+      <ul>
+        <li>
+          <code
+            >document.<var>property corresponding to HTTP headers</var></code
+          >
+        </li>
+      </ul>
+      <li>Hide some elements when browser window is small</li>
+      <ul>
+        <li><code>window.<var>*</var>.height/width</code></li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Do something periodically (e.g., checking emails)</li>
+      <ul>
+        <li><code>window.setInterval()</code></li>
+      </ul>
+      <li>Redirect to other pages</li>
+      <ul>
+        <li><code>window.location</code></li>
+      </ul>
+      <li>Check browser software (e.g., to recommend better one)</li>
+      <ul>
+        <li><code>navigator.userAgent/appVersion/...</code></li>
+      </ul>
+      <li>Save client preferences (e.g., remember me, theme, ...)</li>
+      <ul>
+        <li><code>document.cookie</code></li>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
