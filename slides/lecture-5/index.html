@@ -1980,57 +1980,89 @@ function replaceNewP() {
   </ul>
 </section>
 <section>
-  <form>
-    <textarea rows="3" cols="20" id="txtID"> </textarea><br />
-    <input type="button" value="Convert" id="btnID" />
-  </form>
-  <p style="font-size: 0.7em">
-    Output will be here:<br />
-    <span id="outID"> </span>
-  </p>
+  <section>
+    <form>
+      <textarea rows="3" cols="20" id="txtID"> </textarea><br />
+      <input type="button" value="Convert" id="btnID" />
+    </form>
+    <p style="font-size: 0.7em">
+      Output will be here:<br />
+      <span id="outID"> </span>
+    </p>
 
-  <script type="text/javascript">
-    function upperCaseArea(textareaID, outputID) {
-      return () => {
-        let textareaObject = document.getElementById(textareaID);
-        let content = textareaObject.value.toUpperCase();
-        let outputObject = document.getElementById(outputID);
-        let outputMessage = content;
-        outputObject.innerHTML = `<code class="hl-orange">${outputMessage}</code>`;
-      };
-    }
+    <script type="text/javascript">
+      function upperCaseArea(textareaID, outputID) {
+        return () => {
+          let textareaObject = document.getElementById(textareaID);
+          let content = textareaObject.value.toUpperCase();
+          let outputObject = document.getElementById(outputID);
+          let outputMessage = content;
+          outputObject.innerHTML = `<code class="hl-orange">${outputMessage}</code>`;
+        };
+      }
 
-    document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
-  </script>
+      document.getElementById("btnID").onclick = upperCaseArea(
+        "txtID",
+        "outID"
+      );
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function upperCaseArea(textareaID, outputID) {
+  return () =&gt; {
+    let textareaObject = document.getElementById(textareaID);
+    let content = textareaObject.value.toUpperCase();
+    let outputObject = document.getElementById(outputID);
+    let outputMessage = content;
+    outputObject.innerHTML = `&lt;code class="hl-orange"&gt;${outputMessage}&lt;/code&gt;`;
+  };
+}
+
+document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
+    </code></pre>
+  </section>
 </section>
 <section>
-  <h2>JavaScript Form Validation Exmaple</h2>
-  <form>
-    <input type="checkbox" name="osSelect" value="Linux" /> Linux,
-    <input type="checkbox" name="osSelect" value="Windows" /> Windows,
-    <input type="checkbox" name="osSelect" value="Mac" /> Mac,
-    <input type="checkbox" name="osSelect" value="Unix" /> Unix
-    <br />
-    <input
-      type="button"
-      value="Find OS"
-      onclick="findOS('osSelect', 'osSelectOut')"
-    />
-  </form>
-  <span id="osSelectOut" style="font-size: 15pt"> </span>
+  <section>
+    <h2>JavaScript Form Validation Exmaple</h2>
+    <form>
+      <input type="checkbox" name="osSelect" value="Linux" /> Linux,
+      <input type="checkbox" name="osSelect" value="Windows" /> Windows,
+      <input type="checkbox" name="osSelect" value="Mac" /> Mac,
+      <input type="checkbox" name="osSelect" value="Unix" /> Unix
+      <br />
+      <input
+        type="button"
+        value="Find OS"
+        onclick="findOS('osSelect', 'osSelectOut')"
+      />
+    </form>
+    <span id="osSelectOut" style="font-size: 15pt"> </span>
 
-  <script type="text/javascript">
-    function findOS(inputCheckBoxs, Outputdiv) {
-      var boxes = document.getElementsByName(inputCheckBoxs);
-      var outputMessage = "Ok, you are master in ";
-      for (var i = 0; i < boxes.length; i++) {
-        if (boxes[i].checked)
-          outputMessage = outputMessage + " " + boxes[i].value + ", ";
+    <script>
+      function findOS(inputCheckBoxs, Outputdiv) {
+        let boxes = document.getElementsByName(inputCheckBoxs);
+        let outputMessage = "Ok, you are master in ";
+        for (let i = 0; i < boxes.length; i++) {
+          if (boxes[i].checked) outputMessage += " " + boxes[i].value + ", ";
+        }
+        document.getElementById(Outputdiv).innerHTML = outputMessage;
       }
-      var output = document.getElementById(Outputdiv);
-      document.getElementById(Outputdiv).innerHTML = outputMessage;
-    }
-  </script>
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function findOS(inputCheckBoxs, Outputdiv) {
+  let boxes = document.getElementsByName(inputCheckBoxs);
+  let outputMessage = "Ok, you are master in ";
+  for (let i = 0; i &lt; boxes.length; i++) {
+    if (boxes[i].checked) outputMessage += " " + boxes[i].value + ", ";
+  }
+  document.getElementById(Outputdiv).innerHTML = outputMessage;
+}
+    </code></pre>
+  </section>
 </section>
 <section>
   <section>
@@ -2108,55 +2140,72 @@ let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
   </section>
 </section>
 <section>
-  <h2>Valid Form Submission</h2>
-  <form
-    action="http://127.0.0.1"
-    name="passwordform"
-    onsubmit="checkpassword(event);"
-  >
-    <fieldset>
-      <legend>Password Manager</legend>
-      <table>
-        <tr>
-          <td>User name:</td>
-          <td>
-            <input type="text" name="username" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>New Password :</td>
-          <td>
-            <input type="password" name="password" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>Reenter New Password:</td>
-          <td>
-            <input type="password" name="repassword" value="" />
-          </td>
-        </tr>
-      </table>
-      <input type="submit" value="Change Password" />
-    </fieldset>
-  </form>
+  <section>
+    <h2>Valid Form Submission</h2>
+    <form action="http://127.0.0.1" name="passwordform">
+      <fieldset>
+        <legend>Password Manager</legend>
+        <table>
+          <tr>
+            <td>User name:</td>
+            <td>
+              <input type="text" name="username" value="" />
+            </td>
+          </tr>
+          <tr>
+            <td>New Password :</td>
+            <td>
+              <input type="password" name="password" value="" />
+            </td>
+          </tr>
+          <tr>
+            <td>Reenter New Password:</td>
+            <td>
+              <input type="password" name="repassword" value="" />
+            </td>
+          </tr>
+        </table>
+        <input type="submit" value="Change Password" />
+      </fieldset>
+    </form>
 
-  <script type="text/javascript">
-    function checkpassword(event) {
-      var p1 = document.passwordform.password.value;
-      var p2 = document.passwordform.repassword.value;
+    <script type="text/javascript">
+      function checkpassword(event) {
+        let p1 = document.passwordform.password.value;
+        let p2 = document.passwordform.repassword.value;
 
-      if (p1.length < 6) {
-        alert("To short password, re-enter");
-        event.preventDefault();
-      } else if (p1 == p2) {
-        alert("Password will be changed");
-      } else {
-        alert("Incorrect password");
-        event.preventDefault();
+        if (p1.length < 6) {
+          alert("To short password, re-enter");
+          event.preventDefault();
+        } else if (p1 == p2) {
+          alert("Password will be changed");
+        } else {
+          alert("Incorrect password");
+          event.preventDefault();
+        }
       }
-    }
-    //document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
-  </script>
+      document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function checkpassword(event) {
+  let p1 = document.passwordform.password.value;
+  let p2 = document.passwordform.repassword.value;
+
+  if (p1.length &lt; 6) {
+    alert("To short password, re-enter");
+    event.preventDefault();
+  } else if (p1 == p2) {
+    alert("Password will be changed");
+  } else {
+    alert("Incorrect password");
+    event.preventDefault();
+  }
+}
+document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
+    </code></pre>
+  </section>
 </section>
 <section>
   <section>
