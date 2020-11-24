@@ -2381,93 +2381,137 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
     </table>
   </section>
 </section>
-<section name="window-properties">
-  <h2>window Properties</h2>
-  <script type="text/javascript">
-    let tooSmall = 0;
-    let content;
+<section>
+  <section name="window-properties">
+    <h2>window Properties</h2>
+    <script type="text/javascript">
+      let tooSmall = 0;
+      let content;
 
-    window.onresize = function () {
-      console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
-      console.log(`small: ${tooSmall}`);
+      window.onresize = function () {
+        console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
+        console.log(`small: ${tooSmall}`);
 
-      if (
-        tooSmall == 0 &&
-        (window.innerHeight < 250 || window.innerWidth < 500)
-      ) {
-        tooSmall = 1;
-        let el = document.getElementsByName("window-properties")[0];
-        if (el != null) {
-          content = el.innerHTML;
-          el.innerHTML = "";
+        if (
+          tooSmall == 0 &&
+          (window.innerHeight < 250 || window.innerWidth < 500)
+        ) {
+          tooSmall = 1;
+          let el = document.getElementsByName("window-properties")[0];
+          if (el != null) {
+            content = el.innerHTML;
+            el.innerHTML = "";
 
-          msg = document.createElement("h1");
-          msg.innerHTML = "The window is too small, please resize!!!";
-          el.appendChild(msg);
+            msg = document.createElement("h1");
+            msg.innerHTML = "The window is too small, please resize!!!";
+            el.appendChild(msg);
+          }
         }
-      }
 
-      if (
-        tooSmall == 1 &&
-        window.innerHeight >= 250 &&
-        window.innerWidth >= 500
-      ) {
-        tooSmall = 0;
-        document.getElementsByName("window-properties")[0].innerHTML = content;
-      }
-    };
-  </script>
-  <ul>
-    <li>Window Size (in pixel)</li>
-    <li>Please resize to see what happens</li>
-    <table id="dimension">
-      <tr>
-        <td><code>screen.height</code>:</td>
-        <td></td>
-        <td><code>screen.width</code>:</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><code>screen.availHeight</code>:</td>
-        <td></td>
-        <td><code>screen.availWidth</code>:</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><code>outerHeight</code>:</td>
-        <td></td>
-        <td><code>outerWidth</code>:</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><code>innerHeight</code>:</td>
-        <td></td>
-        <td><code>innerWidth</code>:</td>
-        <td></td>
-      </tr>
-    </table>
-    <!--<li>Zoom in/out decreases/increases inner* because it makes pixels bigger/smaller</li>-->
+        if (
+          tooSmall == 1 &&
+          window.innerHeight >= 250 &&
+          window.innerWidth >= 500
+        ) {
+          tooSmall = 0;
+          document.getElementsByName(
+            "window-properties"
+          )[0].innerHTML = content;
+        }
+      };
+    </script>
+    <ul>
+      <li>Window Size (in pixel)</li>
+      <li>Please resize to see what happens</li>
+      <table id="dimension">
+        <tr>
+          <td><code>screen.height</code>:</td>
+          <td></td>
+          <td><code>screen.width</code>:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>screen.availHeight</code>:</td>
+          <td></td>
+          <td><code>screen.availWidth</code>:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>outerHeight</code>:</td>
+          <td></td>
+          <td><code>outerWidth</code>:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>innerHeight</code>:</td>
+          <td></td>
+          <td><code>innerWidth</code>:</td>
+          <td></td>
+        </tr>
+      </table>
+      <!--<li>Zoom in/out decreases/increases inner* because it makes pixels bigger/smaller</li>-->
 
-    <li>History length: <span id="history"></span></li>
-    <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
-  </ul>
-  <script type="text/javascript">
-    let t = document.getElementById("dimension");
-    t.children[0].children[0].children[1].innerHTML = window.screen.height;
-    t.children[0].children[0].children[3].innerHTML = window.screen.width;
+      <li>History length: <span id="history"></span></li>
+      <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
+    </ul>
+    <script type="text/javascript">
+      let t = document.getElementById("dimension");
+      t.children[0].children[0].children[1].innerHTML = window.screen.height;
+      t.children[0].children[0].children[3].innerHTML = window.screen.width;
 
-    t.children[0].children[1].children[1].innerHTML = window.screen.availHeight;
-    t.children[0].children[1].children[3].innerHTML = window.screen.availWidth;
+      t.children[0].children[1].children[1].innerHTML =
+        window.screen.availHeight;
+      t.children[0].children[1].children[3].innerHTML =
+        window.screen.availWidth;
 
-    t.children[0].children[2].children[1].innerHTML = window.outerHeight;
-    t.children[0].children[2].children[3].innerHTML = window.outerWidth;
+      t.children[0].children[2].children[1].innerHTML = window.outerHeight;
+      t.children[0].children[2].children[3].innerHTML = window.outerWidth;
 
-    t.children[0].children[3].children[1].innerHTML = window.innerHeight;
-    t.children[0].children[3].children[3].innerHTML = window.innerWidth;
+      t.children[0].children[3].children[1].innerHTML = window.innerHeight;
+      t.children[0].children[3].children[3].innerHTML = window.innerWidth;
 
-    document.getElementById("history").innerHTML = window.history.length;
-    document.getElementById("location").innerHTML = window.location;
-  </script>
+      document.getElementById("history").innerHTML = window.history.length;
+      document.getElementById("location").innerHTML = window.location;
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+let tooSmall = 0;
+let content;
+
+window.onresize = function () {
+  console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
+  console.log(`small: ${tooSmall}`);
+
+  if (
+    tooSmall == 0 &amp;&amp;
+    (window.innerHeight &lt; 250 || window.innerWidth &lt; 500)
+  ) {
+    tooSmall = 1;
+    let el = document.getElementsByName("window-properties")[0];
+    if (el != null) {
+      content = el.innerHTML;
+      el.innerHTML = "";
+
+      msg = document.createElement("h1");
+      msg.innerHTML = "The window is too small, please resize!!!";
+      el.appendChild(msg);
+    }
+  }
+
+  if (
+    tooSmall == 1 &apmp;&amp;
+    window.innerHeight &gt;= 250 &amp;&amp;
+    window.innerWidth &gt;= 500
+  ) {
+    tooSmall = 0;
+    document.getElementsByName(
+      "window-properties"
+    )[0].innerHTML = content;
+  }
+};
+    </code></pre>
+  </section>
 </section>
 <section>
   <section>
