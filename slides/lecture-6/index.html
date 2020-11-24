@@ -206,23 +206,43 @@ Alvani
         </li>
       </ul>
       <li>Data is separated by commas</li>
-      <ul>
-        <li>Data Types:</li>
-        <ul>
-          <li>string</li>
-          <li>number</li>
-          <li>object</li>
-          <li>array</li>
-          <li>boolean</li>
-          <li>null</li>
-        </ul>
-      </ul>
+      <li>Curly braces hold objects</li>
+      <li>Square brackets hold arrays</li>
     </ul>
   </section>
   <section>
     <ul>
-      <li>Curly braces hold objects</li>
-      <li>Square brackets hold arrays</li>
+      <ul>
+        <li>Data Types:</li>
+        <ul>
+          <li>string</li>
+          <pre><code class="lang-json">
+"This is a string"
+</code></pre>
+          <li>number</li>
+          <pre><code class="lang-json">
+42
+3.1415926
+</code></pre>
+          <li>object</li>
+          <pre><code class="lang-json">
+{ "key1": "value1", "key2": "value2" }
+</code></pre>
+          <li>array</li>
+          <pre><code class="lang-json">
+[ "first", "second", "third" ]
+</code></pre>
+          <li>boolean</li>
+          <pre><code class="lang-json">
+true
+false
+</code></pre>
+          <li>null</li>
+          <pre><code class="lang-json">
+null
+</code></pre>
+        </ul>
+      </ul>
     </ul>
   </section>
 </section>
@@ -324,4 +344,97 @@ Alvani
       </li>
     </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>JSON Schema</h2>
+    <ul>
+      <li>JSON schema is JSON also</li>
+      <li>
+        The JSON document being validated or described we call the
+        <span class="hl-orange">instance</span>, and the document containing the
+        description is called the <span class="hl-green">schema</span>.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Hello World</h2>
+    <ul>
+      <li>This accepts anything, as long as it’s valid JSON</li>
+      <pre><code class="lang-json">
+{}
+      </code></pre>
+      <li>
+        The most common thing to do in a JSON Schema is to restrict to a
+        specific type. The <code class="hl-orange">type</code> keyword is used
+        for that.
+      </li>
+      <pre><code class="lang-json">
+{ "type": "string" }
+      </code></pre>
+    </ul>
+  </section>
+  <section>
+    <h2>Declaring a JSON Schema</h2>
+    <ul>
+      <li>
+        Since JSON Schema is itself JSON, it’s not always easy to tell when
+        something is JSON Schema or just an arbitrary chunk of JSON.
+      </li>
+      <li>
+        The <code class="hl-orange">$schema</code> keyword is used to declare
+        that something is JSON Schema.
+      </li>
+      <li>
+        It’s generally good practice to include it, though it is not required.
+      </li>
+    </ul>
+    <pre><code class="lang-json">
+{ "$schema": "http://json-schema.org/draft-07/schema#" }
+{ "$schema": "http://json-schema.org/draft/2019-09/schema#" }
+    </code></pre>
+  </section>
+  <section>
+    <h2>Declaring a unique identifier</h2>
+    <ul>
+      <li>
+        It is also best practice to include an
+        <code class="hl-orange">$id</code> property as a unique identifier for
+        each schema.
+      </li>
+      <li>
+        For now, just set it to a URL at a domain you control, for example:
+      </li>
+      <pre><code class="lang-json">
+{ "$id": "http://yourdomain.com/schemas/myschema.json" }
+      </code></pre>
+    </ul>
+  </section>
+  <section>
+    <h2>String</h2>
+    <pre><code class="lang-json">
+{ "type": "string" }
+    </code></pre>
+    <ul>
+      <li>Length</li>
+      <ul>
+        <li>
+          The length of a string can be constrained using the
+          <code class="hl-orange">minLength</code> and
+          <code class="hl-orange">maxLength</code> keywords.
+        </li>
+        <li>For both keywords, the value must be a non-negative number.</li>
+      </ul>
+      <li>Regular Expressions</li>
+      <ul>
+        <li>
+          The <code class="hl-orange">pattern</code> keyword is used to restrict
+          a string to a particular regular expression.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>String (Contd.)</h2>
+  </section>
 </section>
