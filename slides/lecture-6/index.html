@@ -491,4 +491,182 @@ null
       </ul>
     </ul>
   </section>
+  <section>
+    <h2>Object</h2>
+    <ul>
+      <li>Objects are the mapping type in JSON.</li>
+      <pre><code class="lang-json">
+{ "type": "object" }
+      </code></pre>
+      <li>Properties</li>
+      <ul>
+        <li>
+          The properties (key-value pairs) on an object are defined using the
+          <code class="hl-orange">properties</code> keyword.
+        </li>
+        <li>
+          The value of <code class="hl-orange">properties</code> is an object,
+          where each key is the name of a property and each value is a JSON
+          schema used to validate that property.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <pre><code class="lang-json">
+{
+  "type": "object",
+  "properties": {
+    "number":      { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "type": "string",
+                     "enum": ["Street", "Avenue", "Boulevard"]
+                   }
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <ul>
+      <li>
+        The <code class="hl-orange">additionalProperties</code> keyword is used
+        to control the handling of extra stuff
+      </li>
+      <li>
+        properties whose names are not listed in the
+        <code class="hl-orange">properties</code> keyword.
+      </li>
+      <li>
+        By default any additional properties are
+        <strong class="hl-green">allowed</strong>
+      </li>
+      <li>
+        If <code class="hl-orange">additionalProperties</code> is an object,
+        that object is a schema that will be used to validate any additional
+        properties not listed in properties.
+      </li>
+      <li>
+        By default, the properties defined by the properties keyword are
+        <em class="hl-yellow">not required</em>.
+      </li>
+      <li>
+        The <code class="hl-orange">required</code> keyword takes an array of
+        zero or more strings.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <pre><code class="lang-json">
+{
+  "type": "object",
+  "properties": {
+    "name":      { "type": "string" },
+    "email":     { "type": "string" },
+    "address":   { "type": "string" },
+    "telephone": { "type": "string" }
+  },
+  "required": ["name", "email"]
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Array</h2>
+    <ul>
+      <li>Arrays are used for ordered elements.</li>
+      <li>In JSON, each element in an array may be of a different type.</li>
+      <pre><code class="lang-json">
+{ "type": "array" }
+      </code></pre>
+      <li>
+        List validation is useful for arrays of arbitrary length where each item
+        matches the <em class="hl-yellow">same schema</em>.
+      </li>
+      <li>
+        For this kind of array, set the
+        <code class="hl-orange">items</code> keyword to a single schema that
+        will be used to validate all of the items in the array.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Array (Contd.)</h2>
+    <pre><code class="lang-json">
+{
+  "type": "array",
+  "items": {
+    "type": "number"
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Example</h2>
+    <pre><code class="lang-json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Product",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "Product identifier"
+    },
+    "name": { "type": "string" },
+    "price": { "type": "number", "minimum": 0 },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "stock": {
+      "type": "object",
+      "properties": {
+        "warehouse": { "type": "number" },
+        "retail": { "type": "number" }
+        }
+      }
+   }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Example (Contd.)</h2>
+    <pre><code class="lang-json">
+{
+  "id": 1,
+  "name": "Foo",
+  "price": 123,
+   "tags": [
+    "Bar",
+    "Eek"
+  ],
+  "stock": {
+   "warehouse": 300,
+   "retail": 20
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>JSON Schema Validator</h2>
+    <ul>
+      <li>
+        <a href="https://json-schema.org/implementations.html">
+          Validators available</a
+        >
+      </li>
+      <ul>
+        <li>
+          <a href="https://www.jsonschemavalidator.net/">As Online tools</a>
+        </li>
+        <li>As programming languages libraries</li>
+        <li>Standalone tools</li>
+      </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
 </section>
