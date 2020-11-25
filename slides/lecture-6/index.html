@@ -436,5 +436,59 @@ null
   </section>
   <section>
     <h2>String (Contd.)</h2>
+    <ul>
+      <li>Format</li>
+      <ul>
+        <li>
+          The <code class="hl-orange">format</code> keyword allows for basic
+          semantic validation on certain kinds of string values that are
+          commonly used.
+        </li>
+        <ul>
+          <li>Dates and times</li>
+          <li>Email addresses</li>
+          <li>Hostnames</li>
+          <li>IP Addresses</li>
+          <li>...</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Numeric types</h2>
+    <ul>
+      <li>The integer type is used for integral numbers.</li>
+      <pre><code class="lang-json">
+{ "type": "integer" }
+    </code></pre>
+      <li>
+        The number type is used for any numeric type, either integers or
+        floating point numbers.
+      </li>
+      <pre><code class="lang-json">
+{ "type": "number" }
+    </code></pre>
+    </ul>
+  </section>
+  <section>
+    <h2>Numeric types (Contd.)</h2>
+    <ul>
+      <li>Multiples</li>
+      <ul>
+        <li>
+          Numbers can be restricted to a multiple of a given number, using the
+          <code class="hl-orange">multipleOf</code>
+        </li>
+        <li>It may be set to any positive number.</li>
+      </ul>
+      <li>Range</li>
+      <ul>
+        <li>
+          Ranges of numbers are specified using a combination of the
+          <code class="hl-orange">minimum</code> and
+          <code class="hl-orange">maximum</code> keywords
+        </li>
+      </ul>
+    </ul>
   </section>
 </section>
