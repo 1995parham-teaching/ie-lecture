@@ -670,3 +670,133 @@ null
 <section>
   <div class="toc" data-selected="2"></div>
 </section>
+<section>
+  <ul>
+    <li>
+      <code class="hl-orange">The JSON object</code>, has two very useful
+      methods to deal with JSON-formatted content
+    </li>
+    <ul>
+      <li>
+        <code class="hl-green">JSON.parse()</code> takes a JSON string and
+        transforms it into a JavaScript object
+      </li>
+      <li>
+        <code class="hl-green">JSON.stringify()</code> takes a JavaScript object
+        and transforms it into a JSON string
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+let myObj = { a: '1', b: 2, c: '3' };
+let myObjStr = JSON.stringify(myObj);
+console.log(myObjStr);
+console.log(JSON.parse(myObjStr));
+    </code></pre>
+    <button id="json-btn">Run</button>
+    <div id="json-out"></div>
+    <script>
+      function convert() {
+        let myObj = { a: "1", b: 2, c: "3" };
+        let myObjStr = JSON.stringify(myObj);
+
+        document.getElementById("json-out").innerHTML = `
+        ${myObjStr}<br>
+        ${JSON.parse(myObjStr)}
+        `;
+      }
+
+      document.getElementById("json-btn").onclick = convert;
+    </script>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Example Message Parser</h2>
+    <pre><code class="lang-json">
+{
+  "type": "object",
+  "properties": {
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <textarea id="json-in-2" cols="70" rows="10">
+{
+  "messages": [
+    {
+      "from": "Dudu",
+      "to": "Bubu",
+      "body": "Hello"
+    }
+  ]
+}
+    </textarea>
+    <button id="json-btn-2">Run</button>
+    <div id="json-out-2"></div>
+    <script>
+      function parseJSON() {
+        output = "";
+        input = document.getElementById("json-in-2").value;
+        jsonData = JSON.parse(input);
+
+        for (i = 0; i < jsonData.messages.length; i++) {
+          msg = jsonData.messages[i];
+          output += `
+            ${msg.from} sent the following message to ${msg.to}<br />${msg.body}<hr />`;
+        }
+
+        document.getElementById("json-out-2").innerHTML = output;
+      }
+      document.getElementById("json-btn-2").onclick = parseJSON;
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function parseJSON() {
+  output = "";
+  input = document.getElementById("json-in-2");
+  jsonData = JSON.parse(input);
+
+  for (i = 0; i &lt; jsonData.messages.length; i++) {
+    msg = jsonData.messages[i];
+    output +=
+        ${msg.from} sent the following message to ${msg.to}&lt;br /&gt;${msg.body}&lt;hr /&gt;`;
+  }
+  document.getElementById("json-out-2").innerHTML = output;
+}
+document.getElementById("json-btn-2").onclick = parseJSON;
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h2>What are the Next?!</h2>
+  <ul>
+    <li>Other related technologies in data exchange</li>
+    <ul>
+      <li>Protocol Buffers</li>
+      <li>Thrift</li>
+      <li>YAML (YAML Ain't Markup Language)</li>
+    </ul>
+  </ul>
+</section>
