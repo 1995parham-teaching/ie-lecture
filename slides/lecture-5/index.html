@@ -2839,9 +2839,21 @@ while (queue.waitForMessage()) {
     <h2>Application 6: Fetch</h2>
     <ul>
       <li>
-        The Fetch API provides an interface for fetching resources (including
-        across the network).
+        The <code class="hl-orange">Fetch API</code> provides a JavaScript
+        interface for accessing and manipulating parts of the
+        <code class="hl-green">HTTP pipeline</code>, such as requests and
+        responses.
       </li>
+      <li>
+        It also provides a global <code class="hl-yellow">fetch()</code> method
+        that provides an easy, logical way to fetch resources
+        <strong class="hl-violet">asynchronously</strong>
+        across the network.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
       <li>
         The <code class="hl-orange">fetch()</code> method takes one mandatory
         argument, the path to the resource you want to fetch.
@@ -2852,6 +2864,174 @@ while (queue.waitForMessage()) {
         successful or not.
       </li>
     </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+fetch('http://example.com/movies.json')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));
+    </code></pre>
+    <ul>
+      <li>
+        Here we are fetching a JSON file across the network and printing it to
+        the console.
+      </li>
+      <li>
+        The simplest use of fetch() takes one argument — the path to the
+        resource you want to fetch — and returns a promise containing the
+        response (a Response object).
+      </li>
+      <ul>
+        <li>This is just an HTTP response, not the actual JSON.</li>
+        <li>
+          To extract the JSON body content from the response, we use the json()
+          method (defined on the Body mixin, which is implemented by both the
+          Request and Response objects.)
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+fetch('flowers.jpg')
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.blob();
+  })
+  .then(myBlob =&gt; {
+    myImage.src = URL.createObjectURL(myBlob);
+  })
+  .catch(error =&gt; {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+    </code></pre>
+    <ul>
+      <li>A fetch() promise will reject with a TypeError when</li>
+      <ul>
+        <li>a network error is encountered</li>
+        <li>CORS is misconfigured</li>
+      </ul>
+      <li>
+        The ok read-only property of the Response interface contains a Boolean
+        stating whether the response was successful (status in the range
+        200-299) or not.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function swapiExec() {
+  fetch("https://swapi.dev/api/people/1/")
+    .then((resp) =&gt; resp.json())
+    .then(
+      (data) =&gt;
+        (document.getElementById(
+          "swapi-result"
+        ).textContent = JSON.stringify(data))
+    );
+}
+    </code></pre>
+    <pre><code class="lang-json" id="swapi-result">Waiting...</code></pre>
+    <script>
+      function swapiExec() {
+        fetch("https://swapi.dev/api/people/1/")
+          .then((resp) => resp.json())
+          .then(
+            (data) =>
+              (document.getElementById(
+                "swapi-result"
+              ).textContent = JSON.stringify(data))
+          );
+      }
+    </script>
+    <button onclick="swapiExec()">Fetch</button>
+  </section>
+  <section>
+    <script>
+      function wikiSWLogo() {
+        fetch(
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+        )
+          .then((resp) => resp.blob())
+          .then((content) => {
+            let img = document.createElement("img");
+            img.src = URL.createObjectURL(content);
+            document
+              .querySelector("section.present > section.present")
+              .appendChild(img);
+          });
+      }
+    </script>
+    <pre><code class="lang-javascript">
+function wikiSWLogo() {
+  fetch(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+  )
+    .then((resp) =&gt; resp.blob())
+    .then((content) =&gt; {
+      let img = document.createElement("img");
+      img.src = URL.createObjectURL(content);
+      document
+        .querySelector("section.present &gt; section.present")
+        .appendChild(img);
+    });
+}
+    </code></pre>
+    <button onclick="wikiSWLogo()">Logo!</button><br />
+  </section>
+  <section>
+    <script>
+      function fetchWithErr(url) {
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok, " + response.status
+              );
+            }
+            return response.text();
+          })
+          .then((content) => {
+            document.getElementById(
+              "errMessage"
+            ).innerHTML += `Success: <code class="hl-orange">${content}</code><br />`;
+          })
+          .catch((error) => {
+            document.getElementById(
+              "errMessage"
+            ).innerHTML += `There has been a problem with your fetch operation: <code class="hl-red">${error}</code> <br />`;
+          });
+      }
+    </script>
+    <pre><code class="lang-javascript">
+function fetchWithErr(url) {
+  fetch(url)
+    .then((response) =&gt; {
+      if (!response.ok) {
+        throw new Error(
+          "Network response was not ok, " + response.status
+        );
+      }
+      return response.text();
+    })
+    .then((content) =&gt; {
+      document.getElementById(
+        "errMessage"
+      ).innerHTML += `Success: &lt;code class="hl-orange"&gt;${content}&lt;/code&gt;&lt;br /&gt;`;
+    })
+    .catch((error) =&gt; {
+      document.getElementById(
+        "errMessage"
+      ).innerHTML += `There has been a problem with your fetch operation: &lt;code class="hl-red"&gt;${error}&lt;/code&gt; &lt;br /&gt;`;
+    });
+}
+    </code></pre>
+    <div id="errMessage"></div>
+    <button onclick="fetchWithErr('http://httpbin.org/status/403')">403</button>
+    <button onclick="fetchWithErr('http://httpbin.org/uuid')">UUID</button>
+    <button onclick="fetchWithErr('https://unsplash.com')">CORS</button>
   </section>
 </section>
 <section>
