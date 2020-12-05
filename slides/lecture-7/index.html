@@ -13,21 +13,25 @@ topics:
 </section>
 <section>
   <div class="toc" data-selected="0"></div>
-  <img src="img/history.png" alt="gopher-riding-rex" height="320px" />
+  <img src="img/history.png" alt="gopher-riding-rex" style="height: 10%" />
 </section>
 <section>
-  <p class="material-italic">Go is</p>
+  <p><em>Go is</em></p>
   <ul>
     <li>Modern</li>
     <li>Generic Purpose</li>
     <li>Open Source</li>
   </ul>
-  <p class="material-italic">Programming Language</p>
+  <p><em>Programming Language</em></p>
 </section>
 <section>
   <ul>
-    <li>I as officially announced at the end of 2009</li>
-    <li>It began as an internal Google project</li>
+    <li>I as officially announced at November 10, 2009</li>
+    <li>It began as an internal <em class="hl-orange">Google</em> project</li>
+    <li>
+      The designers were primarily motivated by their shared
+      <strong class="hl-red">dislike of C++</strong>
+    </li>
     <li>
       Its spiritual fathers are
       <ul>
@@ -39,8 +43,42 @@ topics:
   </ul>
 </section>
 <section>
+  <ul>
+    <li>
+      Go is syntactically similar to C, but with
+      <em class="hl-orange">memory safety</em>,
+      <em class="hl-green">garbage collection</em>,
+      <em class="hl-yellow">structural typing</em>, and
+      <em class="hl-violet">CSP-style concurrency</em>.
+    </li>
+    <li>There are two major implementations:</li>
+    <ol>
+      <li>
+        Google's self-hosting compiler toolchain targeting multiple operating
+        systems, mobile devices, and WebAssembly.
+      </li>
+      <li>gccgo, a GCC frontend.</li>
+    </ol>
+  </ul>
+</section>
+<section>
+  <ul>
+    <li>Go was publicly announced in November 2009</li>
+    <li>version 1.0 was released in March 2012.</li>
+    <li>
+      Go is widely used in production at Google and in many other organizations
+      and open-source projects.
+    </li>
+    <li>
+      Lack of support for <em class="hl-orange">generic programming</em> and
+      <em class="hl-green">the verbosity of error handling</em> in Go 1.x had
+      drawn considerable criticism.
+    </li>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="1"></div>
-  <img src="img/advantages.png" alt="gopher-rocks" height="320px" />
+  <img src="img/advantages.png" alt="gopher-rocks" style="height: 10%" />
 </section>
 <section>
   <ul>
@@ -54,11 +92,63 @@ topics:
   </ul>
 </section>
 <section>
-  <div class="toc" data-selected="2"></div>
-  <img src="img/say-hello.png" alt="teaching-gopher" height="320px" />
+  <section>
+    <ul>
+      <li>
+        A syntax and environment adopting patterns more common in dynamic
+        languages:
+      </li>
+      <ul>
+        <li>
+          Optional concise variable declaration and initialization through
+          <em class="hl-violet">type inference</em> (<code class="hl-orange"
+            >x := 0</code
+          >
+          instead of <code class="hl-green">int x = 0;</code>).
+        </li>
+        <li>Fast compilation.</li>
+        <li>
+          Remote package management (<code class="hl-orange">go get</code>) and
+          online package documentation.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Distinctive approaches to particular problems:</li>
+      <ul>
+        <li>
+          Built-in concurrency primitives:
+          <strong class="hl-orange">light-weight processes (goroutines)</strong
+          >, <strong class="hl-green">channels</strong>, and the
+          <code class="hl-yellow">select</code>
+          statement.
+        </li>
+        <li>
+          An <em class="hl-violet">interface system</em> in place of virtual
+          inheritance, and <em class="hl-red">type embedding</em> instead of
+          non-virtual inheritance.
+        </li>
+        <li>
+          A toolchain that, by default, produces statically linked native
+          binaries without external dependencies.
+        </li>
+      </ul>
+      <li>
+        A desire to keep the language specification simple enough to hold in a
+        programmer's head, in part by omitting features that are common in
+        similar languages.
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
-  <pre><code data-trim data-noescape class="go">
+  <div class="toc" data-selected="2"></div>
+  <img src="img/say-hello.png" alt="teaching-gopher" style="height: 10%" />
+</section>
+<section>
+  <pre><code class="lang-go">
 package main
 
 import "fmt"
@@ -68,12 +158,14 @@ func main() {
 }
           </code></pre>
 </section>
-<section>
+<section class="hands-on">
   <h2>&lt;Code Time.go&gt;</h2>
-  <p>
-    Write <span class="material-bold">Hello World</span> in Go but Before that
-    you must install the go and your favorite text editor
-  </p>
+  <ul>
+    <li>
+      Write <strong class="hl-material">Hello World</strong> in Go but Before
+      that we must install the Go! and our favorite text editor
+    </li>
+  </ul>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -81,29 +173,29 @@ func main() {
 <section>
   <h3>Constants</h3>
   <p>Maintained precisely:</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 const e = 2.71828182845904523536028747135266249775724709369995957496696763
 const third = 1/3
-          </code></pre>
+  </code></pre>
   <p>Typed or without type:</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 const M64 int64 = 1&lt;&lt;20
 const M = 1&lt;&lt;20
           </code></pre>
   <p>Evaluated at compile-time:</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 const big = 1&lt;&lt;100 / 1e30  // valid constant expression
           </code></pre>
 </section>
 <section>
   <h3>Variables</h3>
   <p>Statically typed:</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 var x int
 var s, t string
           </code></pre>
   <p>Implicitly or explicitly initialized:</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 var x int
 var s, t string = "foo", "bar"  // multiple assignment
 
@@ -111,7 +203,7 @@ var x = 42                      // int
 var s, b = "foo", true          // string, bool
           </code></pre>
   <p>Short variable declaration (inside functions only):</p>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 x := 42
 s, b := "foo", true
           </code></pre>
