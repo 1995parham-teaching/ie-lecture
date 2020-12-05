@@ -411,6 +411,33 @@ null
     </ul>
   </section>
   <section>
+    <h2>Annotations</h2>
+    <ul>
+      <li>
+        JSON Schema includes a few keywords,
+        <code class="hl-orange">title</code>,
+        <code class="hl-orange">description</code>,
+        <code class="hl-orange">default</code>,
+        <code class="hl-orange">examples</code> that
+        <strong class="hl-green">aren’t strictly used for validation</strong>,
+        but are used to describe parts of a schema.
+      </li>
+      <li>
+        The <code class="hl-yellow">title</code> and
+        <code class="hl-yellow">description</code> keywords must be strings.
+      </li>
+      <li>
+        A “title” will preferably be short, whereas a “description” will provide
+        a more lengthy explanation about the purpose of the data described by
+        the schema.
+      </li>
+      <li>
+        The <code class="hl-cyan">default</code> keyword specifies a default
+        value for an item.
+      </li>
+    </ul>
+  </section>
+  <section>
     <h2>String</h2>
     <pre><code class="lang-json">
 { "type": "string" }
@@ -777,7 +804,7 @@ function parseJSON() {
 
   for (i = 0; i &lt; jsonData.messages.length; i++) {
     msg = jsonData.messages[i];
-    output +=
+    output += `
         ${msg.from} sent the following message to ${msg.to}&lt;br /&gt;${msg.body}&lt;hr /&gt;`;
   }
   document.getElementById("json-out-2").innerHTML = output;
