@@ -181,39 +181,43 @@ const third = 1/3
   <pre><code class="lang-go">
 const M64 int64 = 1&lt;&lt;20
 const M = 1&lt;&lt;20
-          </code></pre>
+  </code></pre>
   <p>Evaluated at compile-time:</p>
   <pre><code class="lang-go">
 const big = 1&lt;&lt;100 / 1e30  // valid constant expression
-          </code></pre>
+  </code></pre>
 </section>
 <section>
-  <h3>Variables</h3>
-  <p>Statically typed:</p>
-  <pre><code class="lang-go">
+  <section>
+    <h3>Variables</h3>
+    <p>Statically typed:</p>
+    <pre><code class="lang-go">
 var x int
 var s, t string
-          </code></pre>
-  <p>Implicitly or explicitly initialized:</p>
-  <pre><code class="lang-go">
+    </code></pre>
+    <p>Implicitly or explicitly initialized:</p>
+    <pre><code class="lang-go">
 var x int
 var s, t string = "foo", "bar"  // multiple assignment
 
 var x = 42                      // int
 var s, b = "foo", true          // string, bool
-          </code></pre>
-  <p>Short variable declaration (inside functions only):</p>
-  <pre><code class="lang-go">
+    </code></pre>
+  </section>
+  <section>
+    <p>Short variable declaration (inside functions only):</p>
+    <pre><code class="lang-go">
 x := 42
 s, b := "foo", true
-          </code></pre>
-  <p>
-    Can safely take address of
-    <span class="material-italic">any</span> variable!
-  </p>
-  <pre><code data-trim data-noescape class="go">
+  </code></pre>
+    <p>
+      Can safely take address of
+      <span class="material-italic">any</span> variable!
+    </p>
+    <pre><code data-trim data-noescape class="go">
 return &amp;x
-          </code></pre>
+</code></pre>
+  </section>
 </section>
 <section>
   <h3>Statements</h3>
