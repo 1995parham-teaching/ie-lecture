@@ -6,8 +6,16 @@ topics:
   - Advantages
   - Say Hello
   - Programming Elements
+  - Concurrency
 ---
 
+<section>
+  <h2>Gopher</h2>
+  <div style="display: flex">
+    <img src="./img/real-gopher.jpg" alt="real-gopher" style="height: 300px" />
+    <img src="./img/gophers.png" alt="gophers" style="height: 300px" />
+  </div>
+</section>
 <section>
   <div class="toc"></div>
 </section>
@@ -456,4 +464,213 @@ func main() {
 	float = float32(one)
 }
   </code></pre>
+</section>
+<section>
+  <h2>Type Assertion</h2>
+  <ul>
+    <li>
+      type assertion: They do not convert between types; they simply state to
+      the compiler that the underlying value has the specific type.
+    </li>
+  </ul>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+type empty interface{}
+
+type example struct {
+	A int
+}
+
+func main() {
+	one := 1
+	var i empty = one
+	j := example{A: 10}
+	var k empty = j
+	fmt.Println(k.(example).A)
+}
+  </code></pre>
+</section>
+<section>
+  <section>
+    <h2>Analytic geometry</h2>
+    <img src="./img/nerdy.png" alt="nerdy" style="height: 300px" />
+  </section>
+  <section>
+    <h2>Create Point Interface</h2>
+    <pre><code class="lang-go">
+type Point interface {
+	Distance() float64
+	ImageOnX() float64
+	ImageOnY() float64
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Create Catesian Point Structure</h2>
+    <pre><code class="lang-go">
+type Cartesian struct {
+	X float64
+	Y float64
+}
+
+func (c *Cartesian) Distance() float64 {
+	return math.Sqrt(c.X*c.X + c.Y*c.Y)
+}
+
+func (c *Cartesian) ImageOnX() float64 {
+	return c.X
+}
+
+func (c *Cartesian) ImageOnY() float64 {
+	return c.Y
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Create Polar Point Structure</h2>
+    <pre><code class="lang-go">
+type Polar struct {
+	R    float64
+	Teta float64
+}
+
+func (p *Polar) Distance() float64 {
+	return p.R
+}
+
+func (p *Polar) ImageOnX() float64 {
+	return p.R * math.Cos(p.Teta)
+}
+
+func (p *Polar) ImageOnY() float64 {
+	return p.R * math.Sin(p.Teta)
+}
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="lang-go">
+func main() {
+	p := Polar{
+		R:    1,
+		Teta: math.Pi / 2,
+	}
+
+	c := Cartesian{
+		X: 3,
+		Y: 4,
+	}
+
+	fmt.Printf("%g %g\n", p.Distance(), c.Distance())
+	fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
+	fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
+}
+</code></pre>
+  </section>
+  <section>
+    <a href="https://play.golang.org/p/VhSivrtSOrN">Click Me!</a>
+    <pre><code class="lang-go">
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Point interface {
+	Distance() float64
+	ImageOnX() float64
+	ImageOnY() float64
+}
+
+type Cartesian struct {
+	X float64
+	Y float64
+}
+
+func (c *Cartesian) Distance() float64 {
+	return math.Sqrt(c.X*c.X + c.Y*c.Y)
+}
+
+func (c *Cartesian) ImageOnX() float64 {
+	return c.X
+}
+
+func (c *Cartesian) ImageOnY() float64 {
+	return c.Y
+}
+
+type Polar struct {
+	R    float64
+	Teta float64
+}
+
+func (p *Polar) Distance() float64 {
+	return p.R
+}
+
+func (p *Polar) ImageOnX() float64 {
+	return p.R * math.Cos(p.Teta)
+}
+
+func (p *Polar) ImageOnY() float64 {
+	return p.R * math.Sin(p.Teta)
+}
+
+func main() {
+	p := Polar{
+		R:    1,
+		Teta: math.Pi / 2,
+	}
+
+	c := Cartesian{
+		X: 3,
+		Y: 4,
+	}
+
+	fmt.Printf("%g %g\n", p.Distance(), c.Distance())
+	fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
+	fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
+}
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Slices and Arrays</h2>
+    <ul>
+      <li>Slices</li>
+      <pre><code class="lang-go">
+[]T  // slice of T
+      </code></pre>
+
+      <li>
+        <strong class="hl-orange">Descriptor</strong> for an underlying array
+        segment
+      </li>
+      <li>
+        May <em class="hl-green">grow</em> and <em class="hl-green">shrink</em>
+      </li>
+      <li>Has length and capacity</li>
+      <li>Assigning a slice copies the descriptor, not the underlying array</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Common slice operations:</li>
+      <pre><code class="lang-go">
+len(s)
+s[i]
+s[i:j]
+append(s, x)  // append element x to slice s and return new slice
+      </code></pre>
+      <li>Slices play the role of dynamically sized arrays</li>
+      <li>Widely used in Go code</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
 </section>
