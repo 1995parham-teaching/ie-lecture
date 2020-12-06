@@ -209,14 +209,14 @@ var s, b = "foo", true          // string, bool
     <pre><code class="lang-go">
 x := 42
 s, b := "foo", true
-  </code></pre>
+    </code></pre>
     <p>
       Can safely take address of
-      <span class="material-italic">any</span> variable!
+      <em class="hl-orange">any</em> variable!
     </p>
-    <pre><code data-trim data-noescape class="go">
+    <pre><code class="lang-go">
 return &amp;x
-</code></pre>
+    </code></pre>
   </section>
 </section>
 <section>
@@ -241,7 +241,7 @@ return &amp;x
 </section>
 <section>
   <h3>Statements</h3>
-  <pre><code data-trim data-noescape class="go">
+  <pre><code class="lang-go">
 a, b = b, a // swap
 
 f, err = os.Open(filename) // multiple assignment
@@ -259,24 +259,25 @@ case Mon:
 case Tue, Wed:
 	...
 }
-          </code></pre>
+  </code></pre>
+  <ul>
+    <li>Not shown: break, goto, continue, fallthrough</li>
+  </ul>
 </section>
 <section>
   <h3>Statements</h3>
   <ul>
-    <li>Unified <span class="material-italic">for</span> syntax</li>
-    <pre><code data-trim data-noescape class="go">
+    <li>Unified <code class="hl-orange">for</code> syntax</li>
+    <pre><code class="lang-go">
 for {
   // loop forever
 }
-              </code></pre>
-    <li>
-      <span class="material-italic">range</span> over arrays, slices, and maps
-    </li>
-    <pre><code data-trim data-noescape class="go">
+    </code></pre>
+    <li><code class="hl-orange">range</code> over arrays, slices, and maps</li>
+    <pre><code class="lang-go">
 for i, num := range numbers { ... }
 for city, pop := range population { ... }
-              </code></pre>
+    </code></pre>
   </ul>
 </section>
 <section>
@@ -291,12 +292,168 @@ func main() {
   fmt.Scanf("%d", &amp;n)
   fmt.Printf("%d\n", n)
 }
-            </code></pre>
+  </code></pre>
+</section>
+<section class="hands-on">
+  <h2>&lt;Code Time.go&gt;</h2>
+  <ul>
+    <li>
+      Write a program that read n from the stdin and detects that it is a prime
+      number or not.
+    </li>
+  </ul>
 </section>
 <section>
-  <h2>&lt;Code Time.go&gt;</h2>
-  <p>
-    Write a program that read n from the stdin and detects that it is a prime
-    number or not.
-  </p>
+  <h2>Values</h2>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+func main() {
+	var a int
+	a = 10
+	fmt.Printf("%d\n", a)
+
+	b := new(int)
+	*b = 10
+	fmt.Printf("b = %p, *b = %d\n", b, *b)
+}
+  </code></pre>
+  <ul>
+    <li>
+      The <code class="hl-orange">new()</code> built-in function creates a new
+      integer and returns a pointer to it.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Functions</h2>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+func Fibonacci(n int) int {
+	if n == 0 || n == 1 {
+		return 1
+	} else {
+		return Fibonacci(n-1) + Fibonacci(n-2)
+	}
+}
+
+func main() {
+	fmt.Printf("%d\n", Fibonacci(10))
+}
+  </code></pre>
+</section>
+<section>
+  <section>
+    <h2>Structures</h2>
+    <pre><code class="lang-go">
+package main
+
+type Sample struct {
+	S1      int
+	S2      int
+	S3      string
+	private float64
+}
+
+func main() {
+	var smp Sample
+	smp.S1 = 10
+	smp.S2 = 20
+	smp.S3 = "Hello World"
+}
+  </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>C Structures 🕺</li>
+      <li>Data hiding</li>
+      <li>
+        <code class="hl-orange">S1</code>, <code class="hl-orange">S2</code>,
+        <code class="hl-orange">S3</code> are public and can be accessed from
+        anywhere.
+      </li>
+      <li>
+        <code class="hl-green">private</code> is private and is only visible to
+        code in the same package.
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>Methods</h2>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+type Example struct {
+	Val   string
+	count int
+}
+type integer int
+
+func (i integer) log() {
+	fmt.Printf("%d\n", i)
+}
+func (e *Example) Log() {
+	e.count++
+	fmt.Printf("%d %s\n", e.count, e.Val)
+}
+func main() {
+	var i integer
+	exm := Example{
+		Val:   "Example",
+		count: 10}
+	i.log()
+	exm.Log()
+}
+    </code></pre>
+</section>
+<section>
+  <h2>Interfaces</h2>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+type Printer interface {
+	Print()
+}
+type Foo struct {
+	X, Y int
+}
+type Bar struct {
+	X, Y float64
+}
+
+func (f Foo) Print() {
+	fmt.Printf("%d %d\n", f.X, f.Y)
+}
+func (b Bar) Print() {
+	fmt.Printf("%g %g\n", b.X, b.Y)
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Casting Types</h2>
+  <ul>
+    <li>
+      type conversion: A type conversion is similar to a cast in C. It
+      reinterprets the value as a new type
+    </li>
+  </ul>
+  <pre><code class="lang-go">
+package main
+
+func main() {
+	one := 1
+	var float float32
+	float = float32(one)
+}
+  </code></pre>
 </section>
