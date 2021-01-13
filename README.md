@@ -5,3 +5,11 @@
 ## Introduction
 Web programming course contains material from backend to frontend development.
 This is technological course so its materials may be deprecated soon or they may be related to only to specific technologies.
+
+## How to Run
+To run these slides locally you can use the `docker-compose`.
+
+```sh
+docker-compose up -d
+# go to 127.0.0.1:4000
+```
