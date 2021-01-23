@@ -188,7 +188,7 @@ func main() {
   <div class="toc" data-selected="3"></div>
 </section>
 <section>
-  <h3>Constants</h3>
+  <h2>Constants</h2>
   <p>Maintained precisely:</p>
   <pre><code class="lang-go">
 const e = 2.71828182845904523536028747135266249775724709369995957496696763
@@ -206,7 +206,7 @@ const big = 1&lt;&lt;100 / 1e30  // valid constant expression
 </section>
 <section>
   <section>
-    <h3>Variables</h3>
+    <h2>Variables</h2>
     <p>Statically typed:</p>
     <pre><code class="lang-go">
 var x int
@@ -214,7 +214,7 @@ var s, t string
     </code></pre>
     <p>Implicitly or explicitly initialized:</p>
     <pre><code class="lang-go">
-var x int
+var x int                       // x = 0
 var s, t string = "foo", "bar"  // multiple assignment
 
 var x = 42                      // int
@@ -222,19 +222,23 @@ var s, b = "foo", true          // string, bool
     </code></pre>
   </section>
   <section>
-    <p>Short variable declaration (inside functions only):</p>
+    <p>
+      Short variable declaration (<strong class="hl-orange"
+        >inside functions only</strong
+      >):
+    </p>
     <pre><code class="lang-go">
 x := 42
 s, b := "foo", true
     </code></pre>
-    <p>
-      Can safely take address of
-      <em class="hl-orange">any</em> variable!
-    </p>
-    <pre><code class="lang-go">
-return &amp;x
-    </code></pre>
   </section>
+</section>
+<section>
+  <h2>Calculation</h2>
+  <pre><code class="lang-go">
+x := 42
+y := x + 10
+  </code></pre>
 </section>
 <section>
   <h3>Statements</h3>
@@ -264,7 +268,7 @@ a, b = b, a // swap
 f, err = os.Open(filename) // multiple assignment
 
 if x &lt; y {
-	return x
+  return x
 } else {
 	return y
 }
