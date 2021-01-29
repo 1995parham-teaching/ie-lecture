@@ -95,26 +95,13 @@ layout: none
         </tbody>
       </table>
       <hr />
-      <div class="button-container">
-        <a
-          target="_blank"
-          class="button"
-          href="https://docs.google.com/spreadsheets/d/1sqjO7WDvUZ1x_maXxZUYO0-gGiHyInAVWxEUBEF3tmw/edit?usp=sharing"
-          >More Information - SBU</a
-        >
-        <a
-          target="_blank"
-          class="button"
-          href="https://docs.google.com/spreadsheets/d/1Qmc_UmciMFjfg2CYEFMKsint01B8lrUjUotymNVOQgU/edit?usp=sharing"
-          >More Information - AUT</a
-        >
-      </div>
-      <hr />
       <h2>References 📚</h2>
       <div>
         {% for reference in site.data.references %}
         <div class="reference">
-          <img class="image" src="{{ reference.image }}" />
+          <div class="image">
+            <img src="{{ reference.image }}" />
+          </div>
           <div class="text">
             <h5>{{ reference.title }}</h5>
             <h5>Authors:</h5>
