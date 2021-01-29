@@ -69,17 +69,23 @@ body {
         margin-bottom:5px;
 }
 
-.button-container .button {
-}
-
 .reference {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-around;
         margin-top: 50px;
 
+        .text {
+                width: 25%;
+        }
+
         .image {
-                max-height: 300px;
+                width: 25%;
+                display: flex;
+                justify-content: center;
+                img {
+                        max-height: 300px;
+                }
         }
 }
