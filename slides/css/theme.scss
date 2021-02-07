@@ -54,7 +54,7 @@ table.cell td {
 }
 
 section.hands-on {
-        ul:last-child::after {
+        > ul:last-child::after {
                 content: url("../img/hands-on.gif");
         }
 }
