@@ -103,13 +103,20 @@ layout: none
             <img src="{{ reference.image }}" />
           </div>
           <div class="text">
+            {% if reference.link %}
+            <h5>
+              <a href="{{ reference.link }}">{{ reference.title }}</a>
+            </h5>
+            {% else %}
             <h5>{{ reference.title }}</h5>
+            {% endif %} {% if reference.authors %}
             <h5>Authors:</h5>
             <ul>
               {% for author in reference.authors %}
               <li>{{ author }}</li>
               {% endfor %}
             </ul>
+            {% endif %}
           </div>
         </div>
         {% endfor %}

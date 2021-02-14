@@ -7,3 +7,6 @@
   image: https://images-na.ssl-images-amazon.com/images/I/51wijnc-Y8L._SX379_BO1,204,203,200_.jpg
   authors:
     - David Flanagan
+- title: Mozilla Developer Network Web Docs
+  link: https://developer.mozilla.org/en-US/
+  image: img/mdn.jpg
