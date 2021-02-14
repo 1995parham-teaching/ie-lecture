@@ -876,32 +876,52 @@ Entity-Body
   </ul>
 </section>
 <section>
-  <h2>Solution of Stateless Problem: Cookie</h2>
-  <ul>
-    <li>
-      Cookie: are information (e.g. unique identifiers) sent by server to user
-      (browser) which are returned back to server
-    </li>
-    <li>How it works</li>
+  <section>
+    <h2>Solution of Stateless Problem: Cookie</h2>
     <ul>
-      <li>Server asks client to remember the information</li>
+      <li>
+        Cookie: are information (e.g. unique identifiers) sent by server to user
+        (browser) which are returned back to server
+      </li>
+      <li>How it works</li>
       <ul>
-        <li>
-          <span class="hl-orange">Set-Cookie</span> header in response message
-        </li>
+        <li>Server asks client to remember the information</li>
+        <ul>
+          <li>
+            <span class="hl-orange">Set-Cookie</span> header in response message
+          </li>
+          <li>
+            <span class="hl-orange">Set-Cookie</span>:
+            <span class="hl-green">&lt;cookie-name&gt;</span>=
+            <span class="hl-cyan">&lt;cookie-value&gt;</span>
+          </li>
+        </ul>
+        <li>Client gives back the information to server in every request</li>
+        <ul>
+          <li>
+            <span class="hl-green">Cookie</span> header in request messages
+          </li>
+          <li>
+            <span class="hl-green">Cookie</span>:
+            <span class="hl-yellow">&lt;cookie-name&gt;</span>=
+            <span class="hl-cyan">&lt;cookie-value&gt;</span>;
+            <span class="hl-yellow">&lt;cookie-name&gt;</span>=
+            <span class="hl-cyan">&lt;cookie-value&gt;</span>
+          </li>
+        </ul>
+        <li>Server customizes responses according to the cookie</li>
       </ul>
-      <li>Client gives back the information to server in every request</li>
-      <ul>
-        <li><span class="hl-green">Cookie</span> header in request messages</li>
-      </ul>
-      <li>Server customizes responses according to the cookie</li>
     </ul>
-    <li>Types</li>
+  </section>
+  <section>
     <ul>
-      <li>Session cookies: To identify a session</li>
-      <li>Persistent cookies: To identify a client (browser)</li>
+      <li>Types</li>
+      <ul>
+        <li>Session cookies: To identify a session</li>
+        <li>Persistent cookies: To identify a client (browser)</li>
+      </ul>
     </ul>
-  </ul>
+  </section>
 </section>
 <section>
   <section>
