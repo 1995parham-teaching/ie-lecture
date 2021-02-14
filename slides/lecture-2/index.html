@@ -1055,10 +1055,10 @@ Access-Control-Allow-Credentials: true
       </li>
       <ul>
         <li>
-          <span class="hl-orange">Lax</span>: Cookies are allowed to be sent
-          with top-level navigations and will be sent along with GET request
-          initiated by third party website. This is the default value in modern
-          browsers.
+          <span class="hl-orange">Lax</span>: Cookies are not sent on normal
+          cross-site subrequests (for example to load images or frames into a
+          third party site), but are sent when a user is navigating to the
+          origin site (i.e. when following a link).
         </li>
         <li>
           <span class="hl-orange">Strict</span>: Cookies will only be sent in a
@@ -1067,7 +1067,10 @@ Access-Control-Allow-Credentials: true
         </li>
         <li>
           <span class="hl-orange">None</span>: Cookies will be sent in all
-          contexts, i.e sending cross-origin is allowed.
+          contexts, i.e in responses to both first-party and cross-origin
+          requests. If <code>SameSite=None</code> is set, the cookie
+          <span class="hl-yellow">Secure</span>
+          attribute must also be set (or the cookie will be blocked).
         </li>
       </ul>
     </ul>
@@ -1097,6 +1100,17 @@ Access-Control-Allow-Credentials: true
       </li>
     </ul>
     <img src="img/csrf-attack.png" style="background-color: white" />
+  </section>
+  <section>
+    <h2>Warning!</h2>
+    <p>
+      Neither Strict nor Lax are a complete solution for your site's security.
+      Cookies are sent as part of the user's request and you should treat them
+      the same as any other user input. That means
+      <span class="hl-orange">sanitizing</span> and
+      <span class="hl-green">validating</span> the input. Never use a cookie to
+      store data you consider a server-side secret.
+    </p>
   </section>
 </section>
 <section>
