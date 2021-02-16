@@ -1408,6 +1408,28 @@ Cache-Control: no-cache
   <div class="toc" data-selected="3"></div>
 </section>
 <section>
+  <h2>Authentication vs Authorization</h2>
+  <ul>
+    <li>
+      <strong class="hl-orange">Authentication</strong> is the verification of
+      the credentials of the connection attempt.
+    </li>
+    <li>
+      This process consists of sending the credentials from the remote access
+      client to the remote access server in an either plaintext or encrypted
+      form by using an authentication protocol.
+    </li>
+    <li>
+      <strong class="hl-green">Authorization</strong> is the verification that
+      the connection attempt is allowed.
+    </li>
+    <li>
+      <strong class="hl-green">Authorization</strong> occurs after successful
+      authentication.
+    </li>
+  </ul>
+</section>
+<section>
   <h2>HTTP Authentication</h2>
   <ul>
     <li>All resources are not public in web; e.g.,</li>
@@ -1419,8 +1441,8 @@ Cache-Control: no-cache
       <li>
         Basic: <span class="hl-orange">Base64</span> encoded
         <code class="hl-yellow">user:pass</code>
+        [The username itself cannot contain a colon]
       </li>
-      <li>Basic: The username itself cannot contain a colon.</li>
       <li>Digest: Plain username + Digest of pass</li>
     </ul>
     <li>Steps are the same</li>
@@ -1433,8 +1455,9 @@ Cache-Control: no-cache
         <li>Server authenticates and allows.</li>
       </ol>
       <li>
-        Authentication information are sent by every request until end of
-        current session
+        Authentication information are sent by
+        <strong class="hl-green">every</strong> request until end of current
+        session
       </li>
     </ul>
   </ul>
@@ -1444,11 +1467,15 @@ Cache-Control: no-cache
   <ul>
     <li>
       Base64 is a group of binary-to-text encoding schemes that represent binary
-      data in an ASCII string format by translating it into a radix-64
-      representation.
+      data in an <em class="hl-orange">ASCII string</em> format by translating
+      it into a radix-64 representation.
     </li>
   </ul>
-  <img src="./img/base64.png" style="height: 54vh" />
+  <img src="./img/base64.png" style="height: 25vh" />
+</section>
+<section>
+  <h2>HTTP Authentication (Cont.)</h2>
+  <img src="./img/basic-auth-in-action.png" alt="basic-auth-in-action" />
 </section>
 <section>
   <h2>HTTP Authentication (Cont.)</h2>
@@ -1480,11 +1507,11 @@ Access-Control-Allow-Credentials: true
     <li>Basic authentication is insecure</li>
     <ul>
       <li>Password is sent in base64 encoding</li>
-      <li>Attacker can easily find it</li>
+      <li>Attacker can <span class="hl-red">easily</span> find it</li>
     </ul>
     <li>Digest authentication: Don’t send password</li>
     <ul>
-      <li>Send its digest (hash)</li>
+      <li>Send its <strong class="hl-orange">digest</strong> (hash)</li>
     </ul>
     <li>Digest/hash function</li>
     <ul>
@@ -1494,8 +1521,12 @@ Access-Control-Allow-Credentials: true
     <li>But! Reply attack 😞</li>
     <ul>
       <li>Attacker resends the same digest then he will be authenticated</li>
-      <li>Use Nonce</li>
+      <li>Use <span class="hl-green">Nonce</span></li>
     </ul>
+    <li>
+      Digest authentication uses <span class="hl-green">nonce</span> and
+      <span class="hl-orange">digest</span> together
+    </li>
   </ul>
 </section>
 <section>
@@ -1515,19 +1546,40 @@ Access-Control-Allow-Credentials: true
   <section>
     <ul>
       <li>Client computes digest of password &amp; nonce</li>
-    </ul>
-    <pre><code class="plaintext">
+      <pre><code class="plaintext">
   HA1 = MD5(username:realm:password)
   HA2 = MD5(method:digestURI)
   response = MD5(HA1:nonce:HA2)
-    </code></pre>
-    <ul>
+      </code></pre>
       <li>
         Server looks up the password of username and computes<br />
         <code>hash(pass, nonce)</code>
       </li>
       <li>More details in RFC7616</li>
     </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>In the Wild</h2>
+    <ul>
+      <li>
+        There is <span class="hl-green">no need</span> for basic/digest
+        authentication in our new world we can send
+        <strong class="hl-cyan">plaintext</strong> passwords over
+        <strong class="hl-red">secure</strong> HTTP.
+      </li>
+      <li>
+        In both ways, we need a solution for stateful connection to not repeat
+        the authentication procedure for every request.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h6>courses.aut.ac.ir</h6>
+    <img src="./img/moodle-cookies.png" alt="moodle-cookies" />
+    <img src="./img/moodle-request.png" alt="moodle-request" />
+    <img src="./img/moodle-post.png" alt="moodle-post" />
   </section>
 </section>
 <section>
@@ -1593,13 +1645,16 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
     </ul>
   </section>
   <section>
-    <img src="./img/ssl.jpg" style="height: 75vh" />
+    <img src="./img/ssl.jpg" style="height: 25vh" />
   </section>
 </section>
 <section>
   <h2>References 📚</h2>
   <ul>
-    <li>Prof. Bahador Bakhshi's Internet Eng. Course's Slides</li>
+    <li>
+      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
+      Internet Eng. Course's Slides
+    </li>
     <li>
       <a
         href="https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn"
