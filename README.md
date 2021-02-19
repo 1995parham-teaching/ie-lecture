@@ -1,7 +1,7 @@
 # IE-Lecture
 
 ![GitHub deployments](https://img.shields.io/github/deployments/SBU-CE/IE-lecture/github-pages?logo=github&style=flat-square)
-[![Drone (cloud)](https://img.shields.io/drone/build/SBU-CE/IE-lecture.svg?style=flat-square&logo=drone)](https://cloud.drone.io/SBU-CE/IE-lecture)
+[![Drone (cloud)](https://img.shields.io/drone/build/SBU-CE/IE-lecture/main?style=flat-square&logo=drone)](https://cloud.drone.io/SBU-CE/IE-lecture)
 
 ## Introduction
 
