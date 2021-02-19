@@ -8,6 +8,13 @@
 Web programming course contains material from backend to frontend development.
 This is technological course so its materials may be deprecated soon or they may be related to only to specific technologies.
 
+Corequisites:
+  - Database Design
+ 
+Prerequisite:
+  - Introduction to Programming
+  - Advance Programming
+
 ## How to Run
 
 To run these slides locally you can use the `docker-compose`.
