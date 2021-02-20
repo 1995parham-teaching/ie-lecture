@@ -16,35 +16,43 @@ topics:
   <div class="toc" data-selected="0"></div>
 </section>
 <section>
-  <h2>Introduction</h2>
-  <ul>
-    <li>Remark: The idea of WWW is document sharing</li>
-    <li>Main question: How to define the structure of document?</li>
+  <section>
+    <h2>Introduction</h2>
     <ul>
-      <li>Text, tables, figures, link, ...</li>
-    </ul>
-    <li>In 1980s</li>
-    <ul>
-      <li>Binary formats? Useless</li>
+      <li>Remark: The idea of WWW is document sharing</li>
+      <li>Main question: How to define the structure of document?</li>
       <ul>
-        <li>
-          Different machines, no popular graphical desktops, no such popular
-          format such as PDF, Doc, ...
-        </li>
+        <li>Text, tables, figures, link, ...</li>
       </ul>
-      <li>Text format</li>
+      <li>In 1980s</li>
       <ul>
-        <li>It is okay, everyone knows ASCII</li>
+        <li>Binary formats? Useless</li>
         <ul>
-          <li>But how to describe structure, layout, and formatting?</li>
+          <li>
+            Different machines, no popular graphical desktops, no such popular
+            format such as PDF, Doc, ...
+          </li>
         </ul>
-        <li>
-          Add meaning to each part of text using special predefined markup,
-          E.g., It is heading, It is paragraph, It is table ...
-        </li>
       </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <ul>
+      <ul>
+        <li>Text format</li>
+        <ul>
+          <li>It is okay, everyone knows ASCII</li>
+          <ul>
+            <li>But how to describe structure, layout, and formatting?</li>
+          </ul>
+          <li>
+            Add meaning to each part of text using special predefined markup,
+            E.g., It is heading, It is paragraph, It is table ...
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Introduction (Cont.)</h2>
@@ -61,7 +69,10 @@ topics:
       <li>Was defined with SGML</li>
       <li>Is not a programming language</li>
       <ul>
-        <li>Cannot be used to describe computations</li>
+        <li>
+          <strong class="hl-red">Cannot</strong> be used to describe
+          <span class="hl-green">computations</span>
+        </li>
       </ul>
       <li>HTML does/should not specify presentation</li>
       <ul>
@@ -72,24 +83,31 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>Introduction (Cont.)</h2>
-  <ul>
-    <li>
-      HTML 1 (Berners-Lee, 1989): very basic, limited integration of multimedia
-    </li>
-    <li>1993, Mosaic added many new features (e.g., integrated images)</li>
-    <li>
-      HTML 2.0 (IETF, 1994): tried to standardize these &amp; other features
-    </li>
-    <li>1994-96, Netscape &amp; IE added many new, divergent features</li>
-    <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
-    <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
-    <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
-    <li>
-      HTML 5 (Web Hypertext Application Technology Working Group, W3C): New
-      version of HTML4, XHTML 1.0
-    </li>
-  </ul>
+  <section>
+    <h2>Introduction (Cont.)</h2>
+    <ul>
+      <li>
+        HTML 1 (Berners-Lee, 1989): very basic, limited integration of
+        multimedia
+      </li>
+      <li>1993, Mosaic added many new features (e.g., integrated images)</li>
+      <li>
+        HTML 2.0 (IETF, 1994): tried to standardize these &amp; other features
+      </li>
+      <li>1994-96, Netscape &amp; IE added many new, divergent features</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
+      <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
+      <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
+      <li>
+        HTML 5 (Web Hypertext Application Technology Working Group, W3C): New
+        version of HTML4, XHTML 1.0
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>HTML Basics: Tags</h2>
@@ -246,7 +264,7 @@ I am a &lt;br /&gt; break
       <li>Tags that don’t recognize</li>
       <li>More than single whitespaces</li>
       <ul>
-        <li>E.g., Multiple newlines + tabs + spaces → single space</li>
+        <li>E.g., Multiple newlines + tabs + spaces &rarr; single space</li>
       </ul>
     </ul>
   </ul>
@@ -785,12 +803,12 @@ I am a &lt;br /&gt; break
           <span class="hl-cyan">#frag</span> part in URL is used to jump middle
           of a large document
         </li>
-        <li>Step one: assign an ID/name to the part</li>
+        <li>Step one: assign an <em class="hl-yellow">id</em> to the part</li>
         <pre><code class="lang-html">
 &lt;a id="SctionResult"&gt;Results&lt;/a&gt;
-&lt;a name="SctionResult"&gt;Results&lt;/a&gt;
 &lt;h2 id="SctionResult"&gt;Results&lt;/h2&gt;
         </code></pre>
+        <li>The <em class="hl-yellow">id</em> is case sensitive</li>
         <li>
           Step two: create link using <span class="hl-cyan">#frag</span> feature
         </li>
