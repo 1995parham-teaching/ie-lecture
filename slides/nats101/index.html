@@ -5,7 +5,11 @@ topics:
   - Introduction
 ---
 
-<section data-background-image="img/background.jpg">
+<section
+  data-background-image="img/background.jpg"
+  data-background-size="cover"
+  data-background-repeat="no-repeat"
+>
   <div class="header">
     <h2>Introduction to</h2>
     <h1>NATS</h1>
@@ -22,8 +26,13 @@ topics:
 <section>
   <h2>History</h2>
   <ul>
-    <li>NATS is a high-performance messaging system created by Derek Collison in 2010</li>
-    <li>It was originally built to serve as the message bus for Cloud Foundry</li>
+    <li>
+      NATS is a high-performance messaging system created by Derek Collison in
+      2010
+    </li>
+    <li>
+      It was originally built to serve as the message bus for Cloud Foundry
+    </li>
     <li>Handling internal communication among components of the system</li>
   </ul>
 </section>
@@ -42,17 +51,20 @@ topics:
     <li>Client publishes message on <q>foo</q> subject</li>
     <li>Only clients subscribed to <q>foo</q> receive the message</li>
   </ol>
-  <img src="./img/overview.png" alt="overview">
+  <img src="./img/overview.png" alt="overview" />
 </section>
 <section>
   <h2>How Simple!</h2>
   <pre><code class="plaintext">
 INFO {"server_id":"NCNS32OEKOMMHTBVUYC7QWASFAP3BPEKGZG3QDIYRCBUL23WE3OVVBBO","server_name":"NCNS32OEKOMMHTBVUYC7QWASFAP3BPEKGZG3QDIYRCBUL23WE3OVVBBO","version":"2.1.7","proto":1,"git_commit":"bf0930e","go":"go1.13.10","host":"0.0.0.0","port":4222,"max_payload":1048576,"client_id":1,"client_ip":"172.17.0.1"}
+
 SUB greetings 1
 +OK
+
 PUB greetings 12
 Hello World!
 +OK
+
 MSG greetings 1 12
 Hello World!
   </code></pre>
@@ -60,71 +72,125 @@ Hello World!
 <section>
   <h2>Request/Response</h2>
   <ol>
-    <li>Client connected to NATS publishes a request on a <q>help</q> subject</li>
-    <li>Worker client subscribed to <q>help</q>, processes requests, then sends response</li>
-    <li>Audit client is subscribed to all subjects via a wildcard, so also receives message but does not reply</li>
+    <li>
+      Client connected to NATS publishes a request on a <q>help</q> subject
+    </li>
+    <li>
+      Worker client subscribed to <q>help</q>, processes requests, then sends
+      response
+    </li>
+    <li>
+      Audit client is subscribed to all subjects via a wildcard, so also
+      receives message but does not reply
+    </li>
     <li>Publisher receieves the response from the worker client</li>
   </ol>
-  <img src="./img/rr.png" alt="rr">
+  <img src="./img/rr.png" alt="rr" />
 </section>
 <section>
   <h2>Queue</h2>
   <ol>
     <li>Publisher sends multiple help requests on a <q>help</q> subject</li>
-    <li>Multiple worker clients subscribed to the <q>help</q> subject from a distributed queue</li>
-    <li>Each published request is randomly balanced to only one of the worker clients in the distributed queue</li>
+    <li>
+      Multiple worker clients subscribed to the <q>help</q> subject from a
+      distributed queue
+    </li>
+    <li>
+      Each published request is randomly balanced to only one of the worker
+      clients in the distributed queue
+    </li>
   </ol>
-  <img src="./img/queues.png" alt="queues">
+  <img src="./img/queues.png" alt="queues" />
 </section>
 <section>
   <h2>NATS As an Always Available Dial Tone</h2>
   <ul>
-    <li>The main design constraints that define the style of the NATS project are:</li>
+    <li>
+      The main design constraints that define the style of the NATS project are:
+    </li>
     <ul>
       <li>Simplicity</li>
       <li>Performance</li>
       <li>Reliability</li>
     </ul>
-    <li>It does not offer any <span class="hl-orange">Persistence</span> or <span class="hl-green">Buffering</span></li>
-    <li>It is true <span class="hl-red">Fire</span> and <span class="hl-cyan">Forget</span></li>
+    <li>
+      It does not offer any <span class="hl-orange">Persistence</span> or
+      <span class="hl-green">Buffering</span>
+    </li>
+    <li>
+      It is true <span class="hl-red">Fire</span> and
+      <span class="hl-cyan">Forget</span>
+    </li>
   </ul>
 </section>
 <section>
   <section>
     <h2>Availability</h2>
     <ul>
-      <li>NATS will try to protect itself at all costs to be available for all users</li>
-      <li>NATS client libraries, internally try to have an always established connection to one of the available NATS servers</li>
-      <li>In case a server fails, NATS will reconnect to another available server in the pool</li>
-      <li>NATS supports high-availablity via a clustering mode that is set up as a <span class="hl-orange">full-mesh</span> of the servers</li>
+      <li>
+        NATS will try to protect itself at all costs to be available for all
+        users
+      </li>
+      <li>
+        NATS client libraries, internally try to have an always established
+        connection to one of the available NATS servers
+      </li>
+      <li>
+        In case a server fails, NATS will reconnect to another available server
+        in the pool
+      </li>
+      <li>
+        NATS supports high-availablity via a clustering mode that is set up as a
+        <span class="hl-orange">full-mesh</span> of the servers
+      </li>
     </ul>
   </section>
   <section>
-    <img src="./img/ha.png" alt="ha">
+    <img src="./img/ha.png" alt="ha" />
   </section>
 </section>
 <section>
   <h2>Slow Consumer</h2>
   <ul>
-    <li>By default, if a client fails to drain the pending data that the server is holding for the client for over two seconds, the server will disconnect the client</li>
-    <li>Read more about it <a href="https://github.com/nats-io/nats-server/blob/c76dd8f67376bcf78ee09147e62242a29eccfa2e/server/client.go#L1270">here</a></li>
+    <li>
+      By default, if a client fails to drain the pending data that the server is
+      holding for the client for over two seconds, the server will disconnect
+      the client
+    </li>
+    <li>
+      Read more about it
+      <a
+        href="https://github.com/nats-io/nats-server/blob/c76dd8f67376bcf78ee09147e62242a29eccfa2e/server/client.go#L1270"
+        >here</a
+      >
+    </li>
   </ul>
-  <img src="./img/sc.png" alt="sc">
+  <img src="./img/sc.png" alt="sc" />
 </section>
 <section>
   <h2>Ping/Pong</h2>
   <ul>
-    <li>There is a PING/PONG interval happing that the client has to follow otherwise the server will reset the connection in case there are many PONG replies missing.</li>
-    <li>Server sends PING messages to client in each interval and client has to respond</li>
+    <li>
+      There is a PING/PONG interval happing that the client has to follow
+      otherwise the server will reset the connection in case there are many PONG
+      replies missing.
+    </li>
+    <li>
+      Server sends PING messages to client in each interval and client has to
+      respond
+    </li>
     <li>Client also can send PING messages to the server</li>
   </ul>
-  <img src="./img/ping-pong.png" alt="ping-pong">
+  <img src="./img/ping-pong.png" alt="ping-pong" />
 </section>
 <section>
   <h2>Subject Names</h2>
   <ul>
     <li>The dot character (.) has special meaning as part of the subject</li>
-    <li>When using it as part of the subject, we can create namespaces that can be later matched via wildcards</li>
+    <li>
+      When using it as part of the subject, we can create namespaces that can be
+      later matched via wildcards
+    </li>
   </ul>
   <table>
     <thead>
@@ -152,8 +218,7 @@ Hello World!
 <section>
   <section class="hands-on">
     <h2>Queue Subscribtions: Hands-on</h2>
-    <ul>
-    </ul>
+    <ul></ul>
   </section>
   <section>
     <h2>Worker 1 👷</h2>
@@ -193,7 +258,7 @@ second
   </section>
 </section>
 <section>
-  <h2>References</h2>
+  <h2>References 📚</h2>
   <ul>
     <li>Practical NATS: From Beginner to Pro, Book by Waldemar Quevedo</li>
   </ul>
