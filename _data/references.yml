@@ -1,10 +1,10 @@
 ---
 - title: Responsive Web Design with HTML5 and CSS - Third Edition
-  image: https://static.packt-cdn.com/products/9781839211560/cover/smaller
+  image: img/responsive-web-design.png
   authors:
     - Ben Frain
 - title: "JavaScript: The Definitive Guide - 7th Edition"
-  image: https://images-na.ssl-images-amazon.com/images/I/51wijnc-Y8L._SX379_BO1,204,203,200_.jpg
+  image: img/javascript.jpg
   authors:
     - David Flanagan
 - title: Mozilla Developer Network Web Docs
