@@ -184,36 +184,44 @@ Hello World!
   <img src="./img/ping-pong.png" alt="ping-pong" />
 </section>
 <section>
-  <h2>Subject Names</h2>
-  <ul>
-    <li>The dot character (.) has special meaning as part of the subject</li>
-    <li>
-      When using it as part of the subject, we can create namespaces that can be
-      later matched via wildcards
-    </li>
-  </ul>
-  <table>
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>Matches</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>foo.*.bar</td>
-        <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
-      </tr>
-      <tr>
-        <td>foo.*</td>
-        <td>foo.hello</td>
-      </tr>
-      <tr>
-        <td>foo.&gt;</td>
-        <td>foo.hello.bar, foo.hi.bar, foo.hello</td>
-      </tr>
-    </tbody>
-  </table>
+  <section>
+    <h2>Subject Names</h2>
+    <ul>
+      <li>The dot character (.) has special meaning as part of the subject</li>
+      <li>
+        When using it as part of the subject, we can create namespaces that can
+        be later matched via wildcards
+      </li>
+    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Matches</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>foo.*.bar</td>
+          <td>foo.hello.bar ✅, foo.hi.bar ✅, foo.hello ✅</td>
+        </tr>
+        <tr>
+          <td>foo.*</td>
+          <td>foo.hello ✅, foo.hi.bar ❌</td>
+        </tr>
+        <tr>
+          <td>foo.&gt;</td>
+          <td>foo.hello.bar ✅, foo.hi.bar ✅, foo.hello ✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <ul>
+      <li><code>*</code>: partial or token match wildcard</li>
+      <li><code>&gt;</code>: full wildcard</li>
+    </ul>
+  </section>
 </section>
 <section>
   <section class="hands-on">
