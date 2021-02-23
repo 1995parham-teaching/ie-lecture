@@ -1117,7 +1117,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://127.0.0.1" method="get"&gt;
+&lt;form action="http://httpbin.org/get" method="get"&gt;
   Search:
   &lt;input type="text" name="txtSearch" value="" size="20" maxlength="64" /&gt;
   &lt;br /&gt;
@@ -1129,7 +1129,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
 Please enter your message&lt;/textarea&gt;
 &lt;/form&gt;
     </code></pre>
-    <form action="http://127.0.0.1" method="get">
+    <form action="http://httpbin.org/get" method="get">
       Search:
       <input type="text" name="txtSearch" value="" size="20" maxlength="64" />
       <br />
@@ -1140,6 +1140,7 @@ Please enter your message&lt;/textarea&gt;
       <textarea name="inputtext" cols="30" rows="3">
 Please enter your message</textarea
       >
+      <button type="submit">Submit</button>
     </form>
   </section>
   <section>
@@ -1185,7 +1186,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://127.0.0.1" method="get">
+    <form action="http://httpbin.org/get" method="get">
       <fieldset>
         <legend><em>Web Development Skills</em></legend>
         <input type="checkbox" name="skill_1" value="html" />
@@ -1204,7 +1205,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://127.0.0.1" method="get"&gt;
+&lt;form action="http://httpbin.org/get" method="get"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;&lt;em&gt;Web Development Skills&lt;/em&gt;&lt;/legend&gt;
     &lt;input type="checkbox" name="skill_1" value="html" /&gt;
@@ -1247,7 +1248,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://www.aut.ac.ir" method="get">
+    <form action="http://httpbin.org/get" method="get">
       <fieldset>
         <legend>University Grade</legend>
         <input type="radio" name="grade" value="B" /> BS <br />
@@ -1260,7 +1261,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://www.aut.ac.ir" method="get"&gt;
+&lt;form action="http://httpbin.org/get" method="get"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;University Grade&lt;/legend&gt;
     &lt;input type="radio" name="grade" value="B" /&gt; BS &lt;br /&gt;
@@ -1302,7 +1303,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://127.0.0.1/" method="get">
+    <form action="http://httpbin.org/get" method="get">
       Select color:
       <select name="selColor">
         <option value="r">Red</option>
@@ -1314,7 +1315,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://127.0.0.1/" method="get"&gt;
+&lt;form action="http://httpbin.org/get" method="get"&gt;
   Select color:
   &lt;select name="selColor"&gt;
     &lt;option value="r"&gt;Red&lt;/option&gt;
@@ -1349,7 +1350,11 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://127.0.0.1" method="post" enctype="multipart/form-data">
+    <form
+      action="http://httpbin.org/post"
+      method="post"
+      enctype="multipart/form-data"
+    >
       <input type="file" name="fileUpload" accept="image/*" />
       <input type="submit" value="Submit" />
     </form>
@@ -1357,7 +1362,7 @@ Please enter your message</textarea
   <section>
     <pre><code class="lang-html">
 &lt;form
-  action="http://127.0.0.1"
+  action="http://httpbin.org/post"
   method="post"
   enctype="multipart/form-data"
 &gt;
@@ -1398,7 +1403,7 @@ Please enter your message</textarea
     </ul>
   </section>
   <section>
-    <form action="http://127.0.0.1/" method="get">
+    <form action="http://httpbin.org/get" method="get">
       <input type="text" name="input" value="Default Value" /> <br />
       <button type="submit">Submit Me</button><br />
       <button type="reset">Reset</button> <br />
@@ -1407,7 +1412,7 @@ Please enter your message</textarea
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://127.0.0.1/" method="get"&gt;
+&lt;form action="http://httpbin.org/get" method="get"&gt;
   &lt;input type="text" name="input" value="Default Value" /&gt; &lt;br /&gt;
   &lt;button type="submit"&gt;Submit Me&lt;/button&gt;&lt;br /&gt;
   &lt;button type="reset"&gt;Reset&lt;/button&gt; &lt;br /&gt;
@@ -1525,11 +1530,17 @@ Please enter your message</textarea
           <span class="hl-cyan">meta</span> element is a charset declaration,
           giving the character encoding in which the document is encoded.
         </li>
+        <pre><code class="lang-html">
+&lt;meta charset="UTF-8"&gt;
+        </code></pre>
         <li>
           If the <span class="hl-green">itemprop</span> attribute is set, the
           <span class="hl-cyan">meta</span> element provides user-defined
           metadata.
         </li>
+        <pre><code class="lang-html">
+&lt;meta itemprop="description" content="my description"&gt;
+        </code></pre>
       </ul>
     </ul>
   </section>
