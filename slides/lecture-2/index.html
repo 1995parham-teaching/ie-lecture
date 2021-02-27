@@ -572,12 +572,14 @@ Entity-Body
   <ul>
     <li><span class="hl-green">2xx</span></li>
     <ul>
+      <li>Successful responses</li>
       <li>200: OK</li>
       <li>201: Created</li>
       <li>204: No Content</li>
     </ul>
     <li><span class="hl-yellow">4xx</span></li>
     <ul>
+      <li>Client errors</li>
       <li>400: Bad Request</li>
       <li>401: Unauthorized (Authorization required)</li>
       <li>403: Forbidden</li>
@@ -591,12 +593,14 @@ Entity-Body
   <ul>
     <li><span class="hl-red">5xx</span></li>
     <ul>
+      <li>Server errors</li>
       <li>500: Internal Server Error</li>
       <li>501: Not Implemented</li>
       <li>503: Service Unavailable</li>
     </ul>
     <li><span class="hl-cyan">3xx</span></li>
     <ul>
+      <li>Redirects</li>
       <li>301: Moved Permanently</li>
       <li>307: Moved Temporarily</li>
       <ul>
@@ -604,6 +608,22 @@ Entity-Body
         <li>Location header contains the new location of resource</li>
       </ul>
       <li>304: Not Modified</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Responses (Cont.)</h2>
+  <ul>
+    <li><span class="hl-violet">1xx</span></li>
+    <ul>
+      <li>Informational responses</li>
+      <li>101: Switching Protocol</li>
+      <ul>
+        <li>
+          This code is sent in response to an Upgrade request header from the
+          client, and indicates the protocol the server is switching to.
+        </li>
+      </ul>
     </ul>
   </ul>
 </section>
