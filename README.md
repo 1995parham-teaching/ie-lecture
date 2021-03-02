@@ -17,6 +17,10 @@ Prerequisite:
 - Introduction to Programming
 - Advance Programming
 
+## Lectures
+
+Shahid Beheshti University lecture recordings are available [here](http://dl.1995parham.ir/sbu/).
+
 ## How to Run
 
 To run these slides locally you can use the `docker-compose`.
