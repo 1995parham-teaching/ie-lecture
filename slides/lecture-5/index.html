@@ -48,7 +48,7 @@ topics:
       </li>
       <li>
         Object-based: <span class="hl-red">NOT</span> class-based, no difference
-        between classes &amp; instances
+        between classes &amp; instances (prototype-based) instead of class-based
       </li>
       <li>Client-side: Run by client side program (the web browser)</li>
       <li>
@@ -1639,7 +1639,9 @@ object.removeEventListener(eventName, function)
     Add a 'click' event listener to the blue button
   </button>
   <button onclick="RemoveEventHandler ();">Remove the event listener</button>
-  <button id="blueButton" style="background-color: #0077ff">Big Blue Button</button>
+  <button id="blueButton" style="background-color: #0077ff">
+    Big Blue Button
+  </button>
 
   <script type="text/javascript">
     function blueClick1() {
