@@ -1065,6 +1065,136 @@ console.log(Bachelor.betterThan(bc1, bc2));
   </code></pre>
 </section>
 <section>
+  <section>
+    <h2>Promise</h2>
+    <ul>
+      <li>
+        The <strong class="hl-orange">Promise</strong> object represents the
+        eventual completion (or failure) of an
+        <em class="hl-cyan">asynchronous</em> operation and its resulting value.
+      </li>
+      <li>
+        A <code class="hl-orange">Promise</code> is in one of these states:
+      </li>
+      <ul>
+        <li>
+          <em class="hl-yellow">pending</em>: initial state, neither fulfilled
+          nor rejected.
+        </li>
+        <li>
+          <em class="hl-green">fulfilled</em>: meaning that the operation was
+          completed successfully.
+        </li>
+        <li>
+          <em class="hl-red">rejected</em>: meaning that the operation failed.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        A pending promise can either be fulfilled with a value or rejected with
+        a reason (error).
+      </li>
+      <li>
+        When either of these options happens, the associated handlers queued up
+        by a promise's then method are called.
+      </li>
+      <li>
+        The <code class="hl-orange">.then()</code> method takes up to two
+        arguments; the first argument is a callback function for the
+        <em class="hl-green">resolved case</em> of the promise, and the second
+        argument is a callback function for the
+        <em class="hl-red">rejected case</em>.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <img src="./img/promises.png" alt="promies" />
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+// timeout is 300 millisecond
+const timeout = 300;
+
+function longCalculation(id) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve(`resolved-${id}`);
+    }, timeout);
+  });
+}
+
+longCalculation(1)
+  .then((result) =&gt; {
+    console.log(`1st promise: ${result}`);
+    return longCalculation(2);
+  })
+  .then((result) =&gt; {
+    console.log(`2nd promise: ${result}`);
+    return longCalculation(3);
+  })
+  .then((result) =&gt; {
+    console.log(`3rd promise: ${result}`);
+    return;
+  });
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Use Strict</h2>
+    <ul>
+      <li>
+        The <code class="hl-orange">"use strict"</code> directive was new in
+        ECMAScript version 5.
+      </li>
+      <li>
+        It is not a statement, but a literal expression, ignored by earlier
+        versions of JavaScript.
+      </li>
+      <li>Strict mode makes it easier to write "secure" JavaScript.</li>
+      <li>
+        Strict mode changes previously accepted "bad syntax" into real errors.
+      </li>
+      <li>
+        Strict mode is declared by adding
+        <code class="hl-orange">"use strict"</code>; to the beginning of a
+        <strong class="hl-green">script</strong> or a
+        <strong class="hl-yellow">function</strong>.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Not Allowed in Strict Mode</h2>
+    <ul>
+      <li>Using a variable, without declaring it, is not allowed.</li>
+      <li>Deleting a variable (or object) is not allowed.</li>
+      <li>Deleting a function is not allowed.</li>
+      <li>
+        Duplicating a <em class="hl-green">parameter name</em> is not allowed.
+      </li>
+      <li>Octal numeric literals are not allowed.</li>
+      <li>Writing to a get-only property is not allowed.</li>
+      <li>
+        Keywords reserved for future JavaScript versions can
+        <em class="hl-red">NOT</em> be used as variable names in strict mode.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+"use strict";
+myFunction();
+
+function myFunction() {
+  y = 3.14;   // This will also cause an error because y is not declared
+}
+    </code></pre>
+  </section>
+</section>
+<section>
   <div class="toc" data-selected="2"></div>
 </section>
 <section>
@@ -1162,7 +1292,6 @@ document.nametest.output.value='New Value';
   </code></pre>
   <form>
     <input
-      style="display: "
       type="button"
       value="Run"
       onclick="document.nametest.output.value='New Value';"
@@ -3192,7 +3321,7 @@ function fetchWithErr(url) {
 </section>
 <section>
   <section>
-    <h2>JavaScript in Action with an Email Clienty</h2>
+    <h2>JavaScript in Action with an Email Client</h2>
     <ul>
       <li>Add new item per new received email</li>
       <ul>
