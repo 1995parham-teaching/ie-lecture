@@ -1038,29 +1038,30 @@ console.log(st1);
 <section>
   <h2>Objects Example</h2>
   <pre><code class="lang-javascript">
-class AnotherObject extends NewObject{
-  constructor(){
-    super(50000);
-    this.getX = function(){
-      window.alert("This is the getX of AnotherObject");
-      return this.x - 100000;
+class Bachelor extends Student {
+  constructor(name, id){
+    super(name, id);
+    this.average = function() {
+      return 20;
     }
   }
 
-  setX(){
-    window.alert("This is the setX of AnotherObject");
-    this.x += 1000;
+  isPass(){
+    return 'Pass';
   }
 
-  static add(a,b){
-    return (a + b);
+  static betterThan(a, b){
+    return a.average() &gt;= b.average();
   }
 }
 
-obj3 = new AnotherObject();
-obj3.setX();
-window.alert(obj3.x +" "+ obj3.y);
-window.alert(AnotherObject.add(obj3.getX(),obj3.y));
+bc1 = new Bachelor("Parham Alvani", "9231058");
+console.log(bc1.average());
+
+bc2 = new Bachelor("Sepehr Sabour", "9231011");
+console.log(bc2.average());
+
+console.log(Bachelor.betterThan(bc1, bc2));
   </code></pre>
 </section>
 <section>
