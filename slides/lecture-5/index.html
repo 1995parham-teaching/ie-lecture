@@ -153,8 +153,9 @@ topics:
 &lt;script type="text/javascript" src="external.js" defer&gt;&lt;/script&gt;
       </code></pre>
       <li>
-        JavaScript code can be put in both <code>head</code> and
-        <code>body</code>
+        JavaScript code can be put in both
+        <span class="hl-orange">head</span> and
+        <span class="hl-green">body</span>
       </li>
     </ul>
   </section>
@@ -163,12 +164,13 @@ topics:
       <ul>
         <li>
           Browser reads the HTML file, when it reaches to JavaScript code, it
-          runs the code, except functions that should be called and the deferred
+          runs the code, except functions that should be called and the
+          <span class="hl-cyan">deferred</span>
           scripts
         </li>
         <li>
-          <code>defer</code> specifies that the script is executed when the page
-          has finished parsing.
+          <span class="hl-cyan">defer</span> specifies that the script is
+          executed when the page has finished parsing.
         </li>
       </ul>
     </ul>
@@ -229,7 +231,6 @@ console.log('Hello World')
       <ul>
         <li>Required for local variables (inside functions)</li>
       </ul>
-
       <pre><code class="lang-javascript">
 i = j = 0;
 function f(){
@@ -267,7 +268,7 @@ f();
       <ul>
         <li>Similar to other scripting (interpreted) languages</li>
         <li>Type is identified by value</li>
-        <li>Type of variable can be changed</li>
+        <li>Type of variable can <em class="hl-orange">be changed</em></li>
       </ul>
     </ul>
   </section>
@@ -279,7 +280,7 @@ f();
           Primitive: Number, String, Boolean, BigInt, Symbol, Undefined, and
           Null
           <ul>
-            <li>They are <em>immutable</em></li>
+            <li>They are <em class="hl-yellow">immutable</em></li>
             <pre><code class="lang-javascript">
 let x = "abc";
 x[0]='Z';
@@ -305,11 +306,23 @@ x[0]='Z';
               </li>
             </ul>
             <li>Arrays are some special objects</li>
-            <li>Objects are <em>mutable</em></li>
+            <li>Objects are <em class="hl-green">mutable</em></li>
           </ul>
         </li>
       </ul>
     </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+const name = 'Darth Vader';
+name.alignment = 'Lawful evil';
+name.tellTheTruth = () =&gt; {
+  console.log('Luke, I am your father!');
+};
+
+console.log(name.alignment); // undefined
+name.tellTheTruth(); // Uncaught TypeError: name.tellTheTruth is not a function
+    </code></pre>
   </section>
 </section>
 <section>
@@ -317,15 +330,16 @@ x[0]='Z';
     <h2>JavaScript Basic: Variables Scope</h2>
     <ul>
       <li>
-        By default (either <code></code> or not) scope is either
-        <em>global</em> or <em>function</em>
+        By default (either <code class="hl-orange">var</code> or not) scope is
+        either <em class="hl-yellow">global</em> or
+        <em class="hl-green">function</em>
       </li>
       <ul>
         <li>
           Variables defined in a block (other than functions) are accessible
           outside the block
         </li>
-        <pre><code>
+        <pre><code class="lang-javascript">
 function f() {
   while(true) {
      var x = 20;
@@ -341,7 +355,7 @@ function f() {
       <li>
         From ECMA 2015, <code class="hl-orange">let</code> and
         <code class="hl-green">const</code> can be used to define
-        <em>block</em> scope
+        <em class="hl-cyan">block</em> scope
       </li>
       <pre><code class="lang-javascript">
 function f() {
@@ -360,6 +374,7 @@ function f() {
     <li>Arithmetic: <code> + - * / % **</code></li>
     <ul>
       <li>String concatenation: <code>+</code></li>
+      <li>Power: <code>**</code></li>
     </ul>
     <li>Assignment: <code>= += -= *= /= %= ++ --</code></li>
     <li>Comparison: <code>== === != !== &gt; &gt;= &lt; &lt;= </code></li>
@@ -399,18 +414,38 @@ function f() {
     <ul>
       <li>Function definition</li>
       <pre><code class="lang-javascript">
-function Name(input1, input2, ...){
+function name(input1, input2, ...){
   ...
   return result;
 }
     </code></pre>
       <li>No output type, no input arguments type</li>
-      <li>Function call: <code> a = func(...);</code></li>
+      <li>Function call: <code> retVal = name(input1, input2, ...);</code></li>
       <ul>
-        <li>Input argument are called by value!</li>
-        <li>Call by reference is not easy, single value array can be used</li>
+        <li>Input argument are called by value for primitive types</li>
+        <li>Call by reference for objects</li>
       </ul>
     </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function changeMe(value) {
+  value = 10;
+}
+
+function changePropertyInMe(value) {
+  value.x = 20;
+}
+
+point = { x: 10, y: 10, toString: () =&gt; console.log(`(${this.x}, ${this.y})`) };
+console.log(point);
+
+changeMe(point);
+console.log(point);
+
+changePropertyInMe(point);
+console.log(point);
+    </code></pre>
   </section>
   <section>
     <ul>
@@ -420,8 +455,8 @@ function Name(input1, input2, ...){
       </li>
       <li>Function in Function definition is allowed</li>
       <li>
-        Function declarations are not part of the regular top-to-bottom flow of
-        control (JavaScript Hoisting)
+        Function declarations are <span class="hl-red">not</span> part of the
+        regular top-to-bottom flow of control (JavaScript Hoisting)
       </li>
       <pre><code class="lang-javascript">
 square(5);
@@ -564,28 +599,28 @@ document.getElementById("testbox").innerHTML = "This is box";
   <section>
     <h2>Arrays</h2>
     <ul>
-      <li>Arrays in JS are associative</li>
       <li>
         Neither the length of a JavaScript array nor the types of its elements
         are fixed
       </li>
-      <ul>
-        <li>
-          In fact, they are objects that create a map between keys and values
-        </li>
-        <ul>
-          <li>The key can be integer or everything else</li>
-        </ul>
-        <li>Arrays with integer index (key)</li>
-        <pre><code class="lang-javascript">
+      <li>Data can be stored at non-contiguous locations in the array</li>
+      <li>
+        Setting or accessing via
+        <span class="hl-orange">non-integers</span> using bracket notation (or
+        dot notation) will not set or retrieve an element from the array list
+        itself, but will set or access a variable associated with that array's
+        object property collection.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
 let a = [1, 2, 3];
 let a = new Array (10, 20, ...);
 let a = new Array();
 a[10] = "HTML";
 a[120] = "JS";
-      </code></pre>
-      </ul>
-    </ul>
+    </code></pre>
   </section>
   <section>
     <ul>
@@ -608,6 +643,41 @@ friends.filter(i =&gt; i.startsWith("S")) // ["Saman", "Sepehr"]
 let num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 num.reduce((sum, i) =&gt; sum + i, 0) // 45
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>for/of - looping over iterable objects</li>
+    </ul>
+    <pre><code class="lang-javascript">
+for (let friend of friends) {
+  console.log(friend)
+}
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>Also there are typed arrays</li>
+      <ul>
+        <li>The contents are initialized to 0.</li>
+        <li>
+          You can reference elements in the array using the object's methods, or
+          using standard array index syntax (that is, using bracket notation).
+        </li>
+        <li>Fix-sized</li>
+      </ul>
+    </ul>
+    <pre><code class="lang-javascript">
+// From a length
+let uint8 = new Uint8Array(2);
+uint8[0] = 42;
+console.log(uint8[0]); // 42
+console.log(uint8.length); // 2
+console.log(uint8.BYTES_PER_ELEMENT); // 1
+
+uint8[2] = 1;
+console.log(uint8[2]); // undefined
+console.log(uint8.length) // 2
     </code></pre>
   </section>
 </section>
@@ -3203,10 +3273,13 @@ function fetchWithErr(url) {
   </ul>
 </section>
 <section>
-  <h2>References</h2>
+  <h2>References 📚</h2>
   <ul>
     <li>
       https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction
+    </li>
+    <li>
+      https://programmingwithmosh.com/javascript/javascript-wrapper-objects/
     </li>
   </ul>
 </section>
