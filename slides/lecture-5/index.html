@@ -820,6 +820,46 @@ window.alert("name is "+ book.name +", price is "+ book.price);
   </code></pre>
 </section>
 <section>
+  <h2>Prototype</h2>
+  <ul>
+    <li>
+      <code class="hl-orange">Object.create()</code>: creates a new object,
+      using an existing object as the prototype of the newly created object.
+    </li>
+  </ul>
+  <pre><code class="lang-javascript">
+// Person is our portotype
+let Person = {
+  _name: "",
+  _family: "",
+
+  get name() {
+    return this._name;
+  },
+
+  get family() {
+    return this._family;
+  },
+
+  set name(name) {
+    this._name = name;
+  },
+
+  set family(family) {
+    this._family = family;
+  },
+};
+
+// p1 is an instance based on Person prototype
+let p1 = Object.create(Person);
+
+p1.name = "Parham";
+p1.family = "Alvani";
+
+console.log(p1.name, p1.family);
+  </code></pre>
+</section>
+<section>
   <h2>OOP: Instantiating Multiple Objects</h2>
   <ul>
     <li>
@@ -874,24 +914,45 @@ window.alert("name is "+ book.name +", price is "+ book.price);
   <section>
     <h2>Objects</h2>
     <ul>
-      <li>Class definition: <code class="hl-orange">class</code></li>
       <li>
-        Object instantiation &amp;
-        <strong class="hl-yellow">property</strong> deletion:
-        <code class="hl-green">new</code>,
-        <code class="hl-green">delete</code>
+        Object instantiation:
+        <code class="hl-green">new</code>
       </li>
-      <li>Properties declaration (optional)</li>
       <li>
-        Method declaration: function definition
-        <strong class="hl-red">without</strong>
-        <code class="hl-cyan">function</code>
+        <strong class="hl-yellow">property</strong> deletion:
+        <code class="hl-green">delete</code>
       </li>
       <li>Access to properties/methods: <code>.</code></li>
       <li>This object: <code class="hl-orange">this</code></li>
       <ul>
         <li>Needed to access properties in methods</li>
       </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>What does <code class="hl-green">new Foo(...)</code> do?</h2>
+    <ol>
+      <li>
+        A new object is created, inheriting from
+        <code class="hl-orange">Foo.prototype</code>
+      </li>
+      <li>
+        The constructor function <code class="hl-orange">Foo</code> is called
+        with the specified arguments, and with
+        <code class="hl-yellow">this</code> bound to the newly created object.
+      </li>
+    </ol>
+  </section>
+  <section>
+    <h2>ECMA 2015</h2>
+    <ul>
+      <li>Class definition: <code class="hl-orange">class</code></li>
+      <li>Properties declaration (optional)</li>
+      <li>
+        Method declaration: function definition
+        <strong class="hl-red">without</strong>
+        <code class="hl-cyan">function</code>
+      </li>
     </ul>
   </section>
   <section>
@@ -913,35 +974,39 @@ window.alert("name is "+ book.name +", price is "+ book.price);
   </section>
 </section>
 <section>
-  <h2>Objects Example</h2>
-  <pre><code class="lang-javascript">
-function MyObject(valx){
-  window.alert("A new MyObject!!!");
-  this.x = valx;
-  this.getX = function(){
-    return this.x;
+  <section>
+    <h2>Objects Example</h2>
+    <pre><code class="lang-javascript">
+function Student(name, id){
+  window.alert("I am going to create a new student");
+  this.name = name;
+  this.id = id;
+  this.toString = function(){
+    return `${this.name}: ${this.id}`;
   }
 }
-obj1 = new MyObject(10);
-window.alert(obj1.getX());
 
-// ==========================================
-
-class NewObject extends MyObject{
-  constructor(valy){
-    super(100);
-    this.y = valy;
+let st1 = new Student("Parham Alvani", "9231058");
+console.log(st1);
+    </code></pre>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+class Student {
+  constructor(name, id){
+    window.alert("I am going to create a new student");
+    this.name = name;
+    this.id = id;
   }
-  setX(newVal){ this.x = newVal; }
+  toString() {
+    return `${this.name}: ${this.id}`;
+  }
 }
 
-obj2 = new NewObject(500);
-window.alert(obj2.getX());
-obj2.setX(3000);
-window.alert(obj2.getX() +" "+ obj2.y);
-NewObject.prototype.newx = 111;
-window.alert(obj2.newx);
-  </code></pre>
+let st1 = new Student("Parham Alvani", "9231058");
+console.log(st1);
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>Objects Example</h2>
