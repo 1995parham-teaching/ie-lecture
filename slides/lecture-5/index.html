@@ -730,27 +730,7 @@ d.toString(); // "Thu Nov 05 2020 09:50:38 GMT+0330 (Iran Standard Time)"
   </section>
 </section>
 <section>
-  <h2>Objects</h2>
-  <ul>
-    <li>Remark 1: Everything is object if it is not primitive</li>
-    <li>
-      Remark 2: JS is not a classic OOP language
-      <ul>
-        <li>Does not have full support of all OOP features</li>
-        <li>Different implementation of the OOP concepts (inheritance, ...)</li>
-      </ul>
-    </li>
-    <li>
-      Remark 1 + Remark 2 --&gt; ???!!!
-      <ul>
-        <li>Dealing with a single object</li>
-        <li>OOP (like) object instantiation</li>
-      </ul>
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Single Object</h2>
+  <h2>Object</h2>
   <ul>
     <li>
       An object is a collection of variables (fields) and functions (methods)
@@ -772,7 +752,7 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
   </code></pre>
 </section>
 <section>
-  <h2>Single Object (cont'd)</h2>
+  <h2>Object (Cont.)</h2>
   <ul>
     <li>
       Creating an (empty) object by the <code>Object</code> object and
@@ -784,8 +764,8 @@ let book = new Object();
 book.name = "OOP in JS";
 book.price = 100;
 book.publish = 2020;
-book.getPrice = function(){ return this.price; };
-book.setPrice = function (x){this.price=x;};
+book.getPrice = function() { return this.price; };
+book.setPrice = function(x) { this.price=x; };
 book.setPrice(1000);
 window.alert("name is "+ book.name +", price is "+ book.getPrice());
   </code></pre>
@@ -804,7 +784,9 @@ window.alert("name is "+ book.name +", price is "+ book.getPrice());
 let book = {
   name: "OOP in JS",
   _price: 0,
-  get price(){return this._price + "$";},
+  get price(){
+    return this._price + "$";
+  },
   set price(val){
     if (val &lt; 0)
       window.alert("Invalid price");
@@ -820,14 +802,15 @@ window.alert("name is "+ book.name +", price is "+ book.price);
   </code></pre>
 </section>
 <section>
-  <h2>Prototype</h2>
-  <ul>
-    <li>
-      <code class="hl-orange">Object.create()</code>: creates a new object,
-      using an existing object as the prototype of the newly created object.
-    </li>
-  </ul>
-  <pre><code class="lang-javascript">
+  <section>
+    <h2>Prototype</h2>
+    <ul>
+      <li>
+        <code class="hl-orange">Object.create()</code>: creates a new object,
+        using an existing object as the prototype of the newly created object.
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
 // Person is our portotype
 let Person = {
   _name: "",
@@ -857,7 +840,41 @@ p1.name = "Parham";
 p1.family = "Alvani";
 
 console.log(p1.name, p1.family);
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Prototypes are the mechanism by which JavaScript objects inherit
+        features from one another.
+      </li>
+      <li>
+        In our code we define the constructor, then we create an instance object
+        from the constructor, then we add a new method to the constructor's
+        prototype:
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function Person(first, last, age, gender, interests) {
+  // property and method definitions
+}
+
+let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
+
+Person.prototype.farewell = function() {
+  alert(this.name.first + ' has left the building. Bye for now!');
+};
   </code></pre>
+    <ul>
+      <li>
+        But the farewell() method is still available on the person1 object
+        instance — its members have been automatically updated to include the
+        newly defined farewell() method.
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>OOP: Instantiating Multiple Objects</h2>
@@ -1035,42 +1052,6 @@ obj3.setX();
 window.alert(obj3.x +" "+ obj3.y);
 window.alert(AnotherObject.add(obj3.getX(),obj3.y));
   </code></pre>
-</section>
-<section>
-  <section>
-    <h2>Prototype</h2>
-    <ul>
-      <li>
-        Prototypes are the mechanism by which JavaScript objects inherit
-        features from one another.
-      </li>
-      <li>
-        In our code we define the constructor, then we create an instance object
-        from the constructor, then we add a new method to the constructor's
-        prototype:
-      </li>
-    </ul>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-function Person(first, last, age, gender, interests) {
-  // property and method definitions
-}
-
-let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
-
-Person.prototype.farewell = function() {
-  alert(this.name.first + ' has left the building. Bye for now!');
-};
-  </code></pre>
-    <ul>
-      <li>
-        But the farewell() method is still available on the person1 object
-        instance — its members have been automatically updated to include the
-        newly defined farewell() method.
-      </li>
-    </ul>
-  </section>
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
