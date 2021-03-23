@@ -856,6 +856,9 @@ console.log(p1.name, p1.family);
     </ul>
   </section>
   <section>
+    <img src="./img/prototype.png" alt="prototype" />
+  </section>
+  <section>
     <pre><code class="lang-javascript">
 function Person(first, last, age, gender, interests) {
   // property and method definitions
@@ -877,55 +880,62 @@ Person.prototype.farewell = function() {
   </section>
 </section>
 <section>
-  <h2>OOP: Instantiating Multiple Objects</h2>
-  <ul>
-    <li>
-      To be more OOP-like, we need
-      <ul>
-        <li>Differentiation between class and object</li>
-        <li>Instantiating via constructor</li>
-      </ul>
-    </li>
-    <li>
-      Traditional/Base/Conceptual/Common approach:
-      <ul>
-        <li>A function is also a type of object</li>
-        <li>Functions are used to define objects as the constructor</li>
-        <li>
-          Inheritance is
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance"
-            >implemented</a
-          >
-          by <code>prototype</code> property of the function
-        </li>
-      </ul>
-    </li>
-    <li>
-      Easier/New (ECMA 2015) approach:
-      <ul>
-        <li>
-          No new concept, syntactical sugar over JavaScript's existing
-          prototype-based inheritance
-        </li>
-        <li>
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
-            >Classes</a
-          >
-          are defined by <code>class</code>, which is a special function
-        </li>
-        <li>
-          Common OOP terminologies: <code>extends</code>, <code>super</code>,
-          ...
-        </li>
-        <li>
-          <em>Only</em> for methods (properties should be deinfed using the
-          <code>prototype</code>)
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <section>
+    <h2>OOP: Instantiating Multiple Objects</h2>
+    <ul>
+      <li>
+        To be more OOP-like, we need
+        <ul>
+          <li>Differentiation between class and object</li>
+          <li>Instantiating via constructor</li>
+        </ul>
+      </li>
+      <li>
+        Traditional/Base/Conceptual/Common approach:
+        <ul>
+          <li>A function is also a type of object</li>
+          <li>Functions are used to define objects as the constructor</li>
+          <li>
+            Inheritance is
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance"
+              >implemented</a
+            >
+            by <code class="hl-orange">prototype</code> property of the function
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Easier/New (ECMA 2015) approach:
+        <ul>
+          <li>
+            No new concept, syntactical sugar over JavaScript's existing
+            prototype-based inheritance
+          </li>
+          <li>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
+              >Classes</a
+            >
+            are defined by <code class="hl-green">class</code>, which is a
+            special function
+          </li>
+          <li>
+            Common OOP terminologies: <code class="hl-yellow">extends</code>,
+            <code class="hl-yellow">super</code>, ...
+          </li>
+          <li>
+            <em class="hl-red">Only</em> for methods (properties should be
+            deinfed using the <code class="hl-cyan">prototype</code>)
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
