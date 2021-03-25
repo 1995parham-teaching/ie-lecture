@@ -170,7 +170,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello, World\n")
+  fmt.Printf("Hello, World\n")
 }
           </code></pre>
 </section>
@@ -294,15 +294,15 @@ f, err = os.Open(filename) // multiple assignment
 if x &lt; y {
   return x
 } else {
-	return y
+  return y
 }
 
 switch day {
 case Mon:
-	...
+  ...
   // break is implicit
 case Tue, Wed:
-	...
+  ...
 }
   </code></pre>
   <ul>
@@ -356,13 +356,13 @@ package main
 import "fmt"
 
 func main() {
-	var a int
-	a = 10
-	fmt.Printf("%d\n", a)
+  var a int
+  a = 10
+  fmt.Printf("%d\n", a)
 
-	b := new(int)
-	*b = 10
-	fmt.Printf("b = %p, *b = %d\n", b, *b)
+  b := new(int)
+  *b = 10
+  fmt.Printf("b = %p, *b = %d\n", b, *b)
 }
   </code></pre>
   <ul>
@@ -380,15 +380,15 @@ package main
 import "fmt"
 
 func Fibonacci(n int) int {
-	if n == 0 || n == 1 {
-		return 1
-	} else {
-		return Fibonacci(n-1) + Fibonacci(n-2)
-	}
+  if n == 0 || n == 1 {
+    return 1
+  } else {
+    return Fibonacci(n-1) + Fibonacci(n-2)
+  }
 }
 
 func main() {
-	fmt.Printf("%d\n", Fibonacci(10))
+  fmt.Printf("%d\n", Fibonacci(10))
 }
   </code></pre>
 </section>
@@ -399,17 +399,17 @@ func main() {
 package main
 
 type Sample struct {
-	S1      int
-	S2      int
-	S3      string
-	private float64
+  S1      int
+  S2      int
+  S3      string
+  private float64
 }
 
 func main() {
-	var smp Sample
-	smp.S1 = 10
-	smp.S2 = 20
-	smp.S3 = "Hello World"
+  var smp Sample
+  smp.S1 = 10
+  smp.S2 = 20
+  smp.S3 = "Hello World"
 }
   </code></pre>
   </section>
@@ -437,25 +437,25 @@ package main
 import "fmt"
 
 type Example struct {
-	Val   string
-	count int
+  Val   string
+  count int
 }
 type integer int
 
 func (i integer) log() {
-	fmt.Printf("%d\n", i)
+  fmt.Printf("%d\n", i)
 }
 func (e *Example) Log() {
-	e.count++
-	fmt.Printf("%d %s\n", e.count, e.Val)
+  e.count++
+  fmt.Printf("%d %s\n", e.count, e.Val)
 }
 func main() {
-	var i integer
-	exm := Example{
-		Val:   "Example",
-		count: 10}
-	i.log()
-	exm.Log()
+  var i integer
+  exm := Example{
+    Val:   "Example",
+    count: 10}
+  i.log()
+  exm.Log()
 }
     </code></pre>
 </section>
@@ -467,20 +467,20 @@ package main
 import "fmt"
 
 type Printer interface {
-	Print()
+  Print()
 }
 type Foo struct {
-	X, Y int
+  X, Y int
 }
 type Bar struct {
-	X, Y float64
+  X, Y float64
 }
 
 func (f Foo) Print() {
-	fmt.Printf("%d %d\n", f.X, f.Y)
+  fmt.Printf("%d %d\n", f.X, f.Y)
 }
 func (b Bar) Print() {
-	fmt.Printf("%g %g\n", b.X, b.Y)
+  fmt.Printf("%g %g\n", b.X, b.Y)
 }
   </code></pre>
 </section>
@@ -496,9 +496,9 @@ func (b Bar) Print() {
 package main
 
 func main() {
-	one := 1
-	var float float32
-	float = float32(one)
+  one := 1
+  var float float32
+  float = float32(one)
 }
   </code></pre>
 </section>
@@ -518,15 +518,15 @@ import "fmt"
 type empty interface{}
 
 type example struct {
-	A int
+  A int
 }
 
 func main() {
-	one := 1
-	var i empty = one
-	j := example{A: 10}
-	var k empty = j
-	fmt.Println(k.(example).A)
+  one := 1
+  var i empty = one
+  j := example{A: 10}
+  var k empty = j
+  fmt.Println(k.(example).A)
 }
   </code></pre>
 </section>
@@ -539,9 +539,9 @@ func main() {
     <h2>Create Point Interface</h2>
     <pre><code class="lang-go">
 type Point interface {
-	Distance() float64
-	ImageOnX() float64
-	ImageOnY() float64
+  Distance() float64
+  ImageOnX() float64
+  ImageOnY() float64
 }
     </code></pre>
   </section>
@@ -549,20 +549,20 @@ type Point interface {
     <h2>Create Catesian Point Structure</h2>
     <pre><code class="lang-go">
 type Cartesian struct {
-	X float64
-	Y float64
+  X float64
+  Y float64
 }
 
 func (c *Cartesian) Distance() float64 {
-	return math.Sqrt(c.X*c.X + c.Y*c.Y)
+  return math.Sqrt(c.X*c.X + c.Y*c.Y)
 }
 
 func (c *Cartesian) ImageOnX() float64 {
-	return c.X
+  return c.X
 }
 
 func (c *Cartesian) ImageOnY() float64 {
-	return c.Y
+  return c.Y
 }
     </code></pre>
   </section>
@@ -570,39 +570,39 @@ func (c *Cartesian) ImageOnY() float64 {
     <h2>Create Polar Point Structure</h2>
     <pre><code class="lang-go">
 type Polar struct {
-	R    float64
-	Teta float64
+  R    float64
+  Teta float64
 }
 
 func (p *Polar) Distance() float64 {
-	return p.R
+  return p.R
 }
 
 func (p *Polar) ImageOnX() float64 {
-	return p.R * math.Cos(p.Teta)
+  return p.R * math.Cos(p.Teta)
 }
 
 func (p *Polar) ImageOnY() float64 {
-	return p.R * math.Sin(p.Teta)
+  return p.R * math.Sin(p.Teta)
 }
     </code></pre>
   </section>
   <section>
     <pre><code class="lang-go">
 func main() {
-	p := Polar{
-		R:    1,
-		Teta: math.Pi / 2,
-	}
+  p := Polar{
+    R:    1,
+    Teta: math.Pi / 2,
+  }
 
-	c := Cartesian{
-		X: 3,
-		Y: 4,
-	}
+  c := Cartesian{
+    X: 3,
+    Y: 4,
+  }
 
-	fmt.Printf("%g %g\n", p.Distance(), c.Distance())
-	fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
-	fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
+  fmt.Printf("%g %g\n", p.Distance(), c.Distance())
+  fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
+  fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
 </code></pre>
   </section>
@@ -612,64 +612,64 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"math"
+  "fmt"
+  "math"
 )
 
 type Point interface {
-	Distance() float64
-	ImageOnX() float64
-	ImageOnY() float64
+  Distance() float64
+  ImageOnX() float64
+  ImageOnY() float64
 }
 
 type Cartesian struct {
-	X float64
-	Y float64
+  X float64
+  Y float64
 }
 
 func (c *Cartesian) Distance() float64 {
-	return math.Sqrt(c.X*c.X + c.Y*c.Y)
+  return math.Sqrt(c.X*c.X + c.Y*c.Y)
 }
 
 func (c *Cartesian) ImageOnX() float64 {
-	return c.X
+  return c.X
 }
 
 func (c *Cartesian) ImageOnY() float64 {
-	return c.Y
+  return c.Y
 }
 
 type Polar struct {
-	R    float64
-	Teta float64
+  R    float64
+  Teta float64
 }
 
 func (p *Polar) Distance() float64 {
-	return p.R
+  return p.R
 }
 
 func (p *Polar) ImageOnX() float64 {
-	return p.R * math.Cos(p.Teta)
+  return p.R * math.Cos(p.Teta)
 }
 
 func (p *Polar) ImageOnY() float64 {
-	return p.R * math.Sin(p.Teta)
+  return p.R * math.Sin(p.Teta)
 }
 
 func main() {
-	p := Polar{
-		R:    1,
-		Teta: math.Pi / 2,
-	}
+  p := Polar{
+    R:    1,
+    Teta: math.Pi / 2,
+  }
 
-	c := Cartesian{
-		X: 3,
-		Y: 4,
-	}
+  c := Cartesian{
+    X: 3,
+    Y: 4,
+  }
 
-	fmt.Printf("%g %g\n", p.Distance(), c.Distance())
-	fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
-	fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
+  fmt.Printf("%g %g\n", p.Distance(), c.Distance())
+  fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
+  fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
     </code></pre>
   </section>
