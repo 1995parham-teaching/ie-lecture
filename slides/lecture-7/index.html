@@ -100,10 +100,11 @@ topics:
   <ul>
     <li>Go code is easy to read and easy to understand</li>
     <li>Go supports Garbage Collection</li>
-    <li>Go does not have a preprocssor</li>
+    <li>Go does not have a preprocessor</li>
     <li>
-      Go uses static linking by default, which means that the binary files
-      produced can be easily transferred to other machines with the same OS.
+      Go uses <strong class="hl-orange">static linking</strong> by default,
+      which means that the binary files produced can be easily transferred to
+      other machines with the same OS.
     </li>
   </ul>
 </section>
@@ -170,22 +171,58 @@ package main
 import "fmt"
 
 func main() {
-  fmt.Printf("Hello, World\n")
+  fmt.Printf("Hello, دنیا\n")
 }
-          </code></pre>
+  </code></pre>
 </section>
-<section class="hands-on">
-  <h2>
-    <a href="https://github.com/SBU-CE/ie-with-go/tree/main/00-hello-world"
-      >&lt;Code Time.go&gt;</a
-    >
-  </h2>
+<section>
   <ul>
     <li>
-      Write <strong class="hl-material">Hello World</strong> in Go but Before
-      that we must install the Go! and our favorite text editor
+      Go code is organized into packages, which are similar to libraries or
+      modules in other languages.
+    </li>
+    <li>
+      The <code class="hl-green">import</code> declaration must follow the
+      <code class="hl-orange">package</code> declaration.
+    </li>
+    <li>
+      You <strong class="hl-yellow">must</strong> import exactly the packages
+      you need.
+    </li>
+    <li>
+      A function declaration consists of the keyword
+      <code class="hl-cyan">func</code>, the name of the function, a parameter
+      list (empty for main), a result list (also empty here), and the body of
+      the function - the statements that define what it does - enclosed in
+      braces.
     </li>
   </ul>
+</section>
+<section class="hands-on">
+  <section>
+    <h2>
+      <a href="https://github.com/SBU-CE/ie-with-go/tree/main/00-hello-world"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>
+        Write <strong class="hl-material">Hello World</strong> in Go but Before
+        that we must install the Go! and our favorite text editor
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li><a href="https://learn.go.dev/">https://learn.go.dev/</a></li>
+      <li>with package managers</li>
+      <ul>
+        <li><code>pacman -Syu go</code></li>
+        <li><code>apt install golang-go</code></li>
+        <li><code>brew install go</code></li>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
@@ -310,12 +347,24 @@ case Tue, Wed:
   </ul>
 </section>
 <section>
-  <h3>Statements</h3>
+  <h2>Statements</h2>
   <ul>
     <li>Unified <code class="hl-orange">for</code> syntax</li>
     <pre><code class="lang-go">
+// a traditional infinite loop
 for {
-  // loop forever
+  // ...
+}
+    </code></pre>
+    <pre><code class="lang-go">
+for initialization; condition; post {
+  // zero or more statements
+}
+    </code></pre>
+    <pre><code class="lang-go">
+// a traditional "while" loop
+for condition {
+  // ...
 }
     </code></pre>
     <li><code class="hl-orange">range</code> over arrays, slices, and maps</li>
@@ -326,8 +375,9 @@ for city, pop := range population { ... }
   </ul>
 </section>
 <section>
-  <h3>Interaction</h3>
-  <pre><code data-trim data-noescape class="go">
+  <section>
+    <h2>Interaction</h2>
+    <pre><code class="lang-go">
 package "main"
 
 import "fmt"
@@ -337,7 +387,52 @@ func main() {
   fmt.Scanf("%d", &amp;n)
   fmt.Printf("%d\n", n)
 }
-  </code></pre>
+    </code></pre>
+  </section>
+  <section>
+    <table>
+      <tr>
+        <td>%d</td>
+        <td>decimal integer</td>
+      </tr>
+      <tr>
+        <td>%x, %o, %b</td>
+        <td>integer in hexadecimal, octal, binary</td>
+      </tr>
+      <tr>
+        <td>%f, %g, %e</td>
+        <td>floating-point number: 3.141593 3.141592653589793 3.141593e+00</td>
+      </tr>
+      <tr>
+        <td>%t</td>
+        <td>boolean: <code>true</code> or <code>false</code></td>
+      </tr>
+      <tr>
+        <td>%c</td>
+        <td>rune (Unicode code point)</td>
+      </tr>
+      <tr>
+        <td>%s</td>
+        <td>string</td>
+      </tr>
+      <tr>
+        <td>%q</td>
+        <td>quoted string "abc" or rune 'c'</td>
+      </tr>
+      <tr>
+        <td>%v</td>
+        <td>any value in natrual format</td>
+      </tr>
+      <tr>
+        <td>%T</td>
+        <td>type of any value</td>
+      </tr>
+      <tr>
+        <td>%%</td>
+        <td>literal percent sign (no operand)</td>
+      </tr>
+    </table>
+  </section>
 </section>
 <section class="hands-on">
   <h2>&lt;Code Time.go&gt;</h2>
