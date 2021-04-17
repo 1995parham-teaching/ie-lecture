@@ -10,3 +10,8 @@
 - title: Mozilla Developer Network Web Docs
   link: https://developer.mozilla.org/en-US/
   image: img/mdn.jpg
+- title: "Go Programming Language"
+  image: img/go.jpg
+  authors:
+    - Alan Donovan
+    - Brian Kernighan
