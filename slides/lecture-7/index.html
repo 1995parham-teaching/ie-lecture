@@ -716,7 +716,12 @@ s[0] = 'L' // compile error: cannot assign to s[0]
       <li>
         Because of their fixed length, arrays are rarely used directly in Go.
       </li>
+      <li>
+        By default elements of a new array array variable are initally set to
+        zero value for the element type, which is 0 for numbers.
+      </li>
     </ul>
+
     <pre><code class="lang-go">
 var a [3]int                // array of 3 integers
 fmt.Println(a[0])           // print the first element
@@ -724,12 +729,11 @@ fmt.Println(a[len(a) - 1])  // print the last element, a[2]
     </code></pre>
   </section>
   <section>
-    <h2>Slices and Arrays</h2>
-    <ul>
-      <li>Slices</li>
-      <pre><code class="lang-go">
+    <h2>Slices</h2>
+    <pre><code class="lang-go">
 []T  // slice of T
       </code></pre>
+    <ul>
       <li>
         <strong class="hl-orange">Descriptor</strong> for an underlying array
         segment
