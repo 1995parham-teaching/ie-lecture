@@ -61,25 +61,6 @@ topics:
 </section>
 <section>
   <ul>
-    <li>
-      Go is syntactically similar to C, but with
-      <em class="hl-orange">memory safety</em>,
-      <em class="hl-green">garbage collection</em>,
-      <em class="hl-yellow">structural typing</em>, and
-      <em class="hl-violet">CSP-style concurrency</em>.
-    </li>
-    <li>There are two major implementations:</li>
-    <ol>
-      <li>
-        Google's self-hosting compiler toolchain targeting multiple operating
-        systems, mobile devices, and WebAssembly.
-      </li>
-      <li>gccgo, a GCC frontend.</li>
-    </ol>
-  </ul>
-</section>
-<section>
-  <ul>
     <li>version 1.0 was released in March 2012.</li>
     <li>
       Go is widely used in production at Google and in many other organizations
@@ -97,16 +78,78 @@ topics:
   <img src="img/advantages.png" alt="gopher-rocks" style="height: 10%" />
 </section>
 <section>
-  <ul>
-    <li>Go code is easy to read and easy to understand</li>
-    <li>Go supports Garbage Collection</li>
-    <li>Go does not have a preprocessor</li>
-    <li>
-      Go uses <strong class="hl-orange">static linking</strong> by default,
-      which means that the binary files produced can be easily transferred to
-      other machines with the same OS.
-    </li>
-  </ul>
+  <section>
+    <ul>
+      <li>
+        Go is syntactically similar to C, but with
+        <em class="hl-orange">memory safety</em>,
+        <em class="hl-green">garbage collection</em>,
+        <em class="hl-yellow">structural typing</em>, and
+        <em class="hl-violet">CSP-style concurrency</em>.
+      </li>
+      <li>There are two major implementations:</li>
+      <ol>
+        <li>
+          Google's self-hosting compiler toolchain targeting multiple operating
+          systems, mobile devices, and WebAssembly.
+        </li>
+        <li>gccgo, a GCC frontend.</li>
+      </ol>
+    </ul>
+  </section>
+  <section>
+    <h3><em class="hl-orange">memory safety</em></h3>
+    <pre><code class="lang-c">
+int a[10];
+a[11] = 10;
+    </code></pre>
+    <h3><em class="hl-green">garbage collection</em></h3>
+    <pre><code class="lang-c">
+void allocate_forever(void) {
+  int *a = malloc(10 * sizeof(int));
+  a[0] = 10;
+}
+    </code></pre>
+    <h3><em class="hl-yellow">structural typing</em></h3>
+    <pre><code class="lang-c">
+struct student {
+  int  id;
+  char surname[255];
+  char forename[255];
+};
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <ul>
+      <li>Go code is easy to read and easy to understand</li>
+      <li>Go does not have a <em class="hl-cyan">preprocessor</em></li>
+      <li>
+        Go uses <strong class="hl-orange">static linking</strong> by default,
+        which means that the binary files produced can be easily transferred to
+        other machines with the same OS.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h3><em class="hl-cyan">preprocessor</em></h3>
+    <pre><code class="lang-c">
+#define students_foreach_loop(stds, element) \
+    struct students_el *element ## _el = stds-&gt;head; \
+    const struct student *element = element ## _el-&gt;student; \
+    for (; element ## _el != NULL; element ## _el = element ## _el-&gt;next, element = element ## _el ? element ## _el-&gt;student : NULL)
+
+  students_foreach_loop(stds, el) {
+    fprintf(fp, "Name: %s\n", el-&gt;name);
+    fprintf(fp, "ID: %s\n", el-&gt;id);
+    fprintf(fp, "\n");
+  }
+    </code></pre>
+  </section>
+  <section>
+    <img src="./img/dyn-static.gif" alt="dyn-static" />
+  </section>
 </section>
 <section>
   <section>
@@ -201,7 +244,8 @@ func main() {
 <section class="hands-on">
   <section>
     <h2>
-      <a href="https://github.com/SBU-CE/ie-with-go/tree/main/00-hello-world"
+      <a
+        href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/00-hello-world/main.go"
         >&lt;Code Time.go&gt;</a
       >
     </h2>
@@ -213,6 +257,18 @@ func main() {
     </ul>
   </section>
   <section>
+    <h3>Tip!</h3>
+    <ul>
+      <li>
+        Use <code class="hl-cyan">Code Time.go</code> links to see the source
+        code
+      </li>
+      <li>
+        Use <code class="hl-orange">url</code> to download the source code
+      </li>
+    </ul>
+  </section>
+  <section>
     <ul>
       <li><a href="https://learn.go.dev/">https://learn.go.dev/</a></li>
       <li>with package managers</li>
@@ -220,6 +276,7 @@ func main() {
         <li><code>pacman -Syu go</code></li>
         <li><code>apt install golang-go</code></li>
         <li><code>brew install go</code></li>
+        <li><code>scoop install go</code></li>
       </ul>
     </ul>
   </section>
@@ -247,6 +304,21 @@ const big = 1&lt;&lt;100 / 1e30  // valid constant expression
 <section>
   <section>
     <h2>Variables</h2>
+    <p>
+      <code class="hl-orange">var</code>
+      <code class="hl-yellow"><em>name</em></code>
+      <code class="hl-green"><em>type</em></code> =
+      <code class="hl-cyan"><em>expression</em></code>
+    </p>
+
+    <p>
+      <code class="hl-yellow"><em>name</em></code>
+      :=
+      <code class="hl-cyan"><em>expression</em></code>
+      <strong style="color: gray">// inside functions only</strong>
+    </p>
+  </section>
+  <section>
     <p>Statically typed:</p>
     <pre><code class="lang-go">
 var x int
@@ -262,21 +334,68 @@ var s, b = "foo", true          // string, bool
     </code></pre>
   </section>
   <section>
-    <p>
-      Short variable declaration (<strong class="hl-orange"
-        >inside functions only</strong
-      >):
-    </p>
+    <p>Short variable declaration:</p>
     <pre><code class="lang-go">
 x := 42
 s, b := "foo", true
     </code></pre>
   </section>
 </section>
+<section>
+  <section>
+    <h2>Pointers ⚰️</h2>
+    <ul>
+      <li>A pointer value is the address of a variable.</li>
+      <li>Not every value has an address, but every variable does.</li>
+      <li>
+        With a pointer, we can read or update the value of a variable indirectly
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-go">
+x := 1
+p := &amp;x     // p, of type *int, points to x
+fmt.Println(*p) // 1
+*p = 2          // equivalent to x = 2
+fmt.Println(x)  // 2
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Predeclared Name</h2>
+    <h3>which can be reused</h3>
+    <pre><code class="lang-go">
+true false iota nil
+    </code></pre>
+    <pre><code class="lang-go">
+int int8 int16 int32 int64
+uint uint8 uint16 uint32 uint64 uintptr
+float32 float64 complex128 complex64
+bool byte rune string error
+    </code></pre>
+    <pre><code class="lang-go">
+make len cap new append copy close delete
+complex real imag
+panic recover
+    </code></pre>
+  </section>
+  <section>
+    <h3>which can't be reused</h3>
+    <pre><code class="lang-go">
+break default func interface select
+case defer go map struct
+chan else goto package switch
+const fallthrough if range type
+continue for import return var
+    </code></pre>
+  </section>
+</section>
 <section class="hands-on">
   <h2>
     <a
-      href="https://github.com/SBU-CE/ie-with-go/tree/main/01-constants-and-variables"
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/01-constants-and-variables/main.go"
       >&lt;Code Time.go&gt;</a
     >
   </h2>
@@ -289,17 +408,66 @@ s, b := "foo", true
   <pre><code class="lang-go">
 x := 42
 y := x + 10
+var c = (f - 32) * 5 / 9
   </code></pre>
 </section>
 <section class="hands-on">
   <h2>
-    <a href="https://github.com/SBU-CE/ie-with-go/tree/main/02-calculation"
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/02-calculation/main.go"
       >&lt;Code Time.go&gt;</a
     >
   </h2>
   <ul>
     <li>Do some math</li>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>The <em>new</em> Function</h2>
+    <ul>
+      <li>
+        Another way to create a variable is to use the built-in function
+        <code>new</code>
+      </li>
+      <li>
+        The expression <code>new(T)</code> create an unnamed variable of type T,
+        initializes it to the zero value of T, and return its address, which is
+        a value of type *T
+      </li>
+      <li>The new function is relatively rarely used.</li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-go">
+func newInt() *int {
+  return new(int)
+}
+
+func newInt() *int {
+  var dummy int
+  return &amp;dummy
+}
+    </code></pre>
+  </section>
+</section>
+<section>
+  <h2>Assignment</h2>
+  <pre><code class="lang-go">
+  // tuple assignment
+
+a, b = b, a // swap
+
+f, err = os.Open(filename) // multiple assignment
+
+func gcd(x, y int) int {
+  for y != 0 {
+    x, y = y, x % y
+  }
+
+  return x
+}
+  </code></pre>
 </section>
 <section>
   <h2>Statements</h2>
@@ -310,7 +478,7 @@ y := x + 10
       Statements are <span class="material-italic">not</span> Expressions.
     </li>
     <li>
-      Many cleanups:
+      Many cleanups 🧹:
       <ul>
         <li>mandatory braces</li>
         <li>no parentheses for conditionals</li>
@@ -324,9 +492,6 @@ y := x + 10
 <section>
   <h2>Statements</h2>
   <pre><code class="lang-go">
-a, b = b, a // swap
-
-f, err = os.Open(filename) // multiple assignment
 
 if x &lt; y {
   return x
@@ -347,9 +512,11 @@ case Tue, Wed:
   </ul>
 </section>
 <section>
-  <h2>Statements</h2>
-  <ul>
-    <li>Unified <code class="hl-orange">for</code> syntax</li>
+  <section>
+    <h2>Statements</h2>
+    <ul>
+      <li>Unified <code class="hl-orange">for</code> syntax</li>
+    </ul>
     <pre><code class="lang-go">
 // a traditional infinite loop
 for {
@@ -367,11 +534,60 @@ for condition {
   // ...
 }
     </code></pre>
-    <li><code class="hl-orange">range</code> over arrays, slices, and maps</li>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <code class="hl-orange">range</code> over arrays, slices, and maps (we
+        will return to this)
+      </li>
+    </ul>
     <pre><code class="lang-go">
 for i, num := range numbers { ... }
 for city, pop := range population { ... }
     </code></pre>
+  </section>
+</section>
+<section>
+  <h2>Functions</h2>
+  <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+func Fibonacci(n int) int {
+  if n == 0 || n == 1 {
+    return 1
+  } else {
+    return Fibonacci(n-1) + Fibonacci(n-2)
+  }
+}
+
+func main() {
+  fmt.Printf("%d\n", Fibonacci(10))
+}
+  </code></pre>
+</section>
+<section class="hands-on">
+  <h2>
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/03-conditions/main.go"
+      >&lt;Code Time.go&gt;</a
+    >
+  </h2>
+  <ul>
+    <li>Conditions with tase of Fibonacci 😋</li>
+  </ul>
+</section>
+<section class="hands-on">
+  <h2>
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/04-loops/main.go"
+      >&lt;Code Time.go&gt;</a
+    >
+  </h2>
+  <ul>
+    <li>Many loops</li>
   </ul>
 </section>
 <section>
@@ -434,58 +650,110 @@ func main() {
     </table>
   </section>
 </section>
+<section>
+  <section>
+    <h2>Strings</h2>
+    <ul>
+      <li>A string is an immutable sequence of bytes</li>
+      <li>
+        Text strings are conventionally interpreted as UTF-8 encoded sequence of
+        Unicode code points (runes)
+      </li>
+      <li>
+        The built-in <code>len</code> function the number of bytes (not runes)
+        in a string, and the index operation <code>s[i]</code> retrieves the
+        i-th byte of string s, where <em>0 &lt;= i &lt; len(s)</em>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-go">
+s := "hello, world"
+fmt.Println(len(s)) // 12
+fmt.Println(s[0], s[7]) // 'h' and 'w'
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Constructions that try to modify a string's data in place are not
+        allowed:
+      </li>
+      <pre><code class="lang-go">
+s[0] = 'L' // compile error: cannot assign to s[0]
+      </code></pre>
+    </ul>
+  </section>
+  <section>
+    <h2>Unicode</h2>
+    <ul>
+      <li><a href="https://unicode.org">unicode.org</a></li>
+      <li>
+        Which collects all of the characters in all of the world's writing
+        systems, plus accents and other diacritical marks, control codes like
+        tab and carriage return, etc.
+      </li>
+    </ul>
+  </section>
+</section>
 <section class="hands-on">
-  <h2>&lt;Code Time.go&gt;</h2>
-  <ul>
-    <li>
-      Write a program that read n from the stdin and detects that it is a prime
-      number or not.
-    </li>
-  </ul>
+  <h2>
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/05-strings/main.go"
+      >&lt;Code Time.go&gt;</a
+    >
+  </h2>
+  <ul></ul>
 </section>
 <section>
-  <h2>Values</h2>
-  <pre><code class="lang-go">
-package main
-
-import "fmt"
-
-func main() {
-  var a int
-  a = 10
-  fmt.Printf("%d\n", a)
-
-  b := new(int)
-  *b = 10
-  fmt.Printf("b = %p, *b = %d\n", b, *b)
-}
-  </code></pre>
-  <ul>
-    <li>
-      The <code class="hl-orange">new()</code> built-in function creates a new
-      integer and returns a pointer to it.
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Functions</h2>
-  <pre><code class="lang-go">
-package main
-
-import "fmt"
-
-func Fibonacci(n int) int {
-  if n == 0 || n == 1 {
-    return 1
-  } else {
-    return Fibonacci(n-1) + Fibonacci(n-2)
-  }
-}
-
-func main() {
-  fmt.Printf("%d\n", Fibonacci(10))
-}
-  </code></pre>
+  <section>
+    <h2>Arrays</h2>
+    <ul>
+      <li>
+        An array is a fixed-length sequence of zero or more elements of a
+        particular type.
+      </li>
+      <li>
+        Because of their fixed length, arrays are rarely used directly in Go.
+      </li>
+    </ul>
+    <pre><code class="lang-go">
+var a [3]int                // array of 3 integers
+fmt.Println(a[0])           // print the first element
+fmt.Println(a[len(a) - 1])  // print the last element, a[2]
+    </code></pre>
+  </section>
+  <section>
+    <h2>Slices and Arrays</h2>
+    <ul>
+      <li>Slices</li>
+      <pre><code class="lang-go">
+[]T  // slice of T
+      </code></pre>
+      <li>
+        <strong class="hl-orange">Descriptor</strong> for an underlying array
+        segment
+      </li>
+      <li>
+        May <em class="hl-green">grow</em> and <em class="hl-green">shrink</em>
+      </li>
+      <li>Has length and capacity</li>
+      <li>Assigning a slice copies the descriptor, not the underlying array</li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Common slice operations:</li>
+      <pre><code class="lang-go">
+len(s)
+s[i]
+s[i:j]
+append(s, x)  // append element x to slice s and return new slice
+      </code></pre>
+      <li>Slices play the role of dynamically sized arrays</li>
+      <li>Widely used in Go code</li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -767,40 +1035,6 @@ func main() {
   fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
     </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Slices and Arrays</h2>
-    <ul>
-      <li>Slices</li>
-      <pre><code class="lang-go">
-[]T  // slice of T
-      </code></pre>
-
-      <li>
-        <strong class="hl-orange">Descriptor</strong> for an underlying array
-        segment
-      </li>
-      <li>
-        May <em class="hl-green">grow</em> and <em class="hl-green">shrink</em>
-      </li>
-      <li>Has length and capacity</li>
-      <li>Assigning a slice copies the descriptor, not the underlying array</li>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Common slice operations:</li>
-      <pre><code class="lang-go">
-len(s)
-s[i]
-s[i:j]
-append(s, x)  // append element x to slice s and return new slice
-      </code></pre>
-      <li>Slices play the role of dynamically sized arrays</li>
-      <li>Widely used in Go code</li>
-    </ul>
   </section>
 </section>
 <section>
