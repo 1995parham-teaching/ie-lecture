@@ -782,17 +782,28 @@ func main() {
   </section>
   <section>
     <ul>
+      <li>
+        A struct is an aggregate data type that groups together zero or more
+        named values of arbitrary types as a single entity
+      </li>
+      <li>Each value is called a field</li>
       <li>C Structures 🕺</li>
-      <li>Data hiding</li>
-      <li>
-        <code class="hl-orange">S1</code>, <code class="hl-orange">S2</code>,
-        <code class="hl-orange">S3</code> are public and can be accessed from
-        anywhere.
-      </li>
-      <li>
-        <code class="hl-green">private</code> is private and is only visible to
-        code in the same package.
-      </li>
+      <li>Data hiding:</li>
+      <ul>
+        <li>
+          The name of a struct field is exported if it begins with a capital
+          letter; this is Go's main access control mechanism.
+        </li>
+        <li>
+          <code class="hl-orange">S1</code>, <code class="hl-orange">S2</code>,
+          <code class="hl-orange">S3</code> are public and can be accessed from
+          anywhere.
+        </li>
+        <li>
+          <code class="hl-green">private</code> is private and is only visible
+          to code in the same package.
+        </li>
+      </ul>
     </ul>
   </section>
 </section>
