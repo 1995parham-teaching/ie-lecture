@@ -409,6 +409,16 @@ continue for import return var
 x := 42
 y := x + 10
 var c = (f - 32) * 5 / 9
+
+var x uint8 = 1 &lt;&lt; 1 | 1 &lt;&lt; 5
+var y uint8 = 1 &lt;&lt; 1 | 1 &lt;&lt; 2
+
+fmt.Printf("%08b\n", x) // "00100010"
+fmt.Printf("%08b\n", y) // "00000110"
+
+fmt.Printf("%08b\n", x&amp;y) // "00000010"
+fmt.Printf("%08b\n", x|y)     // "00100110"
+fmt.Printf("%08b\n", x^y)     // "00100100"
   </code></pre>
 </section>
 <section class="hands-on">
@@ -453,8 +463,18 @@ func newInt() *int {
 </section>
 <section>
   <h2>Assignment</h2>
+  <ul>
+    <li>Tuple Assignment</li>
+    <ul>
+      <li>Allows several variables to be assigned at once.</li>
+      <li>
+        All of the right-hand side expressions are evaluated before any of the
+        variable are updated.
+      </li>
+    </ul>
+  </ul>
   <pre><code class="lang-go">
-  // tuple assignment
+// tuple assignment
 
 a, b = b, a // swap
 
@@ -538,8 +558,15 @@ for condition {
   <section>
     <ul>
       <li>
-        <code class="hl-orange">range</code> over arrays, slices, and maps (we
-        will return to this)
+        <code class="hl-orange">range</code> over arrays, slices, and maps
+      </li>
+      <li>
+        In each iteration of the loop, <code>range</code> produces a pair of
+        values: the index and the value of the element at that index.
+      </li>
+      <li>
+        If you don't want the index variable you can use the blank identifier,
+        whose name is _ (that is, an underscore).
       </li>
     </ul>
     <pre><code class="lang-go">
@@ -685,6 +712,23 @@ s[0] = 'L' // compile error: cannot assign to s[0]
     </ul>
   </section>
   <section>
+    <ul>
+      <li>
+        Four standard packages are particularly important for manipulating
+        strings:
+      </li>
+      <ul>
+        <li><code>bytes</code></li>
+        <li><code>strings</code></li>
+        <li><code>strconv</code></li>
+        <li><code>unicode</code></li>
+      </ul>
+    </ul>
+    <pre><code class="lang-bash">
+go doc bytes
+    </code></pre>
+  </section>
+  <section>
     <h2>Unicode</h2>
     <ul>
       <li><a href="https://unicode.org">unicode.org</a></li>
@@ -694,6 +738,38 @@ s[0] = 'L' // compile error: cannot assign to s[0]
         tab and carriage return, etc.
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>Conversions between Strings and Numbers</h2>
+    <ul>
+      <li>
+        To convert an integer to a string, one option is to use
+        <code>fmt.Sprintf</code>; another is to use the function
+        <code>strconv.Itoa</code>.
+      </li>
+      <li>
+        <li><code>strconv.FormatInt()</code> and <code>strconv.FormatUint</code> can be used to format numbers in a different base</li>
+      </li>
+      <li>The <code>fmt.Printf</code> verbs <code>%b</code>, <code>%d</code>, <code>%o</code>, and <code>%x</code> are often more convenient thatn <code>Format</code> functions</li>
+    </ul>
+
+    <pre><code class="lang-go">
+x := 123
+y := fmt.Sprintf("%d", x)
+fmt.Println(y, strconv.Itoa(x)) // "123 123"
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>To parse a string representing an integer, use the <code>strconv.Atoi</code> or <code>strconv.ParseInt</code>, or <code>strconv.ParseUint</code> for unsigned integers</li>
+      <li>The third argument of <code>ParseInt</code> gives the size of the integer type that the result must fit into</li>
+      <li>In any case, the type of the result is always <code>int64</code>, which you can then convert to a smaller type</li>
+      <li><code>fmt.Sscanf</code> is useful for parsing input that consists of orderly mixtures of strings and number all on a single line</li>
+    </ul>
+    <pre><code class="lang-go">
+x, err := strconv.Atoi("123")              // x is an int
+y, err := strconv.ParseInt("123", 10, 64)  // base 10, up to 64 bits
+    </code></pre>
   </section>
 </section>
 <section class="hands-on">
@@ -729,6 +805,29 @@ fmt.Println(a[len(a) - 1])  // print the last element, a[2]
     </code></pre>
   </section>
   <section>
+    <pre><code class="lang-go">
+a := [2]int{1, 2}
+b := [...]int{1, 2}
+c := [2]int{1, 3}
+
+fmt.Println(a == b, a == c, b == c) // "true false false"
+
+d := [3]int{1, 2}
+fmt.Prinln(a == d) // compile error: cannot compare [2]int == [3]int
+    </code></pre>
+    <pre><code class="lang-go">
+// Print the indices and elements.
+for i, v := range a {
+  fmt.Printf("%d %d\n", i, v)
+}
+
+// Print the elements only.
+for _, v := range a {
+  fmt.Printf("%d\n", v)
+}
+    </code></pre>
+  </section>
+  <section>
     <h2>Slices</h2>
     <pre><code class="lang-go">
 []T  // slice of T
@@ -746,8 +845,14 @@ fmt.Println(a[len(a) - 1])  // print the last element, a[2]
     </ul>
   </section>
   <section>
+    <img src="./img/slice.png">
+  </section>
+  <section>
     <ul>
       <li>Common slice operations:</li>
+      <ul>
+        <li>The <em>slice operator</em><code>s[i:j]</code>, where 0 &lt;= i &lt;= j &lt;= cap(s), creates a new slice that refers to elements i through j - 1 of the sequence s.
+      </ul>
       <pre><code class="lang-go">
 len(s)
 s[i]
