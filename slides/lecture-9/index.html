@@ -1,0 +1,431 @@
+---
+index: 9
+title: Web Application Architectures
+topics:
+  - MVC & MVVM Design Patterns
+  - Multilayer Design
+  - Microservices Architecture
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>Web Application Development</h2>
+  <ul>
+    <li>(Large) Applications cannot be developed in ad-hoc manner</li>
+    <ul>
+      <li>We need design &amp; architecture (software engineering)</li>
+      <li>Concept separation, Component, Relations, ...</li>
+    </ul>
+    <li>There are so many architectural patterns</li>
+    <ul>
+      <li>Common architectures in web applications</li>
+      <ul>
+        <li>MVC, MVVM, ...</li>
+        <li>Multi-layer (Multi-tier), Microservices, ...</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>MVC: Model-View-Controller</h2>
+    <ul>
+      <li>Model</li>
+      <ul>
+        <li>Does all the computational work</li>
+        <ul>
+          <li>It contains data and performs computation on it</li>
+        </ul>
+      </ul>
+      <li>View (the user interface)</li>
+      <ul>
+        <li>Show the results from model or controller</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>Controller (of states sequences)</li>
+      <ul>
+        <li>Handles events/requests affecting model or view</li>
+        <ul>
+          <li>User inputs/requests go to the controller</li>
+          <li>
+            Available commands are determined by controller (based on model)
+          </li>
+          <li>Tells the model what to do</li>
+        </ul>
+      </ul>
+      <li>Examples: MS Excel</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>MVC Interactions?!</h2>
+    <img src="./img/mvc-1.png" alt="mvc-1" />
+  </section>
+  <section>
+    <img src="./img/mvc-2.gif" alt="mvc-2" />
+  </section>
+  <section>
+    <img src="./img/mvc-3.png" alt="mvc-3" />
+  </section>
+  <section>
+    <img src="./img/mvc-4.png" alt="mvc-3" />
+  </section>
+</section>
+<section>
+  <section>
+    <h2>MVVM Design Pattern</h2>
+    <ul>
+      <li>What is the role of the controller in MVC?</li>
+      <ul>
+        <li>Basically updates V by changes in M and vice versa</li>
+      </ul>
+      <li>Instead of coding the C, make it automated</li>
+      <ul>
+        <li>Automatically update M by changes in V</li>
+        <li>Automatically update V by changes in M</li>
+        <li>Two-way binding</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>The Model-View-ViewModel pattern</li>
+      <ul>
+        <li>The view model is a value converter</li>
+        <li>
+          Responsible for exposing (converting) the data objects from the model
+          in such a way that objects are easily managed and presented.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <img src="./img/mvvm.png" alt="mvvm" />
+  </section>
+</section>
+<section>
+  <h2>The Patterns in Web Applications</h2>
+  <ul>
+    <li>Example: MVC for whole (client + server)</li>
+    <ul>
+      <li>Model</li>
+      <ul>
+        <li>Database tables (persistent data)</li>
+        <li>Session information (current stat data)</li>
+        <li>Server-side processing</li>
+      </ul>
+      <li>View</li>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+      </ul>
+      <li>Controller</li>
+      <ul>
+        <li>Client-side scripting</li>
+        <li>Part of processing by server side scripting</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <h2>Layering Approach</h2>
+  <ul>
+    <li>Common layering in web applications</li>
+    <ul>
+      <li><em class="hl-orange">Presentation</em> Layer</li>
+      <li><em class="hl-green">Business</em> logic Layer</li>
+      <li><em class="hl-cyan">Data (management/resource)</em> Layer</li>
+    </ul>
+    <li>These layers are purely abstractions</li>
+    <ul>
+      <li>
+        <strong class="hl-red">Not</strong> correspond to physical distribution
+      </li>
+      <ul>
+        <li>All layers may or may not be on the same machine</li>
+      </ul>
+      <li>
+        Physical layering is referred as
+        <em class="hl-yellow">multi-tier</em> architecture
+      </li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Multilayer Architecture</h2>
+  <img src="./img/multi-layer.png" alt="multi-layer" />
+</section>
+<section>
+  <h2>Presentation Layer</h2>
+  <ul>
+    <li>User interface of the application</li>
+    <ul>
+      <li>Native (Windows Application, Android Application, etc.)</li>
+      <li>Web-Based</li>
+    </ul>
+    <li>
+      Displays information (processing output) which are get from the business
+      logic layer
+    </li>
+    <li>
+      Gets user’s requests and pass them (with required data) to the business
+      logic layer
+    </li>
+    <li>
+      Note that the user interface of web applications can be made up client
+      side &amp; server side codes
+    </li>
+    <li>What is this layer in Gmail?</li>
+  </ul>
+</section>
+<section>
+  <h2>Business Logic Layer</h2>
+  <ul>
+    <li>The work that the application needs to do</li>
+    <li>Receives requests from presentation layer</li>
+    <li>Fetches required data from data layer</li>
+    <li>Process the request &amp; data</li>
+    <li>Output is sent back to the presentation layer</li>
+    <li>What does this layer do in Gmail?</li>
+  </ul>
+</section>
+<section>
+  <h2>Data Layer</h2>
+  <ul>
+    <li>Provides data access interface to business logic</li>
+    <ul>
+      <li>Hide data storage details</li>
+      <li>Hide heterogeneity of underlining systems</li>
+    </ul>
+    <li>Communicating with data store systems</li>
+    <ul>
+      <li>Database server</li>
+      <li>Messaging system</li>
+      <li>...</li>
+    </ul>
+    <li>What is this layer in Gmail?</li>
+  </ul>
+</section>
+<section>
+  <h2>Traditional Multi-layer Web App</h2>
+  <ul>
+    <li>Server-Side Rendering</li>
+  </ul>
+  <img src="./img/ssr.png" alt="ssr" />
+</section>
+<section>
+  <h2>Modern Multi-layer Web App</h2>
+  <ul>
+    <li>Client-Side Rendering</li>
+  </ul>
+  <img src="./img/csr.png" alt="csr" />
+</section>
+<section>
+  <h2>Design Pattern in Modern Apps</h2>
+  <ul>
+    <li>
+      Apply the design pattern in client side and server side
+      <strong class="hl-orange">separately</strong>
+    </li>
+    <li>Client side frameworks</li>
+    <ul>
+      <li>Angular 1.x: MVC</li>
+      <li>Angular 2.x: MVVM</li>
+      <li>React: MVC</li>
+      <li>Vue: MVVM</li>
+    </ul>
+    <li>Server side frameworks</li>
+    <ul>
+      <li>Laravel: MVC + MVVM</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Multi-layer Architecture Issues</h2>
+  <ul>
+    <li>Scalability</li>
+    <ul>
+      <li>Business logic is monolithic</li>
+      <ul>
+        <li>Tightly coupled modules</li>
+      </ul>
+      <li>How to scale it?</li>
+    </ul>
+    <li>Fault tolerance</li>
+    <ul>
+      <li>If a part of business logic is failed?</li>
+    </ul>
+    <li>Upgrade</li>
+    <ul>
+      <li>How to upgrade a modules of business logic?</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <h2>Micro-Service Idea</h2>
+  <ul>
+    <li>
+      Complex process can be divided into multiple
+      <em class="hl-orange">loosely-coupled</em> components
+    </li>
+    <li>Each component</li>
+    <ul>
+      <li>Is autonomous</li>
+      <li>Provides well-defined services</li>
+      <ul>
+        <li>Via Remote API call</li>
+        <ul>
+          <li>Distributed application</li>
+          <li>Easy to scale</li>
+        </ul>
+      </ul>
+    </ul>
+    <li>Different technologies can be used</li>
+  </ul>
+</section>
+<section>
+  <h2>Microservices Architecture</h2>
+  <img src="./img/micro.png" alt="mirco" />
+</section>
+<section>
+  <section>
+    <h2>Transactions?</h2>
+    <ul>
+      <li>Where did you hear it?</li>
+      <li>ACID Properties</li>
+      <ul>
+        <li>Atomicity</li>
+        <li>Consistency</li>
+        <li>Isolation</li>
+        <li>Durability</li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Atomicity</h2>
+    <ul>
+      <li>Transactions are often composed of multiple statements</li>
+      <li>
+        Atomicity guarantees that each transaction is treated as a single
+        "unit", which either succeeds completely, or fails completely
+      </li>
+      <ul>
+        <li>
+          if any of the statements constituting a transaction fails to complete,
+          the entire transaction fails and the system is left unchanged.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Consistency</h2>
+    <ul>
+      <li>
+        Consistency ensures that a transaction can only bring the system from
+        one valid state to another
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Isolation</h2>
+    <ul>
+      <li>Transactions are often executed concurrently</li>
+      <li>
+        Isolation ensures that concurrent execution of transactions leaves the
+        system in the same state that would have been obtained if the
+        transactions were executed sequentially.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Durability</h2>
+    <ul>
+      <li>
+        Durability guarantees that once a transaction has been committed, it
+        will remain committed even in the case of a system failure (e.g., power
+        outage or crash).
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>A Real Story 🔥</h2>
+    <ul>
+      <li>There was a micro-service architectured IoT Platform - 2018</li>
+      <li>
+        Users can create project and each project must be created on API
+        gateway, X and Y services
+      </li>
+      <li>
+        Requests are handled by API gateway and then it call X and Y services to
+        create a new project
+      </li>
+      <li>
+        Sometimes X service failed to create project and sometimes Y service
+        isn't available to handle the request
+      </li>
+      <li>In each of these cases system goes into unrecoverable state</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>CAP Theorem</h2>
+  <p>
+    Impossible for a distributed data store to simultaneously provide more than
+    two out of the following three guarantees:
+  </p>
+  <ul>
+    <li>
+      <em class="hl-orange">Consistency</em>: Every read receives the most
+      recent write or an error
+    </li>
+    <li>
+      <em class="hl-green">Availability</em>: Every request receives a
+      (non-error) response, without the guarantee that it contains the most
+      recent write
+    </li>
+    <li>
+      <em class="hl-yellow">Partition tolerance</em>: The system continues to
+      operate despite an arbitrary number of messages being dropped (or delayed)
+      by the network between nodes
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Messaging Systems</h2>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li>
+      <a href="https://en.wikipedia.org/wiki/ACID"
+        >https://en.wikipedia.org/wiki/ACID</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller"
+      >
+        https://en.wikipedia.org/wiki/Model-view-controller
+      </a>
+    </li>
+    <li>
+      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
+      Internet Eng. Course's Slides
+    </li>
+  </ul>
+</section>
