@@ -366,6 +366,134 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
   </ul>
 </section>
 <section>
-  <h2>Overview of Server-Side Scripting</h2>
-  <img src="./img/sss.png" alt="sss" />
+  <section>
+    <h2>Overview of Server-Side Scripting</h2>
+    <img src="./img/sss.png" alt="sss" />
+  </section>
+  <section>
+    <ol>
+      <li>Web client sends a HTTP request to server</li>
+      <li>
+        Web server determines how to retrieve the requested resource according
+        configuration
+      </li>
+      <ul>
+        <li>.html, .jpg, ... To be retrieve directly</li>
+        <li>.php To be handled by the PHP module</li>
+      </ul>
+      <li>Runtime environment does for example</li>
+      <ul>
+        <li>Parses incoming request, generate outgoing response</li>
+        <li>Interpreting/executing the server-side scripts</li>
+        <li>Maintaining sessions</li>
+      </ul>
+    </ol>
+  </section>
+  <section>
+    <ol start="4">
+      <li>Runtime environment runs the requested script</li>
+      <ul>
+        <li>Identifies the code sections inside HTML</li>
+        <li>Runs the code and grabs the output</li>
+        <li>Provides session &amp; other status information</li>
+        <li>
+          Generated output and HTML are assembled together which is the response
+          to client
+        </li>
+      </ul>
+      <li>The HTTP response is sent to the web client by web server</li>
+    </ol>
+  </section>
+</section>
+<section>
+  <h2>Embed vs. External Server Side Code</h2>
+  <ul>
+    <li>External code</li>
+    <ul>
+      <li>A separated program: C, C++, …</li>
+      <li>Server runs it and sends its output back to client</li>
+    </ul>
+    <li>Embed code</li>
+    <ul>
+      <li>Scripting inside the HTML</li>
+      <ul>
+        <li>Embed programming interface within server</li>
+        <ul>
+          <li>Which is called when server see the scripting directions</li>
+        </ul>
+      </ul>
+      <li>Examples</li>
+      <ul>
+        <li>Perl: Apache mod_perl module to embed</li>
+        <li>Java Server Pages (JSP): Compiled and served by a JSP server</li>
+        <li>Python</li>
+        <li>PHP (the most common language)</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Server Side Scripting Benefits</h2>
+  <ul>
+    <li>How does server side scripting solve CGI problems?</li>
+    <ul>
+      <li>We don’t need to generate whole HTML by code</li>
+      <ul>
+        <li>Only dynamic parts are coded</li>
+      </ul>
+      <li>A process is not created per request</li>
+      <ul>
+        <li>All requests are processed by the interpreter</li>
+        <ul>
+          <li>Which is implemented as a library for web server process</li>
+        </ul>
+        <li>Each request = A thread</li>
+        <ul>
+          <li>
+            Low creation &amp; termination &amp; inter-communication overhead
+          </li>
+        </ul>
+      </ul>
+      <li>The run-time environment control the code</li>
+      <ul>
+        <li>More secure execution</li>
+      </ul>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Major differences w.r.t client side programming</h2>
+  <ul>
+    <li>Concurrency</li>
+    <ul>
+      <li>
+        Each server side program (cgi, php, …) can (and usually) runs multiple
+        times concurrently
+      </li>
+      <ul>
+        <li>A process/thread per request</li>
+      </ul>
+      <li>Be very very careful about shared resources (files)</li>
+    </ul>
+    <li>Security</li>
+    <ul>
+      <li>
+        Each server side program allows client (including the hackers) to run
+        code on your server
+      </li>
+      <ul>
+        <li>Vulnerable code = Hacker access</li>
+      </ul>
+      <li>Be very very careful about input from the client</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li>
+      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
+      Internet Eng. Course's Slides
+    </li>
+  </ul>
 </section>
