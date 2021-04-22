@@ -103,12 +103,12 @@ topics:
   <h2>CGI Example: Server Config</h2>
   <pre><code class="lang-apache">
 &lt;IfDefine ENABLE_USR_LIB_CGI_BIN&gt;
-	ScriptAlias /cgi-bin/ /var/www/html/IE/cgi-enabled/
-	&lt;Directory "/var/www/html/IE/cgi-enabled/"&gt;
-		AllowOverride None
-		Options +ExecCGI -MultiViews 					  +SymLinksIfOwnerMatch
-		Require all granted
-	&lt;/Directory&gt;
+  ScriptAlias /cgi-bin/ /var/www/html/IE/cgi-enabled/
+  &lt;Directory "/var/www/html/IE/cgi-enabled/"&gt;
+    AllowOverride None
+    Options +ExecCGI -MultiViews 					  +SymLinksIfOwnerMatch
+    Require all granted
+  &lt;/Directory&gt;
 &lt;/IfDefine&gt;
   </code></pre>
 </section>
@@ -119,19 +119,19 @@ topics:
 
 int main(void){
   // http header
-	printf("Content-Type: text/html\r\n");
-	printf("Connection: close\r\n");
+  printf("Content-Type: text/html\r\n");
+  printf("Connection: close\r\n");
 
-	printf("\r\n \r\n");
+  printf("\r\n \r\n");
 
   // http body
-	printf("&lt;html&gt;&lt;head&gt;&lt;/head&gt;\r\n");
-	printf("&lt;body&gt;\r\n");
-	printf("Hello world.\r\n");
-	printf("&lt;br /&gt;\r\n");
-	printf("Bye Bye\r\n");
-	printf("&lt;/body&gt;&lt;/html&gt;\r\n");
-	return 0;
+  printf("&lt;html&gt;&lt;head&gt;&lt;/head&gt;\r\n");
+  printf("&lt;body&gt;\r\n");
+  printf("Hello world.\r\n");
+  printf("&lt;br /&gt;\r\n");
+  printf("Bye Bye\r\n");
+  printf("&lt;/body&gt;&lt;/html&gt;\r\n");
+  return 0;
 }
   </code></pre>
 </section>
@@ -202,11 +202,14 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
 <section>
   <h2>Getting parameters from the client</h2>
   <ul>
-    <li>Parameters can be sent through the GET method</li>
+    <li>
+      Parameters can be sent through the
+      <strong class="hl-orange">GET</strong> method
+    </li>
     <ul>
       <li>
         CGI script will receive the parameters from the web server in an
-        environment variable <code class="hl-orange">$QUERY_STRING</code>
+        environment variable <code class="hl-cyan">$QUERY_STRING</code>
       </li>
       <li>
         In C: You can access it by
@@ -214,7 +217,8 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
       </li>
     </ul>
     <li>
-      Parameters can be passed through the POST method (in the body of the HTTP
+      Parameters can be passed through the
+      <strong class="hl-violet">POST</strong> method (in the body of the HTTP
       Request)
     </li>
     <ul>
@@ -224,4 +228,144 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
       </li>
     </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>CGI Environment Variables</h2>
+    <table>
+      <tr>
+        <td>CONTENT_TYPE</td>
+        <td>
+          The data type of the content. Used when the client is sending attached
+          content to the server. For example, file upload.
+        </td>
+      </tr>
+      <tr>
+        <td>CONTENT_LENGTH</td>
+        <td>
+          The length of the query information. It is available only for POST
+          requests.
+        </td>
+      </tr>
+      <tr>
+        <td>HTTP_COOKIE</td>
+        <td>Returns the set cookies in the form of key &amp; value pair.</td>
+      </tr>
+      <tr>
+        <td>HTTP_USER_AGENT</td>
+        <td>
+          The User-Agent request-header field contains information about the
+          user agent originating the request. It is name of the web browser.
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <table>
+      <tr>
+        <td>PATH_INFO</td>
+        <td>The path for the CGI script.</td>
+      </tr>
+      <tr>
+        <td>QUERY_STRING</td>
+        <td>
+          The URL-encoded information that is sent with GET method request.
+        </td>
+      </tr>
+      <tr>
+        <td>REMOTE_ADDR</td>
+        <td>
+          The IP address of the remote host making the request. This is useful
+          logging or for authentication.
+        </td>
+      </tr>
+      <tr>
+        <td>REMOTE_HOST</td>
+        <td>
+          The fully qualified name of the host making the request. If this
+          information is not available, then REMOTE_ADDR can be used to get IR
+          address.
+        </td>
+      </tr>
+      <tr>
+        <td>REQUEST_METHOD</td>
+        <td>
+          The method used to make the request. The most common methods are GET
+          and POST.
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <table>
+      <tr>
+        <td>SCRIPT_FILENAME</td>
+        <td>The full path to the CGI script.</td>
+      </tr>
+      <tr>
+        <td>SCRIPT_NAME</td>
+        <td>The name of the CGI script.</td>
+      </tr>
+    </table>
+  </section>
+</section>
+<section>
+  <h2>CGI Pros & Cons</h2>
+  <ul>
+    <li>What is the main advantage(s) of CGI?</li>
+    <ul class="fragment" data-fragment-index="1">
+      <li>Any programming language can be used</li>
+    </ul>
+    <li>What the main drawback(s) of CGI?</li>
+    <ul class="fragment" data-fragment-index="2">
+      <li>We should generate whole HTML document in CGI</li>
+      <li>
+        For each request, a new <em class="hl-orange">process</em> is created
+      </li>
+      <ul>
+        <li>
+          Process creation &amp; termination &amp; Inter-process communication
+          overhead
+        </li>
+      </ul>
+      <li>Security is another major issue</li>
+    </ul>
+    <li>Any other way to run code in server side?</li>
+  </ul>
+</section>
+<section>
+  <h2>Solving CGI Problems</h2>
+  <ul>
+    <li>Empower the server to run code</li>
+    <ul>
+      <li>But, Which programming language? HTML?!!!</li>
+      <ul>
+        <li>Should we compile &amp; debug web-pages?</li>
+      </ul>
+      <li>Should web server interpret/compile the code?</li>
+      <ul>
+        Web servers are not build to be compiler!!
+      </ul>
+      <li>How to mix code &amp; HTML?</li>
+    </ul>
+    <li>
+      Answer: Interpreter as a web server <em class="hl-orange">plugin</em> is
+      responsible
+    </li>
+    <ul>
+      <li>
+        Use any scripting language that its interpreter is available for web
+        server, e.g., PHP runtime environment
+      </li>
+      <li>
+        Configure web server to use interpreter for a specific file types that
+        contain mixed code &amp; HTML, e.g., .php files
+      </li>
+      <li>Web server run the interpreter for codes and uses the output</li>
+    </ul>
+  </ul>
+</section>
+<section>
+  <h2>Overview of Server-Side Scripting</h2>
+  <img src="./img/sss.png" alt="sss" />
 </section>
