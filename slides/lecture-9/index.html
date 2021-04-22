@@ -303,6 +303,58 @@ topics:
   <img src="./img/micro.png" alt="mirco" />
 </section>
 <section>
+  <h2>The Four Tiers of a Microservice Application</h2>
+  <ul>
+    <li>
+      Platform: A microservice platform provides tooling, infrastructure, and
+      high-level primitives to support the rapid development, operation, and
+      deployment of microservices.
+    </li>
+    <li>
+      Services: In this tier, the service that you build interact with each
+      other to provide business and technical capabilities, supported by the
+      underlying platform
+    </li>
+    <li>
+      Boundary: Clients will interact with your application through a defined
+      boundary that expose underlying functionality to meet the needs of outside
+      consumers.
+    </li>
+    <li>
+      Client: Client applications, such as websites and mobile applications,
+      interact with your microservice backend.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>What Makes Microservices Challenging?</h2>
+  <ul>
+    <li>
+      <em class="hl-orange">Scoping and identifying microservices</em> requires
+      substantial domain knowledge.
+    </li>
+    <li>
+      The right <em class="hl-green">boundaries and contracts</em> between
+      services are difficult to identify and, once you've established them, can
+      be time-consuming to change.
+    </li>
+    <li>
+      Microservices are <em class="hl-cyan">distributed systems</em> and
+      therefore require different assumptions to be made about state,
+      consistency, and network reliability.
+    </li>
+    <li>
+      By distributing system components across networks, and increasing
+      technical heterogeneity, microservices introduce
+      <em class="hl-yellow">new modes of failure</em>.
+    </li>
+    <li>
+      It's more challenging to understand and verify what should happen in
+      normal operation.
+    </li>
+  </ul>
+</section>
+<section>
   <section>
     <h2>Transactions?</h2>
     <ul>
@@ -406,7 +458,25 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>Messaging Systems</h2>
+  <h2>Asynchronous Messages</h2>
+  <ul>
+    <li>More flexible</li>
+    <li>
+      By announcing <strong class="hl-orange">events</strong>, you make it easy
+      to extend the system to handle new requirements, because services no
+      longer need to have knowledge of their downstream consumers.
+    </li>
+    <li>
+      Asynchronous messaging typically requires a
+      <em class="hl-gree">communication broker</em>
+    </li>
+    <ul>
+      <li>
+        An independent system component that receives events and distributes
+        them to event consumers.
+      </li>
+    </ul>
+  </ul>
 </section>
 <section>
   <h2>References 📚</h2>
