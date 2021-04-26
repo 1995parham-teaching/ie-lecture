@@ -909,7 +909,7 @@ func main() {
         </li>
         <li>
           <code class="hl-green">private</code> is private and is only visible
-          to code in the same package.
+          to code in the <strong class="hl-yellow">same package</strong>.
         </li>
       </ul>
     </ul>
@@ -926,15 +926,20 @@ type Example struct {
   Val   string
   count int
 }
+
+// define a custom type based on go standard types
 type integer int
 
 func (i integer) log() {
   fmt.Printf("%d\n", i)
 }
+
+// pointer reciever which can change 'example' fields
 func (e *Example) Log() {
   e.count++
   fmt.Printf("%d %s\n", e.count, e.Val)
 }
+
 func main() {
   var i integer
   exm := Example{
@@ -955,9 +960,11 @@ import "fmt"
 type Printer interface {
   Print()
 }
+
 type Foo struct {
   X, Y int
 }
+
 type Bar struct {
   X, Y float64
 }
@@ -965,6 +972,7 @@ type Bar struct {
 func (f Foo) Print() {
   fmt.Printf("%d %d\n", f.X, f.Y)
 }
+
 func (b Bar) Print() {
   fmt.Printf("%g %g\n", b.X, b.Y)
 }
@@ -1093,7 +1101,6 @@ func main() {
 </code></pre>
   </section>
   <section>
-    <a href="https://play.golang.org/p/VhSivrtSOrN">Click Me!</a>
     <pre><code class="lang-go">
 package main
 
