@@ -6,6 +6,7 @@ topics:
   - Advantages
   - Say Hello
   - Programming Elements
+  - HTTP Server
   - Concurrency
 ---
 
@@ -751,9 +752,14 @@ go doc bytes
         <code>strconv.Itoa</code>.
       </li>
       <li>
-        <li><code>strconv.FormatInt()</code> and <code>strconv.FormatUint</code> can be used to format numbers in a different base</li>
+        <code>strconv.FormatInt()</code> and <code>strconv.FormatUint</code> can
+        be used to format numbers in a different base
       </li>
-      <li>The <code>fmt.Printf</code> verbs <code>%b</code>, <code>%d</code>, <code>%o</code>, and <code>%x</code> are often more convenient thatn <code>Format</code> functions</li>
+      <li>
+        The <code>fmt.Printf</code> verbs <code>%b</code>, <code>%d</code>,
+        <code>%o</code>, and <code>%x</code> are often more convenient thatn
+        <code>Format</code> functions
+      </li>
     </ul>
 
     <pre><code class="lang-go">
@@ -764,10 +770,23 @@ fmt.Println(y, strconv.Itoa(x)) // "123 123"
   </section>
   <section>
     <ul>
-      <li>To parse a string representing an integer, use the <code>strconv.Atoi</code> or <code>strconv.ParseInt</code>, or <code>strconv.ParseUint</code> for unsigned integers</li>
-      <li>The third argument of <code>ParseInt</code> gives the size of the integer type that the result must fit into</li>
-      <li>In any case, the type of the result is always <code>int64</code>, which you can then convert to a smaller type</li>
-      <li><code>fmt.Sscanf</code> is useful for parsing input that consists of orderly mixtures of strings and number all on a single line</li>
+      <li>
+        To parse a string representing an integer, use the
+        <code>strconv.Atoi</code> or <code>strconv.ParseInt</code>, or
+        <code>strconv.ParseUint</code> for unsigned integers
+      </li>
+      <li>
+        The third argument of <code>ParseInt</code> gives the size of the
+        integer type that the result must fit into
+      </li>
+      <li>
+        In any case, the type of the result is always <code>int64</code>, which
+        you can then convert to a smaller type
+      </li>
+      <li>
+        <code>fmt.Sscanf</code> is useful for parsing input that consists of
+        orderly mixtures of strings and number all on a single line
+      </li>
     </ul>
     <pre><code class="lang-go">
 x, err := strconv.Atoi("123")              // x is an int
@@ -848,13 +867,17 @@ for _, v := range a {
     </ul>
   </section>
   <section>
-    <img src="./img/slice.png">
+    <img src="./img/slice.png" />
   </section>
   <section>
     <ul>
       <li>Common slice operations:</li>
       <ul>
-        <li>The <em>slice operator</em><code>s[i:j]</code>, where 0 &lt;= i &lt;= j &lt;= cap(s), creates a new slice that refers to elements i through j - 1 of the sequence s.</li>
+        <li>
+          The <em>slice operator</em><code>s[i:j]</code>, where 0 &lt;= i &lt;=
+          j &lt;= cap(s), creates a new slice that refers to elements i through
+          j - 1 of the sequence s.
+        </li>
       </ul>
       <pre><code class="lang-go">
 len(s)
@@ -864,6 +887,41 @@ append(s, x)  // append element x to slice s and return new slice
       </code></pre>
       <li>Slices play the role of dynamically sized arrays</li>
       <li>Widely used in Go code</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/06-arrays/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>Arrays</li>
+    </ul>
+  </section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/07-slices/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>Slices with <code>make</code></li>
+    </ul>
+  </section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/08-arrays-and-slices/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>Slice operations</li>
     </ul>
   </section>
 </section>
@@ -950,6 +1008,15 @@ func main() {
 }
     </code></pre>
 </section>
+<section class="hands-on">
+  <h2>
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/10-structs/main.go"
+      >&lt;Code Time.go&gt;</a
+    >
+  </h2>
+  <ul></ul>
+</section>
 <section>
   <h2>Interfaces</h2>
   <pre><code class="lang-go">
@@ -978,6 +1045,15 @@ func (b Bar) Print() {
 }
   </code></pre>
 </section>
+<section class="hands-on">
+  <h2>
+    <a
+      href="https://raw.githubusercontent.com/SBU-CE/ie-with-go/main/11-interfaces/main.go"
+      >&lt;Code Time.go&gt;</a
+    >
+  </h2>
+  <ul></ul>
+</section>
 <section>
   <h2>Casting Types</h2>
   <ul>
@@ -1000,8 +1076,10 @@ func main() {
   <h2>Type Assertion</h2>
   <ul>
     <li>
-      type assertion: They do not convert between types; they simply state to
-      the compiler that the underlying value has the specific type.
+      type assertion: They
+      <strong class="hl-orange">do not convert</strong> between types; they
+      simply state to the compiler that the underlying value has the specific
+      type.
     </li>
   </ul>
   <pre><code class="lang-go">
@@ -1169,4 +1247,7 @@ func main() {
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <div class="toc" data-selected="5"></div>
 </section>
