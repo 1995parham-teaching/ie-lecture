@@ -17,7 +17,6 @@ steps:
     image: node
     commands:
       - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
-      - npx prettier -c ./_site/slides/**/*.html ./_site/index.html
 
 trigger:
   branch:
