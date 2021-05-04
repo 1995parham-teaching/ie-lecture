@@ -6,6 +6,8 @@ topics:
   - Advantages
   - Say Hello
   - Programming Elements
+  - Analytic geometry
+  - Packages and Modules
   - HTTP Server
   - Concurrency
 ---
@@ -1103,23 +1105,22 @@ func main() {
   </code></pre>
 </section>
 <section>
-  <section>
-    <h2>Analytic geometry</h2>
-    <img src="./img/nerdy.png" alt="nerdy" style="height: 300px" />
-  </section>
-  <section>
-    <h2>Create Point Interface</h2>
-    <pre><code class="lang-go">
+  <div class="toc" data-selected="4"></div>
+  <img src="./img/nerdy.png" alt="nerdy" style="height: 300px" />
+</section>
+<section>
+  <h2>Create Point Interface</h2>
+  <pre><code class="lang-go">
 type Point interface {
   Distance() float64
   ImageOnX() float64
   ImageOnY() float64
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Create Catesian Point Structure</h2>
-    <pre><code class="lang-go">
+</section>
+<section>
+  <h2>Create Catesian Point Structure</h2>
+  <pre><code class="lang-go">
 type Cartesian struct {
   X float64
   Y float64
@@ -1137,10 +1138,10 @@ func (c *Cartesian) ImageOnY() float64 {
   return c.Y
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Create Polar Point Structure</h2>
-    <pre><code class="lang-go">
+</section>
+<section>
+  <h2>Create Polar Point Structure</h2>
+  <pre><code class="lang-go">
 type Polar struct {
   R    float64
   Teta float64
@@ -1158,9 +1159,9 @@ func (p *Polar) ImageOnY() float64 {
   return p.R * math.Sin(p.Teta)
 }
     </code></pre>
-  </section>
-  <section>
-    <pre><code class="lang-go">
+</section>
+<section>
+  <pre><code class="lang-go">
 func main() {
   p := Polar{
     R:    1,
@@ -1177,9 +1178,9 @@ func main() {
   fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
 </code></pre>
-  </section>
-  <section>
-    <pre><code class="lang-go">
+</section>
+<section>
+  <pre><code class="lang-go">
 package main
 
 import (
@@ -1243,10 +1244,148 @@ func main() {
   fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
     </code></pre>
+</section>
+<section>
+  <div class="toc" data-selected="5"></div>
+  <img src="./img/dep.png" alt="dep" style="height: 300px" />
+</section>
+<section>
+  <h2>Go Packages</h2>
+  <ul>
+    <li>
+      A package is made up of Go files that live in the same directory and have
+      the same package statement at the beginning.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>greet Package</h2>
+  <pre><code class="plaintext">
+└── gopherguides
+    └── greet
+        └── greet.go
+  </code></pre>
+  <pre><code class="lang-go">
+package greet
+
+import "fmt"
+
+func Hello() {
+    fmt.Println("Hello, World!")
+}
+  </code></pre>
+</section>
+<section>
+  <h2>main Package</h2>
+  <pre><code class="plaintext">
+└── gopherguides
+    └── example
+        └── main.go
+  </code></pre>
+  <pre><code class="lang-go">
+package main
+
+import "github.com/gopherguides/greet"
+
+func main() {
+    greet.Hello()
+}
+  </code></pre>
+</section>
+<section>
+  <ul>
+    <li>
+      Go does not have the concept of public, private, or protected modifiers
+      like other languages do.
+    </li>
+    <li>
+      External visibility is controlled by
+      <strong class="hl-orange">capitalization</strong>.
+    </li>
+    <li>
+      Types, variables, functions, and so on, that start with a capital letter
+      are available, publicly, outside the current package.
+    </li>
+    <li>
+      A symbol that is visible outside its package is considered to be
+      <em class="hl-green">exported</em>.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Go Modules</h2>
+  <ul>
+    <li>
+      A module is a collection of packages that are released, versioned, and
+      distributed together. Modules may be downloaded directly from version
+      control repositories or from module proxy servers.
+    </li>
+    <li>
+      A module is identified by a <em class="hl-orange">module path</em>, which
+      is declared in a <code class="hl-yellow">go.mod</code> file, together with
+      information about the module's
+      <strong class="hl-violet">dependencies</strong>.
+    </li>
+    <li>
+      the module <code class="hl-orange">golang.org/x/net</code> contains a
+      package in the directory <code class="hl-green">html</code>. That
+      package's path is <code class="hl-yellow">golang.org/x/net/html</code>.
+    </li>
+  </ul>
+</section>
+<section>
+  <section>
+    <h2>Module Path</h2>
+    <ul>
+      <li>
+        A module path should describe both
+        <strong class="hl-orange">what the module does</strong> and
+        <strong class="hl-green">where to find it</strong>.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The repository root path is the portion of the module path that
+        corresponds to the <strong class="hl-green">root directory</strong> of
+        the <em class="hl-cyan">version control repository</em>
+        where the module is developed.
+      </li>
+      <ul>
+        <li>
+          Most modules are defined in their repository's root directory, so this
+          is usually the entire path.
+        </li>
+        <li>
+          For example, golang.org/x/net is the repository root path for the
+          module of the same name.
+        </li>
+      </ul>
+      <li>
+        If the module is not defined in the repository's root directory, the
+        <em class="hl-orange">module subdirectory</em> is the part of the module
+        path that names the directory, not including the major version suffix.
+      </li>
+      <li>
+        If the module is released at major version 2 or higher, the module path
+        <strong class="hl-yellow"
+          >must end with a major version suffix like /v2</strong
+        >.
+      </li>
+      <ul>
+        <li>
+          This <strong class="hl-red">may or may not</strong> be part of the
+          subdirectory name. For example, the module with path
+          golang.org/x/repo/sub/v2 could be in the /sub or /sub/v2 subdirectory
+          of the repository golang.org/x/repo.
+        </li>
+      </ul>
+    </ul>
   </section>
 </section>
 <section>
-  <div class="toc" data-selected="4"></div>
+  <div class="toc" data-selected="6"></div>
 </section>
 <section>
   <h2>HTTP Server</h2>
@@ -1255,9 +1394,44 @@ func main() {
     <li>
       Golang has core and third party libraries for implementing the http server
     </li>
-    <li>We are going to use <a href="">echo</a></li>
+    <li>We are going to use <a href="https://echo.labstack.com/">echo</a></li>
+  </ul>
+  <img src="./img/echo.png" alt="echo" />
+</section>
+<section>
+  <h2>Install Echo</h2>
+  <pre><code class="plaintext">
+&gt; go mod init github.com/sbu-ce/ie-with-go/echo
+&gt; go get github.com/labstack/echo/v4
+  </code></pre>
+</section>
+<section>
+  <h2>Routes</h2>
+  <ul>
+    <li>Build an instance of echo</li>
+    <pre><code class="lang-go">
+e := echo.New()
+    </code></pre>
+    <li>Specify which function shold be called for each route</li>
+    <pre><code class="lang-go">
+e.POST("/hello", func (c echo.Context) error {
+  c.JSON(http.StatusOK, "Hello World")
+})
+    </code></pre>
   </ul>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li>
+      <a
+        href="https://www.digitalocean.com/community/tutorials/how-to-write-packages-in-go"
+        >https://www.digitalocean.com/community/tutorials/how-to-write-packages-in-go</a
+      >
+    </li>
+    <li><a href="https://golang.org/ref/mod">https://golang.org/ref/mod</a></li>
+  </ul>
 </section>
