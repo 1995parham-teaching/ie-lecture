@@ -1421,7 +1421,113 @@ e.POST("/hello", func (c echo.Context) error {
   </ul>
 </section>
 <section>
-  <div class="toc" data-selected="5"></div>
+  <div class="toc" data-selected="7"></div>
+</section>
+<section>
+  <h2>Goroutines</h2>
+  <ul>
+    <li>
+      The <code class="hl-orange">go</code> statement launches a function call
+      as a goroutine
+    </li>
+    <pre><code class="lang-go">
+go f()
+go f(x, y, ...)
+    </code></pre>
+
+    <li>A goroutine runs concurrently (but not necessarily in parallel)</li>
+    <li>
+      A goroutine is a thread of control within the program, with its own local
+      variables and stack. Much cheaper to create and schedule than operating
+      system threads.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>A Simple Example</h2>
+  <p>
+    Function f is launched as 3 different goroutines, all running concurrently:
+  </p>
+  <pre><code class="lang-go">
+package main
+
+import (
+  "fmt"
+  "time"
+)
+
+func f(msg string, delay time.Duration) {
+  for {
+    fmt.Println(msg)
+    time.Sleep(delay)
+  }
+}
+
+func main() {
+  go f("A--", 300*time.Millisecond)
+  go f("-B-", 500*time.Millisecond)
+  go f("--C", 1100*time.Millisecond)
+  time.Sleep(20 * time.Second)
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Communication via channels</h2>
+  <ul>
+    <li>
+      A channel type specifies a channel value type (and possibly a
+      communication direction):
+    </li>
+
+    <pre><code class="lang-go">
+chan int
+chan&lt;- string  // send-only channel
+&lt;-chan T       // receive-only channel
+    </code></pre>
+
+    <li>A channel is a variable of channel type:</li>
+
+    <pre><code class="lang-go">
+var ch chan int
+ch := make(chan int)  // declare and initialize with newly made channel
+    </code></pre>
+
+    <li>A channel permits _sending_ and _receiving_ values:</li>
+
+    <pre><code class="lang-go">
+ch &lt;- 1   // send value 1 on channel ch
+x = &lt;-ch  // receive a value from channel ch (and assign to x)
+  </code></pre>
+
+    <li>Channel operations synchronize the communicating goroutines.</li>
+  </ul>
+</section>
+<section>
+  <h2>Communicating goroutines</h2>
+  <p>Each goroutine sends its results via channel ch:</p>
+  <pre><code class="lang-go">
+func f(msg string, delay time.Duration, ch chan string) {
+  for {
+    ch &lt;- msg
+    time.Sleep(delay)
+  }
+}
+  </code></pre>
+  <p>
+    The main goroutine receives (and prints) all results from the same channel:
+  </p>
+  <pre><code class="lang-go">
+func main() {
+  ch := make(chan string)
+  go f("A--", 300*time.Millisecond, ch)
+  go f("-B-", 500*time.Millisecond, ch)
+  go f("--C", 1100*time.Millisecond, ch)
+
+  for i := 0; i &lt; 100; i++ {
+    fmt.Println(i, &lt;-ch)
+  }
+}
+  </code></pre>
 </section>
 <section>
   <h2>References 📚</h2>
