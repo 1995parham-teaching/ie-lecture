@@ -75,6 +75,49 @@ topics:
   <img src="./img/overview-vm-2.png" alt="overview-vm" />
 </section>
 <section>
+  <h2>Types of Virtualization</h2>
+  <ul>
+    <li>
+      Partitioning: This is a type of virtualization in which a CPU is devided
+      into different parts, and each part works as an individaul system.
+    </li>
+    <li>
+      Full virtualization: In full virtualization, a virtual machine is used to
+      simulate regular hardware while not being aware of the fact that is's
+      virtualized.
+    </li>
+    <ul>
+      <li>
+        Software-based: Uses binary translation to virtualize the execution of
+        sensitive instruction sets while emulating hardware using software,
+        which increase overhead and impacts scalibility.
+      </li>
+      <li>
+        Hardware-based: Removes binary translation from the equation while
+        interfacing with a CPU's virtualization features (AMD-V, Intel VT),
+        which, in turn, means that instruction sets are being executed directly
+        on the host CPU
+      </li>
+    </ul>
+    <li>
+      Paravirtualization: This is a type in which the guest OS understands the
+      fact that it's being virtualized and needs to be modified, along with its
+      drivers, so that it can run on top of the virtulization solution.
+    </li>
+    <li>
+      Hybrid virtualization: This is a type of virtualization that uses full
+      virtualization and paravirtualization's biggest virtues.
+    </li>
+    <li>
+      Container-based virtualization: This is a type of application
+      virtualization that uses containers. A container is an object that
+      packages an application and all its dependencies so that the application
+      can be scaled out and rapidly deployed without needing a virtual machine
+      or a hypervisor.
+    </li>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="2"></div>
 </section>
 <section>
