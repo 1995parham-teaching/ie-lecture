@@ -478,21 +478,21 @@ topics:
       <li>
         If a Primary node becomes inaccessible, then one of the secondary nodes
         needs to <em class="hl-yellow">become the primary node</em>.
-        <ul>
-          <li>
-            <strong class="hl-orange">Till</strong> a new primary is elected
-            from amongst the secondary nodes, the system remains
-            <em class="hl-red">unavailable</em> to the user to make any new
-            write query.
-          </li>
-          <li>
-            Therefore, the MongoDB system behaves as a
-            <strong class="hl-green">Consistent</strong> system and
-            <em class="hl-violet">compromises on Availability</em> during a
-            <strong class="hl-material">partition</strong>.
-          </li>
-        </ul>
       </li>
+      <ul>
+        <li>
+          <strong class="hl-orange">Till</strong> a new primary is elected from
+          amongst the secondary nodes, the system remains
+          <em class="hl-red">unavailable</em> to the user to make any new write
+          query.
+        </li>
+        <li>
+          Therefore, the MongoDB system behaves as a
+          <strong class="hl-green">Consistent</strong> system and
+          <em class="hl-violet">compromises on Availability</em> during a
+          <strong class="hl-material">partition</strong>.
+        </li>
+      </ul>
     </ul>
   </section>
   <section>
@@ -507,12 +507,19 @@ topics:
         A situation can occur where a partition occurs and the replica
         <em class="hl-red">does not</em>
         get an updated copy of the data.
-        <ul>
-          <li>
-            In such a situation the replica nodes will still be available to the
-            user but the data will be inconsistent.
-          </li>
-        </ul>
+      </li>
+      <ul>
+        <li>
+          In such a situation the replica nodes will still be available to the
+          user but the data will be inconsistent.
+        </li>
+      </ul>
+      <li>
+        All updates will reach all the replicas
+        <strong class="hl-orange">eventually</strong>. But in the meantime, it
+        allows <em class="hl-yellow">divergent</em> versions of the same data to
+        exist temporarily. <strong class="hl-green">Until</strong> we update
+        them to the consistent state.
       </li>
     </ul>
   </section>
