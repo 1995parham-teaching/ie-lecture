@@ -435,27 +435,87 @@ topics:
   </section>
 </section>
 <section>
-  <h2>CAP Theorem</h2>
-  <p>
-    Impossible for a distributed data store to simultaneously provide more than
-    two out of the following three guarantees:
-  </p>
-  <ul>
-    <li>
-      <em class="hl-orange">Consistency</em>: Every read receives the most
-      recent write or an error
-    </li>
-    <li>
-      <em class="hl-green">Availability</em>: Every request receives a
-      (non-error) response, without the guarantee that it contains the most
-      recent write
-    </li>
-    <li>
-      <em class="hl-yellow">Partition tolerance</em>: The system continues to
-      operate despite an arbitrary number of messages being dropped (or delayed)
-      by the network between nodes
-    </li>
-  </ul>
+  <section>
+    <h2>CAP Theorem</h2>
+    <p>
+      Impossible for a distributed data store to simultaneously provide more
+      than two out of the following three guarantees:
+    </p>
+    <ul>
+      <li>
+        <em class="hl-orange">Consistency</em>: Every read receives the most
+        recent write or an error
+      </li>
+      <li>
+        <em class="hl-green">Availability</em>: Every request receives a
+        (non-error) response, without the guarantee that it contains the most
+        recent write
+      </li>
+      <li>
+        <em class="hl-yellow">Partition tolerance</em>: The system continues to
+        operate despite an arbitrary number of messages being dropped (or
+        delayed) by the network between nodes
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Mongo DB (CP)</h2>
+    <img src="./img/mongodb.webp" />
+    <ul>
+      <li>
+        MongoDB is a NoSQL database that stores data in one or more Primary
+        nodes in the form of JSON files.
+      </li>
+      <li>
+        The replica set nodes in the system send a heartbeat (ping) to every
+        other node to keep track if other replicas or primary nodes are alive or
+        dead.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        If a Primary node becomes inaccessible, then one of the secondary nodes
+        needs to <em class="hl-yellow">become the primary node</em>.
+        <ul>
+          <li>
+            <strong class="hl-orange">Till</strong> a new primary is elected
+            from amongst the secondary nodes, the system remains
+            <em class="hl-red">unavailable</em> to the user to make any new
+            write query.
+          </li>
+          <li>
+            Therefore, the MongoDB system behaves as a
+            <strong class="hl-green">Consistent</strong> system and
+            <em class="hl-violet">compromises on Availability</em> during a
+            <strong class="hl-material">partition</strong>.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Cassandra (AP)</h2>
+    <ul>
+      <li>
+        Cassandra is a peer-to-peer system. It consists of multiple nodes in the
+        system. And each node can accept a read or write request from the user.
+      </li>
+      <li>Cassandra maintains multiple replicas of data in separate nodes</li>
+      <li>
+        A situation can occur where a partition occurs and the replica
+        <em class="hl-red">does not</em>
+        get an updated copy of the data.
+        <ul>
+          <li>
+            In such a situation the replica nodes will still be available to the
+            user but the data will be inconsistent.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Asynchronous Messages</h2>
