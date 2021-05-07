@@ -75,47 +75,53 @@ topics:
   <img src="./img/overview-vm-2.png" alt="overview-vm" />
 </section>
 <section>
-  <h2>Types of Virtualization</h2>
-  <ul>
-    <li>
-      Partitioning: This is a type of virtualization in which a CPU is devided
-      into different parts, and each part works as an individaul system.
-    </li>
-    <li>
-      Full virtualization: In full virtualization, a virtual machine is used to
-      simulate regular hardware while not being aware of the fact that is's
-      virtualized.
-    </li>
+  <section>
+    <h2>Types of Virtualization</h2>
     <ul>
       <li>
-        Software-based: Uses binary translation to virtualize the execution of
-        sensitive instruction sets while emulating hardware using software,
-        which increase overhead and impacts scalibility.
+        Partitioning: This is a type of virtualization in which a CPU is devided
+        into different parts, and each part works as an individaul system.
       </li>
       <li>
-        Hardware-based: Removes binary translation from the equation while
-        interfacing with a CPU's virtualization features (AMD-V, Intel VT),
-        which, in turn, means that instruction sets are being executed directly
-        on the host CPU
+        Full virtualization: In full virtualization, a virtual machine is used
+        to simulate regular hardware while not being aware of the fact that is's
+        virtualized.
+      </li>
+      <ul>
+        <li>
+          Software-based: Uses binary translation to virtualize the execution of
+          sensitive instruction sets while emulating hardware using software,
+          which increase overhead and impacts scalibility.
+        </li>
+        <li>
+          Hardware-based: Removes binary translation from the equation while
+          interfacing with a CPU's virtualization features (AMD-V, Intel VT),
+          which, in turn, means that instruction sets are being executed
+          directly on the host CPU
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        Paravirtualization: This is a type in which the guest OS understands the
+        fact that it's being virtualized and needs to be modified, along with
+        its drivers, so that it can run on top of the virtulization solution.
+      </li>
+      <li>
+        Hybrid virtualization: This is a type of virtualization that uses full
+        virtualization and paravirtualization's biggest virtues.
+      </li>
+      <li>
+        Container-based virtualization: This is a type of application
+        virtualization that uses containers. A container is an object that
+        packages an application and all its dependencies so that the application
+        can be scaled out and rapidly deployed without needing a virtual machine
+        or a hypervisor.
       </li>
     </ul>
-    <li>
-      Paravirtualization: This is a type in which the guest OS understands the
-      fact that it's being virtualized and needs to be modified, along with its
-      drivers, so that it can run on top of the virtulization solution.
-    </li>
-    <li>
-      Hybrid virtualization: This is a type of virtualization that uses full
-      virtualization and paravirtualization's biggest virtues.
-    </li>
-    <li>
-      Container-based virtualization: This is a type of application
-      virtualization that uses containers. A container is an object that
-      packages an application and all its dependencies so that the application
-      can be scaled out and rapidly deployed without needing a virtual machine
-      or a hypervisor.
-    </li>
-  </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
@@ -131,6 +137,183 @@ topics:
 </section>
 <section>
   <img src="./img/docker-growth.png" alt="docker-growth" />
+</section>
+<section>
+  <img src="./img/overview-container.png" alt="overview-container" />
+</section>
+<section>
+  <h2>Containers vs VMs (Pros)</h2>
+  <ul>
+    <li>Lightweight (MBs vs GBs)</li>
+    <li>Easier Deployment</li>
+    <li>Easier Portability</li>
+  </ul>
+</section>
+<section>
+  <h2>Containers vs VMs (Cons)</h2>
+  <ul>
+    <li>Better control in virtual machines</li>
+    <li>Have been tested over the years</li>
+  </ul>
+</section>
+<section>
+  <h2>Container Engines</h2>
+  <ul>
+    <li>Apache Mesos</li>
+    <li>CoreOS</li>
+    <li>Docker</li>
+  </ul>
+</section>
+<section>
+  <h2>403 Forbidden</h2>
+  <p>You cannot access docker from Iran</p>
+</section>
+<section>
+  <h2>So What?!</h2>
+  <ul>
+    <li>HTTP Proxy</li>
+    <li><a href="https://shecan.ir/">Shecan</a></li>
+    <li>etc.</li>
+  </ul>
+</section>
+<section>
+  <h2>Hello World :)</h2>
+  <pre><code class="lang-shell">
+docker run hello-world
+  </code></pre>
+</section>
+<section>
+  <h2>Days before Docker</h2>
+  <ul>
+    <li>Installing dependencies of your app on host machine</li>
+    <li>Creates conflict with previous installation</li>
+    <li>Separate Environment - Separate Runtime</li>
+    <li>Code that runs on one system and doesn’t on the other</li>
+  </ul>
+</section>
+<section>
+  <h2>Days after Docker</h2>
+  <ul>
+    <li>Dependencies and runtime environment are all in the same place</li>
+    <li>No need to install any dependency 💃</li>
+    <li>Ensuring your app and your dependencies travel together</li>
+  </ul>
+</section>
+<section>
+  <h2>Docker Image</h2>
+  <p>
+    An image is a lightweight, stand-alone, executable package that includes
+    everything needed to run a piece of software, including the code, a runtime,
+    libraries, environment variables, and config files.
+  </p>
+</section>
+<section>
+  <h2>Docker Container</h2>
+  <p>
+    A container is a runtime instance of an image – what the image becomes in
+    memory when actually executed. It runs completely isolated from the host
+    environment by default, only accessing host files and ports if configured to
+    do so.
+  </p>
+</section>
+<section>
+  <h2>Dockerfile</h2>
+  <p>
+    A Dockerfile is a text document that contains all the commands a user could
+    call on the command line to assemble an image.
+  </p>
+</section>
+<section>
+  <pre><code class="lang-dockerfile">
+# Format: FROM    repository[:version]
+FROM       ubuntu:latest
+# Installation:
+# Import MongoDB public GPG key AND create a MongoDB list file
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+RUN apt-get install -y --no-install-recommends software-properties-common
+RUN echo "deb http://repo.mongodb.org/apt/ubuntu $(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d= -f2)/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+# Update apt-get sources AND install MongoDB
+RUN apt-get update &amp;&amp; apt-get install -y mongodb-org
+# Create the MongoDB data directory
+RUN mkdir -p /data/db
+# Expose port 27017 from the container to the host
+EXPOSE 27017
+
+# Set usr/bin/mongod as the dockerized entry-point application
+ENTRYPOINT ["/usr/bin/mongod"]
+  </code></pre>
+</section>
+<section>
+  <h2>Image Layers</h2>
+  <img src="./img/image-layers.png" alt="image-layers" />
+</section>
+<section>
+  <h2>Docker CLI (Cheatsheet)</h2>
+  <pre><code class="lang-shell">
+docker build -t friendlyname .        # Create image using this directory's Dockerfile
+docker run -p 4000:80 friendlyname    # Run "friendlyname" mapping port 4000 to 80
+docker run -d -p 4000:80 friendlyname # Same thing, but in detached mode
+docker ps                             # See a list of all running containers
+docker stop hash                      # Gracefully stop the specified container
+docker ps -a                          # See a list of all containers, even the ones not running
+docker kill hash                      # Force shutdown of the specified container
+docker rm hash                        # Remove the specified container from this machine
+docker rm $(docker ps -a -q)          # Remove all containers from this machine
+docker images -a                      # Show all images on this machine
+docker rmi imagename                  # Remove the specified image from this machine
+docker rmi $(docker images -q)        # Remove all images from this machine
+  </code></pre>
+</section>
+<section>
+  <h2>Docker Volumes</h2>
+  <ul>
+    <li>Data volumes can be shared and reused among containers.</li>
+    <li>Changes to a data volume are made directly.</li>
+    <li>
+      Changes to a data volume will not be included when you update an image.
+    </li>
+    <li>Data volumes persist even if the container itself is deleted.</li>
+  </ul>
+</section>
+<section>
+  <h2>Docker Compose</h2>
+  <p>
+    Compose is a tool for defining and running multi-container Docker
+    applications. With Compose, you use a Compose file to configure your
+    application’s services.
+  </p>
+</section>
+<section>
+  <h2>Docker Compose</h2>
+  <pre><code>
+version: '3'
+
+services:
+   db:
+     image: mysql:latest
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+  wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - "8000:80"
+     restart: always
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
+volumes:
+    db_data:
+  </code></pre>
 </section>
 <section>
   <h2>References 📚</h2>
