@@ -260,9 +260,8 @@ topics:
       .then((resp) => resp.json())
       .then(
         (data) =>
-          (document.getElementById("swapi-result").textContent = JSON.stringify(
-            data
-          ))
+          (document.getElementById("swapi-result").textContent =
+            JSON.stringify(data))
       );
   </script>
 </section>
