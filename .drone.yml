@@ -7,7 +7,8 @@ steps:
   - name: prettier
     image: node
     commands:
-      - npx -y prettier -c ./slides/**/*.html ./index.html
+      - npm i prettier
+      - npx prettier -c ./slides/**/*.html ./index.html
   - name: jekyll
     image: ruby:2.7
     commands:
@@ -16,7 +17,8 @@ steps:
   - name: htmlhint
     image: node
     commands:
-      - npx -y htmlhint ./_site/slides/**/*.html ./_site/index.html
+      - npm i htmlhint
+      - npx htmlhint ./_site/slides/**/*.html ./_site/index.html
 
 trigger:
   branch:
