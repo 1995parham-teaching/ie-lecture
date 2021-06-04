@@ -1,5 +1,5 @@
 # Introduction to WebAssembly
-We([Narges](https://github.com/NNargesNN) and I) gave a presentation as *Introduction to WebAssembly* in [Internet Engineering course](https://sbu-ce.github.io/IE-lecture/) at Shahid Beheshti University. Here you can find the slides and some code example of this presentation for better intuition.
+We([Mohammad](https://github.com/mohammadhashemii) and [Narges](https://github.com/NNargesNN)) gave a presentation as *Introduction to WebAssembly* in [Internet Engineering course](https://sbu-ce.github.io/IE-lecture/) at Shahid Beheshti University. Here you can find the slides and some code example of this presentation for better intuition.
 
 Before using the codes, we highly recommend to read the slides. Also you can watch the presentation video [here]().
 
