@@ -1,0 +1,49 @@
+---
+title: Introduction to WebAssembly
+lecture: false
+---
+
+<section>
+  We, <a href="https://github.com/mohammadhashemii">Mohammad</a> and
+  <a href="https://github.com/NNargesNN">Narges</a> gave a presentation as
+  <i>Introduction to WebAssembly</i> in
+  <a href="https://sbu-ce.github.io/IE-lecture/">Internet Engineering course</a>
+  at Shahid Beheshti University.
+  <a href="/slides/WebAssembly/slides.pdf">Here</a> you can find the slides and
+  some code example of this presentation for better intuition. Before using the
+  codes, we highly recommend to read the slides. Also you can watch the
+  presentation video <a>here</a>.
+</section>
+
+<section>
+  <h2>Tools</h2>
+
+  - For converting <code>.wat</code> file to <code>.wasm</code>, firstly install
+  <a href="https://github.com/WebAssembly/wabt">wabt</a>. Then run the commands
+  below in your terminal.(More detailed help can be found on wabt github page).
+</section>
+
+<section>
+  <h2>Insllation</h2>
+
+  To install it on your OS, follow the steps
+  <a href="https://github.com/WebAssembly/wabt#cloning">here</a> carefully.
+</section>
+
+<section>
+  <h2>Running wat2wasm</h2>
+
+  some examples:
+
+  <pre><code class="lang-shell">
+# parse and typecheck test.wat
+$ bin/wat2wasm test.wat
+
+# parse test.wat and write to binary file test.wasm
+$ bin/wat2wasm test.wat -o test.wasm
+
+# parse spec-test.wast, and write verbose output to stdout (including the
+# meaning of every byte)
+$ bin/wat2wasm spec-test.wast -v
+	</code></pre>
+</section>
