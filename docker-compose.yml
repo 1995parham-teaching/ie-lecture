@@ -9,3 +9,5 @@ services:
     volumes:
       - ./vendor/bundle:/usr/local/bundle
       - .:/srv/jekyll
+      - /srv/jekyll/.jekyll-cache
+      - /srv/jekyll/_site
