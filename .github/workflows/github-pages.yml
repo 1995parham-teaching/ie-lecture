@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: |
+          npm i prettier
+          npx prettier -c ./slides/**/*.html ./index.html
       - uses: actions/cache@v2
         with:
           path: vendor/bundle
@@ -21,3 +25,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           jekyll_build_options: -b IE-lecture
+      - run: |
+          npm i htmlhint
+          npx htmlhint ./_site/slides/**/*.html ./_site/index.html
