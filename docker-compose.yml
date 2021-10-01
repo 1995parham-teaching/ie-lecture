@@ -2,14 +2,12 @@
 version: '3'
 services:
   web:
-    image: 'jekyll/jekyll:latest'
-    command: >
-      bash -c "bundle install
-      && jekyll serve"
+    image: jekyll/jekyll:latest
+    command: jekyll serve
     ports:
-      - '4000:4000'
+      - 4000:4000
     volumes:
       - ./vendor/bundle:/usr/local/bundle
       - .:/srv/jekyll
-      - /srv/jekyll/.jekyll-cache
-      - /srv/jekyll/_site
+      - ./.jekyll-cache:/srv/jekyll/.jekyll-cache
+      - ./_site:/srv/jekyll/_site
