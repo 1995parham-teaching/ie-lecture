@@ -318,6 +318,45 @@ x[0]='Z';
   </section>
   <section>
     <pre><code class="lang-javascript">
+function mutateArray(A) {
+  A[0] = 0;
+}
+let A = [1];
+console.log(A);  // [1]
+mutateArray(A);
+console.log(A);  // [0]
+    </code></pre>
+    <pre><code class="lang-javascript">
+function mutateNumber(n) {
+  n = 0;
+}
+let n = 1;
+console.log(n);  // 1
+mutateNumber(n);
+console.log(n);  // 1
+    </code></pre>
+    <p>
+      both arrays and numbers are passed by sharing. Whereas arrays are mutable,
+      numbers are not.
+    </p>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+function mutateArray(A) {
+  A = [0];
+}
+A = [1];
+console.log(A);  // [1]
+mutateArray(A);
+console.log(A);  // [1]
+    </code></pre>
+    <p>
+      Here we are no longer mutating the array; we are now binding the name A to
+      a new array.
+    </p>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
 const name = 'Darth Vader';
 name.alignment = 'Lawful evil';
 name.tellTheTruth = () =&gt; {
