@@ -1274,6 +1274,25 @@ p#red{
     </table>
   </section>
 </section>
+
+<section>
+  <h2>Static Positioning</h2>
+
+  <ul>
+    <li>
+      The default position of HTML elements is
+      <span class="hl-orange">static</span>.
+    </li>
+    <li>
+      Static elements are positioned according to the normal flow of the page.
+    </li>
+    <li>
+      They are <span class="hl-orange">not affected</span> by top, left, bottom,
+      and right values.
+    </li>
+  </ul>
+</section>
+
 <section>
   <h2>Relative Positioning</h2>
   <ul>
@@ -1301,6 +1320,7 @@ p#red{
     </dl>
   </ul>
 </section>
+
 <section>
   <section>
     <style>
@@ -1342,6 +1362,7 @@ p.demo.five {
     </code></pre>
   </section>
 </section>
+
 <section>
   <h2>Absolute Positioning</h2>
   <ul>
@@ -1381,6 +1402,7 @@ p.demo.five {
 &lt;/a&gt;
   </code></pre>
 </section>
+
 <section>
   <h2>Fixed Positioning</h2>
   <ul>
@@ -1407,6 +1429,73 @@ p.demo.five {
     </li>
   </ul>
 </section>
+
+<section>
+  <section>
+    <h2>Sticky Positioning</h2>
+
+    <ul>
+      <li>
+        This one is somehow a combination of
+        <span class="hl-orange">relative and fixed</span> positions.
+      </li>
+      <li>
+        A sticky element acts like it's
+        <span class="hl-orange">relatively positioned</span> until it's scrolled
+        to a certain threshold. After that, its position becomes
+        <span class="hl-orange">fixed</span> (e.g. after scrolling for 20px, it
+        will be fixed on the page).
+      </li>
+      <li>
+        You must at least specify one of <span class="hl-green">top</span>,
+        <span class="hl-green">left</span>,
+        <span class="hl-green">bottom</span> or
+        <span class="hl-green">right</span> for sticky to work.
+      </li>
+    </ul>
+  </section>
+
+  <section class="overflow-scroll">
+    <style>
+      .sticky-element {
+        position: sticky;
+        top: 0px;
+        background-color: orange;
+      }
+
+      .overflow-scroll {
+        overflow-y: scroll;
+        height: 500px !important;
+        border: 2px solid gray !important;
+      }
+
+      .sticky-top {
+        height: 100px !important;
+      }
+
+      .sticky-bottom {
+        height: 3000px !important;
+      }
+    </style>
+    <div class="sticky-top">Try scrolling!</div>
+    <div class="sticky-element">I am sticky</div>
+    <div class="sticky-bottom"></div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        .sticky-element {
+          position: sticky;
+          top: 0px;
+          background-color: orange;
+        }
+      
+      </code>
+    </pre>
+  </section>
+</section>
+
 <section class="hands-on">
   <h2>Let's write some code</h2>
   <ul>
