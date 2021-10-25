@@ -1209,7 +1209,7 @@ p#red{
 <section>
   <h2>Layout Design = Element Positioning</h2>
   <ul>
-    <li>Three positioning schemes</li>
+    <li>Two positioning schemes</li>
     <ul>
       <li>Normal</li>
       <ul>
@@ -1236,7 +1236,7 @@ p#red{
     </ul>
   </section>
   <section>
-    <table>
+    <table style="font-size: large">
       <thead>
         <tr>
           <th>Property</th>
@@ -1246,7 +1246,7 @@ p#red{
       </thead>
       <tbody>
         <tr>
-          <td rowspan="4">position</td>
+          <td rowspan="5">position</td>
           <td>static</td>
           <td>default position = Normal</td>
         </tr>
@@ -1261,6 +1261,12 @@ p#red{
         <tr>
           <td>fixed</td>
           <td>a fixed position within the browser window</td>
+        </tr>
+        <tr>
+          <td>sticky</td>
+          <td>
+            this is basically a hybrid between relative and fixed position.
+          </td>
         </tr>
         <tr>
           <td>top, bottom, left, right</td>
@@ -1526,6 +1532,19 @@ p.demo.five {
 
     <h1 class="demo seven">This is a Linux</h1>
     <img class="demo seven" src="./img/linux.jpg" />
+  </section>
+  <section>
+    <pre><code class="lang-css">
+img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+}
+h1 {
+  color: red;
+}
+    </code></pre>
   </section>
 </section>
 <section>
