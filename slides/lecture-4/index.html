@@ -1397,12 +1397,37 @@ p.demo.five {
   </ul>
 </section>
 <section>
-  <h2></h2>
-  <pre><code class="lang-html">
+  <section>
+    <h2></h2>
+    <pre><code class="lang-html">
 &lt;a href="https://github.com/sbu-ce/ie-lecture" target="_blank"&gt;
   &lt;img style="position: absolute; top: 0; right: 0; border: 0;" src="/img/forkme_right_orange.png" alt="Fork me on GitHub"&gt;
 &lt;/a&gt;
   </code></pre>
+  </section>
+
+  <section>
+    <style>
+      p.demo.five {
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        width: 300px;
+      }
+
+      #a {
+        position: absolute;
+        left: 50%;
+        top: 150px;
+        border-color: blue;
+      }
+    </style>
+
+    <p class="demo five">The paragraph 1</p>
+    <p class="demo five" id="a">The paragraph 2</p>
+    <p class="demo five">The paragraph 3</p>
+    <p class="demo five">The paragraph 4</p>
+  </section>
 </section>
 
 <section>
@@ -1491,6 +1516,56 @@ p.demo.five {
   background-color: orange;
 }
     </code></pre>
+  </section>
+  <section>
+    <h2>Scrolling index</h2>
+
+    <div id="scrolling-index">
+      <dl>
+        <dt>A</dt>
+        <dd>Apple</dd>
+        <dd>Ant</dd>
+        <dd>Altimeter</dd>
+        <dd>Airplane</dd>
+        <dt>B</dt>
+        <dd>Bird</dd>
+        <dd>Buzzard</dd>
+        <dd>Bee</dd>
+        <dd>Banana</dd>
+        <dd>Beanstalk</dd>
+        <dt>C</dt>
+        <dd>Calculator</dd>
+        <dd>Cane</dd>
+        <dd>Camera</dd>
+        <dd>Camel</dd>
+        <dt>D</dt>
+        <dd>Duck</dd>
+        <dd>Dime</dd>
+        <dd>Dipstick</dd>
+        <dd>Drone</dd>
+        <dt>E</dt>
+        <dd>Egg</dd>
+        <dd>Elephant</dd>
+        <dd>Egret</dd>
+      </dl>
+    </div>
+
+    <style>
+      #scrolling-index {
+        overflow-y: scroll;
+        height: 400px;
+      }
+
+      #scrolling-index dt {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+        left: 0;
+        margin: 1em 0;
+      }
+    </style>
   </section>
 </section>
 
