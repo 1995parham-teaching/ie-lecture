@@ -1221,14 +1221,10 @@ p#red{
         <li>Element is taken out from normal flow</li>
         <li>It is placed in the specified position</li>
       </ul>
-      <li>Float</li>
-      <ul>
-        <li>Elements is taken out from normal flow</li>
-        <li>It is placed as far right/left as possible to previous element</li>
-      </ul>
     </ul>
   </ul>
 </section>
+
 <section>
   <section>
     <h2>Specified Positioning</h2>
@@ -1433,7 +1429,6 @@ p.demo.five {
 <section>
   <section>
     <h2>Sticky Positioning</h2>
-
     <ul>
       <li>
         This one is somehow a combination of
@@ -1454,8 +1449,7 @@ p.demo.five {
       </li>
     </ul>
   </section>
-
-  <section class="overflow-scroll">
+  <section>
     <style>
       .sticky-element {
         position: sticky;
@@ -1477,22 +1471,20 @@ p.demo.five {
         height: 3000px !important;
       }
     </style>
-    <div class="sticky-top">Try scrolling!</div>
-    <div class="sticky-element">I am sticky</div>
-    <div class="sticky-bottom"></div>
+    <div class="overflow-scroll">
+      <div class="sticky-top">Try scrolling!</div>
+      <div class="sticky-element">I am sticky</div>
+      <div class="sticky-bottom"></div>
+    </div>
   </section>
-
   <section>
-    <pre>
-      <code class="lang-css">
-        .sticky-element {
-          position: sticky;
-          top: 0px;
-          background-color: orange;
-        }
-      
-      </code>
-    </pre>
+    <pre><code class="lang-css">
+.sticky-element {
+  position: sticky;
+  top: 0px;
+  background-color: orange;
+}
+    </code></pre>
   </section>
 </section>
 
