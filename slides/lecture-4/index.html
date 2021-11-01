@@ -1918,7 +1918,7 @@ h1 {
   </section>
 </section>
 <section>
-  <h2>flexbox</h2>
+  <h2>flexbox overview</h2>
   <ul>
     <li><span class="hl-orange">One</span>-dimensional layout model</li>
     <li>Composed of flex container and flex items</li>
@@ -1930,6 +1930,621 @@ h1 {
     <li>Properties of flex items: grow, shrink, justify, …</li>
   </ul>
 </section>
+
+<section>
+  <h2>FlexBox Container And Items</h2>
+
+  <img
+    src="./img/flex-container-and-items.png"
+    alt="FlexBox container and items"
+  />
+
+  <p>
+    We can create a flex container using
+    <span class="hl-green">display: flex</span>
+  </p>
+  <p>
+    Now we have <span class="hl-green">flex container</span> and
+    <span class="hl-green">flex items</span>
+  </p>
+</section>
+
+<section>
+  <h3>So what is the point of creating a flex container and its items?</h3>
+</section>
+
+<section>
+  <section>
+    <h2>FlexBox Axises</h2>
+
+    <img width="650px" src="./img/flex-axises.png" alt="FlexBox axises" />
+
+    <pre><code class="lang-css">
+      .flex-container {
+        flex-direction: row | column | row-reverse | column-reverse;
+        // Default flex-direction: row
+      }
+    </code></pre>
+  </section>
+
+  <section>
+    <style>
+      .flex-container {
+        display: flex;
+      }
+
+      .align-items-center {
+        align-items: center;
+      }
+    </style>
+
+    <p>
+      We can align flex items in the direction of
+      <span class="hl-green">main axis</span> using
+      <span class="hl-green">justify-content</span> property
+    </p>
+
+    <div class="flex-container align-items-center">
+      <div>
+        <img src="./img/flex-justify-content.png" alt="Flex justify content" />
+      </div>
+
+      <div>
+        <img
+          src="./img/flex-justify-content-2.png"
+          alt="Flex justify content"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p>
+      We can align flex items in the direction of
+      <span class="hl-green">cross axis</span> using
+      <span class="hl-green">align-items</span> property
+    </p>
+    <div style="background-color: gray">
+      <img
+        width="350px"
+        src="./img/flex-align-items.svg"
+        alt="Flex align items"
+      />
+    </div>
+  </section>
+</section>
+
+<section>
+  <style>
+    .justify-content-center {
+      justify-content: center;
+    }
+
+    .justify-content-space-between {
+      justify-content: space-between;
+    }
+
+    .justify-content-space-around {
+      justify-content: space-around;
+    }
+
+    .flex-direction-row {
+      flex-direction: row;
+    }
+
+    .flex-direction-column {
+      flex-direction: column;
+    }
+
+    .flex-direction-row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    .flex-item {
+      border-radius: 10px;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc !important;
+      margin: 5px !important;
+    }
+
+    .flex-item-blue {
+      background-color: #3498db;
+    }
+
+    .flex-item-green {
+      background-color: green;
+    }
+
+    .flex-item-tomato {
+      background-color: tomato;
+    }
+
+    .flex-item-orange {
+      background-color: orange;
+    }
+
+    .flex-container-dark {
+      background-color: #2c3e50;
+    }
+
+    .flex-container-common {
+      padding: 30px !important;
+    }
+
+    .flex-container-large-width {
+      width: 300px !important;
+    }
+
+    .flex-wrap {
+      flex-wrap: wrap;
+    }
+
+    .flex-item-grow {
+      flex-grow: 1;
+    }
+
+    .flex-item-basis-large {
+      flex-basis: 300px;
+    }
+
+    .flex-item-grow-large {
+      flex-grow: 2;
+    }
+
+    .flex-item-align-self-flex-end {
+      align-self: flex-end;
+    }
+
+    .flex-item-align-self-flex-start {
+      align-self: flex-start;
+    }
+
+    .flex-item-align-self-stretch {
+      align-self: stretch;
+    }
+
+    .flex-item-no-width {
+      width: auto !important;
+    }
+  </style>
+
+  <section>
+    <h2>FlexBox Examples</h2>
+
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-around
+          flex-container-dark flex-container-common flex-direction-row-reverse
+        "
+      >
+        <div class="flex-item flex-item-blue">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-around;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div
+      class="
+        flex-container flex-direction-row
+        justify-content-space-around
+        align-items-center
+      "
+    >
+      <div
+        class="
+          flex-container
+          flex-direction-column
+          flex-container-dark
+          flex-container-common
+          flex-container-large-width
+          align-items-center
+        "
+      >
+        <div class="flex-item flex-item-blue">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div style="flex-grow: 1">
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Flex Wrap</h2>
+
+    <div class="flex-container justify-content-space-between">
+      <div>
+        <p>Controls the wrapping of the container</p>
+
+        <p>Items will be wrapped if there is not enough space</p>
+      </div>
+
+      <div>
+        <img width="850px" src="./img/flex-wrap.svg" alt="Flex Wrap" />
+      </div>
+    </div>
+
+    <pre>
+      <code class="lang-css">
+        .flex-container {
+          flex-wrap: wrap | no-wrap | wrap-reverse;
+          // no-wrap is the default
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common flex-wrap
+        "
+      >
+        <div class="flex-item flex-item-blue">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+        <div class="flex-item flex-item-blue">E</div>
+        <div class="flex-item flex-item-tomato">F</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              flex-wrap: wrap;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Flex item properties</h2>
+
+    <ul>
+      <li>
+        <span class="hl-green">flex-grow:</span> specifies how much the item
+        will grow relative to the rest of them
+      </li>
+
+      <li>
+        <span class="hl-green">Flex shrink</span> specifies how much the item
+        will shrink relative to the rest of them
+      </li>
+
+      <li>
+        <span class="hl-green">flex-basis</span> specifies the initial length of
+        a flex item
+      </li>
+
+      <li>
+        In a flex container, try to use flex-basis instead of width property.
+        Because flex-basis specifies width or height depending on the value of
+        flex-direction.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-basis-large">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            .blue {
+              flex-basis: 300px;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div
+      class="
+        flex-container flex-direction-row
+        justify-content-space-around
+        align-items-center
+      "
+    >
+      <div
+        class="
+          flex-container
+          flex-direction-column
+          flex-container-dark
+          flex-container-common
+          flex-container-large-width
+          align-items-center
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-basis-large">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+      </div>
+
+      <div style="flex-grow: 1">
+        <pre>
+        <code class="lang-css">
+          .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .blue {
+            flex-basis: 300px;
+          }
+        </code>
+      </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-grow">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            .blue {
+              flex-grow: 1;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-grow">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato flex-item-grow-large">C</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            .blue {
+              flex-grow: 2;
+            }
+
+            .red {
+              flex-grow: 2;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section>
+  <h2>Flex shorthand property</h2>
+
+  <p>Instead of using</p>
+
+  <pre>
+    <code class="lang-css">
+      .item{
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 300px;
+      }
+    </code>
+  </pre>
+
+  <p>You can use <span class="hl-green">flex property</span></p>
+  <pre>
+    <code class="lang-css">
+      .item{
+        flex: 1 1 300px; // flex-grow flex-shrink flex-basis
+      }
+    </code>
+  </pre>
+</section>
+
+<section>
+  <section>
+    <h2>Flex item - align self</h2>
+    <p>
+      Use <span class="hl-green">align-self</span> to override align-items for
+      an individual item
+    </p>
+
+    <pre>
+      <code class="lang-css">
+        .item {
+          align-self: auto | flex-start | flex-end | center | stretch
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <div
+      class="
+        flex-container flex-direction-row
+        justify-content-space-around
+        align-items-center
+      "
+    >
+      <div
+        class="
+          flex-container
+          flex-direction-column
+          flex-container-dark
+          flex-container-common
+          flex-container-large-width
+          align-items-center
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-align-self-flex-end">
+          A
+        </div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato flex-item-align-self-flex-start">
+          C
+        </div>
+        <div
+          class="
+            flex-item
+            flex-item-orange
+            flex-item-align-self-stretch
+            flex-item-no-width
+          "
+        >
+          D
+        </div>
+      </div>
+
+      <div style="flex-grow: 1">
+        <pre>
+        <code class="lang-css">
+          .container {
+            align-items: center;
+          }
+          
+          .blue {
+            align-self: flex-end;
+          }
+
+          .red {
+            align-self: flex-start;
+          }
+          
+          .orange {
+            align-self: stretch;
+          }
+        </code>
+      </pre>
+      </div>
+    </div>
+  </section>
+</section>
+
 <section>
   <section>
     <h2>flexbox Example</h2>
@@ -2017,6 +2632,13 @@ justify-content: space-evenly;
     </ul>
   </ul>
 </section>
+
+<section>
+  <h2>FlexBox VS Grid</h2>
+
+  <img src="./img/flex-vs-grid.png" alt="Flex vs Grid" />
+</section>
+
 <section>
   <div class="toc" data-selected="6"></div>
 </section>
