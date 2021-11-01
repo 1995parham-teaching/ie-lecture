@@ -356,6 +356,10 @@ console.log(A);  // [1]
     </p>
   </section>
   <section>
+    <p>
+      Objects <span class="hl-green">can</span> have properties and methods
+      while primitive values <span class="hl-red">can’t</span>
+    </p>
     <pre><code class="lang-javascript">
 const name = 'Darth Vader';
 name.alignment = 'Lawful evil';
@@ -365,6 +369,35 @@ name.tellTheTruth = () =&gt; {
 
 console.log(name.alignment); // undefined
 name.tellTheTruth(); // Uncaught TypeError: name.tellTheTruth is not a function
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        A wrapper object is disposed
+        <span class="hl-yellow">right after</span> a single use.
+      </li>
+      <li>
+        When you interact with a primitive value like it was an object (by
+        calling a method or reading a property from it), JavaScript creates a
+        wrapper object on the fly.
+      </li>
+      <li>
+        Due to this auto-disposal mechanism, properties and methods injected
+        into wrapper objects are immediately lost.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+const name = new String('Darth Vader');
+name.alignment = 'Lawful evil';
+name.tellTheTruth = () =&gt; {
+  console.log('Luke, I am your father!');
+};
+
+console.log(name.alignment);
+name.tellTheTruth();
     </code></pre>
   </section>
 </section>
