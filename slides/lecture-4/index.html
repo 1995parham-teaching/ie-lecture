@@ -2621,10 +2621,425 @@ h1 {
     </ul>
   </section>
 </section>
+
+<section>
+  <h2>Responsive Design</h2>
+
+  <section>
+    <p>
+      Responsive Design is the practice of making sure your content looks good
+      on all screen sizes.
+    </p>
+
+    <p>
+      Everything in the website including
+      <span class="hl-green">layouts, fonts and images</span> should
+      automatically adapt to the user's device.
+    </p>
+  </section>
+
+  <section>
+    <img src="./img/responsive-design.jpg" alt="Responsive Design" />
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Media Query</h2>
+    <p>Apply a block of CSS properties only if a certain condition is true</p>
+
+    <pre>
+      <code class="lang-css">
+      @media mediatype and (media-feature) {
+         // Styles
+      }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <h2>Media Types</h2>
+    <p>Defines the <span class="hl-green">category of device</span></p>
+    <ul>
+      <li>all: All devices</li>
+      <li>print: Print preview mode</li>
+      <li>Screen: Devices with screens</li>
+      <li>Speech: Screen readers</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Media Feature</h2>
+    <p>
+      Describe a specific
+      <span class="hl-green">characteristic of the browser</span>
+    </p>
+
+    <ul>
+      <li>width</li>
+      <li>height</li>
+      <li>orientation</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Logical Operators</h2>
+    <p>Create more complex media queries using logical operators</p>
+
+    <ul>
+      <li>and</li>
+      <li>not</li>
+      <li>, (comma)</li>
+    </ul>
+
+    <pre>
+      <code class="lang-css">
+        @media screen and (media-feature) and (media-feature) {...}
+
+        @media screen and (media-feature), print and (media-feature) {...}
+
+        @media not screen and (media-feature)
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <h2>Media Query Examples</h2>
+  <section>
+    <style>
+      .responsive-box {
+        background-color: #3498db;
+        border-radius: 100%;
+        width: 300px;
+        height: 300px;
+        border: 5px solid #e67e22 !important;
+        transition: all 0.3s ease-in;
+      }
+
+      @media screen and (max-width: 800px) {
+        .responsive-box {
+          width: 250px;
+          height: 250px;
+          background-color: #2c3e50;
+          border-radius: 10px;
+          border: 5px solid #c0392b !important;
+        }
+      }
+    </style>
+
+    <p>Try to resize the screen</p>
+    <div class="flex-container align-items-center justify-content-center">
+      <div class="responsive-box"></div>
+    </div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        @media screen and (max-width: 800px){
+          
+          .box{
+            width: 250px;
+            height: 250px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            border-color:#c0392b ;
+          }
+        }  
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      @media screen and (max-width: 600px) {
+        .responsive-flex-direction {
+          flex-direction: column;
+        }
+
+        .responsive-flex-item-full-width {
+          width: 100%;
+        }
+      }
+    </style>
+
+    <div
+      class="
+        flex-container
+        align-items-center
+        responsive-flex-direction
+        justify-content-center
+      "
+    >
+      <div class="responsive-flex-item-full-width flex-item flex-item-orange">
+        A
+      </div>
+      <div class="responsive-flex-item-full-width flex-item flex-item-green">
+        B
+      </div>
+      <div class="responsive-flex-item-full-width flex-item flex-item-blue">
+        C
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        @media screen and (max-width: 600px){
+
+          .flex-container {
+            flex-direction: column;
+          }
+
+          .flex-item {
+            width: 100%
+          }
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      .two-step-query-box {
+        background-color: #3498db;
+        width: 300px;
+        height: 300px;
+        transition: all 0.3s ease-in;
+        border-radius: 10px;
+      }
+
+      @media screen and (max-width: 800px) {
+        .two-step-query-box {
+          background-color: #2c3e50;
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        .two-step-query-box {
+          background-color: #16a085;
+        }
+      }
+    </style>
+
+    <p>You can have multiple media queries</p>
+    <div class="flex-container align-items-center justify-content-center">
+      <div class="two-step-query-box"></div>
+    </div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        @media screen and (max-width: 800px){
+          
+          .box {
+            background-color: #2c3e50;
+          }
+        } 
+        
+        @media screen and (max-width: 600px){
+          
+          .box {
+            background-color: #16a085;
+          }
+        }  
+      
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      .responsive-header {
+        padding: 20px !important;
+        background-color: #786fa6;
+      }
+
+      .responsive-main {
+        flex-grow: 1;
+        height: 390px !important;
+        background-color: #dfe6e9;
+        padding: 20px !important;
+      }
+
+      .responsive-sidebar {
+        padding: 0 40px !important;
+        height: 430px !important;
+        background-color: #34495e;
+      }
+
+      .responsive-content {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 10px;
+        margin: 10px !important;
+      }
+
+      .responsive-content-A {
+        background-color: #3498db;
+      }
+
+      .responsive-content-B {
+        background-color: #16a085;
+      }
+
+      .responsive-content-C {
+        background-color: #30336b;
+      }
+
+      @media screen and (max-width: 600px) {
+        .responsive-sidebar {
+          display: none;
+        }
+
+        .responsive-main {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <div>
+      <div class="responsive-header">Header</div>
+      <div class="flex-container">
+        <div
+          class="
+            responsive-sidebar
+            flex-container
+            align-items-center
+            justify-content-center
+          "
+        >
+          Sidebar
+        </div>
+
+        <div
+          class="
+            flex-container
+            justify-content-space-around
+            align-items-center
+            responsive-main
+          "
+        >
+          <div
+            class="
+              responsive-content responsive-content-A
+              flex-container
+              align-items-center
+              justify-content-center
+            "
+          >
+            A
+          </div>
+
+          <div
+            class="
+              responsive-content responsive-content-B
+              flex-container
+              align-items-center
+              justify-content-center
+            "
+          >
+            B
+          </div>
+
+          <div
+            class="
+              responsive-content responsive-content-C
+              flex-container
+              align-items-center
+              justify-content-center
+            "
+          >
+            C
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        @media screen and (max-width: 600px){
+
+          .sidebar {
+            display: none;
+          }
+
+          .main {
+            flex-direction: column;
+          }
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      .responsive-orientation-box {
+        background-color: #3498db;
+        border-radius: 100%;
+        width: 300px;
+        height: 300px;
+        border: 5px solid #e67e22 !important;
+        transition: all 0.3s ease-in;
+      }
+
+      @media screen and (orientation: landscape) {
+        .responsive-orientation-box {
+          width: 250px;
+          height: 250px;
+          background-color: #2c3e50;
+          border-radius: 10px;
+          border: 5px solid #c0392b !important;
+        }
+      }
+    </style>
+
+    <p>Try to change the orientation</p>
+    <div class="flex-container align-items-center justify-content-center">
+      <div class="responsive-orientation-box"></div>
+    </div>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-css">
+        @media screen and (orientation: landscape){
+          
+          .box{
+            width: 250px;
+            height: 250px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            border-color:#c0392b ;
+          }
+        }  
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <h2>Responsive Design approaches</h2>
+
+  <div style="background-color: #ecf0f1">
+    <img
+      width="70%"
+      src="./img/responsive-design-approaches.png"
+      alt="Responsive design approaches"
+    />
+  </div>
+</section>
+
 <section>
   <h2>Media Query</h2>
   <ul>
     <li>Apply conditional rules according to media</li>
+
     <pre><code class="lang-css">
 @media mediatype and (feature and|or|not feature) { CSS-rules; }
     </code></pre>
