@@ -589,15 +589,15 @@ let input = prompt("Please enter your name");
         onclick="let input = prompt('Please enter your name');"
       />
       <ul>
-        <li><code>prompt</code> returns <em>string</em></li>
+        <li><code>window.prompt</code> returns <em>string</em></li>
         <ul>
           <li>
             To convert string to integer:
-            <pre><code class="lang-javascript">i = parseInt("10");</code></pre>
+            <pre><code class="lang-javascript">i = Number.parseInt("10");</code></pre>
           </li>
           <li>
             To convert string to float:
-            <pre><code class="lang-javascript">f = parseFloat("20.2");</code></pre>
+            <pre><code class="lang-javascript">f = Number.parseFloat("20.2");</code></pre>
           </li>
         </ul>
       </ul>
@@ -615,7 +615,7 @@ let question = confirm("Do you want to continue?");
         onclick="let question = confirm('Do you want to continue?');"
       />
       <ul>
-        <li><code>confirm</code> returns a boolean</li>
+        <li><code>window.confirm</code> returns a boolean</li>
         <ul>
           <li>Ok: <code>true</code></li>
           <li>Cancel: <code>false</code></li>
@@ -924,17 +924,19 @@ console.log(p1.name, p1.family);
         Prototypes are the mechanism by which JavaScript objects inherit
         features from one another.
       </li>
-      <li>
-        In our code we define the constructor, then we create an instance object
-        from the constructor, then we add a new method to the constructor's
-        prototype:
-      </li>
     </ul>
   </section>
   <section>
     <img src="./img/prototype.png" alt="prototype" />
   </section>
   <section>
+    <ul>
+      <li>
+        In our code we define the constructor, then we create an instance object
+        from the constructor, then we add a new method to the constructor's
+        prototype:
+      </li>
+    </ul>
     <pre><code class="lang-javascript">
 function Person(first, last, age, gender, interests) {
   // property and method definitions
