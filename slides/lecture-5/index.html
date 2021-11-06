@@ -1142,84 +1142,6 @@ console.log(Bachelor.betterThan(bc1, bc2));
 </section>
 <section>
   <section>
-    <h2>Promise</h2>
-    <ul>
-      <li>
-        The <strong class="hl-orange">Promise</strong> object represents the
-        eventual completion (or failure) of an
-        <em class="hl-cyan">asynchronous</em> operation and its resulting value.
-      </li>
-      <li>
-        A <code class="hl-orange">Promise</code> is in one of these states:
-      </li>
-      <ul>
-        <li>
-          <em class="hl-yellow">pending</em>: initial state, neither fulfilled
-          nor rejected.
-        </li>
-        <li>
-          <em class="hl-green">fulfilled</em>: meaning that the operation was
-          completed successfully.
-        </li>
-        <li>
-          <em class="hl-red">rejected</em>: meaning that the operation failed.
-        </li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>
-        A pending promise can either be fulfilled with a value or rejected with
-        a reason (error).
-      </li>
-      <li>
-        When either of these options happens, the associated handlers queued up
-        by a promise's then method are called.
-      </li>
-      <li>
-        The <code class="hl-orange">.then()</code> method takes up to two
-        arguments; the first argument is a callback function for the
-        <em class="hl-green">resolved case</em> of the promise, and the second
-        argument is a callback function for the
-        <em class="hl-red">rejected case</em>.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <img src="./img/promises.png" alt="promies" />
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-// timeout is 300 millisecond
-const timeout = 300;
-
-function longCalculation(id) {
-  return new Promise((resolve, reject) =&gt; {
-    setTimeout(() =&gt; {
-      resolve(`resolved-${id}`);
-    }, timeout);
-  });
-}
-
-longCalculation(1)
-  .then((result) =&gt; {
-    console.log(`1st promise: ${result}`);
-    return longCalculation(2);
-  })
-  .then((result) =&gt; {
-    console.log(`2nd promise: ${result}`);
-    return longCalculation(3);
-  })
-  .then((result) =&gt; {
-    console.log(`3rd promise: ${result}`);
-    return;
-  });
-    </code></pre>
-  </section>
-</section>
-<section>
-  <section>
     <h2>Use Strict</h2>
     <ul>
       <li>
@@ -1403,6 +1325,84 @@ while (queue.waitForMessage()) {
         request to return, it can still process other things like user input.
       </li>
     </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Promise</h2>
+    <ul>
+      <li>
+        The <strong class="hl-orange">Promise</strong> object represents the
+        eventual completion (or failure) of an
+        <em class="hl-cyan">asynchronous</em> operation and its resulting value.
+      </li>
+      <li>
+        A <code class="hl-orange">Promise</code> is in one of these states:
+      </li>
+      <ul>
+        <li>
+          <em class="hl-yellow">pending</em>: initial state, neither fulfilled
+          nor rejected.
+        </li>
+        <li>
+          <em class="hl-green">fulfilled</em>: meaning that the operation was
+          completed successfully.
+        </li>
+        <li>
+          <em class="hl-red">rejected</em>: meaning that the operation failed.
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        A pending promise can either be fulfilled with a value or rejected with
+        a reason (error).
+      </li>
+      <li>
+        When either of these options happens, the associated handlers queued up
+        by a promise's then method are called.
+      </li>
+      <li>
+        The <code class="hl-orange">.then()</code> method takes up to two
+        arguments; the first argument is a callback function for the
+        <em class="hl-green">resolved case</em> of the promise, and the second
+        argument is a callback function for the
+        <em class="hl-red">rejected case</em>.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <img src="./img/promises.png" alt="promies" />
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
+// timeout is 300 millisecond
+const timeout = 300;
+
+function longCalculation(id) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve(`resolved-${id}`);
+    }, timeout);
+  });
+}
+
+longCalculation(1)
+  .then((result) =&gt; {
+    console.log(`1st promise: ${result}`);
+    return longCalculation(2);
+  })
+  .then((result) =&gt; {
+    console.log(`2nd promise: ${result}`);
+    return longCalculation(3);
+  })
+  .then((result) =&gt; {
+    console.log(`3rd promise: ${result}`);
+    return;
+  });
+    </code></pre>
   </section>
 </section>
 <section>
