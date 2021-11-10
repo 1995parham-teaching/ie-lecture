@@ -2272,6 +2272,65 @@ h1 {
 
 <section>
   <section>
+    <h2>Gap property</h2>
+
+    <p>You can set a gap between rows and columns</p>
+    <p><span class="hl-green">row-gap</span>: set gap between rows</p>
+    <p><span class="hl-green">column-gap</span>: set gap between columns</p>
+    <p><span class="hl-green">gap</span>: a shorthand for row-gap column-gap</p>
+
+    <pre>
+      <code class="lang-css">
+        .flex-container{
+          gap: 10px 20px;
+          // row-gap: 10px;
+          // column-gap: 20px;
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      .flex-item-no-margin {
+        margin: 0 !important;
+      }
+
+      .flex-large-gap {
+        gap: 20px;
+      }
+    </style>
+
+    <pre>
+      <code class="lang-css">
+        .container {
+          gap: 20px;
+        }
+      </code>
+    </pre>
+
+    <div class="flex-container justify-content-center flex-large-gap">
+      <div class="flex-item-no-margin flex-item flex-item-blue">A</div>
+      <div class="flex-item-no-margin flex-item flex-item-green">B</div>
+      <div class="flex-item-no-margin flex-item flex-item-tomato">C</div>
+    </div>
+  </section>
+
+  <section>
+    <p>Why don't we just use margin?</p>
+  </section>
+
+  <section>
+    <p>Gap is a useful property in responsive design</p>
+    <p>
+      We will see the difference in the
+      <span class="hl-green">media query</span> section
+    </p>
+  </section>
+</section>
+
+<section>
+  <section>
     <h2>Flex item properties</h2>
 
     <ul>
@@ -2291,10 +2350,15 @@ h1 {
       </li>
 
       <li>
+        <span class="hl-green">order</span> specifies the order inside the flex
+        container
+      </li>
+
+      <p>
         In a flex container, try to use flex-basis instead of width property.
         Because flex-basis specifies width or height depending on the value of
         flex-direction.
-      </li>
+      </p>
     </ul>
   </section>
 
@@ -2433,6 +2497,44 @@ h1 {
 
             .red {
               flex-grow: 2;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <style>
+      .flex-item-4th {
+        order: 4;
+      }
+    </style>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-4th">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            .blue {
+              order: 4;
             }
           </code>
         </pre>
@@ -2753,13 +2855,16 @@ h1 {
 
   <section>
     <style>
+      .flex-item-col-3 {
+        flex-basis: 33%;
+      }
       @media screen and (max-width: 600px) {
         .responsive-flex-direction {
-          flex-direction: column;
+          flex-wrap: wrap;
         }
 
         .responsive-flex-item-full-width {
-          width: 100%;
+          flex-basis: 100%;
         }
       }
     </style>
@@ -2772,13 +2877,28 @@ h1 {
         justify-content-center
       "
     >
-      <div class="responsive-flex-item-full-width flex-item flex-item-orange">
+      <div
+        class="
+          responsive-flex-item-full-width
+          flex-item flex-item-orange flex-item-col-3
+        "
+      >
         A
       </div>
-      <div class="responsive-flex-item-full-width flex-item flex-item-green">
+      <div
+        class="
+          responsive-flex-item-full-width
+          flex-item flex-item-green flex-item-col-3
+        "
+      >
         B
       </div>
-      <div class="responsive-flex-item-full-width flex-item flex-item-blue">
+      <div
+        class="
+          responsive-flex-item-full-width
+          flex-item flex-item-blue flex-item-col-3
+        "
+      >
         C
       </div>
     </div>
@@ -2787,14 +2907,19 @@ h1 {
   <section>
     <pre>
       <code class="lang-css">
+
+        .box {
+          flex-basis: 33%;
+        }
+
         @media screen and (max-width: 600px){
 
           .flex-container {
-            flex-direction: column;
+            flex-wrap: wrap;
           }
 
           .flex-item {
-            width: 100%
+            flex-basis: 100%
           }
         }
       </code>
@@ -2860,9 +2985,10 @@ h1 {
 
       .responsive-main {
         flex-grow: 1;
-        height: 390px !important;
         background-color: #dfe6e9;
-        padding: 20px !important;
+        padding: 20px 10px !important;
+        gap: 2%;
+        flex-wrap: wrap;
       }
 
       .responsive-sidebar {
@@ -2872,10 +2998,9 @@ h1 {
       }
 
       .responsive-content {
-        width: 100% !important;
-        height: 100% !important;
+        height: 350px !important;
         border-radius: 10px;
-        margin: 10px !important;
+        flex-basis: 32%;
       }
 
       .responsive-content-A {
@@ -2895,8 +3020,9 @@ h1 {
           display: none;
         }
 
-        .responsive-main {
-          flex-direction: column;
+        .responsive-content {
+          flex-basis: 100%;
+          margin-bottom: 10px !important;
         }
       }
     </style>
@@ -2915,14 +3041,7 @@ h1 {
           Sidebar
         </div>
 
-        <div
-          class="
-            flex-container
-            justify-content-space-around
-            align-items-center
-            responsive-main
-          "
-        >
+        <div class="flex-container flex-direction-row responsive-main">
           <div
             class="
               responsive-content responsive-content-A
@@ -2962,7 +3081,16 @@ h1 {
 
   <section>
     <pre>
-      <code class="lang-css">
+      <code class="lang-css" >
+
+        .main {
+          gap: 2%;
+        }
+
+        .box {
+          flex-basis: 32%;
+        }
+
         @media screen and (max-width: 600px){
 
           .sidebar {
@@ -2970,8 +3098,13 @@ h1 {
           }
 
           .main {
-            flex-direction: column;
+            flex-wrap: wrap; // or set it out of media query
           }
+
+          .box {
+            flex-basis: 100%;
+          }  
+
         }
       </code>
     </pre>
