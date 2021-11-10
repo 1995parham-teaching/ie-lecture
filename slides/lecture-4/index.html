@@ -2272,6 +2272,65 @@ h1 {
 
 <section>
   <section>
+    <h2>Gap property</h2>
+
+    <p>You can set a gap between rows and columns</p>
+    <p><span class="hl-green">row-gap</span>: set gap between rows</p>
+    <p><span class="hl-green">column-gap</span>: set gap between columns</p>
+    <p><span class="hl-green">gap</span>: a shorthand for row-gap column-gap</p>
+
+    <pre>
+      <code class="lang-css">
+        .flex-container{
+          gap: 10px 20px;
+          // row-gap: 10px;
+          // column-gap: 20px;
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <style>
+      .flex-item-no-margin {
+        margin: 0 !important;
+      }
+
+      .flex-large-gap {
+        gap: 20px;
+      }
+    </style>
+
+    <pre>
+      <code class="lang-css">
+        .container {
+          gap: 20px;
+        }
+      </code>
+    </pre>
+
+    <div class="flex-container justify-content-center flex-large-gap">
+      <div class="flex-item-no-margin flex-item flex-item-blue">A</div>
+      <div class="flex-item-no-margin flex-item flex-item-green">B</div>
+      <div class="flex-item-no-margin flex-item flex-item-tomato">C</div>
+    </div>
+  </section>
+
+  <section>
+    <p>Why don't we just use margin?</p>
+  </section>
+
+  <section>
+    <p>Gap is a useful property in responsive design</p>
+    <p>
+      We will see the difference in the
+      <span class="hl-green">media query</span> section
+    </p>
+  </section>
+</section>
+
+<section>
+  <section>
     <h2>Flex item properties</h2>
 
     <ul>
