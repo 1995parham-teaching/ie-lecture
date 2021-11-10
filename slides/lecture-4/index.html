@@ -2350,10 +2350,15 @@ h1 {
       </li>
 
       <li>
+        <span class="hl-green">order</span> specifies the order inside the flex
+        container
+      </li>
+
+      <p>
         In a flex container, try to use flex-basis instead of width property.
         Because flex-basis specifies width or height depending on the value of
         flex-direction.
-      </li>
+      </p>
     </ul>
   </section>
 
@@ -2492,6 +2497,44 @@ h1 {
 
             .red {
               flex-grow: 2;
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <style>
+      .flex-item-4th {
+        order: 4;
+      }
+    </style>
+    <div>
+      <div
+        class="
+          flex-container
+          justify-content-space-between
+          flex-container-dark flex-container-common
+        "
+      >
+        <div class="flex-item flex-item-blue flex-item-4th">A</div>
+        <div class="flex-item flex-item-green">B</div>
+        <div class="flex-item flex-item-tomato">C</div>
+        <div class="flex-item flex-item-orange">D</div>
+      </div>
+
+      <div>
+        <pre>
+          <code class="lang-css">
+            .container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            .blue {
+              order: 4;
             }
           </code>
         </pre>
