@@ -2762,6 +2762,13 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
   </section>
 </section>
 <section>
+  <h2>HTML Validator</h2>
+  <form>
+    <label for="age">age: </label><input name="age" type="number" /><br />
+    <label for="email">email: </label><input name="email" type="email" /><br />
+  </form>
+</section>
+<section>
   <section>
     <h2>Application 3: Working with Document</h2>
     <ul>
@@ -2951,7 +2958,10 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
           <td></td>
         </tr>
       </table>
-      <!--<li>Zoom in/out decreases/increases inner* because it makes pixels bigger/smaller</li>-->
+      <li>
+        Zoom in/out decreases/increases height/width because it makes pixels
+        bigger/smaller
+      </li>
 
       <li>History length: <span id="history"></span></li>
       <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
@@ -3200,6 +3210,45 @@ clearTimeout(hello)
       <em>file</em> schema.
     </li>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>Local Storage</h2>
+    <ul>
+      <li>
+        The <code class="hl-green">window.localStorage</code> object stores the
+        data with no expiration date.
+      </li>
+      <li>
+        Name/value pairs are always stored as strings.
+        <span class="hl-orange">Remember</span> to convert them to another
+        format when needed
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+// store
+localStorage.setItem("lastname", "Smith");
+
+// retrieve
+document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+// remove
+localStorage.removeItem("lastname");
+  </code></pre>
+  </section>
+  <section>
+    <h2>Session Storage</h2>
+    <ul>
+      <li>
+        The <code class="hl-green">window.sessionStorage</code> object is equal
+        to the localStorage object, except that it stores the data for only one
+        session.
+      </li>
+      <li>
+        The data is deleted when the user closes the specific browser tab.
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
