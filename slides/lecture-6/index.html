@@ -575,6 +575,36 @@ null
         that object is a schema that will be used to validate any additional
         properties not listed in properties.
       </li>
+    </ul>
+  </section>
+  <section>
+    <pre><code class="lang-json">
+{
+  "type": "object",
+  "properties": {
+    "number": { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "enum": ["Street", "Avenue", "Boulevard"] }
+  },
+  "additionalProperties": { "type": "string" }
+}
+    </code></pre>
+  <section>
+    <pre><code class="lang-json">
+{
+  "type": "object",
+  "properties": {
+    "number": { "type": "number" },
+    "street_name": { "type": "string" },
+    "street_type": { "enum": ["Street", "Avenue", "Boulevard"] }
+  },
+  "additionalProperties": false
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <ul>
       <li>
         By default, the properties defined by the properties keyword are
         <em class="hl-yellow">not required</em>.
