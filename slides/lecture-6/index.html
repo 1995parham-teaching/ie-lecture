@@ -800,7 +800,7 @@ console.log(JSON.parse(myObjStr));
     <pre><code class="lang-javascript">
 function parseJSON() {
   output = "";
-  input = document.getElementById("json-in-2");
+  input = document.getElementById("json-in-2").value;
   jsonData = JSON.parse(input);
 
   for (i = 0; i &lt; jsonData.messages.length; i++) {
