@@ -926,6 +926,213 @@ document.getElementById("json-btn-2").onclick = parseJSON;
   </ul>
 </section>
 <section>
+  <h2>Thrift Definition File</h2>
+  <pre><code class="lang-thrift">
+/**
+ * Thrift files can reference other Thrift files to include common struct
+ * and service definitions. These are found using the current path, or by
+ * searching relative to any paths specified with the -I compiler flag.
+ *
+ * Included objects are accessed using the name of the .thrift file as a
+ * prefix. i.e. shared.SharedObject
+ */
+include "shared.thrift"
+
+/**
+ * You can define enums, which are just 32 bit integers. Values are optional
+ * and start at 1 if not supplied, C style again.
+ */
+enum Operation {
+ ADD = 1,
+ SUBTRACT = 2,
+ MULTIPLY = 3,
+ DIVIDE = 4
+}
+
+/**
+ * Structs are the basic complex data structures. They are comprised of fields
+ * which each have an integer identifier, a type, a symbolic name, and an
+ * optional default value.
+ *
+ * Fields can be declared "optional", which ensures they will not be included
+ * in the serialized output if they aren't set.  Note that this requires some
+ * manual management in some languages.
+ */
+struct Work {
+  1: i32 num1 = 0,
+  2: i32 num2,
+  3: Operation op,
+  4: optional string comment,
+}
+
+/**
+ * Structs can also be exceptions, if they are nasty.
+ */
+exception InvalidOperation {
+  1: i32 whatOp,
+  2: string why
+}
+
+/**
+ * Ahh, now onto the cool part, defining a service. Services just need a name
+ * and can optionally inherit from another service using the extends keyword.
+ */
+service Calculator extends shared.SharedService {
+
+  /**
+   * A method definition looks like C code. It has a return type, arguments,
+   * and optionally a list of exceptions that it may throw. Note that argument
+   * lists and exception lists are specified using the exact same syntax as
+   * field lists in struct or exception definitions.
+   */
+
+   void ping(),
+
+   i32 add(1:i32 num1, 2:i32 num2),
+
+   i32 calculate(1:i32 logid, 2:Work w) throws (1:InvalidOperation ouch),
+
+   /**
+    * This method has a oneway modifier. That means the client only makes
+    * a request and does not listen for any response at all. Oneway methods
+    * must be void.
+    */
+   oneway void zip()
+
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Python Client</h2>
+  <pre><code class="lang-python">
+if __name__ == "__main__":
+    # Make socket
+    transport = TSocket.TSocket('localhost', 9090)
+
+    # Buffering is critical. Raw sockets are very slow
+    transport = TTransport.TBufferedTransport(transport)
+
+    # Wrap in a protocol
+    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+
+    # Create a client to use the protocol encoder
+    client = Calculator.Client(protocol)
+
+    # Connect!
+    transport.open()
+
+    client.ping()
+    print('ping()')
+
+    sum_ = client.add(1, 1)
+  </code></pre>
+</section>
+<section>
+  <h2>Java Server</h2>
+  <pre><code class="lang-java">
+public static void main(String [] args) {
+   try {
+     handler = new CalculatorHandler();
+     processor = new Calculator.Processor(handler);
+
+     Runnable simple = new Runnable() {
+       public void run() {
+         simple(processor);
+       }
+     };
+
+     new Thread(simple).start();
+     new Thread(secure).start();
+   } catch (Exception x) {
+     x.printStackTrace();
+   }
+}
+
+public static void simple(Calculator.Processor processor) {
+  try {
+    TServerTransport serverTransport = new TServerSocket(9090);
+    TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
+
+    // Use this for a multithreaded server
+    // TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
+
+    System.out.println("Starting the simple server...");
+    server.serve();
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Java Handler</h2>
+  <pre><code class="lang-java">
+public class CalculatorHandler implements Calculator.Iface {
+
+  private HashMap<Integer,SharedStruct> log;
+
+  public CalculatorHandler() {
+    log = new HashMap<Integer, SharedStruct>();
+  }
+
+  public void ping() {
+    System.out.println("ping()");
+  }
+
+  public int add(int n1, int n2) {
+    System.out.println("add(" + n1 + "," + n2 + ")");
+    return n1 + n2;
+  }
+
+  public int calculate(int logid, Work work) throws InvalidOperation {
+    System.out.println("calculate(" + logid + ", {" + work.op + "," + work.num1 + "," + work.num2 + "})");
+    int val = 0;
+    switch (work.op) {
+    case ADD:
+      val = work.num1 + work.num2;
+      break;
+    case SUBTRACT:
+      val = work.num1 - work.num2;
+      break;
+    case MULTIPLY:
+      val = work.num1 * work.num2;
+      break;
+    case DIVIDE:
+      if (work.num2 == 0) {
+        InvalidOperation io = new InvalidOperation();
+        io.whatOp = work.op.getValue();
+        io.why = "Cannot divide by 0";
+        throw io;
+      }
+      val = work.num1 / work.num2;
+      break;
+    default:
+      InvalidOperation io = new InvalidOperation();
+      io.whatOp = work.op.getValue();
+      io.why = "Unknown operation";
+      throw io;
+    }
+
+    SharedStruct entry = new SharedStruct();
+    entry.key = logid;
+    entry.value = Integer.toString(val);
+    log.put(logid, entry);
+
+    return val;
+  }
+
+  public SharedStruct getStruct(int key) {
+    System.out.println("getStruct(" + key + ")");
+    return log.get(key);
+  }
+
+  public void zip() {
+    System.out.println("zip()");
+  }
+}
+  </code></pre>
+</section>
+<section>
   <div class="toc" data-selected="4"></div>
 </section>
 <section>
