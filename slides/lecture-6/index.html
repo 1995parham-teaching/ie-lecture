@@ -589,8 +589,8 @@ null
   "additionalProperties": { "type": "string" }
 }
     </code></pre>
-  <section>
-    <pre><code class="lang-json">
+    <section>
+      <pre><code class="lang-json">
 {
   "type": "object",
   "properties": {
@@ -601,23 +601,23 @@ null
   "additionalProperties": false
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Object (Contd.)</h2>
-    <ul>
-      <li>
-        By default, the properties defined by the properties keyword are
-        <em class="hl-yellow">not required</em>.
-      </li>
-      <li>
-        The <code class="hl-orange">required</code> keyword takes an array of
-        zero or more strings.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Object (Contd.)</h2>
-    <pre><code class="lang-json">
+    </section>
+    <section>
+      <h2>Object (Contd.)</h2>
+      <ul>
+        <li>
+          By default, the properties defined by the properties keyword are
+          <em class="hl-yellow">not required</em>.
+        </li>
+        <li>
+          The <code class="hl-orange">required</code> keyword takes an array of
+          zero or more strings.
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Object (Contd.)</h2>
+      <pre><code class="lang-json">
 {
   "type": "object",
   "properties": {
@@ -629,29 +629,29 @@ null
   "required": ["name", "email"]
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Array</h2>
-    <ul>
-      <li>Arrays are used for ordered elements.</li>
-      <li>In JSON, each element in an array may be of a different type.</li>
-      <pre><code class="lang-json">
+    </section>
+    <section>
+      <h2>Array</h2>
+      <ul>
+        <li>Arrays are used for ordered elements.</li>
+        <li>In JSON, each element in an array may be of a different type.</li>
+        <pre><code class="lang-json">
 { "type": "array" }
       </code></pre>
-      <li>
-        List validation is useful for arrays of arbitrary length where each item
-        matches the <em class="hl-yellow">same schema</em>.
-      </li>
-      <li>
-        For this kind of array, set the
-        <code class="hl-orange">items</code> keyword to a single schema that
-        will be used to validate all of the items in the array.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Array (Contd.)</h2>
-    <pre><code class="lang-json">
+        <li>
+          List validation is useful for arrays of arbitrary length where each
+          item matches the <em class="hl-yellow">same schema</em>.
+        </li>
+        <li>
+          For this kind of array, set the
+          <code class="hl-orange">items</code> keyword to a single schema that
+          will be used to validate all of the items in the array.
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Array (Contd.)</h2>
+      <pre><code class="lang-json">
 {
   "type": "array",
   "items": {
@@ -659,10 +659,10 @@ null
   }
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Example</h2>
-    <pre><code class="lang-json">
+    </section>
+    <section>
+      <h2>Example</h2>
+      <pre><code class="lang-json">
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Product",
@@ -688,10 +688,10 @@ null
    }
 }
     </code></pre>
-  </section>
-  <section>
-    <h2>Example (Contd.)</h2>
-    <pre><code class="lang-json">
+    </section>
+    <section>
+      <h2>Example (Contd.)</h2>
+      <pre><code class="lang-json">
 {
   "id": 1,
   "name": "Foo",
@@ -706,71 +706,71 @@ null
   }
 }
     </code></pre>
+    </section>
+    <section>
+      <h2>JSON Schema Validator</h2>
+      <ul>
+        <li>
+          <a href="https://json-schema.org/implementations.html">
+            Validators available</a
+          >
+        </li>
+        <ul>
+          <li>
+            <a href="https://www.jsonschemavalidator.net/">As Online tools</a>
+          </li>
+          <li>As programming languages libraries</li>
+          <li>Standalone tools</li>
+        </ul>
+      </ul>
+    </section>
   </section>
   <section>
-    <h2>JSON Schema Validator</h2>
+    <div class="toc" data-selected="2"></div>
+  </section>
+  <section>
     <ul>
       <li>
-        <a href="https://json-schema.org/implementations.html">
-          Validators available</a
-        >
+        <code class="hl-orange">The JSON object</code>, has two very useful
+        methods to deal with JSON-formatted content
       </li>
       <ul>
         <li>
-          <a href="https://www.jsonschemavalidator.net/">As Online tools</a>
+          <code class="hl-green">JSON.parse()</code> takes a JSON string and
+          transforms it into a JavaScript object
         </li>
-        <li>As programming languages libraries</li>
-        <li>Standalone tools</li>
+        <li>
+          <code class="hl-green">JSON.stringify()</code> takes a JavaScript
+          object and transforms it into a JSON string
+        </li>
       </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <div class="toc" data-selected="2"></div>
-</section>
-<section>
-  <ul>
-    <li>
-      <code class="hl-orange">The JSON object</code>, has two very useful
-      methods to deal with JSON-formatted content
-    </li>
-    <ul>
-      <li>
-        <code class="hl-green">JSON.parse()</code> takes a JSON string and
-        transforms it into a JavaScript object
-      </li>
-      <li>
-        <code class="hl-green">JSON.stringify()</code> takes a JavaScript object
-        and transforms it into a JSON string
-      </li>
-    </ul>
-    <pre><code class="lang-javascript">
+      <pre><code class="lang-javascript">
 let myObj = { a: '1', b: 2, c: '3' };
 let myObjStr = JSON.stringify(myObj);
 console.log(myObjStr);
 console.log(JSON.parse(myObjStr));
     </code></pre>
-    <button id="json-btn">Run</button>
-    <div id="json-out"></div>
-    <script>
-      function convert() {
-        let myObj = { a: "1", b: 2, c: "3" };
-        let myObjStr = JSON.stringify(myObj);
+      <button id="json-btn">Run</button>
+      <div id="json-out"></div>
+      <script>
+        function convert() {
+          let myObj = { a: "1", b: 2, c: "3" };
+          let myObjStr = JSON.stringify(myObj);
 
-        document.getElementById("json-out").innerHTML = `
+          document.getElementById("json-out").innerHTML = `
         ${myObjStr}<br>
         ${JSON.parse(myObjStr)}
         `;
-      }
+        }
 
-      document.getElementById("json-btn").onclick = convert;
-    </script>
-  </ul>
-</section>
-<section>
+        document.getElementById("json-btn").onclick = convert;
+      </script>
+    </ul>
+  </section>
   <section>
-    <h2>Example Message Parser</h2>
-    <pre><code class="lang-json">
+    <section>
+      <h2>Example Message Parser</h2>
+      <pre><code class="lang-json">
 {
   "type": "object",
   "properties": {
@@ -794,9 +794,9 @@ console.log(JSON.parse(myObjStr));
   }
 }
     </code></pre>
-  </section>
-  <section>
-    <textarea id="json-in-2" cols="70" rows="10">
+    </section>
+    <section>
+      <textarea id="json-in-2" cols="70" rows="10">
 {
   "messages": [
     {
@@ -806,28 +806,29 @@ console.log(JSON.parse(myObjStr));
     }
   ]
 }
-    </textarea>
-    <button id="json-btn-2">Run</button>
-    <div id="json-out-2"></div>
-    <script>
-      function parseJSON() {
-        output = "";
-        input = document.getElementById("json-in-2").value;
-        jsonData = JSON.parse(input);
+    </textarea
+      >
+      <button id="json-btn-2">Run</button>
+      <div id="json-out-2"></div>
+      <script>
+        function parseJSON() {
+          output = "";
+          input = document.getElementById("json-in-2").value;
+          jsonData = JSON.parse(input);
 
-        for (i = 0; i < jsonData.messages.length; i++) {
-          msg = jsonData.messages[i];
-          output += `
+          for (i = 0; i < jsonData.messages.length; i++) {
+            msg = jsonData.messages[i];
+            output += `
             ${msg.from} sent the following message to ${msg.to}<br />${msg.body}<hr />`;
-        }
+          }
 
-        document.getElementById("json-out-2").innerHTML = output;
-      }
-      document.getElementById("json-btn-2").onclick = parseJSON;
-    </script>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
+          document.getElementById("json-out-2").innerHTML = output;
+        }
+        document.getElementById("json-btn-2").onclick = parseJSON;
+      </script>
+    </section>
+    <section>
+      <pre><code class="lang-javascript">
 function parseJSON() {
   output = "";
   input = document.getElementById("json-in-2").value;
@@ -842,122 +843,122 @@ function parseJSON() {
 }
 document.getElementById("json-btn-2").onclick = parseJSON;
     </code></pre>
+    </section>
   </section>
-</section>
-<section>
-  <div class="toc" data-selected="3"></div>
-</section>
-<section>
-  <h2>Based on</h2>
-  <ul>
-    <li>Alireza Mohammadi</li>
-    <li>Amir Hallaji Bidgoli</li>
-    <li>Spring 2021</li>
-  </ul>
-  <br />
-  <img style="height: 250px" src="img/thrift.png" alt="thrift" />
-</section>
-<section>
-  <h2>Introduction</h2>
-  <ul>
-    <li>
-      Apache Thrift is an open source, cross-language serialization and remote
-      procedure call (RPC) framework.
-    </li>
-    <li>
-      With support for more than 20 programming languages, Apache Thrift can
-      play an important role in many distributed application solutions.
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Introduction (Cont.)</h2>
-  <ul>
-    <li>
-      As a serialization platform, it enables efficient cross-language storage
-      and retrieval of a wide range of data structures.
-    </li>
-    <li>
-      As an RPC framework, Apache Thrift enables rapid development of complete
-      cross-language services with little more than a few lines of code.
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Introduction (Cont.)</h2>
-  <p>Languages supported by Apache Thrift :</p>
-  <table>
-    <tr>
-      <td>Go</td>
-      <td>C</td>
-      <td>Python</td>
-    </tr>
-    <tr>
-      <td>JavaScript</td>
-      <td>C++</td>
-      <td>TypeScript</td>
-    </tr>
-    <tr>
-      <td>OCaml</td>
-      <td>Objective-C</td>
-      <td>ActionScript</td>
-    </tr>
-    <tr>
-      <td>Ruby</td>
-      <td>Haxe</td>
-      <td>Cappuccino</td>
-    </tr>
-    <tr>
-      <td>AS3</td>
-      <td>Node.js</td>
-      <td>Cocoa</td>
-    </tr>
-    <tr>
-      <td>D</td>
-      <td>Php</td>
-      <td>Elixir</td>
-    </tr>
-    <tr>
-      <td>Dart</td>
-      <td>Smalltalk</td>
-      <td>Scala</td>
-    </tr>
-    <tr>
-      <td>Haskell</td>
-      <td>C#</td>
-      <td>Swift</td>
-    </tr>
-    <tr>
-      <td>Lua</td>
-      <td>Erlang</td>
-      <td>Delphi</td>
-    </tr>
-    <tr>
-      <td>Perl</td>
-      <td>Java</td>
-      <td>Rust</td>
-    </tr>
-  </table>
-</section>
-<section>
-  <img src="./img/thrift-efficiency.png" style="display: inline-block" />
-</section>
-<section>
-  <h2>Brief History</h2>
-  <ul>
-    <li>
-      It was developed at <span class="hl-cyan">Facebook</span> and it is now an
-      open source project in the Apache Software Foundation.
-    </li>
-    <li>
-      The implementation was described in an April 2007 technical paper released
-      by Facebook, now hosted on Apache.
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Thrift Definition File</h2>
-  <pre><code class="lang-thrift">
+  <section>
+    <div class="toc" data-selected="3"></div>
+  </section>
+  <section>
+    <h2>Based on</h2>
+    <ul>
+      <li>Alireza Mohammadi</li>
+      <li>Amir Hallaji Bidgoli</li>
+      <li>Spring 2021</li>
+    </ul>
+    <br />
+    <img style="height: 250px" src="img/thrift.png" alt="thrift" />
+  </section>
+  <section>
+    <h2>Introduction</h2>
+    <ul>
+      <li>
+        Apache Thrift is an open source, cross-language serialization and remote
+        procedure call (RPC) framework.
+      </li>
+      <li>
+        With support for more than 20 programming languages, Apache Thrift can
+        play an important role in many distributed application solutions.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Introduction (Cont.)</h2>
+    <ul>
+      <li>
+        As a serialization platform, it enables efficient cross-language storage
+        and retrieval of a wide range of data structures.
+      </li>
+      <li>
+        As an RPC framework, Apache Thrift enables rapid development of complete
+        cross-language services with little more than a few lines of code.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Introduction (Cont.)</h2>
+    <p>Languages supported by Apache Thrift :</p>
+    <table>
+      <tr>
+        <td>Go</td>
+        <td>C</td>
+        <td>Python</td>
+      </tr>
+      <tr>
+        <td>JavaScript</td>
+        <td>C++</td>
+        <td>TypeScript</td>
+      </tr>
+      <tr>
+        <td>OCaml</td>
+        <td>Objective-C</td>
+        <td>ActionScript</td>
+      </tr>
+      <tr>
+        <td>Ruby</td>
+        <td>Haxe</td>
+        <td>Cappuccino</td>
+      </tr>
+      <tr>
+        <td>AS3</td>
+        <td>Node.js</td>
+        <td>Cocoa</td>
+      </tr>
+      <tr>
+        <td>D</td>
+        <td>Php</td>
+        <td>Elixir</td>
+      </tr>
+      <tr>
+        <td>Dart</td>
+        <td>Smalltalk</td>
+        <td>Scala</td>
+      </tr>
+      <tr>
+        <td>Haskell</td>
+        <td>C#</td>
+        <td>Swift</td>
+      </tr>
+      <tr>
+        <td>Lua</td>
+        <td>Erlang</td>
+        <td>Delphi</td>
+      </tr>
+      <tr>
+        <td>Perl</td>
+        <td>Java</td>
+        <td>Rust</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <img src="./img/thrift-efficiency.png" style="display: inline-block" />
+  </section>
+  <section>
+    <h2>Brief History</h2>
+    <ul>
+      <li>
+        It was developed at <span class="hl-cyan">Facebook</span> and it is now
+        an open source project in the Apache Software Foundation.
+      </li>
+      <li>
+        The implementation was described in an April 2007 technical paper
+        released by Facebook, now hosted on Apache.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Thrift Definition File</h2>
+    <pre><code class="lang-thrift">
 /**
  * Thrift files can reference other Thrift files to include common struct
  * and service definitions. These are found using the current path, or by
@@ -1031,10 +1032,10 @@ service Calculator extends shared.SharedService {
 
 }
   </code></pre>
-</section>
-<section>
-  <h2>Python Client</h2>
-  <pre><code class="lang-python">
+  </section>
+  <section>
+    <h2>Python Client</h2>
+    <pre><code class="lang-python">
 if __name__ == "__main__":
     # Make socket
     transport = TSocket.TSocket('localhost', 9090)
@@ -1056,10 +1057,10 @@ if __name__ == "__main__":
 
     sum_ = client.add(1, 1)
   </code></pre>
-</section>
-<section>
-  <h2>Java Server</h2>
-  <pre><code class="lang-java">
+  </section>
+  <section>
+    <h2>Java Server</h2>
+    <pre><code class="lang-java">
 public static void main(String [] args) {
    try {
      handler = new CalculatorHandler();
@@ -1093,16 +1094,16 @@ public static void simple(Calculator.Processor processor) {
   }
 }
   </code></pre>
-</section>
-<section>
-  <h2>Java Handler</h2>
-  <pre><code class="lang-java">
+  </section>
+  <section>
+    <h2>Java Handler</h2>
+    <pre><code class="lang-java">
 public class CalculatorHandler implements Calculator.Iface {
 
-  private HashMap<Integer,SharedStruct> log;
+  private HashMap&lt;Integer,SharedStruct&gt; log;
 
   public CalculatorHandler() {
-    log = new HashMap<Integer, SharedStruct>();
+    log = new HashMap&lt;Integer, SharedStruct&gt;();
   }
 
   public void ping() {
@@ -1161,28 +1162,29 @@ public class CalculatorHandler implements Calculator.Iface {
   }
 }
   </code></pre>
-</section>
-<section>
-  <div class="toc" data-selected="4"></div>
-</section>
-<section>
-  <h2>What are the Next?!</h2>
-  <ul>
-    <li>Other related technologies in data exchange</li>
+  </section>
+  <section>
+    <div class="toc" data-selected="4"></div>
+  </section>
+  <section>
+    <h2>What are the Next?!</h2>
     <ul>
-      <li>Protocol Buffers</li>
-      <li>Thrift</li>
-      <li>YAML (YAML Ain't Markup Language)</li>
+      <li>Other related technologies in data exchange</li>
+      <ul>
+        <li>Protocol Buffers</li>
+        <li>Thrift</li>
+        <li>YAML (YAML Ain't Markup Language)</li>
+      </ul>
     </ul>
-  </ul>
-</section>
-<section>
-  <h2>References 📚</h2>
-  <ul>
-    <li><a href="https://json-schema.org/">https://json-schema.org/</a></li>
-    <li>
-      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
-      Internet Eng. Course's Slides
-    </li>
-  </ul>
+  </section>
+  <section>
+    <h2>References 📚</h2>
+    <ul>
+      <li><a href="https://json-schema.org/">https://json-schema.org/</a></li>
+      <li>
+        <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
+        Internet Eng. Course's Slides
+      </li>
+    </ul>
+  </section>
 </section>
