@@ -25,3 +25,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           jekyll_build_options: -b IE-lecture
+          pre_build_commands: 'bundle update ffi'
