@@ -1,0 +1,491 @@
+---
+lecture: false
+title: React
+topics:
+  - Introduction
+  - Components
+  - JSX
+  - Props
+  - State
+  - Component Styling
+  - Fetch External Data
+---
+
+<section
+  data-background-image="img/background.jpg"
+  data-background-size="cover"
+  data-background-repeat="no-repeat"
+>
+  <div class="header">
+    <h2>Introduction to</h2>
+    <h1>React</h1>
+    <h3>Amirhossein Nouri</h3>
+    <h5>
+      <a target="_blank" href="https://github.com/amirhosseinnouri">Github</a>
+    </h5>
+  </div>
+</section>
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>What is React?</h2>
+  <p>
+    React is a declarative JavaScript library for building user interfaces
+    specifically for single-page applications (SPA).
+  </p>
+  <p>It is open source and created by facebook (meta) in 2013.</p>
+</section>
+
+<section>
+  <img src="./img/wait-what.jpg" alt="wait what?" />
+</section>
+
+<section>
+  <h2>Declarative</h2>
+  <img
+    width="600"
+    src="./img/declarative-imperative.png"
+    alt="declarative vs imperative"
+  />
+  <p><span class="hl-green">Declarative:</span> Tell me what you want to do</p>
+  <p><span class="hl-green">Imperative:</span> Tell me how to do it</p>
+</section>
+
+<section>
+  <h2>Single Page Application (SPA)</h2>
+  <p>
+    Single-page application is a web app implementation that loads only a single
+    web document, and then updates the body content of that single document via
+    JavaScript.
+  </p>
+
+  <span class="hl-green"><p>No refresh required for navigation!</p></span>
+  <a target="_blank" href="https://app.starbucks.com/">
+    <p>Here is an example</p></a
+  >
+</section>
+
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+
+<section>
+  <h2>Component</h2>
+  <p>
+    Components are the <span class="hl-green">building blocks</span> of any
+    React app.
+  </p>
+  <p>
+    Components let you split the UI into
+    <span class="hl-green">independent</span>,
+    <span class="hl-green">reusable</span> pieces, and think about each piece in
+    isolation.
+  </p>
+  <a href="https://app.snapp.taxi/" target="_blank">
+    <p>Let check Snapp's components</p>
+  </a>
+</section>
+
+<section>
+  <section>
+    <h2>How can we create a component?</h2>
+    <p>We have two types of components</p>
+    <ol>
+      <li>Class component</li>
+      <li>Functional component</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Class component</h2>
+
+    <pre>
+      <code class="lang-js">
+        class Button {
+
+          render(){
+
+            return (
+              <button>Click me!</button>
+            );
+          }
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <h2>Functional component</h2>
+
+    <pre>
+      <code class="lang-js">
+        function Button(){
+
+          return (
+              <button>Click me!</button>
+          );
+        }
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>So ...</h2>
+    <p>
+      A component is a function that returns HTML or a javascript class that
+      returns HTML inside it's render method
+    </p>
+  </section>
+
+  <section>
+    <img src="./img/not-really.jpg" alt="Not really" />
+  </section>
+
+  <section>
+    <p>We can have something like this</p>
+    <pre>
+      <code class="lang-js">
+        function Button(){
+
+          const text = 'Click me!!!';
+          return (
+              <button>{text}</button>
+          );
+        }        
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Or something like this</p>
+    <pre>
+      <code class="lang-js">
+        function Button(){
+
+          return (
+            {
+              isLoading? (<button>Loading...</button>) : (<button>Now you can click me</button>);
+            }
+            
+          );
+        }        
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <img src="./img/jsx.png" alt="JSX" />
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>JSX</h2>
+
+    <ul>
+      <li>Rendering logic is inherently coupled with UI logic</li>
+      <li>So we need a way to have HTML and UI logic in one place</li>
+      <li>We can use JSX</li>
+      <li>JSX stands for JavaScript XML</li>
+    </ul>
+  </section>
+
+  <section>
+    <p>
+      We can start writing javascript inside JSX inside
+      <span class="hl-green">{ }</span>
+    </p>
+    <pre>
+      <code class="lang-js">
+        function Button(){
+
+          const text = 'Click me!!!';
+          return (
+              <button>{text}</button>
+          );
+        }  
+        
+        function Date(){
+
+          return (
+              <p>We're in {new Date().getFullYear()}</p>
+              {/* We're in 2021 */}
+          );
+        }        
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Composing Components</p>
+    <pre>
+      <code class="lang-js">
+        function HomePage(){
+
+          return (
+            <Page>
+              <Header>
+                <Navigation>
+                  ...
+                </Navigation>
+              </Header>
+              <Main>
+                <div>
+                  <Profile></Profile>
+                  <Articles></Articles>
+                  <Videos></Videos>
+                </div>
+              </Main>
+            </Page>
+            
+          );
+        } 
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>We can render conditionally</p>
+    <pre>
+      <code class="lang-js">
+        function NotificationButton(){
+
+          return (
+            <Button></Button>
+            {hasNewNotification && (<NotificationBadge></NotificationBadge>)}
+            
+          );
+        } 
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <p>Is this component reusable?</p>
+
+    <pre>
+    <code class="lang-js">
+      function Button(){
+
+        return (
+            <button>Click me!!!</button>
+        );
+      }        
+    </code>
+  </pre>
+
+    <p>What if we want a button with 'submit' text?</p>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-js">
+        function ClickMeButton(){
+  
+          return (
+              <button>Click me!!!</button>
+          );
+        }        
+      </code>
+    </pre>
+    <pre>
+      <code class="lang-js">
+        function SubmitButton(){
+  
+          return (
+              <button>Submit</button>
+          );
+        }        
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>How can we make this component reusable?</p>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+
+<section>
+  <section>
+    <h2>Props</h2>
+    <p>Props are arguments passed into React components.</p>
+    <ul>
+      <li>
+        stands for <span class="hl-green">properties</span> and is being used
+        for passing data from one component to another
+      </li>
+      <li>
+        Props are being passed in a
+        <span class="hl-green">uni-directional</span> flow. (one way from parent
+        to child)
+      </li>
+      <li>
+        Props is <span class="hl-green">read-only</span>, which means that data
+        coming from the parent should not be changed by child components.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How can we use Props?</h2>
+    <ol>
+      <li>Define the prop in parent (where we want to render the component)</li>
+      <li>Pass it down to the component</li>
+      <li>Render the prop in the component</li>
+    </ol>
+  </section>
+
+  <section>
+    <p>Define props and pass them down to components</p>
+
+    <pre>
+      <code class="lang-js">
+        <Form>
+          <Button text="Sign up"></Button>
+          <Button text="Login"></Button>
+        </Form>
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Render prop inside the component</p>
+
+    <pre>
+      <code class="lang-js">
+        function Button(props){
+
+          return (
+            <button>{props.text}</button>
+          )
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Components can have multiple prop</p>
+
+    <pre>
+      <code class="lang-js">
+        function Coffee({name, img, description, price}){
+
+          return (
+            <article>
+              <img src={img} alt={name}>
+              <h4>{name}</h4>
+              <h5>{price}</h5>
+              <p>{description}</p>
+            </article>
+          );
+
+        }
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+
+<section>
+  <section>
+    <h2>State</h2>
+    <p>React components can have internal state</p>
+    <p>State is like a component's memory</p>
+    <p>
+      When the state changes, react will update the UI automatically (re-render)
+    </p>
+  </section>
+
+  <section>
+    <p>Lets implement a counter component and see the state in action</p>
+  </section>
+
+  <section>
+    <pre>
+      <code class="lang-js">
+        function Counter(){
+          let counterValue = 0;
+
+          const handleIncrementClick = () => counterValue ++;
+
+          return (
+            <p>Counter value is: {counterValue}</p>
+            <button onclick={handleIncrementClick}>Increment</button>
+          )
+        }
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Clicking the button will increase the counter value</p>
+    <p>But it wont update the UI</p>
+    <p>Now, we can use <span class="hl-green">state</span></p>
+  </section>
+
+  <section>
+    <p>We can define state with <hl-green>useState</hl-green> function</p>
+
+    <pre>
+      <code class="lang-js">
+        const [value, setValue] = useState(initialValue);
+        // value is the actual state.
+        // setValue is a special function to update the value.
+        // By Calling setValue(newValue), state and UI will be updated.
+        // You can name them whatever you want.
+        // You can have as many state as you want (multiple useState call).
+      </code>
+    </pre>
+  </section>
+
+  <section>
+    <p>Lets define the state</p>
+
+    <pre>
+      <code class="lang-js">
+        function Counter(){
+          const [value, setValue] = useState(0);
+
+          const handleIncrementClick = () => counterValue ++;
+
+          return (
+            <p>Counter value is: {value}</p>
+            <button onclick={handleIncrementClick}>Increment</button>
+          )
+        }      
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
+  <div class="toc" data-selected="5"></div>
+</section>
+
+<section>
+  <h2>Component Styling</h2>
+  <p>Lets see component styling in action</p>
+</section>
+
+<section>
+  <div class="toc" data-selected="6"></div>
+</section>
+
+<section>
+  <h2>Fetch External Data</h2>
+  <p>Lets see fetching external data in action</p>
+</section>
