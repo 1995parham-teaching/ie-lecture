@@ -533,25 +533,57 @@ topics:
   </section>
 </section>
 <section>
-  <h2>Asynchronous Messages</h2>
-  <ul>
-    <li>More flexible</li>
-    <li>
-      By announcing <strong class="hl-orange">events</strong>, you make it easy
-      to extend the system to handle new requirements, because services no
-      longer need to have knowledge of their downstream consumers.
-    </li>
-    <li>
-      Asynchronous messaging typically requires a
-      <em class="hl-gree">communication broker</em>
-    </li>
+  <section>
+    <h2>Asynchronous Messages</h2>
     <ul>
+      <li>More flexible</li>
       <li>
-        An independent system component that receives events and distributes
-        them to event consumers.
+        By announcing <strong class="hl-orange">events</strong>, you make it
+        easy to extend the system to handle new requirements, because services
+        no longer need to have knowledge of their downstream consumers.
       </li>
+      <li>
+        Asynchronous messaging typically requires a
+        <em class="hl-green">communication broker</em>
+      </li>
+      <ul>
+        <li>
+          An independent system component that receives events and distributes
+          them to event consumers.
+        </li>
+      </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <img src="./img/asyn-messaging.png" />
+  </section>
+  <section>
+    <h3>Solutions</h3>
+    <ul>
+      <li>EMQ (MQTT) in erlang</li>
+      <li>VerneMQ (MQTT) in erlang</li>
+      <li>RabbitMQ (AMQP) in erlang</li>
+      <li>NATS (NATS) in golang</li>
+      <li>...</li>
+    </ul>
+  </section>
+  <section>
+    <h3>Quality of Service</h3>
+    <ul>
+      <li>Fire and Forget</li>
+      <li>at-least-once Delivery</li>
+      <li>exactly-once Delivery</li>
+      <li>...</li>
+    </ul>
+  </section>
+  <section>
+    <h3>Performance Criteria</h3>
+    <ul>
+      <li>Number of Concurrent Connections</li>
+      <li>Messages per Second</li>
+      <li>Connections per Second</li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>References 📚</h2>
