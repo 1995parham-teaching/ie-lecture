@@ -600,23 +600,23 @@ null
   "additionalProperties": false
 }
     </code></pre>
-    </section>
-    <section>
-      <h2>Object (Contd.)</h2>
-      <ul>
-        <li>
-          By default, the properties defined by the properties keyword are
-          <em class="hl-yellow">not required</em>.
-        </li>
-        <li>
-          The <code class="hl-orange">required</code> keyword takes an array of
-          zero or more strings.
-        </li>
-      </ul>
-    </section>
-    <section>
-      <h2>Object (Contd.)</h2>
-      <pre><code class="lang-json">
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <ul>
+      <li>
+        By default, the properties defined by the properties keyword are
+        <em class="hl-yellow">not required</em>.
+      </li>
+      <li>
+        The <code class="hl-orange">required</code> keyword takes an array of
+        zero or more strings.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Object (Contd.)</h2>
+    <pre><code class="lang-json">
 {
   "type": "object",
   "properties": {
@@ -628,29 +628,29 @@ null
   "required": ["name", "email"]
 }
     </code></pre>
-    </section>
-    <section>
-      <h2>Array</h2>
-      <ul>
-        <li>Arrays are used for ordered elements.</li>
-        <li>In JSON, each element in an array may be of a different type.</li>
-        <pre><code class="lang-json">
+  </section>
+  <section>
+    <h2>Array</h2>
+    <ul>
+      <li>Arrays are used for ordered elements.</li>
+      <li>In JSON, each element in an array may be of a different type.</li>
+      <pre><code class="lang-json">
 { "type": "array" }
       </code></pre>
-        <li>
-          List validation is useful for arrays of arbitrary length where each
-          item matches the <em class="hl-yellow">same schema</em>.
-        </li>
-        <li>
-          For this kind of array, set the
-          <code class="hl-orange">items</code> keyword to a single schema that
-          will be used to validate all of the items in the array.
-        </li>
-      </ul>
-    </section>
-    <section>
-      <h2>Array (Contd.)</h2>
-      <pre><code class="lang-json">
+      <li>
+        List validation is useful for arrays of arbitrary length where each item
+        matches the <em class="hl-yellow">same schema</em>.
+      </li>
+      <li>
+        For this kind of array, set the
+        <code class="hl-orange">items</code> keyword to a single schema that
+        will be used to validate all of the items in the array.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Array (Contd.)</h2>
+    <pre><code class="lang-json">
 {
   "type": "array",
   "items": {
@@ -658,10 +658,10 @@ null
   }
 }
     </code></pre>
-    </section>
-    <section>
-      <h2>Example</h2>
-      <pre><code class="lang-json">
+  </section>
+  <section>
+    <h2>Example</h2>
+    <pre><code class="lang-json">
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Product",
@@ -687,10 +687,10 @@ null
    }
 }
     </code></pre>
-    </section>
-    <section>
-      <h2>Example (Contd.)</h2>
-      <pre><code class="lang-json">
+  </section>
+  <section>
+    <h2>Example (Contd.)</h2>
+    <pre><code class="lang-json">
 {
   "id": 1,
   "name": "Foo",
@@ -705,71 +705,71 @@ null
   }
 }
     </code></pre>
-    </section>
-    <section>
-      <h2>JSON Schema Validator</h2>
-      <ul>
-        <li>
-          <a href="https://json-schema.org/implementations.html">
-            Validators available</a
-          >
-        </li>
-        <ul>
-          <li>
-            <a href="https://www.jsonschemavalidator.net/">As Online tools</a>
-          </li>
-          <li>As programming languages libraries</li>
-          <li>Standalone tools</li>
-        </ul>
-      </ul>
-    </section>
   </section>
   <section>
-    <div class="toc" data-selected="2"></div>
-  </section>
-  <section>
+    <h2>JSON Schema Validator</h2>
     <ul>
       <li>
-        <code class="hl-orange">The JSON object</code>, has two very useful
-        methods to deal with JSON-formatted content
+        <a href="https://json-schema.org/implementations.html">
+          Validators available</a
+        >
       </li>
       <ul>
         <li>
-          <code class="hl-green">JSON.parse()</code> takes a JSON string and
-          transforms it into a JavaScript object
+          <a href="https://www.jsonschemavalidator.net/">As Online tools</a>
         </li>
-        <li>
-          <code class="hl-green">JSON.stringify()</code> takes a JavaScript
-          object and transforms it into a JSON string
-        </li>
+        <li>As programming languages libraries</li>
+        <li>Standalone tools</li>
       </ul>
-      <pre><code class="lang-javascript">
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <ul>
+    <li>
+      <code class="hl-orange">The JSON object</code>, has two very useful
+      methods to deal with JSON-formatted content
+    </li>
+    <ul>
+      <li>
+        <code class="hl-green">JSON.parse()</code> takes a JSON string and
+        transforms it into a JavaScript object
+      </li>
+      <li>
+        <code class="hl-green">JSON.stringify()</code> takes a JavaScript object
+        and transforms it into a JSON string
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
 let myObj = { a: '1', b: 2, c: '3' };
 let myObjStr = JSON.stringify(myObj);
 console.log(myObjStr);
 console.log(JSON.parse(myObjStr));
     </code></pre>
-      <button id="json-btn">Run</button>
-      <div id="json-out"></div>
-      <script>
-        function convert() {
-          let myObj = { a: "1", b: 2, c: "3" };
-          let myObjStr = JSON.stringify(myObj);
+    <button id="json-btn">Run</button>
+    <div id="json-out"></div>
+    <script>
+      function convert() {
+        let myObj = { a: "1", b: 2, c: "3" };
+        let myObjStr = JSON.stringify(myObj);
 
-          document.getElementById("json-out").innerHTML = `
+        document.getElementById("json-out").innerHTML = `
         ${myObjStr}<br>
         ${JSON.parse(myObjStr)}
         `;
-        }
+      }
 
-        document.getElementById("json-btn").onclick = convert;
-      </script>
-    </ul>
-  </section>
+      document.getElementById("json-btn").onclick = convert;
+    </script>
+  </ul>
+</section>
+<section>
   <section>
-    <section>
-      <h2>Example Message Parser</h2>
-      <pre><code class="lang-json">
+    <h2>Example Message Parser</h2>
+    <pre><code class="lang-json">
 {
   "type": "object",
   "properties": {
@@ -792,10 +792,10 @@ console.log(JSON.parse(myObjStr));
     }
   }
 }
-    </code></pre>
-    </section>
-    <section>
-      <textarea id="json-in-2" cols="70" rows="10">
+      </code></pre>
+  </section>
+  <section>
+    <textarea id="json-in-2" cols="70" rows="10">
 {
   "messages": [
     {
@@ -805,29 +805,28 @@ console.log(JSON.parse(myObjStr));
     }
   ]
 }
-    </textarea
-      >
-      <button id="json-btn-2">Run</button>
-      <div id="json-out-2"></div>
-      <script>
-        function parseJSON() {
-          output = "";
-          input = document.getElementById("json-in-2").value;
-          jsonData = JSON.parse(input);
+    </textarea>
+    <button id="json-btn-2">Run</button>
+    <div id="json-out-2"></div>
+    <script>
+      function parseJSON() {
+        output = "";
+        input = document.getElementById("json-in-2").value;
+        jsonData = JSON.parse(input);
 
-          for (i = 0; i < jsonData.messages.length; i++) {
-            msg = jsonData.messages[i];
-            output += `
+        for (i = 0; i < jsonData.messages.length; i++) {
+          msg = jsonData.messages[i];
+          output += `
             ${msg.from} sent the following message to ${msg.to}<br />${msg.body}<hr />`;
-          }
-
-          document.getElementById("json-out-2").innerHTML = output;
         }
-        document.getElementById("json-btn-2").onclick = parseJSON;
-      </script>
-    </section>
-    <section>
-      <pre><code class="lang-javascript">
+
+        document.getElementById("json-out-2").innerHTML = output;
+      }
+      document.getElementById("json-btn-2").onclick = parseJSON;
+    </script>
+  </section>
+  <section>
+    <pre><code class="lang-javascript">
 function parseJSON() {
   output = "";
   input = document.getElementById("json-in-2").value;
@@ -842,7 +841,6 @@ function parseJSON() {
 }
 document.getElementById("json-btn-2").onclick = parseJSON;
     </code></pre>
-    </section>
   </section>
 </section>
 <section>
