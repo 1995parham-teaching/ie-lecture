@@ -1676,6 +1676,7 @@ Authorization: Digest username="Mufasa",
     </ul>
   </section>
   <section>
+    <h2>Custom Token</h2>
     <pre><code class="no-highlight">
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlBhcmhhbSBBbHZhbmkiLCJpYXQiOjE1MTYyMzkwMjIsInByb2plY3QiOiJhbiBhd2Vzb21lIHByb2plY3QifQ.
@@ -1692,6 +1693,28 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
   "name": "Parham Alvani",
   "iat": 1516239022,
   "project": "an awesome project"
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Snapp! Token</h2>
+    <pre><code class="hl-json">
+{
+  "alg": "RS512",
+  "kid": "z8a4l4oOFEqgehRYDBZP+fprPnLDLmabkslOxVVpLNE",
+  "typ": "JWT"
+}
+{
+  "aud": [
+    "passenger"
+  ],
+  "email": "parhamalvani@gmail.com",
+  "exp": 1646469738,
+  "iat": 1645260138,
+  "iss": 1,
+  "jti": "2NFKm5FfEey65wIArBQAz289hDgf/E0gjnyXrNCM0v4",
+  "sid": "25JzmlUBAwtMfQvT7qmOalw5M7p",
+  "sub": "KpQxO5glyv04Ad1"
 }
     </code></pre>
   </section>
