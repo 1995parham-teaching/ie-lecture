@@ -75,31 +75,38 @@ topics:
   <img src="./img/overview-vm-2.png" alt="overview-vm" />
 </section>
 <section>
+  <h2>Virtualization Techniques</h2>
+  <ul>
+    <li>
+      The <strong>VM-based</strong> approach virtualizes the complete OS. The
+      abstraction it presents to the VM are virtual devices like virtual disk,
+      virtual CPUs, and virtual NICs. With virtual machines, multiple OSes can
+      share the same hardware resources, with virtualized representations of
+      each of the resources available to the VM.
+    </li>
+    <li>
+      <strong>Container-based</strong> form of virtualization doesn't abstract
+      the hardware but uses techniques within the Linux kernel to isolate access
+      paths for different resources. It carves out a logical boundary within the
+      same operating system.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Hypervisors</h2>
+  <p>A special piece of software is used to virtualize the OS.</p>
+</section>
+<section>
   <section>
-    <h2>Types of Virtualization</h2>
+    <h2>CPU Virtualization</h2>
     <ul>
       <li>
-        Partitioning: This is a type of virtualization in which a CPU is devided
-        into different parts, and each part works as an individaul system.
+        <strong>Binary Translation in the Case of Full Virtualization:</strong>
+        In this case, the guest OS is used without any changes. The instructions
+        are trapped and emulated for the target environment. This cause a lot of
+        performance overhead, as lots of instructions have to be trapped into
+        the host/hypervisor and emulated.
       </li>
-      <li>
-        Full virtualization: In full virtualization, a virtual machine is used
-        to simulate regular hardware while not being aware of the fact that is's
-        virtualized.
-      </li>
-      <ul>
-        <li>
-          Software-based: Uses binary translation to virtualize the execution of
-          sensitive instruction sets while emulating hardware using software,
-          which increase overhead and impacts scalibility.
-        </li>
-        <li>
-          Hardware-based: Removes binary translation from the equation while
-          interfacing with a CPU's virtualization features (AMD-V, Intel VT),
-          which, in turn, means that instruction sets are being executed
-          directly on the host CPU
-        </li>
-      </ul>
     </ul>
   </section>
   <section>
