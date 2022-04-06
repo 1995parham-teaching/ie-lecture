@@ -107,28 +107,59 @@ topics:
         performance overhead, as lots of instructions have to be trapped into
         the host/hypervisor and emulated.
       </li>
+      <li>
+        To avoid the performance problems related to binary translation when
+        using full virtulization, we use
+        <strong>paravirtualization</strong> wherein the guest knows that it is
+        running in a virtualized environment and its interaction with the host
+        is optimized to avoid excessive trapping.
+      </li>
     </ul>
   </section>
   <section>
+    <h2>CPU Virtualization (Contd)</h2>
     <ul>
       <li>
-        Paravirtualization: This is a type in which the guest OS understands the
-        fact that it's being virtualized and needs to be modified, along with
-        its drivers, so that it can run on top of the virtulization solution.
-      </li>
-      <li>
-        Hybrid virtualization: This is a type of virtualization that uses full
-        virtualization and paravirtualization's biggest virtues.
-      </li>
-      <li>
-        Container-based virtualization: This is a type of application
-        virtualization that uses containers. A container is an object that
-        packages an application and all its dependencies so that the application
-        can be scaled out and rapidly deployed without needing a virtual machine
-        or a hypervisor.
+        In 2005, x86 finally become virtualizable. Advantages of
+        <strong>hardware-assisted virtulization</strong>
+        are two fold:
+        <ul>
+          <li>No binary translation</li>
+          <li>No OS modification</li>
+        </ul>
       </li>
     </ul>
   </section>
+  <section>
+    <h2>IO Virtualization</h2>
+    <ul>
+      <li>
+        With <strong>full virtualization</strong>, the guest does not know it's
+        running on a hypervisor and the guest OS doesn't need any changes to run
+        on a hypervisor.
+      </li>
+      <li>
+        In <strong>paravirtualization</strong> case, the guest OS is made aware
+        that it's running in a vritualized environment and special drivers are
+        loaded into the guest to take care of the I/O.
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>The Quick Emulator (QEMU)</h2>
+  <ul>
+    <li>The QEMU runs as a user process and handles the KVM kernel module.</li>
+    <li>
+      It uses the <code>vt-x</code> extensions to provide the guest with an
+      isolated environment from a memory and cpu perspective.
+    </li>
+    <li>
+      The QEMU also dedicates a separate thread for I/O. This thread runs an
+      event loop and is based on the non-blocking mechanism.
+    </li>
+    <li>The QEMU can use paravirtualized drivers.</li>
+  </ul>
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
@@ -161,6 +192,24 @@ topics:
   <ul>
     <li>Better control in virtual machines</li>
     <li>Have been tested over the years</li>
+  </ul>
+</section>
+<section>
+  Linux containers are made of three Linux kernel primitives:
+  <ul>
+    <li>Linux namespaces</li>
+    <li>cgroups</li>
+    <li>Layered file systems</li>
+  </ul>
+</section>
+<section>
+  <h2>Namespace</h2>
+  <ul>
+    <li>
+      A <em>namespace</em> is a logical isolation within the Linux kernel.
+    </li>
+    <li>A namespace controls visibility within the kernel.</li>
+    <li>All controls are defined at the process level.</li>
   </ul>
 </section>
 <section>
