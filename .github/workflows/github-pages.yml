@@ -24,5 +24,5 @@ jobs:
       - uses: helaili/jekyll-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          jekyll_build_options: -b IE-lecture
+          jekyll_build_options: -b ie-lecture
           pre_build_commands: 'bundle update ffi'
