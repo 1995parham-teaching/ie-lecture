@@ -10,19 +10,23 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
       - run: |
           npm i prettier
           npx prettier -c ./slides/**/*.html ./index.html
+      # Use GitHub Actions' cache to cache dependencies on servers
       - uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - uses: helaili/jekyll-action@v2
+      # Use GitHub Deploy Action to build and deploy to Github
+      - uses: jeffreytse/jekyll-deploy-action@v0.4.0
         with:
+          provider: 'github'
           token: ${{ secrets.GITHUB_TOKEN }}
-          jekyll_build_options: -b ie-lecture
-          pre_build_commands: 'bundle update ffi'
+          branch: 'gh-pages'
+          jekyll_baseurl: 'ie-lecture'
+          pre_build_commands: ''     # Installing additional dependencies (Arch Linux)
