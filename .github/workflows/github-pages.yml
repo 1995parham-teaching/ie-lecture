@@ -16,7 +16,7 @@ jobs:
           npm i prettier
           npx prettier -c ./slides/**/*.html ./index.html
       # Use GitHub Actions' cache to cache dependencies on servers
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
