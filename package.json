@@ -4,6 +4,7 @@
     "devDependencies": {}
   },
   "dependencies": {
+    "highlight.js": "^11.6.0",
     "reveal.js": "^4.3.1"
   },
   "name": "ie-lecture",
