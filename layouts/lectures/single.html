@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
     {{ $style := readFile "node_modules/reveal.js/dist/theme/league.css" | resources.FromString "league.css" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
-    {{ $style := readFile "node_modules/highlight.js/styles/agate.css" | resources.FromString "agate.css" | toCSS | minify }}
+    {{ $style := readFile "node_modules/reveal.js/plugin/highlight/monokai.css" | resources.FromString "monokai.css" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
     {{ $style := resources.Get "scss/lecture.scss" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
