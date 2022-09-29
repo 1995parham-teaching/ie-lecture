@@ -8,6 +8,14 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>{{ .Title }}</title>
+    {{ $style := readFile "node_modules/reveal.js/dist/reveal.css" | resources.FromString "reveal.css" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
+    {{ $style := readFile "node_modules/reveal.js/dist/theme/league.css" | resources.FromString "league.css" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
+    {{ $style := readFile "node_modules/highlight.js/styles/agate.css" | resources.FromString "agate.css" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
+    {{ $style := resources.Get "scss/lecture.scss" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
   </head>
   <body>
     <div class="reveal">
@@ -21,15 +29,8 @@
         {{ .Content }}
       </div>
     </div>
-
-    <script>
-      import Reveal from "reveal.js";
-      new Reveal().initialize({
-        history: true,
-        slideNumber: true,
-        dependencies: [],
-      });
-    </script>
+    {{ $js := resources.Get "js/index.js" | js.Build (dict "minify" hugo.IsProduction) }}
+    <script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
     <!-- logos and advertising -->
     <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
     </a>
