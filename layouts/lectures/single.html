@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://github.com/sbu-ce.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>{{ .Title }}</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1 style="color: #ffea00">{{ .Title }}</h1>
+          <h5>Internet Engineering</h5>
+          <span class="cyan-select">Spring 2022</span><br />
+          <a style="color: #ff9900" href="https://1995parham.me">@1995parham</a>
+        </section>
+        {{ .Content }}
+      </div>
+    </div>
+
+    <script>
+      import Reveal from "reveal.js";
+      new Reveal().initialize({
+        history: true,
+        slideNumber: true,
+        dependencies: [],
+      });
+    </script>
+    <!-- logos and advertising -->
+    <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
+    </a>
+  </body>
+</html>
