@@ -1,14 +1,9 @@
 import Reveal from "reveal.js";
-import hljs from 'highlight.js';
+import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
 
 
-new Reveal().initialize({
+new Reveal({
+  plugins: [ Highlight ],
   history: true,
-  slideNumber: true,
-  dependencies: [
-    {
-      async: true,
-      callback: function() { hljs.initHighlightingOnLoad(); }
-    },
-  ],
-});
+  slideNumber: true
+}).initialize();
