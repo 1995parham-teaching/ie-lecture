@@ -1,0 +1,15 @@
+{
+  "comments": {
+    "dependencies": {},
+    "devDependencies": {}
+  },
+  "dependencies": {
+    "reveal.js": "^4.3.1"
+  },
+  "name": "ie-lecture",
+  "version": "0.1.0",
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-go-template": "^0.0.13"
+  }
+}
