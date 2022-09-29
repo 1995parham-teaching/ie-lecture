@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Internet Engineering</title>
+    <meta
+      name="description"
+      content="Internet Engineering Course Lecture and Page"
+    />
+    <meta name="author" content="Parham Alvani" />
+    <link rel="shortcut icon" href="https://github.com/sbu-ce.png" />
+
+    <link rel="stylesheet" href="{{ "css/normalize.css" | relURL }}" />
+    <link rel="stylesheet" href="{{ "css/skeleton.css" | relURL }}" />
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
+      <img
+        style="position: absolute; top: 0; right: 0; border: 0"
+        src="{{ "img/forkme_right_orange.png" | relURL }}"
+        alt="Fork me on GitHub"
+      />
+    </a>
+    <div class="container">
+      <div class="header">
+        <h2>Internet Engineering</h2>
+        <h6>Last Update: {{ .Site.LastChange }}</h6>
+      </div>
+      <h2>Lectures 📜</h2>
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th class="announcement-text">Lecture</th>
+            <th class="announcement-date"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range $index, $page := sort (
+            where (where .Site.Pages "Type" "lectures") "Kind" "page"
+            ) ".Params.index" "asc"
+          }}
+            <tr>
+              <td class="announcement-text">
+                <p>{{ $page.Params.index }}. {{ $page.Title }}</p>
+              </td>
+              <td class="announcement-date">
+                <div class="button-container">
+                  <a target="_blank" class="button" href="{{ $page.Permalink }}"
+                    >Slides</a
+                  >
+                </div>
+              </td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
