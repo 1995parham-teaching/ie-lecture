@@ -39,12 +39,28 @@
         </thead>
         <tbody>
           {{ range $index, $page := sort (
-            where (where .Site.Pages "Type" "lectures") "Kind" "page"
+            where (where (where .Site.Pages "Type" "lectures") "Kind" "page") "Params.lecture" nil
             ) ".Params.index" "asc"
           }}
             <tr>
               <td class="announcement-text">
                 <p>{{ $page.Params.index }}. {{ $page.Title }}</p>
+              </td>
+              <td class="announcement-date">
+                <div class="button-container">
+                  <a target="_blank" class="button" href="{{ $page.Permalink }}"
+                    >Slides</a
+                  >
+                </div>
+              </td>
+            </tr>
+          {{ end }}
+          {{ range $index, $page :=
+            where (where (where .Site.Pages "Type" "lectures") "Kind" "page") "Params.lecture" false
+          }}
+            <tr>
+              <td class="announcement-text">
+                <p>{{ $page.Title }}</p>
               </td>
               <td class="announcement-date">
                 <div class="button-container">
