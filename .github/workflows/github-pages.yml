@@ -2,7 +2,8 @@ name: gh-pages
 
 on:
   push:
-    branches: [$default-branch]
+    branches:
+      - main
 
   workflow_dispatch:
 
