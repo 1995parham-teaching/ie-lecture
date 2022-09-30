@@ -1,9 +1,8 @@
 import Reveal from "reveal.js";
-import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
-
+import Highlight from "reveal.js/plugin/highlight/highlight.esm.js";
 
 new Reveal({
-  plugins: [ Highlight ],
+  plugins: [Highlight],
   history: true,
-  slideNumber: true
+  slideNumber: true,
 }).initialize();
