@@ -23,14 +23,16 @@
         <section>
           <h1 style="color: #ffea00">{{ .Title }}</h1>
           <h5>Internet Engineering</h5>
-          <span class="cyan-select">Spring 2022</span><br />
+          <span class="cyan-select">Fall 2022</span><br />
           <a style="color: #ff9900" href="https://1995parham.me">@1995parham</a>
         </section>
         {{ .Content }}
       </div>
     </div>
     {{ $js := resources.Get "js/index.js" | js.Build (dict "minify" hugo.IsProduction) }}
-    <script type="text/javascript" src="{{ $js.RelPermalink }}" defer></script>
+    <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ $js := resources.Get "js/toc.ts" | js.Build (dict "minify" hugo.IsProduction "params" (dict "topics" .Params.topics )) }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
     <!-- logos and advertising -->
     <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
     </a>
