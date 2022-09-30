@@ -3,13 +3,16 @@
   image: img/responsive-web-design.png
   authors:
     - Ben Frain
+
 - title: "JavaScript: The Definitive Guide - 7th Edition"
   image: img/javascript.jpg
   authors:
     - David Flanagan
+
 - title: Mozilla Developer Network Web Docs
   link: https://developer.mozilla.org/en-US/
   image: img/mdn.jpg
+
 - title: "Go Programming Language"
   image: img/go.jpg
   authors:
