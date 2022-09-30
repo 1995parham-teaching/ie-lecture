@@ -27,7 +27,7 @@
     <div class="container">
       <div class="header">
         <h2>Internet Engineering</h2>
-        <h6>Last Update: {{ .Site.LastChange }}</h6>
+        <h6>Last Update: {{ .GitInfo.AuthorDate.Format "January 2, 2006" }}</h6>
       </div>
       <h2>Lectures 📜</h2>
       <table class="u-full-width">
