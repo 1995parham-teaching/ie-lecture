@@ -2,6 +2,7 @@ baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'IE Lecture'
 staticDir = ['fonts']
+enableGitInfo = true
 
 [module]
 
