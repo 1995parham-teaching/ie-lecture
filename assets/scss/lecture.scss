@@ -8,6 +8,10 @@ $highlights: (
     "yellow": #ffcc00,
 );
 
+:root {
+  --r-main-font-size: 32px
+}
+
 @each $name, $color in $highlights {
         .hl-#{$name} {
                 color: $color;
