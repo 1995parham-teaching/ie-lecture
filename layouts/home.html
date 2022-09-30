@@ -73,6 +73,34 @@
           {{ end }}
         </tbody>
       </table>
+      <hr />
+      <h2>References 📚</h2>
+      <div>
+        {{ range $reference := .Site.Data.references }}
+          <div class="reference">
+            <div class="image">
+              <img src="{{ $reference.image }}" />
+            </div>
+            <div class="text">
+              {{ if $reference.link }}
+                <h5>
+                  <a href="{{ $reference.link }}">{{ $reference.title }}</a>
+                </h5>
+              {{ else }}
+                <h5>{{ $reference.title }}</h5>
+              {{ end }}
+              {{ if $reference.authors }}
+                <h5>Authors:</h5>
+                <ul>
+                  {{ range $author := $reference.authors }}
+                    <li>{{ $author }}</li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
     </div>
   </body>
 </html>
