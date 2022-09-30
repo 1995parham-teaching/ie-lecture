@@ -1,9 +1,14 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'IE Lecture'
+staticDir = ['fonts']
 
 [module]
 
 [[module.mounts]]
 source = "node_modules/reveal.js/dist/theme/fonts"
 target = "static/fonts"
+
+[[module.mounts]]
+source = 'static'
+target = 'static'
