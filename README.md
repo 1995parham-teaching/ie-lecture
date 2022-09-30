@@ -19,9 +19,10 @@ Prerequisite:
 
 ## How to Run
 
-To run these slides locally you can use the `docker-compose`.
+To run these slides locally you need [`hugo`](https://gohugo.io) and [nodejs](https://nodejs.dev/en/) installed.
 
-```sh
-docker-compose up -d
-# go to 127.0.0.1:4000
+```bash
+npm install
+
+hugo server
 ```
