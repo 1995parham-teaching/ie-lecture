@@ -31,10 +31,15 @@
     </div>
     {{ $js := resources.Get "js/index.js" | js.Build (dict "minify" hugo.IsProduction) }}
     <script src="{{ $js.RelPermalink }}" defer></script>
-    {{ $js := resources.Get "js/toc.ts" | js.Build (dict "minify" hugo.IsProduction "params" (dict "topics" .Params.topics )) }}
+    {{ $js := resources.Get "js/toc.ts" | resources.ExecuteAsTemplate "toc.ts" . | js.Build (dict "minify" hugo.IsProduction) }}
     <script src="{{ $js.RelPermalink }}" defer></script>
     <!-- logos and advertising -->
     <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
+      <img
+        style="position: absolute; top: 0; right: 0; border: 0;"
+        src="{{ "img/forkme_right_orange.png" | relURL }}"
+        alt="Fork me on GitHub"
+      />
     </a>
   </body>
 </html>

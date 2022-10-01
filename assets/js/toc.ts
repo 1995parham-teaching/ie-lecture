@@ -1,5 +1,3 @@
-import * as params from "@params";
-
 function toc(titles: [string]) {
   console.log(titles);
   let sections = document.getElementsByClassName("toc");
@@ -31,4 +29,8 @@ function toc(titles: [string]) {
   }
 }
 
-toc(params.topics);
+toc([
+  {{ range $topic := .Params.topics }}
+  "{{ $topic }}",
+  {{ end }}
+]);
