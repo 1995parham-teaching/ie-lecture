@@ -23,7 +23,7 @@
         <section>
           <h1 style="color: #ffea00">{{ .Title }}</h1>
           <h5>Internet Engineering</h5>
-          <span class="cyan-select">Fall 2022</span><br />
+          <span class="cyan-select">{{ .Site.Params.semester }}</span><br />
           <a style="color: #ff9900" href="https://1995parham.me">@1995parham</a>
         </section>
         {{ .Content }}

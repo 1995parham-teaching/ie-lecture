@@ -4,6 +4,9 @@ title = 'IE Lecture'
 staticDir = ['fonts']
 enableGitInfo = true
 
+[params]
+semester = "Fall 2022"
+
 [module]
 
 [[module.mounts]]
