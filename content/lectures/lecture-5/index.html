@@ -2723,7 +2723,7 @@ document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
     <p>Toggling a checkbox is the default action of clicking on a checkbox.</p>
     <pre><code class="lang-javascript">
 document.querySelector("#id-checkbox").addEventListener("click", function(event) {
-  document.getElementById("output-box").innerHTML += "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
+  document.getElementById("output-box").innerHTML += "Sorry! &lt;code&gt;preventDefault()&lt;/code&gt; won't let you check this!&lt;br&gt;";
   event.preventDefault();
 });
     </code></pre>
@@ -2814,7 +2814,6 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
 </section>
 <section>
   <h2>Document Object Example</h2>
-
   <table id="http-info"></table>
   <script>
     document.getElementById("http-info").innerHTML =
@@ -3138,7 +3137,6 @@ clearTimeout(hello)
       <td id="userAgent"></td>
     </tr>
   </table>
-
   <script type="text/javascript">
     document.getElementById("appCodeName").innerHTML = navigator.appCodeName;
     document.getElementById("appName").innerHTML = navigator.appName;
