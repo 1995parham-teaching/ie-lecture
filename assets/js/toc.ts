@@ -30,7 +30,7 @@ function toc(titles: [string]) {
 }
 
 toc([
-  {{ range $topic := .Params.topics }}
+  {{ range $topic := .topics }}
   "{{ $topic }}",
   {{ end }}
 ]);
