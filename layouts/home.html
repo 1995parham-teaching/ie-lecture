@@ -10,8 +10,10 @@
     <meta name="author" content="Parham Alvani" />
     <link rel="shortcut icon" href="https://github.com/sbu-ce.png" />
 
-    <link rel="stylesheet" href="{{ "css/normalize.css" | relURL }}" />
-    <link rel="stylesheet" href="{{ "css/skeleton.css" | relURL }}" />
+    {{ $js := readFile "node_modules/bootstrap/dist/js/bootstrap.js" | resources.FromString "bootstrap.js" | js.Build (dict "minify" hugo.IsProduction) }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ $style := readFile "node_modules/bootstrap/dist/css/bootstrap.css" | resources.FromString "bootstrap.css" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
     <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,15 +28,22 @@
     </a>
     <div class="container">
       <div class="header">
-        <h2>Internet Engineering</h2>
+        <h1>Internet Engineering</h1>
         <h6>Last Update: {{ .GitInfo.AuthorDate.Format "January 2, 2006" }}</h6>
       </div>
+      <p>
+        Web programming course contains material from backend to frontend
+        development. This is technological course, so its materials may be
+        deprecated soon, or they may be related only to specific technologies.
+
+        <a href="https://github.com/1995parham-teaching">More</a>
+      </p>
       <h2>Lectures 📜</h2>
-      <table class="u-full-width">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th class="announcement-text">Lecture</th>
-            <th class="announcement-date"></th>
+            <th>Lecture</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -43,13 +52,24 @@
             ) ".Params.index" "asc"
           }}
             <tr>
-              <td class="announcement-text">
+              <td>
                 <p>{{ $page.Params.index }}. {{ $page.Title }}</p>
               </td>
-              <td class="announcement-date">
-                <div class="button-container">
-                  <a target="_blank" class="button" href="{{ $page.Permalink }}"
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <a
+                    target="_blank"
+                    class="btn btn-primary"
+                    role="button"
+                    href="{{ $page.Permalink }}"
                     >Slides</a
+                  >
+                  <a
+                    target="_blank"
+                    class="btn btn-secondary"
+                    role="button"
+                    href="{{ $page.Permalink }}?print-pdf"
+                    >PDF</a
                   >
                 </div>
               </td>
@@ -59,13 +79,24 @@
             where (where (where .Site.Pages "Type" "lectures") "Kind" "page") "Params.lecture" false
           }}
             <tr>
-              <td class="announcement-text">
+              <td>
                 <p>{{ $page.Title }}</p>
               </td>
-              <td class="announcement-date">
-                <div class="button-container">
-                  <a target="_blank" class="button" href="{{ $page.Permalink }}"
+              <td class="text-end">
+                <div class="btn-group" role="group">
+                  <a
+                    target="_blank"
+                    class="btn btn-primary"
+                    role="button"
+                    href="{{ $page.Permalink }}"
                     >Slides</a
+                  >
+                  <a
+                    target="_blank"
+                    class="btn btn-secondary"
+                    role="button"
+                    href="{{ $page.Permalink }}?print-pdf"
+                    >PDF</a
                   >
                 </div>
               </td>
@@ -73,7 +104,6 @@
           {{ end }}
         </tbody>
       </table>
-      <hr />
       <h2>References 📚</h2>
       <div>
         {{ range $reference := .Site.Data.references }}
