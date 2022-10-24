@@ -7,8 +7,9 @@
   "name": "ie-lecture",
   "version": "0.1.0",
   "devDependencies": {
-    "reveal.js": "^4.4.0",
     "prettier": "^2.7.1",
-    "prettier-plugin-go-template": "^0.0.13"
+    "bootstrap": "^5.2.2",
+    "prettier-plugin-go-template": "^0.0.13",
+    "reveal.js": "^4.4.0"
   }
 }
