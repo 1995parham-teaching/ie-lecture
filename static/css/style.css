@@ -11,8 +11,6 @@ body {
 }
 
 .container {
-  max-width: 100%;
-
   background-color: rgba(255, 255, 255, 0.9);
   padding: 45px 45px;
 
@@ -21,19 +19,6 @@ body {
 
 .header {
   text-align: center;
-}
-
-.table-container {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.announcement-text {
-  width: 90%;
-}
-
-.announcement-date {
-  width: 10%;
 }
 
 .news-status {
@@ -47,12 +32,6 @@ body {
   border: 1px solid orange;
   border-radius: 5px;
   color: orange;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
 
 .email-container {
