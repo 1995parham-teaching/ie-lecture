@@ -1,7 +1,7 @@
 # IE-Lecture
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cng-by-example/ie-lecture/gh-pages?label=gh-pages&logo=github&style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/cng-by-example/ie-lecture?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/1995parham-teaching/ie-lecture/github-pages.yml?label=gh-pages&logo=github&style=flat-square&branch=main)
+![GitHub repo size](https://img.shields.io/github/repo-size/1995parham-teaching/ie-lecture?style=flat-square)
 
 ## Introduction
 
