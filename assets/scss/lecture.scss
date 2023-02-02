@@ -26,6 +26,10 @@ section > h2:first-child {
         color: #ff033e !important;
 }
 
+section > p {
+        text-align: justify;
+}
+
 table.cell td {
         border: 5px solid #ccff00 !important;
 }
