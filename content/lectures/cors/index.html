@@ -1,0 +1,270 @@
+---
+lecture: false
+title: Cross-Origin Resource Sharing
+topics:
+    - Introduction
+    - Policy
+    - Usage
+    - Example
+    - Error
+    - Middleware
+    - Proxy
+---
+
+<section>
+    <section>
+        <h2>
+            What is CORS?
+        </h2>
+        <p style="text-align: justify">
+            Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate
+            any origins (domain, scheme, or port) other than its own from which a browser should permit loading
+            resources.
+        </p>
+    </section>
+    <section>
+        <h3>
+            cont.
+        </h3>
+        <p style="text-align: justify">
+            CORS also relies on a mechanism by which browsers make a <b>preflight</b> request to the server hosting the
+            cross-origin resource, in order to check that the server will permit the actual request.
+            In that preflight, the browser sends headers that indicate the HTTP method and
+            headers that will be used in the actual request.
+        </p>
+    </section>
+</section>
+<section>
+    <h2>
+        CORS Policy
+    </h2>
+    <p style="text-align: justify">
+        The Cross-Origin Resource Sharing standard works by adding new HTTP headers that let servers describe which
+        origins are permitted to read that information from a web browser.
+    </p>
+</section>
+<section>
+    <h3>
+        Usage
+    </h3>
+    <p style="text-align: justify">
+        For security reasons, browsers restrict cross-origin HTTP requests initiated from scripts.
+        For example, XMLHttpRequest and the Fetch API follow the same-origin policy.
+        This means that a web application using those APIs can only request resources from the same origin the
+        application was loaded from unless the response from other origins includes the right CORS headers.
+    </p>
+</section>
+<section>
+    <section>
+        <h3>
+            Example
+        </h3>
+        <p style="text-align: justify">
+            An example of a cross-origin request, the front-end JavaScript code served from
+            <b>https://domain-a.com</b> uses XMLHttpRequest to make a request for <b>https://domain-b.com/data.json</b>.
+        </p>
+    </section>
+    <section>
+        <img style="background: #FFFFFF; padding: 20px;" src="./img/cors_principle.png" alt="cors-policy-diagram" width="600" />
+    </section>
+    <section>
+        <h3>
+            Another Example
+        </h3>
+        <p style="text-align: justify">
+            For example, suppose web content at <b>https://foo.example</b> wishes to invoke content
+            on domain <b>https://bar.other</b>. Code of this sort might be used in JavaScript deployed on foo.example:
+        </p>
+        <pre><code class="language-js">
+const xhr = new XMLHttpRequest();
+const url = "https://bar.other/resources/public-data/";
+
+xhr.open("GET", url);
+xhr.onreadystatechange = someHandler;
+xhr.send();
+        </code>
+        </pre>
+    </section>
+    <section>
+        <p style="text-align: justify">
+            This operation performs a simple exchange between the client and the server,
+            using CORS headers to handle the privileges:
+        </p>
+        <img style="background: #FFFFFF; padding: 20px;" src="./img/simple-req.png" width="500" alt="simple-request-flow" />
+    </section>
+    <section>
+        <p style="text-align: justify">
+            Let's look at what the browser will send to the server in this case:
+        </p>
+        <pre><code class="language-http">
+GET /resources/public-data/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Origin: https://foo.example
+        </code>
+        </pre>
+    </section>
+    <section>
+        <p style="text-align: justify">
+            The request header of note is Origin, which shows that the invocation is coming from
+            <b>https://foo.example</b>. Now let's see how the server responds:
+        </p>
+        <pre><code class="language-http">
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 00:23:53 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: *
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: application/xml
+
+[…XML Data…]
+        </code>
+        </pre>
+        <p style="text-align: justify">
+            In response, the server returns a Access-Control-Allow-Origin header with
+            <span style="color: #cf0000">Access-Control-Allow-Origin: *</span>,
+            which means that the resource can be accessed by any origin.
+        </p>
+    </section>
+</section>
+<section>
+    <h2>
+        CORS Error
+    </h2>
+    <p style="text-align: justify">
+        The CORS behavior, commonly termed as CORS error, is a mechanism to restrict users
+        from accessing shared resources. This is not an error but a security measure to secure users or the
+        website which you are accessing from a potential security breach.
+    </p>
+    <img src="./img/cors-error.png" alt="cors-error" />
+</section>
+<section>
+    <section>
+        <h2>
+            Fixing CORS Error
+        </h2>
+        <p style="text-align: justify">
+            When you are developing an application, you can fix <b>CORS error</b> in Front-end or Back-end.
+        </p>
+    </section>
+</section>
+<section>
+    <section>
+        <h3>
+            Proxy Server (Frontend)
+        </h3>
+        <p style="text-align: justify">
+            When you are developing a Front-end application, you cannot change the responses from the server
+            that you are requesting to. So you need to make http requests with help of a third party application like
+            a proxy server.
+            In this method you send CORS requests to your proxy server, the proxy server sends a non-CORS request to the
+            requested server, then it gets a non-CORS response from that server and sends us a CORS response.
+        </p>
+    </section>
+    <section>
+        <h3>
+            Flow
+        </h3>
+        <img src="./img/cors-frontend.png" alt="cors-frontend-proxy-server" width="500" />
+    </section>
+    <section>
+        <h3>
+            Example
+        </h3>
+        <p style="text-align: justify">
+            For example you can create a proxy server in React application like this:
+        </p>
+        <pre>
+            <code class="language-json">
+{
+  "name": "application",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:8080"
+}
+            </code>
+        </pre>
+        <p style="text-align: justify">
+            See a full example implemented by
+            <a href="https://github.com/frontend-developing/cross-origin-resource-sharing">
+                amirhnajfiz cors fix example
+            </a>.
+        </p>
+    </section>
+</section>
+<section>
+    <section>
+        <h3>
+            CORS Middleware (Backend)
+        </h3>
+        <p style="text-align: justify">
+            When you are developing a Back-end service, you need to set the CORS headers in requests and responses.
+            To do this, we usually use a Middleware. Every request needs to pass from this middleware, and it will be
+            converted to a CORS request.
+        </p>
+    </section>
+    <section>
+        <h3>
+            Example
+        </h3>
+        <p style="text-align: justify">
+            In <b>Fiber</b> framework of Golang, there is middleware called CORS. We use it in our application instance
+            so all requests will be CORS request.
+        </p>
+        <pre>
+            <code class="language-go">
+import (
+  "github.com/gofiber/fiber/v2"
+  "github.com/gofiber/fiber/v2/middleware/cors"
+)
+
+func NewApp() *fiber.App {
+    // create a new app
+    app := fiber.New()
+
+    // Default config
+    app.Use(cors.New())
+
+    return app
+}
+            </code>
+        </pre>
+        <p style="text-align: justify">
+            See the full documentation of
+            <a href="https://docs.gofiber.io/api/middleware/cors/">
+                Fiber CORS middleware
+            </a>.
+        </p>
+    </section>
+</section>
+<section>
+    <h2>References 📚</h2>
+    <ul>
+        <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">
+                https://developer.mozilla.org
+            </a>
+        </li>
+        <li>
+            <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">
+                https://wikipedia.org
+            </a>
+        </li>
+        <li>
+            <a href="https://docs.gofiber.io/api/middleware/cors/">
+                https://docs.gofiber.io
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/frontend-developing/cross-origin-resource-sharing">
+                Amirhossein Najafizadeh CORS example
+            </a>
+        </li>
+    </ul>
+</section>
