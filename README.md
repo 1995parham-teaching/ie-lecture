@@ -1,7 +1,9 @@
-# IE-Lecture
+<h1 align="center"> Internet Engineering Lecture </h1>
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/1995parham-teaching/ie-lecture/github-pages.yml?label=gh-pages&logo=github&style=flat-square&branch=main)
-![GitHub repo size](https://img.shields.io/github/repo-size/1995parham-teaching/ie-lecture?style=flat-square)
+<p align="center">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/1995parham-teaching/ie-lecture/github-pages.yml?logo=github&style=for-the-badge">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/1995parham-teaching/ie-lecture?logo=github&style=for-the-badge">
+</p>
 
 ## Introduction
 
@@ -26,3 +28,18 @@ npm install
 
 hugo server
 ```
+
+## Taught in
+
+- Shahid Beheshti University
+  - Fall 2020
+  - Spring 2021
+  - Fall 2021
+
+- Amirkabir University
+  - Fall 2020
+  - Spring 2021
+  - Fall 2021
+  - Spring 2022
+  - Fall 2022
+  
