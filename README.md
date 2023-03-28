@@ -21,7 +21,7 @@ Prerequisites:
 
 ## How to Run
 
-To run these slides locally you need [`hugo`](https://gohugo.io) and [nodejs](https://nodejs.dev/en/) installed.
+To run these slides locally you need [Hugo](https://gohugo.io) and [NodeJS](https://nodejs.dev/en/) installed.
 
 ```bash
 npm install
