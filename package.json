@@ -8,7 +8,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "prettier": "^3.0.0",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.3.1",
     "prettier-plugin-go-template": "^0.0.15",
     "reveal.js": "^4.5.0"
   }
