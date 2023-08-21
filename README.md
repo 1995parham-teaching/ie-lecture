@@ -31,15 +31,13 @@ hugo server
 
 ## Taught in
 
-- Shahid Beheshti University
+- Shahid Beheshti University:
   - Fall 2020
   - Spring 2021
   - Fall 2021
-
 - Amirkabir University
   - Fall 2020
   - Spring 2021
   - Fall 2021
   - Spring 2022
   - Fall 2022
-  
