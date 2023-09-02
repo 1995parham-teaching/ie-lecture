@@ -261,7 +261,7 @@ topics:
   <img src="./img/csr.png" alt="csr" />
 </section>
 <section>
-  <h2>Multi-layer Architecture Issues</h2>
+  <h2>Monolithic Architecture Issues</h2>
   <ul>
     <li>Scalability</li>
     <ul>
@@ -366,13 +366,13 @@ topics:
   <section>
     <h2>Transactions?</h2>
     <ul>
-      <li>Where did you hear it?</li>
-      <li>ACID Properties</li>
+      <li>Where did you hear about them?</li>
+      <li><em class="hl-orange">A</em><em class="hl-green">C</em><em class="hl-cyan">I</em><em class="hl-red">D</em> Properties</li>
       <ul>
-        <li>Atomicity</li>
-        <li>Consistency</li>
-        <li>Isolation</li>
-        <li>Durability</li>
+        <li><strong class="hl-orange">A</strong>tomicity</li>
+        <li><strong class="hl-green">C</strong>onsistency</li>
+        <li><strong class="hl-cyan">I</strong>solation</li>
+        <li><strong class="hl-red">D</strong>urability</li>
       </ul>
     </ul>
   </section>
@@ -436,12 +436,13 @@ topics:
       </li>
       <li>
         Requests are handled by API gateway and then it calls X and Y services to
-        create a new project on these services.
+        create a new project on these services too.
+        (can you tell why this approach is <strong class="hl-red">not</strong> right?)
       </li>
       <li>
         Sometimes service X fail to create project and sometimes Y service isn't available to handle/response the request.
       </li>
-      <li>We don't know service Y is slow, or it is not working</li>
+      <li>We don't know service Y <em class="hl-orange">is slow, or it is not working</em></li>
       <li>In each of these cases system goes into unrecoverable state</li>
     </ul>
   </section>
