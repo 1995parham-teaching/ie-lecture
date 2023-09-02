@@ -427,17 +427,21 @@ topics:
     <ul>
       <li>There was a micro-service architectured IoT Platform - 2018</li>
       <li>
-        Users can create project and each project must be created on API
-        gateway, X and Y services
+        Users can create project and each project must be created on 3 different services:
+        <ul>
+          <li>API gateway</li>
+          <li>X</li>
+          <li>Y</li>
+        </ul>
       </li>
       <li>
-        Requests are handled by API gateway and then it call X and Y services to
-        create a new project
+        Requests are handled by API gateway and then it calls X and Y services to
+        create a new project on these services.
       </li>
       <li>
-        Sometimes X service failed to create project and sometimes Y service
-        isn't available to handle the request
+        Sometimes service X fail to create project and sometimes Y service isn't available to handle/response the request.
       </li>
+      <li>We don't know service Y is slow, or it is not working</li>
       <li>In each of these cases system goes into unrecoverable state</li>
     </ul>
   </section>
