@@ -276,14 +276,24 @@ second
 <section>
   <h2>Jetstream</h2>
   <ul>
-    <li><strong>JetStream</strong> is a NATS built-in distributed persistence system.</li>
-    <li>JetStream is built-in to nats-server and you only need 1 (or 3 or 5 if you want fault-tolerance against 1 or 2 simultaneous NATS server failures) of your NATS server(s) to be JetStream enabled for it to be available to all the client applications.</li>
+    <li>
+      <strong>JetStream</strong> is a NATS built-in distributed persistence
+      system.
+    </li>
+    <li>
+      JetStream is built-in to nats-server and you only need 1 (or 3 or 5 if you
+      want fault-tolerance against 1 or 2 simultaneous NATS server failures) of
+      your NATS server(s) to be JetStream enabled for it to be available to all
+      the client applications.
+    </li>
   </ul>
 </section>
 <section>
   <h2>Functionalities enabled by JetStream</h2>
   <ul>
-    <li>Streaming: temporal decoupling between the publishers and subscribers</li>
+    <li>
+      Streaming: temporal decoupling between the publishers and subscribers
+    </li>
     <li>Replay policies</li>
     <li>Retention policies and limits</li>
     <li>Persistent distributed storage</li>
@@ -291,6 +301,17 @@ second
     <li>Mirroring between streams</li>
     <li>De-coupled flow control</li>
     <li>Exactly once semantics</li>
+  </ul>
+</section>
+<section>
+  <h2></h2>
+  <ul>
+    <li>
+      Subscribers only receive the messages that are published when they are
+      <em class="hl-orange">actively connected to the messaging system</em>
+      (i.e. they do not receive messages that are published while they are not
+      subscribing or not running or disconnected).
+    </li>
   </ul>
 </section>
 <section>
