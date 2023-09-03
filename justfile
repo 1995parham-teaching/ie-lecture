@@ -3,7 +3,7 @@ default:
 
 # install required nodejs pacakges
 install:
-    npm install
+    npm install --include=dev
 
 # run the dev server
 dev: install
