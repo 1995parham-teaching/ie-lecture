@@ -432,6 +432,57 @@ second
 </section>
 <section>
   <section>
+    <h2>Persistent distributed storage</h2>
+    <p>
+      You can choose the durability as well as the resilience of the message
+      store according to your needs.
+    </p>
+    <ul>
+      <li>Memory storage</li>
+      <li>File storage</li>
+      <li>
+        Replication (1 (none), 2, 3) between nats servers for Fault Tolerance
+      </li>
+    </ul>
+  </section>
+  <section>
+    <p>
+      JetStream uses a NATS optimized
+      <em class="hl-orange">RAFT distributed quorom algorithm</em> to distribute
+      the persistence service between nats servers in a cluster while
+      maintaining immediate consistency even in the face of Byzantine failures.
+    </p>
+    <p>
+      In JetStream the configuration for
+      <em class="hl-yellow">storing messages</em> is defined separately from how
+      they are <em class="hl-green">consumed</em>.
+    </p>
+    <div class="box">
+      <p>
+        Storage is defined in a Stream and consuming messages is defined by
+        multiple Consumers.
+      </p>
+    </div>
+  </section>
+</section>
+<section>
+  <h3>Stream replication factor</h3>
+  <p>
+    A stream's replication factor (R, often referred to as the number Replicas)
+    determines how many places it is stored allowing you to tune to balance risk
+    with resource usage and performance.
+  </p>
+  <p>
+    A stream that is <strong class="hl-orange">easily rebuilt</strong> or
+    <strong class="hl-cyan">temporary</strong> might be
+    <em class="hl-green">memory based</em> with a
+    <em class="hl-yellow">R=1</em> and a stream that can
+    <strong class="hl-pink">telorate some downtime</strong> might be
+    <em class="hl-green">file based</em> with <em class="hl-yellow">R=1</em>.
+  </p>
+</section>
+<section>
+  <section>
     <h2>References 📚</h2>
     <ul>
       <li>Practical NATS: From Beginner to Pro, Book by Waldemar Quevedo</li>
