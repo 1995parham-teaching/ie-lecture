@@ -399,11 +399,35 @@ second
     </p>
     <ul>
       <li>
-        <em class="hl-orange">discard old</em> mean that the stream will
+        <em class="hl-orange">discard old</em> means that the stream will
         automatically delete the oldest message in the stream to make room for
         the new messages.
       </li>
+      <li>
+        <em class="hl-orange">discard new</em> means that new message is
+        discarded (and the JetStream publish call retuns an error indicating
+        that a limit was reached)
+      </li>
     </ul>
+  </section>
+  <section>
+    <h3>Retention policy</h3>
+    <p>You can choose what kind of retention you want for each stream</p>
+    <ul>
+      <li><em class="hl-orange">limits</em> (the default)</li>
+      <li>
+        <em class="hl-green">interest</em> (messages are kept in the stream for
+        as long as there are consumers that haven't delivered the message yet).
+      </li>
+      <li>
+        <em class="hl-yellow">work queue</em> (the stream is used as a shared
+        queue and messages are removed from it as they consumed)
+      </li>
+    </ul>
+    <p>
+      Regardless of the retention policy selected, the limits (and the discard
+      policy) always apply.
+    </p>
   </section>
 </section>
 <section>
