@@ -330,9 +330,54 @@ second
   </section>
 </section>
 <section>
-  <h2>References 📚</h2>
-  <ul>
-    <li>Practical NATS: From Beginner to Pro, Book by Waldemar Quevedo</li>
-    <li><a href="https://docs.nats.io/">NATS Documentation</a></li>
-  </ul>
+  <section>
+    <h2>Replay policies</h2>
+    <p>
+      JetStream <em class="hl-orange">consumers</em> support multiple replay
+      policies.
+    </p>
+    <ul>
+      <li>
+        <em class="hl-yellow">all</em> of the messages currently stored in the
+        stream, meaning a complete <strong>replay</strong> and you can select
+        the <strong>replay policy</strong>(i.e. the speed of the replay) to be
+        either:
+      </li>
+      <dl>
+        <dt class="hl-green">instant</dt>
+        <dd>
+          the messages are delivered to the consumer as fast as it can take
+          them.
+        </dd>
+        <dt class="hl-cyan">original</dt>
+        <dd>
+          the messages are delivered to the consumer at the rate they were
+          published into the stream, which can be very useful for example for
+          staging production traffic.
+        </dd>
+      </dl>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        the <em class="hl-orange">last</em> message stored in the stream, or the
+        <em class="hl-orange">last</em> message for each subject (as streams can
+        capture more than on subject).
+      </li>
+      <li>
+        starting from a specific <em class="hl-green">sequence number</em>.
+      </li>
+      <li>starting from a specific <em class="hl-cyan">start time</em>.</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>References 📚</h2>
+    <ul>
+      <li>Practical NATS: From Beginner to Pro, Book by Waldemar Quevedo</li>
+      <li><a href="https://docs.nats.io/">NATS Documentation</a></li>
+    </ul>
+  </section>
 </section>
