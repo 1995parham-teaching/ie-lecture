@@ -304,15 +304,29 @@ second
   </ul>
 </section>
 <section>
-  <h2></h2>
-  <ul>
-    <li>
+  <section>
+    <h2>Streaming</h2>
+    <h3>temporal decoupling between the publishers and subscribers</h3>
+    <p>
       Subscribers only receive the messages that are published when they are
       <em class="hl-orange">actively connected to the messaging system</em>
       (i.e. they do not receive messages that are published while they are not
       subscribing or not running or disconnected).
-    </li>
-  </ul>
+    </p>
+  </section>
+  <section>
+    <p>
+      However, nowadays a new way to provide this temporal de-coupling has been
+      devised and has become 'mainstream':
+      <strong class="hl-green">streaming</strong>.
+    </p>
+    <p>
+      Streams capture and store messages published on one (or more) subject and
+      allow client applications to create 'subscribers' (i.e. JetStream
+      consumers) at any time to 'replay' (or consume) all or some of the
+      messages stored in the stream
+    </p>
+  </section>
 </section>
 <section>
   <h2>References 📚</h2>
