@@ -466,20 +466,69 @@ second
   </section>
 </section>
 <section>
-  <h3>Stream replication factor</h3>
-  <p>
-    A stream's replication factor (R, often referred to as the number Replicas)
-    determines how many places it is stored allowing you to tune to balance risk
-    with resource usage and performance.
-  </p>
-  <p>
-    A stream that is <strong class="hl-orange">easily rebuilt</strong> or
-    <strong class="hl-cyan">temporary</strong> might be
-    <em class="hl-green">memory based</em> with a
-    <em class="hl-yellow">R=1</em> and a stream that can
-    <strong class="hl-pink">telorate some downtime</strong> might be
-    <em class="hl-green">file based</em> with <em class="hl-yellow">R=1</em>.
-  </p>
+  <section>
+    <h3>Stream replication factor</h3>
+    <p>
+      A stream's replication factor (R, often referred to as the number
+      Replicas) determines how many places it is stored allowing you to tune to
+      balance risk with resource usage and performance.
+    </p>
+    <p>
+      A stream that is <strong class="hl-orange">easily rebuilt</strong> or
+      <strong class="hl-cyan">temporary</strong> might be
+      <em class="hl-green">memory based</em> with a
+      <em class="hl-yellow">R=1</em> and a stream that can
+      <strong class="hl-pink">telorate some downtime</strong> might be
+      <em class="hl-green">file based</em> with <em class="hl-yellow">R=1</em>.
+    </p>
+  </section>
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Replicas</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>
+            Cannot operate during an outage of the server servicing the stream.
+            Highly performant.
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>
+            No significant benefit at this time. We recommend using Replicas=3
+            instead.
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            Can tolerate loss of one server servicing the stream. An ideal
+            balance between risk and performance.
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            No significant benefit over Replicas=3 except marginally in a 5 node
+            cluster.
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            Can tolerate simultaneous loss of two servers servicing the stream.
+            Mitigates risk at the expense of performance.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </section>
 <section>
   <section>
