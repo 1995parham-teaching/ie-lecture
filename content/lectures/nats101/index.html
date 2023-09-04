@@ -543,6 +543,22 @@ second
   </p>
 </section>
 <section>
+  <h2>De-coupled flow control</h2>
+  <p>
+    JetStream provides de-coupled flow control over streams, the flow control is
+    not 'end to end' where
+    <em class="hl-orange"
+      >the publisher(s) are limited to publish no faster than the slowest of all
+      the consumers (i.e. the lowest common denominator)</em
+    >
+    can receive, but is instead
+    <em class="hl-green"
+      >happening individually between each client application (publishers or
+      consumers) and the nats server</em
+    >.
+  </p>
+</section>
+<section>
   <section>
     <h2>References 📚</h2>
     <ul>
