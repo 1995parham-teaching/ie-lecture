@@ -19,14 +19,14 @@ topics:
     <li>(Large) Applications cannot be developed in ad-hoc manner</li>
     <ul>
       <li>We need design &amp; architecture (software engineering)</li>
-      <li>Concept separation, Component, Relations, ...</li>
+      <li>Concept separation, Component, Relations, etc.</li>
     </ul>
     <li>There are so many architectural patterns</li>
     <ul>
       <li>Common architectures in web applications</li>
       <ul>
         <li>MVC, MVVM, ...</li>
-        <li>Multi-layer (Multi-tier), Microservices, ...</li>
+        <li>Multi-layer (Multi-tier), Microservices, etc.</li>
       </ul>
     </ul>
   </ul>
@@ -261,6 +261,33 @@ topics:
   <img src="./img/csr.png" alt="csr" />
 </section>
 <section>
+  <h2>Service-oriented architecture (SOA)</h2>
+  <ul>
+    <li>
+      The SOA-based approach helped IT professionals build applications
+      (services) with well-defined interfaces that abstract the internal
+      implementation details so that the consumers of these applications would
+      only need to integrate throught the interface.
+    </li>
+    <li>
+      The SOA-based approach allowed application developers to change their
+      internal implementations more freely, as long as they adhered to the
+      interface definitions.
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Enterprise service bus (ESB)</h2>
+  <ul>
+    <li>
+      This architecture worked well in most use cases, and it allowed the
+      engineers and architects to reduce the complexity of the overall system
+      while onboarding more and more systems that were required for business
+      growth.
+    </li>
+  </ul>
+</section>
+<section>
   <h2>Monolithic Architecture Issues</h2>
   <ul>
     <li>Scalability</li>
@@ -367,7 +394,10 @@ topics:
     <h2>Transactions?</h2>
     <ul>
       <li>Where did you hear about them?</li>
-      <li><em class="hl-orange">A</em><em class="hl-green">C</em><em class="hl-cyan">I</em><em class="hl-red">D</em> Properties</li>
+      <li>
+        <em class="hl-orange">A</em><em class="hl-green">C</em
+        ><em class="hl-cyan">I</em><em class="hl-red">D</em> Properties
+      </li>
       <ul>
         <li><strong class="hl-orange">A</strong>tomicity</li>
         <li><strong class="hl-green">C</strong>onsistency</li>
@@ -427,7 +457,8 @@ topics:
     <ul>
       <li>There was a micro-service architectured IoT Platform - 2018</li>
       <li>
-        Users can create project and each project must be created on 3 different services:
+        Users can create project and each project must be created on 3 different
+        services:
         <ul>
           <li>API gateway</li>
           <li>X</li>
@@ -435,14 +466,18 @@ topics:
         </ul>
       </li>
       <li>
-        Requests are handled by API gateway and then it calls X and Y services to
-        create a new project on these services too.
-        (can you tell why this approach is <strong class="hl-red">not</strong> right?)
+        Requests are handled by API gateway and then it calls X and Y services
+        to create a new project on these services too. (can you tell why this
+        approach is <strong class="hl-red">not</strong> right?)
       </li>
       <li>
-        Sometimes service X fail to create project and sometimes Y service isn't available to handle/response the request.
+        Sometimes service X fail to create project and sometimes Y service isn't
+        available to handle/response the request.
       </li>
-      <li>We don't know service Y <em class="hl-orange">is slow, or it is not working</em></li>
+      <li>
+        We don't know service Y
+        <em class="hl-orange">is slow, or it is not working</em>
+      </li>
       <li>In each of these cases system goes into unrecoverable state</li>
     </ul>
   </section>
@@ -538,6 +573,24 @@ topics:
   </section>
 </section>
 <section>
+  <h2>Messaging patterns used in distributed systems</h2>
+  <ul>
+    <li>
+      <em class="hl-orange"
+        >Remote procedure calls (RPC) versus shared resources</em
+      >
+    </li>
+    <li>
+      <em class="hl-green"
+        >Synchronous versus asynchronous (client-server versus pub-sub)</em
+      >
+    </li>
+    <li>
+      <em class="hl-cyan">Orchestration versus choreography</em>
+    </li>
+  </ul>
+</section>
+<section>
   <section>
     <h2>Asynchronous Messages</h2>
     <ul>
@@ -569,7 +622,7 @@ topics:
       <li>VerneMQ (MQTT) in erlang</li>
       <li>RabbitMQ (AMQP) in erlang</li>
       <li>NATS (NATS) in golang</li>
-      <li>...</li>
+      <li>etc.</li>
     </ul>
   </section>
   <section>
@@ -578,7 +631,7 @@ topics:
       <li>Fire and Forget</li>
       <li>at-least-once Delivery</li>
       <li>exactly-once Delivery</li>
-      <li>...</li>
+      <li>etc.</li>
     </ul>
   </section>
   <section>
