@@ -614,6 +614,21 @@ second
   consume if the stream is set as a working queue) message stored in the strem.
 </section>
 <section>
+  <h2>Fast push consumers</h2>
+  <p>
+    Client applications can choose to use fast un-acknowledged
+    <em class="hl-orange">push</em> (ordered) consumers to receive messages as
+    fast as possible (for the selected replay policy) on a specific delivery
+    subject or to an inbox.
+  </p>
+  <div class="box">
+    Those consumers are meant to be used to
+    <strong class="hl-green">replay</strong> rather than
+    <strong class="hl-cyan">consume</strong>
+    the messages in a stream.
+  </div>
+</section>
+<section>
   <section>
     <h2>References 📚</h2>
     <ul>
