@@ -28,10 +28,11 @@ topics:
   <ul>
     <li>
       NATS is a high-performance messaging system created by Derek Collison in
-      2010
+      2010 written in Ruby.
     </li>
     <li>
-      It was originally built to serve as the message bus for Cloud Foundry
+      It was originally built to serve as the message bus for
+      <em class="hl-orange">Cloud Foundry</em>
     </li>
     <li>Handling internal communication among components of the system</li>
   </ul>
@@ -187,10 +188,10 @@ Hello World!
   <section>
     <h2>Subject Names</h2>
     <ul>
-      <li>The dot character (.) has special meaning as part of the subject</li>
+      <li>The dot character (.) has special meaning as part of the subject.</li>
       <li>
-        When using it as part of the subject, we can create namespaces that can
-        be later matched via wildcards
+        When using it as part of the subject, we can create namespaces
+        (hierarchy) that can be later matched via wildcards.
       </li>
     </ul>
     <table>
@@ -218,8 +219,11 @@ Hello World!
   </section>
   <section>
     <ul>
-      <li><code>*</code>: partial or token match wildcard</li>
-      <li><code>&gt;</code>: full wildcard</li>
+      <li><code>*</code>: matches a single token</li>
+      <li>
+        <code>&gt;</code>: matches one or more tokens in the subject, and it can
+        only appear at the end
+      </li>
     </ul>
   </section>
 </section>
