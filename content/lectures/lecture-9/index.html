@@ -596,6 +596,29 @@ topics:
     <img src="./img/diag-shared-resource-based-communication.drawio.png" />
     <img src="./img/diag-rpc.drawio.png" />
   </section>
+  <section>
+    <h2>Synchronous versus asynchronous (client-server versus pub-sub)</h2>
+    <p>
+      When two systems communicate with each other, the simplest mode of
+      operation is the synchronous communication model, where the system that
+      initiates the communication (source system) waits for a response from the
+      other system (target system) before sending another message.
+    </p>
+  </section>
+  <section>
+    <h2>
+      Synchronous versus asynchronous (client-server versus pub-sub) (cont'd)
+    </h2>
+    <p>
+      In asynchronous communication, the sender does not wait for a response
+      from the receiver and, in most cases, do not care about or is not aware of
+      the receiver's existence. The sender will send (publish) the message to an
+      intermediate broker (message broker) and once this broker responds with an
+      acknowledgment, the sender will move on to the next task. Because of this
+      approach, there is less waiting on the sender's side and the overall
+      performance of message sending is improved.
+    </p>
+  </section>
 </section>
 <section>
   <section>
