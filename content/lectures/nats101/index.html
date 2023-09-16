@@ -89,6 +89,25 @@ Hello World!
   <img src="./img/rr.png" alt="rr" />
 </section>
 <section>
+  <h2>Request/Response (cont'd)</h2>
+  <ul>
+    <li>
+      A publisher sends a message on a particular subject by attaching a reply
+      subject name along with it.
+    </li>
+    <li>
+      Then, the subscribers who receive this message send the response to the
+      reply subject that was specified in the request message.
+    </li>
+    <li>
+      Reply subjects have a unique name called
+      <strong class="hl-orange">inbox</strong>
+      and the NATS server will send the message comming into these subjects to
+      the relevant publisher.
+    </li>
+  </ul>
+</section>
+<section>
   <h2>Queue</h2>
   <ol>
     <li>Publisher sends multiple help requests on a <q>help</q> subject</li>
