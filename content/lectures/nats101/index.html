@@ -660,6 +660,13 @@ second
     which means that they can be used to consume (ie.e use the stream as a
     distributed queue) as well as process the messages in a stream.
   </p>
+  <p>
+    Pull consumers can and are meant to be shared between applications (just
+    like queue groups) in order to provide easy and transparent horizental
+    scalability of the processing or consumption of messages in a stream without
+    having (for example) to worry about having to define partitions or worry
+    about fault-tolerance.
+  </p>
 </section>
 <section>
   <section>
