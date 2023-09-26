@@ -5,6 +5,6 @@ default:
 install:
     npm install --include=dev
 
-# run the dev server
+# run the dev server and you can give lecture
 dev: install
     hugo server
