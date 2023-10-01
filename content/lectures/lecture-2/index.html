@@ -288,14 +288,49 @@ topics:
 </section>
 <section>
   <h2>URL in Action (Cont.)</h2>
+  <pre><code class="language-bash">
+# ce.aut.ac.ir resolves to 185.211.88.129
+# connectify0 is the network interface
+
+sudo tcpdump --interface connectify0 --number -n -v 'port 80 and dst host 185.211.88.129'
+  </code></pre>
   <pre><code>
-2950	113.658623720	192.168.73.191	3.220.112.94	TCP	74	59890 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=335902154 TSecr=0 WS=128
-2956	113.848038152	3.220.112.94	192.168.73.191	TCP	74	80 → 59890 [SYN, ACK] Seq=0 Ack=1 Win=26847 Len=0 MSS=1460 SACK_PERM=1 TSval=1360379473 TSecr=335902154 WS=256
-2957	113.848146169	192.168.73.191	3.220.112.94	TCP	66	59890 → 80 [ACK] Seq=1 Ack=1 Win=64256 Len=0 TSval=335902344 TSecr=1360379473
-2958	113.848626070	192.168.73.191	3.220.112.94	HTTP	503	GET /bytes/1378 HTTP/1.1
-2962	114.079894429	3.220.112.94	192.168.73.191	TCP	66	80 → 59890 [ACK] Seq=1 Ack=438 Win=28160 Len=0 TSval=1360379525 TSecr=335902344
-2963	114.080912334	3.220.112.94	192.168.73.191	HTTP	1683	HTTP/1.1 200 OK
-2964	114.080950090	192.168.73.191	3.220.112.94	TCP	66	59890 → 80 [ACK] Seq=438 Ack=1618 Win=62720 Len=0 TSval=335902576 TSecr=1360379526
+1  07:47:41.159469 IP (tos 0x0, ttl 64, id 59255, offset 0, flags [DF], proto TCP (6), length 60)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [S], cksum 0x5a35 (correct), seq 440330126, win 59040, options [mss 14760,sackOK,TS val 954835682 ecr 0,nop,wscale 7], length 0
+
+2  07:47:41.159904 IP (tos 0x0, ttl 64, id 59256, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xf7e0 (correct), ack 35014, win 462, options [nop,nop,TS val 954835682 ecr 15081515], length 0
+
+3  07:47:41.160032 IP (tos 0x0, ttl 64, id 59257, offset 0, flags [DF], proto TCP (6), length 137)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [P.], cksum 0x282f (correct), seq 0:85, ack 1, win 462, options [nop,nop,TS val 954835682 ecr 15081515], length 85: HTTP, length: 85
+    GET /~bakhshis/ HTTP/1.1
+    Host: ce.aut.ac.ir
+    User-Agent: curl/8.3.0
+    Accept: */*
+
+4  07:47:41.218732 IP (tos 0x0, ttl 64, id 59258, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xe649 (correct), ack 4334, win 429, options [nop,nop,TS val 954835741 ecr 15081574], length 0
+
+5  07:47:41.219358 IP (tos 0x0, ttl 64, id 59259, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xd5c5 (correct), ack 8592, win 397, options [nop,nop,TS val 954835742 ecr 15081575], length 0
+
+6  07:47:41.224808 IP (tos 0x0, ttl 64, id 59260, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xcb33 (correct), ack 11288, win 397, options [nop,nop,TS val 954835747 ecr 15081580], length 0
+
+7  07:47:41.226004 IP (tos 0x0, ttl 64, id 59261, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xc0a9 (correct), ack 13984, win 397, options [nop,nop,TS val 954835748 ecr 15081581], length 0
+
+8  07:47:41.226548 IP (tos 0x0, ttl 64, id 59262, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xb61f (correct), ack 16680, win 397, options [nop,nop,TS val 954835749 ecr 15081582], length 0
+
+9  07:47:41.227124 IP (tos 0x0, ttl 64, id 59263, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xb332 (correct), ack 17427, win 397, options [nop,nop,TS val 954835750 ecr 15081583], length 0
+
+10  07:47:41.227371 IP (tos 0x0, ttl 64, id 59264, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [F.], cksum 0xb331 (correct), seq 85, ack 17427, win 397, options [nop,nop,TS val 954835750 ecr 15081583], length 0
+
+11  07:47:41.227485 IP (tos 0x0, ttl 64, id 59265, offset 0, flags [DF], proto TCP (6), length 52)
+10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [.], cksum 0xb330 (correct), ack 17428, win 397, options [nop,nop,TS val 954835750 ecr 15081583], length 0
   </code></pre>
 </section>
 <section>
@@ -850,11 +885,11 @@ Entity-Body
           (document.getElementById("mime-example").textContent = JSON.stringify(
             Array.from(resp.headers.entries()).reduce(
               (o, e) => Object.assign(o, { [e[0]]: e[1] }),
-              {}
+              {},
             ),
             null,
-            2
-          ))
+            2,
+          )),
       );
     </script>
   </section>
@@ -1063,7 +1098,12 @@ Access-Control-Allow-Credentials: true
         <li>Expire: An absolute time to delete cookie</li>
         <li>Max-Age: The maximum life time (sec) of cookie</li>
         <li>If exists, shows a permanent cookie</li>
-        <li>If does not exist, shows a session cookie and will be expired when session ends (<a href="https://stackoverflow.com/a/3869950/19718207">more</a>)</li>
+        <li>
+          If does not exist, shows a session cookie and will be expired when
+          session ends (<a href="https://stackoverflow.com/a/3869950/19718207"
+            >more</a
+          >)
+        </li>
         <li>Send a past time (or negative) to delete a cookie</li>
       </ul>
       <li>
