@@ -948,6 +948,56 @@ Entity-Body
   </ul>
 </section>
 <section>
+  <section>
+    <h2>Server-sent events (SSE)</h2>
+    <ul>
+      <li>
+        Traditionally, a web page has to send a request to the server to receive
+        new data; that is, the page requests data from the server
+      </li>
+      <li>
+        With server-sent events, it's possible for a server to send new data to
+        a web page at any time, by pushing messages to the web page.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <p>
+      Server-Sent Events (SSE) is a
+      <span class="hl-orange">server push technology</span> enabling a client to
+      receive automatic updates from a server via an HTTP connection, and
+      describes how servers can initiate data transmission towards clients once
+      an initial client connection has been established.
+    </p>
+    <p>
+      They are commonly used to send
+      <em class="hl-cyan">message updates or continuous data streams</em>
+      to a browser client and designed to enhance native, cross-browser
+      streaming through a JavaScript API called EventSource, through which a
+      client requests a particular URL in order to receive an event stream.
+    </p>
+    <p>
+      The EventSource API is standardized as part of HTML5 by the WHATWG. The
+      media type for SSE is <em class="hl-green">text/event-stream</em>.
+    </p>
+  </section>
+</section>
+<section>
+  <h2>HTTP/2 Server Push</h2>
+  <ul>
+    <li>
+      HTTP/2 Server Push is an optional feature of the HTTP/2 and HTTP/3 network
+      protocols which allows servers to send resources to a client before the
+      client requests them.
+    </li>
+    <li>
+      Server Push is a performance technique aimed at reducing latency by
+      loading resources preemptively, even before the client knows they will be
+      needed.
+    </li>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="1"></div>
 </section>
 <section>
