@@ -42,3 +42,10 @@ hugo server
   - Spring 2022
   - Fall 2022
   - Fall 2023
+
+## Topics and Schedule
+
+- Introduction 1
+- HTTP 4
+- Go Programming 4
+- HTTP Server 2
