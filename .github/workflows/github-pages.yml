@@ -40,7 +40,7 @@ jobs:
         name: install npm requirements
       - name: setup pages
         id: pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       - name: build with hugo
         env:
           # for maximum backward compatibility with hugo modules
