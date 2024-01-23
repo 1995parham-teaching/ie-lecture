@@ -170,7 +170,7 @@ Alvani
 <section>
   <h2>JSON</h2>
   <ul>
-    <li>JavaScripters’ approach</li>
+    <li>JavaScripters' approach</li>
     <li>
       JSON: <span class="hl-orange">J</span>ava<span class="hl-green">S</span
       >cript <span class="hl-cyan">O</span>bject
@@ -200,9 +200,8 @@ Alvani
           Field name in double quotes, followed by a colon, followed by a value
         </li>
         <li>
-          In JSON, the <em class="hl-orange">keys</em> <strong class="hl-yellow"
-            >must</strong
-          >
+          In JSON, the <em class="hl-orange">keys</em
+          ><strong class="hl-yellow">must</strong>
           be strings
         </li>
       </ul>
@@ -219,29 +218,29 @@ Alvani
           <li>string</li>
           <pre><code class="lang-json">
 "This is a string"
-</code></pre>
+          </code></pre>
           <li>number</li>
           <pre><code class="lang-json">
-42
-3.1415926
-</code></pre>
+  42
+  3.1415926
+          </code></pre>
           <li>object</li>
           <pre><code class="lang-json">
 { "key1": "value1", "key2": "value2" }
-</code></pre>
+          </code></pre>
           <li>array</li>
           <pre><code class="lang-json">
 [ "first", "second", "third" ]
-</code></pre>
+          </code></pre>
           <li>boolean</li>
           <pre><code class="lang-json">
 true
 false
-</code></pre>
+          </code></pre>
           <li>null</li>
           <pre><code class="lang-json">
 null
-</code></pre>
+          </code></pre>
         </ul>
       </ul>
     </ul>
@@ -276,7 +275,7 @@ null
   <h2>Documentation &amp; Validation</h2>
   <ul>
     <li>Assume that application A exchange data with application B</li>
-    <li>How does A’s developer document the data format?</li>
+    <li>How does A's developer document the data format?</li>
     <ul>
       <li>How does the receiver know the structure of the data?</li>
       <ul>
@@ -324,7 +323,10 @@ null
   </ul>
 </section>
 <section>
-  <img src="./img/reference-based-validation.png" />
+  <img
+    alt="reference-based-validation"
+    src="./img/reference-based-validation.png"
+  />
 </section>
 <section>
   <h2>The Reference Documents Usage</h2>
@@ -361,7 +363,7 @@ null
   <section>
     <h2>Hello World</h2>
     <ul>
-      <li>This accepts anything, as long as it’s valid JSON</li>
+      <li>This accepts anything, as long as it's valid JSON</li>
       <pre><code class="lang-json">
 {}
       </code></pre>
@@ -379,7 +381,7 @@ null
     <h2>Declaring a JSON Schema</h2>
     <ul>
       <li>
-        Since JSON Schema is itself JSON, it’s not always easy to tell when
+        Since JSON Schema is itself JSON, it's not always easy to tell when
         something is JSON Schema or just an arbitrary chunk of JSON.
       </li>
       <li>
@@ -387,7 +389,7 @@ null
         that something is JSON Schema.
       </li>
       <li>
-        It’s generally good practice to include it, though it is not required.
+        It's generally good practice to include it, though it is not required.
       </li>
     </ul>
     <pre><code class="lang-json">
@@ -420,7 +422,7 @@ null
         <code class="hl-orange">description</code>,
         <code class="hl-orange">default</code>,
         <code class="hl-orange">examples</code> that
-        <strong class="hl-green">aren’t strictly used for validation</strong>,
+        <strong class="hl-green">aren't strictly used for validation</strong>,
         but are used to describe parts of a schema.
       </li>
       <li>
@@ -428,7 +430,7 @@ null
         <code class="hl-yellow">description</code> keywords must be strings.
       </li>
       <li>
-        A “title” will preferably be short, whereas a “description” will provide
+        A "title" will preferably be short, whereas a "description" will provide
         a more lengthy explanation about the purpose of the data described by
         the schema.
       </li>
@@ -475,7 +477,7 @@ null
         <ul>
           <li>Dates and times</li>
           <li>Email addresses</li>
-          <li>Hostnames</li>
+          <li>Host names</li>
           <li>IP Addresses</li>
           <li>...</li>
         </ul>
@@ -536,6 +538,10 @@ null
           The value of <code class="hl-orange">properties</code> is an object,
           where each key is the name of a property and each value is a JSON
           schema used to validate that property.
+        </li>
+        <li>
+          <span class="hl-orange"> properties: </span> Object&lt;String,
+          Schema&gt;
         </li>
       </ul>
     </ul>
@@ -730,16 +736,16 @@ null
 <section>
   <ul>
     <li>
-      <code class="hl-orange">The JSON object</code>, has two very useful
+      <code class="hl-orange">The JSON object</code>, has two very useful
       methods to deal with JSON-formatted content
     </li>
     <ul>
       <li>
-        <code class="hl-green">JSON.parse()</code> takes a JSON string and
+        <code class="hl-green">JSON.parse()</code> takes a JSON string and
         transforms it into a JavaScript object
       </li>
       <li>
-        <code class="hl-green">JSON.stringify()</code> takes a JavaScript object
+        <code class="hl-green">JSON.stringify()</code> takes a JavaScript object
         and transforms it into a JSON string
       </li>
     </ul>
@@ -749,7 +755,7 @@ let myObjStr = JSON.stringify(myObj);
 console.log(myObjStr);
 console.log(JSON.parse(myObjStr));
     </code></pre>
-    <button id="json-btn">Run</button>
+    <button type="button" id="json-btn">Run</button>
     <div id="json-out"></div>
     <script>
       function convert() {
@@ -795,7 +801,7 @@ console.log(JSON.parse(myObjStr));
       </code></pre>
   </section>
   <section>
-    <textarea id="json-in-2" cols="70" rows="10">
+    <textarea placeholder="message" id="json-in-2" cols="70" rows="10">
 {
   "messages": [
     {
@@ -806,7 +812,7 @@ console.log(JSON.parse(myObjStr));
   ]
 }
     </textarea>
-    <button id="json-btn-2">Run</button>
+    <button type="button" id="json-btn-2">Run</button>
     <div id="json-out-2"></div>
     <script>
       function parseJSON() {
@@ -939,7 +945,11 @@ document.getElementById("json-btn-2").onclick = parseJSON;
   </table>
 </section>
 <section>
-  <img src="./img/thrift-efficiency.png" style="display: inline-block" />
+  <img
+    alt="thrift-efficiency"
+    src="./img/thrift-efficiency.png"
+    style="display: inline-block"
+  />
 </section>
 <section>
   <h2>Brief History</h2>
@@ -1179,6 +1189,11 @@ public class CalculatorHandler implements Calculator.Iface {
   <h2>References 📚</h2>
   <ul>
     <li><a href="https://json-schema.org/">https://json-schema.org/</a></li>
+    <li>
+      <a href="https://www.learnjsonschema.com/2020-12/"
+        >https://www.learnjsonschema.com/2020-12/</a
+      >
+    </li>
     <li>
       <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
       Internet Eng. Course's Slides
