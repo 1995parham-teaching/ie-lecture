@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Internet Engineering</title>
     <meta
       name="description"
@@ -15,8 +16,6 @@
     {{ $style := readFile "node_modules/bootstrap/dist/css/bootstrap.css" | resources.FromString "bootstrap.css" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
     <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
     <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
