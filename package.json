@@ -10,6 +10,6 @@
     "prettier": "^3.2.5",
     "bootstrap": "^5.3.3",
     "prettier-plugin-go-template": "^0.0.15",
-    "reveal.js": "^5.0.4"
+    "reveal.js": "^5.0.5"
   }
 }
