@@ -43,6 +43,7 @@ hugo server
   - Spring 2022
   - Fall 2022
   - Fall 2023
+  - Spring 2024
 
 ## Topics and Schedule
 
