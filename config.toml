@@ -4,7 +4,7 @@ staticDir = ['fonts']
 enableGitInfo = true
 
 [params]
-semester = "Fall 2023"
+semester = "Spring 2024"
 
 [module]
 
