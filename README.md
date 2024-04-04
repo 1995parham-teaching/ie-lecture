@@ -51,4 +51,5 @@ hugo server
 - HTTP (4 sessions)
   - [![YouTube Video Views](https://img.shields.io/youtube/views/Lo9bkJir4q8?style=for-the-badge&logo=youtube)](https://youtu.be/Lo9bkJir4q8?si=H5AVYPwCHRHT4HPL)
 - Go Programming (4 sessions)
+  - [![YouTube Video Views](https://img.shields.io/youtube/views/B7rmPliSPew?style=for-the-badge&logo=youtube)](https://youtu.be/B7rmPliSPew?si=g-70-GmP8bENLzjz)
 - HTTP Server (2 sessions)
