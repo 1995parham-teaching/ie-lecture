@@ -47,7 +47,8 @@ hugo server
 
 ## Topics and Schedule
 
-- Introduction 1
-- HTTP 4
-- Go Programming 4
-- HTTP Server 2
+- Introduction (1 session)
+- HTTP (4 sessions)
+  - ![YouTube Video Views](https://img.shields.io/youtube/views/Lo9bkJir4q8?style=for-the-badge&logo=youtube&link=https%3A%2F%2Fyoutu.be%2FLo9bkJir4q8%3Fsi%3DTu6kxxKtWzwAi4ks)
+- Go Programming (4 sessions)
+- HTTP Server (2 sessions)
