@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Web programming course contains material from backend to frontend development.
+Web programming course contains material from Back-End to Front-End development.
 This is technological course, so its materials may be deprecated soon, or they may be related only to specific technologies.
 I am trying my best to keep these materials updated but feel free to change or update them using PRs.
 
