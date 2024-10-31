@@ -680,7 +680,25 @@ Entity-Body
         <li>Location header contains the new location of resource</li>
       </ul>
       <li>304: Not Modified</li>
+      <li>308: Permanent Redirect</li>
+      <p>Both 302 and 307 used for temporary redirects</p>
     </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTTP Responses (Cont.)</h2>
+  <ul>
+    <li><span class="hl-cyan">3xx</span> (Redirects)</li>
+    <p>
+      307 came about because user agents adopted as a de facto behaviour to take
+      POST requests that receive a 302 response and send a GET request to the
+      Location response header.
+    </p>
+    <p>
+      That is the <strong class="hl-orange">incorrect behaviour</strong> — only
+      a 303 should cause a POST to turn into a GET.
+    </p>
+    <img style="margin: auto 30%" src="./img/3xx.png" alt="3xx" />
   </ul>
 </section>
 <section>
