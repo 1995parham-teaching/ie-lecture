@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>{{ .Title }}</title>
-    {{ $style := readFile "node_modules/reveal.js/dist/reveal.css" | resources.FromString "reveal.css" | toCSS | minify }}
+    {{ $style := readFile "node_modules/reveal.js/dist/reveal.css" | resources.FromString "reveal.css" | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
     {{ $style := readFile "node_modules/reveal.js/dist/theme/league.css" | resources.FromString "league.css" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
