@@ -1568,21 +1568,27 @@ $ curl -v http://127.0.0.1:8241/hints
       src="https://avatars1.githubusercontent.com/u/8181240?v=4"
       alt="a GitHub avatar, served as image/png"
     />
-    <pre><code id="mime-example" class="lang-json"></code></pre>
+    <pre><code id="mime-example" class="lang-json">Waiting...</code></pre>
     <script>
       fetch("https://avatars1.githubusercontent.com/u/8181240?v=4", {
         method: "HEAD",
-      }).then(
-        (resp) =>
-          (document.getElementById("mime-example").textContent = JSON.stringify(
-            Array.from(resp.headers.entries()).reduce(
-              (o, e) => Object.assign(o, { [e[0]]: e[1] }),
-              {},
-            ),
-            null,
-            2,
-          )),
-      );
+      })
+        .then(
+          (resp) =>
+            (document.getElementById("mime-example").textContent =
+              JSON.stringify(
+                Array.from(resp.headers.entries()).reduce(
+                  (o, e) => Object.assign(o, { [e[0]]: e[1] }),
+                  {},
+                ),
+                null,
+                2,
+              )),
+        )
+        .catch((err) => {
+          document.getElementById("mime-example").textContent =
+            `could not reach the server: ${err.message}`;
+        });
     </script>
   </section>
 </section>
