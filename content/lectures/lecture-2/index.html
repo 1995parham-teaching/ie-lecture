@@ -1011,6 +1011,196 @@ Entity-Body
   </ul>
 </section>
 <section>
+  <section>
+    <h2>WebSocket Protocol [RFC 6455]</h2>
+    <ul>
+      <li>
+        HTTP is a <span class="hl-orange">request-response</span> protocol
+      </li>
+      <ul>
+        <li>Client must initiate every communication</li>
+        <li>Server cannot push data without a request</li>
+        <li>Each request creates overhead (headers, connection setup)</li>
+      </ul>
+      <li>
+        WebSocket provides <span class="hl-green">full-duplex</span>,
+        <span class="hl-cyan">bidirectional</span> communication over a
+        <span class="hl-yellow">single TCP connection</span>
+      </li>
+      <li>
+        Both client and server can send messages
+        <span class="hl-orange">at any time</span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>WebSocket vs SSE vs HTTP Polling</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>WebSocket</th>
+        <th>SSE</th>
+        <th>Polling</th>
+      </tr>
+      <tr>
+        <td>Direction</td>
+        <td><span class="hl-green">Bidirectional</span></td>
+        <td>Server → Client</td>
+        <td>Client → Server</td>
+      </tr>
+      <tr>
+        <td>Protocol</td>
+        <td>ws:// or wss://</td>
+        <td>HTTP</td>
+        <td>HTTP</td>
+      </tr>
+      <tr>
+        <td>Overhead</td>
+        <td><span class="hl-green">Low</span></td>
+        <td>Low</td>
+        <td><span class="hl-red">High</span></td>
+      </tr>
+      <tr>
+        <td>Use Case</td>
+        <td>Chat, Games</td>
+        <td>Notifications</td>
+        <td>Simple updates</td>
+      </tr>
+    </table>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>WebSocket Handshake</h2>
+    <ul>
+      <li>
+        WebSocket connection starts as an
+        <span class="hl-orange">HTTP request</span> with an
+        <span class="hl-green">Upgrade</span> header
+      </li>
+      <li>
+        Server responds with <span class="hl-cyan">101 Switching Protocols</span>
+      </li>
+      <li>After handshake, protocol switches from HTTP to WebSocket</li>
+    </ul>
+  </section>
+  <section>
+    <h3>Client Request</h3>
+    <pre><code class="language-http">
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Version: 13
+    </code></pre>
+    <h3>Server Response</h3>
+    <pre><code class="language-http">
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>WebSocket in JavaScript</h2>
+    <pre><code class="lang-javascript">
+// Create WebSocket connection
+const socket = new WebSocket('wss://example.com/socket');
+
+// Connection opened
+socket.addEventListener('open', (event) => {
+  socket.send('Hello Server!');
+});
+
+// Listen for messages
+socket.addEventListener('message', (event) => {
+  console.log('Message from server:', event.data);
+});
+
+// Handle errors
+socket.addEventListener('error', (error) => {
+  console.error('WebSocket error:', error);
+});
+
+// Connection closed
+socket.addEventListener('close', (event) => {
+  console.log('Connection closed:', event.code, event.reason);
+});
+    </code></pre>
+  </section>
+  <section>
+    <h2>Sending Data</h2>
+    <pre><code class="lang-javascript">
+// Send text
+socket.send('Hello!');
+
+// Send JSON
+socket.send(JSON.stringify({ type: 'message', data: 'Hello!' }));
+
+// Check connection state
+if (socket.readyState === WebSocket.OPEN) {
+  socket.send('Connection is open');
+}
+
+// Close connection
+socket.close(1000, 'Normal closure');
+    </code></pre>
+    <ul>
+      <li>
+        <span class="hl-orange">readyState</span>: CONNECTING (0), OPEN (1),
+        CLOSING (2), CLOSED (3)
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>WebSocket Use Cases</h2>
+  <ul>
+    <li><span class="hl-orange">Real-time chat</span> applications</li>
+    <li><span class="hl-green">Live notifications</span> and alerts</li>
+    <li><span class="hl-cyan">Multiplayer games</span></li>
+    <li><span class="hl-yellow">Collaborative editing</span> (Google Docs)</li>
+    <li><span class="hl-violet">Live sports scores</span> and stock tickers</li>
+    <li><span class="hl-red">IoT device communication</span></li>
+  </ul>
+  <div class="box">
+    <p>
+      Use WebSocket when you need <strong>low-latency</strong>,
+      <strong>bidirectional</strong> communication. For server-to-client only,
+      consider SSE as a simpler alternative.
+    </p>
+  </div>
+</section>
+<section>
+  <h2>WebSocket Security</h2>
+  <ul>
+    <li>
+      Always use <span class="hl-green">wss://</span> (WebSocket Secure) in
+      production
+    </li>
+    <ul>
+      <li>Encrypts data using TLS (same as HTTPS)</li>
+    </ul>
+    <li>
+      <span class="hl-orange">Origin checking</span>: Server should validate
+      the Origin header
+    </li>
+    <li>
+      <span class="hl-cyan">Authentication</span>: Send auth token in first
+      message or via URL parameter
+    </li>
+    <li>
+      WebSocket is <span class="hl-red">not</span> subject to same-origin policy
+    </li>
+    <ul>
+      <li>Server must implement its own origin validation</li>
+    </ul>
+  </ul>
+</section>
+<section>
   <div class="toc" data-selected="1"></div>
 </section>
 <section>
