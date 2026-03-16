@@ -9,9 +9,5 @@ semester = "Spring 2024"
 [module]
 
 [[module.mounts]]
-source = "node_modules/reveal.js/dist/theme/fonts"
-target = "static/fonts"
-
-[[module.mounts]]
 source = 'static'
 target = 'static'
