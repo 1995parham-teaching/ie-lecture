@@ -3591,6 +3591,11 @@ function swapiExec() {
         (document.getElementById(
           "swapi-result"
         ).textContent = JSON.stringify(data))
+    )
+    .catch(
+      (err) =>
+        (document.getElementById("swapi-result").textContent =
+          `could not reach the web service: ${err.message}`)
     );
 }
     </code></pre>
@@ -3603,6 +3608,11 @@ function swapiExec() {
             (data) =>
               (document.getElementById("swapi-result").textContent =
                 JSON.stringify(data)),
+          )
+          .catch(
+            (err) =>
+              (document.getElementById("swapi-result").textContent =
+                `could not reach the web service: ${err.message}`),
           );
       }
     </script>
@@ -3621,6 +3631,13 @@ function swapiExec() {
             document
               .querySelector("section.present > section.present")
               .appendChild(img);
+          })
+          .catch((err) => {
+            let msg = document.createElement("p");
+            msg.textContent = `could not reach Wikimedia: ${err.message}`;
+            document
+              .querySelector("section.present > section.present")
+              .appendChild(msg);
           });
       }
     </script>
@@ -3636,6 +3653,13 @@ function wikiSWLogo() {
       document
         .querySelector("section.present &gt; section.present")
         .appendChild(img);
+    })
+    .catch((err) =&gt; {
+      let msg = document.createElement("p");
+      msg.textContent = `could not reach Wikimedia: ${err.message}`;
+      document
+        .querySelector("section.present &gt; section.present")
+        .appendChild(msg);
     });
 }
     </code></pre>
