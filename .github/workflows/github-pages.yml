@@ -35,7 +35,7 @@ jobs:
         with:
           submodules: recursive
       - name: setup nodejs
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
       - run: npm install
         name: install npm requirements
       - name: setup pages
