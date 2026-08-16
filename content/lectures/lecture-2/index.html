@@ -735,6 +735,7 @@ Entity-Body
           has been temporarily moved to the URL given by the Location header
         </li>
       </ul>
+      <li>303: See Other</li>
       <li>307: Temporary Redirect</li>
       <ul>
         <li>Resource has been moved, Redirection</li>
@@ -746,25 +747,238 @@ Entity-Body
       </ul>
       <li>304: Not Modified</li>
       <li>308: Permanent Redirect</li>
-      <p>Both 302 and 307 used for temporary redirects</p>
     </ul>
+    <li>
+      302, 303 and 307 are all temporary; they differ in what the client does
+      with the <span class="hl-orange">method</span>
+    </li>
   </ul>
 </section>
 <section>
-  <h2>HTTP Responses (Cont.)</h2>
-  <ul>
-    <li><span class="hl-cyan">3xx</span> (Redirects)</li>
+  <section>
+    <h2>Redirects: Where, and <em class="hl-orange">How</em>?</h2>
     <p>
-      307 came about because user agents adopted as a de facto behaviour to take
-      POST requests that receive a 302 response and send a GET request to the
-      Location response header.
+      A redirect says <q>look over there</q>. The harder question is what the
+      client sends when it gets there — the same method and body, or a fresh
+      <code>GET</code>?
     </p>
-    <p>
-      That is the <strong class="hl-orange">incorrect behaviour</strong> — only
-      a 303 should cause a POST to turn into a GET.
-    </p>
-    <img style="margin: auto 30%" src="./img/3xx.png" alt="3xx" />
-  </ul>
+    <table style="font-size: 0.8em">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Lifetime</th>
+          <th>Method on the second request</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>301 Moved Permanently</td>
+          <td>permanent</td>
+          <td><span class="hl-yellow">in practice becomes GET</span></td>
+        </tr>
+        <tr>
+          <td>302 Found</td>
+          <td>temporary</td>
+          <td><span class="hl-yellow">in practice becomes GET</span></td>
+        </tr>
+        <tr>
+          <td>303 See Other</td>
+          <td>temporary</td>
+          <td><span class="hl-green">always GET, by specification</span></td>
+        </tr>
+        <tr>
+          <td>307 Temporary Redirect</td>
+          <td>temporary</td>
+          <td><span class="hl-cyan">preserved, body and all</span></td>
+        </tr>
+        <tr>
+          <td>308 Permanent Redirect</td>
+          <td>permanent</td>
+          <td><span class="hl-cyan">preserved, body and all</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>
+        Note the wording for 301 and 302: <em>in practice</em>. That is the
+        whole story
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Why Would the Method Change at All?</h2>
+    <ul>
+      <li>
+        The original specifications said a client
+        <strong class="hl-green">must not</strong> change the method after a 301
+        or 302 without asking the user
+      </li>
+      <li>
+        Early browsers turned <code>POST</code> into
+        <code class="hl-orange">GET</code> anyway, silently — and the web was
+        written against the browsers, not the document
+      </li>
+      <li>
+        By RFC 7231 the specification gave up and described reality:
+        <q class="hl-yellow"
+          >for historical reasons, a user agent MAY change the request method</q
+        >
+      </li>
+      <li>
+        So two unambiguous codes were added on either side:
+        <span class="hl-green">303</span> means <em>definitely</em> switch to
+        GET, <span class="hl-cyan">307</span> and
+        <span class="hl-cyan">308</span> mean <em>definitely</em> do not
+      </li>
+    </ul>
+    <div class="box">
+      <p>
+        301 and 302 are the ambiguous ones. After a POST, never use them — say
+        what you mean with 303 or 307.
+      </p>
+    </div>
+    <img style="margin: auto 30%" src="./img/3xx.png" alt="the 3xx family" />
+  </section>
+  <section>
+    <h2>The Good Reason: POST / Redirect / GET</h2>
+    <ul>
+      <li>
+        After a plain <code>POST</code>, the address bar still holds the URL you
+        posted to
+      </li>
+      <li>
+        Press <span class="hl-orange">refresh</span> and the browser offers to
+        send the form again — one order becomes two
+      </li>
+      <li>Answer: do not <em>answer</em> a POST. Redirect it</li>
+    </ul>
+    <pre><code class="language-http">
+POST /orders HTTP/1.1
+Host: shop.example
+Content-Type: application/x-www-form-urlencoded
+
+item=book&amp;qty=1
+    </code></pre>
+    <pre><code class="language-http">
+HTTP/1.1 303 See Other
+Location: /orders/1042
+    </code></pre>
+    <pre><code class="language-http">
+GET /orders/1042 HTTP/1.1
+Host: shop.example
+    </code></pre>
+    <ul>
+      <li>
+        The browser now sits on the <em class="hl-green">receipt</em>. Refresh
+        re-fetches it, and the order is placed exactly once
+      </li>
+      <li>
+        Turning the POST into a GET is not a wart here — it is the
+        <strong class="hl-green">point</strong>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>When You Must Keep the Method</h2>
+    <ul>
+      <li>
+        An API endpoint moves. The client should re-send
+        <em class="hl-cyan">the same request</em>, not a GET at the new address
+      </li>
+    </ul>
+    <pre><code class="language-http">
+POST /api/v1/orders HTTP/1.1
+Host: api.example
+Content-Type: application/json
+
+{"item": "book"}
+    </code></pre>
+    <pre><code class="language-http">
+HTTP/1.1 308 Permanent Redirect
+Location: /api/v2/orders
+    </code></pre>
+    <pre><code class="language-http">
+POST /api/v2/orders HTTP/1.1
+Host: api.example
+Content-Type: application/json
+
+{"item": "book"}
+    </code></pre>
+    <ul>
+      <li>
+        With a 301 here the body would be
+        <strong class="hl-red">lost</strong> and v2 would receive a meaningless
+        <code>GET</code>
+      </li>
+    </ul>
+  </section>
+  <section class="hands-on">
+    <h2>See It On the Wire</h2>
+    <ul>
+      <li>
+        A server that answers every <code>/rNNN</code> with that status and
+        <code>Location: /target</code>
+      </li>
+      <li>
+        <code>/target</code> simply reports the method and body it received
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+curl -L -d 'name=parham' http://127.0.0.1:8232/r303
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-yellow">-d</code> implies POST. Do
+        <strong class="hl-red">not</strong> add <code>-X POST</code> — that
+        forces the method on the second request too and hides the effect
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+301  →  GET  /target   body=''
+302  →  GET  /target   body=''
+303  →  GET  /target   body=''
+307  →  POST /target   body='name=parham'
+308  →  POST /target   body='name=parham'
+    </code></pre>
+    <ul>
+      <li>
+        301, 302 and 303 all arrived as <span class="hl-orange">GET</span>, and
+        the body is <strong class="hl-red">gone</strong> — nothing warns you
+      </li>
+      <li>307 and 308 arrived intact</li>
+      <li>
+        curl can be told to keep the method with
+        <code>--post301 --post302</code>, which is exactly the ambiguity those
+        two codes carry
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Rules of Thumb</h2>
+    <ul>
+      <li>
+        Answering a form <code>POST</code>? → <span class="hl-green">303</span>,
+        pointing at the result
+      </li>
+      <li>
+        Moved an endpoint and the method matters? →
+        <span class="hl-cyan">308</span> permanent,
+        <span class="hl-cyan">307</span> temporary
+      </li>
+      <li>
+        Moved a page a browser only ever GETs? →
+        <span class="hl-orange">301</span> is fine, and caches will remember it
+      </li>
+      <li>
+        <span class="hl-red">301 is sticky</span>: browsers cache it hard. Get
+        it wrong on a URL and visitors keep going to the old target long after
+        you fix the server
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>HTTP Responses (Cont.)</h2>
