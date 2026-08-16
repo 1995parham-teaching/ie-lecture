@@ -1,13 +1,369 @@
 ---
 lecture: false
 title: MongoDB
-topics: []
+topics:
+  - NoSQL
+  - Distribution
+  - MongoDB
+  - Documents
+  - Operations
 ---
 
 <section>
+  <h2>Introduction to NoSQL and MongoDB</h2>
   <p>
-    The presentation is in PowerPoint format so
-    <a href="./presentation.pptx">click here</a>
-    to download it.
+    Originally presented by <span class="hl-green">Ehsan Edalat</span> and
+    <span class="hl-green">Parham Alvani</span>. The original slides are also
+    available as a <a href="./presentation.pptx">PowerPoint file</a>.
   </p>
+</section>
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <section>
+    <h2>Why NoSQL?</h2>
+    <ul>
+      <li>
+        The relational model asks you to know the
+        <em class="hl-orange">schema</em> up front, and to normalise data across
+        tables
+      </li>
+      <li>
+        That is a good fit for many problems, and a poor one when
+        <ul>
+          <li>documents differ from each other in shape</li>
+          <li>the data does not fit on a single machine</li>
+          <li>reads dominate, and joins get expensive</li>
+        </ul>
+      </li>
+      <li>
+        <strong class="hl-green">NoSQL</strong> is not one database, it is a
+        family of trade-offs
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Taxonomy</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Key-Value</span>: a hash table, e.g. Redis
+      </li>
+      <li>
+        <span class="hl-green">Document</span>: self-describing records, e.g.
+        MongoDB
+      </li>
+      <li>
+        <span class="hl-cyan">Column Family</span>: wide sparse rows, e.g.
+        Cassandra
+      </li>
+      <li>
+        <span class="hl-violet">Graph</span>: nodes and edges as first-class
+        things, e.g. Neo4j
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Questions to Ask</h2>
+    <ul>
+      <li>
+        <strong>Data model</strong>: are your records rows, documents, or a
+        graph?
+      </li>
+      <li>
+        <strong>Scalability</strong>: does the data fit on one server, now and
+        later?
+      </li>
+      <li>
+        <strong>Transactions</strong>: do a set of operations need to succeed or
+        fail together?
+      </li>
+      <li>
+        <strong>Query</strong>: do you know the access patterns in advance?
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <section>
+    <h2>The CAP Theorem</h2>
+    <ul>
+      <li>
+        In the presence of a network <span class="hl-red">partition</span>, a
+        distributed system must choose between
+      </li>
+      <ul>
+        <li>
+          <span class="hl-green">Consistency</span>: every read sees the latest
+          write
+        </li>
+        <li>
+          <span class="hl-cyan">Availability</span>: every request gets an
+          answer
+        </li>
+      </ul>
+      <li>
+        Partitions are not optional, so the real choice is
+        <em class="hl-orange">what to do when one happens</em>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Replica Sets</h2>
+    <ul>
+      <li>
+        The same data on several servers: one
+        <span class="hl-green">primary</span>, several
+        <span class="hl-cyan">secondaries</span>
+      </li>
+      <li>Writes go to the primary and replicate from its oplog</li>
+      <li>
+        If the primary disappears, the members
+        <strong class="hl-orange">elect</strong> a new one, so failover needs no
+        operator
+      </li>
+      <li>Redundancy, and maintenance without downtime</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Sharding</h2>
+    <ul>
+      <li>
+        One logical database spread across a cluster, partitioned by a
+        <span class="hl-yellow">shard key</span>
+      </li>
+      <li>
+        This is <em class="hl-green">horizontal</em> scale: add machines rather
+        than a bigger machine
+      </li>
+      <li>
+        The shard key decides everything. A poor one sends every query to every
+        shard, or every write to one shard
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <section>
+    <h2>What is MongoDB?</h2>
+    <ul>
+      <li>A document-oriented database, first released in 2009</li>
+      <li>
+        Documents are stored as <span class="hl-green">BSON</span>, a binary
+        form of JSON with more types
+      </li>
+      <ul>
+        <li>Dates, 32/64-bit numbers, and binary data, which JSON lacks</li>
+      </ul>
+      <li>Secondary indexes, an aggregation pipeline, and a query language</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Hierarchy</h2>
+    <ul>
+      <li>
+        A server holds zero or more <span class="hl-orange">databases</span>
+      </li>
+      <li>
+        A database holds zero or more <span class="hl-green">collections</span>
+      </li>
+      <li>
+        A collection holds zero or more <span class="hl-cyan">documents</span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Coming From SQL</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>RDBMS</th>
+          <th>MongoDB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Database</td>
+          <td>Database</td>
+        </tr>
+        <tr>
+          <td>Table, View</td>
+          <td>Collection</td>
+        </tr>
+        <tr>
+          <td>Row</td>
+          <td>Document (BSON)</td>
+        </tr>
+        <tr>
+          <td>Column</td>
+          <td>Field</td>
+        </tr>
+        <tr>
+          <td>Index</td>
+          <td>Index</td>
+        </tr>
+        <tr>
+          <td>Join</td>
+          <td>Embedding, or $lookup</td>
+        </tr>
+        <tr>
+          <td>Primary key</td>
+          <td>_id</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2>Processes</h2>
+    <ul>
+      <li><code class="hl-yellow">mongod</code>: the database server</li>
+      <li>
+        <code class="hl-yellow">mongos</code>: the router in front of a sharded
+        cluster
+      </li>
+      <li>
+        <code class="hl-yellow">mongosh</code>: the shell, a full JavaScript
+        environment
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <section>
+    <h2>Schema Free?</h2>
+    <ul>
+      <li>
+        MongoDB does not require a schema, and two documents in one collection
+        may differ
+      </li>
+      <li>
+        But the data still <em class="hl-orange">has</em> a schema. The question
+        is only whether the database or your application enforces it
+      </li>
+      <li>Schema validation exists when you want the database to check</li>
+    </ul>
+    <pre><code class="lang-json">
+{ "_id": 1, "name": "R2-D2", "race": "Droid", "affiliation": "rebels" }
+{ "_id": 2, "name": "Han Solo", "ship": "Millennium Falcon" }
+    </code></pre>
+  </section>
+  <section>
+    <h2>Embed or Reference?</h2>
+    <ul>
+      <li>
+        <span class="hl-green">Embed</span> what you read together: a document
+        is fetched in one go
+      </li>
+      <li>
+        <span class="hl-cyan">Reference</span> what grows without bound, or is
+        shared between many documents
+      </li>
+      <li>
+        Model for the <strong class="hl-orange">queries</strong> you will run,
+        not for the tidiest normal form
+      </li>
+    </ul>
+    <pre><code class="lang-json">
+{
+  "name": "IE",
+  "teacher": "Parham Alvani",
+  "students": [{ "first_name": "Parham", "id": "9231058" }],
+  "capacity": 30
+}
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <section>
+    <h2>CRUD</h2>
+    <pre><code class="lang-javascript">
+// create
+db.students.insertOne({ name: "Parham", id: "9231058" });
+db.students.insertMany([{ name: "Ali" }, { name: "Sara" }]);
+
+// read
+db.students.find({ name: "Parham" });
+db.students.findOne({ id: "9231058" });
+
+// update
+db.students.updateOne({ id: "9231058" }, { $set: { name: "Parham Alvani" } });
+
+// delete
+db.students.deleteOne({ id: "9231058" });
+    </code></pre>
+  </section>
+  <section>
+    <h2>Aggregation Pipeline</h2>
+    <p>Documents flow through stages, each one transforming the stream.</p>
+    <pre><code class="lang-javascript">
+db.students.aggregate([
+  { $match: { capacity: { $gt: 20 } } },
+  { $group: { _id: "$teacher", total: { $sum: 1 } } },
+  { $sort: { total: -1 } },
+]);
+    </code></pre>
+  </section>
+  <section>
+    <h2>Transactions</h2>
+    <ul>
+      <li>
+        A single document write is
+        <strong class="hl-green">atomic</strong>, which covers most cases if you
+        embed well
+      </li>
+      <li>
+        Multi-document <span class="hl-cyan">ACID transactions</span> exist
+        since MongoDB 4.0
+      </li>
+      <li>
+        They cost more than in a relational database, so they are a tool rather
+        than a default
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Mongoose</h2>
+    <ul>
+      <li>
+        An <span class="hl-orange">ODM</span> for Node.js: schemas, validation,
+        and models over the driver
+      </li>
+      <li>Puts the schema back, in the application layer</li>
+    </ul>
+    <pre><code class="lang-javascript">
+const studentSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  id: { type: String, unique: true },
+});
+
+const Student = mongoose.model("Student", studentSchema);
+    </code></pre>
+  </section>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li><a href="https://www.mongodb.com/docs/manual/">MongoDB Manual</a></li>
+    <li>
+      <a href="https://www.mongodb.com/docs/manual/core/data-model-design/">
+        Data Model Design
+      </a>
+    </li>
+    <li><a href="https://mongoosejs.com/docs/guide.html">Mongoose Guide</a></li>
+  </ul>
 </section>

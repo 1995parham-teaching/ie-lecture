@@ -54,3 +54,4 @@ hugo server
 - Go Programming (4 sessions)
   - [![YouTube Video Views](https://img.shields.io/youtube/views/B7rmPliSPew?style=for-the-badge&logo=youtube)](https://youtu.be/B7rmPliSPew?si=g-70-GmP8bENLzjz)
 - HTTP Server (2 sessions)
+- Web Security (2 sessions)

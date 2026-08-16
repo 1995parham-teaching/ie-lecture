@@ -2,7 +2,9 @@ $highlights: (
   "orange": #ff9100,
   "green": #76ff03,
   "cyan": #00e5ff,
-  "red": #ff0000,
+  // lightened from #ff0000, which only reached 4.18:1 on the league
+  // background and is hard to read from the back of a lecture hall
+  "red": #ff5252,
   "material": #ff80ab,
   "violet": #ee82ee,
   "yellow": #ffcc00,
@@ -24,7 +26,8 @@ $highlights: (
 }
 
 section > h2:first-child {
-  color: #ff033e !important;
+  // lightened from #ff033e (4.25:1) to clear 4.5:1 on the league background
+  color: #ff4569 !important;
 }
 
 section > p {

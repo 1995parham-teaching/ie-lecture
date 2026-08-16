@@ -1,15 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Internet Engineering</title>
-    <meta
-      name="description"
-      content="Internet Engineering Course Lecture and Page"
-    />
-    <meta name="author" content="Parham Alvani" />
-    <link rel="shortcut icon" href="https://github.com/1995parham-me.png" />
+    {{ partial "meta.html" (dict
+      "title" "Internet Engineering"
+      "description" "Internet Engineering course lectures, from back-end to front-end web development."
+      "page" .)
+    }}
+    <script>
+      // apply the stored theme before first paint, so the page does not
+      // flash the light palette on the way to the dark one
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const system = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.dataset.bsTheme = stored ?? system;
+      })();
+    </script>
 
     {{ $js := readFile "node_modules/bootstrap/dist/js/bootstrap.js" | resources.FromString "bootstrap.js" | js.Build (dict "minify" hugo.IsProduction) }}
     <script src="{{ $js.RelPermalink }}" defer></script>
@@ -29,6 +38,14 @@
       <div class="header">
         <h1>Internet Engineering</h1>
         <h6>Last Update: {{ .GitInfo.AuthorDate.Format "January 2, 2006" }}</h6>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary theme-toggle"
+          aria-label="Toggle dark mode"
+        >
+          <span class="theme-toggle-dark">🌙 Dark</span>
+          <span class="theme-toggle-light">☀️ Light</span>
+        </button>
       </div>
       <p>
         Web programming course contains material from backend to frontend
@@ -131,5 +148,15 @@
         {{ end }}
       </div>
     </div>
+    <script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next =
+          document.documentElement.dataset.bsTheme === "dark"
+            ? "light"
+            : "dark";
+        document.documentElement.dataset.bsTheme = next;
+        localStorage.setItem("theme", next);
+      });
+    </script>
   </body>
 </html>

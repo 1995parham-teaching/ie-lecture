@@ -2603,6 +2603,88 @@ h1 {
 </section>
 
 <section>
+  <section>
+    <h2>Defining a Grid</h2>
+    <p>
+      The container declares the tracks, and the children fall into them in
+      order.
+    </p>
+    <pre>
+      <code class="lang-css">
+        .container {
+          display: grid;
+          grid-template-columns: 200px 1fr 1fr;
+          gap: 16px;
+        }
+      </code>
+    </pre>
+    <ul>
+      <li>
+        <span class="hl-green">fr</span> is a fraction of the
+        <em>leftover</em> space, so the columns above are fixed, half, half
+      </li>
+      <li>
+        <span class="hl-cyan">gap</span> replaces the margin tricks that floats
+        needed
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Repeating Tracks</h2>
+    <pre>
+      <code class="lang-css">
+        .container {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+        }
+      </code>
+    </pre>
+    <p>
+      A responsive gallery, with
+      <strong class="hl-orange">no media query at all</strong>:
+    </p>
+    <pre>
+      <code class="lang-css">
+        .gallery {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 16px;
+        }
+      </code>
+    </pre>
+    <ul>
+      <li>Fit as many 200px columns as possible, then share what is left</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Placing Items</h2>
+    <p>An item can span tracks, by line number or by name.</p>
+    <pre>
+      <code class="lang-css">
+        .hero {
+          grid-column: 1 / 3; // from line 1 to line 3, so two columns
+          grid-row: 1;
+        }
+      </code>
+    </pre>
+    <p>Or describe the layout as a picture:</p>
+    <pre>
+      <code class="lang-css">
+        .page {
+          display: grid;
+          grid-template-areas:
+            "header header"
+            "side   main"
+            "footer footer";
+        }
+
+        .page > nav { grid-area: side; }
+      </code>
+    </pre>
+  </section>
+</section>
+
+<section>
   <h2>FlexBox VS Grid</h2>
 
   <img src="./img/flex-vs-grid.png" alt="Flex vs Grid" />
@@ -2610,6 +2692,82 @@ h1 {
 
 <section>
   <div class="toc" data-selected="6"></div>
+</section>
+<section>
+  <section>
+    <h2>Custom Properties</h2>
+    <ul>
+      <li>
+        CSS has <span class="hl-green">variables</span>, and unlike a
+        preprocessor's they live in the browser
+      </li>
+      <li>They cascade and inherit, like any other property</li>
+    </ul>
+    <pre>
+      <code class="lang-css">
+        :root {
+          --brand: #ff9100;
+          --gap: 16px;
+        }
+
+        .button {
+          background: var(--brand);
+          padding: var(--gap);
+        }
+      </code>
+    </pre>
+  </section>
+  <section>
+    <h2>Why It Matters</h2>
+    <ul>
+      <li>
+        A variable can be redefined for a subtree, so one declaration
+        <em class="hl-cyan">re-themes</em> everything below it
+      </li>
+      <li>
+        It can be read and written from JavaScript, which a preprocessor
+        variable never can
+      </li>
+    </ul>
+    <pre>
+      <code class="lang-css">
+        .dark {
+          --brand: #ffcc00;
+        }
+      </code>
+    </pre>
+    <pre>
+      <code class="lang-javascript">
+        element.style.setProperty("--brand", "#00e5ff");
+      </code>
+    </pre>
+  </section>
+  <section>
+    <h2>Sizing Without Breakpoints</h2>
+    <ul>
+      <li>
+        <code class="hl-green">clamp(min, preferred, max)</code> picks the
+        preferred value, but never leaves the bounds
+      </li>
+    </ul>
+    <pre>
+      <code class="lang-css">
+        h1 {
+          font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+      </code>
+    </pre>
+    <ul>
+      <li>
+        The heading grows with the viewport, stays readable on a phone, and
+        stops growing on a projector
+      </li>
+      <li>
+        <code class="hl-orange">min()</code> and
+        <code class="hl-orange">max()</code> work the same way
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>

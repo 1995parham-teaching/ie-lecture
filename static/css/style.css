@@ -17,8 +17,26 @@ body {
   border-radius: 18px;
 }
 
+/* the background photo stays, so the panel only darkens on top of it */
+[data-bs-theme="dark"] .container {
+  background-color: rgba(24, 26, 27, 0.92);
+}
+
 .header {
   text-align: center;
+}
+
+.theme-toggle {
+  margin-top: 10px;
+}
+
+.theme-toggle .theme-toggle-light,
+[data-bs-theme="dark"] .theme-toggle .theme-toggle-dark {
+  display: none;
+}
+
+[data-bs-theme="dark"] .theme-toggle .theme-toggle-light {
+  display: inline;
 }
 
 .news-status {
@@ -43,24 +61,59 @@ body {
   margin-bottom: 5px;
 }
 
+[data-bs-theme="dark"] .email-container {
+  color: #bbb;
+}
+
+/*
+ * the reference cards used two fixed 25% columns, which stayed a quarter
+ * of the viewport wide on a phone; auto-fit lets them reflow instead
+ */
 .reference {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
   margin-top: 50px;
 }
 
-.reference .text {
-  width: 25%;
-}
-
 .reference .image {
-  width: 25%;
   display: flex;
   justify-content: center;
 }
 
 .reference .image img {
+  max-width: 100%;
   max-height: 300px;
+}
+
+.reference .text {
+  justify-self: start;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 30px;
+  }
+
+  .container {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .reference {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 30px;
+  }
+
+  .reference .text {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .reference .text ul {
+    display: inline-block;
+    text-align: left;
+  }
 }

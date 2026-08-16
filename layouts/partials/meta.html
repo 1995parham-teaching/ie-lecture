@@ -1,0 +1,18 @@
+{{- $title := .title -}}
+{{- $description := .description -}}
+{{- $page := .page -}}
+<meta charset="utf-8" />
+<meta name="author" content="Parham Alvani" />
+<meta name="description" content="{{ $description }}" />
+<link rel="shortcut icon" href="https://github.com/1995parham-me.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:image" content="https://github.com/1995parham-me.png" />
+{{ with $page }}<meta property="og:url" content="{{ .Permalink }}" />{{ end }}
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description }}" />

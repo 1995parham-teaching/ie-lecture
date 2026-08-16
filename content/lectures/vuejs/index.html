@@ -1,13 +1,264 @@
 ---
 lecture: false
 title: VueJS
-topics: []
+topics:
+  - Introduction
+  - Reactivity
+  - Template Syntax
+  - Components
+  - Tooling
 ---
 
 <section>
+  <h2>Vue.js</h2>
+  <p>A progressive framework for building user interfaces.</p>
   <p>
-    The presentation is in PowerPoint format so
-    <a href="./presentation.pptx">click here</a>
-    to download it.
+    Originally presented by <span class="hl-green">Pooya</span> and
+    <span class="hl-green">Parsa</span>. The original slides are also available
+    as a <a href="./presentation.pptx">PowerPoint file</a>.
   </p>
+</section>
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
+<section>
+  <section>
+    <h2>What is Vue?</h2>
+    <ul>
+      <li>
+        A framework for building user interfaces, created by
+        <em class="hl-orange">Evan You</em> in 2013
+      </li>
+      <li>
+        <strong class="hl-green">Progressive</strong>: it can enhance a single
+        page, or run a whole application
+      </li>
+      <ul>
+        <li>Drop it into one page with a script tag, or</li>
+        <li>Build a full single-page application with a router and a store</li>
+      </ul>
+      <li>These slides use <span class="hl-cyan">Vue 3</span></li>
+    </ul>
+  </section>
+  <section>
+    <h2>Declarative Rendering</h2>
+    <ul>
+      <li>
+        You describe <em class="hl-green">what</em> the page should look like
+        for a given state
+      </li>
+      <li>
+        Vue keeps the DOM in sync when that state changes, so there is no
+        <code class="hl-red">getElementById</code> and no manual update
+      </li>
+      <li>The same idea you saw with React, with a different syntax</li>
+    </ul>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
+</section>
+<section>
+  <section>
+    <h2>Creating an Application</h2>
+    <pre><code class="lang-javascript">
+import { createApp, ref } from "vue";
+
+createApp({
+  setup() {
+    const count = ref(0);
+    return { count };
+  },
+}).mount("#app");
+    </code></pre>
+    <pre><code class="lang-html">
+&lt;div id="app"&gt;{{ count }}&lt;/div&gt;
+    </code></pre>
+  </section>
+  <section>
+    <h2>ref and reactive</h2>
+    <ul>
+      <li>
+        <code class="hl-green">ref</code> wraps a single value, read and written
+        through <code>.value</code> in JavaScript
+      </li>
+      <li>
+        <code class="hl-cyan">reactive</code> makes a whole object reactive,
+        used directly
+      </li>
+      <li>In the template, Vue unwraps refs for you</li>
+    </ul>
+    <pre><code class="lang-javascript">
+const count = ref(0);
+count.value++;
+
+const student = reactive({ name: "Parham", id: "9231058" });
+student.name = "Ali";
+    </code></pre>
+  </section>
+  <section>
+    <h2>Computed Properties</h2>
+    <ul>
+      <li>
+        A value <em class="hl-orange">derived</em> from other state, cached
+        until its dependencies change
+      </li>
+      <li>Prefer it over putting an expression in the template</li>
+    </ul>
+    <pre><code class="lang-javascript">
+const first = ref("Parham");
+const last = ref("Alvani");
+
+const fullName = computed(() =&gt; `${first.value} ${last.value}`);
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <section>
+    <h2>Interpolation and Binding</h2>
+    <ul>
+      <li>
+        <code class="hl-yellow">{{  }}</code> puts a value in the text of the
+        page
+      </li>
+      <li>
+        <code class="hl-green">v-bind</code>, shortened to
+        <code class="hl-green">:</code>, puts it in an attribute
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;p&gt;{{ message }}&lt;/p&gt;
+&lt;img :src="imageUrl" :alt="message" /&gt;
+    </code></pre>
+  </section>
+  <section>
+    <h2>Conditionals and Lists</h2>
+    <pre><code class="lang-html">
+&lt;p v-if="students.length === 0"&gt;No students yet&lt;/p&gt;
+&lt;p v-else&gt;{{ students.length }} students&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li v-for="student in students" :key="student.id"&gt;
+    {{ student.name }}
+  &lt;/li&gt;
+&lt;/ul&gt;
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-orange">:key</code> tells Vue which item is which, so it
+        can reuse the DOM instead of rebuilding the list
+      </li>
+      <li>
+        <code>v-if</code> removes the element, <code>v-show</code> only hides it
+        with CSS
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Events and Input</h2>
+    <ul>
+      <li>
+        <code class="hl-green">v-on</code>, shortened to
+        <code class="hl-green">@</code>, listens for an event
+      </li>
+      <li>
+        <code class="hl-cyan">v-model</code> binds an input in
+        <em>both</em> directions
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;button @click="count++"&gt;{{ count }}&lt;/button&gt;
+
+&lt;input v-model="name" placeholder="your name" /&gt;
+&lt;p&gt;Hello {{ name }}&lt;/p&gt;
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <section>
+    <h2>Single-File Components</h2>
+    <p>
+      Template, logic, and style for one component live in one
+      <code class="hl-yellow">.vue</code> file.
+    </p>
+    <pre><code class="lang-html">
+&lt;script setup&gt;
+import { ref } from "vue";
+
+const props = defineProps({ title: String });
+const count = ref(0);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;h2&gt;{{ props.title }}&lt;/h2&gt;
+  &lt;button @click="count++"&gt;clicked {{ count }} times&lt;/button&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+button { color: #ff9100; }
+&lt;/style&gt;
+    </code></pre>
+  </section>
+  <section>
+    <h2>Props and Events</h2>
+    <ul>
+      <li>
+        Data flows <strong class="hl-green">down</strong> through props, which
+        the child must not modify
+      </li>
+      <li>
+        Facts flow <strong class="hl-cyan">up</strong> as events, and the parent
+        decides what to change
+      </li>
+      <li>
+        <code>scoped</code> styles apply to this component only, so class names
+        cannot leak
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+const emit = defineEmits(["selected"]);
+
+emit("selected", student.id);
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
+</section>
+<section>
+  <h2>Getting Started</h2>
+  <pre><code class="lang-sh">
+npm create vue@latest
+  </code></pre>
+  <ul>
+    <li>
+      Scaffolds a project on <span class="hl-green">Vite</span>, and asks which
+      pieces you want
+    </li>
+    <li>
+      <span class="hl-cyan">Vue Router</span> for pages,
+      <span class="hl-cyan">Pinia</span> for shared state
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>References 📚</h2>
+  <ul>
+    <li>
+      <a href="https://vuejs.org/guide/introduction.html">Vue.js Guide</a>
+    </li>
+    <li>
+      <a href="https://vuejs.org/tutorial/">Vue.js Interactive Tutorial</a>
+    </li>
+    <li><a href="https://pinia.vuejs.org/">Pinia</a></li>
+  </ul>
 </section>

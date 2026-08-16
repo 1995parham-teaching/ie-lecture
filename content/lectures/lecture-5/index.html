@@ -1408,6 +1408,178 @@ longCalculation(1)
   </section>
 </section>
 <section>
+  <section>
+    <h2>async / await</h2>
+    <ul>
+      <li>
+        Chaining <code class="hl-orange">then</code> reads backwards once there
+        are more than two steps
+      </li>
+      <li>
+        <code class="hl-green">async</code> and
+        <code class="hl-green">await</code> let you write the
+        <em class="hl-cyan">same</em> promises as if they were sequential code
+      </li>
+      <li>
+        <code class="hl-yellow">await</code> pauses only the function it is in,
+        never the browser
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>The Same Chain</h2>
+    <pre><code class="lang-javascript">
+async function run() {
+  const first = await longCalculation(1);
+  console.log(`1st promise: ${first}`);
+
+  const second = await longCalculation(2);
+  console.log(`2nd promise: ${second}`);
+
+  const third = await longCalculation(3);
+  console.log(`3rd promise: ${third}`);
+}
+    </code></pre>
+    <ul>
+      <li>
+        An <code class="hl-green">async</code> function
+        <strong>always</strong> returns a promise
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Errors</h2>
+    <ul>
+      <li>
+        A rejected promise becomes a thrown exception, so ordinary
+        <code class="hl-orange">try/catch</code> works
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+async function load() {
+  try {
+    const response = await fetch("https://swapi.dev/api/people/1/");
+    if (!response.ok) {
+      throw new Error(`unexpected status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Waiting in Parallel</h2>
+    <ul>
+      <li>
+        Two <code class="hl-yellow">await</code>s in a row run
+        <em class="hl-red">one after the other</em>
+      </li>
+      <li>
+        When the calls do not depend on each other, start them first and await
+        together
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+// 600ms: the second starts only after the first resolves
+const a = await longCalculation(1);
+const b = await longCalculation(2);
+
+// 300ms: both are already running
+const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Optional Chaining</h2>
+    <ul>
+      <li>
+        Reading a property of <code class="hl-red">undefined</code> throws, so
+        deep access needs a guard at every level
+      </li>
+      <li>
+        <code class="hl-green">?.</code> stops and evaluates to
+        <code>undefined</code> instead of throwing
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+// before
+const city = user &amp;&amp; user.address &amp;&amp; user.address.city;
+
+// after
+const city = user?.address?.city;
+    </code></pre>
+  </section>
+  <section>
+    <h2>Nullish Coalescing</h2>
+    <ul>
+      <li>
+        <code class="hl-orange">||</code> replaces every <em>falsy</em> value,
+        which eats <code>0</code> and the empty string
+      </li>
+      <li>
+        <code class="hl-green">??</code> only replaces <code>null</code> and
+        <code>undefined</code>
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+const count = 0;
+
+count || 10; // 10, almost certainly a bug
+count ?? 10; // 0, the value we actually have
+    </code></pre>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Modules</h2>
+    <ul>
+      <li>
+        Scripts share one global scope, so every name can collide with every
+        other file
+      </li>
+      <li>
+        A <span class="hl-green">module</span> has its own scope, and states
+        what it exposes and what it needs
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+// calculation.js
+export const timeout = 300;
+
+export function longCalculation(id) {
+  return new Promise((resolve) =&gt;
+    setTimeout(() =&gt; resolve(`resolved-${id}`), timeout),
+  );
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Importing</h2>
+    <pre><code class="lang-javascript">
+// main.js
+import { longCalculation, timeout } from "./calculation.js";
+
+console.log(await longCalculation(1), timeout);
+    </code></pre>
+    <ul>
+      <li>
+        In the browser a module needs
+        <code class="hl-yellow">type="module"</code>
+      </li>
+      <li>
+        Modules are deferred by default, and
+        <code class="hl-green">await</code> works at the top level
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;script type="module" src="main.js"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+<section>
   <div class="toc" data-selected="2"></div>
 </section>
 <section>

@@ -1,11 +1,11 @@
 ---
 index: 6
-title: JSON and Thrift
+title: JSON, Thrift and gRPC
 topics:
   - Introduction
   - Documentation & Validation
   - Processing (using JavaScript)
-  - Thrift
+  - Thrift & gRPC
   - Conclusion
 ---
 
@@ -1170,6 +1170,94 @@ public class CalculatorHandler implements Calculator.Iface {
   }
 }
   </code></pre>
+</section>
+<section>
+  <section>
+    <h2>gRPC</h2>
+    <ul>
+      <li>
+        Thrift's idea, as it is usually met today: describe the service once,
+        generate the client and the server
+      </li>
+      <li>
+        <span class="hl-green">Protocol Buffers</span> for the payload,
+        <span class="hl-cyan">HTTP/2</span> for the transport
+      </li>
+      <li>
+        HTTP/2 brings multiplexing and, unlike request/response ReST,
+        <em class="hl-orange">streaming in both directions</em>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Service Definition</h2>
+    <pre><code class="lang-protobuf">
+syntax = "proto3";
+
+package course;
+
+message Student {
+  string first_name = 1;
+  string last_name  = 2;
+  string id         = 3;
+}
+
+message CourseRequest {
+  string name = 1;
+}
+
+message Course {
+  string name = 1;
+  string teacher = 2;
+  repeated Student students = 3;
+  int32 capacity = 4;
+}
+
+service Registration {
+  rpc GetCourse(CourseRequest) returns (Course);
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Field Numbers</h2>
+    <ul>
+      <li>
+        The numbers, not the names, are what goes on the wire, so a field can be
+        <strong class="hl-green">renamed freely</strong>
+      </li>
+      <li>
+        A number must <strong class="hl-red">never</strong> be reused: an old
+        client would read the new field as the old one
+      </li>
+      <li>
+        Unknown fields are preserved rather than rejected, which is what makes
+        rolling upgrades possible
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Compared to JSON over ReST</h2>
+    <ul>
+      <li>
+        <span class="hl-green">Smaller and faster</span>: binary, and no field
+        names in the payload
+      </li>
+      <li>
+        <span class="hl-green">A real contract</span>: the
+        <code>.proto</code> is the schema, and the compiler enforces it on both
+        sides
+      </li>
+      <li>
+        <span class="hl-red">Not readable</span> with curl, and not directly
+        callable from a browser without a proxy
+      </li>
+      <li>
+        Rule of thumb: gRPC
+        <em class="hl-cyan">between services</em>, JSON at the
+        <em class="hl-orange">edge</em> facing browsers
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="4"></div>

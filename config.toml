@@ -1,6 +1,5 @@
 locale = 'en-us'
 title = 'IE Lecture'
-staticDir = ['fonts']
 enableGitInfo = true
 
 [params]
@@ -11,8 +10,3 @@ semester = "Fall 2026"
 [security]
 allowContent = ['^text/html$', '^text/markdown$']
 
-[module]
-
-[[module.mounts]]
-source = 'static'
-target = 'static'
