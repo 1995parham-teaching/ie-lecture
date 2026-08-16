@@ -144,12 +144,12 @@ topics:
     </p>
   </div>
   <ul>
-    <li>https://sbu.ac.ir/SitePages/Home.aspx</li>
+    <li>https://aut.ac.ir/page/1/AUT</li>
     <li>
       https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE
     </li>
     <li>file:///home/parham/Documents/Git/parham/dotfiles</li>
-    <li>http://libgen.is</li>
+    <li>https://archive.org/details/texts</li>
     <li>ftp://speedtest.tele2.net</li>
   </ul>
 </section>
@@ -331,7 +331,7 @@ sudo tcpdump --interface connectify0 --number -n -v 'port 80 and dst host 185.21
 
 3  07:47:41.160032 IP (tos 0x0, ttl 64, id 59257, offset 0, flags [DF], proto TCP (6), length 137)
 10.202.0.2.55340 &gt; 185.211.88.129.80: Flags [P.], cksum 0x282f (correct), seq 0:85, ack 1, win 462, options [nop,nop,TS val 954835682 ecr 15081515], length 85: HTTP, length: 85
-    GET /~bakhshis/ HTTP/1.1
+    GET /~students/ HTTP/1.1
     Host: ce.aut.ac.ir
     User-Agent: curl/8.3.0
     Accept: */*
@@ -543,16 +543,15 @@ Entity-Body
       <ul>
         <li>Basic data communication operations</li>
         <ul>
-          <li><span class="hl-orange">Safe</span> operations</li>
-          <ul>
-            <li>Get a resource from server</li>
-            <li>Send data to server</li>
-          </ul>
-          <li><span class="hl-green">Unsafe</span> operations</li>
-          <ul>
-            <li>Delete a resource on server</li>
-            <li>Create/Replace a resource on server</li>
-          </ul>
+          <li>
+            <span class="hl-orange">Read</span> a resource from the server
+          </li>
+          <li><span class="hl-green">Send</span> data to the server</li>
+          <li>
+            <span class="hl-cyan">Create</span>,
+            <span class="hl-cyan">replace</span> or
+            <span class="hl-cyan">delete</span> a resource on the server
+          </li>
         </ul>
       </ul>
     </ul>
@@ -567,6 +566,60 @@ Entity-Body
           <li>Get the list of operations which can be applied on a resource</li>
         </ul>
       </ul>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Safe &amp; Idempotent [RFC 9110]</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Safe</span>: the request does not change
+        anything on the server. The client is only asking a question
+      </li>
+      <ul>
+        <li>
+          <code class="hl-green">GET</code>, <code class="hl-green">HEAD</code>,
+          <code class="hl-green">OPTIONS</code>,
+          <code class="hl-green">TRACE</code>
+        </li>
+        <li>
+          <code class="hl-red">POST</code> is
+          <strong class="hl-red">not</strong> safe, even though it only
+          <q>sends data</q>
+        </li>
+      </ul>
+      <li>
+        <span class="hl-cyan">Idempotent</span>: doing it <em>twice</em> leaves
+        the server in the same state as doing it
+        <em>once</em>
+      </li>
+      <ul>
+        <li>
+          the safe methods, plus <code class="hl-green">PUT</code> and
+          <code class="hl-green">DELETE</code>
+        </li>
+        <li>
+          <code class="hl-red">POST</code> and
+          <code class="hl-red">PATCH</code> are not
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Why It Matters</h2>
+    <ul>
+      <li>
+        A client, proxy or cache may <strong class="hl-green">retry</strong> an
+        idempotent request after a timeout. It cannot safely retry a
+        <code>POST</code> — that is why you see <q>do not press refresh</q> on
+        payment pages
+      </li>
+      <li>
+        Only safe responses may be <strong class="hl-cyan">prefetched</strong>.
+        A <code>GET</code> that deletes something will be deleted by a crawler
+      </li>
+      <li>Every safe method is idempotent; the reverse is not true</li>
     </ul>
   </section>
 </section>
@@ -682,10 +735,14 @@ Entity-Body
           has been temporarily moved to the URL given by the Location header
         </li>
       </ul>
-      <li>307: Moved Temporarily</li>
+      <li>307: Temporary Redirect</li>
       <ul>
         <li>Resource has been moved, Redirection</li>
         <li>Location header contains the new location of resource</li>
+        <li>
+          Unlike 302, the client
+          <strong class="hl-orange">must not</strong> change the method
+        </li>
       </ul>
       <li>304: Not Modified</li>
       <li>308: Permanent Redirect</li>
@@ -916,6 +973,7 @@ Entity-Body
     <img
       style="height: 100px"
       src="https://avatars1.githubusercontent.com/u/8181240?v=4"
+      alt="a GitHub avatar, served as image/png"
     />
     <pre><code id="mime-example" class="lang-json"></code></pre>
     <script>
@@ -1004,17 +1062,24 @@ Entity-Body
   </section>
 </section>
 <section>
-  <h2>HTTP/2 Server Push</h2>
+  <h2>HTTP/2 Server Push ⚰️</h2>
   <ul>
     <li>
-      HTTP/2 Server Push is an optional feature of the HTTP/2 and HTTP/3 network
-      protocols which allows servers to send resources to a client before the
-      client requests them.
+      HTTP/2 Server Push let a server send resources to a client
+      <em class="hl-orange">before the client asked for them</em>, to save a
+      round trip.
     </li>
     <li>
-      Server Push is a performance technique aimed at reducing latency by
-      loading resources preemptively, even before the client knows they will be
-      needed.
+      In practice servers pushed things the browser
+      <strong class="hl-red">already had cached</strong>, so it often made pages
+      slower. Chrome removed support in <span class="hl-yellow">2022</span>, and
+      it was never really deployed over HTTP/3.
+    </li>
+    <li>
+      The replacement is <code class="hl-green">103 Early Hints</code>: the
+      server answers early with
+      <code>Link: &lt;/style.css&gt;; rel=preload</code> and lets the
+      <em class="hl-cyan">browser</em> decide what to fetch.
     </li>
   </ul>
 </section>
@@ -1332,11 +1397,13 @@ Access-Control-Allow-Credentials: true
     <li>Limitation</li>
     <ul>
       <li>Cannot be used to store large data</li>
-      <li><span class="hl-orange">At least 300</span> cookies</li>
       <li><span class="hl-green">At least 4096</span> bytes per cookie</li>
+      <li><span class="hl-cyan">At least 50</span> cookies per domain</li>
+      <li><span class="hl-orange">At least 3000</span> cookies in total</li>
       <li>
-        <span class="hl-cyan">At least 20</span> cookies per unique host or
-        domain name
+        These are the <em class="hl-yellow">minimums</em> a browser must
+        support, from RFC 6265. The older 300/20 figures come from RFC 2965 and
+        no longer apply
       </li>
     </ul>
     <li>Cookies are text files</li>
@@ -1407,11 +1474,18 @@ Access-Control-Allow-Credentials: true
   <section>
     <ul>
       <li>
-        <span class="hl-yellow">HttpOnly</span>: Cookie is sent only if HTTP is
-        used
+        <span class="hl-yellow">HttpOnly</span>: the cookie is sent on HTTP
+        requests but is <strong class="hl-red">invisible to JavaScript</strong>
       </li>
       <ul>
-        <li>JavaScript cannot access to the cookies</li>
+        <li>It does not appear in <code>document.cookie</code></li>
+        <li>
+          Nothing to do with <code>http</code> versus <code>https</code> — that
+          is the <span class="hl-cyan">Secure</span> attribute above
+        </li>
+        <li>
+          This is what stops an XSS payload from stealing the session cookie
+        </li>
       </ul>
       <li>
         <span class="hl-green">SameSite</span> allows you to declare if your
@@ -1448,7 +1522,11 @@ Access-Control-Allow-Credentials: true
         origin, <span class="hl-red">no matter</span> who initiates the request.
       </li>
     </ul>
-    <img src="img/csrf-attack.png" style="background-color: white" />
+    <img
+      src="img/csrf-attack.png"
+      style="background-color: white"
+      alt="a request from an attacker's page to the bank, carrying the victim's cookie"
+    />
   </section>
   <section>
     <h2>Warning!</h2>
@@ -1518,20 +1596,27 @@ Access-Control-Allow-Credentials: true
   <ul>
     <li>Validity check by major browsers</li>
     <ul>
-      <li>Domain names must start with dot</li>
-      <ul>
-        <li>Some browsers accept names without dot as domain</li>
-        <li>
-          <span class="hl-orange">Contrary</span> to
-          <span class="hl-green">earlier specifications</span>, leading dots in
-          domain names (.example.com) are ignored.
-        </li>
-      </ul>
+      <li>
+        <span class="hl-orange">Contrary</span> to
+        <span class="hl-green">earlier specifications</span>, a leading dot
+        (<code>.example.com</code>) is
+        <strong class="hl-yellow">ignored</strong> — write
+        <code>example.com</code>
+      </li>
       <li>Don’t accept for other domains than the base domain</li>
       <li>Don’t accept cookies for sub-domains</li>
       <li>Accept cookies for higher domains</li>
       <ul>
-        <li>Except the top level domains, e.g., .com, .ac.ir</li>
+        <li>
+          Except <em class="hl-orange">public suffixes</em>, e.g.
+          <code>.com</code> or <code>.ac.ir</code> — otherwise one site could
+          set a cookie for every university in Iran
+        </li>
+        <li>
+          Browsers use the
+          <a href="https://publicsuffix.org/">Public Suffix List</a> to decide
+          where that boundary is
+        </li>
       </ul>
       <li>Accept cookies for other (sub or higher) paths</li>
       <ul>
@@ -1545,10 +1630,16 @@ Access-Control-Allow-Credentials: true
 </section>
 <section>
   <section>
-    <img src="./img/cookies.png" />
+    <img
+      src="./img/cookies.png"
+      alt="which cookies a browser returns for each path"
+    />
   </section>
   <section>
-    <img src="./img/sub-domain-cookies.png" />
+    <img
+      src="./img/sub-domain-cookies.png"
+      alt="how a Domain attribute widens a cookie to sub-domains"
+    />
   </section>
 </section>
 <section>
@@ -1714,7 +1805,11 @@ path=/admin/panel cookies=admin_token=xyz789; session=abc123
     </ul>
   </section>
   <section>
-    <img src="./img/http-cache-types.png" style="background-color: white" />
+    <img
+      src="./img/http-cache-types.png"
+      style="background-color: white"
+      alt="browser cache, proxy cache and gateway cache along one request path"
+    />
   </section>
 </section>
 <section>
@@ -1821,6 +1916,7 @@ Cache-Control: no-cache
     <img
       src="./img/staleness.png"
       style="background-color: white; height: 88vh"
+      alt="the life of a cached response: fresh, then stale, then revalidated"
     />
   </section>
 </section>
@@ -1840,12 +1936,18 @@ Cache-Control: no-cache
       form by using an authentication protocol.
     </li>
     <li>
-      <strong class="hl-green">Authentication</strong> is the verification that
-      the connection attempt is allowed.
+      <strong class="hl-green">Authorization</strong> is the verification that
+      the connection attempt is <em class="hl-yellow">allowed</em>.
     </li>
     <li>
       <strong class="hl-green">Authorization</strong> occurs after successful
       authentication.
+    </li>
+    <li>
+      In short: <strong class="hl-orange">authentication</strong> answers
+      <q>who are you?</q>,
+      <strong class="hl-green">authorization</strong> answers
+      <q>what may you do?</q>
     </li>
   </ul>
 </section>
@@ -1892,7 +1994,11 @@ Cache-Control: no-cache
         translating it into a radix-64 representation.
       </li>
     </ul>
-    <img src="./img/base64.png" style="height: 25vh" />
+    <img
+      src="./img/base64.png"
+      style="height: 25vh"
+      alt="three bytes encoded as four base64 characters"
+    />
   </section>
   <section>
     <p>
@@ -1965,7 +2071,7 @@ Access-Control-Allow-Credentials: true
       <li>One way function, irreversible</li>
     </ul>
     <li>Attacker cannot find password 😌</li>
-    <li>But! Reply attack 😞</li>
+    <li>But! <span class="hl-red">Replay</span> attack 😞</li>
     <ul>
       <li>Attacker resends the same digest then he will be authenticated</li>
       <li>Use <span class="hl-green">Nonce</span></li>
@@ -2016,7 +2122,15 @@ Authorization: Digest username="Mufasa",
         Server looks up the password of username and computes<br />
         <code>hash(pass, nonce)</code>
       </li>
-      <li>More details in RFC7616</li>
+      <li>
+        RFC 7616 adds <code class="hl-green">SHA-256</code> and deprecates
+        <code class="hl-red">MD5</code>; the example above is the classic MD5
+        one from RFC 2617
+      </li>
+      <li>
+        In practice you will almost never meet Digest today — it is TLS plus a
+        token instead
+      </li>
     </ul>
   </section>
 </section>
@@ -2077,7 +2191,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlBhcmhhbSBBbHZhbmkiLCJpYXQiOjE1MTYyMzkwMjIsInByb2plY3QiOiJhbiBhd2Vzb21lIHByb2plY3QifQ.
 gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
     </code></pre>
-    <pre><code class="hl-json">
+    <pre><code class="language-json">
 {
   "alg": "HS256",
   "typ": "JWT"
@@ -2093,7 +2207,7 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
   </section>
   <section>
     <h2>Snapp! Token</h2>
-    <pre><code class="hl-json">
+    <pre><code class="language-json">
 {
   "alg": "RS512",
   "kid": "z8a4l4oOFEqgehRYDBZP+fprPnLDLmabkslOxVVpLNE",
@@ -2121,7 +2235,7 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
       <li>Digest authentication protect password only</li>
       <li>Data is completely insecure</li>
       <li>No mechanism in HTTP to protect data</li>
-      <li>HTTP over SSL/TLS is the popular solution</li>
+      <li>HTTP over TLS (HTTPS) is the solution</li>
       <ul>
         <li>An encrypted tunnel between client &amp; server</li>
         <li>Send HTTP traffic through the tunnel</li>
@@ -2129,7 +2243,11 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
     </ul>
   </section>
   <section>
-    <img src="./img/ssl.jpg" style="height: 65vh" />
+    <img
+      src="./img/ssl.jpg"
+      style="height: 65vh"
+      alt="HTTP carried inside an encrypted TLS tunnel"
+    />
   </section>
 </section>
 <section>

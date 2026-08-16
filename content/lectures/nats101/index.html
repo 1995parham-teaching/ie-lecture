@@ -84,7 +84,7 @@ Hello World!
       Audit client is subscribed to all subjects via a wildcard, so also
       receives message but does not reply
     </li>
-    <li>Publisher receieves the response from the worker client</li>
+    <li>Publisher receives the response from the worker client</li>
   </ol>
   <img src="./img/rr.png" alt="rr" />
 </section>
@@ -102,7 +102,7 @@ Hello World!
     <li>
       Reply subjects have a unique name called
       <strong class="hl-orange">inbox</strong>
-      and the NATS server will send the message comming into these subjects to
+      and the NATS server will send the message coming into these subjects to
       the relevant publisher.
     </li>
   </ul>
@@ -112,7 +112,7 @@ Hello World!
   <ol>
     <li>Publisher sends multiple help requests on a <q>help</q> subject</li>
     <li>
-      Multiple worker clients subscribed to the <q>help</q> subject from a
+      Multiple worker clients subscribed to the <q>help</q> subject form a
       distributed queue
     </li>
     <li>
@@ -160,7 +160,8 @@ Hello World!
         in the pool
       </li>
       <li>
-        NATS supports high-availablity via a clustering mode that is set up as a
+        NATS supports high-availability via a clustering mode that is set up as
+        a
         <span class="hl-orange">full-mesh</span> of the servers
       </li>
     </ul>
@@ -191,7 +192,7 @@ Hello World!
   <h2>Ping/Pong</h2>
   <ul>
     <li>
-      There is a PING/PONG interval happing that the client has to follow
+      There is a PING/PONG interval happening that the client has to follow
       otherwise the server will reset the connection in case there are many PONG
       replies missing.
     </li>
@@ -248,7 +249,7 @@ Hello World!
 </section>
 <section>
   <section class="hands-on">
-    <h2>Queue Subscribtions: Hands-on</h2>
+    <h2>Queue Subscriptions: Hands-on</h2>
     <ul>
       <li>
         Open two terminals and subscribe both to
@@ -401,7 +402,7 @@ second
       <li>
         the <em class="hl-orange">last</em> message stored in the stream, or the
         <em class="hl-orange">last</em> message for each subject (as streams can
-        capture more than on subject).
+        capture more than one subject).
       </li>
       <li>
         starting from a specific <em class="hl-green">sequence number</em>.
@@ -443,7 +444,7 @@ second
       </li>
       <li>
         <em class="hl-orange">discard new</em> means that new message is
-        discarded (and the JetStream publish call retuns an error indicating
+        discarded (and the JetStream publish call returns an error indicating
         that a limit was reached)
       </li>
     </ul>
@@ -459,7 +460,7 @@ second
       </li>
       <li>
         <em class="hl-yellow">work queue</em> (the stream is used as a shared
-        queue and messages are removed from it as they consumed)
+        queue and messages are removed from it as they are consumed)
       </li>
     </ul>
     <p>
@@ -486,9 +487,15 @@ second
   <section>
     <p>
       JetStream uses a NATS optimized
-      <em class="hl-orange">RAFT distributed quorom algorithm</em> to distribute
-      the persistence service between nats servers in a cluster while
-      maintaining immediate consistency even in the face of Byzantine failures.
+      <em class="hl-orange">Raft consensus algorithm</em> to distribute the
+      persistence service between nats servers in a cluster while maintaining
+      immediate consistency even when servers crash or the network drops
+      messages.
+    </p>
+    <p>
+      Raft tolerates <em class="hl-green">crash and omission</em> faults. It is
+      <strong class="hl-red">not</strong> Byzantine fault tolerant — it assumes
+      that a server which does answer, answers honestly.
     </p>
     <p>
       In JetStream the configuration for
@@ -515,9 +522,9 @@ second
       A stream that is <strong class="hl-orange">easily rebuilt</strong> or
       <strong class="hl-cyan">temporary</strong> might be
       <em class="hl-green">memory based</em> with a
-      <em class="hl-yellow">R=1</em> and a stream that can
-      <strong class="hl-pink">tolerate some downtime</strong> might be
-      <em class="hl-green">file based</em> with <em class="hl-yellow">R=1</em>.
+      <em class="hl-yellow">R=1</em>. A stream you cannot afford to lose should
+      be <em class="hl-green">file based</em> with
+      <em class="hl-yellow">R=3</em>, which survives losing one server.
     </p>
   </section>
   <section>
@@ -625,20 +632,20 @@ second
   </section>
   <section>
     <p>
-      Therefore, JetStream also offers an
-      <em class="hl-orange">exactly once</em>.
+      Therefore, JetStream also offers
+      <em class="hl-orange">exactly once</em> semantics.
     </p>
     <ul>
       <li>
         For the publishing side it relies on the publishing application
         attaching a unique message or publication id in a message header and on
         the server keeping track of those ids for a configurable rolling period
-        of time in order to detect the publisher publishing the smae message
+        of time in order to detect the publisher publishing the same message
         twice.
       </li>
       <li>
         For the subscribers a
-        <em class="hl-cyan">double acknowledgement mechanisim</em> is used to
+        <em class="hl-cyan">double acknowledgement mechanism</em> is used to
         avoid a message being erroneously re-sent to a subscriber by the server
         after some kinds of failures
       </li>
@@ -649,7 +656,7 @@ second
   <h2>Consumers</h2>
   JetStream consumers are <em class="hl-orange">views</em> on a stream, they are
   subscribed to (or pulled) by client applications to receive copies of (or to
-  consume if the stream is set as a working queue) message stored in the strem.
+  consume if the stream is set as a working queue) message stored in the stream.
 </section>
 <section>
   <h2>Fast push consumers</h2>
@@ -667,7 +674,7 @@ second
   </div>
 </section>
 <section>
-  <h2>Horizentally scalable pull consumers with batching</h2>
+  <h2>Horizontally scalable pull consumers with batching</h2>
   <p>
     Client applications can also use and share
     <em class="hl-orange">pull</em> consumers that are demand-driven, support
@@ -677,7 +684,7 @@ second
   </p>
   <p>
     Pull consumers can and are meant to be shared between applications (just
-    like queue groups) in order to provide easy and transparent horizental
+    like queue groups) in order to provide easy and transparent horizontal
     scalability of the processing or consumption of messages in a stream without
     having (for example) to worry about having to define partitions or worry
     about fault-tolerance.

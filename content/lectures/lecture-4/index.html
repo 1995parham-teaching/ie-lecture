@@ -68,10 +68,12 @@ topics:
 <section>
   <h2>Introduction (Contd.)</h2>
   <ul>
-    <li>Created by Hakon Wium Lie of MIT in 1994</li>
+    <li>Proposed by Håkon Wium Lie at CERN in 1994</li>
+    <li>A W3C standard for controlling the visual presentation of web pages</li>
     <li>
-      The W3C standards (CSS 1,2,3,4) to control visual presentation of web
-      pages
+      CSS1 and CSS2 were single documents. From CSS3 onward the language is
+      split into <em class="hl-orange">modules</em> that version independently —
+      so there is no such thing as <q class="hl-red">CSS4</q>
     </li>
     <li>Uses a different syntax than HTML/XHTML</li>
     <ul>
@@ -117,7 +119,10 @@ selector1, ..., selectorN {
   /* this is comment */
 }
   </code></pre>
-  <img src="./img/css-structure.gif" />
+  <img
+    src="./img/css-structure.gif"
+    alt="a CSS rule labelled: selector, property, value, declaration"
+  />
 </section>
 <section>
   <h2>Selectors</h2>
@@ -220,7 +225,7 @@ selector1, ..., selectorN {
       <li>Style is given as an attribute</li>
     </ul>
     <pre><code class="lang-html">
-&lt;h1 style="color:red; font-family: sans-sarif"&gt;Test Heading 1&lt;/h1&gt;
+&lt;h1 style="color:red; font-family: sans-serif"&gt;Test Heading 1&lt;/h1&gt;
     </code></pre>
     <li>Element based</li>
     <ul>
@@ -315,12 +320,15 @@ h1, h2, h3, h4, h5, h6 {
 </section>
 <section>
   <h2>Media Depended Presentation</h2>
-  <img src="./img/media-css-1.png" />
-  <img src="./img/media-css-2.png" />
+  <img src="./img/media-css-1.png" alt="the same page styled for screen" />
+  <img src="./img/media-css-2.png" alt="the same page styled for print" />
 </section>
 <section>
   <h2>Media Depended Presentation</h2>
-  <img src="./img/media-css-3.png" />
+  <img
+    src="./img/media-css-3.png"
+    alt="one document, three media-dependent presentations"
+  />
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
@@ -374,7 +382,10 @@ h1, h2, h3, h4, h5, h6 {
     </code></pre>
   </section>
   <section>
-    <img src="./img/element-selector.png" />
+    <img
+      src="./img/element-selector.png"
+      alt="the element selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -394,7 +405,10 @@ h1, h2, h3, h4, h5, h6 {
     </ul>
   </section>
   <section>
-    <img src="./img/id-selector.png" />
+    <img
+      src="./img/id-selector.png"
+      alt="the id selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -416,7 +430,10 @@ h1, h2, h3, h4, h5, h6 {
     </ul>
   </section>
   <section>
-    <img src="./img/class-selector.png" />
+    <img
+      src="./img/class-selector.png"
+      alt="the class selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -437,7 +454,10 @@ h1, h2, h3, h4, h5, h6 {
     </code></pre>
   </section>
   <section>
-    <img src="./img/class-element-selector.png" />
+    <img
+      src="./img/class-element-selector.png"
+      alt="the combined element and class selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -457,7 +477,10 @@ h1, h2, h3, h4, h5, h6 {
     </code></pre>
   </section>
   <section>
-    <img src="./img/multiple-class-selector.png" />
+    <img
+      src="./img/multiple-class-selector.png"
+      alt="a paragraph carrying two classes at once, as rendered"
+    />
   </section>
 </section>
 <section>
@@ -484,7 +507,7 @@ This is a green div. But, &lt;span id="red_color"&gt; this is red &lt;/span&gt; 
     </ul>
   </section>
   <section>
-    <img src="./img/div-span.png" />
+    <img src="./img/div-span.png" alt="a green div containing a red span" />
   </section>
 </section>
 <section>
@@ -502,7 +525,10 @@ p[myid="test3"] {color:blue}
     </code></pre>
   </section>
   <section>
-    <img src="./img/attribute-selector.png" />
+    <img
+      src="./img/attribute-selector.png"
+      alt="the attribute selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -592,7 +618,10 @@ p::first-line {color: red;}
     </code></pre>
   </section>
   <section>
-    <img src="./img/peseudo.png" />
+    <img
+      src="./img/peseudo.png"
+      alt="first-letter, first-line and ::after applied to a paragraph"
+    />
   </section>
   <section>
     <pre><code class="lang-css">
@@ -623,15 +652,18 @@ p::first-line {color: red;}
 
 &lt;ol&gt;
   &lt;li&gt; Item 1 &lt;/li&gt;
-  &lt;ul&gt; &lt;li&gt; Netsted 1&lt;/li&gt; &lt;/ul&gt;
+  &lt;ul&gt; &lt;li&gt; Nested 1&lt;/li&gt; &lt;/ul&gt;
   &lt;li&gt; Item 2 &lt;/li&gt;
-  &lt;dl&gt; &lt;dt&gt; def: &lt;dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
+  &lt;dl&gt; &lt;dt&gt; def: &lt;/dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
   &lt;/dl&gt;
 &lt;/ol&gt;
   </code></pre>
   </section>
   <section>
-    <img src="./img/child-selector.png" />
+    <img
+      src="./img/child-selector.png"
+      alt="the child selector example, styling only direct children"
+    />
   </section>
 </section>
 <section>
@@ -648,15 +680,18 @@ p::first-line {color: red;}
 
 &lt;ol&gt;
   &lt;li&gt; Item 1 &lt;/li&gt;
-  &lt;ul&gt; &lt;li&gt; Netsted 1&lt;/li&gt; &lt;/ul&gt;
+  &lt;ul&gt; &lt;li&gt; Nested 1&lt;/li&gt; &lt;/ul&gt;
   &lt;li&gt; Item 2 &lt;/li&gt;
-  &lt;dl&gt; &lt;dt&gt; def: &lt;dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
+  &lt;dl&gt; &lt;dt&gt; def: &lt;/dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
   &lt;/dl&gt;
 &lt;/ol&gt;
   </code></pre>
   </section>
   <section>
-    <img src="./img/descendant-selector.png" />
+    <img
+      src="./img/descendant-selector.png"
+      alt="the descendant selector example, styling children at any depth"
+    />
   </section>
 </section>
 <section>
@@ -692,7 +727,10 @@ h3~p {color:green;}
   </code></pre>
   </section>
   <section>
-    <img src="./img/sibling-selector.png" />
+    <img
+      src="./img/sibling-selector.png"
+      alt="the sibling selector example as rendered"
+    />
   </section>
 </section>
 <section>
@@ -706,8 +744,8 @@ h3~p {color:green;}
     <li>Child: &gt;</li>
     <li>Descendant: (space)</li>
     <li>Sibling: + ~</li>
-    <li>Pseudo-class: active, hover, …</li>
-    <li>Pseudo-element: first-child, before, after, …</li>
+    <li>Pseudo-class: :active, :hover, :first-child, …</li>
+    <li>Pseudo-element: ::before, ::after, ::first-line, ::first-letter, …</li>
   </ul>
 </section>
 <section>
@@ -723,7 +761,10 @@ h3~p {color:green;}
       width: 120%;
     "
   >
-    <img src="./img/cascading.png" />
+    <img
+      src="./img/cascading.png"
+      alt="the order styles are applied in: browser, external, internal, inline"
+    />
     <p style="text-align: left; margin: 20px">
       Assuming there is not any conflicting style and external styles are linked
       before internal styles in the head
@@ -756,7 +797,10 @@ p {
     </code></pre>
   </section>
   <section>
-    <img src="./img/cascading-example-1.png" />
+    <img
+      src="./img/cascading-example-1.png"
+      alt="external and internal styles combining on one paragraph"
+    />
   </section>
 </section>
 <section>
@@ -780,7 +824,10 @@ code {color: red;}
     </code></pre>
   </section>
   <section>
-    <img src="./img/cascading-example-2.png" />
+    <img
+      src="./img/cascading-example-2.png"
+      alt="a child inheriting font-style from its parent"
+    />
   </section>
 </section>
 <section>
@@ -843,7 +890,11 @@ code {color: red;}
   </ul>
 </section>
 <section>
-  <img src="img/specifishity.png" style="height: 800px" />
+  <img
+    src="img/specifishity.png"
+    style="height: 800px"
+    alt="a chart ranking selector specificity from type through class to id and inline"
+  />
 </section>
 <section>
   <h2>Overriding</h2>
@@ -889,7 +940,10 @@ code {color: red;}
     </code></pre>
   </section>
   <section>
-    <img src="./img/overriding-example.png" />
+    <img
+      src="./img/overriding-example.png"
+      alt="four paragraphs, each won by a different specificity"
+    />
   </section>
 </section>
 <section>
@@ -913,7 +967,10 @@ color: blue !important}
     </code></pre>
   </section>
   <section>
-    <img src="./img/important-example.png" />
+    <img
+      src="./img/important-example.png"
+      alt="an !important declaration beating an inline style"
+    />
   </section>
 </section>
 <section>
@@ -930,7 +987,11 @@ color: blue !important}
       <li>Margin</li>
     </ul>
   </ul>
-  <img src="./img/box-model.png" style="height: 400px" />
+  <img
+    src="./img/box-model.png"
+    style="height: 400px"
+    alt="the box model: content, padding, border, margin"
+  />
 </section>
 <section>
   <h2>CSS Box Model Properties</h2>
@@ -1044,7 +1105,10 @@ This is the &lt;span class="demo one"&gt;first box&lt;/span&gt;, and this is the
         right margins
       </li>
     </ul>
-    <img src="./img/vertical-margin-collapse.png" />
+    <img
+      src="./img/vertical-margin-collapse.png"
+      alt="two adjacent vertical margins collapsing into the larger one"
+    />
   </div>
 </section>
 <section
@@ -1116,7 +1180,10 @@ p#red{
 </section>
 <section>
   <h2>Content: Background Image (Contd.)</h2>
-  <img src="./img/background-image.png" />
+  <img
+    src="./img/background-image.png"
+    alt="background-repeat, position and attachment compared"
+  />
 </section>
 <section>
   <h2>Block vs. Inline</h2>
@@ -1124,7 +1191,7 @@ p#red{
     <li>Block-level elements:</li>
     <ul>
       <li>The default height is the height of the content</li>
-      <li>The default width is the length of the page</li>
+      <li>The default width is the width of its containing block</li>
       <li>We can set height &amp; width in CSS</li>
       <li>Can have inline or block elements as children</li>
       <li>Flow top to bottom</li>
@@ -1606,7 +1673,11 @@ p.demo.five {
     </style>
 
     <h1 class="demo seven">This is a Linux</h1>
-    <img class="demo seven" src="./img/linux.jpg" />
+    <img
+      class="demo seven"
+      src="./img/linux.jpg"
+      alt="the Linux mascot, used as a background image"
+    />
   </section>
   <section>
     <pre><code class="lang-css">
@@ -1700,17 +1771,17 @@ h1 {
     </li>
     <li>
       To stop wrapping content of an element around a float object, the
-      <code class="hl-orange">normal</code> element must have
-      <code class="hl-yellow">clear</code> attribute
+      <code class="hl-orange">normal</code> element must set the
+      <code class="hl-yellow">clear</code> property
     </li>
     <ul>
       <li>
-        <code class="hl-orange">clear</code> attribute can be set to
+        The <code class="hl-orange">clear</code> property can be set to
         <code class="hl-green">left</code>, <code class="hl-green">right</code>,
         or <code class="hl-green">both</code>
       </li>
     </ul>
-    <li>Setting clear attribute of element to left (right)</li>
+    <li>Setting the clear property of an element to left (right)</li>
     <ul>
       <li>
         My content does not wrap around any float object that is in left (right)
@@ -1962,7 +2033,7 @@ h1 {
     <pre><code class="lang-css">
       .flex-container {
         flex-direction: row | column | row-reverse | column-reverse;
-        // Default flex-direction: row
+        /* Default flex-direction: row */
       }
     </code></pre>
   </section>
@@ -2211,8 +2282,8 @@ h1 {
     <pre>
       <code class="lang-css">
         .flex-container {
-          flex-wrap: wrap | no-wrap | wrap-reverse;
-          // no-wrap is the default
+          flex-wrap: nowrap | wrap | wrap-reverse;
+          /* nowrap is the default — note there is no hyphen */
         }
       </code>
     </pre>
@@ -2260,8 +2331,8 @@ h1 {
       <code class="lang-css">
         .flex-container{
           gap: 10px 20px;
-          // row-gap: 10px;
-          // column-gap: 20px;
+          /* row-gap: 10px; */
+          /* column-gap: 20px; */
         }
       </code>
     </pre>
@@ -2446,10 +2517,10 @@ h1 {
             }
 
             .blue {
-              flex-grow: 2;
+              flex-grow: 1;
             }
 
-            .red {
+            .tomato {
               flex-grow: 2;
             }
           </code>
@@ -2512,7 +2583,7 @@ h1 {
   <pre>
     <code class="lang-css">
       .item{
-        flex: 1 1 300px; // flex-grow flex-shrink flex-basis
+        flex: 1 1 300px; /* flex-grow flex-shrink flex-basis */
       }
     </code>
   </pre>
@@ -2567,7 +2638,7 @@ h1 {
             align-self: flex-end;
           }
 
-          .red {
+          .tomato {
             align-self: flex-start;
           }
 
@@ -2584,7 +2655,7 @@ h1 {
 <section>
   <h2>Grid</h2>
   <ul>
-    <li><span class="orange">Two</span>-dimensional layout model</li>
+    <li><span class="hl-orange">Two</span>-dimensional layout model</li>
     <ul>
       <li>
         Divides a page into major regions, defines the relationship in terms of
@@ -2662,7 +2733,7 @@ h1 {
     <pre>
       <code class="lang-css">
         .hero {
-          grid-column: 1 / 3; // from line 1 to line 3, so two columns
+          grid-column: 1 / 3; /* from line 1 to line 3, so two columns */
           grid-row: 1;
         }
       </code>
@@ -2845,7 +2916,7 @@ h1 {
     <pre>
       <code class="lang-css">
       @media mediatype and (media-feature) {
-         // Styles
+         /* Styles */
       }
       </code>
     </pre>
@@ -3156,7 +3227,7 @@ h1 {
           }
 
           .main {
-            flex-wrap: wrap; // or set it out of media query
+            flex-wrap: wrap; /* or set it out of media query */
           }
 
           .box {
@@ -3232,7 +3303,7 @@ h1 {
     <li>CSS functions are used as a value for various CSS properties, e.g.,</li>
     <ul>
       <li>
-        Color: <code>rgb()</code>, <code>rgba()</code>, <code>usl()</code>, …
+        Color: <code>rgb()</code>, <code>hsl()</code>, <code>oklch()</code>, …
       </li>
       <li>Content: <code>url()</code>, <code>image()</code>, …</li>
       <li>
@@ -3375,8 +3446,8 @@ button {
   <h2>Hidden Elements</h2>
   <ul>
     <li>
-      <code>visibility:hidden</code> It is not visible but gets up it’s original
-      space whereas
+      <code>visibility:hidden</code> hides the element but it still
+      <em class="hl-orange">keeps its space</em>, whereas
     </li>
     <li><code>display:none</code> It is hidden and takes no space</li>
   </ul>
@@ -3390,7 +3461,7 @@ button {
     <li>Validation</li>
     <ul>
       <li>W3C validator</li>
-      <li>Firefox add-ones</li>
+      <li>Firefox add-ons</li>
       <li>Chrome “inspect element”</li>
     </ul>
     <li>On the fly CSS modification</li>
@@ -3401,23 +3472,35 @@ button {
   </ul>
 </section>
 <section>
-  <h2>What is the Next?! CSS3 (& CSS4)</h2>
+  <h2>What is Next?!</h2>
   <ul>
-    <li>The next standard of CSS</li>
-    <li>CSS3 is split up into modules</li>
-    <ul>
-      <li>About 30 modules</li>
-      <li>CSS 4 has more modules</li>
-    </ul>
-    <li>The CSS4 specification is still under development</li>
+    <li>
+      CSS is not versioned any more — each
+      <em class="hl-orange">module</em> has its own level, and browsers ship
+      them one at a time
+    </li>
+    <li>Worth knowing, all supported across browsers today:</li>
     <ul>
       <li>
-        Many of the new CSS3 properties have been implemented in modern browsers
+        <code class="hl-green">:has()</code> — style a parent from its children,
+        the long-awaited "parent selector"
       </li>
       <li>
-        <a href="https://css4-selectors.com/browser-selector-test/"
-          >Browser CSS Selector Test</a
-        >
+        <code class="hl-green">@container</code> — respond to the size of the
+        <em>container</em> rather than the viewport, which is what components
+        actually need
+      </li>
+      <li>
+        <code class="hl-green">&amp;</code> nesting — write nested rules without
+        a preprocessor
+      </li>
+      <li>
+        <code class="hl-green">@layer</code> — decide which stylesheet wins
+        without escalating specificity
+      </li>
+      <li>
+        <code class="hl-green">subgrid</code> — let a child line up on its
+        parent's grid tracks
       </li>
     </ul>
   </ul>

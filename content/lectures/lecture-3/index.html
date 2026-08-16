@@ -103,9 +103,13 @@ topics:
       <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
       <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
       <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
+      <li>HTML5 (WHATWG + W3C, 2014): supersedes HTML 4.01 and XHTML 1.0</li>
       <li>
-        HTML 5 (Web Hypertext Application Technology Working Group, W3C): New
-        version of HTML4, XHTML 1.0
+        Since <span class="hl-orange">2019</span> the W3C has ceded HTML to the
+        <span class="hl-green">WHATWG</span>, and there are no numbered versions
+        any more — HTML is a
+        <strong class="hl-yellow">Living Standard</strong> that changes
+        continuously
       </li>
     </ul>
   </section>
@@ -113,7 +117,7 @@ topics:
 <section>
   <h2>HTML Basics: Tags</h2>
   <ul>
-    <li>XHTML is a text document collecting elements</li>
+    <li>An HTML document is a text document collecting elements</li>
     <li>
       Element: (usually) a tag pair (opening &amp; closing) + content between
       them
@@ -146,8 +150,9 @@ topics:
     <li>Core attributes can be used for most of elements</li>
     <ul>
       <li>
-        <code class="hl-yellow">id</code>: A unique identifier to element
-        starting with "A-Z"
+        <code class="hl-yellow">id</code>: A unique identifier for the element.
+        In HTML5 it may be any non-empty string with no whitespace — the old
+        "must start with a letter" rule was XHTML's
       </li>
       <li>
         <code class="hl-yellow">class</code>: Assign a class to the element,
@@ -168,7 +173,10 @@ topics:
 </section>
 <section>
   <h2>HTML Basics: Tag &amp; Attribute &amp; Element</h2>
-  <img src="./img/html-tag.png" />
+  <img
+    src="./img/html-tag.png"
+    alt="an element labelled: opening tag, attribute, content, closing tag"
+  />
 </section>
 <section>
   <h2>HTML Processing</h2>
@@ -286,7 +294,10 @@ I am a &lt;br /&gt; break
     </code></pre>
   </section>
   <section>
-    <img src="./img/example.png" />
+    <img
+      src="./img/example.png"
+      alt="the Hello World page as the browser renders it"
+    />
   </section>
 </section>
 <section>
@@ -298,7 +309,11 @@ I am a &lt;br /&gt; break
       <li>Parent &amp; Child relationship</li>
     </ul>
   </ul>
-  <img src="./img/nested.png" style="background-color: white" />
+  <img
+    src="./img/nested.png"
+    style="background-color: white"
+    alt="nested tags drawn as a tree of parent and child elements"
+  />
 </section>
 <section>
   <h2>
@@ -479,10 +494,14 @@ I am a &lt;br /&gt; break
     </ul>
   </section>
   <section>
-    <h3><code>&lt;meta&gt;&lt;/meta&gt;</code></h3>
+    <h3><code>&lt;meta /&gt;</code></h3>
     <ul>
       <li>
         This element sets the character set your document should use to UTF-8.
+      </li>
+      <li>
+        It is a <em class="hl-orange">void</em> element: no content, and
+        <strong class="hl-red">no closing tag</strong>
       </li>
     </ul>
   </section>
@@ -643,7 +662,7 @@ I am a &lt;br /&gt; break
       </li>
       <ul>
         <li>
-          Tho ordered list uses a specific attribute to define a custom start
+          The ordered list uses a specific attribute to define a custom start
           number. The attribute syntax is start=”X”, where the X value is the
           list custom starting number.
         </li>
@@ -818,15 +837,16 @@ I am a &lt;br /&gt; break
         </li>
         <li>Step one: assign an <em class="hl-yellow">id</em> to the part</li>
         <pre><code class="lang-html">
-&lt;a id="SctionResult"&gt;Results&lt;/a&gt;
-&lt;h2 id="SctionResult"&gt;Results&lt;/h2&gt;
+&lt;!-- either of these, not both: an id must be unique --&gt;
+&lt;a id="section-result"&gt;Results&lt;/a&gt;
+&lt;h2 id="section-result"&gt;Results&lt;/h2&gt;
         </code></pre>
         <li>The <em class="hl-yellow">id</em> is case sensitive</li>
         <li>
           Step two: create link using <span class="hl-cyan">#frag</span> feature
         </li>
         <pre><code class="lang-html">
-To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
+To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
         </code></pre>
       </ul>
     </ul>
@@ -874,7 +894,21 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
         align: alignment of image with respect to text line (deprecated, is
         controller by CSS)
       </li>
-      <li>There is no caption for images!!!Images are inline elements</li>
+      <li>
+        <code class="hl-orange">&lt;img&gt;</code> is an inline element and has
+        no caption of its own
+      </li>
+      <li>
+        To caption one, wrap it:
+        <code class="hl-green">&lt;figure&gt;</code> +
+        <code class="hl-green">&lt;figcaption&gt;</code>
+      </li>
+      <pre><code class="lang-html">
+&lt;figure&gt;
+  &lt;img src="gopher.png" alt="the Go gopher" /&gt;
+  &lt;figcaption&gt;The Go gopher, by Renée French&lt;/figcaption&gt;
+&lt;/figure&gt;
+      </code></pre>
     </ul>
   </ul>
 </section>
@@ -975,7 +1009,10 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   </section>
 </section>
 <section>
-  <img src="./img/summary.png" />
+  <img
+    src="./img/summary.png"
+    alt="a summary of the HTML elements covered so far"
+  />
 </section>
 <section>
   <section>
@@ -999,7 +1036,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
           </li>
           <ul>
             <li>
-              <a href="https://github.com/jgraph/drawio" alt="drawio">drawio</a>
+              <a href="https://github.com/jgraph/drawio">drawio</a>
             </li>
           </ul>
         </ul>
@@ -1054,7 +1091,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   <section>
     <ul>
       <li>
-        A from is composed of <code class="hl-orange">input</code> elements
+        A form is composed of <code class="hl-orange">input</code> elements
       </li>
       <li>
         Each component has <code class="hl-yellow">type</code>,
@@ -1071,7 +1108,8 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
         <li><code class="hl-yellow">value</code> (except buttons)</li>
         <ul>
           <li>
-            If not empty, is <strong class="hl-volet">the default value</strong>
+            If not empty, is
+            <strong class="hl-violet">the default value</strong>
           </li>
         </ul>
       </ul>
@@ -1129,7 +1167,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://httpbin.org/get" method="get"&gt;
+&lt;form action="https://httpbin.org/get" method="get"&gt;
   Search:
   &lt;input type="text" name="txtSearch" value="" size="20" maxlength="64" /&gt;
   &lt;br /&gt;
@@ -1141,7 +1179,7 @@ To see result &lt;a href="xyz#SctionResult"&gt;click here&lt;/a&gt;
 Please enter your message&lt;/textarea&gt;
 &lt;/form&gt;
     </code></pre>
-    <form action="http://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get">
       Search:
       <input type="text" name="txtSearch" value="" size="20" maxlength="64" />
       <br />
@@ -1197,7 +1235,7 @@ Please enter your message</textarea>
     </ul>
   </section>
   <section>
-    <form action="http://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get">
       <fieldset>
         <legend><em>Web Development Skills</em></legend>
         <input type="checkbox" name="skill_1" value="html" />
@@ -1216,7 +1254,7 @@ Please enter your message</textarea>
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://httpbin.org/get" method="get"&gt;
+&lt;form action="https://httpbin.org/get" method="get"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;&lt;em&gt;Web Development Skills&lt;/em&gt;&lt;/legend&gt;
     &lt;input type="checkbox" name="skill_1" value="html" /&gt;
@@ -1259,7 +1297,7 @@ Please enter your message</textarea>
     </ul>
   </section>
   <section>
-    <form action="http://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get">
       <fieldset>
         <legend>University Grade</legend>
         <input type="radio" name="grade" value="B" /> BS <br />
@@ -1272,7 +1310,7 @@ Please enter your message</textarea>
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://httpbin.org/get" method="get"&gt;
+&lt;form action="https://httpbin.org/get" method="get"&gt;
   &lt;fieldset&gt;
     &lt;legend&gt;University Grade&lt;/legend&gt;
     &lt;input type="radio" name="grade" value="B" /&gt; BS &lt;br /&gt;
@@ -1302,7 +1340,7 @@ Please enter your message</textarea>
         </li>
       </ul>
       <li>
-        <span class="hl-orange">slename</span>=<span class="hl-green">val</span>
+        <span class="hl-orange">selname</span>=<span class="hl-green">val</span>
         of the selected item is sent to server
       </li>
       <li>User cannot enter value</li>
@@ -1314,7 +1352,7 @@ Please enter your message</textarea>
     </ul>
   </section>
   <section>
-    <form action="http://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get">
       Select color:
       <select name="selColor">
         <option value="r">Red</option>
@@ -1326,7 +1364,7 @@ Please enter your message</textarea>
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://httpbin.org/get" method="get"&gt;
+&lt;form action="https://httpbin.org/get" method="get"&gt;
   Select color:
   &lt;select name="selColor"&gt;
     &lt;option value="r"&gt;Red&lt;/option&gt;
@@ -1362,7 +1400,7 @@ Please enter your message</textarea>
   </section>
   <section>
     <form
-      action="http://httpbin.org/post"
+      action="https://httpbin.org/post"
       method="post"
       enctype="multipart/form-data"
     >
@@ -1373,7 +1411,7 @@ Please enter your message</textarea>
   <section>
     <pre><code class="lang-html">
 &lt;form
-  action="http://httpbin.org/post"
+  action="https://httpbin.org/post"
   method="post"
   enctype="multipart/form-data"
 &gt;
@@ -1414,7 +1452,7 @@ Please enter your message</textarea>
     </ul>
   </section>
   <section>
-    <form action="http://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get">
       <input type="text" name="input" value="Default Value" /> <br />
       <button type="submit">Submit Me</button><br />
       <button type="reset">Reset</button> <br />
@@ -1423,7 +1461,7 @@ Please enter your message</textarea>
   </section>
   <section>
     <pre><code class="lang-html">
-&lt;form action="http://httpbin.org/get" method="get"&gt;
+&lt;form action="https://httpbin.org/get" method="get"&gt;
   &lt;input type="text" name="input" value="Default Value" /&gt; &lt;br /&gt;
   &lt;button type="submit"&gt;Submit Me&lt;/button&gt;&lt;br /&gt;
   &lt;button type="reset"&gt;Reset&lt;/button&gt; &lt;br /&gt;
@@ -1661,7 +1699,7 @@ Please enter your message</textarea>
   <h2>HTML Development Toolbox</h2>
   <ul>
     <li>
-      <a href="http://en.wikipedia.org/wiki/List_of_HTML_editors">
+      <a href="https://en.wikipedia.org/wiki/List_of_HTML_editors">
         A HTML editor
       </a>
     </li>
@@ -1683,8 +1721,8 @@ Please enter your message</textarea>
         </ul>
       </li>
       <li>
-        WYSIWYG editors (you have not work with tags) E.g. MS. FrontPage, Word
-        (export to HTML), …
+        WYSIWYG editors (you never touch a tag), e.g. Webflow, Framer, or any
+        CMS block editor
       </li>
     </ul>
   </ul>

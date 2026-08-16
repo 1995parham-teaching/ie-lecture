@@ -311,7 +311,8 @@ db.students.deleteOne({ id: "9231058" });
     <h2>Aggregation Pipeline</h2>
     <p>Documents flow through stages, each one transforming the stream.</p>
     <pre><code class="lang-javascript">
-db.students.aggregate([
+// keep the big courses, count them per teacher, busiest first
+db.courses.aggregate([
   { $match: { capacity: { $gt: 20 } } },
   { $group: { _id: "$teacher", total: { $sum: 1 } } },
   { $sort: { total: -1 } },

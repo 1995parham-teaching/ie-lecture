@@ -264,7 +264,12 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
     <table>
       <tr>
         <td>PATH_INFO</td>
-        <td>The path for the CGI script.</td>
+        <td>
+          The <em>extra</em> path in the URL after the script name. Requesting
+          <code>/cgi-bin/hello.cgi/a/b</code> runs <code>hello.cgi</code> with
+          <code>PATH_INFO=/a/b</code> — this is how one script serves many
+          paths.
+        </td>
       </tr>
       <tr>
         <td>QUERY_STRING</td>
@@ -283,8 +288,8 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
         <td>REMOTE_HOST</td>
         <td>
           The fully qualified name of the host making the request. If this
-          information is not available, then REMOTE_ADDR can be used to get IR
-          address.
+          information is not available, then REMOTE_ADDR can be used to get the
+          IP address.
         </td>
       </tr>
       <tr>
@@ -344,7 +349,7 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
       </ul>
       <li>Should web server interpret/compile the code?</li>
       <ul>
-        Web servers are not build to be compiler!!
+        <li>Web servers are not built to be compilers!!</li>
       </ul>
       <li>How to mix code &amp; HTML?</li>
     </ul>

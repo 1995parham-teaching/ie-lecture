@@ -33,7 +33,7 @@ topics:
         A mechanism to communication: <code class="hl-yellow">fetch</code>
       </li>
     </ul>
-    <li>(Almost) Always the data is structed</li>
+    <li>(Almost) always the data is structured</li>
   </ul>
 </section>
 <section>
@@ -103,7 +103,7 @@ type Student struct {
 
 c := Course {
   Name: "IE",
-  Teacher: "Bahador Bakhshi",
+  Teacher: "Parham Alvani",
   Students: []Student{
     { FirstName: "Parham", LastName: "Alvani", ID: "9231058" },
   },
@@ -115,7 +115,7 @@ c := Course {
     <pre><code class="lang-json">
 {
   "name": "IE",
-  "teacher": "Bahador Bakhshi",
+  "teacher": "Parham Alvani",
   "students": [
     { "first_name": "Parham", "last_name": "Alvani", "id": "9231058" }
   ],
@@ -133,7 +133,7 @@ A4                                   # map(4)
    67                                # text(7)
       74656163686572                 # "teacher"
    6F                                # text(15)
-      42616861646F722042616B68736869 # "Bahador Bakhshi"
+      42616861646F722042616B68736869 # "Parham Alvani"
    68                                # text(8)
       73747564656E7473               # "students"
    81                                # array(1)
@@ -158,7 +158,7 @@ A4                                   # map(4)
   <section>
     <pre><code class="plaintext">
 IE
-Bahador Bakhshi
+Parham Alvani
 30
 1
 Parham
@@ -182,7 +182,7 @@ Alvani
   <pre><code class="lang-json">
 {
   "name": "IE",
-  "teacher": "Bahador Bakhshi",
+  "teacher": "Parham Alvani",
   "students": [
     { "first_name": "Parham", "last_name": "Alvani", "id": "9231058" }
   ],
@@ -297,7 +297,7 @@ null
       </ul>
       <li>Error makes the parser fails to parse the file</li>
     </ul>
-    <li>Symantec (structure)</li>
+    <li>Semantics (structure)</li>
     <ul>
       <li>Application specific rules</li>
       <ul>
@@ -816,17 +816,18 @@ console.log(JSON.parse(myObjStr));
     <div id="json-out-2"></div>
     <script>
       function parseJSON() {
-        output = "";
-        input = document.getElementById("json-in-2").value;
-        jsonData = JSON.parse(input);
+        const input = document.getElementById("json-in-2").value;
+        const jsonData = JSON.parse(input);
+        const out = document.getElementById("json-out-2");
 
-        for (i = 0; i < jsonData.messages.length; i++) {
-          msg = jsonData.messages[i];
-          output += `
-            ${msg.from} sent the following message to ${msg.to}<br />${msg.body}<hr />`;
+        out.replaceChildren();
+
+        for (const msg of jsonData.messages) {
+          const p = document.createElement("p");
+          // textContent, never innerHTML: this text came from the user
+          p.textContent = `${msg.from} sent to ${msg.to}: ${msg.body}`;
+          out.append(p, document.createElement("hr"));
         }
-
-        document.getElementById("json-out-2").innerHTML = output;
       }
       document.getElementById("json-btn-2").onclick = parseJSON;
     </script>
@@ -834,16 +835,18 @@ console.log(JSON.parse(myObjStr));
   <section>
     <pre><code class="lang-javascript">
 function parseJSON() {
-  output = "";
-  input = document.getElementById("json-in-2").value;
-  jsonData = JSON.parse(input);
+  const input = document.getElementById("json-in-2").value;
+  const jsonData = JSON.parse(input);
+  const out = document.getElementById("json-out-2");
 
-  for (i = 0; i &lt; jsonData.messages.length; i++) {
-    msg = jsonData.messages[i];
-    output += `
-        ${msg.from} sent the following message to ${msg.to}&lt;br /&gt;${msg.body}&lt;hr /&gt;`;
+  out.replaceChildren();
+
+  for (const msg of jsonData.messages) {
+    const p = document.createElement("p");
+    // textContent, never innerHTML: this text came from the user
+    p.textContent = `${msg.from} sent to ${msg.to}: ${msg.body}`;
+    out.append(p, document.createElement("hr"));
   }
-  document.getElementById("json-out-2").innerHTML = output;
 }
 document.getElementById("json-btn-2").onclick = parseJSON;
     </code></pre>
@@ -910,12 +913,7 @@ document.getElementById("json-btn-2").onclick = parseJSON;
     <tr>
       <td>Ruby</td>
       <td>Haxe</td>
-      <td>Cappuccino</td>
-    </tr>
-    <tr>
-      <td>AS3</td>
       <td>Node.js</td>
-      <td>Cocoa</td>
     </tr>
     <tr>
       <td>D</td>
@@ -1263,7 +1261,7 @@ service Registration {
   <div class="toc" data-selected="4"></div>
 </section>
 <section>
-  <h2>What are the Next?!</h2>
+  <h2>What is Next?!</h2>
   <ul>
     <li>Other related technologies in data exchange</li>
     <ul>

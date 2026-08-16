@@ -77,7 +77,7 @@ topics:
     <img src="./img/mvc-3.png" alt="mvc-3" />
   </section>
   <section>
-    <img src="./img/mvc-4.png" alt="mvc-3" />
+    <img src="./img/mvc-4.png" alt="mvc-4" />
   </section>
 </section>
 <section>
@@ -120,7 +120,7 @@ topics:
       <li>Model</li>
       <ul>
         <li>Database tables (persistent data)</li>
-        <li>Session information (current stat data)</li>
+        <li>Session information (current state data)</li>
         <li>Server-side processing</li>
       </ul>
       <li>View</li>
@@ -145,8 +145,8 @@ topics:
     </li>
     <li>Client side frameworks</li>
     <ul>
-      <li>Angular 1.x: MVC</li>
-      <li>Angular &gt;1: MVVM</li>
+      <li>AngularJS 1.x: MVC (end of life since January 2022)</li>
+      <li>Angular 2+: component based, close to MVVM</li>
       <li>
         React: MVVM (It's more like MVVM and the mostly feature equivalent Vue
         officially declares itself as MVVM.)
@@ -155,7 +155,11 @@ topics:
     </ul>
     <li>Server side frameworks</li>
     <ul>
-      <li>Laravel: MVC + MVVM</li>
+      <li>Go: <code>net/http</code> — handlers, no prescribed pattern</li>
+      <li>
+        Django, Rails, Laravel: MVC (Django calls the controller a "view")
+      </li>
+      <li>Spring: MVC</li>
     </ul>
   </ul>
 </section>
@@ -267,7 +271,7 @@ topics:
       The SOA-based approach helped IT professionals build applications
       (services) with well-defined interfaces that abstract the internal
       implementation details so that the consumers of these applications would
-      only need to integrate throught the interface.
+      only need to integrate through the interface.
     </li>
     <li>
       The SOA-based approach allowed application developers to change their
@@ -304,7 +308,7 @@ topics:
     </ul>
     <li>Upgrade</li>
     <ul>
-      <li>How to upgrade a modules of business logic?</li>
+      <li>How to upgrade a module of business logic?</li>
     </ul>
   </ul>
 </section>
@@ -335,7 +339,7 @@ topics:
 </section>
 <section>
   <h2>Microservices Architecture</h2>
-  <img src="./img/micro.png" alt="mirco" />
+  <img src="./img/micro.png" alt="microservices architecture" />
 </section>
 <section>
   <h2>The Four Tiers of a Microservice Application</h2>
@@ -346,7 +350,7 @@ topics:
       deployment of microservices.
     </li>
     <li>
-      Services: In this tier, the service that you build interact with each
+      Services: In this tier, the services that you build interact with each
       other to provide business and technical capabilities, supported by the
       underlying platform
     </li>
@@ -508,7 +512,7 @@ topics:
   </section>
   <section>
     <h2>Mongo DB (CP)</h2>
-    <img src="./img/mongodb.webp" />
+    <img src="./img/mongodb.webp" alt="MongoDB replica set" />
     <ul>
       <li>
         MongoDB is a NoSQL database that stores data in one or more Primary
@@ -593,8 +597,11 @@ topics:
   </section>
   <section>
     <h2>Remote procedure calls (RPC) versus shared resources</h2>
-    <img src="./img/diag-shared-resource-based-communication.drawio.png" />
-    <img src="./img/diag-rpc.drawio.png" />
+    <img
+      src="./img/diag-shared-resource-based-communication.drawio.png"
+      alt="shared-resource communication"
+    />
+    <img src="./img/diag-rpc.drawio.png" alt="remote procedure call" />
   </section>
   <section>
     <h2>Synchronous versus asynchronous (client-server versus pub-sub)</h2>
@@ -627,17 +634,17 @@ topics:
       produce great experiences for the consumers of the platform.
     </p>
     <p>
-      The <strong class="hl-green">orchestration approach</strong> involes a
+      The <strong class="hl-green">orchestration approach</strong> involves a
       central system or a component that coordinates the communication between
       multiple systems to produce the expected result.
     </p>
     <p>
-      <strong class="hl-orange">Choreography</strong> is a technology thatis'
-      used in dancing where a team of dancers acts as a single unit to produce a
-      show to the audience. There is no central coordinator or a person who
-      controls the dance, but there is a choreographer who designs the dance
-      before the show, makes sure dancers do their act properly during the show,
-      and collaborate at the time of the show.
+      <strong class="hl-orange">Choreography</strong> is a term borrowed from
+      dancing, where a team of dancers acts as a single unit to produce a show
+      to the audience. There is no central coordinator or a person who controls
+      the dance, but there is a choreographer who designs the dance before the
+      show, makes sure dancers do their act properly during the show, and
+      collaborate at the time of the show.
     </p>
   </section>
 </section>
@@ -664,7 +671,10 @@ topics:
     </ul>
   </section>
   <section>
-    <img src="./img/asyn-messaging.png" />
+    <img
+      src="./img/asyn-messaging.png"
+      alt="asynchronous messaging through a broker"
+    />
   </section>
   <section>
     <h3>Solutions</h3>

@@ -19,8 +19,8 @@ topics:
     Cloud computing is a model for enabling ubiquitous, convenient, on-demand
     network access to a shared pool of configurable computing resources
     (networks, virtual machines, storage, applications, and services) that can
-    be rapidly provision and released with minimal management effort or service
-    provider interaction.
+    be rapidly provisioned and released with minimal management effort or
+    service provider interaction.
   </p>
 </section>
 <section>
@@ -35,11 +35,17 @@ topics:
     </p>
   </section>
   <section>
-    <li>Example providers:</li>
     <ul>
-      <li>AWS Amazon</li>
-      <li>Virtual Box</li>
-      <li>VMware</li>
+      <li>Example providers:</li>
+      <ul>
+        <li>AWS, Google Cloud, Azure</li>
+        <li>Arvan Cloud, Abr Aras (closer to home)</li>
+      </ul>
+      <li>
+        <span class="hl-red">Not</span> IaaS: VirtualBox and VMware Workstation
+        are hypervisors you run yourself — the technology underneath, not the
+        service
+      </li>
     </ul>
   </section>
 </section>
@@ -119,7 +125,7 @@ topics:
       </li>
       <li>
         To avoid the performance problems related to binary translation when
-        using full virtulization, we use
+        using full virtualization, we use
         <strong>paravirtualization</strong> wherein the guest knows that it is
         running in a virtualized environment and its interaction with the host
         is optimized to avoid excessive trapping.
@@ -130,7 +136,7 @@ topics:
     <h2>CPU Virtualization (Contd)</h2>
     <ul>
       <li>
-        In 2005, x86 finally become virtualizable. Advantages of
+        In 2005, x86 finally became virtualizable. Advantages of
         <strong>hardware-assisted virtulization</strong>
         are two fold:
         <ul>
@@ -150,7 +156,7 @@ topics:
       </li>
       <li>
         In <strong>paravirtualization</strong> case, the guest OS is made aware
-        that it's running in a vritualized environment and special drivers are
+        that it's running in a virtualized environment and special drivers are
         loaded into the guest to take care of the I/O.
       </li>
     </ul>
@@ -225,9 +231,20 @@ topics:
 <section>
   <h2>Container Engines</h2>
   <ul>
-    <li><a href="https://github.com/containers/podman">podman</a></li>
-    <li><a href="https://github.com/rkt/rkt">rtk> ⚰️</a></li>
     <li><a href="https://github.com/moby/moby">docker (moby)</a></li>
+    <li>
+      <a href="https://github.com/containers/podman">podman</a> — daemonless,
+      rootless
+    </li>
+    <li>
+      <a href="https://github.com/containerd/containerd">containerd</a> and
+      <a href="https://github.com/cri-o/cri-o">CRI-O</a> — what actually runs
+      containers under Kubernetes
+    </li>
+    <li>
+      <a href="https://github.com/rkt/rkt">rkt</a> ⚰️ — archived by the CNCF in
+      2020
+    </li>
   </ul>
 </section>
 <section>
@@ -291,22 +308,31 @@ docker run hello-world
 </section>
 <section>
   <pre><code class="lang-dockerfile">
-# Format: FROM    repository[:version]
-FROM       ubuntu:latest
-# Installation:
-# Import MongoDB public GPG key AND create a MongoDB list file
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-RUN apt-get install -y --no-install-recommends software-properties-common
-RUN echo "deb http://repo.mongodb.org/apt/ubuntu $(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d= -f2)/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+# Format: FROM repository[:version] — pin it, "latest" moves under you
+FROM ubuntu:24.04
 
-# Update apt-get sources AND install MongoDB
-RUN apt-get update &amp;&amp; apt-get install -y mongodb-org
-# Create the MongoDB data directory
+# One RUN, so the update and the install land in the same layer. Split
+# across two layers, a cached update can feed a stale package index.
+RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# apt-key was removed in Ubuntu 22.04. Keys now live in /etc/apt/keyrings
+# and are named by the source that uses them.
+RUN curl -fsSL https://pgp.mongodb.com/server-8.0.asc \
+      | gpg --dearmor -o /etc/apt/keyrings/mongodb.gpg \
+    &amp;&amp; echo "deb [signed-by=/etc/apt/keyrings/mongodb.gpg] \
+https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" \
+      &gt; /etc/apt/sources.list.d/mongodb-org.list
+
+RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends mongodb-org \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /data/db
-# Expose port 27017 from the container to the host
+
+# Documents the port; it does not publish it. That is -p at run time.
 EXPOSE 27017
 
-# Set usr/bin/mongod as the dockerized entry-point application
 ENTRYPOINT ["/usr/bin/mongod"]
   </code></pre>
 </section>
@@ -354,29 +380,31 @@ docker rmi $(docker images -q)        # Remove all images from this machine
   <h2>Docker Compose</h2>
   <pre><code>
 services:
-   db:
-     image: mysql:latest
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: somewordpress
-       MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
-       MYSQL_PASSWORD: wordpress
+  db:
+    image: mysql:8
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
   wordpress:
-     depends_on:
-       - db
-     image: wordpress:latest
-     ports:
-       - "8000:80"
-     restart: always
-     environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_USER: wordpress
-       WORDPRESS_DB_PASSWORD: wordpress
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+
 volumes:
-    db_data:
+  db_data:
   </code></pre>
 </section>
 <section>

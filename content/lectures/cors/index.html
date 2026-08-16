@@ -42,11 +42,11 @@ topics:
   <h2>Usage</h2>
   <p>
     For <strong class="hl-red">security reasons</strong>, browsers restrict
-    cross-origin HTTP requests initiated from scripts. For example,
-    XMLHttpRequest and the Fetch API follow the same-origin policy. This means
-    that a web application using those APIs can only request resources from the
-    same origin the application was loaded from unless the response from other
-    origins includes the right CORS headers.
+    cross-origin HTTP requests initiated from scripts. The Fetch API (and the
+    older XMLHttpRequest) follow the same-origin policy. This means that a web
+    application using those APIs can only request resources from the same origin
+    the application was loaded from unless the response from other origins
+    includes the right CORS headers.
   </p>
 </section>
 <section>
@@ -77,12 +77,10 @@ topics:
       might be used in JavaScript deployed on foo.example:
     </p>
     <pre><code class="language-js">
-const xhr = new XMLHttpRequest();
 const url = "https://bar.other/resources/public-data/";
 
-xhr.open("GET", url);
-xhr.onreadystatechange = someHandler;
-xhr.send();
+const response = await fetch(url);
+const data = await response.json();
         </code>
         </pre>
   </section>
@@ -142,10 +140,17 @@ Content-Type: application/xml
 <section>
   <h2>CORS Error</h2>
   <p>
-    The CORS behavior, commonly termed as CORS error, is a mechanism to restrict
-    users from accessing shared resources. This is not an error but a security
-    measure to secure users or the website which you are accessing from a
-    potential security breach.
+    What people call a <q>CORS error</q> is not really CORS at all. The
+    restriction is the <strong class="hl-orange">same-origin policy</strong>,
+    which the browser applies by default; CORS is the mechanism a server uses to
+    <em class="hl-green">relax</em> it.
+  </p>
+  <p>
+    So the message means: the server did
+    <strong class="hl-red">not</strong> opt in. Nothing is broken in your
+    JavaScript — and note the request usually
+    <em class="hl-yellow">did reach the server</em>. It is the
+    <em>response</em> the browser refuses to hand back to your code.
   </p>
   <img src="./img/cors-error.png" alt="cors-error" />
 </section>
@@ -181,7 +186,8 @@ Content-Type: application/xml
   <section>
     <h2>Example</h2>
     <p style="text-align: justify">
-      For example you can create a proxy server in React application like this:
+      With Create React App (now legacy, but you will meet it) the setting lives
+      in <code class="hl-yellow">package.json</code>:
     </p>
     <pre>
             <code class="language-json">
@@ -235,10 +241,11 @@ export default defineConfig({
   <section>
     <h3>CORS Middleware (Backend)</h3>
     <p>
-      When you are developing a Back-end service, you need to set the CORS
-      headers in requests and responses. To do this, we usually use a
-      Middleware. Every request needs to pass from this middleware, and it will
-      be converted to a CORS request.
+      When you are developing a back-end service, you add the
+      <code class="hl-green">Access-Control-Allow-*</code> headers to your
+      <strong class="hl-orange">responses</strong> — you cannot set them on the
+      request, the browser owns that side. We usually do it with a middleware
+      that every response passes through.
     </p>
   </section>
   <section>

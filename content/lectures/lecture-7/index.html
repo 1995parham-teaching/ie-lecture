@@ -56,7 +56,7 @@ topics:
       Its spiritual fathers are
       <ul>
         <li>Robert Griesemer</li>
-        <li>Ken Thomson</li>
+        <li>Ken Thompson</li>
         <li>Rob Pike</li>
       </ul>
     </li>
@@ -297,7 +297,11 @@ curl https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/00-he
   <p>Maintained precisely:</p>
   <pre><code class="lang-go">
 const e = 2.71828182845904523536028747135266249775724709369995957496696763
-const third = 1/3
+
+// careful: both operands are untyped *integer* constants, so this is 0
+const wrong = 1 / 3
+// one float operand is enough to make it a float constant
+const third = 1.0 / 3
   </code></pre>
   <p>Typed or without type:</p>
   <pre><code class="lang-go">
@@ -408,7 +412,7 @@ continue for import return var
     >
   </h2>
   <ul>
-    <li>Let define variables and constants to see how their work</li>
+    <li>Let's define variables and constants to see how they work</li>
   </ul>
 </section>
 <section>
@@ -462,7 +466,8 @@ func newInt() *int {
   return new(int)
 }
 
-func newInt() *int {
+// the same thing, written out
+func newIntLongWay() *int {
   var dummy int
   return &amp;dummy
 }
@@ -502,9 +507,7 @@ func gcd(x, y int) int {
   <ul>
     <li>Curly braces (C style)</li>
     <li>Multiple assignments and some other new constructs</li>
-    <li>
-      Statements are <span class="material-italic">not</span> Expressions.
-    </li>
+    <li>Statements are <em class="hl-orange">not</em> Expressions.</li>
     <li>
       Many cleanups 🧹:
       <ul>
@@ -651,7 +654,7 @@ gcd 13 15 is 1
   <section>
     <h2>Interaction</h2>
     <pre><code class="lang-go">
-package "main"
+package main
 
 import "fmt"
 
@@ -694,7 +697,7 @@ func main() {
       </tr>
       <tr>
         <td>%v</td>
-        <td>any value in natrual format</td>
+        <td>any value in natural format</td>
       </tr>
       <tr>
         <td>%T</td>
@@ -717,9 +720,9 @@ func main() {
         Unicode code points (runes)
       </li>
       <li>
-        The built-in <code>len</code> function the number of bytes (not runes)
-        in a string, and the index operation <code>s[i]</code> retrieves the
-        i-th byte of string s, where <em>0 &lt;= i &lt; len(s)</em>
+        The built-in <code>len</code> function returns the number of bytes (not
+        runes) in a string, and the index operation <code>s[i]</code> retrieves
+        the i-th byte of string s, where <em>0 &lt;= i &lt; len(s)</em>
       </li>
     </ul>
   </section>
@@ -783,7 +786,7 @@ go doc bytes
       </li>
       <li>
         The <code>fmt.Printf</code> verbs <code>%b</code>, <code>%d</code>,
-        <code>%o</code>, and <code>%x</code> are often more convenient thatn
+        <code>%o</code>, and <code>%x</code> are often more convenient than
         <code>Format</code> functions
       </li>
     </ul>
@@ -884,7 +887,7 @@ Global string is which defined
         Because of their fixed length, arrays are rarely used directly in Go.
       </li>
       <li>
-        By default elements of a new array array variable are initally set to
+        By default the elements of a new array variable are initially set to the
         zero value for the element type, which is 0 for numbers.
       </li>
     </ul>
@@ -904,7 +907,7 @@ c := [2]int{1, 3}
 fmt.Println(a == b, a == c, b == c) // "true false false"
 
 d := [3]int{1, 2}
-fmt.Prinln(a == d) // compile error: cannot compare [2]int == [3]int
+fmt.Println(a == d) // compile error: cannot compare [2]int == [3]int
     </code></pre>
     <pre><code class="lang-go">
 // Print the indices and elements.
@@ -936,7 +939,10 @@ for _, v := range a {
     </ul>
   </section>
   <section>
-    <img src="./img/slice.png" />
+    <img
+      src="./img/slice.png"
+      alt="a slice header pointing into a backing array"
+    />
   </section>
   <section>
     <ul>
@@ -1228,8 +1234,10 @@ package main
 
 func main() {
   one := 1
-  var float float32
-  float = float32(one)
+
+  var f float32 = float32(one)
+
+  fmt.Println(f) // 1
 }
   </code></pre>
 </section>
@@ -1248,18 +1256,21 @@ package main
 
 import "fmt"
 
-type empty interface{}
-
 type example struct {
   A int
 }
 
 func main() {
-  one := 1
-  var i empty = one
   j := example{A: 10}
-  var k empty = j
-  fmt.Println(k.(example).A)
+
+  var k any = j
+
+  fmt.Println(k.(example).A) // 10
+
+  // the comma-ok form does not panic when the type does not match
+  if e, ok := k.(example); ok {
+    fmt.Println(e.A) // 10
+  }
 }
   </code></pre>
 </section>
@@ -1303,7 +1314,7 @@ func (c *Cartesian) ImageOnY() float64 {
   <pre><code class="lang-go">
 type Polar struct {
   R    float64
-  Teta float64
+  Theta float64
 }
 
 func (p *Polar) Distance() float64 {
@@ -1311,11 +1322,11 @@ func (p *Polar) Distance() float64 {
 }
 
 func (p *Polar) ImageOnX() float64 {
-  return p.R * math.Cos(p.Teta)
+  return p.R * math.Cos(p.Theta)
 }
 
 func (p *Polar) ImageOnY() float64 {
-  return p.R * math.Sin(p.Teta)
+  return p.R * math.Sin(p.Theta)
 }
     </code></pre>
 </section>
@@ -1324,7 +1335,7 @@ func (p *Polar) ImageOnY() float64 {
 func main() {
   p := Polar{
     R:    1,
-    Teta: math.Pi / 2,
+    Theta: math.Pi / 2,
   }
 
   c := Cartesian{
@@ -1372,7 +1383,7 @@ func (c *Cartesian) ImageOnY() float64 {
 
 type Polar struct {
   R    float64
-  Teta float64
+  Theta float64
 }
 
 func (p *Polar) Distance() float64 {
@@ -1380,17 +1391,17 @@ func (p *Polar) Distance() float64 {
 }
 
 func (p *Polar) ImageOnX() float64 {
-  return p.R * math.Cos(p.Teta)
+  return p.R * math.Cos(p.Theta)
 }
 
 func (p *Polar) ImageOnY() float64 {
-  return p.R * math.Sin(p.Teta)
+  return p.R * math.Sin(p.Theta)
 }
 
 func main() {
   p := Polar{
     R:    1,
-    Teta: math.Pi / 2,
+    Theta: math.Pi / 2,
   }
 
   c := Cartesian{
@@ -1549,35 +1560,327 @@ func main() {
 <section>
   <h2>HTTP Server</h2>
   <ul>
-    <li>We want to write our http server to handle request in our way</li>
+    <li>We want to write our own HTTP server, and handle requests our way</li>
     <li>
-      Golang has core and third party libraries for implementing the http server
+      <code class="hl-orange">net/http</code> is in the standard library, so
+      there is <strong class="hl-green">nothing to install</strong> and nothing
+      to keep up to date
     </li>
-    <li>We are going to use <a href="https://echo.labstack.com/">echo</a></li>
+    <li>
+      Since Go 1.22 the built-in router understands
+      <span class="hl-cyan">methods</span> and
+      <span class="hl-cyan">path parameters</span>, which is what most people
+      used to reach for a framework to get
+    </li>
   </ul>
-  <img src="./img/echo.png" alt="echo" />
+  <div class="box">
+    <p>
+      Learn the standard library first. When you later pick a framework, you
+      will know exactly what it is doing for you.
+    </p>
+  </div>
 </section>
 <section>
-  <h2>Install Echo</h2>
-  <pre><code class="plaintext">
-&gt; go mod init github.com/1995parham-teaching/go-lecture/echo
-&gt; go get github.com/labstack/echo/v4
-  </code></pre>
+  <section>
+    <h2>The Whole Server</h2>
+    <pre><code class="lang-go">
+package main
+
+import (
+  "fmt"
+  "log"
+  "net/http"
+)
+
+func main() {
+  mux := http.NewServeMux()
+
+  mux.HandleFunc("GET /hello", func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "Hello World")
+  })
+
+  log.Fatal(http.ListenAndServe(":1373", mux))
+}
+    </code></pre>
+    <ul>
+      <li>No dependencies, no <code>go get</code>, one file</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Handlers</h2>
+    <ul>
+      <li>A handler is anything with this method:</li>
+      <pre><code class="lang-go">
+type Handler interface {
+  ServeHTTP(w http.ResponseWriter, r *http.Request)
+}
+      </code></pre>
+      <li>
+        <code class="hl-orange">w</code> is where you
+        <em class="hl-green">write</em> the response,
+        <code class="hl-orange">r</code> is the request you
+        <em class="hl-cyan">read</em>
+      </li>
+      <li>
+        <code class="hl-yellow">http.HandlerFunc</code> adapts a plain function
+        to that interface, which is why <code>HandleFunc</code> accepts a
+        function
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
-  <h2>Routes</h2>
-  <ul>
-    <li>Build an instance of echo</li>
+  <section>
+    <h2>Routing Patterns</h2>
     <pre><code class="lang-go">
-e := echo.New()
+mux.HandleFunc("GET /hello", h.Get)
+mux.HandleFunc("POST /hello", h.Post)
+mux.HandleFunc("GET /hello/{username}", h.User)
     </code></pre>
-    <li>Specify which function shold be called for each route</li>
+    <ul>
+      <li>
+        A leading <span class="hl-orange">method</span> restricts the route; a
+        request with the wrong method gets
+        <code class="hl-green">405 Method Not Allowed</code>
+        without you writing anything
+      </li>
+      <li>
+        <code class="hl-cyan">{username}</code> is a wildcard, read back with
+        <code>r.PathValue("username")</code>
+      </li>
+      <li>
+        <code class="hl-cyan">{path...}</code> matches the rest of the path, and
+        a trailing <code>/</code> matches a subtree
+      </li>
+      <li>When two patterns match, the <em>more specific</em> one wins</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Reading the Request</h2>
     <pre><code class="lang-go">
-e.POST("/hello", func (c echo.Context) error {
-  c.JSON(http.StatusOK, "Hello World")
-})
+// path:  GET /hello/{username}
+name := r.PathValue("username")
+
+// query: GET /hello?hello=IE
+value := r.FormValue("hello")
+
+// body:  POST /hello  with application/json
+var req request.Name
+if err := json.NewDecoder(r.Body).Decode(&amp;req); err != nil {
+  http.Error(w, err.Error(), http.StatusBadRequest)
+  return
+}
     </code></pre>
-  </ul>
+    <ul>
+      <li>
+        Check the <code class="hl-yellow">Content-Type</code> before decoding,
+        with <code>mime.ParseMediaType</code>, so
+        <code>application/json; charset=utf-8</code> is still accepted
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Writing the Response</h2>
+    <pre><code class="lang-go">
+enc, err := json.Marshal(fmt.Sprintf("Hello World from %s", h.From))
+if err != nil {
+  w.WriteHeader(http.StatusInternalServerError)
+  return
+}
+
+w.Header().Set("Content-Type", "application/json")
+w.WriteHeader(http.StatusOK)
+_, _ = w.Write(enc)
+    </code></pre>
+    <ul>
+      <li>
+        Order matters: <span class="hl-orange">headers</span>, then
+        <span class="hl-green">status</span>, then
+        <span class="hl-cyan">body</span>
+      </li>
+      <li>
+        Writing the body first sends an implicit
+        <code class="hl-red">200</code>, and your
+        <code>WriteHeader</code> afterwards is ignored
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Handlers That Need Something</h2>
+    <ul>
+      <li>
+        A handler usually needs a logger, a database, a config. Make it a
+        <span class="hl-orange">method on a struct</span> instead of reaching
+        for a global
+      </li>
+    </ul>
+    <pre><code class="lang-go">
+type Hello struct {
+  From   string
+  Logger *slog.Logger
+}
+
+func (h Hello) User(w http.ResponseWriter, r *http.Request) {
+  h.Logger.Info("path parameter", "username", r.PathValue("username"))
+  w.WriteHeader(http.StatusNoContent)
+}
+
+// wiring it up
+h := handler.Hello{From: "Golang", Logger: logger}
+mux.HandleFunc("GET /hello/{username}", h.User)
+    </code></pre>
+  </section>
+  <section>
+    <h2>Middleware Is Just a Function</h2>
+    <pre><code class="lang-go">
+func logging(logger *slog.Logger, next http.Handler) http.Handler {
+  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    start := time.Now()
+
+    next.ServeHTTP(w, r)
+
+    logger.Info("request",
+      "method", r.Method,
+      "path", r.URL.Path,
+      "took", time.Since(start),
+    )
+  })
+}
+
+srv.Handler = logging(logger, mux)
+    </code></pre>
+    <ul>
+      <li>
+        Takes a handler, returns a handler. Auth, CORS, and recovery are all
+        this same shape, and they compose by nesting
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Do Not Use <code>ListenAndServe</code> in Production</h2>
+    <ul>
+      <li>
+        The package-level helper has
+        <strong class="hl-red">no timeouts</strong>, so one slow client can hold
+        a connection open forever
+      </li>
+    </ul>
+    <pre><code class="lang-go">
+srv := &amp;http.Server{
+  Addr:              "0.0.0.0:1373",
+  Handler:           mux,
+  ReadHeaderTimeout: 5 * time.Second,
+  ReadTimeout:       15 * time.Second,
+  WriteTimeout:      15 * time.Second,
+  IdleTimeout:       60 * time.Second,
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Graceful Shutdown</h2>
+    <pre><code class="lang-go">
+ctx, stop := signal.NotifyContext(context.Background(),
+  os.Interrupt, syscall.SIGTERM)
+defer stop()
+
+go func() {
+  if err := srv.ListenAndServe(); err != nil &amp;&amp;
+    !errors.Is(err, http.ErrServerClosed) {
+    logger.Error("http server failed", "error", err.Error())
+  }
+}()
+
+&lt;-ctx.Done()
+
+shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+defer cancel()
+
+_ = srv.Shutdown(shutdownCtx)
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-green">Shutdown</code> stops accepting new connections
+        and lets in-flight requests finish
+      </li>
+      <li>
+        A clean stop returns
+        <code class="hl-yellow">http.ErrServerClosed</code>, so that one is not
+        an error
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://github.com/1995parham-teaching/go-lecture/tree/main/httpserver"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>Run the server, then talk to it with <code>curl</code></li>
+      <li>
+        Watch the <span class="hl-orange">structured log</span> on the server
+        side while you do
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+go run ./httpserver
+    </code></pre>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-sh">
+$ curl -i localhost:1373/hello
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+Content-Length: 25
+
+"Hello World from Golang"
+
+$ curl -i -X POST -H 'Content-Type: application/json' \
+    -d '{"name":"Parham","count":3}' localhost:1373/hello
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+"Hello to Parham from Golang"
+
+$ curl -o /dev/null -w '%{http_code}\n' -X DELETE localhost:1373/hello
+405
+    </code></pre>
+    <ul>
+      <li>
+        Nobody wrote that <span class="hl-green">405</span>. There is a
+        <code>GET /hello</code> pattern and no <code>DELETE</code> one, so the
+        <code class="hl-orange">ServeMux</code> answered for us
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Server Side</h2>
+    <pre><code class="lang-plaintext">
+level=INFO msg="http server listening" addr=0.0.0.0:1373
+level=INFO msg="read hello from query parameter" handler=hello hello=IE
+level=INFO msg="read username from path parameter" handler=hello username=parham
+level=INFO msg="There is a count" handler=hello count=3
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-cyan">log/slog</code> writes key-value pairs, so the
+        logs are greppable and machine readable without a library
+      </li>
+      <li>
+        <code>handler=hello</code> comes from
+        <code>logger.With("handler", "hello")</code> — set once at wiring time,
+        attached to every line
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="7"></div>
@@ -1651,7 +1954,10 @@ var ch chan int
 ch := make(chan int)  // declare and initialize with newly made channel
     </code></pre>
 
-    <li>A channel permits _sending_ and _receiving_ values:</li>
+    <li>
+      A channel permits <em class="hl-green">sending</em> and
+      <em class="hl-cyan">receiving</em> values:
+    </li>
 
     <pre><code class="lang-go">
 ch &lt;- 1   // send value 1 on channel ch

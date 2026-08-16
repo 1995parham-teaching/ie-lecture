@@ -79,8 +79,9 @@ topics:
     <ul>
       <li>Client-side: Run by client side program (the web browser)</li>
       <li>
-        Scripting: Doesn't require to be compiled before run. All interpretation
-        is done on-the-fly by the client
+        Scripting: no separate build step — you ship source, and the browser
+        takes it from there. (Modern engines still compile it, just
+        <em class="hl-orange">just-in-time</em> as it runs)
       </li>
     </ul>
   </section>
@@ -93,7 +94,8 @@ topics:
           <li>Its standard name is ECMAScript (Stable version: ES2026)</li>
           <li>
             Sever side and other applications (e.g.,
-            <a href="https://gitlab.gnome.org/GNOME/gjs/blob/master/doc/Home.md"
+            <a
+              href="https://gitlab.gnome.org/GNOME/gjs/-/blob/master/doc/Home.md"
               >GNOME Shell</a
             >) are not discussed here.
           </li>
@@ -144,13 +146,13 @@ topics:
     <ul class="l1">
       <li>Embed JavaScript into HTML</li>
       <pre><code class="lang-html">
-&lt;script type="text/javascript"&gt;
+&lt;script&gt;
 // JavaScript code goes here...
 &lt;/script&gt;
       </code></pre>
       <li>Link to external JavaScript</li>
       <pre><code class="lang-html">
-&lt;script type="text/javascript" src="external.js" defer&gt;&lt;/script&gt;
+&lt;script src="external.js" defer&gt;&lt;/script&gt;
       </code></pre>
       <li>
         JavaScript code can be put in both
@@ -229,11 +231,21 @@ console.log('Hello World')
   <section>
     <ul>
       <li>
-        Variables are declared by <code class="hl-red">var</code> and
-        <code class="hl-green">let</code> (is optional)
+        Variables are declared with
+        <code class="hl-green">const</code>, <code class="hl-green">let</code>,
+        or the legacy
+        <code class="hl-red">var</code>
       </li>
       <ul>
-        <li>Required for local variables (inside functions)</li>
+        <li>
+          Reach for <code class="hl-green">const</code> first, and
+          <code class="hl-green">let</code> only when you must reassign
+        </li>
+        <li>
+          <code class="hl-red">var</code> is what you will meet in old code —
+          the examples below use it to show why it was replaced
+        </li>
+        <li>The keyword is not optional; leaving it out makes a global</li>
       </ul>
       <pre><code class="lang-javascript">
 i = j = 0;
@@ -637,15 +649,26 @@ window.alert("We study 'Internet Engineering'");
         value="Run"
         onclick="window.alert('We study \'Internet Engineering\'');"
       />
-      <li>Object <code>document</code> has a <code>write</code> method</li>
+      <li>
+        Object <code>document</code> has a
+        <code class="hl-red">write</code> method — do
+        <strong class="hl-red">not</strong> use it
+      </li>
       <pre><code class="lang-javascript">
 document.write("A sample message");
     </code></pre>
-      <input
-        type="button"
-        value="Run"
-        onclick="document.write('A sample message');"
-      />
+      <ul>
+        <li>
+          Called after the page has loaded it implicitly calls
+          <code>document.open()</code>, which
+          <strong class="hl-red">erases the whole document</strong> — including
+          this slide deck. There is no Run button here for that reason
+        </li>
+        <li>
+          Use <code class="hl-green">textContent</code> or
+          <code class="hl-green">insertAdjacentHTML</code> instead
+        </li>
+      </ul>
     </ul>
   </section>
   <section>
@@ -691,11 +714,17 @@ document.getElementById("testbox").innerHTML = "This is box";
   </section>
   <section>
     <pre><code class="lang-javascript">
+// a literal
 let a = [1, 2, 3];
-let a = new Array (10, 20, ...);
-let a = new Array();
-a[10] = "HTML";
-a[120] = "JS";
+
+// the same thing with the Array constructor
+let b = new Array(10, 20, 30);
+
+// empty, then filled at arbitrary indices — the gaps are "holes"
+let c = new Array();
+c[10] = "HTML";
+c[120] = "JS";
+console.log(c.length); // 121
     </code></pre>
   </section>
   <section>
@@ -1007,8 +1036,8 @@ Person.prototype.farewell = function() {
             <code class="hl-yellow">super</code>, ...
           </li>
           <li>
-            <em class="hl-red">Only</em> for methods (properties should be
-            deinfed using the <code class="hl-cyan">prototype</code>)
+            Since <span class="hl-yellow">ES2022</span> a class body may also
+            declare <em class="hl-green">fields</em> directly, not just methods
           </li>
         </ul>
       </li>
@@ -1063,10 +1092,32 @@ Person.prototype.farewell = function() {
   <section>
     <ul>
       <li>
-        Private/Protected properties/methods:
-        <strong class="hl-yellow">Underdevelopment</strong> (can also be
-        emulated)
+        Private members: prefix the name with
+        <code class="hl-green">#</code> (ES2022, supported everywhere)
       </li>
+      <pre><code class="lang-javascript">
+class Student {
+  name;              // public field
+  #id;               // private field — not reachable from outside
+
+  constructor(name, id) {
+    this.name = name;
+    this.#id = id;
+  }
+
+  #check() {         // private method
+    return this.#id.length === 7;
+  }
+
+  get id() {
+    return this.#check() ? this.#id : "invalid";
+  }
+}
+
+const s = new Student("Parham", "9231058");
+s.#id; // SyntaxError: Private field '#id' must be declared in an enclosing class
+      </code></pre>
+      <li>There is no <code class="hl-red">protected</code> in JavaScript</li>
       <li>Static method: <code>static</code></li>
       <li>
         At Constructor:
@@ -1376,7 +1427,7 @@ while (queue.waitForMessage()) {
     </ul>
   </section>
   <section>
-    <img src="./img/promises.png" alt="promies" />
+    <img src="./img/promises.png" alt="the three states of a promise" />
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -1634,7 +1685,10 @@ console.log(await longCalculation(1), timeout);
     </ul>
   </section>
   <section>
-    <img src="./img/dom-structure.svg" />
+    <img
+      src="./img/dom-structure.svg"
+      alt="the DOM tree of a small HTML document"
+    />
   </section>
 </section>
 <section>
@@ -1723,9 +1777,9 @@ document.nametest.output.value='New Value';
       </li>
       <ul>
         <li>
-          returns <span class="hl-green">an array</span> of object whose class
-          is <span class="hl-yellow">"classname"</span> in
-          <em>sub-tree</em> rooted at
+          returns a live <span class="hl-green">HTMLCollection</span> of the
+          elements whose class is <span class="hl-yellow">"classname"</span> in
+          the <em>sub-tree</em> rooted at
           <span class="hl-cyan">element</span>
         </li>
       </ul>
@@ -1738,9 +1792,9 @@ document.nametest.output.value='New Value';
       </li>
       <ul>
         <li>
-          returns <span class="hl-green">an array</span> of objects whose tag is
-          <span class="hl-yellow">"tagname"</span> in <em>sub-tree</em> rooted
-          at
+          returns a live <span class="hl-green">HTMLCollection</span> of the
+          elements whose tag is <span class="hl-yellow">"tagname"</span> in the
+          <em>sub-tree</em> rooted at
           <span class="hl-cyan">element</span>
         </li>
       </ul>
@@ -1753,9 +1807,9 @@ document.nametest.output.value='New Value';
       </li>
       <ul>
         <li>
-          returns <span class="hl-green">an array</span> of objects whose name
-          is <span class="hl-yellow">"name"</span> in <em>sub-tree</em> rooted
-          at <span class="hl-cyan">element</span>
+          returns a live <span class="hl-green">NodeList</span> of the elements
+          whose name is <span class="hl-yellow">"name"</span> in the
+          <em>sub-tree</em> rooted at <span class="hl-cyan">element</span>
         </li>
       </ul>
     </ul>
@@ -1777,9 +1831,22 @@ document.nametest.output.value='New Value';
         </li>
       </ul>
       <li>
-        <span class="hl-cyan">Element</span> <em>must be</em> exists (browser
-        reads HTML file line-by-line)
+        <span class="hl-cyan">Element</span> <em>must</em> already exist — the
+        browser reads the HTML file top to bottom
       </li>
+      <li>
+        <code class="hl-red">HTMLCollection</code> and
+        <code class="hl-red">NodeList</code> are
+        <strong class="hl-red">not arrays</strong>: no <code>map</code>, no
+        <code>filter</code>. Convert first
+      </li>
+      <pre><code class="lang-javascript">
+const items = Array.from(document.getElementsByClassName("testbox"));
+items.map((el) =&gt; el.textContent);
+
+// querySelectorAll returns a NodeList, which does have forEach
+document.querySelectorAll(".testbox").forEach((el) =&gt; console.log(el));
+      </code></pre>
     </ul>
   </section>
 </section>
@@ -1996,7 +2063,7 @@ document.getElementById("colorBox").style.backgroundColor = color;
     <li>Override the corresponding event handler</li>
     <li>In HTML, using element attribute</li>
     <pre><code class="lang-html">
-&lt;tag onclick="\\ JavaScript code or function()"&gt;
+&lt;tag onclick="// JavaScript code, or a call to function()"&gt;
     </code></pre>
     <li>In JavaScript, using DOM object</li>
     <pre><code class="lang-javascript">
@@ -2451,12 +2518,16 @@ myButton.onclick = function(event){alert('Hello world')}
       </li>
       <li>
         <code class="hl-green">Event.type</code> The name of the event.
-        Case-insensitive.
+        <strong class="hl-red">Case-sensitive</strong> —
+        <code>addEventListener("Click", …)</code> never fires.
       </li>
     </ul>
   </section>
   <section>
-    <img src="./img/eventflow.png" />
+    <img
+      src="./img/eventflow.png"
+      alt="event capture, target, and bubble phases"
+    />
   </section>
 </section>
 <section>
@@ -2671,8 +2742,8 @@ function replaceNewP() {
           let textareaObject = document.getElementById(textareaID);
           let content = textareaObject.value.toUpperCase();
           let outputObject = document.getElementById(outputID);
-          let outputMessage = content;
-          outputObject.innerHTML = `<code class="hl-orange">${outputMessage}</code>`;
+          // textContent, not innerHTML — the input came from the user
+          outputObject.textContent = content;
         };
       }
 
@@ -2689,8 +2760,10 @@ function upperCaseArea(textareaID, outputID) {
     let textareaObject = document.getElementById(textareaID);
     let content = textareaObject.value.toUpperCase();
     let outputObject = document.getElementById(outputID);
-    let outputMessage = content;
-    outputObject.innerHTML = `&lt;code class="hl-orange"&gt;${outputMessage}&lt;/code&gt;`;
+
+    // textContent, not innerHTML: the input came from the user and must
+    // never be parsed as markup. See the Web Security lecture.
+    outputObject.textContent = content;
   };
 }
 
@@ -2700,7 +2773,7 @@ document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
 </section>
 <section>
   <section>
-    <h2>JavaScript Form Validation Exmaple</h2>
+    <h2>JavaScript Form Validation Example</h2>
     <form>
       <input type="checkbox" name="osSelect" value="Linux" /> Linux,
       <input type="checkbox" name="osSelect" value="Windows" /> Windows,
@@ -2799,12 +2872,14 @@ string.match(reg_expr)
   </section>
   <section>
     <pre><code class="lang-javascript">
-let m = /^ab*c+d{3}z$/;
+// anchored: the whole string must match
+let anchored = /^ab*c+d{3}z$/;
 // "acz": False
 // "abbccdddz": True
 // "ffabbccdddz": False
 
-let m = /ab*c+d{3}z/;
+// unanchored: a match anywhere in the string is enough
+let anywhere = /ab*c+d{3}z/;
 // "abbccdddz": True
 // "ffabbccdddz": True
 // "ffabbccdddzggg": True
@@ -2817,7 +2892,7 @@ let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
 <section>
   <section>
     <h2>Valid Form Submission</h2>
-    <form action="http://127.0.0.1" name="passwordform">
+    <form action="https://httpbin.org/post" method="post" name="passwordform">
       <fieldset>
         <legend>Password Manager</legend>
         <table>
@@ -2846,17 +2921,18 @@ let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
 
     <script type="text/javascript">
       function checkpassword(event) {
-        let p1 = document.passwordform.password.value;
-        let p2 = document.passwordform.repassword.value;
+        // this demo never really submits, so the deck stays on screen
+        event.preventDefault();
+
+        const p1 = document.passwordform.password.value;
+        const p2 = document.passwordform.repassword.value;
 
         if (p1.length < 6) {
-          alert("To short password, re-enter");
-          event.preventDefault();
-        } else if (p1 == p2) {
-          alert("Password will be changed");
+          alert("Password is too short, re-enter");
+        } else if (p1 !== p2) {
+          alert("The two passwords do not match");
         } else {
-          alert("Incorrect password");
-          event.preventDefault();
+          alert("Valid — this is where the form would be submitted");
         }
       }
       document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
@@ -2865,18 +2941,17 @@ let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
   <section>
     <pre><code class="lang-javascript">
 function checkpassword(event) {
-  let p1 = document.passwordform.password.value;
-  let p2 = document.passwordform.repassword.value;
+  const p1 = document.passwordform.password.value;
+  const p2 = document.passwordform.repassword.value;
 
   if (p1.length &lt; 6) {
-    alert("To short password, re-enter");
+    alert("Password is too short, re-enter");
     event.preventDefault();
-  } else if (p1 == p2) {
-    alert("Password will be changed");
-  } else {
-    alert("Incorrect password");
+  } else if (p1 !== p2) {
+    alert("The two passwords do not match");
     event.preventDefault();
   }
+  // otherwise the browser goes ahead and submits
 }
 document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
     </code></pre>
@@ -2958,8 +3033,8 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
     <table>
       <tr>
         <td>
-          <code>anchors</code>, <code>applets</code>, <code>forms</code>,
-          <code>images</code>, <code>links</code>
+          <code>anchors</code>, <code>forms</code>, <code>images</code>,
+          <code>links</code>, <code>scripts</code>
         </td>
         <td>Array of different types of HTML elements</td>
       </tr>
@@ -3301,7 +3376,7 @@ clearTimeout(hello)
     <tr>
       <td>
         <code
-          ><a href="http://webaim.org/blog/user-agent-string-history/"
+          ><a href="https://webaim.org/blog/user-agent-string-history/"
             >userAgent</a
           ></code
         >:
@@ -3612,8 +3687,10 @@ function fetchWithErr(url) {
 }
     </code></pre>
     <div id="errMessage"></div>
-    <button onclick="fetchWithErr('http://httpbin.org/status/403')">403</button>
-    <button onclick="fetchWithErr('http://httpbin.org/uuid')">UUID</button>
+    <button onclick="fetchWithErr('https://httpbin.org/status/403')">
+      403
+    </button>
+    <button onclick="fetchWithErr('https://httpbin.org/uuid')">UUID</button>
     <button onclick="fetchWithErr('https://unsplash.com')">CORS</button>
   </section>
 </section>
@@ -3709,8 +3786,10 @@ function fetchWithErr(url) {
     <li><span class="hl-orange">this</span> is a bit confusing!</li>
     <ul>
       <li>
-        this referes to the owner of the executing function (in most cases it
-        the is "document" or "window" object!!!, not the element)
+        <code>this</code> refers to whatever the function was called
+        <em>on</em>, not to where it was written — inside a plain function call
+        it is <code>undefined</code> in strict mode and modules, and the
+        <code>window</code> object otherwise
       </li>
     </ul>
   </ul>
@@ -3721,16 +3800,18 @@ function fetchWithErr(url) {
     <li>JavaScript Libraries</li>
     <ul>
       <li>To make life easier</li>
-      <li>jQuery, Modernizr, MooTools, ...</li>
+      <li>D3, Lodash, Zod, TanStack Query, ...</li>
     </ul>
     <li>JavaScript Frameworks</li>
     <ul>
       <li>To make life easier even more</li>
-      <li>Angular JS, Vue.js, React.js, Ember.js, ...</li>
+      <li>React, Vue, Svelte, Angular, Solid, ...</li>
+      <li>and on top of them: Next.js, Nuxt, SvelteKit, Astro</li>
     </ul>
     <li>JavaScript server-side programming!!!</li>
     <ul>
-      <li>Node.js, Hapi.js, Socket.io, Meteor.js, ...</li>
+      <li>Runtimes: Node.js, Deno, Bun</li>
+      <li>Servers: Express, Fastify, Hono, Socket.IO</li>
     </ul>
   </ul>
 </section>
