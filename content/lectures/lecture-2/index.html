@@ -988,19 +988,207 @@ curl -L -d 'name=parham' http://127.0.0.1:8232/r303
   </section>
 </section>
 <section>
-  <h2>HTTP Responses (Cont.)</h2>
-  <ul>
-    <li><span class="hl-violet">1xx</span> (Informational responses)</li>
+  <section>
+    <h2><span class="hl-violet">1xx</span>: Interim Responses</h2>
     <ul>
-      <li>101: Switching Protocol</li>
+      <li>
+        A 1xx is <strong class="hl-red">not the answer</strong>. It means
+        <q>message received, still working — another response is coming</q>
+      </li>
+      <li>
+        So one request can produce
+        <em class="hl-orange">two or more</em> responses
+      </li>
+      <li>
+        They never carry a body: a status line and headers, then a blank line
+      </li>
+      <li>
+        You rarely see them because client libraries read past them and hand you
+        only the final response
+      </li>
+    </ul>
+    <table style="font-size: 0.8em">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Meaning</th>
+          <th>Still used?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>100 Continue</td>
+          <td>go ahead and send the body</td>
+          <td><span class="hl-green">yes, for big uploads</span></td>
+        </tr>
+        <tr>
+          <td>101 Switching Protocols</td>
+          <td>this connection is now something else</td>
+          <td><span class="hl-green">yes, WebSocket</span></td>
+        </tr>
+        <tr>
+          <td>102 Processing</td>
+          <td>WebDAV keep-alive</td>
+          <td><span class="hl-red">deprecated</span></td>
+        </tr>
+        <tr>
+          <td>103 Early Hints</td>
+          <td>start fetching these while I think</td>
+          <td><span class="hl-cyan">yes, and growing</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2>100 Continue</h2>
+    <ul>
+      <li>
+        You are about to <code>POST</code> a 2 GB file. The server may reject it
+        anyway — wrong credentials, wrong content type, too large
+      </li>
+      <li>
+        Uploading two gigabytes in order to be told
+        <code class="hl-red">401</code> is a poor use of everyone's evening
+      </li>
+      <li>
+        So the client sends the <span class="hl-orange">headers only</span>,
+        adds <code class="hl-yellow">Expect: 100-continue</code>, and waits
+      </li>
       <ul>
         <li>
-          This code is sent in response to an Upgrade request header from the
-          client, and indicates the protocol the server is switching to.
+          <span class="hl-green">100 Continue</span> → go ahead, send the body
+        </li>
+        <li>
+          a <span class="hl-red">4xx</span> → the body is never sent at all
         </li>
       </ul>
+      <li>
+        A client must not wait forever: if nothing comes back, send the body
+        anyway. Some old servers simply do not answer
+      </li>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <h2>100 Continue on the Wire</h2>
+    <pre><code class="lang-plaintext">
+$ curl -v -X POST -H 'Expect: 100-continue' --data-binary @big.txt \
+       http://127.0.0.1:8241/upload
+
+&gt; POST /upload HTTP/1.1
+&gt; Host: 127.0.0.1:8241
+&gt; Expect: 100-continue
+&gt; Content-Length: 3000
+&gt;
+&lt; HTTP/1.1 100 Continue          &lt;- interim: the body has not been sent yet
+&lt;
+&lt; HTTP/1.1 200 OK               &lt;- final, after the body went up
+&lt; Content-Length: 15
+    </code></pre>
+    <ul>
+      <li>
+        Two responses, one request. Notice the blank line after the 100 — it is
+        a complete message with no body
+      </li>
+      <li>
+        curl adds the header by itself only for bodies over
+        <span class="hl-yellow">1 MB</span>; below that it just sends the body
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>101 Switching Protocols</h2>
+    <ul>
+      <li>
+        Sent in response to an <code class="hl-orange">Upgrade</code> request
+        header, naming the protocol the server is switching to
+      </li>
+      <li>
+        After it, <strong class="hl-red">this is no longer HTTP</strong>. The
+        TCP connection carries the new protocol, and there is no third response
+      </li>
+      <li>
+        This is how every WebSocket starts — we come back to it later in the
+        lecture
+      </li>
+    </ul>
+    <pre><code class="language-http">
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+    </code></pre>
+    <pre><code class="language-http">
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+    </code></pre>
+  </section>
+  <section>
+    <h2>103 Early Hints</h2>
+    <ul>
+      <li>
+        A server often knows
+        <em class="hl-green">what the page will need</em> long before it knows
+        what the page <em>is</em> — the database query is still running, but the
+        CSS is always the same
+      </li>
+      <li>
+        103 lets it say so immediately, with
+        <code class="hl-yellow">Link: rel=preload</code> headers, and send the
+        real response later
+      </li>
+      <li>
+        The browser spends the server's thinking time
+        <strong class="hl-green">downloading</strong> instead of waiting
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>103 on the Wire</h2>
+    <pre><code class="lang-plaintext">
+$ curl -v http://127.0.0.1:8241/hints
+
+&gt; GET /hints HTTP/1.1
+&gt; Host: 127.0.0.1:8241
+&gt;
+&lt; HTTP/1.1 103 Early Hints
+&lt; Link: &lt;/style.css&gt;; rel=preload; as=style
+&lt; Link: &lt;/app.js&gt;; rel=preload; as=script
+&lt;
+                                 &lt;- server is still working here
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/html
+&lt; Content-Length: 27
+    </code></pre>
+    <ul>
+      <li>
+        This is what replaced
+        <span class="hl-red">HTTP/2 Server Push</span>: the server
+        <em>suggests</em>, and the
+        <strong class="hl-green">browser decides</strong>
+        — so nothing is pushed that the cache already holds
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Two Things That Bite</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">HTTP/1.0 clients do not understand 1xx.</span> A
+        server must not send one to a 1.0 client — it would be read as the final
+        response, and the real one as garbage
+      </li>
+      <li>
+        <span class="hl-cyan">Intermediaries may swallow them.</span> An old
+        proxy that does not recognise 103 can drop it, so it must only ever be
+        an optimisation — never carry information the page needs
+      </li>
+      <li>
+        In HTTP/2 and HTTP/3 there is no status line; a 1xx is simply a HEADERS
+        frame that does not end the stream
+      </li>
+    </ul>
+  </section>
 </section>
 <section class="hands-on">
   <h2>HTTP Messages Hands on</h2>
