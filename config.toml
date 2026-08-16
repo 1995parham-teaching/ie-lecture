@@ -4,6 +4,8 @@ enableGitInfo = true
 
 [params]
 semester = "Fall 2026"
+university = "Amirkabir University of Technology"
+instructor = "@1995parham"
 
 # the lectures are written as raw html pages, and hugo denies the
 # text/html content format by default since v0.16x

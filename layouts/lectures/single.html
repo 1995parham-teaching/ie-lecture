@@ -23,11 +23,25 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-background-gradient="linear-gradient(#474747, #212121)">
-          <h1 style="color: #ffea00">{{ .Title }}</h1>
-          <h5>Internet Engineering</h5>
-          <span class="hl-cyan">{{ .Site.Params.semester }}</span><br />
-          <a style="color: #ff9900" href="https://1995parham.me">@1995parham</a>
+        <section
+          class="title-slide"
+          data-background-gradient="radial-gradient(circle at 30% 20%, #3d4450, #1b1f26 70%)"
+        >
+          <p class="course">Internet Engineering</p>
+          {{ with .Params.index }}
+            <p class="lecture-no">{{ printf "%02d" . }}</p>
+          {{ end }}
+          <h1>{{ .Title }}</h1>
+          <div class="rule"></div>
+          {{ with .Params.topics }}
+            <p class="topics">{{ delimit . " · " }}</p>
+          {{ end }}
+          <p class="colophon">
+            {{ .Site.Params.semester }} ·
+            {{ .Site.Params.university }}
+            <br />
+            <a href="https://1995parham.me">{{ .Site.Params.instructor }}</a>
+          </p>
         </section>
         {{ .Content }}
       </div>

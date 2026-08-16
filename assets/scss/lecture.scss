@@ -78,3 +78,64 @@ section.hands-on:not(:has(> section))::after {
   margin: 0.6em auto 0;
   background: url("../img/hands-on.webp") no-repeat center / contain;
 }
+
+// the generated opening card. Everything on it comes from front matter, so a
+// new lecture gets one for free and they cannot drift apart.
+.title-slide {
+  // `section > p` above justifies paragraphs, which on a one-line paragraph
+  // renders as left-aligned. Override it for the card.
+  p {
+    text-align: center;
+  }
+
+  .course {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.34em;
+    color: #8d97a8;
+    margin: 0 0 0.9em;
+  }
+
+  .lecture-no {
+    font-family: var(--r-heading-font);
+    font-size: 2.6em;
+    line-height: 0.85;
+    color: #ff9100;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 1.7em;
+    margin: 0.08em 0 0;
+  }
+
+  // a short accent rule, the only ornament on the slide
+  .rule {
+    width: 2.4em;
+    height: 3px;
+    background: #00e5ff;
+    margin: 0.55em auto 0;
+    border-radius: 2px;
+  }
+
+  .topics {
+    font-size: 0.44em;
+    line-height: 1.6;
+    color: #b6bfcd;
+    max-width: 20em;
+    margin: 0.9em auto 0;
+    text-align: center;
+  }
+
+  .colophon {
+    font-size: 0.32em;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    color: #7a8494;
+    margin-top: 1.9em;
+
+    a {
+      color: #ff9100;
+    }
+  }
+}
