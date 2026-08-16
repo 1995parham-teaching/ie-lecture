@@ -29,7 +29,15 @@ topics:
         <span class="hl-yellow">Transfer</span>
         <span class="hl-cyan">Protocol</span>
       </li>
-      <li>HTTP 1.0 (RFC 1945), HTTP 1.1 (RFC 2068), HTTP 2 (RFC 7540)</li>
+      <li>
+        HTTP/1.0 (RFC 1945), HTTP/1.1 (RFC 9112), HTTP/2 (RFC 9113), HTTP/3 (RFC
+        9114)
+      </li>
+      <li>
+        Semantics and caching are version-independent:
+        <span class="hl-green">RFC 9110</span> (Semantics),
+        <span class="hl-green">RFC 9111</span> (Caching)
+      </li>
       <li>
         In fact, it can be used to transfer everything (not only hyper text)
       </li>
@@ -954,10 +962,10 @@ Entity-Body
 <section>
   <h2>HTTP Tools</h2>
   <ul>
-    <li><a href="https://curl.haxx.se/">cURL</a></li>
+    <li><a href="https://curl.se/">cURL</a></li>
     <li><a href="https://www.postman.com/">Postman</a></li>
     <li><a href="https://hoppscotch.io/">Hoppscotch</a></li>
-    <li><a href="https://httpie.org/">HTTPie</a></li>
+    <li><a href="https://httpie.io/">HTTPie</a></li>
   </ul>
 </section>
 <section>
@@ -1079,7 +1087,8 @@ Entity-Body
         <span class="hl-green">Upgrade</span> header
       </li>
       <li>
-        Server responds with <span class="hl-cyan">101 Switching Protocols</span>
+        Server responds with
+        <span class="hl-cyan">101 Switching Protocols</span>
       </li>
       <li>After handshake, protocol switches from HTTP to WebSocket</li>
     </ul>
@@ -1185,8 +1194,8 @@ socket.close(1000, 'Normal closure');
       <li>Encrypts data using TLS (same as HTTPS)</li>
     </ul>
     <li>
-      <span class="hl-orange">Origin checking</span>: Server should validate
-      the Origin header
+      <span class="hl-orange">Origin checking</span>: Server should validate the
+      Origin header
     </li>
     <li>
       <span class="hl-cyan">Authentication</span>: Send auth token in first
@@ -2082,10 +2091,6 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
   <h2>References 📚</h2>
   <ul>
     <li>
-      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
-      Internet Eng. Course's Slides
-    </li>
-    <li>
       <a
         href="https://wizardzines.com/comics/#http-learn-your-browsers-language"
       >
@@ -2100,8 +2105,10 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
       </a>
     </li>
     <li>
-      <a href="https://cascadingmedia.com/insites/2015/03/http-2.html">
-        HTTP/2 for a Faster Web
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Evolution_of_HTTP"
+      >
+        Evolution of HTTP
       </a>
     </li>
     <li>

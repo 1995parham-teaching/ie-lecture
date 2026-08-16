@@ -105,7 +105,7 @@
       </table>
       <h2>References 📚</h2>
       <div>
-        {{ range $reference := .Site.Data.references }}
+        {{ range $reference := hugo.Data.references }}
           <div class="reference">
             <div class="image">
               <img src="{{ $reference.image }}" />

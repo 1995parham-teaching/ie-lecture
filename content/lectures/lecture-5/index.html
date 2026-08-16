@@ -90,7 +90,7 @@ topics:
         Additional facts about JS:
         <ul>
           <li>JavaScript is not related to Java.</li>
-          <li>Its standard name is ECMAScript (Stable version: ES2024)</li>
+          <li>Its standard name is ECMAScript (Stable version: ES2026)</li>
           <li>
             Sever side and other applications (e.g.,
             <a href="https://gitlab.gnome.org/GNOME/gjs/blob/master/doc/Home.md"
@@ -2244,7 +2244,7 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
         window.alert(
           `child message that is added into event: ${
             event.message ?? "use clickme button"
-          }`
+          }`,
         );
       });
     </script>
@@ -2506,7 +2506,7 @@ function replaceNewP() {
 
       document.getElementById("btnID").onclick = upperCaseArea(
         "txtID",
-        "outID"
+        "outID",
       );
     </script>
   </section>
@@ -2756,7 +2756,7 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
             "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
           event.preventDefault();
         },
-        false
+        false,
       );
     </script>
   </section>
@@ -3355,7 +3355,7 @@ function swapiExec() {
           .then(
             (data) =>
               (document.getElementById("swapi-result").textContent =
-                JSON.stringify(data))
+                JSON.stringify(data)),
           );
       }
     </script>
@@ -3365,7 +3365,7 @@ function swapiExec() {
     <script>
       function wikiSWLogo() {
         fetch(
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/330px-Star_Wars_Logo.svg.png",
         )
           .then((resp) => resp.blob())
           .then((content) => {
@@ -3380,7 +3380,7 @@ function swapiExec() {
     <pre><code class="lang-javascript">
 function wikiSWLogo() {
   fetch(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/330px-Star_Wars_Logo.svg.png"
   )
     .then((resp) =&gt; resp.blob())
     .then((content) =&gt; {
@@ -3401,20 +3401,18 @@ function wikiSWLogo() {
           .then((response) => {
             if (!response.ok) {
               throw new Error(
-                "Network response was not ok, " + response.status
+                "Network response was not ok, " + response.status,
               );
             }
             return response.text();
           })
           .then((content) => {
-            document.getElementById(
-              "errMessage"
-            ).innerHTML += `Success: <code class="hl-orange">${content}</code><br />`;
+            document.getElementById("errMessage").innerHTML +=
+              `Success: <code class="hl-orange">${content}</code><br />`;
           })
           .catch((error) => {
-            document.getElementById(
-              "errMessage"
-            ).innerHTML += `There has been a problem with your fetch operation: <code class="hl-red">${error}</code> <br />`;
+            document.getElementById("errMessage").innerHTML +=
+              `There has been a problem with your fetch operation: <code class="hl-red">${error}</code> <br />`;
           });
       }
     </script>
@@ -3601,10 +3599,6 @@ function fetchWithErr(url) {
         href="https://programmingwithmosh.com/javascript/javascript-wrapper-objects/"
         >JavaScript: Wrapper objects
       </a>
-    </li>
-    <li>
-      <a href="http://ceit.aut.ac.ir/~bakhshis/">Prof. Bahador Bakhshi</a>'s
-      Internet Eng. Course's Slides
     </li>
     <li>
       <a

@@ -1,10 +1,15 @@
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'IE Lecture'
 staticDir = ['fonts']
 enableGitInfo = true
 
 [params]
-semester = "Spring 2024"
+semester = "Fall 2026"
+
+# the lectures are written as raw html pages, and hugo denies the
+# text/html content format by default since v0.16x
+[security]
+allowContent = ['^text/html$', '^text/markdown$']
 
 [module]
 

@@ -193,13 +193,41 @@ Content-Type: application/xml
 }
             </code>
         </pre>
-    <p>
-      See a full example implemented by
-      <a
-        href="https://github.com/frontend-developing/cross-origin-resource-sharing"
-      >
-        amirhnajfiz cors fix example </a
-      >.
+    <p style="text-align: justify">
+      With <b>Vite</b> the same setting lives in
+      <code class="hl-yellow">vite.config.js</code>:
+    </p>
+    <pre>
+            <code class="language-js">
+export default defineConfig({
+  server: {
+    proxy: {
+      "/api": "http://localhost:8080",
+    },
+  },
+});
+            </code>
+        </pre>
+  </section>
+  <section>
+    <h2>Why does it work?</h2>
+    <p style="text-align: justify">
+      The browser only ever talks to the development server, so from its point
+      of view every request is <span class="hl-green">same-origin</span> and no
+      preflight is sent at all. The development server then forwards the request
+      to the back-end from
+      <strong class="hl-orange">outside the browser</strong>, where the
+      same-origin policy does not apply, and returns the answer as its own
+      response.
+    </p>
+  </section>
+  <section>
+    <h2>Be careful</h2>
+    <p style="text-align: justify">
+      This is a <strong class="hl-red">development-time</strong> workaround
+      only. In production the development server is gone, so the back-end must
+      either send the right CORS headers or be served from the
+      <span class="hl-green">same origin</span> as the front-end.
     </p>
   </section>
 </section>
@@ -239,7 +267,7 @@ func NewApp() *fiber.App {
         </pre>
     <p>
       See the full documentation of
-      <a href="https://docs.gofiber.io/api/middleware/cors/">
+      <a href="https://docs.gofiber.io/middleware/cors/">
         Fiber CORS middleware </a
       >.
     </p>
@@ -259,15 +287,8 @@ func NewApp() *fiber.App {
       </a>
     </li>
     <li>
-      <a href="https://docs.gofiber.io/api/middleware/cors/">
+      <a href="https://docs.gofiber.io/middleware/cors/">
         https://docs.gofiber.io
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://github.com/frontend-developing/cross-origin-resource-sharing"
-      >
-        Amirhossein Najafizadeh CORS example
       </a>
     </li>
   </ul>

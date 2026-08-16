@@ -1,0 +1,6 @@
+# hugo template, executed through resources.ExecuteAsTemplate;
+# prettier cannot parse the go-template actions inside the typescript
+assets/js/toc.ts
+
+# emscripten-generated bundle, not written by hand
+content/lectures/WebAssembly/snake-game/
