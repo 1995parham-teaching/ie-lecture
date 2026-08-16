@@ -32,6 +32,17 @@ contains `Safari`, so the patterns must stay in the order Firefox → Edg →
 Chrome → Version/Safari. It falls back to "something exotic" rather than
 throwing.
 
+## The instructor stack
+
+Three slides: who is talking → how to reach me → why email. The contact slide
+asks for an `[IE]` subject prefix, a student ID, and one question per email; the
+next slide gives the reason for the no-instant-messaging rule rather than only
+asserting it. The Bernard Black gif stays — it is the tone-setter for the deck.
+
+**Deliberately absent: a reply-time promise.** "Replies within N working days"
+is the obvious line to add, but the number is the instructor's to give, not one
+to invent on their behalf.
+
 ## Facts worth not re-deriving
 
 - The grading table sums to 100 (35 midterm / 35 final / 30 homework), with a
