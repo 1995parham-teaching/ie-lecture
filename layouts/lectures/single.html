@@ -11,13 +11,19 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>{{ .Title }}</title>
-    {{ $style := readFile "node_modules/reveal.js/dist/reveal.css" | resources.FromString "reveal.css" | minify }}
+    {{/* every asset below is fingerprinted. github pages serves them with
+      `cache-control: max-age=600` from a stable path, so without a content hash a
+      browser can hold a stale toc.js next to fresh html — and since the page
+      carries the `data-selected` indices while the script carries the titles
+      array, the two disagreeing silently breaks the toc highlighting.
+    */}}
+    {{ $style := readFile "node_modules/reveal.js/dist/reveal.css" | resources.FromString "reveal.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
-    {{ $style := readFile "node_modules/reveal.js/dist/theme/league.css" | resources.FromString "league.css" | toCSS | minify }}
+    {{ $style := readFile "node_modules/reveal.js/dist/theme/league.css" | resources.FromString "league.css" | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
-    {{ $style := readFile "node_modules/reveal.js/dist/plugin/highlight/monokai.css" | resources.FromString "monokai.css" | toCSS | minify }}
+    {{ $style := readFile "node_modules/reveal.js/dist/plugin/highlight/monokai.css" | resources.FromString "monokai.css" | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
-    {{ $style := resources.Get "scss/lecture.scss" | toCSS | minify }}
+    {{ $style := resources.Get "scss/lecture.scss" | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
   </head>
   <body>
@@ -46,10 +52,10 @@
         {{ .Content }}
       </div>
     </div>
-    {{ $js := resources.Get "js/index.js" | js.Build (dict "minify" hugo.IsProduction) }}
+    {{ $js := resources.Get "js/index.js" | js.Build (dict "minify" hugo.IsProduction) | fingerprint }}
     <script src="{{ $js.RelPermalink }}" defer></script>
     {{ $js := resources.Get "js/toc.ts" | resources.ExecuteAsTemplate (path.Join .File.Dir  "toc.ts")
-      .Params | js.Build (dict "minify" hugo.IsProduction)
+      .Params | js.Build (dict "minify" hugo.IsProduction) | fingerprint
     }}
     <script src="{{ $js.RelPermalink }}" defer></script>
     <!-- logos and advertising -->

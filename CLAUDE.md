@@ -82,6 +82,16 @@ before each topic:
 through `resources.ExecuteAsTemplate` with the page's params, so it contains Go
 template actions and cannot be parsed by Prettier — it is in `.prettierignore`.
 
+This splits one fact across two files: the **indices live in the HTML** and the
+**titles array lives in the generated `toc.js`**. Every asset in
+`layouts/lectures/single.html` is therefore piped through `| fingerprint`. GitHub
+Pages serves with `cache-control: max-age=600` from stable paths, so without a
+content hash a browser can pair fresh HTML with a ten-minute-old `toc.js` — and a
+`data-selected` past the end of the stale titles array highlights nothing, with
+no error. **Do not remove the fingerprints.** (`layouts/home.html` still serves
+bootstrap and `static/css/style.css` unfingerprinted; nothing there is
+index-coupled, so it only means a slow style update.)
+
 **Highlight colours** come from the `$highlights` map in `assets/scss/lecture.scss`:
 `hl-orange`, `hl-green`, `hl-cyan`, `hl-red`, `hl-material`, `hl-violet`,
 `hl-yellow`, `hl-pink`. Any other `hl-*` class renders **silently unstyled** —
