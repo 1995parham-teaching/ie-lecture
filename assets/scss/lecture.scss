@@ -66,8 +66,9 @@ table.cell td {
 // hands-on slide that ends with a code block silently loses it. :not(:has())
 // keeps it off vertical-stack wrappers, which are not slides of their own.
 section.hands-on:not(:has(> section))::after {
-  // the gif is 512x512; inserted at natural size it swamps the slide
-  content: url("../img/hands-on.gif");
+  // 384px animated webp; the 512x512 gif it replaced was 713 KB and was
+  // inserted at natural size, which swamped the slide
+  content: url("../img/hands-on.webp");
   display: block;
   width: 130px;
   height: 130px;
