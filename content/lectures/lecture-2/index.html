@@ -756,7 +756,7 @@ Entity-Body
 </section>
 <section>
   <section>
-    <h2>Redirects: Where, and <em class="hl-orange">How</em>?</h2>
+    <h2>Redirects: Where, and <span class="hl-orange">How</span>?</h2>
     <p>
       A redirect says <q>look over there</q>. The harder question is what the
       client sends when it gets there — the same method and body, or a fresh
@@ -831,13 +831,20 @@ Entity-Body
         <span class="hl-cyan">308</span> mean <em>definitely</em> do not
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>The Shape of It</h2>
     <div class="box">
       <p>
         301 and 302 are the ambiguous ones. After a POST, never use them — say
         what you mean with 303 or 307.
       </p>
     </div>
-    <img style="margin: auto 30%" src="./img/3xx.png" alt="the 3xx family" />
+    <img
+      src="./img/3xx.png"
+      alt="the 3xx family, grouped by whether the method is preserved"
+      style="max-height: 55vh; width: auto; display: block; margin: 0.6em auto"
+    />
   </section>
   <section>
     <h2>The Good Reason: POST / Redirect / GET</h2>

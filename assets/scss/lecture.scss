@@ -62,8 +62,14 @@ table.cell td {
   padding-right: 20px;
 }
 
-section.hands-on {
-  > ul:last-child::after {
-    content: url("../img/hands-on.gif");
-  }
+// the marker goes on the slide itself, not on a trailing <ul> — otherwise a
+// hands-on slide that ends with a code block silently loses it. :not(:has())
+// keeps it off vertical-stack wrappers, which are not slides of their own.
+section.hands-on:not(:has(> section))::after {
+  // the gif is 512x512; inserted at natural size it swamps the slide
+  content: url("../img/hands-on.gif");
+  display: block;
+  width: 130px;
+  height: 130px;
+  margin: 0.6em auto 0;
 }
