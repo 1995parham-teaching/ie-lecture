@@ -1282,20 +1282,28 @@ socket.close(1000, 'Normal closure');
   <ul>
     <li>HTTP is a <span class="hl-orange">stateless</span> protocol</li>
     <ul>
-      <li>Server does not remember it's client</li>
+      <li>The server does not remember its client between requests</li>
+      <li>Two requests from the same person look exactly alike</li>
     </ul>
-    <li>How to personalize pages (personal portal)?</li>
+    <li>So how do we recognise a returning visitor?</li>
+    <li>Could we use the client's <span class="hl-cyan">IP address</span>?</li>
     <ul>
-      <li>Use http header: X-Forwarded-For</li>
-      <ul>
-        <li>Is not usually sent by browsers</li>
-      </ul>
-      <li>Find client IP address from TCP connection</li>
-      <ul>
-        <li>The problem is <span class="hl-green">NAT</span></li>
-      </ul>
-      <li>Clients move but IP address does not</li>
+      <li>
+        <span class="hl-red">Many clients, one address</span>: behind
+        <span class="hl-green">NAT</span>, a whole university leaves through a
+        single public IP
+      </li>
+      <li>
+        <span class="hl-red">One client, many addresses</span>: DHCP hands out a
+        different address tomorrow, and a phone changes address every time it
+        moves between networks
+      </li>
+      <li>An address identifies a <em>connection</em>, not a person</li>
     </ul>
+    <li>
+      So the server has to ask the <strong class="hl-orange">client</strong> to
+      carry the identity on its behalf
+    </li>
   </ul>
 </section>
 <section>
@@ -1337,18 +1345,76 @@ socket.close(1000, 'Normal closure');
     </ul>
   </section>
   <section>
+    <h2>Two Kinds, One Difference: Lifetime</h2>
     <ul>
-      <li>Types</li>
-      <ul>
-        <li>Session cookies: To identify a session</li>
-        <li>Persistent cookies: To identify a client (browser)</li>
-      </ul>
+      <li>
+        <span class="hl-orange">Session cookie</span>: no
+        <code>Expires</code> and no <code>Max-Age</code>. The browser drops it
+        when it closes
+      </li>
+      <li>
+        <span class="hl-green">Persistent cookie</span>: carries one of them,
+        and survives a restart until that time passes
+      </li>
+      <li>
+        <q class="hl-yellow">Session</q> here means the
+        <em>browser</em> session, not your application's login session — a login
+        can be built on either
+      </li>
     </ul>
   </section>
 </section>
 <section>
   <section>
-    <h2>Cookies (Cont.)</h2>
+    <h2>What Goes In a Cookie?</h2>
+    <ul>
+      <li>
+        An <strong class="hl-green">opaque, unguessable identifier</strong> —
+        and nothing else
+      </li>
+      <li>The state itself stays on the server, in a session store</li>
+    </ul>
+    <pre><code class="language-http">
+Set-Cookie: session=P4kQ2m9xR7tLv3Nb; Path=/; HttpOnly; Secure; SameSite=Lax
+    </code></pre>
+    <ul>
+      <li>
+        The value means nothing to the client, and nothing to whoever steals it
+        once the server has forgotten it
+      </li>
+      <li>
+        Revoking a login is then one delete on the server, and the cookie in the
+        browser becomes worthless
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Why Not Put the Data Itself In?</h2>
+    <pre><code class="language-http">
+Set-Cookie: user=parham; role=admin
+    </code></pre>
+    <ul>
+      <li>
+        The client can <strong class="hl-red">edit it</strong> —
+        <code>role=admin</code> is one DevTools click away
+      </li>
+      <li>It rides along on every single request, forever</li>
+      <li>
+        You cannot revoke it: there is no way to reach into a browser and change
+        your mind
+      </li>
+      <li>
+        If claims really must travel in the cookie, they have to be
+        <em class="hl-cyan">signed</em> — which is what a
+        <span class="hl-yellow">JWT</span> is, and we come back to it under
+        Authentication
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Cookies in Action</h2>
     <pre><code class="language-http">
 GET /cookies/set?name=parham&amp;family=alvani HTTP/1.1
 Host: httpbin.org
@@ -1392,7 +1458,7 @@ Access-Control-Allow-Credentials: true
   </section>
 </section>
 <section>
-  <h2>Cookies (Cont.)</h2>
+  <h2>Limits</h2>
   <ul>
     <li>Limitation</li>
     <ul>
@@ -1406,19 +1472,18 @@ Access-Control-Allow-Credentials: true
         no longer apply
       </li>
     </ul>
-    <li>Cookies are text files</li>
+    <li>The server never has to <em>ask</em> for a cookie back</li>
     <ul>
-      <li>No virus spread</li>
-    </ul>
-    <li>There is not any request from server to read cookies</li>
-    <ul>
-      <li>By default cookies are sent by browser</li>
-      <li>Browser checks URL and finds appropriate cookies</li>
+      <li>The browser attaches the matching ones by itself, every request</li>
+      <li>
+        Convenient — and the reason
+        <span class="hl-red">CSRF</span> exists at all
+      </li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>Cookies (Cont.)</h2>
+  <h2>Who Controls a Cookie?</h2>
   <ul>
     <li>Client can control cookies</li>
     <ul>
@@ -1446,13 +1511,8 @@ Access-Control-Allow-Credentials: true
       <ul>
         <li>Expire: An absolute time to delete cookie</li>
         <li>Max-Age: The maximum life time (sec) of cookie</li>
-        <li>If exists, shows a permanent cookie</li>
-        <li>
-          If does not exist, shows a session cookie and will be expired when
-          session ends (<a href="https://stackoverflow.com/a/3869950/19718207"
-            >more</a
-          >)
-        </li>
+        <li>If either is present, the cookie is persistent</li>
+        <li>If neither is, it is a session cookie</li>
         <li>Send a past time (or negative) to delete a cookie</li>
       </ul>
       <li>
@@ -1496,7 +1556,8 @@ Access-Control-Allow-Credentials: true
           <span class="hl-orange">Lax</span>: Cookies are not sent on normal
           cross-site subrequests (for example to load images or frames into a
           third party site), but are sent when a user is navigating to the
-          origin site (i.e. when following a link).
+          origin site (i.e. when following a link). This is the
+          <em class="hl-yellow">default</em> in modern browsers.
         </li>
         <li>
           <span class="hl-orange">Strict</span>: Cookies will only be sent in a
@@ -1512,32 +1573,6 @@ Access-Control-Allow-Credentials: true
         </li>
       </ul>
     </ul>
-  </section>
-  <section>
-    <h2>CSRF</h2>
-    <ul>
-      <li>
-        Cross-site request forgery (CSRF) attacks rely on the fact that cookies
-        are attached to <span class="hl-orange">any request</span> to a given
-        origin, <span class="hl-red">no matter</span> who initiates the request.
-      </li>
-    </ul>
-    <img
-      src="img/csrf-attack.png"
-      style="background-color: white"
-      alt="a request from an attacker's page to the bank, carrying the victim's cookie"
-    />
-  </section>
-  <section>
-    <h2>Warning!</h2>
-    <p>
-      Neither Strict nor Lax are a complete solution for your site's security.
-      Cookies are sent as part of the user's request and you should treat them
-      the same as any other user input. That means
-      <span class="hl-orange">sanitizing</span> and
-      <span class="hl-green">validating</span> the input. Never use a cookie to
-      store data you consider a server-side secret.
-    </p>
   </section>
 </section>
 <section>
@@ -1692,13 +1727,120 @@ path=/admin/panel cookies=admin_token=xyz789; session=abc123
   </section>
 </section>
 <section>
+  <h2>Cookie Prefixes</h2>
+  <ul>
+    <li>
+      A cookie's <em class="hl-orange">name</em> can carry a rule the browser
+      enforces when it is set
+    </li>
+    <ul>
+      <li>
+        <code class="hl-green">__Secure-</code>: accepted only if it was set
+        with <code>Secure</code>, over HTTPS
+      </li>
+      <li>
+        <code class="hl-green">__Host-</code>: the same, plus
+        <code>Path=/</code> and <strong class="hl-red">no</strong>
+        <code>Domain</code> attribute at all
+      </li>
+    </ul>
+  </ul>
+  <pre><code class="language-http">
+Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=Lax
+  </code></pre>
+  <ul>
+    <li>
+      Remember two slides ago: a sub-domain
+      <em>can</em> set a cookie on the parent domain.
+      <code class="hl-yellow">__Host-</code> is what stops
+      <code>evil.example.com</code> from handing you a cookie that looks like
+      yours
+    </li>
+    <li>
+      The rule travels in the name, so no proxy, framework or refactor can
+      quietly drop it
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Third-Party Cookies</h2>
+  <ul>
+    <li>
+      A cookie set by a domain <em class="hl-orange">other</em> than the one in
+      the address bar — an ad, a font, an embedded widget
+    </li>
+    <li>
+      That third party sees the same cookie on
+      <strong class="hl-red">every site that embeds it</strong>, which is how
+      cross-site tracking was built
+    </li>
+    <li>
+      Safari and Firefox block them by default. Chrome's plan to remove them has
+      been delayed and rescoped several times — but building anything new on
+      them is building on sand
+    </li>
+    <li>
+      This is the whole reason
+      <code class="hl-cyan">SameSite=None; Secure</code> exists: it is how you
+      <em>opt in</em> to a cross-site cookie, and it is exactly what is going
+      away
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>CSRF, in One Slide</h2>
+  <ul>
+    <li>
+      The browser attaches your cookie to
+      <span class="hl-orange">any request</span> to that origin,
+      <span class="hl-red">no matter who caused it</span>
+    </li>
+    <li>
+      So a form on <em class="hl-orange">evil.example</em> can POST to
+      <em class="hl-green">bank.example</em>, and it arrives authenticated
+    </li>
+    <li>
+      <code class="hl-green">SameSite</code> is the first defence, a per-session
+      token is the second
+    </li>
+  </ul>
+  <img
+    src="img/csrf-attack.png"
+    style="background-color: white"
+    alt="a request from an attacker's page to the bank, carrying the victim's cookie"
+  />
+  <div class="box">
+    <p>Covered properly in the Web Security lecture.</p>
+  </div>
+</section>
+<section>
+  <h2>Warning!</h2>
+  <p>
+    Neither Strict nor Lax are a complete solution for your site's security.
+    Cookies are sent as part of the user's request and you should treat them the
+    same as any other user input. That means
+    <span class="hl-orange">sanitizing</span> and
+    <span class="hl-green">validating</span> the input. Never use a cookie to
+    store data you consider a server-side secret.
+  </p>
+</section>
+<section>
   <h2>Single Sign-on (SSO)</h2>
   <ul>
+    <li>
+      One login, many applications: you authenticate once at a central identity
+      provider, and every service trusts the result
+    </li>
+    <li>
+      The cookie lives on the <em class="hl-orange">provider's</em> domain, so
+      each application still establishes its own session afterwards — that
+      hand-off is the interesting part
+    </li>
     <li>
       e.g.
       <a href="https://apereo.github.io/cas/current/index.html"
         >CAS Enterprise Single Sign-On</a
-      >
+      >, and the OAuth 2.0 / OIDC flows in the Web Security lecture
     </li>
   </ul>
 </section>
