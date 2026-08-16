@@ -66,11 +66,15 @@ table.cell td {
 // hands-on slide that ends with a code block silently loses it. :not(:has())
 // keeps it off vertical-stack wrappers, which are not slides of their own.
 section.hands-on:not(:has(> section))::after {
-  // 384px animated webp; the 512x512 gif it replaced was 713 KB and was
-  // inserted at natural size, which swamped the slide
-  content: url("../img/hands-on.webp");
+  // painted as a background rather than `content: url(…)`. A url() makes the
+  // pseudo-element *replaced*, and a replaced box stays inline-level even with
+  // display:block — width and height still apply, which is why it looked the
+  // right size, but `margin: auto` resolves to 0 on an inline box so it never
+  // centred. With content:"" this is an ordinary block box and auto works.
+  content: "";
   display: block;
   width: 130px;
   height: 130px;
   margin: 0.6em auto 0;
+  background: url("../img/hands-on.webp") no-repeat center / contain;
 }
