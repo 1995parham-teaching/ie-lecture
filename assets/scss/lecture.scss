@@ -79,6 +79,37 @@ section.hands-on:not(:has(> section))::after {
   background: url("../img/hands-on.webp") no-repeat center / contain;
 }
 
+// the toc is a plain <ul> built by assets/js/toc.ts. Numbering it reads as a
+// table of contents rather than a bullet list, and ::marker inherits the li's
+// colour, so the selected entry's numeral gets highlighted for free.
+// `.reveal .toc ul` outranks league's `.reveal ul { list-style-type: disc }`.
+.reveal .toc ul {
+  list-style-type: upper-roman;
+  // markers sit outside the box, and "VIII" needs more room than a disc —
+  // league only leaves 1em
+  margin-left: 2.5em;
+}
+
+// a small standing mark in the bottom-left corner of every slide
+.deck-logo {
+  position: fixed;
+  bottom: 12px;
+  left: 14px;
+  width: 110px;
+  opacity: 0.5;
+  // never let it eat a click meant for the slide behind it
+  pointer-events: none;
+  z-index: 10;
+}
+
+// the pdf export paginates the deck, and a fixed element either sticks to one
+// page or repeats at odd offsets. The title card carries the branding there.
+@media print {
+  .deck-logo {
+    display: none;
+  }
+}
+
 // the generated opening card. Everything on it comes from front matter, so a
 // new lecture gets one for free and they cannot drift apart.
 .title-slide {

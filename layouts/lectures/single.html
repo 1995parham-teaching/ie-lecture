@@ -58,6 +58,14 @@
       .Params | js.Build (dict "minify" hugo.IsProduction) | fingerprint
     }}
     <script src="{{ $js.RelPermalink }}" defer></script>
+    <!-- a small standing mark, bottom-left. reveal keeps its controls and the
+    slide number bottom-right, so that corner is free. decorative — the title
+    card already names the instructor — hence the empty alt. -->
+    <img
+      class="deck-logo"
+      src="{{ "img/1995parham-logo-dark.png" | relURL }}"
+      alt=""
+    />
     <!-- logos and advertising -->
     <a href="https://github.com/1995parham-teaching/ie-lecture" target="_blank">
       <img
