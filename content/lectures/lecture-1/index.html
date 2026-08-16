@@ -5,10 +5,17 @@ topics:
   - Instructor
   - Course Overview
   - World-Wide Web
+  - Syllabus
   - Course Policies
 draft: false
 ---
 
+<section>
+  <div class="toc"></div>
+</section>
+<section>
+  <div class="toc" data-selected="0"></div>
+</section>
 <section>
   <section>
     <h2>Parham Alvani</h2>
@@ -21,7 +28,6 @@ draft: false
     />
   </section>
   <section>
-    <h2></h2>
     <h2>
       <span class="hl-green">parham</span>
       <span class="hl-orange">[dot]</span>
@@ -35,12 +41,11 @@ draft: false
   <section>
     <h3>No instant messaging</h3>
     <h2><span class="hl-orange">Email</span> is awesome</h2>
-    <img
-      height="150px"
-      src="img/bernard.gif"
-      alt="Bernard Black, unimpressed"
-    />
+    <img height="150" src="img/bernard.gif" alt="Bernard Black, unimpressed" />
   </section>
+</section>
+<section>
+  <div class="toc" data-selected="1"></div>
 </section>
 <section>
   <h2>This Course</h2>
@@ -69,6 +74,9 @@ draft: false
   </ul>
 </section>
 <section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
   <h2>The World-Wide Web</h2>
   <ul>
     <li>Original idea (Tim Berners-Lee, 1989)</li>
@@ -89,6 +97,63 @@ draft: false
   </ul>
 </section>
 <section>
+  <h2>The Web, in Nine Moments</h2>
+  <!-- nine rows of prose do not fit at full size: at 24px most of them wrap to
+  two lines and the table runs past the 700px slide -->
+  <table style="font-size: 0.7em">
+    <tr class="fragment">
+      <td class="hl-orange">1989</td>
+      <td>
+        Tim Berners-Lee writes a proposal at CERN. His manager writes on the
+        front page: <em>“Vague, but exciting…”</em>
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-orange">1990</td>
+      <td>
+        The first browser and the first server. The browser was also an
+        <em>editor</em> — we lost that half.
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-green">1991</td>
+      <td>
+        The first public website goes live. It explains what a website is.
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-green">1993</td>
+      <td>
+        Mosaic puts images in the page. CERN gives the web away, for free.
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-cyan">1994</td>
+      <td>The W3C is founded, and CSS is proposed.</td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-cyan">1995</td>
+      <td>JavaScript is written in ten days.</td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-yellow">1999</td>
+      <td>
+        HTTP/1.1 is specified. Sixteen years pass before the next version.
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-yellow">2008</td>
+      <td>
+        Chrome and V8. JavaScript gets fast enough to build applications in.
+      </td>
+    </tr>
+    <tr class="fragment">
+      <td class="hl-red">2015<br />2022</td>
+      <td>HTTP/2, then HTTP/3 — which quietly stops using TCP.</td>
+    </tr>
+  </table>
+</section>
+<section>
   <h2>How Does WWW Work?</h2>
   <ul>
     <li>Client-Server mechanism</li>
@@ -105,12 +170,133 @@ draft: false
       </li>
       <li>Other applications</li>
       <ul>
-        <li>Search engines crawlers</li>
+        <li>Search engine crawlers</li>
         <li>Use server as a processing element (distributed computing)</li>
         <li>...</li>
       </ul>
     </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>You Are Already Running One</h2>
+    <table>
+      <tr>
+        <td>Your browser calls itself</td>
+        <td id="live-browser" class="hl-orange">…</td>
+      </tr>
+      <tr>
+        <td>Its window is</td>
+        <td id="live-viewport" class="hl-green">…</td>
+      </tr>
+      <tr>
+        <td>It prefers</td>
+        <td id="live-lang" class="hl-cyan">…</td>
+      </tr>
+      <tr>
+        <td>Cookies are</td>
+        <td id="live-cookies" class="hl-yellow">…</td>
+      </tr>
+      <tr>
+        <td>It believes it is</td>
+        <td id="live-online" class="hl-violet">…</td>
+      </tr>
+    </table>
+    <p>
+      None of that is written on the slide. Your browser volunteered it — which
+      is also the first thing lecture <span class="hl-orange">11</span> will
+      worry about.
+    </p>
+  </section>
+  <section>
+    <h2>Every Browser Claims to Be Mozilla</h2>
+    <pre><code
+        class="lang-plaintext"
+        id="live-ua"
+        style="white-space: pre-wrap; word-break: break-all"
+      >…</code></pre>
+    <ul>
+      <li>Servers once sent different HTML to different browsers</li>
+      <li>
+        So every browser started
+        <span class="hl-red">impersonating</span> the popular one, and none of
+        them ever stopped
+      </li>
+      <li>
+        Whatever you are running, that string almost certainly still begins with
+        <span class="hl-orange">Mozilla/5.0</span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>So Is This Deck</h2>
+    <table>
+      <tr>
+        <td>Files your browser fetched</td>
+        <td id="live-requests" class="hl-orange">…</td>
+      </tr>
+      <tr>
+        <td>Time until it finished</td>
+        <td id="live-load" class="hl-green">…</td>
+      </tr>
+    </table>
+    <ul>
+      <li>
+        These slides are <span class="hl-green">HTML</span>,
+        <span class="hl-cyan">CSS</span> and
+        <span class="hl-yellow">JavaScript</span>, delivered over
+        <span class="hl-orange">HTTP</span>
+      </li>
+      <li>
+        That is lectures <span class="hl-orange">2</span> to
+        <span class="hl-yellow">5</span>. You are looking at the syllabus
+      </li>
+    </ul>
+  </section>
+  <script>
+    (() => {
+      const set = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      // every user-agent string still starts with "Mozilla/5.0", so the real
+      // browser has to be picked out by name — and the order matters, because
+      // edge's string contains "Chrome" and chrome's contains "Safari"
+      const ua = navigator.userAgent;
+      const hit = [
+        [/Firefox\/([\d.]+)/, "Firefox"],
+        [/Edg\/([\d.]+)/, "Edge"],
+        [/Chrome\/([\d.]+)/, "Chrome"],
+        [/Version\/([\d.]+).*Safari/, "Safari"],
+      ]
+        .map(([pattern, name]) => [ua.match(pattern), name])
+        .find(([match]) => match);
+
+      set("live-browser", hit ? `${hit[1]} ${hit[0][1]}` : "something exotic");
+      set("live-ua", ua);
+      set(
+        "live-viewport",
+        `${window.innerWidth} × ${window.innerHeight} css pixels`,
+      );
+      set("live-lang", navigator.language);
+      set("live-cookies", navigator.cookieEnabled ? "enabled" : "disabled");
+      set("live-online", navigator.onLine ? "online" : "offline");
+
+      // the resource list and the load timing are only complete once the page
+      // has actually finished loading
+      window.addEventListener("load", () => {
+        const nav = performance.getEntriesByType("navigation")[0];
+        const count = performance.getEntriesByType("resource").length + 1;
+
+        set("live-requests", `${count}`);
+        set(
+          "live-load",
+          nav ? `${Math.round(nav.loadEventStart)} ms` : "not measured",
+        );
+      });
+    })();
+  </script>
 </section>
 <section>
   <h2>What Do We Want to Learn?</h2>
@@ -126,43 +312,100 @@ draft: false
   </ul>
 </section>
 <section>
-  <h2>10 Engineering Questions</h2>
-  <ul>
-    <li>
-      <span class="hl-orange">Q1)</span> How do web server and client browser
-      talk to each other?
-    </li>
-    <li>
-      <span class="hl-green">Q2)</span> How is a web page organized
-      (components)?
-    </li>
-    <li>
-      <span class="hl-cyan">Q3)</span> How is presentation of web page
-      described?
-    </li>
-    <li>
-      <span class="hl-yellow">Q4)</span> How does web page interact with users?
-    </li>
-    <li>
-      <span class="hl-red">Q5)</span> How to update a portion of web page?
-    </li>
-    <li>
-      <span class="hl-orange">Q6)</span> How is transferred data between server
-      &amp; client encoded?
-    </li>
-    <li>
-      <span class="hl-green">Q7)</span> How does server process client’s
-      requests?
-    </li>
-    <li>
-      <span class="hl-cyan">Q8)</span> How are complex/big web applications
-      developed?
-    </li>
-    <li><span class="hl-yellow">Q9)</span> How does Gmail offline work?</li>
-    <li>
-      <span class="hl-red">Q10)</span> How can other applications use Gmail?
-    </li>
-  </ul>
+  <section>
+    <h2>10 Engineering Questions</h2>
+    <p>By the end of the term, you should be able to answer all ten.</p>
+    <ul>
+      <li>
+        <span class="hl-orange">Q1)</span> How do a browser and a server talk to
+        each other?
+      </li>
+      <li>
+        <span class="hl-green">Q2)</span> How is a page organized, and what
+        makes a heading a heading?
+      </li>
+      <li>
+        <span class="hl-cyan">Q3)</span> How is a page’s look described,
+        separately from its content?
+      </li>
+      <li>
+        <span class="hl-yellow">Q4)</span> How does a page react to the person
+        using it?
+      </li>
+      <li>
+        <span class="hl-red">Q5)</span> How do we change part of a page without
+        reloading it?
+      </li>
+      <li>
+        <span class="hl-orange">Q6)</span> How is data encoded so other
+        <em>programs</em> can use it?
+      </li>
+      <li>
+        <span class="hl-green">Q7)</span> How does the server decide what to
+        answer?
+      </li>
+      <li>
+        <span class="hl-cyan">Q8)</span> How do you structure an application too
+        big for one person?
+      </li>
+      <li>
+        <span class="hl-yellow">Q9)</span> How do you ship it, and run it the
+        same way everywhere?
+      </li>
+      <li>
+        <span class="hl-red">Q10)</span> How does all of it get broken, and how
+        do you stop that?
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Who Answers What</h2>
+    <table>
+      <tr>
+        <th>Question</th>
+        <th>Lecture</th>
+      </tr>
+      <tr>
+        <td class="hl-orange">Q1</td>
+        <td>2 — HTTP</td>
+      </tr>
+      <tr>
+        <td class="hl-green">Q2</td>
+        <td>3 — HTML</td>
+      </tr>
+      <tr>
+        <td class="hl-cyan">Q3</td>
+        <td>4 — CSS</td>
+      </tr>
+      <tr>
+        <td class="hl-yellow">Q4, Q5</td>
+        <td>5 — JavaScript</td>
+      </tr>
+      <tr>
+        <td class="hl-orange">Q6</td>
+        <td>6 — JSON, Thrift and gRPC</td>
+      </tr>
+      <tr>
+        <td class="hl-green">Q7</td>
+        <td>
+          7 — Go Programming
+          <span class="hl-pink">(8 — CGI, for how it used to be done)</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="hl-cyan">Q8</td>
+        <td>9 — Web Application Architectures</td>
+      </tr>
+      <tr>
+        <td class="hl-yellow">Q9</td>
+        <td>10 — Virtualization</td>
+      </tr>
+      <tr>
+        <td class="hl-red">Q10</td>
+        <td>11 — Web Security</td>
+      </tr>
+    </table>
+  </section>
 </section>
 <section>
   <h2>WWW: From Old to Now</h2>
@@ -222,7 +465,10 @@ draft: false
   <div>
     <script>
       function locate(el) {
-        let r = Math.random() * 300;
+        // the box is 300px and the button is roughly 60x40, so the offset has
+        // to stop short of the edge or the button jumps out of the frame and
+        // lands on top of the bullet list
+        let r = Math.random() * 240;
 
         el.style.margin = `${r}px 0 0 ${r}px`;
       }
@@ -260,36 +506,69 @@ draft: false
       <ul>
         <li><span class="hl-yellow">Function invocation over web</span></li>
       </ul>
-      <li>Needs a common protocols/API (e.g., Facebook API)</li>
+      <li>Needs a common protocol/API (e.g., the Meta Graph API)</li>
       <ul>
         <li><span class="hl-green">Web services</span></li>
       </ul>
     </ul>
   </ul>
-  <pre><code class="lang-json" id="swapi-result">Waiting...</code></pre>
+  <pre><code
+      class="lang-json"
+      id="swapi-result"
+      style="white-space: pre-wrap; word-break: break-all"
+    >Waiting...</code></pre>
   <script>
+    // this runs live in front of the class, so a blocked or slow network has
+    // to say so — otherwise the slide just sits on "Waiting..." and there is
+    // nothing to point at
     fetch("https://swapi.dev/api/people/1/")
-      .then((resp) => resp.json())
-      .then(
-        (data) =>
-          (document.getElementById("swapi-result").textContent =
-            JSON.stringify(data)),
-      );
+      .then((resp) => {
+        if (!resp.ok) throw new Error(`the server answered ${resp.status}`);
+        return resp.json();
+      })
+      .then((data) => JSON.stringify(data))
+      .catch((err) => `could not reach the web service: ${err.message}`)
+      .then((text) => {
+        document.getElementById("swapi-result").textContent = text;
+      });
   </script>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
 </section>
 <section>
   <h2>What we are going to learn at classes</h2>
   <ul>
-    <li class="fragment fade-up" data-fragment-index="0">Introduction</li>
-    <li class="fragment fade-left" data-fragment-index="1">HTTP</li>
-    <li class="fragment fade-right" data-fragment-index="2">HTML</li>
-    <li class="fragment fade-down" data-fragment-index="3">CSS</li>
-    <li class="fragment fade-left" data-fragment-index="4">JavaScript</li>
-    <li class="fragment fade-up" data-fragment-index="5">JSON</li>
-    <li class="fragment fade-down" data-fragment-index="6">Golang</li>
-    <li class="fragment fade-left" data-fragment-index="7">Web Applications</li>
-    <li class="fragment fade-right" data-fragment-index="8">Virtualization</li>
-    <!-- <li class="fragment fade-right" data-fragment-index="9">React</li> -->
+    <li class="fragment fade-up" data-fragment-index="0">
+      <span class="hl-orange">1</span> Introduction
+    </li>
+    <li class="fragment fade-left" data-fragment-index="1">
+      <span class="hl-orange">2</span> HTTP
+    </li>
+    <li class="fragment fade-right" data-fragment-index="2">
+      <span class="hl-green">3</span> HTML
+    </li>
+    <li class="fragment fade-down" data-fragment-index="3">
+      <span class="hl-green">4</span> CSS
+    </li>
+    <li class="fragment fade-left" data-fragment-index="4">
+      <span class="hl-cyan">5</span> JavaScript
+    </li>
+    <li class="fragment fade-up" data-fragment-index="5">
+      <span class="hl-cyan">6</span> JSON, Thrift and gRPC
+    </li>
+    <li class="fragment fade-down" data-fragment-index="6">
+      <span class="hl-yellow">7</span> Go Programming, and an HTTP server
+    </li>
+    <li class="fragment fade-left" data-fragment-index="7">
+      <span class="hl-yellow">9</span> Web Application Architectures
+    </li>
+    <li class="fragment fade-right" data-fragment-index="8">
+      <span class="hl-red">10</span> Virtualization
+    </li>
+    <li class="fragment fade-up" data-fragment-index="9">
+      <span class="hl-red">11</span> Web Security
+    </li>
   </ul>
 </section>
 <section>
@@ -304,6 +583,58 @@ draft: false
     </li>
     <li class="fragment fade-right" data-fragment-index="5">Docker</li>
   </ul>
+</section>
+<section>
+  <h2>Also on the Site, Not in Class</h2>
+  <p>
+    Extra decks you can read on your own. Most were written by students who took
+    this course before you.
+  </p>
+  <table>
+    <tr>
+      <td class="hl-orange">CGI</td>
+      <td>how servers answered requests before frameworks existed</td>
+    </tr>
+    <tr>
+      <td class="hl-green">CORS</td>
+      <td>the error you will hit in your first assignment</td>
+    </tr>
+    <tr>
+      <td class="hl-cyan">React · Vue · Redux</td>
+      <td>the front-end side, in more depth than the TA sessions</td>
+    </tr>
+    <tr>
+      <td class="hl-yellow">MongoDB · NATS</td>
+      <td>the databases and message brokers behind lecture 9</td>
+    </tr>
+    <tr>
+      <td class="hl-red">Kubernetes · WebAssembly</td>
+      <td>where lecture 10 goes next, and a genuinely strange corner</td>
+    </tr>
+  </table>
+</section>
+<section>
+  <h2>Your Toolbox</h2>
+  <ul>
+    <li>
+      <span class="hl-orange">Browser DevTools</span> — you will live in the
+      Network and Console tabs. Open it now: <code>F12</code>
+    </li>
+    <li>
+      <span class="hl-green">curl</span> — a browser without opinions. Lecture 2
+      is mostly this
+    </li>
+    <li><span class="hl-cyan">git</span> — how you will hand in your work</li>
+    <li>
+      <span class="hl-yellow">Go</span> and
+      <span class="hl-yellow">Node</span> — one server, one front end
+    </li>
+    <li>
+      <span class="hl-red">Docker</span> — so “it works on my machine” stops
+      being an excuse
+    </li>
+  </ul>
+  <p>All of them are free, and all of them run on whatever you own.</p>
 </section>
 <section>
   <h2>What This Course Is Not</h2>
@@ -342,7 +673,7 @@ draft: false
       <li>Better resume: HTML, JavaScript, JSON, CSS, Golang, React, ...</li>
       <li>More job opportunities (more money 🤑)</li>
     </ul>
-    <li>(Usually) Technologies are easier that sciences</li>
+    <li>(Usually) Technologies are easier than sciences</li>
     <ul>
       <li>No difficult concepts</li>
       <li>High course grade if you want 🤓</li>
@@ -375,6 +706,13 @@ draft: false
 </section>
 <section>
   <h2>Assumptions on your knowledge &amp; skills</h2>
+  <div class="box">
+    <p>
+      On paper: <span class="hl-green">Introduction to Programming</span> and
+      <span class="hl-green">Advanced Programming</span> are prerequisites, and
+      <span class="hl-cyan">Database Design</span> runs alongside this one.
+    </p>
+  </div>
   <ul>
     <li>Basic networking concepts</li>
     <ul>
@@ -393,6 +731,9 @@ draft: false
       <li>At least, you don’t hate 🙈</li>
     </ul>
   </ul>
+</section>
+<section>
+  <div class="toc" data-selected="4"></div>
 </section>
 <section>
   <h2>Course Policies</h2>
@@ -416,8 +757,8 @@ draft: false
   <h2>Course Policies: Grading 😥</h2>
   <table>
     <tr>
-      <th></th>
-      <th></th>
+      <th>Component</th>
+      <th>Weight</th>
       <th><span class="hl-red">Minimum requirement</span></th>
     </tr>
     <tr>
@@ -440,7 +781,7 @@ draft: false
     <tr>
       <td>Homework</td>
       <td>30%</td>
-      <td><span class="hl-red">- Deadlines wont be extended</span></td>
+      <td><span class="hl-red">Deadlines won’t be extended</span></td>
     </tr>
   </table>
 </section>
@@ -453,7 +794,7 @@ draft: false
       <ul>
         <li>Your programming skill is poor</li>
         <li>You assume that it is passed without doing anything</li>
-        <li>You know the answers of almost the questions</li>
+        <li>You know the answers to almost all the questions</li>
         <ul>
           <li>But you are so busy to do homework</li>
         </ul>
@@ -462,27 +803,78 @@ draft: false
     </ul>
     <li>If this course is mandatory</li>
     <ul>
-      <li>Note that course topics is a bit wide</li>
+      <li>Note that the course covers a lot of ground</li>
     </ul>
   </ul>
 </section>
 <section>
   <h2>Web Development: Lectures</h2>
-  <img src="./img/peykan.png" height="250px" alt="pekkan" />
-  <img src="./img/pride.png" height="250px" alt="pride" />
+  <img src="./img/peykan.png" height="250" alt="Peykan" />
+  <img src="./img/pride.png" height="250" alt="Pride" />
 </section>
 <section>
   <h2>Web Development: Homework</h2>
-  <img src="./img/megan.png" height="250px" alt="megan" />
-  <img src="./img/206.png" height="250px" alt="206" />
+  <img src="./img/megan.png" height="250" alt="Megane" />
+  <img src="./img/206.png" height="250" alt="Peugeot 206" />
 </section>
 <section>
   <h2>Web Development: Industry</h2>
-  <img src="./img/benz.png" height="250px" alt="benz" />
+  <img src="./img/benz.png" height="250" alt="Mercedes-Benz" />
 </section>
 <section>
   <h2>Web Development: Google, Facebook, ...</h2>
-  <img src="./img/airplane.png" height="250px" alt="airplane" />
+  <img src="./img/airplane.png" height="250" alt="airplane" />
+</section>
+<section>
+  <h2>These Slides Are Open Source</h2>
+  <ul>
+    <li>
+      Everything you have just seen lives at
+      <span class="hl-orange">github.com/1995parham-teaching/ie-lecture</span> —
+      the ribbon in the corner is a real link
+    </li>
+    <li>
+      Written in <span class="hl-green">HTML</span>, styled with
+      <span class="hl-cyan">CSS</span>, built by
+      <span class="hl-yellow">Hugo</span>, published by
+      <span class="hl-violet">GitHub Actions</span>
+    </li>
+    <li>
+      Every deck has a <span class="hl-pink">PDF</span> button on the course
+      homepage, so you are never stuck without the slides
+    </li>
+    <li>
+      Found a mistake? <span class="hl-red">Send a pull request.</span> Several
+      students already have
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Where to Read More</h2>
+  <table>
+    <tr>
+      <td class="hl-orange">MDN Web Docs</td>
+      <td>the reference for HTML, CSS and JavaScript. Not W3Schools</td>
+    </tr>
+    <tr>
+      <td class="hl-green">Responsive Web Design with HTML5 and CSS</td>
+      <td>Ben Frain</td>
+    </tr>
+    <tr>
+      <td class="hl-cyan">JavaScript: The Definitive Guide</td>
+      <td>David Flanagan</td>
+    </tr>
+    <tr>
+      <td class="hl-yellow">The Go Programming Language</td>
+      <td>Donovan &amp; Kernighan</td>
+    </tr>
+    <tr>
+      <td class="hl-red">The RFCs</td>
+      <td>
+        intimidating, then surprisingly readable. We will read parts of a few
+      </td>
+    </tr>
+  </table>
 </section>
 <section>
   <h2>The main goal of the course</h2>

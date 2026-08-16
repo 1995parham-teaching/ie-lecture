@@ -48,10 +48,34 @@ hugo server
 
 ## Topics and Schedule
 
-- Introduction (1 session)
-- HTTP (4 sessions)
+The numbers below are the lecture numbers used on the
+[course homepage](https://1995parham-teaching.github.io/ie-lecture/) and on the
+opening slide of lecture 1. Session counts are given where they are fixed; the
+rest depend on the term.
+
+- **1** — Introduction (1 session)
+- **2** — HTTP (4 sessions)
   - [![YouTube Video Views](https://img.shields.io/youtube/views/Lo9bkJir4q8?style=for-the-badge&logo=youtube)](https://youtu.be/Lo9bkJir4q8?si=H5AVYPwCHRHT4HPL)
-- Go Programming (4 sessions)
+- **3** — HTML
+- **4** — CSS
+- **5** — JavaScript
+- **6** — JSON, Thrift and gRPC
+- **7** — Go Programming (4 sessions), including an HTTP server built on
+  `net/http` (2 sessions)
   - [![YouTube Video Views](https://img.shields.io/youtube/views/B7rmPliSPew?style=for-the-badge&logo=youtube)](https://youtu.be/B7rmPliSPew?si=g-70-GmP8bENLzjz)
-- HTTP Server (2 sessions)
-- Web Security (2 sessions)
+- **9** — Web Application Architectures
+- **10** — Virtualization
+- **11** — Web Security (2 sessions)
+
+The TA sessions cover git, an HTTP client, HTML/CSS, JavaScript and React,
+back-end development, and Docker.
+
+### Extra decks
+
+Published on the site but not taught in class. Several were written by students
+as course presentations.
+
+- **8** — CGI, how servers answered requests before frameworks existed
+- CORS · React · Vue.js · Redux · WebAssembly
+- MongoDB · NATS101 · Cloud Native and Kubernetes
+- **42** — Presentations, the rules for the optional student presentation
