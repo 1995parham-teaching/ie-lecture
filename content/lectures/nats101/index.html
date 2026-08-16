@@ -249,7 +249,22 @@ Hello World!
 <section>
   <section class="hands-on">
     <h2>Queue Subscribtions: Hands-on</h2>
-    <ul></ul>
+    <ul>
+      <li>
+        Open two terminals and subscribe both to
+        <code class="hl-yellow">requests</code>, with the
+        <strong class="hl-green">same queue group</strong>
+      </li>
+      <li>Publish a few messages, and watch where each one lands</li>
+      <li>
+        The point to look for: each message goes to
+        <strong class="hl-orange">exactly one</strong> worker, not to both
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+telnet localhost 4222
+SUB requests workers 5
+    </code></pre>
   </section>
   <section>
     <h2>Worker 1 👷</h2>

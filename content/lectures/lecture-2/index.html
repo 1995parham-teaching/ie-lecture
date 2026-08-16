@@ -1551,9 +1551,54 @@ Access-Control-Allow-Credentials: true
     <img src="./img/sub-domain-cookies.png" />
   </section>
 </section>
-<section class="hands-on">
-  <h2>Cookies Attributes: Domain &amp; Path: Hands on</h2>
-  <ul></ul>
+<section>
+  <section class="hands-on">
+    <h2>Cookies Attributes: Domain &amp; Path: Hands on</h2>
+    <ul>
+      <li>Ask a server to set two cookies, scoped to different paths</li>
+      <li>
+        Then request two different paths, and see
+        <strong class="hl-orange">which cookies the browser attaches</strong>
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+curl -D - -c jar.txt http://127.0.0.1:8210/login
+    </code></pre>
+  </section>
+  <section>
+    <h2>The Server Sets Them</h2>
+    <pre><code class="lang-http">
+HTTP/1.0 200 OK
+Set-Cookie: session=abc123; Path=/
+Set-Cookie: admin_token=xyz789; Path=/admin
+    </code></pre>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-sh">
+$ curl -b jar.txt http://127.0.0.1:8210/
+path=/ cookies=session=abc123
+
+$ curl -b jar.txt http://127.0.0.1:8210/admin/panel
+path=/admin/panel cookies=admin_token=xyz789; session=abc123
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-green">session</code> goes everywhere, because its path
+        is <code>/</code>
+      </li>
+      <li>
+        <code class="hl-yellow">admin_token</code> is sent
+        <strong class="hl-red">only</strong> under <code>/admin</code>, and the
+        server never even sees it elsewhere
+      </li>
+      <li>
+        Path is about <em>scoping</em>, not security: any script on the origin
+        can still read it unless the cookie is
+        <code class="hl-cyan">HttpOnly</code>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Single Sign-on (SSO)</h2>

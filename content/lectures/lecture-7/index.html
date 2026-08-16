@@ -614,16 +614,38 @@ func main() {
     <li>Conditions with taste of Fibonacci 😋</li>
   </ul>
 </section>
-<section class="hands-on">
-  <h2>
-    <a
-      href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/04-loops/main.go"
-      >&lt;Code Time.go&gt;</a
-    >
-  </h2>
-  <ul>
-    <li>Many loops</li>
-  </ul>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/04-loops/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>Many loops</li>
+      <li>
+        It reads <code class="hl-yellow">n</code> from the terminal first, so
+        type a number and press enter
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+please enter n: 10
+is 10 prime? false
+10th prime is 29
+gcd 10 20 is 10
+gcd 13 15 is 1
+    </code></pre>
+    <ul>
+      <li>
+        Go has one loop keyword. <code class="hl-green">for</code> covers the
+        counter, the while, and the infinite loop
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -798,14 +820,57 @@ y, err := strconv.ParseInt("123", 10, 64)  // base 10, up to 64 bits
     </code></pre>
   </section>
 </section>
-<section class="hands-on">
-  <h2>
-    <a
-      href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/05-strings/main.go"
-      >&lt;Code Time.go&gt;</a
-    >
-  </h2>
-  <ul></ul>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/05-strings/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>
+        A string is a slice of <strong class="hl-orange">bytes</strong>, not of
+        characters
+      </li>
+      <li>
+        Index a Persian string and watch what comes back, then range over the
+        same string
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+17 (len(s3)) != 9
+[216 179 217 132 216 167 217 133 32 216 175 217 134 219 140 216 167]
+72
+Parham Alvani
+216
+179
+³
+[0]: س [2]: ل [4]: ا [6]: م [8]:   [9]: د [11]: ن [13]: ی [15]: ا
+Global string is which defined
+    </code></pre>
+  </section>
+  <section>
+    <h2>What Happened?</h2>
+    <ul>
+      <li>
+        <code class="hl-yellow">len(s3)</code> is
+        <strong class="hl-red">17</strong>, not 9: those letters need two bytes
+        each in UTF-8
+      </li>
+      <li>
+        <code>s3[0]</code> is <code>216</code>, half of a character, and
+        printing it as <code>%c</code> gives nonsense
+      </li>
+      <li>
+        <code class="hl-green">range</code> decodes runes, so the index jumps 0,
+        2, 4, … and each character arrives whole
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -915,6 +980,37 @@ append(s, x)  // append element x to slice s and return new slice
     </h2>
     <ul>
       <li>Slices with <code>make</code></li>
+      <li>
+        Print the address of the slice and of its first element, before and
+        after an <code class="hl-yellow">append</code>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+s1: [10 20 30 0 0 0 0 0 0 0], len(s1): 10, cap(s1): 10
+s1: [10 20 30 0 0 0 0 0 0 0 10], len(s1): 11, cap(s1): 20
+s2: [10], len(s2): 1, cap(s2): 10
+
+before appending a new variable into s
+address of s is 0x76fb35a2a048
+address of s[0] is 0x76fb35a280a0
+after appending a new variable into s
+address of s is 0x76fb35a2a048
+address of s[0] is 0x76fb35a24140
+    </code></pre>
+    <ul>
+      <li>
+        The append passed the capacity, so Go allocated a
+        <strong class="hl-orange">new array</strong> and copied: capacity went
+        10 → 20
+      </li>
+      <li>
+        The slice header did not move, but
+        <code class="hl-red">&amp;s[0] changed</code>: anything still pointing
+        at the old array no longer sees the updates
+      </li>
     </ul>
   </section>
   <section class="hands-on">
@@ -1012,14 +1108,44 @@ func main() {
 }
     </code></pre>
 </section>
-<section class="hands-on">
-  <h2>
-    <a
-      href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/10-structs/main.go"
-      >&lt;Code Time.go&gt;</a
-    >
-  </h2>
-  <ul></ul>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/10-structs/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>
+        Compare two structs with <code class="hl-yellow">==</code>, then add a
+        slice field and try again
+      </li>
+      <li>
+        Give the type a <code class="hl-green">String()</code> method and print
+        it with <code>Println</code>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+we can compare student structs
+Name: Parham, Family: Alvani, age: 27
+student, Parham Alvani
+Hello Torvalds, I am Parham Alvani (27)
+    </code></pre>
+    <ul>
+      <li>
+        <code>Println</code> found <code class="hl-green">String()</code> and
+        used it, instead of printing the fields
+      </li>
+      <li>
+        Uncomment the slice field and the comparison stops compiling: a struct
+        is comparable only when all of its fields are
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Interfaces</h2>
@@ -1049,14 +1175,45 @@ func (b Bar) Print() {
 }
   </code></pre>
 </section>
-<section class="hands-on">
-  <h2>
-    <a
-      href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/11-interfaces/main.go"
-      >&lt;Code Time.go&gt;</a
-    >
-  </h2>
-  <ul></ul>
+<section>
+  <section class="hands-on">
+    <h2>
+      <a
+        href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/11-interfaces/main.go"
+        >&lt;Code Time.go&gt;</a
+      >
+    </h2>
+    <ul>
+      <li>
+        Assign a <code>Student</code> to a <code class="hl-cyan">Printer</code>,
+        with no "implements" anywhere
+      </li>
+      <li>
+        Assert back to a concrete type, with and without the
+        <code class="hl-green">, ok</code> form, then use a type switch
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-plaintext">
+Linus Torvalds
+p is not a person
+Hello
+    </code></pre>
+    <ul>
+      <li>
+        <code>Student</code> satisfies <code>Printer</code> just by having the
+        method: interfaces are
+        <strong class="hl-green">satisfied implicitly</strong>
+      </li>
+      <li>
+        <code class="hl-yellow">p.(Person)</code> without
+        <code>, ok</code> would <strong class="hl-red">panic</strong>; with it
+        you get <code>false</code> instead
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>Casting Types</h2>
