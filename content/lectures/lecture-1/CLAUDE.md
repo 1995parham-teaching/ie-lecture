@@ -39,6 +39,11 @@ asks for an `[IE]` subject prefix, a student ID, and one question per email; the
 next slide gives the reason for the no-instant-messaging rule rather than only
 asserting it. The Bernard Black gif stays — it is the tone-setter for the deck.
 
+**The two experience lines — 9 years backend, 4 of them on platform — are the
+instructor's own figures.** No employer is named, on purpose. Do not extrapolate
+them, do not increment them for a new term, and do not add detail around them;
+if they need changing, that is a fact only the instructor has.
+
 **Deliberately absent: a reply-time promise.** "Replies within N working days"
 is the obvious line to add, but the number is the instructor's to give, not one
 to invent on their behalf.
