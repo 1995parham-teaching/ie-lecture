@@ -46,6 +46,15 @@ one. The transcripts are captured against a purpose-built Go server on
 server-side store, `POST /logout` deleting from it). The point the slides build
 to is that logout is the **store delete**, not the `Max-Age=0` cookie.
 
+**HTTPS on the wire** (4 slides, closing the Security stack) is issue #17. The
+hexdumps are real, captured with a byte-level TCP relay between curl and
+`example.com` — curl's own `--trace` shows plaintext on both ports because it
+traces above TLS, so it cannot make this point. Port 80 shows a readable
+`GET / HTTP/1.1`; port 443 shows the same request as a
+`17 03 03 00 6e` application-data record; the last slide shows the SNI hostname
+in the plaintext ClientHello. If you re-capture, keep all three from **one** pair
+of runs or the story stops lining up.
+
 ## Cautions
 
 - The capture on the URL slide states `length 85`, which depends on the path in

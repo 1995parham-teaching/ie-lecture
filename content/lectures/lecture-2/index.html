@@ -2930,6 +2930,89 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
       alt="HTTP carried inside an encrypted TLS tunnel"
     />
   </section>
+  <section class="hands-on">
+    <h2>Seeing the Tunnel</h2>
+    <ul>
+      <li>
+        Put a <span class="hl-orange">tap</span> on the path — a relay that
+        prints every byte it forwards, which is all a proxy or a router ever is
+      </li>
+      <li>
+        Then send the <strong>same request</strong> to port 80 and to port 443
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+$ curl --connect-to example.com:80:127.0.0.1:9080   http://example.com/
+$ curl --connect-to example.com:443:127.0.0.1:9443 https://example.com/
+    </code></pre>
+  </section>
+  <section>
+    <h2>Port 80: It Is Just Text</h2>
+    <pre><code class="no-highlight">
+C-&gt;S  47 45 54 20 2f 20 48 54 54 50 2f 31 2e 31 0d 0a  |GET / HTTP/1.1..|
+C-&gt;S  48 6f 73 74 3a 20 65 78 61 6d 70 6c 65 2e 63 6f  |Host: example.co|
+C-&gt;S  6d 0d 0a 55 73 65 72 2d 41 67 65 6e 74 3a 20 63  |m..User-Agent: c|
+C-&gt;S  75 72 6c 2f 38 2e 37 2e 31 0d 0a 41 63 63 65 70  |url/8.7.1..Accep|
+C-&gt;S  74 3a 20 2a 2f 2a 0d 0a 43 6f 6e 6e 65 63 74 69  |t: */*..Connecti|
+C-&gt;S  6f 6e 3a 20 63 6c 6f 73 65 0d 0a 0d 0a           |on: close....|
+S-&gt;C  48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d  |HTTP/1.1 200 OK.|
+S-&gt;C  0a 44 61 74 65 3a 20 4d 6f 6e 2c 20 31 37 20 41  |.Date: Mon, 17 A|
+    </code></pre>
+    <ul>
+      <li>
+        No decoding needed — the path, the headers and the cookies are
+        <strong class="hl-red">right there</strong>, and anyone on the path can
+        change them too
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Port 443: The Same Request</h2>
+    <pre><code class="no-highlight">
+C-&gt;S  17 03 03 00 6e b8 bc 67 ba 90 7c 40 2c e2 bb 5a  |....n..g..|@,..Z|
+C-&gt;S  c0 1d 7b 7f 27 49 9e aa 81 81 cc 7f 10 d6 a1 40  |..{.'I.........@|
+C-&gt;S  06 41 a7 a3 9f 94 ab 22 a9 40 4c 03 f2 25 4a b2  |.A.....".@L..%J.|
+C-&gt;S  ca 54 00 a3 38 89 bb cb 10 bf 2e a1 a8 24 03 94  |.T..8........$..|
+C-&gt;S  8c f2 24 6b 71 19 40 f4 3b 24 d6 66 fe 1a e7 5c  |..$kq.@.;$.f...\|
+C-&gt;S  49 9d 2a 71 63 6d d4 b6 6a 53 30 33 bc ee b5 77  |I.*qcm..jS03...w|
+C-&gt;S  cf a2 30 c9 06 ff 4d 81 0c 8d d1 7e 5b 1c b4 54  |..0...M....~[..T|
+C-&gt;S  7e 53 45                                         |~SE|
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-orange">17</code> = application data,
+        <code class="hl-green">03 03</code> = record version,
+        <code class="hl-cyan">00 6e</code> = 110 bytes follow
+      </li>
+      <li>
+        That is the whole HTTP request —
+        <em>the record header is the only thing the tap can still parse</em>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>What TLS Does <span class="hl-red">Not</span> Hide</h2>
+    <pre><code class="no-highlight">
+C-&gt;S  16 03 01 01 39 01 00 01 35 03 03 0f 96 b0 2f 41  |....9...5...../A|
+      ...  cipher suites, key share, 220 bytes  ...
+C-&gt;S  0e 00 00 0b 65 78 61 6d 70 6c 65 2e 63 6f 6d 00  |....example.com.|
+    </code></pre>
+    <ul>
+      <li>
+        The <code class="hl-orange">ClientHello</code> is sent
+        <strong>before</strong> any key exists, so the
+        <span class="hl-yellow">SNI</span> hostname goes out in the clear
+      </li>
+      <li>
+        So do the destination IP, and the size and timing of every message —
+        enough to guess which page you loaded
+      </li>
+      <li>
+        Encrypted Client Hello (ECH) is the fix for the hostname; the rest is
+        the price of using a network
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>References 📚</h2>
