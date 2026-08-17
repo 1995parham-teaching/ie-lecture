@@ -2709,6 +2709,136 @@ Authorization: Digest username="Mufasa",
   </section>
 </section>
 <section>
+  <section>
+    <h2>Session Authentication</h2>
+    <ul>
+      <li>
+        The answer to <q>do not repeat the procedure for every request</q> is
+        the <span class="hl-orange">cookie</span> we met earlier
+      </li>
+      <li>
+        Check the password <strong class="hl-green">once</strong>, then hand out
+        an opaque session identifier
+      </li>
+      <li>
+        The browser attaches it automatically from then on — that is the whole
+        point of a cookie
+      </li>
+    </ul>
+    <ol>
+      <li><code>POST /login</code> with the credentials</li>
+      <li>
+        <code class="hl-orange">Set-Cookie: session=…</code> on the response
+      </li>
+      <li>Every later request carries <code class="hl-cyan">Cookie:</code></li>
+      <li>The server looks the identifier up in its session store</li>
+    </ol>
+  </section>
+  <section class="hands-on">
+    <h2>Logging In</h2>
+    <pre><code class="lang-sh">
+$ curl -sS -D - -o /dev/null http://127.0.0.1:8211/me
+HTTP/1.1 401 Unauthorized
+
+$ curl -sS -D - -c jar.txt -d 'user=parham&amp;pass=s3cret' \
+       http://127.0.0.1:8211/login
+HTTP/1.1 303 See Other
+Location: /me
+Set-Cookie: session=5r1dBZIscs2oNeux; Path=/; HttpOnly; SameSite=Lax
+    </code></pre>
+    <ul>
+      <li>
+        <span class="hl-green">303</span>: POST / Redirect / GET again — the
+        password must not sit in a reloadable request
+      </li>
+      <li>
+        The password appears <strong class="hl-orange">once</strong>, in a body,
+        over TLS. After this it never travels again
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Every Request After</h2>
+    <pre><code class="lang-http">
+GET /me HTTP/1.1
+Host: 127.0.0.1:8211
+Cookie: session=5r1dBZIscs2oNeux
+
+HTTP/1.1 200 OK
+
+hello parham
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-cyan">session=5r1dBZIscs2oNeux</code> means nothing on
+        its own — the name <q>parham</q> lives in the server's session store
+      </li>
+      <li>
+        <code class="hl-green">HttpOnly</code> keeps an XSS payload from reading
+        it; <code class="hl-green">SameSite</code> keeps another site from
+        riding it
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Logging Out is a Server-Side Delete</h2>
+    <pre><code class="lang-sh">
+$ curl -sS -D - -b jar.txt -X POST http://127.0.0.1:8211/logout
+HTTP/1.1 200 OK
+Set-Cookie: session=; Path=/; Max-Age=0
+
+$ curl -sS -b jar.txt http://127.0.0.1:8211/me   # jar still has the cookie
+unknown session
+    </code></pre>
+    <ul>
+      <li>
+        The <code class="hl-orange">Max-Age=0</code> cookie is only a courtesy
+        to the browser
+      </li>
+      <li>
+        What actually ends the login is the
+        <strong class="hl-green">delete in the session store</strong> — a stolen
+        copy of the identifier is worthless the moment the server forgets it
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Session vs Token</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Session cookie</th>
+        <th>Bearer token</th>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td><span class="hl-orange">On the server</span></td>
+        <td>In the token</td>
+      </tr>
+      <tr>
+        <td>Sent by</td>
+        <td>The browser, automatically</td>
+        <td>Your code, explicitly</td>
+      </tr>
+      <tr>
+        <td>Revoke</td>
+        <td><span class="hl-green">One delete</span></td>
+        <td><span class="hl-red">Wait for expiry</span></td>
+      </tr>
+      <tr>
+        <td>CSRF</td>
+        <td><span class="hl-red">Exposed, needs SameSite</span></td>
+        <td><span class="hl-green">Immune</span></td>
+      </tr>
+      <tr>
+        <td>Fits</td>
+        <td>A site with a browser in front of it</td>
+        <td>APIs, mobile, service to service</td>
+      </tr>
+    </table>
+  </section>
+</section>
+<section>
   <h2>Bearer Authentication</h2>
   <ul>
     <li>

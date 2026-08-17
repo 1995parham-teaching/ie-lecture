@@ -38,6 +38,14 @@ way and are documented on the slides:
 Server Push is marked dead (removed from Chrome); 103 Early Hints is what
 replaced it.
 
+**Session Authentication** (5 slides, between "In the Wild" and Bearer) closes
+the loop the "In the Wild" slide opens — it asks for a way to not re-authenticate
+every request, and this is the cookie answer, before Bearer offers the stateless
+one. The transcripts are captured against a purpose-built Go server on
+`127.0.0.1:8211` (`POST /login` → 303 + `Set-Cookie`, `GET /me` reading a
+server-side store, `POST /logout` deleting from it). The point the slides build
+to is that logout is the **store delete**, not the `Max-Age=0` cookie.
+
 ## Cautions
 
 - The capture on the URL slide states `length 85`, which depends on the path in
