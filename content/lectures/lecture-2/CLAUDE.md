@@ -1,7 +1,7 @@
 # Lecture 2 — HTTP
 
-The largest deck in the repo: 164 slides, 27 vertical stacks, 5 hands-on
-sections. Spans four sessions. Topics (TOC indices): `0` Introduction ·
+The largest deck in the repo: 149 slides, 29 vertical stacks, 7 hands-on
+slides. Spans four sessions. Topics (TOC indices): `0` Introduction ·
 `1` Cookie · `2` Proxy & Cache · `3` Authentication.
 
 ## Standards this deck follows
@@ -54,6 +54,14 @@ traces above TLS, so it cannot make this point. Port 80 shows a readable
 `17 03 03 00 6e` application-data record; the last slide shows the SNI hostname
 in the plaintext ClientHello. If you re-capture, keep all three from **one** pair
 of runs or the story stops lining up.
+
+**HTTP Tools** was a flat slide until Noodle was added; it is now a 4-slide
+stack: the tool list → what Noodle is → a real `example.yml` with the transcript
+of `noodle collection run demo` → the upstream screenshot. The YAML and the
+transcript are a captured run of noodle v0.7.7 against a collection made with
+`noodle collection create demo`, so re-capture both together if either changes.
+`img/noodle.png` is upstream's own screenshot (Apache-2.0, and it shows v0.6.1,
+not the version in the transcript).
 
 ## Cautions
 

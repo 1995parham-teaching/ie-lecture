@@ -1427,13 +1427,73 @@ $ curl -v http://127.0.0.1:8241/hints
   </ul>
 </section>
 <section>
-  <h2>HTTP Tools</h2>
-  <ul>
-    <li><a href="https://curl.se/">cURL</a></li>
-    <li><a href="https://www.postman.com/">Postman</a></li>
-    <li><a href="https://hoppscotch.io/">Hoppscotch</a></li>
-    <li><a href="https://httpie.io/">HTTPie</a></li>
-  </ul>
+  <section>
+    <h2>HTTP Tools</h2>
+    <ul>
+      <li><a href="https://curl.se/">cURL</a></li>
+      <li><a href="https://www.postman.com/">Postman</a></li>
+      <li><a href="https://hoppscotch.io/">Hoppscotch</a></li>
+      <li><a href="https://httpie.io/">HTTPie</a></li>
+      <li><a href="https://noodlerest.dev/">Noodle</a></li>
+    </ul>
+  </section>
+  <section>
+    <h2>Noodle</h2>
+    <ul>
+      <li>
+        a <span class="hl-orange">terminal</span> REST client: no browser, no
+        account, works over <code class="hl-green">ssh</code>
+      </li>
+      <li>
+        a request is a <span class="hl-cyan">YAML file</span> and a collection
+        is a directory, so they live
+        <em class="hl-yellow">next to the code they call</em> and go through git
+        and code review like everything else
+      </li>
+      <li>
+        <span class="hl-violet">environments</span> keep the parts that change
+        per machine &mdash; <code>$base_url</code>, tokens &mdash; out of the
+        request itself
+      </li>
+      <li>
+        imports what you already have:
+        <span class="hl-pink">OpenAPI</span>, Postman, Insomnia
+      </li>
+      <li>
+        the same collections run from the
+        <span class="hl-green">command line</span>, which is what makes them
+        usable in CI
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>A Request is a File</h2>
+    <p><code class="hl-cyan">demo/example.yml</code></p>
+    <pre><code class="lang-yaml">
+name: Example
+method: GET
+url: https://example.com
+timeout: 30000
+followRedirects: true
+maxRedirects: 5
+    </code></pre>
+    <p>and the same file runs <em class="hl-green">without</em> the TUI</p>
+    <pre><code class="lang-sh">
+$ noodle collection run demo
+✓ GET example  200 OK  491.524791ms
+  https://example.com
+
+Summary: 1 passed, 0 failed, 491.524791ms
+    </code></pre>
+  </section>
+  <section>
+    <img
+      style="height: 620px"
+      src="./img/noodle.png"
+      alt="the Noodle TUI: a collection tree on the left, a PATCH request with a
+      JSON body in the middle, and the 200 OK response below it"
+    />
+  </section>
 </section>
 <section>
   <section>
