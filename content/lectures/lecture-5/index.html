@@ -1557,10 +1557,10 @@ const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
     </ul>
     <pre><code class="lang-javascript">
 // before
-const city = user &amp;&amp; user.address &amp;&amp; user.address.city;
+const city1 = user &amp;&amp; user.address &amp;&amp; user.address.city;
 
 // after
-const city = user?.address?.city;
+const city2 = user?.address?.city;
     </code></pre>
   </section>
   <section>
