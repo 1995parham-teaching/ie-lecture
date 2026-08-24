@@ -1,6 +1,6 @@
 # Lecture 2 — HTTP
 
-The largest deck in the repo: 149 slides, 29 vertical stacks, 7 hands-on
+The largest deck in the repo: 156 slides, 31 vertical stacks, 8 hands-on
 slides. Spans four sessions. Topics (TOC indices): `0` Introduction ·
 `1` Cookie · `2` Proxy & Cache · `3` Authentication.
 
@@ -12,6 +12,7 @@ Cite the RFC when you change a claim here — the deck was corrected against the
 - **RFC 6265** — cookies. Browser limits on the slides are 4096 bytes per
   cookie, 50 cookies per domain, 3000 total.
 - **RFC 7231 §6.4** — method rewriting on 3xx.
+- **RFC 10008** — the `QUERY` method.
 
 ## Sections with history
 
@@ -55,6 +56,23 @@ traces above TLS, so it cannot make this point. Port 80 shows a readable
 in the plaintext ClientHello. If you re-capture, keep all three from **one** pair
 of runs or the story stops lining up.
 
+**QUERY** (8 slides, right after the `HTTP Methods (Cont.)` run) is the RFC
+10008 method, published June 2026 — the first new method since `PATCH` (2010).
+The order is deliberate: the problem (`GET` puts the query in the URL, `POST`
+throws away safe/idempotent/cacheable) → why `GET`-with-a-body is not the answer
+(RFC 9110 §9.3.1 gives it no semantics, and it is not in the cache key) → what
+`QUERY` is → the wire → `Content-Location` / `Accept-Query` → hands-on → result.
+
+The transcript is captured against a purpose-built Go server on
+`127.0.0.1:8241`: `QUERY /students` filters a fixed three-student slice on the
+JSON body and answers with `Content-Location` and `Cache-Control: max-age=60`;
+any other method gets 405 plus `Accept-Query: application/json`, which is the
+point of the last slide. `Content-Length: 44` on the wire slide is the real
+length of the JSON body next to it — re-count if you change the filter.
+
+`curl -X QUERY` works on 8.7.1, but `-d` alone would send `POST`, so the `-X` is
+load-bearing here — the opposite of the 3xx slides, where `-X` hides the effect.
+
 **HTTP Tools** was a flat slide until Noodle was added; it is now a 4-slide
 stack: the tool list → what Noodle is → a real `example.yml` with the transcript
 of `noodle collection run demo` → the upstream screenshot. The YAML and the
@@ -71,3 +89,5 @@ not the version in the transcript).
 - Three `height="500px"` / `height="400px"` attributes remain; dimension
   attributes take a bare integer.
 - `diag/reverse-proxy.drawio` is the source for the proxy diagram.
+- The `QUERY` slides claim framework support is thin (Node.js parses it, OpenAPI
+  3.2 documents it). That ages fast — re-check before teaching it.

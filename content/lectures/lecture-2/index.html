@@ -581,7 +581,8 @@ Entity-Body
         <li>
           <code class="hl-green">GET</code>, <code class="hl-green">HEAD</code>,
           <code class="hl-green">OPTIONS</code>,
-          <code class="hl-green">TRACE</code>
+          <code class="hl-green">TRACE</code>,
+          <code class="hl-green">QUERY</code>
         </li>
         <li>
           <code class="hl-red">POST</code> is
@@ -672,7 +673,190 @@ Entity-Body
       <span class="hl-green">OPTIONS</span>: Request the list of supported
       methods by server on the resource
     </li>
+    <li>
+      <span class="hl-green">QUERY</span>: Ask the server to run a query carried
+      in the request body, and answer with the result
+    </li>
+    <ul>
+      <li>The safe, idempotent, cacheable way to search &mdash; RFC 10008</li>
+    </ul>
   </ul>
+</section>
+<section>
+  <section>
+    <h2>Searching Over HTTP</h2>
+    <ul>
+      <li>You want the server to <em>search</em>. Which method?</li>
+      <li>
+        <code class="hl-orange">GET /students?min_gpa=17&amp;term=1404-1</code>
+      </li>
+      <ul>
+        <li>safe, idempotent, cacheable &mdash; everything you want</li>
+        <li>
+          but the query lives in the <strong class="hl-red">URL</strong>: length
+          limits in proxies, and it lands in every access log
+        </li>
+        <li>a nested filter has to be flattened into a query string</li>
+      </ul>
+      <li><code class="hl-orange">POST /students/search</code></li>
+      <ul>
+        <li>the body is free-form, so any filter fits</li>
+        <li>
+          but <code>POST</code> is <strong class="hl-red">not</strong> safe, not
+          idempotent and not cacheable &mdash; you just told every proxy that a
+          read changes the world
+        </li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h2>Why Not <code>GET</code> With a Body?</h2>
+    <ul>
+      <li>
+        <span class="hl-red">RFC 9110 &sect;9.3.1</span>: content on a
+        <code>GET</code> has
+        <strong class="hl-red">no defined semantics</strong>
+      </li>
+      <li>
+        So it is not <em>forbidden</em>, it is
+        <span class="hl-orange">meaningless</span> &mdash; and an intermediary
+        is free to drop the body, or reject the request outright
+      </li>
+      <li>
+        Worse, the body is not part of the
+        <span class="hl-cyan">cache key</span>. Two different searches look like
+        the same <code>GET</code> to a cache, and one gets the other's answer
+      </li>
+    </ul>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>The <code>QUERY</code> Method [RFC 10008]</h2>
+    <ul>
+      <li>
+        June 2026, Proposed Standard &mdash; the first new HTTP method since
+        <code>PATCH</code> in 2010
+      </li>
+      <li>
+        <q
+          >QUERY requests that the target resource process the enclosed content
+          and respond with the result</q
+        >
+      </li>
+      <li>It is exactly the missing corner of the table:</li>
+      <ul>
+        <li>
+          <span class="hl-green">safe</span> &mdash; like <code>GET</code>
+        </li>
+        <li>
+          <span class="hl-green">idempotent</span> &mdash; a proxy may retry it
+        </li>
+        <li><span class="hl-green">cacheable</span></li>
+        <li>
+          and it carries a <span class="hl-cyan">request body</span> &mdash;
+          unlike <code>GET</code>
+        </li>
+      </ul>
+      <li>
+        The <code>Content-Type</code> is
+        <strong class="hl-orange">mandatory</strong>: the server must fail the
+        request without it
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>On the Wire</h2>
+    <pre><code class="language-http">
+QUERY /students HTTP/1.1
+Host: ie.aut.ac.ir
+Content-Type: application/json
+Content-Length: 44
+
+{"course":"ie","term":"1404-1","min_gpa":17}
+    </code></pre>
+    <ul>
+      <li>
+        The request line is the only change: a method name where
+        <code>GET</code> used to be
+      </li>
+      <li>
+        The <span class="hl-cyan">cache key</span> must include the request
+        content and its <code>Content-Type</code> &mdash; that is what makes
+        caching a body-carrying request safe
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Two Headers Worth Knowing</h2>
+    <ul>
+      <li>
+        <span class="hl-orange">Content-Location</span> on the response names a
+        resource holding <em>these</em> results, so the client can come back
+        with a plain <code>GET</code> &mdash; a shareable link for a search
+      </li>
+      <li>
+        <span class="hl-orange">Accept-Query</span> on the response advertises
+        which query formats the resource understands
+      </li>
+      <ul>
+        <li>
+          <code>Accept-Query: application/json</code> &mdash; the
+          <code>Accept</code> of the request direction
+        </li>
+      </ul>
+      <li>
+        <code>Location</code> means something different here: an equivalent URI
+        for the <em>query itself</em>, so it can be repeated with
+        <code>GET</code>
+      </li>
+    </ul>
+  </section>
+  <section class="hands-on">
+    <h2>See It On the Wire</h2>
+    <ul>
+      <li>
+        A Go server on <code>127.0.0.1:8241</code> answering
+        <code>QUERY /students</code>, filtering on the JSON body
+      </li>
+    </ul>
+    <pre><code class="lang-sh">
+curl -i -X QUERY http://127.0.0.1:8241/students \
+  -H 'Content-Type: application/json' \
+  -d '{"course":"ie","term":"1404-1","min_gpa":17}'
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-yellow">-d</code> would imply <code>POST</code>;
+        <code class="hl-yellow">-X QUERY</code> overrides the method and keeps
+        the body
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-http">
+HTTP/1.1 200 OK
+Cache-Control: max-age=60
+Content-Location: /students/results/8f21
+Content-Type: application/json
+Content-Length: 107
+
+{"count":2,"students":[{"gpa":18.4,"id":9731001,...
+    </code></pre>
+    <ul>
+      <li>
+        The same server answers a plain <code>GET /students</code> with
+        <span class="hl-red">405</span> and
+        <code>Accept-Query: application/json</code> &mdash; telling the client
+        <em>how</em> to ask
+      </li>
+      <li>
+        Support is still thin: Node.js parses it, OpenAPI 3.2 can document it,
+        most frameworks cannot route it yet
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>HTTP Responses</h2>
