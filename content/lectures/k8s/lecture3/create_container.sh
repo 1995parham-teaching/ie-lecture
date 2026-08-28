@@ -10,7 +10,7 @@ hostname mohammad
 
 
 mount --bind mycontainers/
-moun --move mycontainers /mycontainers
+mount --move mycontainers /mycontainers
 
 
 #### Pivot root
@@ -18,7 +18,7 @@ cd /mycontainers
 mkdir oldroot
 pivot_root . oldroot/
 umount -a
-unmount -l /oldroot/ # soft removing old mount to clean everything up
+umount -l /oldroot/ # soft removing old mount to clean everything up
 mount -t proc none /proc
 
 
