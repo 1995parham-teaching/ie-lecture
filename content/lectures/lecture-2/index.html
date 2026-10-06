@@ -1695,8 +1695,19 @@ $ curl -v http://127.0.0.1:8241/hints
     </ul>
     <li>or primary domain name</li>
     <ul>
+      <li>Com-Example-Foo</li>
       <li>com.example.foo</li>
-      <li>http://example.com/foo</li>
+    </ul>
+    <li>
+      a field name must be a <code class="hl-cyan">token</code> (RFC 9110): no
+      <code>:</code>, <code>/</code> or spaces, so a URL can never be a header
+      name
+    </li>
+    <ul>
+      <li>
+        dots are valid but <span class="hl-red">nginx</span> drops them by
+        default (<code>ignore_invalid_headers</code>), so prefer hyphens
+      </li>
     </ul>
   </ul>
 </section>
