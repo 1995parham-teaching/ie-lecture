@@ -2145,7 +2145,8 @@ Set-Cookie: session=P4kQ2m9xR7tLv3Nb; Path=/; HttpOnly; Secure; SameSite=Lax
   <section>
     <h2>Why Not Put the Data Itself In?</h2>
     <pre><code class="language-http">
-Set-Cookie: user=parham; role=admin
+Set-Cookie: user=parham
+Set-Cookie: role=admin
     </code></pre>
     <ul>
       <li>
@@ -2259,11 +2260,11 @@ Access-Control-Allow-Credentials: true
     <h2>Cookies Attributes</h2>
     <ul>
       <li>
-        <span class="hl-orange">Expire</span> &amp;
+        <span class="hl-orange">Expires</span> &amp;
         <span class="hl-green">Max-Age</span>: The life time of the cookie
       </li>
       <ul>
-        <li>Expire: An absolute time to delete cookie</li>
+        <li>Expires: An absolute time to delete cookie</li>
         <li>Max-Age: The maximum life time (sec) of cookie</li>
         <li>If either is present, the cookie is persistent</li>
         <li>If neither is, it is a session cookie</li>
@@ -2310,8 +2311,9 @@ Access-Control-Allow-Credentials: true
           <span class="hl-orange">Lax</span>: Cookies are not sent on normal
           cross-site subrequests (for example to load images or frames into a
           third party site), but are sent when a user is navigating to the
-          origin site (i.e. when following a link). This is the
-          <em class="hl-yellow">default</em> in modern browsers.
+          origin site (i.e. when following a link). Chrome and Edge use it as
+          the <em class="hl-yellow">default</em> when SameSite is missing;
+          Firefox and Safari do not, so always set it explicitly.
         </li>
         <li>
           <span class="hl-orange">Strict</span>: Cookies will only be sent in a
@@ -2615,8 +2617,12 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
     <h2>Forward Proxies</h2>
     <ul>
       <li>
-        A forward proxy, or gateway, or just "proxy" provides proxy services to
-        a client or a group of clients.
+        A forward proxy, or just "proxy" provides proxy services to a client or
+        a group of clients.
+      </li>
+      <li>
+        Do not call it a gateway: in RFC 9110 a
+        <span class="hl-green">gateway</span> is a reverse proxy.
       </li>
     </ul>
   </section>
