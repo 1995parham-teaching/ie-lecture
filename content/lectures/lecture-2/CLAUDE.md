@@ -1,6 +1,6 @@
 # Lecture 2 — HTTP
 
-The largest deck in the repo: 156 slides, 31 vertical stacks, 8 hands-on
+The largest deck in the repo: 168 slides, 34 vertical stacks, 9 hands-on
 slides. Spans four sessions. Topics (TOC indices): `0` Introduction ·
 `1` Cookie · `2` Proxy & Cache · `3` Authentication.
 
@@ -81,7 +81,36 @@ transcript are a captured run of noodle v0.7.7 against a collection made with
 `img/noodle.png` is upstream's own screenshot (Apache-2.0, and it shows v0.6.1,
 not the version in the transcript).
 
+**Modernised in October 2026** (cookies, proxy and cache). Additions were put
+at the **end of existing vertical stacks**, or made by turning a flat slide into
+a stack, so that no horizontal index moved — the session notes in the vault
+cite slides by `#/N/M`. Keep it that way: a new horizontal slide shifts every
+later reference. What was added:
+
+- `The Standard Today: RFC 6265bis` (end of the Cookie stack): SameSite,
+  prefixes, the 400-day lifetime cap, 4096 bytes for name + value.
+- `Partitioned Cookies (CHIPS)` under `Third-Party Cookies`, which now says
+  Chrome **kept** third-party cookies (plan dropped in 2024, most of Privacy
+  Sandbox retired October 2025). FedCM on the SSO slide.
+- `CONNECT` tunnelling and TLS inspection on Forward Proxies; TLS termination
+  and CDNs on the reverse-proxy uses; `Who Is the Real Client?` (`Forwarded`,
+  RFC 7239, and `X-Forwarded-For`).
+- RFC 9111 in place of the RFC 2616 "general-header" wording; then, after the
+  staleness diagram: `private` / `public` / `s-maxage` / `Vary`, a recipes table
+  (`immutable`, `stale-while-revalidate`), a cdnjs capture, and an httpbin
+  caching hands-on.
+
+The cdnjs and httpbin transcripts are real captures from 9 October 2026 with
+**selected headers**, and the slides say so. httpbin still runs
+`gunicorn/19.9.0` and sends `ETag: abc` unquoted, which is invalid; the slide
+points that out. GitHub Pages for this site now sits behind Cloudflare, which
+strips the `ETag`, so it cannot be used for a 304 demo.
+
 ## Cautions
+
+- These claims age fast; re-check them each term: 6265bis had **no RFC number**
+  yet (RFC Editor queue, October 2026); Chrome's third-party cookie policy;
+  `Partitioned` support (Chrome 114, Firefox 141, Safari 26.2).
 
 - The capture on the URL slide states `length 85`, which depends on the path in
   it. The path was changed from `/~bakhshis/` to `/~students/` **because both

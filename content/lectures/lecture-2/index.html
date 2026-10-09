@@ -2117,6 +2117,37 @@ socket.close(1000, 'Normal closure');
       </li>
     </ul>
   </section>
+  <section>
+    <h2>The Standard Today: RFC 6265bis</h2>
+    <ul>
+      <li>
+        RFC 6265 is from <span class="hl-orange">2011</span>. Browsers now
+        follow its revision, <span class="hl-green">6265bis</span>, which is
+        approved and waiting for its RFC number (October 2026)
+      </li>
+      <li>What it adds to the 2011 text:</li>
+      <ul>
+        <li>
+          <code class="hl-cyan">SameSite</code>, and <code>Lax</code> as the
+          default when it is missing
+        </li>
+        <li>
+          The <code class="hl-cyan">__Secure-</code> and
+          <code class="hl-cyan">__Host-</code> name prefixes
+        </li>
+        <li>
+          A lifetime cap: an <code>Expires</code> or <code>Max-Age</code> past
+          <strong class="hl-red">400 days</strong> is cut down to 400 days
+          (Chrome enforces it)
+        </li>
+        <li>4096 bytes for the name and the value together</li>
+      </ul>
+      <li>
+        So <q class="hl-yellow">remember me for 10 years</q> no longer exists:
+        refresh the cookie while the user is active instead
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -2519,29 +2550,67 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
   </ul>
 </section>
 <section>
-  <h2>Third-Party Cookies</h2>
-  <ul>
-    <li>
-      A cookie set by a domain <em class="hl-orange">other</em> than the one in
-      the address bar — an ad, a font, an embedded widget
-    </li>
-    <li>
-      That third party sees the same cookie on
-      <strong class="hl-red">every site that embeds it</strong>, which is how
-      cross-site tracking was built
-    </li>
-    <li>
-      Safari and Firefox block them by default. Chrome's plan to remove them has
-      been delayed and rescoped several times — but building anything new on
-      them is building on sand
-    </li>
-    <li>
-      This is the whole reason
-      <code class="hl-cyan">SameSite=None; Secure</code> exists: it is how you
-      <em>opt in</em> to a cross-site cookie, and it is exactly what is going
-      away
-    </li>
-  </ul>
+  <section>
+    <h2>Third-Party Cookies</h2>
+    <ul>
+      <li>
+        A cookie set by a domain <em class="hl-orange">other</em> than the one
+        in the address bar — an ad, a font, an embedded widget
+      </li>
+      <li>
+        That third party sees the same cookie on
+        <strong class="hl-red">every site that embeds it</strong>, which is how
+        cross-site tracking was built
+      </li>
+      <li>
+        Safari and Firefox block or partition them by default. Chrome
+        <span class="hl-orange">gave up</span> removing them: it dropped the
+        plan in 2024 and retired most of Privacy Sandbox in October 2025
+      </li>
+      <li>
+        So they still work in one engine and not in the other two — building
+        anything new on them is building on sand
+      </li>
+      <li>
+        <code class="hl-cyan">SameSite=None; Secure</code> is how you
+        <em>opt in</em> to a cross-site cookie, and on its own it is no longer
+        enough
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Partitioned Cookies (CHIPS)</h2>
+    <pre><code class="language-http">
+Set-Cookie: __Host-chat=7f3a9c; Path=/; Secure; SameSite=None; Partitioned
+    </code></pre>
+    <ul>
+      <li>
+        The browser stores the cookie in a separate jar for
+        <strong class="hl-green">each top-level site</strong>
+      </li>
+      <ul>
+        <li>
+          A chat widget embedded on <code>a.com</code> and on
+          <code>b.com</code> gets two different cookies
+        </li>
+        <li>
+          It keeps its state on each site, but it
+          <span class="hl-red">cannot follow you</span> from one site to the
+          next
+        </li>
+      </ul>
+      <li>
+        <code class="hl-cyan">Partitioned</code> requires
+        <code>Secure</code>
+      </li>
+      <li>
+        Supported in all three engines: Chrome 114, Firefox 141, Safari 26.2
+      </li>
+      <li>
+        This is the modern answer for an embedded widget that needs a cookie
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <h2>CSRF, in One Slide</h2>
@@ -2598,6 +2667,12 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
         >CAS Enterprise Single Sign-On</a
       >, and the OAuth 2.0 / OIDC flows in the Web Security lecture
     </li>
+    <li>
+      Old SSO tricks that read the provider's cookie from inside an iframe are
+      third-party cookies, so Safari and Firefox break them.
+      <span class="hl-green">FedCM</span>, a browser API for federated login,
+      does the hand-off without them
+    </li>
   </ul>
 </section>
 <section>
@@ -2623,6 +2698,24 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
       <li>
         Do not call it a gateway: in RFC 9110 a
         <span class="hl-green">gateway</span> is a reverse proxy.
+      </li>
+      <li>
+        For an <span class="hl-red">HTTPS</span> URL the client asks the proxy
+        for a tunnel, and then speaks TLS through it:
+      </li>
+    </ul>
+    <pre><code class="language-http">
+CONNECT example.com:443 HTTP/1.1
+Host: example.com:443
+    </code></pre>
+    <ul>
+      <li>
+        The proxy sees the <em class="hl-orange">host name</em>, but not the
+        URL, the headers or the body
+      </li>
+      <li>
+        A company proxy that reads HTTPS must install its own root certificate
+        on every laptop (<q>TLS inspection</q>)
       </li>
     </ul>
   </section>
@@ -2662,11 +2755,47 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
           <span class="hl-yellow">Compression</span>: compress and optimize
           content to speed up load time.
         </li>
+        <li>
+          <span class="hl-cyan">TLS termination</span>: the proxy holds the
+          certificate and speaks HTTP/2 or HTTP/3 to browsers, while the
+          application behind it speaks plain HTTP/1.1
+        </li>
       </ul>
+      <li>
+        Nginx, HAProxy, Envoy, Caddy, Traefik — and every
+        <span class="hl-green">CDN</span> (Cloudflare, Fastly) is a reverse
+        proxy spread over the world
+      </li>
     </ul>
   </section>
   <section>
     <img src="./img/reverse-proxy.png" alt="reverse-proxy" />
+  </section>
+  <section>
+    <h2>Who Is the Real Client?</h2>
+    <ul>
+      <li>
+        Behind a reverse proxy, every connection comes from the
+        <em class="hl-orange">proxy's</em> address
+      </li>
+      <li>So the proxy writes the client's address into a header:</li>
+    </ul>
+    <pre><code class="language-http">
+Forwarded: for=192.0.2.60;proto=https;by=203.0.113.43
+X-Forwarded-For: 192.0.2.60
+X-Forwarded-Proto: https
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-green">Forwarded</code> is the standard (RFC 7239);
+        <code>X-Forwarded-*</code> is older and still more common
+      </li>
+      <li>
+        Any client can send these headers too.
+        <strong class="hl-red">Trust them only from your own proxy</strong>, or
+        a rate limit by IP is trivially bypassed
+      </li>
+    </ul>
   </section>
 </section>
 <section>
@@ -2697,6 +2826,11 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
       </li>
       <li>Browser has its own local caches</li>
       <li>Cache server is special proxy for caching</li>
+      <li>
+        Today the shared cache is a
+        <span class="hl-green">CDN</span> or reverse proxy: a forward proxy
+        cannot cache what HTTPS hides from it
+      </li>
       <li>Benefits</li>
       <ul>
         <li>Reduce redundant data transfer</li>
@@ -2729,10 +2863,10 @@ Set-Cookie: __Host-session=P4kQ2m9xR7tLv3Nb; Path=/; Secure; HttpOnly; SameSite=
       </ul>
       <li>Objects life-time specified by server</li>
       <li>
-        The <code class="hl-orange">Cache-Control</code> HTTP/1.1
-        <span class="hl-green">general-header</span> field is used to specify
-        directives for caching mechanisms in
-        <span class="hl-yellow">both requests and responses</span>.
+        The <code class="hl-orange">Cache-Control</code> header carries the
+        caching directives, in
+        <span class="hl-yellow">both requests and responses</span>
+        (<span class="hl-green">RFC 9111</span>, HTTP Caching).
       </li>
     </ul>
   </section>
@@ -2820,6 +2954,134 @@ Cache-Control: no-cache
       style="background-color: white; height: 88vh"
       alt="the life of a cached response: fresh, then stale, then revalidated"
     />
+  </section>
+  <section>
+    <h2>Who May Keep a Copy?</h2>
+    <ul>
+      <li>
+        <code class="hl-orange">private</code>: only the browser. Use it for
+        anything personal — your inbox must not land in a CDN
+      </li>
+      <li>
+        <code class="hl-green">public</code>: shared caches (CDN, proxy) may
+        store it too
+      </li>
+      <li>
+        <code class="hl-cyan">s-maxage</code>: a lifetime for shared caches
+        only; it overrides <code>max-age</code> there
+      </li>
+      <li>
+        <code class="hl-yellow">Vary</code>: which request headers change the
+        response, so the cache keeps one copy per value
+      </li>
+    </ul>
+    <pre><code class="language-http">
+Vary: Accept-Encoding
+    </code></pre>
+    <ul>
+      <li>
+        <code>Expires</code> and <code>Pragma: no-cache</code> are HTTP/1.0
+        leftovers. When <code>max-age</code> is present, it wins
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Cache-Control Recipes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Resource</th>
+          <th>Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CSS/JS with a hash in the name</td>
+          <td><code>public, max-age=31536000, immutable</code></td>
+        </tr>
+        <tr>
+          <td>HTML page</td>
+          <td><code>no-cache</code> (with an ETag)</td>
+        </tr>
+        <tr>
+          <td>Personal API response</td>
+          <td><code>private, no-cache</code></td>
+        </tr>
+        <tr>
+          <td>Bank statement</td>
+          <td><code>no-store</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>
+        <code class="hl-green">immutable</code>: never revalidate, even on
+        reload. A new version gets a new file name
+      </li>
+      <li>
+        <code class="hl-cyan">stale-while-revalidate=60</code>: serve the stale
+        copy now, refresh it in the background (RFC 5861)
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>In the Wild: cdnjs</h2>
+    <pre><code class="lang-sh">
+$ curl -I https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js
+HTTP/2 200
+age: 1309176
+cache-control: no-transform, public, s-maxage=30672000, max-age=30672000, immutable
+last-modified: Thu, 11 Apr 2024 08:33:48 GMT
+vary: Accept-Encoding
+server: cloudflare
+    </code></pre>
+    <ul>
+      <li>Selected headers from a real response</li>
+      <li>
+        The version is in the URL, so the file never changes:
+        <code class="hl-green">immutable</code>, about a year of
+        <code>max-age</code>
+      </li>
+      <li>
+        <code class="hl-orange">age</code>: this copy has been sitting in the
+        CDN for about 15 days
+      </li>
+    </ul>
+  </section>
+  <section class="hands-on">
+    <h2>Caching: Hands on</h2>
+    <ul>
+      <li>A response that may be cached for 60 seconds</li>
+      <li>Then a conditional request with the ETag we already hold</li>
+    </ul>
+    <pre><code class="lang-sh">
+curl -I https://httpbin.org/cache/60
+curl -I https://httpbin.org/etag/abc -H 'If-None-Match: "abc"'
+    </code></pre>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre><code class="lang-http">
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 258
+Cache-Control: public, max-age=60
+    </code></pre>
+    <pre><code class="lang-http">
+HTTP/1.1 304 NOT MODIFIED
+Server: gunicorn/19.9.0
+ETag: abc
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-green">304</code> has <strong>no body</strong>: the
+        server only says <q>your copy is still good</q>
+      </li>
+      <li>
+        Selected headers. httpbin sends the ETag without quotes; the standard
+        form is <code>ETag: "abc"</code>
+      </li>
+    </ul>
   </section>
 </section>
 <section>
