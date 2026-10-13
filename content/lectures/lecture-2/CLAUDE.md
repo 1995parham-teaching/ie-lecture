@@ -1,6 +1,6 @@
 # Lecture 2 — HTTP
 
-The largest deck in the repo: 168 slides, 34 vertical stacks, 9 hands-on
+The largest deck in the repo: 167 slides, 34 vertical stacks, 9 hands-on
 slides. Spans four sessions. Topics (TOC indices): `0` Introduction ·
 `1` Cookie · `2` Proxy & Cache · `3` Authentication.
 
@@ -55,6 +55,13 @@ traces above TLS, so it cannot make this point. Port 80 shows a readable
 `17 03 03 00 6e` application-data record; the last slide shows the SNI hostname
 in the plaintext ClientHello. If you re-capture, keep all three from **one** pair
 of runs or the story stops lining up.
+
+**Base64** (2 slides, inside Authentication) is two hand-written SVGs in
+`img/` — `base64.svg` (`Man` → 24 bits → `TWFu`) and `base64-padding.svg`
+(`Man`/`Ma`/`M` → `TWFu`/`TWE=`/`TQ==`). They replaced three paragraphs of
+prose; keep the explanation in the drawing. The bit values were checked with
+`base64`; if you change the example, re-check every cell. Render with
+`rsvg-convert -b '#2b2b2b'` before and after an edit.
 
 **QUERY** (8 slides, right after the `HTTP Methods (Cont.)` run) is the RFC
 10008 method, published June 2026 — the first new method since `PATCH` (2010).

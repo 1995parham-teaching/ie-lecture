@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>Base64 padding: zero bits, then = characters</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .bit { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 17px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .cell { fill: none; stroke: #5d6573; stroke-width: 1; }
+    .group { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono" x="70" y="50" style="font-size: 24px">"Man"</text>
+  <rect class="cell" x="140" y="35" width="24" height="30" />
+  <text class="bit orange" x="152.0" y="50">0</text>
+  <rect class="cell" x="164" y="35" width="24" height="30" />
+  <text class="bit orange" x="176.0" y="50">1</text>
+  <rect class="cell" x="188" y="35" width="24" height="30" />
+  <text class="bit orange" x="200.0" y="50">0</text>
+  <rect class="cell" x="212" y="35" width="24" height="30" />
+  <text class="bit orange" x="224.0" y="50">0</text>
+  <rect class="cell" x="236" y="35" width="24" height="30" />
+  <text class="bit orange" x="248.0" y="50">1</text>
+  <rect class="cell" x="260" y="35" width="24" height="30" />
+  <text class="bit orange" x="272.0" y="50">1</text>
+  <rect class="cell" x="284" y="35" width="24" height="30" />
+  <text class="bit orange" x="296.0" y="50">0</text>
+  <rect class="cell" x="308" y="35" width="24" height="30" />
+  <text class="bit orange" x="320.0" y="50">1</text>
+  <rect class="cell" x="332" y="35" width="24" height="30" />
+  <text class="bit cyan" x="344.0" y="50">0</text>
+  <rect class="cell" x="356" y="35" width="24" height="30" />
+  <text class="bit cyan" x="368.0" y="50">1</text>
+  <rect class="cell" x="380" y="35" width="24" height="30" />
+  <text class="bit cyan" x="392.0" y="50">1</text>
+  <rect class="cell" x="404" y="35" width="24" height="30" />
+  <text class="bit cyan" x="416.0" y="50">0</text>
+  <rect class="cell" x="428" y="35" width="24" height="30" />
+  <text class="bit cyan" x="440.0" y="50">0</text>
+  <rect class="cell" x="452" y="35" width="24" height="30" />
+  <text class="bit cyan" x="464.0" y="50">0</text>
+  <rect class="cell" x="476" y="35" width="24" height="30" />
+  <text class="bit cyan" x="488.0" y="50">0</text>
+  <rect class="cell" x="500" y="35" width="24" height="30" />
+  <text class="bit cyan" x="512.0" y="50">1</text>
+  <rect class="cell" x="524" y="35" width="24" height="30" />
+  <text class="bit green" x="536.0" y="50">0</text>
+  <rect class="cell" x="548" y="35" width="24" height="30" />
+  <text class="bit green" x="560.0" y="50">1</text>
+  <rect class="cell" x="572" y="35" width="24" height="30" />
+  <text class="bit green" x="584.0" y="50">1</text>
+  <rect class="cell" x="596" y="35" width="24" height="30" />
+  <text class="bit green" x="608.0" y="50">0</text>
+  <rect class="cell" x="620" y="35" width="24" height="30" />
+  <text class="bit green" x="632.0" y="50">1</text>
+  <rect class="cell" x="644" y="35" width="24" height="30" />
+  <text class="bit green" x="656.0" y="50">1</text>
+  <rect class="cell" x="668" y="35" width="24" height="30" />
+  <text class="bit green" x="680.0" y="50">1</text>
+  <rect class="cell" x="692" y="35" width="24" height="30" />
+  <text class="bit green" x="704.0" y="50">0</text>
+  <rect class="group" x="140" y="35" width="144" height="30" />
+  <text class="yellow mono" x="212" y="94" style="font-size: 26px">T</text>
+  <rect class="group" x="284" y="35" width="144" height="30" />
+  <text class="yellow mono" x="356" y="94" style="font-size: 26px">W</text>
+  <rect class="group" x="428" y="35" width="144" height="30" />
+  <text class="yellow mono" x="500" y="94" style="font-size: 26px">F</text>
+  <rect class="group" x="572" y="35" width="144" height="30" />
+  <text class="yellow mono" x="644" y="94" style="font-size: 26px">u</text>
+  <text class="small" x="806" y="50">3 bytes:</text>
+  <text class="small" x="806" y="76">no padding</text>
+  <text class="mono" x="70" y="170" style="font-size: 24px">"Ma"</text>
+  <rect class="cell" x="140" y="155" width="24" height="30" />
+  <text class="bit orange" x="152.0" y="170">0</text>
+  <rect class="cell" x="164" y="155" width="24" height="30" />
+  <text class="bit orange" x="176.0" y="170">1</text>
+  <rect class="cell" x="188" y="155" width="24" height="30" />
+  <text class="bit orange" x="200.0" y="170">0</text>
+  <rect class="cell" x="212" y="155" width="24" height="30" />
+  <text class="bit orange" x="224.0" y="170">0</text>
+  <rect class="cell" x="236" y="155" width="24" height="30" />
+  <text class="bit orange" x="248.0" y="170">1</text>
+  <rect class="cell" x="260" y="155" width="24" height="30" />
+  <text class="bit orange" x="272.0" y="170">1</text>
+  <rect class="cell" x="284" y="155" width="24" height="30" />
+  <text class="bit orange" x="296.0" y="170">0</text>
+  <rect class="cell" x="308" y="155" width="24" height="30" />
+  <text class="bit orange" x="320.0" y="170">1</text>
+  <rect class="cell" x="332" y="155" width="24" height="30" />
+  <text class="bit cyan" x="344.0" y="170">0</text>
+  <rect class="cell" x="356" y="155" width="24" height="30" />
+  <text class="bit cyan" x="368.0" y="170">1</text>
+  <rect class="cell" x="380" y="155" width="24" height="30" />
+  <text class="bit cyan" x="392.0" y="170">1</text>
+  <rect class="cell" x="404" y="155" width="24" height="30" />
+  <text class="bit cyan" x="416.0" y="170">0</text>
+  <rect class="cell" x="428" y="155" width="24" height="30" />
+  <text class="bit cyan" x="440.0" y="170">0</text>
+  <rect class="cell" x="452" y="155" width="24" height="30" />
+  <text class="bit cyan" x="464.0" y="170">0</text>
+  <rect class="cell" x="476" y="155" width="24" height="30" />
+  <text class="bit cyan" x="488.0" y="170">0</text>
+  <rect class="cell" x="500" y="155" width="24" height="30" />
+  <text class="bit cyan" x="512.0" y="170">1</text>
+  <rect class="cell" x="524" y="155" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="536.0" y="170">0</text>
+  <rect class="cell" x="548" y="155" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="560.0" y="170">0</text>
+  <rect class="group" x="140" y="155" width="144" height="30" />
+  <text class="yellow mono" x="212" y="214" style="font-size: 26px">T</text>
+  <rect class="group" x="284" y="155" width="144" height="30" />
+  <text class="yellow mono" x="356" y="214" style="font-size: 26px">W</text>
+  <rect class="group" x="428" y="155" width="144" height="30" />
+  <text class="yellow mono" x="500" y="214" style="font-size: 26px">E</text>
+  <rect class="dash" x="572" y="155" width="144" height="30" />
+  <text class="red mono" x="644" y="214" style="font-size: 26px">=</text>
+  <text class="red" x="806" y="170">+ 2 zero bits</text>
+  <text class="red" x="806" y="196">+ one =</text>
+  <text class="mono" x="70" y="290" style="font-size: 24px">"M"</text>
+  <rect class="cell" x="140" y="275" width="24" height="30" />
+  <text class="bit orange" x="152.0" y="290">0</text>
+  <rect class="cell" x="164" y="275" width="24" height="30" />
+  <text class="bit orange" x="176.0" y="290">1</text>
+  <rect class="cell" x="188" y="275" width="24" height="30" />
+  <text class="bit orange" x="200.0" y="290">0</text>
+  <rect class="cell" x="212" y="275" width="24" height="30" />
+  <text class="bit orange" x="224.0" y="290">0</text>
+  <rect class="cell" x="236" y="275" width="24" height="30" />
+  <text class="bit orange" x="248.0" y="290">1</text>
+  <rect class="cell" x="260" y="275" width="24" height="30" />
+  <text class="bit orange" x="272.0" y="290">1</text>
+  <rect class="cell" x="284" y="275" width="24" height="30" />
+  <text class="bit orange" x="296.0" y="290">0</text>
+  <rect class="cell" x="308" y="275" width="24" height="30" />
+  <text class="bit orange" x="320.0" y="290">1</text>
+  <rect class="cell" x="332" y="275" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="344.0" y="290">0</text>
+  <rect class="cell" x="356" y="275" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="368.0" y="290">0</text>
+  <rect class="cell" x="380" y="275" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="392.0" y="290">0</text>
+  <rect class="cell" x="404" y="275" width="24" height="30" style="stroke: #ff5252" />
+  <text class="bit red" x="416.0" y="290">0</text>
+  <rect class="group" x="140" y="275" width="144" height="30" />
+  <text class="yellow mono" x="212" y="334" style="font-size: 26px">T</text>
+  <rect class="group" x="284" y="275" width="144" height="30" />
+  <text class="yellow mono" x="356" y="334" style="font-size: 26px">Q</text>
+  <rect class="dash" x="428" y="275" width="144" height="30" />
+  <text class="red mono" x="500" y="334" style="font-size: 26px">=</text>
+  <rect class="dash" x="572" y="275" width="144" height="30" />
+  <text class="red mono" x="644" y="334" style="font-size: 26px">=</text>
+  <text class="red" x="806" y="290">+ 4 zero bits</text>
+  <text class="red" x="806" y="316">+ two =</text>
+  <text class="yellow" x="450" y="400">output is always a multiple of 4 characters — at most two =</text>
+</svg>
