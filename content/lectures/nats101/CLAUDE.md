@@ -1,6 +1,6 @@
 # NATS101
 
-An extra deck (`lecture: false`), 53 slides, 10 vertical stacks, 1 hands-on
+An extra deck (`lecture: false`), 52 slides (plus the generated title slide), 10 vertical stacks, 1 hands-on
 section. Follows lecture 9, which introduces messaging patterns and pub/sub.
 
 Arc: history → what it addresses → overview → request/response → queues →
@@ -69,6 +69,6 @@ All checked against a local `nats-server` 2.15.1 (`-js`) with `nats.go`:
 
 - `diag/nats101.xml` is the draw.io source for the PNG diagrams (overview,
   request/reply, queues, HA, slow consumer, ping/pong). Edit it there.
-- The title slide uses `data-background-image="img/background.jpg"` — that file
-  must exist. A sibling deck once referenced a background that had been deleted.
+- The hand-written "Introduction to NATS" title slide (with `img/background.jpg`)
+  was removed: `layouts/lectures/single.html` generates the title slide.
 - Code samples are shell only.
