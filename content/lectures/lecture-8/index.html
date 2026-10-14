@@ -30,15 +30,14 @@ topics:
 </section>
 <section>
   <h2>Typical Web based Application</h2>
-  <p>
-    We need server side active code to perform actions &amp; generate (dynamic)
-    content
-  </p>
-  <img
-    style="height: 25vh"
-    src="./img/typical-server.png"
-    alt="typical-server"
-  />
+  <figure>
+    <img
+      src="./img/web-app-flow.svg"
+      alt='A sequence between browser, server and database. GET / gets 302 Found to /login because there is no session cookie. GET /login gets 200 OK with the form. POST /login with user=ali&amp;pass=s3cret makes the server look up ali in the database and check the password, then answer 303 See Other with Set-Cookie: session=7f3a9c. GET / with that cookie gets 200 OK with Hello, ali. fetch("/api/orders") makes the server query the database and answer 200 OK with JSON. POST /logout gets 303 See Other with Set-Cookie: session=; Max-Age=0.'
+      width="720"
+    />
+    <figcaption>Every answer here is decided by code on the server.</figcaption>
+  </figure>
 </section>
 <section>
   <h2>Common Gateway Interface</h2>
@@ -415,44 +414,14 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
   </p>
 </section>
 <section>
-  <section>
-    <h2>Overview of Server-Side Scripting</h2>
-    <img src="./img/sss.png" alt="sss" />
-  </section>
-  <section>
-    <ol>
-      <li>Web client sends a HTTP request to server</li>
-      <li>
-        Web server determines how to retrieve the requested resource according
-        configuration
-      </li>
-      <ul>
-        <li>.html, .jpg, ... To be retrieve directly</li>
-        <li>.php To be handled by the PHP module</li>
-      </ul>
-      <li>Runtime environment does for example</li>
-      <ul>
-        <li>Parses incoming request, generate outgoing response</li>
-        <li>Interpreting/executing the server-side scripts</li>
-        <li>Maintaining sessions</li>
-      </ul>
-    </ol>
-  </section>
-  <section>
-    <ol start="4">
-      <li>Runtime environment runs the requested script</li>
-      <ul>
-        <li>Identifies the code sections inside HTML</li>
-        <li>Runs the code and grabs the output</li>
-        <li>Provides session &amp; other status information</li>
-        <li>
-          Generated output and HTML are assembled together which is the response
-          to client
-        </li>
-      </ul>
-      <li>The HTTP response is sent to the web client by web server</li>
-    </ol>
-  </section>
+  <h2>Overview of Server-Side Scripting</h2>
+  <figure>
+    <img
+      src="./img/sss.svg"
+      alt='Five steps. 1: the browser sends GET /hello.php?name=ali. 2: the web server picks a handler by the file name: .html and .png files are read from disk and sent as they are, .php files go to the PHP runtime (mod_php inside the server or PHP-FPM beside it). 3: the runtime parses the request into $_GET, $_POST, cookies and the session. 4: it runs the code inside the HTML of hello.php, so &lt;p&gt;Hello, &lt;?= htmlspecialchars($_GET["name"]) ?&gt;&lt;/p&gt; becomes &lt;p&gt;Hello, ali&lt;/p&gt;. 5: only that output goes back to the browser as 200 OK.'
+      width="800"
+    />
+  </figure>
 </section>
 <section>
   <h2>Embed vs. External Server Side Code</h2>

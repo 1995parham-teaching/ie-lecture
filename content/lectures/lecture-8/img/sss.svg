@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>Server-side scripting: the web server sends static files as they are and hands .php files to the PHP runtime, which runs the code in the page and returns only its output</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .code { fill: rgba(0, 0, 0, 0.25); stroke: #8d97a8; stroke-width: 1.5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .step { fill: #ff9100; }
+    .stepn { font-size: 15px; font-weight: bold; fill: #2b2b2b; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- browser -->
+  <rect class="box" x="330" y="10" width="240" height="44" rx="6" />
+  <text x="450" y="32">Browser</text>
+
+  <!-- 1: request, 5: response -->
+  <path class="line" d="M400,56 L400,124" />
+  <circle class="step" cx="380" cy="90" r="12" />
+  <text class="stepn" x="380" y="91">1</text>
+  <text class="mono" x="362" y="90" style="text-anchor: end"><tspan class="cyan">GET</tspan> /hello.php?<tspan class="yellow">name</tspan>=<tspan class="green">ali</tspan></text>
+
+  <path class="line" d="M500,124 L500,56" />
+  <circle class="step" cx="520" cy="90" r="12" />
+  <text class="stepn" x="520" y="91">5</text>
+  <text class="mono" x="538" y="90" style="text-anchor: start"><tspan class="green">200 OK</tspan>&#160; &lt;p&gt;Hello, ali&lt;/p&gt;</text>
+
+  <!-- web server -->
+  <rect class="box" x="300" y="126" width="300" height="70" rx="6" />
+  <text x="450" y="150">Web server</text>
+  <text class="small" x="450" y="178">picks a handler by the file name</text>
+  <circle class="step" cx="300" cy="126" r="12" />
+  <text class="stepn" x="300" y="127">2</text>
+
+  <!-- static branch -->
+  <path class="line" d="M340,198 L190,296" />
+  <text class="mono" x="248" y="236" style="text-anchor: end">*.html *.png</text>
+  <rect class="box" x="20" y="298" width="300" height="130" rx="6" />
+  <text x="170" y="324">Static files</text>
+  <text class="mono" x="170" y="362">index.html&#160; logo.png</text>
+  <text class="small" x="170" y="398">read from disk, sent as they are</text>
+
+  <!-- script branch -->
+  <path class="line" d="M520,198 L520,256" />
+  <text class="mono" x="508" y="228" style="text-anchor: end">*.php</text>
+  <path class="line" d="M700,256 L603,182" />
+  <text class="small" x="680" y="210" style="text-anchor: start">only the output</text>
+
+  <rect class="box" x="360" y="258" width="520" height="232" rx="6" />
+  <text x="620" y="282">PHP runtime</text>
+  <text class="small" x="620" y="306">mod_php inside the server, or PHP-FPM beside it</text>
+
+  <circle class="step" cx="384" cy="340" r="12" />
+  <text class="stepn" x="384" y="341">3</text>
+  <text class="label" x="404" y="340">parses the request: <tspan class="mono" style="fill: #eeeeee">$_GET</tspan>, <tspan class="mono" style="fill: #eeeeee">$_POST</tspan>, cookies, session</text>
+
+  <circle class="step" cx="384" cy="374" r="12" />
+  <text class="stepn" x="384" y="375">4</text>
+  <text class="label" x="404" y="374">runs the code inside the HTML of <tspan class="mono" style="fill: #eeeeee">hello.php</tspan></text>
+
+  <rect class="code" x="380" y="392" width="480" height="84" rx="4" />
+  <text class="mono" x="392" y="410" style="text-anchor: start">&lt;p&gt;Hello, <tspan class="orange">&lt;?= htmlspecialchars($_GET["name"]) ?&gt;</tspan>&lt;/p&gt;</text>
+  <text class="small" x="620" y="434">↓ the HTML is copied, the code is replaced by its output</text>
+  <text class="mono" x="392" y="458" style="text-anchor: start">&lt;p&gt;Hello, <tspan class="green">ali</tspan>&lt;/p&gt;</text>
+
+  <text class="label" x="20" y="470" style="font-size: 13px">Same idea: JSP, ASP.NET, mod_perl</text>
+</svg>
