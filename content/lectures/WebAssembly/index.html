@@ -63,3 +63,21 @@ $ bin/wat2wasm test.wat -o test.wasm
 $ bin/wat2wasm spec-test.wast -v
 	</code></pre>
 </section>
+
+<section>
+  <h2>From .wat to the Page</h2>
+  <img
+    src="./img/wasm-pipeline.svg"
+    alt="Ahead of time, wat2wasm turns addTwoNum.wat into the 41-byte addTwoNum.wasm. In the browser, fetch, then arrayBuffer, then WebAssembly.instantiate return a module and an instance, and instance.exports.add(14, 5) returns 19"
+    width="820"
+  />
+</section>
+
+<section>
+  <h2>Inside addTwoNum.wasm</h2>
+  <img
+    src="./img/wasm-bytes.svg"
+    alt="The 41 bytes of addTwoNum.wasm: an 8-byte header with the asm magic number and version 1, then the type, function, export and code sections, each starting with its id and size. The export section names add; the code section holds local.get 0, local.get 1, i32.add, end"
+    width="840"
+  />
+</section>

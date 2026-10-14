@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>The 41 bytes of addTwoNum.wasm, section by section</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 17px; fill: #eeeeee; dominant-baseline: middle; }
+    .sec { font-weight: bold; }
+    .note { font-size: 15px; fill: #b0b4bc; }
+    .head { font-size: 15px; fill: #b0b4bc; }
+    .hex { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 18px; }
+    .ins { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #b0b4bc; }
+    .row { fill: rgba(255, 255, 255, 0.05); stroke: #cfd3da; stroke-width: 1.5; }
+    .tick { stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .yellow { fill: #ffcc00; } .violet { fill: #ee82ee; } .pink { fill: #ff4081; } .grey { fill: #8d97a8; }
+  </style>
+
+  <text class="head" x="30" y="20">section</text>
+  <text class="head" x="210" y="20">bytes (hex) — <tspan class="grey">grey: section id, then its size</tspan></text>
+  <text class="head" x="640" y="20">meaning</text>
+
+  <!-- header -->
+  <rect class="row" x="20" y="38" width="860" height="52" rx="6" />
+  <text class="sec grey" x="30" y="64">header</text>
+  <text class="hex" x="210" y="64"><tspan class="yellow">00 61 73 6d</tspan>  <tspan class="yellow">01 00 00 00</tspan></text>
+  <text class="note" x="640" y="54">"\0asm" magic number</text>
+  <text class="note" x="640" y="76">version 1</text>
+
+  <!-- type -->
+  <rect class="row" x="20" y="100" width="860" height="52" rx="6" />
+  <text class="sec cyan" x="30" y="126">type (1)</text>
+  <text class="hex" x="210" y="126"><tspan class="grey">01 07</tspan> 01 60 02 7f 7f 01 7f</text>
+  <text class="note" x="640" y="116">one func type:</text>
+  <text class="note" x="640" y="138">(i32, i32) → i32</text>
+
+  <!-- function -->
+  <rect class="row" x="20" y="162" width="860" height="52" rx="6" />
+  <text class="sec green" x="30" y="188">function (3)</text>
+  <text class="hex" x="210" y="188"><tspan class="grey">03 02</tspan> 01 00</text>
+  <text class="note" x="640" y="178">one function,</text>
+  <text class="note" x="640" y="200">its signature is type 0</text>
+
+  <!-- export -->
+  <rect class="row" x="20" y="224" width="860" height="52" rx="6" />
+  <text class="sec orange" x="30" y="250">export (7)</text>
+  <text class="hex" x="210" y="250"><tspan class="grey">07 07</tspan> 01 03 <tspan class="orange">61 64 64</tspan> 00 00</text>
+  <text class="note" x="640" y="240">name <tspan class="orange">"add"</tspan> (3 bytes)</text>
+  <text class="note" x="640" y="262">→ function 0</text>
+
+  <!-- code -->
+  <rect class="row" x="20" y="286" width="860" height="74" rx="6" />
+  <text class="sec violet" x="30" y="323">code (10)</text>
+  <text class="hex" x="210" y="323"><tspan class="grey">0a 09</tspan> 01 07 00 <tspan class="pink">20 00 20 01 6a 0b</tspan></text>
+  <text class="note" x="640" y="302">7-byte body, no locals:</text>
+  <text class="ins pink" x="640" y="324">local.get 0, local.get 1,</text>
+  <text class="ins pink" x="640" y="344">i32.add, end</text>
+
+  <text class="note" x="20" y="384">8 + 9 + 4 + 9 + 11 = 41 bytes. Exactly what <tspan class="cyan">wat2wasm -v</tspan> prints for addTwoNum.wat.</text>
+</svg>

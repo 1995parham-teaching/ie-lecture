@@ -2,7 +2,7 @@
 
 An extra deck (`lecture: false`) and mostly a **PDF wrapper**: 5 slides framing
 `slides.pdf` (embedded with `data-background-iframe`), plus three slides on the
-`wabt` toolchain and `wat2wasm`.
+`wabt` toolchain and `wat2wasm` and two diagram slides.
 
 By **Mohammad Hashemi** and **Narges N.**, originally presented at Shahid
 Beheshti University.
@@ -31,3 +31,20 @@ own `width="296px"`-style attributes and other artifacts of the generator.
   written.
 - WebAssembly is also on lecture 42's suggested-presentation list. If a student
   picks it, this deck is the existing baseline.
+
+## Diagrams
+
+Hand-written SVGs in `img/`, no draw.io source, for the files in `wat2wasm/`:
+
+| File                | Slide                 |
+| ------------------- | --------------------- |
+| `wasm-pipeline.svg` | From .wat to the Page |
+| `wasm-bytes.svg`    | Inside addTwoNum.wasm |
+
+- `wasm-bytes.svg` is the `wat2wasm -v` byte log for `addTwoNum.wat` (wabt
+  1.0.39, npm `wabt`). Its output is byte-identical to the committed
+  `addTwoNum.wasm`, 41 bytes.
+- `wasm-pipeline.svg` follows `hello-WebAssembly.js`. Node 20's
+  `WebAssembly.instantiate` on the committed file returns `{ module, instance }`
+  and `instance.exports.add(14, 5)` returns 19.
+- If `addTwoNum.wat` changes, rebuild it and redraw both.
