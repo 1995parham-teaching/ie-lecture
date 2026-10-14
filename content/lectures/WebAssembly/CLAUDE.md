@@ -32,6 +32,22 @@ own `width="296px"`-style attributes and other artifacts of the generator.
 - WebAssembly is also on lecture 42's suggested-presentation list. If a student
   picks it, this deck is the existing baseline.
 
+## The wat2wasm demo
+
+`wat2wasm/index.html` loads `hello-WebAssembly.js`, which fetches
+`addTwoNum.wasm` and prints `add(14, 5)`. `fetch()` refuses `file://` URLs, so
+the folder has to be served over HTTP; the "Run It in the Browser" slide says
+so and shows a captured `python3 -m http.server` run (Python 3.11, headless
+Chrome as the client). Hugo does not publish `wat2wasm/index.html` (it treats
+the `.html` as content), so the slide links to the folder on GitHub rather than
+to the deployed site.
+
+The fetch chain checks `response.ok` and ends in a `.catch` that prints the
+failure on the page. Verified in headless Chrome: over HTTP the page reads
+`Addition result: 19`; from `file://` it prints `TypeError: Failed to fetch`
+plus the hint to serve the folder; with the `.wasm` missing it prints
+`Error: 404 File not found.`
+
 ## Diagrams
 
 Hand-written SVGs in `img/`, no draw.io source, for the files in `wat2wasm/`:

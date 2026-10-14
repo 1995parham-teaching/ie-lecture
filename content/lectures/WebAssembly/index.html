@@ -74,6 +74,30 @@ $ bin/wat2wasm spec-test.wast -v
 </section>
 
 <section>
+  <h2>Run It in the Browser</h2>
+  <p>
+    <code>fetch()</code> cannot read <code>file://</code> URLs, so opening
+    <code>index.html</code> from disk only prints an error. Serve
+    <a
+      href="https://github.com/1995parham-teaching/ie-lecture/tree/main/content/lectures/WebAssembly/wat2wasm"
+      >wat2wasm/</a
+    >
+    over HTTP instead:
+  </p>
+  <pre><code class="lang-shell">$ cd wat2wasm
+$ python3 -m http.server
+Serving HTTP on :: port 8000 (http://[::]:8000/) ...
+::1 - - [14/Oct/2026 06:31:21] "GET / HTTP/1.1" 200 -
+::1 - - [14/Oct/2026 06:31:21] "GET /style.css HTTP/1.1" 200 -
+::1 - - [14/Oct/2026 06:31:21] "GET /hello-WebAssembly.js HTTP/1.1" 200 -
+::1 - - [14/Oct/2026 06:31:21] "GET /addTwoNum.wasm HTTP/1.1" 200 -</code></pre>
+  <p>
+    Open <code>http://localhost:8000/</code>: the page reads
+    <em>Addition result: 19</em>.
+  </p>
+</section>
+
+<section>
   <h2>Inside addTwoNum.wasm</h2>
   <img
     src="./img/wasm-bytes.svg"
