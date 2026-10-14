@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>Concatenation lets the user's quote end the string so their text becomes SQL; a prepared statement sends the query and the value in separate messages</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 20px; text-anchor: start; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 17px; text-anchor: start; white-space: pre; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .msg { fill: rgba(0, 229, 255, 0.08); stroke: #00e5ff; stroke-width: 2; }
+    .val { fill: rgba(255, 82, 82, 0.10); stroke: #ff5252; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+  </defs>
+
+  <!-- concatenation -->
+  <text class="head" x="20" y="20">Concatenation: <tspan class="small">one string, one parser</tspan></text>
+  <rect class="box" x="20" y="40" width="860" height="44" rx="5" />
+  <text class="mono" x="36" y="63"><tspan class="cyan">SELECT id FROM users WHERE name = '</tspan><tspan class="red">' OR '1'='1</tspan><tspan class="cyan">'</tspan></text>
+  <text class="label" x="36" y="104"><tspan class="cyan">your code</tspan> and <tspan class="red">the user's name</tspan> arrive as one string; the parser reads it as:</text>
+
+  <text class="mono cyan" x="36" y="146">name = ''</text>
+  <text class="mono red" x="180" y="146">OR</text>
+  <text class="mono red" x="262" y="146">'1'='1'</text>
+  <path class="brace" d="M36,164 L36,172 L128,172 L128,164" />
+  <path class="brace" d="M180,164 L180,172 L201,172 L201,164" />
+  <path class="brace" d="M262,164 L262,172 L334,172 L334,164" />
+  <text class="small" x="82" y="192">empty string</text>
+  <text class="small" x="190" y="192">SQL now</text>
+  <text class="small" x="298" y="192">always true</text>
+  <path class="line" d="M400,146 L470,146" />
+  <rect class="val" x="480" y="124" width="400" height="44" rx="5" />
+  <text class="red" x="680" y="147">2 rows: every user matches</text>
+
+  <!-- prepared statement -->
+  <text class="head" x="20" y="250">Prepared statement: <tspan class="small">two messages on the wire</tspan></text>
+  <rect class="msg" x="20" y="272" width="560" height="58" rx="5" />
+  <text class="label" x="34" y="288" style="font-size: 13px">Parse — the code, with a hole</text>
+  <text class="mono" x="34" y="312"><tspan class="cyan">SELECT id FROM users WHERE name =</tspan><tspan class="yellow" dx="10">$1</tspan></text>
+  <rect class="val" x="20" y="344" width="560" height="58" rx="5" />
+  <text class="label" x="34" y="360" style="font-size: 13px">Bind — the data, as one value</text>
+  <text class="mono" x="34" y="384"><tspan class="yellow">$1</tspan> = <tspan class="red">' OR '1'='1</tspan></text>
+
+  <path class="line" d="M590,337 L640,337" />
+  <rect class="box" x="650" y="312" width="230" height="50" rx="5" />
+  <text class="green" x="765" y="337">0 rows</text>
+  <text class="small" x="765" y="384">no user has that odd name</text>
+  <text class="small" x="765" y="406">the value is never parsed</text>
+
+  <text class="small" x="450" y="458" style="font-size: 13px; fill: #8d97a8">Both run against PostgreSQL 17 (users alice and bob). The server log shows the query with $1 and the parameter separately.</text>
+</svg>

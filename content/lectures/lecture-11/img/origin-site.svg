@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>An origin is scheme, host and port; a site is scheme and registrable domain. Six URLs compared with https://bank.example</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .th { font-size: 15px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; text-anchor: start; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .row { fill: rgba(255, 255, 255, 0.04); }
+    .sep { stroke: #555a63; stroke-width: 1; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- anatomy -->
+  <text class="mono" x="170" y="30" style="font-size: 22px"><tspan class="cyan">https</tspan><tspan class="grey">://</tspan><tspan class="orange">api.</tspan><tspan class="green">bank.example</tspan><tspan class="grey">:</tspan><tspan class="violet">443</tspan><tspan class="grey">/account?id=7</tspan></text>
+  <!-- char width ~13.2px at 22px Menlo -->
+  <path class="brace" d="M170,48 L170,56 L236,56 L236,48" />
+  <text class="cyan" x="203" y="74" style="font-size: 15px">scheme</text>
+  <path class="brace" d="M276,48 L276,56 L500,56 L500,48" />
+  <text class="small" x="388" y="74">host</text>
+  <path class="brace" d="M328,84 L328,92 L500,92 L500,84" />
+  <text class="green" x="414" y="108" style="font-size: 15px">registrable domain</text>
+  <path class="brace" d="M513,48 L513,56 L553,56 L553,48" />
+  <text class="violet" x="533" y="74" style="font-size: 15px">port</text>
+
+  <text class="small" x="450" y="140"><tspan class="yellow">origin</tspan> = scheme + host + port <tspan class="grey">— the same-origin policy, CORS</tspan></text>
+  <text class="small" x="450" y="164"><tspan class="yellow">site</tspan> = scheme + registrable domain <tspan class="grey">— SameSite cookies</tspan></text>
+
+  <!-- table -->
+  <text class="th" x="30" y="206" style="text-anchor: start">compared with <tspan class="mono" style="font-size: 15px">https://bank.example</tspan></text>
+  <text class="th" x="640" y="206">same origin?</text>
+  <text class="th" x="790" y="206">same site?</text>
+  <line class="sep" x1="20" y1="222" x2="880" y2="222" />
+
+  <rect class="row" x="20" y="226" width="860" height="36" />
+  <text class="mono" x="30" y="244">https://bank.example<tspan class="grey">/transfer</tspan></text>
+  <text class="green" x="640" y="244">yes</text>
+  <text class="green" x="790" y="244">yes</text>
+
+  <text class="mono" x="30" y="280"><tspan class="red">http</tspan>://bank.example</text>
+  <text class="red" x="640" y="280">no</text>
+  <text class="red" x="790" y="280">no</text>
+
+  <rect class="row" x="20" y="298" width="860" height="36" />
+  <text class="mono" x="30" y="316">https://bank.example<tspan class="red">:8443</tspan></text>
+  <text class="red" x="640" y="316">no</text>
+  <text class="green" x="790" y="316">yes</text>
+
+  <text class="mono" x="30" y="352">https://<tspan class="red">api.</tspan>bank.example</text>
+  <text class="red" x="640" y="352">no</text>
+  <text class="green" x="790" y="352">yes</text>
+
+  <rect class="row" x="20" y="370" width="860" height="36" />
+  <text class="mono" x="30" y="388">https://<tspan class="red">evil.example</tspan></text>
+  <text class="red" x="640" y="388">no</text>
+  <text class="red" x="790" y="388">no</text>
+
+  <line class="sep" x1="20" y1="414" x2="880" y2="414" />
+  <text class="mono" x="30" y="440">https://alice.github.io <tspan class="grey">vs</tspan> https://bob.github.io</text>
+  <text class="red" x="640" y="440">no</text>
+  <text class="red" x="790" y="440">no</text>
+  <text class="small" x="30" y="462" style="text-anchor: start; font-size: 13px">github.io is on the Public Suffix List, so each user's subdomain is its own site</text>
+</svg>

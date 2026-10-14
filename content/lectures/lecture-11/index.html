@@ -17,26 +17,36 @@ topics:
   <div class="toc" data-selected="0"></div>
 </section>
 <section>
-  <h2>Why Security?</h2>
-  <ul>
-    <li>
-      A web application is a program that runs
-      <strong class="hl-red">arbitrary input from strangers</strong>
-    </li>
-    <li>Everything the client sends is under the attacker's control</li>
+  <section>
+    <h2>Why Security?</h2>
     <ul>
-      <li>Query parameters, headers, cookies, request body</li>
       <li>
-        Even the fields your own form generated: the browser is
-        <em class="hl-orange">not</em> a trusted environment
+        A web application is a program that runs
+        <strong class="hl-red">arbitrary input from strangers</strong>
+      </li>
+      <li>Everything the client sends is under the attacker's control</li>
+      <ul>
+        <li>Query parameters, headers, cookies, request body</li>
+        <li>
+          Even the fields your own form generated: the browser is
+          <em class="hl-orange">not</em> a trusted environment
+        </li>
+      </ul>
+      <li>
+        The <span class="hl-green">same-origin policy</span> and
+        <span class="hl-cyan">CORS</span> protect the <strong>browser</strong>,
+        not your server
       </li>
     </ul>
-    <li>
-      The <span class="hl-green">same-origin policy</span> and
-      <span class="hl-cyan">CORS</span> protect the <strong>browser</strong>,
-      not your server
-    </li>
-  </ul>
+  </section>
+  <section>
+    <h2>Origin and Site</h2>
+    <img
+      src="./img/origin-site.svg"
+      alt="The URL https://api.bank.example:443/account split into scheme, host, registrable domain and port. An origin is scheme, host and port, used by the same-origin policy and CORS; a site is scheme and registrable domain, used by SameSite cookies. Compared with https://bank.example: /transfer is same origin and same site; http is neither; port 8443 and api.bank.example are cross-origin but same site; evil.example is neither; alice.github.io and bob.github.io are neither, because github.io is on the Public Suffix List"
+      width="880"
+    />
+  </section>
 </section>
 <section>
   <h2>The Golden Rule</h2>
@@ -96,21 +106,16 @@ SELECT id FROM users WHERE name = '' OR '1'='1'
     <pre><code class="lang-go">
 row := db.QueryRow("SELECT id FROM users WHERE name = $1", name)
     </code></pre>
-    <ul>
-      <li>
-        The query is sent to the server <em class="hl-green">once</em>, with
-        holes in it, and the values are sent
-        <strong class="hl-green">separately</strong>
-      </li>
-      <li>
-        The value can never become SQL, whatever characters it contains, so
-        there is nothing to escape
-      </li>
-      <li>
-        This is not about quoting quotes: it is a different
-        <span class="hl-cyan">protocol-level</span> mechanism
-      </li>
-    </ul>
+    <p>
+      Not quoting: the value travels in a
+      <span class="hl-cyan">separate protocol message</span>, so it is never
+      parsed as SQL.
+    </p>
+    <img
+      src="./img/sql-injection.svg"
+      alt="Top: concatenation sends one string, SELECT id FROM users WHERE name = '' OR '1'='1', which the parser reads as an empty string, OR, and an always-true comparison: 2 rows, every user. Bottom: a prepared statement sends a Parse message with the query and $1, and a Bind message with the whole value as one parameter: 0 rows"
+      width="780"
+    />
   </section>
   <section>
     <h2>Not Only SQL</h2>
@@ -154,6 +159,14 @@ element.innerHTML = "&lt;p&gt;" + comment + "&lt;/p&gt;";
       >
       now runs in <em>every visitor's</em> session.
     </p>
+  </section>
+  <section>
+    <h2>Stored XSS, Step by Step</h2>
+    <img
+      src="./img/xss-stored.svg"
+      alt="1, the attacker posts a comment containing an img tag with src=x and an onerror that fetches evil with document.cookie. 2, the site stores it as-is. 3, every visitor gets the page with its comments. 4, the browser sets innerHTML, creates the img, the load fails and onerror runs as site.example. 5, the visitor's non-HttpOnly cookies are sent to evil. A script tag inserted with innerHTML never runs; textContent shows the same text and runs nothing"
+      width="880"
+    />
   </section>
   <section>
     <h2>Why It Matters</h2>
@@ -256,6 +269,14 @@ Content-Security-Policy: default-src 'self'
     </code></pre>
   </section>
   <section>
+    <h2>The Forged Request</h2>
+    <img
+      src="./img/csrf.svg"
+      alt="1, the victim logged in to bank.example earlier and holds a session cookie. 2, they open a page on evil.example with a hidden self-submitting form. 3, the browser sends POST /transfer to bank.example with Origin https://evil.example and Sec-Fetch-Site cross-site; the cookie goes along only if it is SameSite=None. 4, the 200 OK response is not readable by evil.example, but the transfer has already happened. With SameSite=Lax or Strict, no cookie is sent and the bank sees an anonymous request"
+      width="880"
+    />
+  </section>
+  <section>
     <h2>Read Versus Write</h2>
     <ul>
       <li>
@@ -320,21 +341,17 @@ Set-Cookie: session=...; HttpOnly; Secure; SameSite=Lax
   </section>
   <section>
     <h2>Storing Passwords</h2>
-    <ul>
-      <li>Never store them. Store a <span class="hl-green">hash</span></li>
-      <li>
-        Not SHA-256:
-        <strong class="hl-red">fast hashes are the problem</strong>, a GPU tries
-        billions per second
-      </li>
-      <li>
-        Use a password hash designed to be slow and memory-hard:
-        <span class="hl-yellow">argon2id</span>,
-        <span class="hl-yellow">scrypt</span>, or
-        <span class="hl-yellow">bcrypt</span>
-      </li>
-      <li>They salt each password for you, so identical passwords differ</li>
-    </ul>
+    <p>
+      Store a <span class="hl-green">slow, salted hash</span>:
+      <span class="hl-yellow">argon2id</span>, scrypt, or bcrypt. Never the
+      password, and <strong class="hl-red">never a fast hash</strong> such as
+      SHA-256.
+    </p>
+    <img
+      src="./img/password-hashing.svg"
+      alt="Sign up: the password and 16 random salt bytes go into argon2id with 19 MiB, 2 passes and 1 lane, and one string is stored: algorithm, version, cost, salt and hash. The same password hashed twice gives two different strings. Log in: read the cost and salt from the stored string, run argon2id on the typed password, compare in constant time. On one CPU core, SHA-256 manages over 10 million guesses per second and argon2id about 60"
+      width="820"
+    />
   </section>
   <section>
     <h2>Sessions and Tokens</h2>
@@ -363,6 +380,14 @@ header.payload.signature   # three base64url parts, separated by dots
     </code></pre>
   </section>
   <section>
+    <h2>Inside a JWT</h2>
+    <img
+      src="./img/jwt.svg"
+      alt="A real HS256 token split into its three parts. The header decodes to alg HS256, typ JWT, with no key needed. The payload decodes to sub 42, name Alice, exp 1800000000, readable by anyone. The signature is HMAC-SHA256 of header dot payload with a secret only the server knows; change one character and it no longer matches"
+      width="880"
+    />
+  </section>
+  <section>
     <h2>OAuth 2.0</h2>
     <ul>
       <li>
@@ -382,24 +407,11 @@ header.payload.signature   # three base64url parts, separated by dots
   </section>
   <section>
     <h2>Authorization Code Flow</h2>
-    <ul>
-      <li>The client redirects the user to the authorization server</li>
-      <li>The user authenticates <em>there</em>, and approves the scopes</li>
-      <li>
-        The browser comes back with a short-lived
-        <span class="hl-yellow">code</span>
-      </li>
-      <li>
-        The client exchanges that code for a token
-        <strong class="hl-green">from its back-end</strong>, so the token never
-        touches the URL bar
-      </li>
-      <li>
-        Public clients (SPA, mobile) add
-        <span class="hl-cyan">PKCE</span>, which binds the code to whoever
-        started the flow
-      </li>
-    </ul>
+    <img
+      src="./img/oauth-code-flow.svg"
+      alt="1, the client redirects the browser to the authorization server with response_type=code, client_id, state, redirect_uri, scope and a PKCE code_challenge. 2, the user logs in and consents there. 3, the authorization server redirects back to the client with a short-lived code and the state, which the client checks. 4, over the back channel the client posts the code and the code_verifier to /token and receives an access token and a refresh token. 5, the client calls the API with Authorization: Bearer"
+      width="860"
+    />
   </section>
   <section>
     <h2>OpenID Connect</h2>
@@ -444,6 +456,14 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
     </code></pre>
   </section>
   <section>
+    <h2>The TLS 1.3 Handshake</h2>
+    <img
+      src="./img/tls13-handshake.svg"
+      alt="The client sends ClientHello with key_share and signature_algorithms. The server answers with ServerHello and key_share, and both derive handshake keys. Then, encrypted: EncryptedExtensions, Certificate, CertificateVerify, Finished, and possibly application data. The client sends its encrypted Finished, then application data such as GET /. One round trip; in TLS 1.2 the certificate went in clear and a full handshake took two"
+      width="860"
+    />
+  </section>
+  <section>
     <h2>Useful Response Headers</h2>
     <ul>
       <li>
@@ -464,6 +484,14 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
         to third parties
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>Clickjacking</h2>
+    <img
+      src="./img/clickjacking.svg"
+      alt="An invisible iframe of bank.example with a Delete account button sits exactly over the Claim it button on a prize page from evil.example, so the user's click lands on the bank. Defence: Content-Security-Policy frame-ancestors 'none', or X-Frame-Options DENY, so the browser will not render the page in another site's frame"
+      width="880"
+    />
   </section>
   <section>
     <h2>Rules of Thumb</h2>

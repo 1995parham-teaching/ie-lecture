@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540">
+  <title>OAuth 2.0 authorization code flow with PKCE: the code travels through the browser, the token is fetched by the client's back-end</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 13px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .actor { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .as { fill: rgba(238, 130, 238, 0.10); stroke: #ee82ee; stroke-width: 2; }
+    .rs { fill: rgba(118, 255, 3, 0.08); stroke: #76ff03; stroke-width: 2; }
+    .cl { fill: rgba(0, 229, 255, 0.08); stroke: #00e5ff; stroke-width: 2; }
+    .label, .mono { paint-order: stroke; stroke: #2b2b2b; stroke-width: 5px; stroke-linejoin: round; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 4 5; }
+    .front { fill: none; stroke: #ff9100; stroke-width: 2; marker-end: url(#oa); }
+    .back { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#ga); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="oa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff9100" /></marker>
+    <marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <rect class="actor" x="20" y="8" width="160" height="50" rx="6" />
+  <text x="100" y="26">browser</text><text class="small" x="100" y="46" style="font-size: 13px">resource owner</text>
+  <rect class="cl" x="250" y="8" width="160" height="50" rx="6" />
+  <text class="cyan" x="330" y="26">client app</text><text class="small" x="330" y="46" style="font-size: 13px">its back-end</text>
+  <rect class="as" x="490" y="8" width="180" height="50" rx="6" />
+  <text class="violet" x="580" y="26">authorization</text><text class="small" x="580" y="46" style="font-size: 13px">server</text>
+  <rect class="rs" x="740" y="8" width="140" height="50" rx="6" />
+  <text class="green" x="810" y="26">resource</text><text class="small" x="810" y="46" style="font-size: 13px">server (API)</text>
+  <path class="life" d="M100,60 L100,470" />
+  <path class="life" d="M330,60 L330,470" />
+  <path class="life" d="M580,60 L580,470" />
+  <path class="life" d="M810,60 L810,470" />
+
+  <!-- 1 redirect to authorize -->
+  <path class="front" d="M326,96 L104,96" />
+  <text class="label" x="116" y="82" style="font-size: 14px"><tspan class="yellow">1</tspan> redirect to the authorization server</text>
+  <path class="front" d="M104,130 L576,130" />
+  <text class="mono" x="116" y="116"><tspan class="cyan">GET</tspan> /authorize?response_type=code&amp;client_id=app&amp;state=xyz</text>
+  <text class="mono" x="116" y="146" style="font-size: 12px">&amp;redirect_uri=…/cb&amp;scope=repo&amp;<tspan class="yellow">code_challenge=E9Melhoa…&amp;code_challenge_method=S256</tspan></text>
+
+  <!-- 2 login -->
+  <rect x="500" y="164" width="160" height="40" rx="5" fill="#2b2b2b" />
+  <rect class="as" x="500" y="164" width="160" height="40" rx="5" />
+  <text class="small" x="580" y="184" style="font-size: 14px; fill: #eeeeee"><tspan class="yellow">2</tspan> log in, consent</text>
+  <text class="label" x="676" y="184" style="font-size: 13px">the password is typed here,</text>
+  <text class="label" x="676" y="202" style="font-size: 13px">never into the client</text>
+
+  <!-- 3 code -->
+  <path class="front" d="M576,236 L104,236" />
+  <text class="label" x="116" y="222" style="font-size: 14px"><tspan class="yellow">3</tspan> redirect back with a short-lived code</text>
+  <text class="mono" x="116" y="252"><tspan class="grey">302 Location:</tspan> …/cb?<tspan class="yellow">code=SplxlOBeZQQYbYS6WxSbIA</tspan>&amp;state=xyz</text>
+  <path class="front" d="M104,280 L326,280" />
+  <text class="label" x="116" y="296" style="font-size: 13px">the client checks <tspan class="mono">state</tspan></text>
+
+  <!-- 4 token -->
+  <path class="back" d="M334,332 L576,332" />
+  <text class="label" x="344" y="318" style="font-size: 14px"><tspan class="yellow">4</tspan> back channel</text>
+  <text class="mono" x="344" y="350"><tspan class="cyan">POST</tspan> /token  grant_type=authorization_code</text>
+  <text class="mono" x="344" y="368">&amp;code=SplxlO…&amp;<tspan class="yellow">code_verifier=dBjftJeZ…</tspan></text>
+  <path class="back" d="M576,402 L334,402" />
+  <text class="mono" x="344" y="418">{"access_token": …, "token_type": "Bearer",</text>
+  <text class="mono" x="344" y="436"> "expires_in": 3600, "refresh_token": …}</text>
+
+  <!-- 5 api -->
+  <path class="back" d="M334,466 L806,466" />
+  <text class="label" x="600" y="452" style="font-size: 14px"><tspan class="yellow">5</tspan> <tspan class="mono">Authorization: Bearer …</tspan></text>
+
+  <!-- legend -->
+  <path class="front" d="M20,504 L60,504" />
+  <text class="label" x="70" y="504" style="font-size: 14px">front channel: through the browser, visible in the URL</text>
+  <path class="back" d="M480,504 L520,504" />
+  <text class="label" x="530" y="504" style="font-size: 14px">back channel: server to server</text>
+  <text class="label" x="20" y="528" style="font-size: 13px">PKCE: <tspan class="mono">code_challenge = BASE64URL(SHA-256(code_verifier))</tspan>, so a stolen code is useless without the verifier.</text>
+</svg>

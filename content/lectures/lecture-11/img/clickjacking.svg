@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430">
+  <title>Clickjacking: an invisible iframe of the real site sits over a decoy button, so the user's click lands on the real site</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .evil { fill: rgba(255, 82, 82, 0.08); stroke: #ff5252; stroke-width: 2; }
+    .frame { fill: rgba(118, 255, 3, 0.05); stroke: #76ff03; stroke-width: 2; stroke-dasharray: 7 5; }
+    .btn-evil { fill: rgba(255, 204, 0, 0.18); stroke: #ffcc00; stroke-width: 2; }
+    .btn-real { fill: none; stroke: #76ff03; stroke-width: 2; stroke-dasharray: 4 4; }
+    .guide { fill: none; stroke: #8d97a8; stroke-width: 1.5; stroke-dasharray: 3 4; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- top layer: invisible iframe -->
+  <path class="frame" d="M90,20 L490,20 L450,150 L50,150 Z" />
+  <text class="mono green" x="270" y="50" style="font-size: 14px; text-anchor: middle">&lt;iframe src="https://bank.example/…"&gt;</text>
+  <text class="small" x="270" y="74" style="font-size: 14px">style="opacity: 0" — invisible, but on top</text>
+  <path class="btn-real" d="M228,104 L348,104 L340,128 L220,128 Z" />
+  <text class="green" x="284" y="117" style="font-size: 14px">Delete account</text>
+
+  <!-- bottom layer: evil page -->
+  <path class="evil" d="M90,200 L490,200 L450,360 L50,360 Z" />
+  <path class="guide" d="M228,104 L228,304" />
+  <path class="guide" d="M348,104 L348,304" />
+  <path class="guide" d="M220,128 L220,328" />
+  <path class="guide" d="M340,128 L340,328" />
+
+  <text class="red" x="282" y="228" style="font-size: 16px">evil.example</text>
+  <text x="270" y="266" style="font-size: 20px; paint-order: stroke; stroke: #3a2b2b; stroke-width: 8px; stroke-linejoin: round">You won a prize!</text>
+  <path class="btn-evil" d="M228,304 L348,304 L340,328 L220,328 Z" />
+  <text class="yellow" x="284" y="317" style="font-size: 14px">Claim it</text>
+
+  <!-- cursor -->
+  <path d="M296,80 L296,104 L302,98 L307,108 L311,106 L306,96 L314,96 Z" fill="#eeeeee" stroke="#2b2b2b" stroke-width="1" transform="translate(4,36)" />
+  <text class="label" x="20" y="392" style="font-size: 14px">The user sees only the prize page and clicks <tspan class="yellow">Claim it</tspan>; the click goes to the top layer.</text>
+  <text class="label" x="20" y="412" style="font-size: 14px">If <tspan class="green">bank.example</tspan>'s session cookie is <tspan class="mono" style="font-size: 13px">SameSite=None</tspan>, that is a real, logged-in click.</text>
+
+  <!-- defence -->
+  <rect class="box" x="520" y="60" width="360" height="250" rx="8" />
+  <text x="700" y="88">Defence: refuse to be framed</text>
+  <text class="mono" x="536" y="130"><tspan class="grey">Content-Security-Policy:</tspan></text>
+  <text class="mono green" x="556" y="154">frame-ancestors 'none'</text>
+  <text class="mono" x="536" y="196"><tspan class="grey">X-Frame-Options:</tspan> <tspan class="green">DENY</tspan></text>
+  <text class="label" x="536" y="232" style="font-size: 14px">the browser will not render the page</text>
+  <text class="label" x="536" y="252" style="font-size: 14px">inside another site's frame</text>
+  <text class="label" x="536" y="284" style="font-size: 13px"><tspan class="mono" style="font-size: 13px">frame-ancestors</tspan> is the modern one</text>
+</svg>

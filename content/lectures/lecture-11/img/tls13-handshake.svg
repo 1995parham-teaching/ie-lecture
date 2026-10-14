@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>The TLS 1.3 full handshake: one round trip; everything after ServerHello, the certificate included, is encrypted</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 14px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .actor { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 4 5; }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#wa); }
+    .hs { fill: none; stroke: #ffcc00; stroke-width: 2.5; marker-end: url(#ya); }
+    .app { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#ga); }
+    .zone { fill: rgba(255, 204, 0, 0.06); stroke: none; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="wa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="ya" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffcc00" /></marker>
+    <marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <rect class="actor" x="60" y="8" width="160" height="40" rx="6" />
+  <text x="140" y="28">client</text>
+  <rect class="actor" x="580" y="8" width="160" height="40" rx="6" />
+  <text x="660" y="28">server</text>
+  <path class="life" d="M140,50 L140,440" />
+  <path class="life" d="M660,50 L660,440" />
+
+  <!-- ClientHello -->
+  <path class="plain" d="M144,84 L656,84" />
+  <text class="mono" x="160" y="70"><tspan class="cyan">ClientHello</tspan> + key_share + signature_algorithms</text>
+  <text class="label" x="160" y="100">random, cipher suites, and a guessed (EC)DHE public key</text>
+
+  <!-- ServerHello -->
+  <path class="plain" d="M656,146 L144,146" />
+  <text class="mono" x="160" y="132"><tspan class="cyan">ServerHello</tspan> + key_share</text>
+  <text class="label" x="680" y="146">both sides now derive</text>
+  <text class="label" x="680" y="164">handshake keys</text>
+
+  <rect class="zone" x="150" y="176" width="500" height="148" rx="4" />
+  <text class="mono yellow" x="160" y="192">{EncryptedExtensions}</text>
+  <text class="mono yellow" x="160" y="214">{Certificate}</text>
+  <text class="label" x="300" y="214">bank.example's chain</text>
+  <text class="mono yellow" x="160" y="236">{CertificateVerify}</text>
+  <text class="label" x="340" y="236">proves it holds the private key</text>
+  <text class="mono yellow" x="160" y="258">{Finished}</text>
+  <text class="label" x="260" y="258">MAC over the whole transcript</text>
+  <path class="hs" d="M656,306 L144,306" />
+  <text class="mono green" x="160" y="282">[Application Data]</text>
+  <text class="label" x="340" y="282">the server may already send</text>
+
+  <!-- client Finished -->
+  <path class="hs" d="M144,366 L656,366" />
+  <text class="mono yellow" x="160" y="352">{Finished}</text>
+  <path class="app" d="M144,410 L656,410" />
+  <text class="mono green" x="160" y="396">[Application Data] <tspan class="grey">GET / HTTP/1.1 …</tspan></text>
+
+  <!-- 1-RTT brace -->
+  <path d="M100,84 L90,84 L90,306 L100,306" fill="none" stroke="#8d97a8" stroke-width="2" />
+  <text class="small" x="0" y="0" transform="translate(76,195) rotate(-90)">1 round trip</text>
+
+  <text class="label" x="680" y="216"><tspan class="yellow">{ }</tspan> handshake keys</text>
+  <text class="label" x="680" y="238"><tspan class="green">[ ]</tspan> application keys</text>
+  <text class="label" x="680" y="260">plain: nothing else</text>
+
+  <text class="small" x="450" y="466" style="font-size: 14px">In TLS 1.2 the certificate was sent in clear, and a full handshake took 2 round trips.</text>
+  <text class="small" x="450" y="488" style="font-size: 13px; fill: #8d97a8">Captured with OpenSSL 3.6 (X25519MLKEM768, TLS_AES_256_GCM_SHA384); the compatibility ChangeCipherSpec is not shown.</text>
+</svg>

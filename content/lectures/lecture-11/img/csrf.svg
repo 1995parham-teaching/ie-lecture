@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>CSRF: a page on evil.example makes the victim's browser POST to bank.example; whether the session cookie goes along depends on SameSite</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .evil { fill: rgba(255, 82, 82, 0.10); stroke: #ff5252; stroke-width: 2; }
+    .bank { fill: rgba(118, 255, 3, 0.08); stroke: #76ff03; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 4 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .no { fill: none; stroke: #ff5252; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#red); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+  </defs>
+
+  <rect class="evil" x="40" y="10" width="200" height="40" rx="6" />
+  <text class="red" x="140" y="30">evil.example</text>
+  <rect class="box" x="350" y="10" width="200" height="40" rx="6" />
+  <text x="450" y="30">victim's browser</text>
+  <rect class="bank" x="660" y="10" width="200" height="40" rx="6" />
+  <text class="green" x="760" y="30">bank.example</text>
+  <path class="life" d="M140,52 L140,366" />
+  <path class="life" d="M450,52 L450,366" />
+  <path class="life" d="M760,52 L760,366" />
+
+  <!-- 1 login -->
+  <path class="line" d="M756,86 L454,86" />
+  <text class="label" x="470" y="72"><tspan class="yellow">1</tspan> earlier: log in, get a cookie</text>
+  <text class="mono" x="470" y="104"><tspan class="grey">Set-Cookie:</tspan> session=…; SameSite=<tspan class="yellow">?</tspan></text>
+
+  <!-- 2 visit evil -->
+  <path class="line" d="M446,146 L144,146" />
+  <text class="label" x="160" y="132"><tspan class="yellow">2</tspan> victim opens a link, gets a page</text>
+  <text class="label" x="160" y="164">with a hidden form that submits itself</text>
+
+  <!-- 3 forged request -->
+  <path class="line" d="M454,214 L756,214" />
+  <text class="label" x="470" y="200"><tspan class="yellow">3</tspan> the browser sends the form</text>
+  <rect class="box" x="466" y="226" width="290" height="96" rx="5" />
+  <text class="mono" x="476" y="244"><tspan class="cyan">POST</tspan> /transfer</text>
+  <text class="mono" x="476" y="264"><tspan class="grey">Origin:</tspan> <tspan class="red">https://evil.example</tspan></text>
+  <text class="mono" x="476" y="284"><tspan class="grey">Sec-Fetch-Site:</tspan> <tspan class="red">cross-site</tspan></text>
+  <text class="mono" x="476" y="304"><tspan class="grey">Cookie:</tspan> <tspan class="yellow">only if SameSite=None</tspan></text>
+
+  <!-- 4 response -->
+  <path class="line" d="M756,350 L454,350" />
+  <text class="label" x="470" y="336" style="font-size: 14px">200 OK</text>
+  <path class="no" d="M446,350 L144,350" />
+  <text class="red" x="295" y="350" style="font-size: 22px; font-weight: bold">✕</text>
+  <text class="label" x="160" y="384" style="font-size: 14px"><tspan class="yellow">4</tspan> the response is <tspan class="red">not readable</tspan> by evil.example (same-origin policy)</text>
+  <text class="label" x="160" y="404" style="font-size: 14px">— but with the cookie, the money has already moved</text>
+
+  <!-- outcome table -->
+  <rect class="evil" x="40" y="422" width="400" height="60" rx="6" />
+  <text class="mono" x="54" y="442" style="font-size: 15px"><tspan class="red">SameSite=None</tspan></text>
+  <text class="small" x="54" y="464" style="text-anchor: start">cookie attached → transfer runs as the victim</text>
+  <rect class="bank" x="460" y="422" width="400" height="60" rx="6" />
+  <text class="mono" x="474" y="442" style="font-size: 15px"><tspan class="green">SameSite=Lax</tspan> / <tspan class="green">Strict</tspan></text>
+  <text class="small" x="474" y="464" style="text-anchor: start">no cookie → bank sees an anonymous request</text>
+</svg>
