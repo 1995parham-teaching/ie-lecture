@@ -124,38 +124,32 @@ c := Course {
     </code></pre>
   </section>
   <section>
+    <h2>The Same Course in CBOR</h2>
     <pre><code class="plaintext">
-A4                                   # map(4)
-   64                                # text(4)
-      6E616D65                       # "name"
-   62                                # text(2)
-      4945                           # "IE"
-   67                                # text(7)
-      74656163686572                 # "teacher"
-   6D                                # text(13)
-      50617268616D20416C76616E69     # "Parham Alvani"
-   68                                # text(8)
-      73747564656E7473               # "students"
-   81                                # array(1)
-      A3                             # map(3)
-         6A                          # text(10)
-            66697273745F6E616D65     # "first_name"
-         66                          # text(6)
-            50617268616D             # "Parham"
-         69                          # text(9)
-            6C6173745F6E616D65       # "last_name"
-         66                          # text(6)
-            416C76616E69             # "Alvani"
-         62                          # text(2)
-            6964                     # "id"
-         67                          # text(7)
-            39323331303538           # "9231058"
-   68                                # text(8)
-      6361706163697479               # "capacity"
-   18 1E                             # unsigned(30)
+A4                                 # map(4)
+   64 6E616D65                     # text(4) "name"
+   62 4945                         # text(2) "IE"
+   67 74656163686572               # text(7) "teacher"
+   6D 50617268616D20416C76616E69   # text(13) "Parham Alvani"
+   68 73747564656E7473             # text(8) "students"
+   81                              # array(1)
+      A3                           # map(3)
+         6A 66697273745F6E616D65   # text(10) "first_name"
+         66 50617268616D           # text(6) "Parham"
+         69 6C6173745F6E616D65     # text(9) "last_name"
+         66 416C76616E69           # text(6) "Alvani"
+         62 6964                   # text(2) "id"
+         67 39323331303538         # text(7) "9231058"
+   68 6361706163697479             # text(8) "capacity"
+   18 1E                           # unsigned(30)
     </code></pre>
   </section>
   <section>
+    <h2>The Same Course, Positional</h2>
+    <p>
+      No names, no types: both sides must agree on the order (name, teacher,
+      capacity, number of students, then each student)
+    </p>
     <pre><code class="plaintext">
 IE
 Parham Alvani
@@ -1067,36 +1061,26 @@ if __name__ == "__main__":
 <section>
   <h2>Java Server</h2>
   <pre><code class="lang-java">
-public static void main(String [] args) {
-   try {
-     handler = new CalculatorHandler();
-     processor = new Calculator.Processor(handler);
+public class JavaServer {
+  public static void main(String[] args) {
+    CalculatorHandler handler = new CalculatorHandler();
+    Calculator.Processor&lt;CalculatorHandler&gt; processor =
+        new Calculator.Processor&lt;&gt;(handler);
 
-     Runnable simple = new Runnable() {
-       public void run() {
-         simple(processor);
-       }
-     };
+    simple(processor);
+  }
 
-     new Thread(simple).start();
-     new Thread(secure).start();
-   } catch (Exception x) {
-     x.printStackTrace();
-   }
-}
+  public static void simple(Calculator.Processor&lt;CalculatorHandler&gt; processor) {
+    try {
+      TServerTransport serverTransport = new TServerSocket(9090);
+      TServer server =
+          new TSimpleServer(new Args(serverTransport).processor(processor));
 
-public static void simple(Calculator.Processor processor) {
-  try {
-    TServerTransport serverTransport = new TServerSocket(9090);
-    TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
-
-    // Use this for a multithreaded server
-    // TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
-
-    System.out.println("Starting the simple server...");
-    server.serve();
-  } catch (Exception e) {
-    e.printStackTrace();
+      System.out.println("Starting the simple server...");
+      server.serve();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
   </code></pre>
@@ -1304,11 +1288,25 @@ service Registration {
 <section>
   <h2>What is Next?!</h2>
   <ul>
-    <li>Other related technologies in data exchange</li>
+    <li>Other data exchange technologies, not covered here</li>
     <ul>
-      <li>Protocol Buffers</li>
-      <li>Thrift</li>
-      <li>YAML (YAML Ain't Markup Language)</li>
+      <li>
+        <span class="hl-yellow">YAML</span> (YAML Ain't Markup Language):
+        human-friendly text, YAML 1.2 is almost a superset of JSON
+      </li>
+      <li>
+        <span class="hl-orange">MessagePack</span>: schemaless binary JSON, like
+        CBOR
+      </li>
+      <li>
+        <span class="hl-green">Apache Avro</span>: binary with a JSON schema,
+        common with Kafka
+      </li>
+      <li>
+        <span class="hl-cyan">FlatBuffers</span> and
+        <span class="hl-cyan">Cap'n Proto</span>: read fields in place, no parse
+        step
+      </li>
     </ul>
   </ul>
 </section>
