@@ -81,7 +81,9 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
   The order of the three receives at 0 s changes between runs.
 - `module-path.svg` examples and the `gopls/v0.4.0` tag are from go.dev/ref/mod.
   The tag was checked with `git ls-remote`.
-- `echo.png` and `starwars.png` are not referenced by the deck.
+- `echo.png` and `starwars.png` (left over from the Echo-based HTTP section)
+  were deleted after a `grep -rn` across content, layouts, static and data
+  found no reference.
 
 ## Open item
 
