@@ -100,6 +100,14 @@ student.name = "Ali";
     </code></pre>
   </section>
   <section>
+    <h2>What count.value++ Does</h2>
+    <img
+      src="./img/reactivity.svg"
+      alt="The render reads count.value, so the ref records it; writing count.value triggers the ref, which queues the render job once in the scheduler; on the next tick the render runs again and patches the div to 3"
+      width="820"
+    />
+  </section>
+  <section>
     <h2>Computed Properties</h2>
     <ul>
       <li>
@@ -212,15 +220,12 @@ button { color: #ff9100; }
   </section>
   <section>
     <h2>Props and Events</h2>
+    <img
+      src="./img/props-events.svg"
+      alt="StudentList owns selectedId and passes each student down to a StudentCard as the student prop; a StudentCard emits selected with the student id back up, and the parent sets selectedId. Props are read-only in the child"
+      width="760"
+    />
     <ul>
-      <li>
-        Data flows <strong class="hl-green">down</strong> through props, which
-        the child must not modify
-      </li>
-      <li>
-        Facts flow <strong class="hl-cyan">up</strong> as events, and the parent
-        decides what to change
-      </li>
       <li>
         <code>scoped</code> styles apply to this component only, so class names
         cannot leak

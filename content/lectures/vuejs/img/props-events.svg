@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>Props go down from parent to child, events come back up</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 20px; font-weight: bold; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .down { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#garrow); }
+    .up { fill: none; stroke: #00e5ff; stroke-width: 2.5; marker-end: url(#carrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .yellow { fill: #ffcc00; } .red { fill: #ff5252; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="garrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#76ff03" />
+    </marker>
+    <marker id="carrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00e5ff" />
+    </marker>
+  </defs>
+
+  <!-- parent -->
+  <rect class="box" x="230" y="20" width="440" height="100" rx="10" />
+  <text class="head orange" x="450" y="46">StudentList</text>
+  <text class="mono" x="450" y="76">const selectedId = ref(null)</text>
+  <text class="small" x="450" y="100">owns the state, decides what changes</text>
+
+  <!-- children -->
+  <rect class="box" x="70" y="240" width="300" height="100" rx="10" />
+  <text class="head orange" x="220" y="266">StudentCard</text>
+  <text class="mono" x="220" y="296">{{ student.name }}</text>
+  <text class="small" x="220" y="320">Parham</text>
+
+  <rect class="box" x="530" y="240" width="300" height="100" rx="10" />
+  <text class="head orange" x="680" y="266">StudentCard</text>
+  <text class="mono" x="680" y="296">{{ student.name }}</text>
+  <text class="small" x="680" y="320">Ali</text>
+
+  <!-- props down -->
+  <path class="down" d="M300,122 L190,236" />
+  <path class="down" d="M560,122 L650,236" />
+  <text class="mono green" x="232" y="160" style="text-anchor: end">:student="s"</text>
+  <text class="mono green" x="582" y="168" style="text-anchor: end">:student="s"</text>
+
+  <!-- event up -->
+  <path class="up" d="M780,238 L660,124" />
+  <text class="mono cyan" x="736" y="150" style="text-anchor: start">emit(</text>
+  <text class="mono cyan" x="746" y="172" style="text-anchor: start">"selected",</text>
+  <text class="mono cyan" x="746" y="194" style="text-anchor: start">student.id)</text>
+
+  <!-- rule -->
+  <text class="small" x="450" y="372"><tspan class="green">down</tspan>: props are read-only in the child. Assigning one fails with a Vue warning, <tspan class="red">target is readonly</tspan>.</text>
+  <text class="small" x="450" y="398"><tspan class="cyan">up</tspan>: the child only says what happened. The parent runs <tspan class="yellow">selectedId = $event</tspan>.</text>
+</svg>

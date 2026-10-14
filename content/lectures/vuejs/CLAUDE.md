@@ -1,6 +1,6 @@
 # VueJS
 
-An extra deck (`lecture: false`), 23 slides, 4 vertical stacks. Originally
+An extra deck (`lecture: false`), 24 slides, 4 vertical stacks. Originally
 presented by **Pooya** and **Parsa**; `presentation.pptx` is the original source
 and is linked from the first slide.
 
@@ -32,3 +32,23 @@ contradict the `ref`/`reactive` slides that precede it.
   independent; neither should assume the other was shown.
 - If a slide changes materially, the `.pptx` becomes stale. Either update both
   or stop advertising the pptx as the source.
+
+## Diagrams
+
+Hand-written SVGs in `img/`, no draw.io source. They are not in
+`presentation.pptx`:
+
+| File               | Slide                                        |
+| ------------------ | -------------------------------------------- |
+| `reactivity.svg`   | What count.value++ Does (after ref/reactive) |
+| `props-events.svg` | Props and Events                             |
+
+Verified with Vue 3.5 in jsdom:
+
+- `reactivity.svg`: after three `count.value++` the DOM still shows `0`; after
+  `await nextTick()` it shows `3`, with one extra render. Changing a ref the
+  render never read causes no render.
+- `props-events.svg`: a `StudentCard` emitting `selected` with `student.id`
+  sets the parent's `selectedId`. Assigning to a prop in the child warns
+  `Set operation on key "title" failed: target is readonly` and leaves it
+  unchanged.
