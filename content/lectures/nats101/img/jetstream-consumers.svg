@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>A JetStream stream stores messages; each consumer is a view with its own position</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="40" width="170" height="70" rx="6" />
+  <text x="95" y="64">publisher</text>
+  <text class="mono small" x="95" y="90" style="font-size: 13px">orders.new.1…6</text>
+  <path class="line" d="M182,75 L238,75" />
+  <rect class="box" x="240" y="10" width="650" height="110" rx="6" />
+  <text class="start" x="256" y="34" style="font-size: 18px">stream <tspan class="mono cyan">ORDERS</tspan>  <tspan class="small">subjects</tspan> <tspan class="mono yellow" style="font-size: 16px">orders.&gt;</tspan></text>
+  <rect class="box" x="270" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="310" y="78">1</text>
+  <rect class="box" x="370" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="410" y="78">2</text>
+  <rect class="box" x="470" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="510" y="78">3</text>
+  <rect class="box" x="570" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="610" y="78">4</text>
+  <rect class="box" x="670" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="710" y="78">5</text>
+  <rect class="box" x="770" y="56" width="80" height="44" rx="4" />
+  <text class="mono yellow" x="810" y="78">6</text>
+  <text class="small" x="874" y="34" style="text-anchor: end; font-size: 14px">file storage, limits retention</text>
+  <rect class="box" x="240" y="200" width="300" height="70" rx="6" />
+  <text x="390" y="222" style="font-size: 18px">consumer <tspan class="mono orange">workers</tspan></text>
+  <text class="small" x="390" y="250" style="font-size: 14px">durable, pull, explicit ack, from seq 1</text>
+  <path class="line" d="M390,122 L390,196" />
+  <rect class="box" x="590" y="200" width="300" height="70" rx="6" />
+  <text x="740" y="222" style="font-size: 18px">consumer <tspan class="mono orange">audit</tspan></text>
+  <text class="small" x="740" y="250" style="font-size: 14px">durable, pull, from seq 4</text>
+  <path class="line" d="M610,102 L610,196" />
+  <rect class="box" x="200" y="340" width="150" height="70" rx="6" />
+  <text x="275" y="362" style="font-size: 18px">worker 1</text>
+  <text class="mono green" x="275" y="390" style="font-size: 16px">1 3 5</text>
+  <rect class="box" x="390" y="340" width="150" height="70" rx="6" />
+  <text x="465" y="362" style="font-size: 18px">worker 2</text>
+  <text class="mono green" x="465" y="390" style="font-size: 16px">2 4 6</text>
+  <path class="line" d="M330,272 L280,336" />
+  <path class="line" d="M450,272 L465,336" />
+  <rect class="box" x="665" y="340" width="150" height="70" rx="6" />
+  <text x="740" y="362" style="font-size: 18px">audit app</text>
+  <text class="mono green" x="740" y="390" style="font-size: 16px">4 5 6</text>
+  <path class="line" d="M740,272 L740,336" />
+  <text class="label" x="10" y="190" style="font-size: 15px">one stream,</text>
+  <text class="label" x="10" y="210" style="font-size: 15px">many consumers,</text>
+  <text class="label" x="10" y="230" style="font-size: 15px">each with its</text>
+  <text class="label" x="10" y="250" style="font-size: 15px">own position</text>
+  <text class="small" x="450" y="445" style="font-size: 15px">clients sharing one pull consumer split its messages, like a queue group</text>
+</svg>

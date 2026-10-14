@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320">
+  <title>Discard old drops the oldest message; discard new rejects the new one</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="start" x="10" y="30" style="font-size: 18px">stream with <tspan class="mono yellow">max_msgs: 3</tspan> is full, then message <tspan class="mono yellow">4</tspan> arrives</text>
+  <rect class="box" x="10" y="120" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="42" y="142">1</text>
+  <rect class="box" x="90" y="120" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="122" y="142">2</text>
+  <rect class="box" x="170" y="120" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="202" y="142">3</text>
+  <path class="line" d="M260,142 L330,82" />
+  <path class="line" d="M260,142 L330,212" />
+  <text class="mono orange start" x="345" y="80">discard: old</text>
+  <text class="label" x="345" y="106" style="font-size: 15px">(the default)</text>
+  <rect class="dash" x="520" y="58" width="64" height="44" rx="4" />
+  <text class="mono grey" x="552" y="80">1</text>
+  <rect class="box" x="600" y="58" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="632" y="80">2</text>
+  <rect class="box" x="680" y="58" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="712" y="80">3</text>
+  <rect class="box" x="760" y="58" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="792" y="80">4</text>
+  <text class="mono orange start" x="345" y="220">discard: new</text>
+  <rect class="box" x="520" y="198" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="552" y="220">1</text>
+  <rect class="box" x="600" y="198" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="632" y="220">2</text>
+  <rect class="box" x="680" y="198" width="64" height="44" rx="4" />
+  <text class="mono yellow" x="712" y="220">3</text>
+  <text class="label" x="345" y="272" style="font-size: 15px">the publisher gets an error:</text>
+  <text class="mono red start" x="345" y="298" style="font-size: 15px">maximum messages exceeded</text>
+</svg>

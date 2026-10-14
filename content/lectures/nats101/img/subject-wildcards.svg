@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <title>Matching foo.hello.bar token by token against four subscriptions</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="20" y="42">published subject</text>
+  <rect class="box" x="270" y="20" width="130" height="44" rx="6" />
+  <text class="mono green" x="335.0" y="42">foo</text>
+  <rect class="box" x="440" y="20" width="130" height="44" rx="6" />
+  <text class="mono green" x="505.0" y="42">hello</text>
+  <rect class="box" x="610" y="20" width="130" height="44" rx="6" />
+  <text class="mono green" x="675.0" y="42">bar</text>
+  <text class="mono grey" x="420" y="42" style="font-size: 26px">.</text>
+  <text class="mono grey" x="590" y="42" style="font-size: 26px">.</text>
+  <path class="brace" d="M20,86 L880,86" />
+  <text class="label" x="790" y="42">match?</text>
+  <text class="mono yellow start" x="20" y="132">foo.*.bar</text>
+  <rect class="box" x="270" y="110" width="130" height="44" rx="6" />
+  <text class="mono " x="335.0" y="132">foo</text>
+  <rect class="box" x="440" y="110" width="130" height="44" rx="6" />
+  <text class="mono orange" x="505.0" y="132">*</text>
+  <rect class="box" x="610" y="110" width="130" height="44" rx="6" />
+  <text class="mono " x="675.0" y="132">bar</text>
+  <text x="820" y="132" style="font-size: 28px"><tspan class="green">✓</tspan></text>
+  <text class="mono yellow start" x="20" y="202">foo.*</text>
+  <rect class="box" x="270" y="180" width="130" height="44" rx="6" />
+  <text class="mono " x="335.0" y="202">foo</text>
+  <rect class="box" x="440" y="180" width="130" height="44" rx="6" />
+  <text class="mono orange" x="505.0" y="202">*</text>
+  <rect class="dash" x="610" y="180" width="130" height="44" rx="6" />
+  <text class="small" x="675.0" y="202" style="font-size: 14px">bar is left over</text>
+  <text x="820" y="202" style="font-size: 28px"><tspan class="red">✗</tspan></text>
+  <text class="mono yellow start" x="20" y="272">foo.&gt;</text>
+  <rect class="box" x="270" y="250" width="130" height="44" rx="6" />
+  <text class="mono " x="335.0" y="272">foo</text>
+  <rect class="box" x="440" y="250" width="300" height="44" rx="6" />
+  <text class="mono orange" x="590.0" y="272">&gt;  takes hello.bar</text>
+  <text x="820" y="272" style="font-size: 28px"><tspan class="green">✓</tspan></text>
+  <text class="mono yellow start" x="20" y="342">*.hello.&gt;</text>
+  <rect class="box" x="270" y="320" width="130" height="44" rx="6" />
+  <text class="mono orange" x="335.0" y="342">*</text>
+  <rect class="box" x="440" y="320" width="130" height="44" rx="6" />
+  <text class="mono " x="505.0" y="342">hello</text>
+  <rect class="box" x="610" y="320" width="130" height="44" rx="6" />
+  <text class="mono orange" x="675.0" y="342">&gt;</text>
+  <text x="820" y="342" style="font-size: 28px"><tspan class="green">✓</tspan></text>
+  <text class="label" x="20" y="400"><tspan class="mono orange">*</tspan>  exactly one token, anywhere in the subject</text>
+  <text class="label" x="20" y="428"><tspan class="mono orange">&gt;</tspan>  one or more tokens, last token only — so <tspan class="mono yellow">foo.&gt;</tspan> does <tspan class="red">not</tspan> match <tspan class="mono green">foo</tspan></text>
+</svg>
