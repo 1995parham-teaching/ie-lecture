@@ -34,18 +34,36 @@ topics: []
   </ul>
 </section>
 <section>
-  <h2>Hands On 🧪</h2>
-  <p>Scripts that go with <em>Containers from Scratch</em>:</p>
-  <ul>
-    <li>
-      <a href="./lecture3/create_container.sh">create_container.sh</a>
-      builds a container with namespaces and cgroups, without a runtime
-    </li>
-    <li>
-      <a href="./lecture3/play_with_netns.sh">play_with_netns.sh</a>
-      explores network namespaces on their own
-    </li>
-  </ul>
+  <section>
+    <h2>Hands On 🧪</h2>
+    <p>Scripts that go with <em>Containers from Scratch</em>:</p>
+    <ul>
+      <li>
+        <a href="./lecture3/create_container.sh">create_container.sh</a>
+        builds a container from namespaces and pivot_root, without a runtime
+      </li>
+      <li>
+        <a href="./lecture3/play_with_netns.sh">play_with_netns.sh</a>
+        explores network namespaces on their own
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>create_container.sh</h2>
+    <img
+      src="./img/container-from-scratch.svg"
+      alt="Five steps: docker export a centos container to a tarball; untar it into mycontainer; unshare the mount, uts, ipc, net and pid namespaces with bash as PID 1; pivot_root into mycontainer and unmount the old root; mount /proc. The result: hostname mohammad, ps shows our shell as PID 1, ip a shows no eth0, and ls / shows the image's files"
+      width="880"
+    />
+  </section>
+  <section>
+    <h2>play_with_netns.sh</h2>
+    <img
+      src="./img/netns.svg"
+      alt="First, netns parham with head1 at 192.168.2.1/24 and netns mohammad with head2 at 192.168.2.2/24 joined by one veth pair; ping succeeds. Second, each namespace has a veth whose other end, parham-br or mohammad-br, is a port on my-bridge in the host namespace, with iptables MASQUERADE out and DNAT of port 80 to 192.168.2.2. Marked as not in the script: the addresses on the namespace ends, a gateway address on the bridge, default routes and ip_forward"
+      width="820"
+    />
+  </section>
 </section>
 <section>
   <h2>See Also</h2>
