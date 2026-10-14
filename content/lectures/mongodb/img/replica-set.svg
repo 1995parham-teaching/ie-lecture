@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <title>A three-member replica set: one primary, two secondaries, and automatic failover</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="350" y="20" width="200" height="50" rx="6" />
+  <text x="450" y="45">application</text>
+  <path class="line" d="M450,72 L450,148" />
+  <text class="label" x="462" y="110">writes, and reads by default</text>
+  <rect class="box" x="330" y="150" width="240" height="110" rx="6" />
+  <text class="green" x="450" y="176">PRIMARY</text>
+  <text class="mono small" x="450" y="202">mongod</text>
+  <rect class="dash" x="355" y="218" width="190" height="30" rx="4" />
+  <text class="mono yellow" x="450" y="233" style="font-size: 16px">oplog</text>
+  <rect class="box" x="40" y="340" width="220" height="80" rx="6" />
+  <text class="cyan" x="150" y="366">SECONDARY</text>
+  <text class="mono small" x="150" y="394">mongod</text>
+  <rect class="box" x="640" y="340" width="220" height="80" rx="6" />
+  <text class="cyan" x="750" y="366">SECONDARY</text>
+  <text class="mono small" x="750" y="394">mongod</text>
+  <path class="line" d="M345,260 L190,336" />
+  <path class="line" d="M555,260 L710,336" />
+  <text class="label" x="40" y="285">copy the oplog,</text>
+  <text class="label" x="40" y="305">replay it (async)</text>
+  <text class="label" x="740" y="285">copy the oplog,</text>
+  <text class="label" x="740" y="305">replay it (async)</text>
+  <path class="dash" d="M262,395 L638,395" />
+  <text class="small" x="450" y="378">heartbeats every 2 s, between all members</text>
+  <text class="small" x="450" y="440" style="font-size: 15px">a write sent to a secondary fails with <tspan class="mono red">NotWritablePrimary</tspan></text>
+  <rect class="dash" x="10" y="20" width="290" height="140" rx="6" />
+  <text class="orange start" x="26" y="44" style="font-size: 18px">if the primary goes silent</text>
+  <text class="label" x="26" y="74"><tspan class="yellow">1</tspan>  no heartbeat for 10 s</text>
+  <text class="label" x="26" y="98"><tspan class="yellow">2</tspan>  a secondary calls an election</text>
+  <text class="label" x="26" y="122"><tspan class="yellow">3</tspan>  a majority votes: 2 of 3</text>
+  <text class="label" x="26" y="146"><tspan class="yellow">4</tspan>  it becomes the new primary</text>
+</svg>

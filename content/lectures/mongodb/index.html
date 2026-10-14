@@ -116,37 +116,30 @@ topics:
   </section>
   <section>
     <h2>Replica Sets</h2>
-    <ul>
-      <li>
-        The same data on several servers: one
-        <span class="hl-green">primary</span>, several
-        <span class="hl-cyan">secondaries</span>
-      </li>
-      <li>Writes go to the primary and replicate from its oplog</li>
-      <li>
-        If the primary disappears, the members
-        <strong class="hl-orange">elect</strong> a new one, so failover needs no
-        operator
-      </li>
-      <li>Redundancy, and maintenance without downtime</li>
-    </ul>
+    <p>
+      The same data on several servers. If the
+      <span class="hl-green">primary</span> disappears, the members
+      <strong class="hl-orange">elect</strong> a new one, so failover needs no
+      operator.
+    </p>
+    <img
+      src="./img/replica-set.svg"
+      alt="An application sends writes to the primary mongod. Two secondaries copy the primary's oplog and replay it asynchronously; all members exchange heartbeats every 2 seconds. A write sent to a secondary fails with NotWritablePrimary. If the primary is silent for 10 seconds, a secondary calls an election, a majority (2 of 3) votes, and it becomes the new primary"
+      width="840"
+    />
   </section>
   <section>
     <h2>Sharding</h2>
-    <ul>
-      <li>
-        One logical database spread across a cluster, partitioned by a
-        <span class="hl-yellow">shard key</span>
-      </li>
-      <li>
-        This is <em class="hl-green">horizontal</em> scale: add machines rather
-        than a bigger machine
-      </li>
-      <li>
-        The shard key decides everything. A poor one sends every query to every
-        shard, or every write to one shard
-      </li>
-    </ul>
+    <p>
+      <em class="hl-green">Horizontal</em> scale: one logical database split by
+      a <span class="hl-yellow">shard key</span>. A poor key sends every query
+      to every shard, or every write to one shard.
+    </p>
+    <img
+      src="./img/sharded-cluster.svg"
+      alt="The application talks to mongos, the router, which looks up ranges in the config servers. Shard A holds MinKey to H, shard B H to P, shard C P to MaxKey, each a replica set. A query on the shard key, find name Sara, goes to shard C only; a query on capacity goes to every shard"
+      width="840"
+    />
   </section>
 </section>
 <section>
@@ -261,28 +254,15 @@ topics:
   </section>
   <section>
     <h2>Embed or Reference?</h2>
-    <ul>
-      <li>
-        <span class="hl-green">Embed</span> what you read together: a document
-        is fetched in one go
-      </li>
-      <li>
-        <span class="hl-cyan">Reference</span> what grows without bound, or is
-        shared between many documents
-      </li>
-      <li>
-        Model for the <strong class="hl-orange">queries</strong> you will run,
-        not for the tidiest normal form
-      </li>
-    </ul>
-    <pre><code class="lang-json">
-{
-  "name": "IE",
-  "teacher": "Parham Alvani",
-  "students": [{ "first_name": "Parham", "id": "9231058" }],
-  "capacity": 30
-}
-    </code></pre>
+    <p>
+      Model for the <strong class="hl-orange">queries</strong> you will run, not
+      for the tidiest normal form.
+    </p>
+    <img
+      src="./img/document-vs-tables.svg"
+      alt="Left: the course as three relational tables, courses, enrollments and students, linked by course_id and student_id, so one read needs a join over three. Right: the same course as one MongoDB document with the students array embedded. Embed what you read together; reference what grows without bound or is shared by many documents"
+      width="860"
+    />
   </section>
 </section>
 <section>
@@ -318,6 +298,14 @@ db.courses.aggregate([
   { $sort: { total: -1 } },
 ]);
     </code></pre>
+  </section>
+  <section>
+    <h2>Aggregation Pipeline (Cont.)</h2>
+    <img
+      src="./img/aggregation-pipeline.svg"
+      alt="Eight course documents enter. $match capacity greater than 20 drops C and Lab, leaving six. $group by teacher gives Rahimi 1, Alvani 3, Karimi 2 in no particular order. $sort total descending gives Alvani 3, Karimi 2, Rahimi 1"
+      width="900"
+    />
   </section>
   <section>
     <h2>Transactions</h2>

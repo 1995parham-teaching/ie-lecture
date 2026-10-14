@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>A sharded cluster: mongos routes each query to the shards that own its shard key range</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="350" y="20" width="200" height="50" rx="6" />
+  <text x="450" y="45">application</text>
+  <path class="line" d="M450,72 L450,128" />
+  <rect class="box" x="350" y="130" width="200" height="60" rx="6" />
+  <text class="mono yellow" x="450" y="152">mongos</text>
+  <text class="small" x="450" y="175" style="font-size: 15px">router</text>
+  <rect class="dash" x="640" y="120" width="240" height="80" rx="6" />
+  <text class="orange" x="760" y="144" style="font-size: 18px">config servers</text>
+  <text class="small" x="760" y="168" style="font-size: 15px">a replica set holding</text>
+  <text class="small" x="760" y="186" style="font-size: 15px">which range lives where</text>
+  <path class="dline" d="M552,160 L636,160" />
+  <text class="label" x="20" y="120" style="font-size: 15px">shard key: <tspan class="mono yellow">name</tspan></text>
+  <text class="mono start green" x="20" y="150" style="font-size: 15px">find({ name: "Sara" })</text>
+  <text class="label" x="20" y="172" style="font-size: 14px">→ one shard (targeted)</text>
+  <text class="mono start grey" x="20" y="204" style="font-size: 15px">find({ capacity: 30 })</text>
+  <text class="label" x="20" y="226" style="font-size: 14px">→ every shard (scatter-gather)</text>
+  <rect class="box" x="30" y="330" width="240" height="100" rx="6" />
+  <text class="cyan" x="150" y="356">shard A</text>
+  <text class="small" x="150" y="382" style="font-size: 15px">a replica set</text>
+  <text class="mono yellow" x="150" y="410" style="font-size: 15px">MinKey … "H"</text>
+  <rect class="box" x="330" y="330" width="240" height="100" rx="6" />
+  <text class="cyan" x="450" y="356">shard B</text>
+  <text class="small" x="450" y="382" style="font-size: 15px">a replica set</text>
+  <text class="mono yellow" x="450" y="410" style="font-size: 15px">"H" … "P"</text>
+  <rect class="box" x="630" y="330" width="240" height="100" rx="6" />
+  <text class="cyan" x="750" y="356">shard C</text>
+  <text class="small" x="750" y="382" style="font-size: 15px">a replica set</text>
+  <text class="mono yellow" x="750" y="410" style="font-size: 15px">"P" … MaxKey</text>
+  <path class="dline" d="M380,192 L150,326" />
+  <path class="dline" d="M450,192 L450,326" />
+  <path class="dline" d="M500,192 L720,326" />
+  <path d="M540,192 L780,326" style="fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#arrow)" />
+  <text class="small" x="450" y="455" style="font-size: 15px">ranges are lower bound inclusive, upper bound exclusive</text>
+</svg>

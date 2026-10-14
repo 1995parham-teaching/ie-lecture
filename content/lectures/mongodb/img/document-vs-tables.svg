@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+  <title>The same course as three relational tables and as one MongoDB document</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="cyan" x="215" y="24">relational: three tables</text>
+  <text class="mono orange start" x="352" y="78" style="font-size: 16px">courses</text>
+  <rect class="box" x="10" y="60" width="330" height="72" rx="4" />
+  <path class="brace" d="M10,96 L340,96" />
+  <text class="mono grey" x="30.0" y="78" style="font-size: 14px">id</text>
+  <text class="mono" x="30.0" y="114" style="font-size: 14px">1</text>
+  <path class="brace" d="M50,60 L50,132" />
+  <text class="mono grey" x="80.0" y="78" style="font-size: 14px">name</text>
+  <text class="mono" x="80.0" y="114" style="font-size: 14px">IE</text>
+  <path class="brace" d="M110,60 L110,132" />
+  <text class="mono grey" x="180.0" y="78" style="font-size: 14px">teacher</text>
+  <text class="mono" x="180.0" y="114" style="font-size: 14px">Parham Alvani</text>
+  <path class="brace" d="M250,60 L250,132" />
+  <text class="mono grey" x="295.0" y="78" style="font-size: 14px">capacity</text>
+  <text class="mono" x="295.0" y="114" style="font-size: 14px">30</text>
+  <text class="mono orange start" x="252" y="228" style="font-size: 16px">enrollments</text>
+  <rect class="box" x="10" y="210" width="230" height="72" rx="4" />
+  <path class="brace" d="M10,246 L240,246" />
+  <text class="mono grey" x="65.0" y="228" style="font-size: 14px">course_id</text>
+  <text class="mono" x="65.0" y="264" style="font-size: 14px">1</text>
+  <path class="brace" d="M120,210 L120,282" />
+  <text class="mono grey" x="180.0" y="228" style="font-size: 14px">student_id</text>
+  <text class="mono" x="180.0" y="264" style="font-size: 14px">9231058</text>
+  <text class="mono orange start" x="232" y="378" style="font-size: 16px">students</text>
+  <rect class="box" x="10" y="360" width="210" height="72" rx="4" />
+  <path class="brace" d="M10,396 L220,396" />
+  <text class="mono grey" x="55.0" y="378" style="font-size: 14px">id</text>
+  <text class="mono" x="55.0" y="414" style="font-size: 14px">9231058</text>
+  <path class="brace" d="M100,360 L100,432" />
+  <text class="mono grey" x="160.0" y="378" style="font-size: 14px">first_name</text>
+  <text class="mono" x="160.0" y="414" style="font-size: 14px">Parham</text>
+  <path class="line" d="M65,208 L32,136" />
+  <path class="line" d="M180,284 L62,356" />
+  <text class="label" x="250" y="300" style="font-size: 15px">one read needs</text>
+  <text class="label" x="250" y="320" style="font-size: 15px">a join over three</text>
+  <text class="green" x="690" y="24">MongoDB: one document</text>
+  <rect class="box" x="470" y="56" width="420" height="230" rx="6" />
+  <text class="mono start" x="490" y="78" style="font-size: 15px">{</text>
+  <text class="mono start" x="508" y="101" style="font-size: 15px"><tspan class="yellow">name</tspan>: "IE",</text>
+  <text class="mono start" x="508" y="124" style="font-size: 15px"><tspan class="yellow">teacher</tspan>: "Parham Alvani",</text>
+  <text class="mono start" x="508" y="147" style="font-size: 15px"><tspan class="yellow">students</tspan>: [</text>
+  <text class="mono start" x="526" y="170" style="font-size: 15px">{ <tspan class="yellow">first_name</tspan>: "Parham",</text>
+  <text class="mono start" x="544" y="193" style="font-size: 15px"><tspan class="yellow">id</tspan>: "9231058" }</text>
+  <text class="mono start" x="508" y="216" style="font-size: 15px">],</text>
+  <text class="mono start" x="508" y="239" style="font-size: 15px"><tspan class="yellow">capacity</tspan>: 30</text>
+  <text class="mono start" x="490" y="262" style="font-size: 15px">}</text>
+  <rect class="dash" x="500" y="135" width="310" height="91" rx="4" />
+  <text class="label" x="818" y="180" style="font-size: 14px">embedded</text>
+  <text class="label" x="480" y="320" style="font-size: 15px"><tspan class="green">embed</tspan> what you read together: one read</text>
+  <text class="label" x="480" y="350" style="font-size: 15px"><tspan class="cyan">reference</tspan> what grows without bound,</text>
+  <text class="label" x="480" y="372" style="font-size: 15px">or is shared by many documents</text>
+</svg>

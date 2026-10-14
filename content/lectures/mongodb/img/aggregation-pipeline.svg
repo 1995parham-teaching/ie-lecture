@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470">
+  <title>Eight course documents flow through $match, $group and $sort</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="small" x="87.0" y="88">8 courses</text>
+  <text class="small" x="341.0" y="88">6 pass</text>
+  <text class="small" x="595.0" y="88">3 groups, any order</text>
+  <text class="small" x="849.0" y="88">busiest first</text>
+  <rect class="box" x="8" y="110" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="127.0" style="font-size: 15px">IE <tspan class="green">Alvani</tspan> <tspan class="yellow">30</tspan></text>
+  <rect class="box" x="8" y="152" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="169.0" style="font-size: 15px">IS <tspan class="green">Alvani</tspan> <tspan class="yellow">25</tspan></text>
+  <rect class="box" x="8" y="194" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="211.0" style="font-size: 15px">Web <tspan class="green">Alvani</tspan> <tspan class="yellow">22</tspan></text>
+  <rect class="dash" x="8" y="236" width="158" height="34" rx="5" />
+  <text class="mono grey start" x="20" y="253.0" style="font-size: 15px">C Alvani 15</text>
+  <rect class="box" x="8" y="278" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="295.0" style="font-size: 15px">OS <tspan class="cyan">Karimi</tspan> <tspan class="yellow">40</tspan></text>
+  <rect class="box" x="8" y="320" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="337.0" style="font-size: 15px">AI <tspan class="cyan">Karimi</tspan> <tspan class="yellow">45</tspan></text>
+  <rect class="box" x="8" y="362" width="158" height="34" rx="5" />
+  <text class="mono start" x="20" y="379.0" style="font-size: 15px">DB <tspan class="violet">Rahimi</tspan> <tspan class="yellow">35</tspan></text>
+  <rect class="dash" x="8" y="404" width="158" height="34" rx="5" />
+  <text class="mono grey start" x="20" y="421.0" style="font-size: 15px">Lab Rahimi 12</text>
+  <rect class="box" x="262" y="110" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="127.0" style="font-size: 15px">IE <tspan class="green">Alvani</tspan> <tspan class="yellow">30</tspan></text>
+  <rect class="box" x="262" y="152" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="169.0" style="font-size: 15px">IS <tspan class="green">Alvani</tspan> <tspan class="yellow">25</tspan></text>
+  <rect class="box" x="262" y="194" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="211.0" style="font-size: 15px">Web <tspan class="green">Alvani</tspan> <tspan class="yellow">22</tspan></text>
+  <rect class="box" x="262" y="236" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="253.0" style="font-size: 15px">OS <tspan class="cyan">Karimi</tspan> <tspan class="yellow">40</tspan></text>
+  <rect class="box" x="262" y="278" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="295.0" style="font-size: 15px">AI <tspan class="cyan">Karimi</tspan> <tspan class="yellow">45</tspan></text>
+  <rect class="box" x="262" y="320" width="158" height="34" rx="5" />
+  <text class="mono start" x="274" y="337.0" style="font-size: 15px">DB <tspan class="violet">Rahimi</tspan> <tspan class="yellow">35</tspan></text>
+  <rect class="box" x="516" y="110" width="158" height="34" rx="5" />
+  <text class="mono start" x="528" y="127.0" style="font-size: 15px"><tspan class="violet">Rahimi</tspan> <tspan class="grey">total</tspan> <tspan class="orange">1</tspan></text>
+  <rect class="box" x="516" y="152" width="158" height="34" rx="5" />
+  <text class="mono start" x="528" y="169.0" style="font-size: 15px"><tspan class="green">Alvani</tspan> <tspan class="grey">total</tspan> <tspan class="orange">3</tspan></text>
+  <rect class="box" x="516" y="194" width="158" height="34" rx="5" />
+  <text class="mono start" x="528" y="211.0" style="font-size: 15px"><tspan class="cyan">Karimi</tspan> <tspan class="grey">total</tspan> <tspan class="orange">2</tspan></text>
+  <rect class="box" x="770" y="110" width="158" height="34" rx="5" />
+  <text class="mono start" x="782" y="127.0" style="font-size: 15px"><tspan class="green">Alvani</tspan> <tspan class="grey">total</tspan> <tspan class="orange">3</tspan></text>
+  <rect class="box" x="770" y="152" width="158" height="34" rx="5" />
+  <text class="mono start" x="782" y="169.0" style="font-size: 15px"><tspan class="cyan">Karimi</tspan> <tspan class="grey">total</tspan> <tspan class="orange">2</tspan></text>
+  <rect class="box" x="770" y="194" width="158" height="34" rx="5" />
+  <text class="mono start" x="782" y="211.0" style="font-size: 15px"><tspan class="violet">Rahimi</tspan> <tspan class="grey">total</tspan> <tspan class="orange">1</tspan></text>
+  <path class="line" d="M172,240 L256,240" />
+  <text class="mono orange" x="214.0" y="215" style="font-size: 17px">$match</text>
+  <text class="mono small" x="214.0" y="266" style="font-size: 14px">capacity</text>
+  <text class="mono small" x="214.0" y="286" style="font-size: 14px">&gt; 20</text>
+  <path class="line" d="M426,240 L510,240" />
+  <text class="mono orange" x="468.0" y="215" style="font-size: 17px">$group</text>
+  <text class="mono small" x="468.0" y="266" style="font-size: 14px">by</text>
+  <text class="mono small" x="468.0" y="286" style="font-size: 14px">teacher</text>
+  <path class="line" d="M680,240 L764,240" />
+  <text class="mono orange" x="722.0" y="215" style="font-size: 17px">$sort</text>
+  <text class="mono small" x="722.0" y="266" style="font-size: 14px">total</text>
+  <text class="mono small" x="722.0" y="286" style="font-size: 14px">-1</text>
+  <text class="label" x="8" y="458" style="font-size: 14px">dashed: dropped by $match</text>
+  <text class="small" x="595.0" y="254" style="font-size: 14px">$group does not sort</text>
+  <text class="mono small" x="470" y="30" style="font-size: 15px">db.courses.aggregate([ $match, $group, $sort ])</text>
+</svg>
