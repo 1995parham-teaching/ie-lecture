@@ -109,7 +109,7 @@ topics:
   ScriptAlias /cgi-bin/ /var/www/html/IE/cgi-enabled/
   &lt;Directory "/var/www/html/IE/cgi-enabled/"&gt;
     AllowOverride None
-    Options +ExecCGI -MultiViews 					  +SymLinksIfOwnerMatch
+    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
     Require all granted
   &lt;/Directory&gt;
 &lt;/IfDefine&gt;
@@ -123,9 +123,9 @@ topics:
 int main(void){
   // http header
   printf("Content-Type: text/html\r\n");
-  printf("Connection: close\r\n");
 
-  printf("\r\n \r\n");
+  // a blank line ends the header
+  printf("\r\n");
 
   // http body
   printf("&lt;html&gt;&lt;head&gt;&lt;/head&gt;\r\n");
@@ -142,11 +142,32 @@ int main(void){
   <h2>CGI Example: Compile</h2>
   <pre><code class="plaintext">
 &gt; ~# cd /var/www/html/IE/cgi-enabled
-&gt; /var/www/html/IE/cgi-enabled# gcc -o hello_c.cgi hello_c.c
+&gt; /var/www/html/IE/cgi-enabled# gcc -Wall -o hello_c.cgi hello_c.c
 &gt; /var/www/html/IE/cgi-enabled# ./hello_c.cgi
 Content-Type: text/html
-Connection: close
 
+&lt;html&gt;&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;
+Hello world.
+&lt;br /&gt;
+Bye Bye
+&lt;/body&gt;&lt;/html&gt;
+&gt; /var/www/html/IE/cgi-enabled# ./hello_c.cgi | od -c | head -3
+0000000   C   o   n   t   e   n   t   -   T   y   p   e   :       t   e
+0000020   x   t   /   h   t   m   l  \r  \n  \r  \n   &lt;   h   t   m   l
+0000040   &gt;   &lt;   h   e   a   d   &gt;   &lt;   /   h   e   a   d   &gt;  \r  \n
+  </code></pre>
+</section>
+<section>
+  <h2>CGI Example: Through the Server</h2>
+  <pre><code class="plaintext">
+&gt; /var/www/html/IE/cgi-enabled# curl -si http://localhost/cgi-bin/hello_c.cgi
+HTTP/1.1 200 OK
+Date: Wed, 14 Oct 2026 04:31:42 GMT
+Server: Apache/2.4.68 (Debian)
+Vary: Accept-Encoding
+Content-Length: 76
+Content-Type: text/html
 
 &lt;html&gt;&lt;head&gt;&lt;/head&gt;
 &lt;body&gt;
@@ -155,6 +176,11 @@ Hello world.
 Bye Bye
 &lt;/body&gt;&lt;/html&gt;
   </code></pre>
+  <p>
+    The script wrote one header; Apache added the status line,
+    <code>Date</code>, <code>Server</code>, <code>Vary</code> and
+    <code>Content-Length</code>.
+  </p>
 </section>
 <section>
   <h2>CGI Example: Test</h2>
@@ -350,35 +376,43 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
 </section>
 <section>
   <h2>Solving CGI Problems</h2>
-  <ul>
-    <li>Empower the server to run code</li>
-    <ul>
-      <li>But, Which programming language? HTML?!!!</li>
-      <ul>
-        <li>Should we compile &amp; debug web-pages?</li>
-      </ul>
-      <li>Should web server interpret/compile the code?</li>
-      <ul>
-        <li>Web servers are not built to be compilers!!</li>
-      </ul>
-      <li>How to mix code &amp; HTML?</li>
-    </ul>
-    <li>
-      Answer: Interpreter as a web server <em class="hl-orange">plugin</em> is
-      responsible
-    </li>
-    <ul>
-      <li>
-        Use any scripting language that its interpreter is available for web
-        server, e.g., PHP runtime environment
-      </li>
-      <li>
-        Configure web server to use interpreter for a specific file types that
-        contain mixed code &amp; HTML, e.g., .php files
-      </li>
-      <li>Web server run the interpreter for codes and uses the output</li>
-    </ul>
-  </ul>
+  <p>
+    CGI pays <em class="hl-orange">process start-up on every request</em>: fork,
+    exec, load the interpreter, open the database, answer, exit. Every fix keeps
+    the program <em class="hl-green">running between requests</em>:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Approach</th>
+        <th>Where the code runs</th>
+        <th>Examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Server module</td>
+        <td>inside the web server's own workers</td>
+        <td>mod_php, mod_perl</td>
+      </tr>
+      <tr>
+        <td>FastCGI</td>
+        <td>
+          long-lived worker processes; the server talks to them over a socket
+        </td>
+        <td>PHP-FPM</td>
+      </tr>
+      <tr>
+        <td>Application server</td>
+        <td>the app is its own HTTP server, behind a reverse proxy</td>
+        <td>Gunicorn, Node.js, Go <code>net/http</code></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Server-side scripting (next) also lets you mix code into the HTML instead of
+    printing the whole page.
+  </p>
 </section>
 <section>
   <section>

@@ -1,6 +1,6 @@
 # Lecture 8 — CGI
 
-26 slides after the generated title, 3 vertical stacks. The historical bridge
+27 slides after the generated title, 3 vertical stacks. The historical bridge
 between "static documents" and "web application frameworks": how the first
 dynamic web worked, why it did not scale, and what replaced it.
 
@@ -15,7 +15,22 @@ server-side scripting → embedded vs external → client-side vs server-side.
   the filesystem `PATH`. That was wrong in the deck and is now right.
 - CGI's cost is **one process per request** — that is the whole reason the
   pros/cons slide exists, and the reason FastCGI, mod_php and application
-  servers followed.
+  servers followed. "Solving CGI Problems" is a three-row table of exactly
+  those (server module, FastCGI, application server); keep it about keeping
+  the program alive between requests.
+- A CGI header ends with **one** empty line. The C sample used to print
+  `"\r\n \r\n"`; under Apache that space-line leaked into the body as a
+  stray `" \r\n"`. It now prints `"\r\n"`. It also no longer sends
+  `Connection: close` — RFC 3875 §6.3 forbids a script from sending header
+  fields about the client connection.
+
+## C example transcripts
+
+The "Compile" and "Through the Server" slides are one real session in
+`debian:bookworm` (Docker) with Apache 2.4.68, `mod_cgid`, and the
+`ScriptAlias` config from the "Server Config" slide; gcc 12.2.0. The source on
+the slide is the one compiled (`gcc -Wall`, no warnings). Prompts are real
+(`PS1='> \w# '`). If you change the source, re-capture both slides.
 
 ## Notes
 
