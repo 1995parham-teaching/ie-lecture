@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>Synchronous: the sender waits for the receiver's response. Asynchronous: the sender publishes to a broker, gets an acknowledgement and moves on, and the broker delivers to consumers later.</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text x="190" y="20">Synchronous</text>
+  <rect class="box" x="40" y="40" width="100" height="40" rx="6" /><text x="90" y="60" style="font-size: 16px">A</text>
+  <rect class="box" x="240" y="40" width="100" height="40" rx="6" /><text x="290" y="60" style="font-size: 16px">B</text>
+  <path class="dash" d="M90,80 L90,306" />
+  <path class="dash" d="M290,80 L290,306" />
+  <text class="mono" x="190" y="110" style="font-size: 14px">request</text>
+  <path class="line" d="M100,124 L288,124" />
+  <rect x="80" y="124" width="20" height="170" style="fill: rgba(255, 82, 82, 0.25); stroke: #ff5252; stroke-width: 2" />
+  <rect class="bar" x="280" y="124" width="20" height="160" />
+  <text class="red" x="60" y="210" style="font-size: 15px; text-anchor: end" transform="rotate(-90 60 210)">A waits</text>
+  <text class="small" x="190" y="210" style="font-size: 14px">B works</text>
+  <text class="mono" x="190" y="270" style="font-size: 14px">response</text>
+  <path class="line" d="M288,284 L102,284" />
+  <text class="small" x="190" y="332" style="font-size: 14px">A cannot do anything else</text>
+  <text class="small" x="190" y="352" style="font-size: 14px">until B answers</text>
+
+  <path d="M400,20 L400,400" style="stroke: #555b66; stroke-width: 2" />
+
+  <text x="660" y="20">Asynchronous (pub-sub)</text>
+  <rect class="box" x="430" y="40" width="90" height="40" rx="6" /><text x="475" y="60" style="font-size: 16px">A</text>
+  <rect class="box" x="580" y="40" width="110" height="40" rx="6" style="stroke: #76ff03" /><text class="green" x="635" y="60" style="font-size: 16px">broker</text>
+  <rect class="box" x="740" y="40" width="60" height="40" rx="6" /><text x="770" y="60" style="font-size: 16px">B</text>
+  <rect class="box" x="820" y="40" width="60" height="40" rx="6" /><text x="850" y="60" style="font-size: 16px">C</text>
+  <path class="dash" d="M475,80 L475,306" />
+  <path class="dash" d="M635,80 L635,306" />
+  <path class="dash" d="M770,80 L770,306" />
+  <path class="dash" d="M850,80 L850,306" />
+  <text class="mono" x="555" y="110" style="font-size: 14px">publish</text>
+  <path class="line" d="M477,124 L633,124" />
+  <text class="mono" x="555" y="150" style="font-size: 14px">ack</text>
+  <path class="line" d="M633,164 L477,164" />
+  <rect x="465" y="176" width="20" height="120" style="fill: rgba(118, 255, 3, 0.18); stroke: #76ff03; stroke-width: 2" />
+  <text class="green" x="455" y="236" style="font-size: 15px; text-anchor: end" transform="rotate(-90 455 236)">A moves on</text>
+  <path class="line" d="M637,220 L768,220" />
+  <path class="line" d="M637,260 L848,260" />
+  <text class="mono" x="700" y="206" style="font-size: 13px">deliver</text>
+  <text class="mono" x="700" y="246" style="font-size: 13px">deliver</text>
+  <text class="small" x="680" y="332" style="font-size: 14px">A does not wait for B or C,</text>
+  <text class="small" x="680" y="352" style="font-size: 14px">and need not know they exist</text>
+</svg>

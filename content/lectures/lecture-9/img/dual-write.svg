@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>The real story: the API gateway creates a project on itself, on X and on Y with no transaction across them, so a failure or timeout at Y leaves the system half done</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="14" width="140" height="44" rx="6" /><text x="90" y="36" style="font-size: 18px">User</text>
+  <rect class="box" x="250" y="14" width="160" height="44" rx="6" /><text x="330" y="36" style="font-size: 18px">API gateway</text>
+  <rect class="box" x="500" y="14" width="140" height="44" rx="6" /><text x="570" y="36" style="font-size: 18px">X</text>
+  <rect class="box" x="720" y="14" width="140" height="44" rx="6" /><text x="790" y="36" style="font-size: 18px">Y</text>
+  <path class="dash" d="M90,58 L90,330" />
+  <path class="dash" d="M330,58 L330,330" />
+  <path class="dash" d="M570,58 L570,226" />
+  <path class="dash" d="M790,58 L790,330" />
+
+  <text class="mono" x="210" y="86" style="font-size: 14px">create project</text>
+  <path class="line" d="M92,100 L328,100" />
+  <text class="l" x="342" y="128" style="font-size: 15px"><tspan class="green">✓</tspan> saved in the gateway</text>
+
+  <text class="mono" x="450" y="158" style="font-size: 14px">create</text>
+  <path class="line" d="M332,172 L568,172" />
+  <path class="line" d="M568,198 L332,198" />
+  <text class="green" x="450" y="214" style="font-size: 15px">✓ ok</text>
+
+  <text class="mono" x="450" y="244" style="font-size: 14px">create</text>
+  <path d="M332,258 L760,258" style="fill: none; stroke: #cfd3da; stroke-width: 2" />
+  <text class="yellow" x="790" y="258" style="font-size: 22px">?</text>
+  <text class="small l" x="342" y="284" style="font-size: 14px">no answer: is Y <tspan class="orange">slow</tspan>, or is it <tspan class="red">down</tspan>?</text>
+  <text class="small l" x="342" y="304" style="font-size: 14px">did Y create it anyway?</text>
+
+  <rect x="20" y="346" width="860" height="80" rx="8" style="fill: rgba(255, 82, 82, 0.10); stroke: #ff5252; stroke-width: 2" />
+  <text class="l" x="40" y="372" style="font-size: 17px">Result: gateway <tspan class="green">✓</tspan>   X <tspan class="green">✓</tspan>   Y <tspan class="yellow">?</tspan></text>
+  <text class="small l" x="40" y="402" style="font-size: 15px">No transaction spans the three services, so nothing rolls the first two back.</text>
+</svg>

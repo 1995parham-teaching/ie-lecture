@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>To scale one busy module, a monolith copies the whole application; microservices copy only the busy service</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text x="210" y="22">Monolith</text>
+  <text class="small" x="210" y="48" style="font-size: 14px">Search is busy: copy <tspan class="red">everything</tspan></text>
+  <rect class="box" x="20" y="70" width="380" height="40" rx="6" />
+  <text x="210" y="90" style="font-size: 16px">load balancer</text>
+  <path class="line" d="M80,110 L80,142" />
+  <path class="line" d="M210,110 L210,142" />
+  <path class="line" d="M340,110 L340,142" />
+
+  <rect class="box" x="24" y="144" width="112" height="170" rx="6" />
+  <rect class="box" x="154" y="144" width="112" height="170" rx="6" />
+  <rect class="box" x="284" y="144" width="112" height="170" rx="6" />
+  <g style="font-size: 15px">
+    <rect x="36" y="160" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="80" y="179" style="font-size: 15px">Users</text>
+    <rect x="36" y="210" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="80" y="229" style="font-size: 15px">Orders</text>
+    <rect x="36" y="260" width="88" height="38" rx="4" style="fill: none; stroke: #ff9100" /><text class="orange" x="80" y="279" style="font-size: 15px">Search</text>
+    <rect x="166" y="160" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="210" y="179" style="font-size: 15px">Users</text>
+    <rect x="166" y="210" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="210" y="229" style="font-size: 15px">Orders</text>
+    <rect x="166" y="260" width="88" height="38" rx="4" style="fill: none; stroke: #ff9100" /><text class="orange" x="210" y="279" style="font-size: 15px">Search</text>
+    <rect x="296" y="160" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="340" y="179" style="font-size: 15px">Users</text>
+    <rect x="296" y="210" width="88" height="38" rx="4" style="fill: none; stroke: #8d97a8" /><text x="340" y="229" style="font-size: 15px">Orders</text>
+    <rect x="296" y="260" width="88" height="38" rx="4" style="fill: none; stroke: #ff9100" /><text class="orange" x="340" y="279" style="font-size: 15px">Search</text>
+  </g>
+  <text class="small" x="210" y="342" style="font-size: 14px">3 × the whole app, one deploy for every change,</text>
+  <text class="small" x="210" y="362" style="font-size: 14px">a crash in one module takes the process down</text>
+
+  <path d="M450,20 L450,380" style="stroke: #555b66; stroke-width: 2" />
+
+  <text x="680" y="22">Microservices</text>
+  <text class="small" x="680" y="48" style="font-size: 14px">copy <tspan class="green">only Search</tspan></text>
+  <rect class="box" x="480" y="70" width="400" height="40" rx="6" />
+  <text x="680" y="90" style="font-size: 16px">API gateway</text>
+  <path class="line" d="M530,110 L530,142" />
+  <path class="line" d="M630,110 L630,142" />
+  <path class="line" d="M780,110 L780,142" />
+  <rect class="box" x="486" y="144" width="88" height="44" rx="6" /><text x="530" y="166" style="font-size: 15px">Users</text>
+  <rect class="box" x="586" y="144" width="88" height="44" rx="6" /><text x="630" y="166" style="font-size: 15px">Orders</text>
+  <rect class="box" x="736" y="144" width="88" height="44" rx="6" style="stroke: #ff9100" /><text class="orange" x="780" y="166" style="font-size: 15px">Search</text>
+  <rect class="box" x="736" y="198" width="88" height="44" rx="6" style="stroke: #ff9100" /><text class="orange" x="780" y="220" style="font-size: 15px">Search</text>
+  <rect class="box" x="736" y="252" width="88" height="44" rx="6" style="stroke: #ff9100" /><text class="orange" x="780" y="274" style="font-size: 15px">Search</text>
+  <text class="small" x="680" y="342" style="font-size: 14px">each service scales, deploys and fails</text>
+  <text class="small" x="680" y="362" style="font-size: 14px">on its own</text>
+</svg>

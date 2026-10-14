@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>Orchestration: one service calls the others in order. Choreography: services publish events and each one reacts on its own.</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text class="green" x="210" y="20">Orchestration</text>
+  <text class="small" x="210" y="44" style="font-size: 14px">one service tells the others what to do</text>
+  <rect class="box" x="120" y="70" width="180" height="60" rx="8" style="stroke: #76ff03" />
+  <text x="210" y="92" style="font-size: 17px">Order service</text>
+  <text class="small" x="210" y="114" style="font-size: 13px">the orchestrator</text>
+  <rect class="box" x="20" y="250" width="120" height="44" rx="6" /><text x="80" y="272" style="font-size: 16px">Payment</text>
+  <rect class="box" x="150" y="250" width="120" height="44" rx="6" /><text x="210" y="272" style="font-size: 16px">Inventory</text>
+  <rect class="box" x="280" y="250" width="120" height="44" rx="6" /><text x="340" y="272" style="font-size: 16px">Shipping</text>
+  <path class="line" d="M170,132 L90,248" />
+  <path class="line" d="M210,132 L210,248" />
+  <path class="line" d="M250,132 L330,248" />
+  <text class="mono" x="120" y="190" style="font-size: 14px; text-anchor: end">1 charge</text>
+  <text class="mono l" x="218" y="224" style="font-size: 13px">2 reserve</text>
+  <text class="mono l" x="290" y="166" style="font-size: 14px">3 ship</text>
+  <text class="small" x="210" y="330" style="font-size: 14px">the whole flow is in one place,</text>
+  <text class="small" x="210" y="350" style="font-size: 14px">easy to follow and to change;</text>
+  <text class="small" x="210" y="370" style="font-size: 14px">the orchestrator is a central point</text>
+
+  <path d="M430,20 L430,400" style="stroke: #555b66; stroke-width: 2" />
+
+  <text class="orange" x="665" y="20">Choreography</text>
+  <text class="small" x="665" y="44" style="font-size: 14px">each service reacts to events</text>
+  <rect class="box" x="470" y="70" width="120" height="44" rx="6" /><text x="530" y="92" style="font-size: 16px">Order</text>
+  <rect class="box" x="610" y="70" width="120" height="44" rx="6" /><text x="670" y="92" style="font-size: 16px">Payment</text>
+  <rect class="box" x="750" y="70" width="120" height="44" rx="6" /><text x="810" y="92" style="font-size: 16px">Inventory</text>
+  <rect x="460" y="176" width="420" height="44" rx="8" style="fill: rgba(255, 145, 0, 0.15); stroke: #ff9100; stroke-width: 2" />
+  <text class="orange" x="670" y="198" style="font-size: 16px">event broker</text>
+  <rect class="box" x="610" y="270" width="120" height="44" rx="6" /><text x="670" y="292" style="font-size: 16px">Shipping</text>
+
+  <path class="line" d="M520,116 L520,174" />
+  <path class="line" d="M650,174 L650,116" />
+  <path class="line" d="M690,116 L690,174" />
+  <path class="line" d="M810,174 L810,116" />
+  <path class="line" d="M670,222 L670,268" />
+  <text class="mono" x="530" y="242" style="font-size: 13px"><tspan class="cyan">order.placed</tspan></text>
+  <text class="small" x="530" y="260" style="font-size: 12px">→ Payment, Inventory</text>
+  <text class="mono" x="800" y="242" style="font-size: 13px"><tspan class="cyan">payment.done</tspan></text>
+  <text class="small" x="800" y="260" style="font-size: 12px">→ Shipping</text>
+  <text class="small" x="665" y="350" style="font-size: 14px">no central coordinator, easy to add a consumer;</text>
+  <text class="small" x="665" y="370" style="font-size: 14px">the flow is spread over many services</text>
+</svg>

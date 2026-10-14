@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>Point-to-point integration needs a link for every pair of systems; an enterprise service bus needs one link per system</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text x="200" y="22">Point to point</text>
+  <g style="stroke: #ff5252; stroke-width: 2; opacity: 0.8">
+    <path d="M200,95 L314,178 M200,95 L271,312 M200,95 L129,312 M200,95 L86,178 M314,178 L271,312 M314,178 L129,312 M314,178 L86,178 M271,312 L129,312 M271,312 L86,178 M129,312 L86,178" />
+  </g>
+  <rect class="box" x="160" y="78" width="80" height="34" rx="6" style="fill: #2b2b2b" />
+  <text x="200" y="95" style="font-size: 16px">CRM</text>
+  <rect class="box" x="274" y="161" width="80" height="34" rx="6" style="fill: #2b2b2b" />
+  <text x="314" y="178" style="font-size: 16px">ERP</text>
+  <rect class="box" x="231" y="295" width="80" height="34" rx="6" style="fill: #2b2b2b" />
+  <text x="271" y="312" style="font-size: 16px">Billing</text>
+  <rect class="box" x="89" y="295" width="80" height="34" rx="6" style="fill: #2b2b2b" />
+  <text x="129" y="312" style="font-size: 16px">Shop</text>
+  <rect class="box" x="46" y="161" width="80" height="34" rx="6" style="fill: #2b2b2b" />
+  <text x="86" y="178" style="font-size: 16px">HR</text>
+  <text class="red" x="200" y="360" style="font-size: 17px">5 systems → 10 links</text>
+  <text class="small" x="200" y="384" style="font-size: 14px">n(n − 1) / 2, each with its own format</text>
+
+  <path d="M410,20 L410,390" style="stroke: #555b66; stroke-width: 2" />
+
+  <text x="670" y="22">Enterprise service bus</text>
+  <path d="M520,112 L520,180 M670,112 L670,180 M820,112 L820,180 M595,232 L595,296 M745,232 L745,296" style="stroke: #76ff03; stroke-width: 2" />
+  <rect class="box" x="480" y="78" width="80" height="34" rx="6" />
+  <text x="520" y="95" style="font-size: 16px">CRM</text>
+  <rect class="box" x="630" y="78" width="80" height="34" rx="6" />
+  <text x="670" y="95" style="font-size: 16px">ERP</text>
+  <rect class="box" x="780" y="78" width="80" height="34" rx="6" />
+  <text x="820" y="95" style="font-size: 16px">Billing</text>
+  <rect x="460" y="180" width="420" height="52" rx="8" style="fill: rgba(255, 204, 0, 0.18); stroke: #ffcc00; stroke-width: 2" />
+  <text class="yellow" x="670" y="198" style="font-size: 18px">ESB</text>
+  <text class="small" x="670" y="219" style="font-size: 13px">routing · format transformation · protocol bridging</text>
+  <rect class="box" x="555" y="296" width="80" height="34" rx="6" />
+  <text x="595" y="313" style="font-size: 16px">Shop</text>
+  <rect class="box" x="705" y="296" width="80" height="34" rx="6" />
+  <text x="745" y="313" style="font-size: 16px">HR</text>
+  <text class="green" x="670" y="360" style="font-size: 17px">5 systems → 5 links</text>
+  <text class="small" x="670" y="384" style="font-size: 14px">each speaks only to the bus</text>
+</svg>

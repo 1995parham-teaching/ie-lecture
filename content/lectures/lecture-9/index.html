@@ -191,6 +191,14 @@ topics:
   </ul>
 </section>
 <section>
+  <h2>Layers vs. Tiers</h2>
+  <img
+    src="./img/layers-tiers.svg"
+    alt="Left: the presentation, business logic and data layers all run on one server and call each other as functions, which is one tier. Right: the same three layers run on three tiers, a browser, an app server and a DB server, joined by the network."
+    width="860"
+  />
+</section>
+<section>
   <h2>Multilayer Architecture</h2>
   <img src="./img/multi-layer.png" alt="multi-layer" />
 </section>
@@ -282,14 +290,15 @@ topics:
 </section>
 <section>
   <h2>Enterprise service bus (ESB)</h2>
-  <ul>
-    <li>
-      This architecture worked well in most use cases, and it allowed the
-      engineers and architects to reduce the complexity of the overall system
-      while onboarding more and more systems that were required for business
-      growth.
-    </li>
-  </ul>
+  <img
+    src="./img/esb.svg"
+    alt="Left: five systems, CRM, ERP, Billing, Shop and HR, connected point to point need ten links, n(n-1)/2, each with its own format. Right: the same five systems each connect once to an enterprise service bus that does routing, format transformation and protocol bridging, so five links."
+    width="860"
+  />
+  <p>
+    The bus let enterprises add more and more systems without the number of
+    integrations exploding.
+  </p>
 </section>
 <section>
   <h2>Monolithic Architecture Issues</h2>
@@ -338,32 +347,24 @@ topics:
   </ul>
 </section>
 <section>
+  <h2>Scaling: Monolith vs. Microservices</h2>
+  <img
+    src="./img/monolith-scale.svg"
+    alt="Left, monolith: Search is busy, so three copies of the whole application, each with Users, Orders and Search, run behind a load balancer. Right, microservices: Users and Orders run once and only Search runs three times behind an API gateway."
+    width="860"
+  />
+</section>
+<section>
   <h2>Microservices Architecture</h2>
   <img src="./img/micro.png" alt="microservices architecture" />
 </section>
 <section>
   <h2>The Four Tiers of a Microservice Application</h2>
-  <ul>
-    <li>
-      Platform: A microservice platform provides tooling, infrastructure, and
-      high-level primitives to support the rapid development, operation, and
-      deployment of microservices.
-    </li>
-    <li>
-      Services: In this tier, the services that you build interact with each
-      other to provide business and technical capabilities, supported by the
-      underlying platform
-    </li>
-    <li>
-      Boundary: Clients will interact with your application through a defined
-      boundary that expose underlying functionality to meet the needs of outside
-      consumers.
-    </li>
-    <li>
-      Client: Client applications, such as websites and mobile applications,
-      interact with your microservice backend.
-    </li>
-  </ul>
+  <img
+    src="./img/four-tiers.svg"
+    alt="Four stacked tiers. Client: website, mobile app, partner API. Boundary: an API gateway doing auth, routing and aggregation, the part outsiders may call. Services: Users, Orders, Payment and more, which provide business and technical capabilities and call each other. Platform: the tools every service stands on to deploy, run, discover, communicate and observe, such as containers, Kubernetes, CI/CD, service discovery, a message broker, logs, metrics and tracing."
+    width="860"
+  />
 </section>
 <section>
   <h2>What Makes Microservices Challenging?</h2>
@@ -485,6 +486,14 @@ topics:
       <li>In each of these cases system goes into unrecoverable state</li>
     </ul>
   </section>
+  <section>
+    <h2>What Went Wrong</h2>
+    <img
+      src="./img/dual-write.svg"
+      alt="The user asks the API gateway to create a project. The gateway saves it, asks X to create it and X answers ok, then asks Y and gets no answer: Y may be slow or down, and may or may not have created it. Result: gateway done, X done, Y unknown. No transaction spans the three services, so nothing rolls the first two back."
+      width="860"
+    />
+  </section>
 </section>
 <section>
   <section>
@@ -509,6 +518,14 @@ topics:
         delayed) by the network between nodes
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>CAP During a Partition</h2>
+    <img
+      src="./img/cap-partition.svg"
+      alt="Node A and node B are split by a network partition. Client 1 writes x = 2 to node A; node B still has x = 1. Client 2 reads x from node B. A CP system answers with an error, so it is not available. An AP system answers x = 1, which is stale."
+      width="860"
+    />
   </section>
   <section>
     <h2>Mongo DB (CP)</h2>
@@ -604,47 +621,27 @@ topics:
     <img src="./img/diag-rpc.drawio.png" alt="remote procedure call" />
   </section>
   <section>
-    <h2>Synchronous versus asynchronous (client-server versus pub-sub)</h2>
+    <h2>Synchronous versus asynchronous</h2>
+    <img
+      src="./img/sync-async.svg"
+      alt="Synchronous: A sends a request to B and waits while B works, until B sends the response. Asynchronous: A publishes to a broker, the broker acknowledges and A moves on; later the broker delivers the message to B and C, which A does not need to know about."
+      width="860"
+    />
     <p>
-      When two systems communicate with each other, the simplest mode of
-      operation is the synchronous communication model, where the system that
-      initiates the communication (source system) waits for a response from the
-      other system (target system) before sending another message.
-    </p>
-  </section>
-  <section>
-    <h2>
-      Synchronous versus asynchronous (client-server versus pub-sub) (cont'd)
-    </h2>
-    <p>
-      In asynchronous communication, the sender does not wait for a response
-      from the receiver and, in most cases, do not care about or is not aware of
-      the receiver's existence. The sender will send (publish) the message to an
-      intermediate broker (message broker) and once this broker responds with an
-      acknowledgment, the sender will move on to the next task. Because of this
-      approach, there is less waiting on the sender's side and the overall
-      performance of message sending is improved.
+      Client-server is synchronous; publish-subscribe through a
+      <em class="hl-green">message broker</em> is asynchronous.
     </p>
   </section>
   <section>
     <h2>Orchestration versus choreography</h2>
+    <img
+      src="./img/orch-chor.svg"
+      alt="Orchestration: an Order service, the orchestrator, calls Payment to charge, Inventory to reserve and Shipping to ship, in order. Choreography: Order publishes order.placed to an event broker; Payment and Inventory react to it; Payment publishes payment.done, and Shipping reacts to that. There is no central coordinator."
+      width="820"
+    />
     <p>
-      One of the most important aspects of distributed system design and
-      implementation is how the overall system works as a cohesive unit to
-      produce great experiences for the consumers of the platform.
-    </p>
-    <p>
-      The <strong class="hl-green">orchestration approach</strong> involves a
-      central system or a component that coordinates the communication between
-      multiple systems to produce the expected result.
-    </p>
-    <p>
-      <strong class="hl-orange">Choreography</strong> is a term borrowed from
-      dancing, where a team of dancers acts as a single unit to produce a show
-      to the audience. There is no central coordinator or a person who controls
-      the dance, but there is a choreographer who designs the dance before the
-      show, makes sure dancers do their act properly during the show, and
-      collaborate at the time of the show.
+      <strong class="hl-orange">Choreography</strong> is borrowed from dance:
+      the steps are designed in advance, and nobody conducts during the show.
     </p>
   </section>
 </section>
@@ -705,6 +702,14 @@ topics:
   </section>
 </section>
 <section>
+  <section>
+    <h2>North-South vs. East-West</h2>
+    <img
+      src="./img/traffic.svg"
+      alt="A web app and a mobile app call the API gateway at the edge of your platform: that is north-south traffic, using REST, GraphQL or WebSocket. Behind the gateway, the Users, Orders and Payment services call each other: that is east-west traffic, using HTTP, gRPC, NATS or Kafka."
+      width="860"
+    />
+  </section>
   <section>
     <h2>North-South traffic</h2>
     <p>
