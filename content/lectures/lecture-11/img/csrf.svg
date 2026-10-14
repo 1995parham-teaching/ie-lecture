@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 524">
   <title>CSRF: a page on evil.example makes the victim's browser POST to bank.example; whether the session cookie goes along depends on SameSite</title>
   <style>
     text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
@@ -46,7 +46,7 @@
   <text class="mono" x="476" y="244"><tspan class="cyan">POST</tspan> /transfer</text>
   <text class="mono" x="476" y="264"><tspan class="grey">Origin:</tspan> <tspan class="red">https://evil.example</tspan></text>
   <text class="mono" x="476" y="284"><tspan class="grey">Sec-Fetch-Site:</tspan> <tspan class="red">cross-site</tspan></text>
-  <text class="mono" x="476" y="304"><tspan class="grey">Cookie:</tspan> <tspan class="yellow">only if SameSite=None</tspan></text>
+  <text class="mono" x="476" y="304"><tspan class="grey">Cookie:</tspan> <tspan class="yellow">unless Lax or Strict</tspan></text>
 
   <!-- 4 response -->
   <path class="line" d="M756,350 L454,350" />
@@ -58,9 +58,10 @@
 
   <!-- outcome table -->
   <rect class="evil" x="40" y="422" width="400" height="60" rx="6" />
-  <text class="mono" x="54" y="442" style="font-size: 15px"><tspan class="red">SameSite=None</tspan></text>
+  <text class="mono" x="54" y="442" style="font-size: 15px"><tspan class="red">SameSite=None</tspan> <tspan class="grey">or not set*</tspan></text>
   <text class="small" x="54" y="464" style="text-anchor: start">cookie attached → transfer runs as the victim</text>
   <rect class="bank" x="460" y="422" width="400" height="60" rx="6" />
   <text class="mono" x="474" y="442" style="font-size: 15px"><tspan class="green">SameSite=Lax</tspan> / <tspan class="green">Strict</tspan></text>
   <text class="small" x="474" y="464" style="text-anchor: start">no cookie → bank sees an anonymous request</text>
+  <text class="small" x="40" y="506" style="text-anchor: start; font-size: 13px">* not set: Firefox and Safari send the cookie; Chrome and Edge treat it as Lax, yet still send it on a POST within 2 min of it being set</text>
 </svg>

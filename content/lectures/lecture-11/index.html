@@ -272,7 +272,7 @@ Content-Security-Policy: default-src 'self'
     <h2>The Forged Request</h2>
     <img
       src="./img/csrf.svg"
-      alt="1, the victim logged in to bank.example earlier and holds a session cookie. 2, they open a page on evil.example with a hidden self-submitting form. 3, the browser sends POST /transfer to bank.example with Origin https://evil.example and Sec-Fetch-Site cross-site; the cookie goes along only if it is SameSite=None. 4, the 200 OK response is not readable by evil.example, but the transfer has already happened. With SameSite=Lax or Strict, no cookie is sent and the bank sees an anonymous request"
+      alt="1, the victim logged in to bank.example earlier and holds a session cookie. 2, they open a page on evil.example with a hidden self-submitting form. 3, the browser sends POST /transfer to bank.example with Origin https://evil.example and Sec-Fetch-Site cross-site; the cookie goes along unless it is SameSite=Lax or Strict. 4, the 200 OK response is not readable by evil.example, but the transfer has already happened. With SameSite=None, or with no SameSite in Firefox and Safari, the transfer runs as the victim; with SameSite=Lax or Strict no cookie is sent and the bank sees an anonymous request. Chrome and Edge treat a missing SameSite as Lax, but still send it on a POST within two minutes of it being set"
       width="880"
     />
   </section>
@@ -301,7 +301,11 @@ Content-Security-Policy: default-src 'self'
         attach the cookie to cross-site requests
       </li>
       <ul>
-        <li><code>Lax</code> is the modern browser default</li>
+        <li>
+          Set it explicitly: only Chrome and Edge default to <code>Lax</code>,
+          and not for a <code>POST</code> in the cookie's first 2 minutes;
+          Firefox and Safari do not
+        </li>
         <li><code>Strict</code> for anything sensitive</li>
       </ul>
       <li>

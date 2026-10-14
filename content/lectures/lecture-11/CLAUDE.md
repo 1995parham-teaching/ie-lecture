@@ -31,11 +31,15 @@ This deck is the payoff for claims made earlier, and they must stay consistent:
 
 ## Facts worth not re-deriving
 
-- `SameSite=Lax` **is** the default in current Chrome and Edge. Chrome 155
-  still sends a cookie that has **no** `SameSite` attribute on a top-level
-  cross-site `POST` if it was set moments before (its two-minute "Lax+POST"
-  exception) — seen in the CSRF test below. Firefox's default was not
-  confirmed: its third-party cookie blocking hides the answer.
+- A cookie with **no** `SameSite` is treated as `Lax` only in Chrome (80+)
+  and Edge (86+), and even there it is still sent on a top-level cross-site
+  `POST` within two minutes of being set ("Lax+POST", seen in the CSRF test
+  below; MDN's `Set-Cookie` page notes it). Firefox has it only behind
+  `network.cookie.sameSite.laxByDefault` and Safari not at all — checked in
+  `@mdn/browser-compat-data` 8.1.5 (2026-10-08),
+  `http.headers.Set-Cookie.SameSite.Lax_default`. The Defence slide and the
+  `csrf.svg` footnote say this; do not shorten it back to "Lax is the
+  default".
 - A JWT is **signed, not encrypted** — the payload is readable base64url. The
   `header.payload.signature` sample is correct.
 - The prepared-statement point is protocol-level parameter binding, _not_
@@ -83,7 +87,8 @@ How each was checked:
 - `csrf.svg`: a local Node server on `bank.localhost` / `evil.localhost` and
   headless Chrome 155. The auto-submitted cross-site `POST` carried the
   `SameSite=None` cookie (and a fresh no-attribute cookie), not the `Lax` or
-  `Strict` ones; `Origin` and `Sec-Fetch-Site: cross-site` were sent.
+  `Strict` ones; `Origin` and `Sec-Fetch-Site: cross-site` were sent. Its
+  footnote on browser defaults comes from the BCD check above.
 - `password-hashing.svg`: the two PHC strings are real output of
   `golang.org/x/crypto/argon2` (`IDKey`, m=19456 KiB, t=2, p=1, OWASP's
   minimum) for `hunter2`; the guesses-per-second figures were timed on the
