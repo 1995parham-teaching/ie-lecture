@@ -60,6 +60,13 @@ All checked against a local `nats-server` 2.15.1 (`-js`) with `nats.go`:
 
 ## Notes
 
+- The product is spelled **JetStream** in prose, headings and lists (the deck
+  once mixed in "Jetstream"). `grep -rn Jetstream` over the deck is now empty;
+  keep it that way, except inside code, identifiers or URLs that literally use
+  another spelling.
+- Every slide's prose sits in a block element. The "Retention policies and
+  limits" intro was bare text after the `<h2>`; it is now a `<p>`.
+
 - `diag/nats101.xml` is the draw.io source for the PNG diagrams (overview,
   request/reply, queues, HA, slow consumer, ping/pong). Edit it there.
 - The title slide uses `data-background-image="img/background.jpg"` — that file
