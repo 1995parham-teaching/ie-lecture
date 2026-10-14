@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>Where each lecture of the course sits on the path from browser to server</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .num { font-size: 26px; font-weight: bold; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .tile { fill: rgba(255, 255, 255, 0.04); stroke: #8d97a8; stroke-width: 1.5; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .redline { fill: none; stroke: #ff5252; stroke-width: 2; stroke-dasharray: 6 5; }
+    .both { fill: none; stroke: #cfd3da; stroke-width: 2; marker-start: url(#arrow); marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; } .pink { fill: #ff4081; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- the browser -->
+  <rect class="box" x="20" y="40" width="270" height="300" rx="8" />
+  <text x="155" y="68">Browser</text>
+  <rect class="tile" x="40" y="96" width="230" height="70" rx="6" />
+  <text class="num green" x="72" y="131">3</text>
+  <text x="170" y="120" style="font-size: 19px">HTML</text>
+  <text class="small" x="170" y="145">what is on the page</text>
+  <rect class="tile" x="40" y="176" width="230" height="70" rx="6" />
+  <text class="num cyan" x="72" y="211">4</text>
+  <text x="170" y="200" style="font-size: 19px">CSS</text>
+  <text class="small" x="170" y="225">how it looks</text>
+  <rect class="tile" x="40" y="256" width="230" height="70" rx="6" />
+  <text class="num yellow" x="72" y="291">5</text>
+  <text x="170" y="280" style="font-size: 19px">JavaScript</text>
+  <text class="small" x="170" y="305">how it reacts</text>
+
+  <!-- the wire -->
+  <path class="both" d="M296,150 L604,150" />
+  <text class="num orange" x="450" y="104">2</text>
+  <text x="450" y="132" style="font-size: 19px">HTTP</text>
+  <text class="small" x="450" y="172">how the two sides talk</text>
+  <path class="both" d="M296,260 L604,260" />
+  <text class="num orange" x="450" y="214">6</text>
+  <text x="450" y="242" style="font-size: 19px">JSON, Thrift, gRPC</text>
+  <text class="small" x="450" y="282">what the data looks like</text>
+
+  <!-- the server, inside its container -->
+  <rect class="dash" x="610" y="40" width="270" height="300" rx="8" />
+  <text class="num yellow" x="640" y="316">10</text>
+  <text class="small" x="760" y="316">shipped in a container</text>
+  <rect class="box" x="626" y="56" width="238" height="232" rx="8" />
+  <text x="745" y="82">Server</text>
+  <rect class="tile" x="642" y="104" width="206" height="78" rx="6" />
+  <text class="num green" x="672" y="143">7</text>
+  <text x="764" y="132" style="font-size: 19px">Go</text>
+  <text class="small" x="764" y="157">answers the request</text>
+  <rect class="tile" x="642" y="194" width="206" height="78" rx="6" />
+  <text class="num cyan" x="672" y="233">9</text>
+  <text x="764" y="222" style="font-size: 19px">Architecture</text>
+  <text class="small" x="764" y="247">keeps it maintainable</text>
+
+  <!-- security, around all of it -->
+  <rect class="redline" x="10" y="20" width="880" height="336" rx="12" />
+  <text class="num red" x="40" y="380">11</text>
+  <text class="label" x="70" y="380" style="font-size: 17px; fill: #eeeeee">Web Security — every box and every arrow above can be attacked</text>
+</svg>

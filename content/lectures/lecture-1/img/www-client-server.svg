@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>Clients send HTTP requests to a web server, which answers from a file or by running code</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .both { fill: none; stroke: #cfd3da; stroke-width: 2; marker-start: url(#arrow); marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="small" x="135" y="24">clients</text>
+  <text class="small" x="560" y="24">server</text>
+
+  <rect class="box" x="20" y="50" width="230" height="80" rx="6" />
+  <text class="orange" x="135" y="78">Browser</text>
+  <text class="small" x="135" y="106">renders the answer</text>
+
+  <rect class="box" x="20" y="165" width="230" height="80" rx="6" />
+  <text class="green" x="135" y="193">Crawler</text>
+  <text class="small" x="135" y="221">indexes the answer</text>
+
+  <rect class="box" x="20" y="280" width="230" height="80" rx="6" />
+  <text class="cyan" x="135" y="308">Another program</text>
+  <text class="small" x="135" y="336">uses the answer as data</text>
+
+  <path class="both" d="M254,90 L468,185" />
+  <path class="both" d="M254,205 L468,205" />
+  <path class="both" d="M254,320 L468,225" />
+  <text class="orange mono" x="360" y="182" style="font-size: 17px">HTTP</text>
+  <text class="small" x="360" y="230" style="font-size: 14px">request ⇄ response</text>
+
+  <rect class="box" x="472" y="140" width="176" height="130" rx="6" />
+  <text x="560" y="190">Web server</text>
+  <text class="small" x="560" y="220">reads the request,</text>
+  <text class="small" x="560" y="242">builds the response</text>
+
+  <path class="line" d="M650,180 L708,112" />
+  <path class="line" d="M650,232 L708,298" />
+
+  <rect class="box" x="712" y="50" width="176" height="100" rx="6" />
+  <text class="yellow" x="800" y="78">a file</text>
+  <text class="small" x="800" y="106" style="font-size: 14px">text, image, video</text>
+  <text class="small" x="800" y="128" style="font-size: 14px">sent as it is</text>
+
+  <rect class="box" x="712" y="260" width="176" height="100" rx="6" />
+  <text class="violet" x="800" y="288">some code</text>
+  <text class="small" x="800" y="316" style="font-size: 14px">DB lookup, payment</text>
+  <text class="small" x="800" y="338" style="font-size: 14px">built for each request</text>
+
+  <text class="small" x="800" y="384" style="font-size: 14px">dynamic</text>
+  <text class="small" x="800" y="30" style="font-size: 14px">static</text>
+
+  <text class="label" x="20" y="404" style="font-size: 14px">Every client speaks the same protocol, and the server cannot tell a browser from a script except by what it claims.</text>
+</svg>

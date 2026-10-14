@@ -197,27 +197,16 @@ draft: false
 </section>
 <section>
   <h2>How Does WWW Work?</h2>
-  <ul>
-    <li>Client-Server mechanism</li>
-    <li>Web servers: Process client’s requests</li>
-    <ul>
-      <li>File (text, image, video, ...) retrieval requests</li>
-      <li>Computation/Processing (DB lookup, transaction, ...) requests</li>
-    </ul>
-    <li>Web clients: Send the requests</li>
-    <ul>
-      <li>
-        Browser: Interacts with client, Requests for server, Processes and
-        displays response (rendering)
-      </li>
-      <li>Other applications</li>
-      <ul>
-        <li>Search engine crawlers</li>
-        <li>Use server as a processing element (distributed computing)</li>
-        <li>...</li>
-      </ul>
-    </ul>
-  </ul>
+  <img
+    src="img/www-client-server.svg"
+    alt="Three kinds of client, a browser that renders the answer, a crawler that indexes it and another program that uses it as data, all exchange HTTP requests and responses with one web server. The server answers either with a file, sent as it is (static), or by running code such as a database lookup (dynamic)"
+    width="900"
+  />
+  <p>
+    Client and server: the client <span class="hl-orange">asks</span>, the
+    server <span class="hl-green">answers</span> — from a file, or by running
+    code.
+  </p>
 </section>
 <section>
   <section>
@@ -447,6 +436,14 @@ draft: false
         <td>11 — Web Security</td>
       </tr>
     </table>
+  </section>
+  <section>
+    <h2>Where Each Lecture Lives</h2>
+    <img
+      src="img/course-map.svg"
+      alt="A map of the course. In the browser: 3 HTML, what is on the page; 4 CSS, how it looks; 5 JavaScript, how it reacts. Between browser and server: 2 HTTP, how the two sides talk, and 6 JSON, Thrift and gRPC, what the data looks like. On the server: 7 Go answers the request and 9 Architecture keeps it maintainable, all shipped in a container, 10. Around everything: 11 Web Security, because every box and arrow can be attacked"
+      width="900"
+    />
   </section>
 </section>
 <section>

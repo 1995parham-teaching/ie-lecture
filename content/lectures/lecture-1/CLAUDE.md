@@ -1,7 +1,7 @@
 # Lecture 1 — Introduction
 
 The opening session: who the instructor is, what the course covers, a short
-history of the web, and the grading policy. 44 slides across 35 horizontal
+history of the web, and the grading policy. 45 slides across 35 horizontal
 positions, three of them vertical stacks.
 
 Topics (TOC indices): `0` Instructor · `1` Course Overview · `2` World-Wide Web ·
@@ -74,3 +74,21 @@ lectures 1–7 and 9–11 are taught in class, 8 (CGI) and the unnumbered decks 
 extra material on the site. The "Also on the Site, Not in Class" slide is what
 keeps lecture 8 honest — it is in the repo, so it is acknowledged, but it is not
 claimed as a session.
+
+## Diagrams
+
+Hand-written SVGs in `img/`, drawn for the league background (see the root
+`CLAUDE.md`). They have no draw.io source:
+
+| File                    | Slide                                                    |
+| ----------------------- | -------------------------------------------------------- |
+| `www-client-server.svg` | How Does WWW Work? — clients, one server, static/dynamic |
+| `course-map.svg`        | Where Each Lecture Lives (end of the questions stack)    |
+
+- `course-map.svg` puts each lecture number where it acts: 3/4/5 in the
+  browser, 2 and 6 on the wire, 7 and 9 on the server, 10 around the server,
+  11 around everything. The numbers and colours match the "Who Answers What"
+  table next to it — **a third thing to keep in step** when a lecture is added
+  or dropped.
+- `Where Each Lecture Lives` was added at the **end** of the questions stack so
+  no horizontal index moved.
