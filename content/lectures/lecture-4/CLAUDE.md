@@ -40,6 +40,7 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 | `flex-axes.svg`       | FlexBox Axes (replaced `flex-axises.png`)             |
 | `justify-content.svg` | justify-content (replaced the two `flex-justify-*`)   |
 | `grid-lines.svg`      | Grid Lines — new sub-slide after Placing Items        |
+| `cascading.svg`       | Cascading — browser, user, link, style, `style=""`    |
 
 Every number in them was measured in headless Chrome, not drawn from memory.
 If you change one, measure again:
@@ -68,14 +69,19 @@ If you change one, measure again:
 
 The generator scripts were throwaway; edit the SVG directly and re-render it.
 
-One draw.io diagram remains: `img/cascading.png`, exported from
-`diag/cascading.drawio` (the "Cascading" slide). Order, weakest first: Browser
-Default, User, External-1…n, Internal-1…2, Inline. User sits below the author
-sheets because normal user styles lose to author styles; only user
-`!important` beats them. This agrees with `cascade-order.svg` (browser < author
-< author `!important`; `style=""` beats every selector). Export with
-`docker run --rm -v "$PWD":/data rlespinasse/drawio-export --format png --output out /data`
-on a copy of the `.drawio`, then copy `out/cascading-Page-1.png` over the PNG.
+`cascading.svg` replaced `cascading.png` and its source
+`diag/cascading.drawio`, the deck's last draw.io diagram. Order, weakest first:
+Browser default, User, External 1…n (`<link>`), Internal 1…2 (`<style>`),
+Inline. User sits below the author sheets because normal user styles lose to
+author styles; only user `!important` beats them (CSS Cascade 4 §6.2 — headless
+Chrome has no user sheet, so this one is from the spec). External below
+internal is **only document order**, and only after specificity ties: in
+Chrome 155, a `<style>` placed before a `<link>` lost to it, and with
+`<link>`, `<link>`, `<style>`, `<style>` the last `<style>` won and
+`style=""` beat all four. A browser default (`b` is bold) lost to an author
+`b { font-weight: 400 }`. The drawing says all of this, so the side paragraph
+was removed. It agrees with `cascade-order.svg` (browser < author < author
+`!important`; `style=""` beats every selector).
 
 The fish chart `specifishity.png` was removed: it used the old 4-part notation
 that counts `style=""` and `!important` as specificity digits, which contradicts

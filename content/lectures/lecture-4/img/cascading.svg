@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 490">
+  <title>Where a declaration comes from, weakest first: browser default, user, external sheets, internal sheets, inline style</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="20" y="30" style="font-size: 18px; fill: #eeeeee">Two declarations set the same property on one</text>
+  <text class="label" x="20" y="54" style="font-size: 18px; fill: #eeeeee">element. Each step up overrides the ones below.</text>
+  <text class="label" x="20" y="96"><tspan class="red mono">!important</tspan> turns the origins round: a user</text>
+  <text class="label" x="20" y="120"><tspan class="mono">!important</tspan> beats the page, and an author</text>
+  <text class="label" x="20" y="144"><tspan class="mono">!important</tspan> beats <tspan class="mono">style=""</tspan>.</text>
+  <text class="small" x="822" y="64">strongest</text>
+
+  <!-- the steps -->
+  <rect x="20" y="320" width="116" height="56" rx="6" style="fill: rgba(141, 151, 168, 0.12); stroke: #8d97a8; stroke-width: 2" />
+  <text class="grey" x="78" y="340" style="font-size: 17px">Browser</text>
+  <text class="small" x="78" y="360">default</text>
+  <path class="line" d="M78,320 L78,308 L141,308" />
+  <rect x="144" y="280" width="116" height="56" rx="6" style="fill: rgba(238, 130, 238, 0.10); stroke: #ee82ee; stroke-width: 2" />
+  <text class="violet" x="202" y="300" style="font-size: 17px">User</text>
+  <text class="small" x="202" y="320">reader's sheet</text>
+  <path class="line" d="M202,280 L202,268 L265,268" />
+  <rect x="268" y="240" width="116" height="56" rx="6" style="fill: rgba(255, 145, 0, 0.12); stroke: #ff9100; stroke-width: 2" />
+  <text class="orange" x="326" y="260" style="font-size: 17px">External 1</text>
+  <text class="small mono" x="326" y="280">&lt;link&gt;</text>
+  <path class="line" d="M326,240 L326,228 L389,228" />
+  <rect x="392" y="200" width="116" height="56" rx="6" style="fill: rgba(255, 145, 0, 0.12); stroke: #ff9100; stroke-width: 2" />
+  <text class="orange" x="450" y="220" style="font-size: 17px">External n</text>
+  <text class="small mono" x="450" y="240">&lt;link&gt;</text>
+  <path class="line" d="M450,200 L450,188 L513,188" />
+  <rect x="516" y="160" width="116" height="56" rx="6" style="fill: rgba(255, 204, 0, 0.10); stroke: #ffcc00; stroke-width: 2" />
+  <text class="yellow" x="574" y="180" style="font-size: 17px">Internal 1</text>
+  <text class="small mono" x="574" y="200">&lt;style&gt;</text>
+  <path class="line" d="M574,160 L574,148 L637,148" />
+  <rect x="640" y="120" width="116" height="56" rx="6" style="fill: rgba(255, 204, 0, 0.10); stroke: #ffcc00; stroke-width: 2" />
+  <text class="yellow" x="698" y="140" style="font-size: 17px">Internal 2</text>
+  <text class="small mono" x="698" y="160">&lt;style&gt;</text>
+  <path class="line" d="M698,120 L698,108 L761,108" />
+  <rect x="764" y="80" width="116" height="56" rx="6" style="fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2" />
+  <text class="green" x="822" y="100" style="font-size: 17px">Inline</text>
+  <text class="small mono" x="822" y="120">style=""</text>
+
+  <!-- what separates the steps -->
+  <text class="label" x="20" y="404">Origin is compared before</text>
+  <text class="label" x="20" y="426">anything else.</text>
+  <path class="brace" d="M268,388 L268,396 L756,396 L756,388" />
+  <text class="label" x="276" y="414">Same origin: specificity, then document order.</text>
+  <text class="label" x="276" y="436">A <tspan class="mono">&lt;style&gt;</tspan> placed before a <tspan class="mono">&lt;link&gt;</tspan> loses to it.</text>
+  <path class="brace" d="M764,388 L764,396 L880,396 L880,388" />
+  <text class="small" x="822" y="414">beats every</text>
+  <text class="small" x="822" y="434">selector</text>
+
+  <path class="brace" d="M20,452 L20,460 L136,460 L136,452" />
+  <text class="grey" x="78" y="477" style="font-size: 16px">browser</text>
+  <path class="brace" d="M144,452 L144,460 L260,460 L260,452" />
+  <text class="violet" x="202" y="477" style="font-size: 16px">user</text>
+  <path class="brace" d="M268,452 L268,460 L880,460 L880,452" />
+  <text x="574" y="477" style="font-size: 16px">author: the page</text>
+</svg>

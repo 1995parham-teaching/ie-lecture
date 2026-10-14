@@ -753,25 +753,11 @@ h3~p {color:green;}
 </section>
 <section>
   <h2>Cascading</h2>
-  <div
-    style="
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: flex-start;
-    "
-  >
-    <img
-      src="./img/cascading.png"
-      alt="the order styles are applied in, weakest first: browser default, user, external, internal, inline"
-      width="560"
-    />
-    <p style="text-align: left; margin: 20px; font-size: 0.8em">
-      Assuming there is not any conflicting style and external styles are linked
-      before internal styles in the head. User means the reader's normal styles;
-      only a user <code>!important</code> beats the page.
-    </p>
-  </div>
+  <img
+    src="./img/cascading.svg"
+    alt="Where a declaration comes from, weakest first, as a staircase: browser default, user (the reader's sheet), external sheets 1 to n from link, internal sheets 1 and 2 from style, inline style attribute. Origin is compared before anything else: browser, then user, then author, the page. Among the author's sheets, specificity decides first, then document order, so a style placed before a link loses to it. Inline style beats every selector. !important turns the origins round: a user !important beats the page, and an author !important beats style."
+    width="880"
+  />
 </section>
 <section>
   <section>
