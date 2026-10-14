@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>A page laid out with semantic elements</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect x="20" y="10" width="500" height="450" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #8d97a8; stroke-width: 2;" />
+  <text class="mono grey" x="270.0" y="30" style="font-size: 17px">&lt;body&gt;</text>
+  <rect x="40" y="46" width="460" height="86" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #ff5252; stroke-width: 2;" />
+  <text class="mono red" x="270.0" y="66" style="font-size: 17px">&lt;header&gt;</text>
+  <rect x="60" y="84" width="420" height="36" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #ff9100; stroke-width: 2;" />
+  <text class="mono orange" x="270.0" y="102.0" style="font-size: 17px">&lt;nav&gt;</text>
+  <rect x="40" y="144" width="320" height="248" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #ffcc00; stroke-width: 2; stroke-dasharray: 6 5;" />
+  <text class="mono yellow" x="200.0" y="164" style="font-size: 17px">&lt;main&gt;</text>
+  <rect x="56" y="180" width="288" height="200" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #ee82ee; stroke-width: 2;" />
+  <text class="mono violet" x="200.0" y="198" style="font-size: 17px">&lt;section&gt;</text>
+  <rect x="72" y="214" width="256" height="74" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #76ff03; stroke-width: 2;" />
+  <text class="mono green" x="200.0" y="251.0" style="font-size: 17px">&lt;article&gt;</text>
+  <rect x="72" y="296" width="256" height="74" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #76ff03; stroke-width: 2;" />
+  <text class="mono green" x="200.0" y="333.0" style="font-size: 17px">&lt;article&gt;</text>
+  <rect x="372" y="144" width="128" height="248" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #00e5ff; stroke-width: 2;" />
+  <text class="mono cyan" x="436.0" y="268.0" style="font-size: 17px">&lt;aside&gt;</text>
+  <rect x="40" y="404" width="460" height="44" rx="6" style="fill: rgba(255,255,255,0.05); stroke: #ff5252; stroke-width: 2;" />
+  <text class="mono red" x="270.0" y="426.0" style="font-size: 17px">&lt;footer&gt;</text>
+  <text class="mono red" x="548" y="60" style="text-anchor: start; font-size: 17px">&lt;header&gt;</text>
+  <text class="label" x="548" y="82" style="font-size: 15px">logo, title, site-wide links</text>
+  <text class="mono orange" x="548" y="116" style="text-anchor: start; font-size: 17px">&lt;nav&gt;</text>
+  <text class="label" x="548" y="138" style="font-size: 15px">the main navigation links</text>
+  <text class="mono yellow" x="548" y="172" style="text-anchor: start; font-size: 17px">&lt;main&gt;</text>
+  <text class="label" x="548" y="194" style="font-size: 15px">the one main content of the page</text>
+  <text class="mono violet" x="548" y="228" style="text-anchor: start; font-size: 17px">&lt;section&gt;</text>
+  <text class="label" x="548" y="250" style="font-size: 15px">a themed group, with a heading</text>
+  <text class="mono green" x="548" y="284" style="text-anchor: start; font-size: 17px">&lt;article&gt;</text>
+  <text class="label" x="548" y="306" style="font-size: 15px">stands alone: a post, a comment, a card</text>
+  <text class="mono cyan" x="548" y="340" style="text-anchor: start; font-size: 17px">&lt;aside&gt;</text>
+  <text class="label" x="548" y="362" style="font-size: 15px">related, but not main: a sidebar</text>
+  <text class="mono red" x="548" y="396" style="text-anchor: start; font-size: 17px">&lt;footer&gt;</text>
+  <text class="label" x="548" y="418" style="font-size: 15px">author, copyright, contact</text>
+  <text class="label" x="548" y="452" style="font-size: 13px">a page has only one visible &lt;main&gt;</text>
+</svg>

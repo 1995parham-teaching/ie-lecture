@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380">
+  <title>An HTML element: start tag, attribute, content, end tag</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono grey" x="130" y="120" style="font-size: 26px; text-anchor: start" textLength="16" lengthAdjust="spacingAndGlyphs">&lt;</text>
+  <text class="mono orange" x="146" y="120" style="font-size: 26px; text-anchor: start" textLength="32" lengthAdjust="spacingAndGlyphs">h1</text>
+  <text class="mono cyan" x="194" y="120" style="font-size: 26px; text-anchor: start" textLength="80" lengthAdjust="spacingAndGlyphs">class</text>
+  <text class="mono grey" x="274" y="120" style="font-size: 26px; text-anchor: start" textLength="16" lengthAdjust="spacingAndGlyphs">=</text>
+  <text class="mono green" x="290" y="120" style="font-size: 26px; text-anchor: start" textLength="144" lengthAdjust="spacingAndGlyphs">"primary"</text>
+  <text class="mono grey" x="434" y="120" style="font-size: 26px; text-anchor: start" textLength="16" lengthAdjust="spacingAndGlyphs">&gt;</text>
+  <text class="mono " x="450" y="120" style="font-size: 26px; text-anchor: start" textLength="240" lengthAdjust="spacingAndGlyphs">Example Heading</text>
+  <text class="mono grey" x="690" y="120" style="font-size: 26px; text-anchor: start" textLength="32" lengthAdjust="spacingAndGlyphs">&lt;/</text>
+  <text class="mono orange" x="722" y="120" style="font-size: 26px; text-anchor: start" textLength="32" lengthAdjust="spacingAndGlyphs">h1</text>
+  <text class="mono grey" x="754" y="120" style="font-size: 26px; text-anchor: start" textLength="16" lengthAdjust="spacingAndGlyphs">&gt;</text>
+  <text class="orange" x="150" y="36" style="font-size: 18px">tag name</text>
+  <path class="line" d="M150,50 L162,98" />
+  <text class="cyan" x="290" y="36" style="font-size: 18px">attribute name</text>
+  <path class="line" d="M290,50 L234.0,98" />
+  <text class="green" x="450" y="36" style="font-size: 18px">attribute value</text>
+  <path class="line" d="M450,50 L362.0,98" />
+  <path class="brace" d="M196,148 V160 H432 V148" />
+  <text class="small" x="314.0" y="178" style="font-size: 18px">attribute</text>
+  <path class="brace" d="M132,203 V215 H448 V203" />
+  <text class="" x="290.0" y="233" style="font-size: 18px">start tag</text>
+  <path class="brace" d="M452,203 V215 H688 V203" />
+  <text class="" x="570.0" y="233" style="font-size: 18px">content</text>
+  <path class="brace" d="M692,203 V215 H768 V203" />
+  <text class="" x="730.0" y="233" style="font-size: 18px">end tag</text>
+  <path class="brace" d="M132,258 V270 H768 V258" />
+  <text class="yellow" x="450.0" y="288" style="font-size: 18px">element = start tag + content + end tag</text>
+  <path class="dash" d="M40,320 H860" />
+  <text class="label" x="40" y="352">void element (no content, no end tag):</text>
+  <text class="mono" x="370" y="352" style="text-anchor: start; font-size: 20px"><tspan class="grey">&lt;</tspan><tspan class="orange">br</tspan><tspan class="grey">&gt;</tspan>  <tspan class="grey">&lt;</tspan><tspan class="orange">img</tspan> <tspan class="cyan">src</tspan><tspan class="grey">=</tspan><tspan class="green">"go.png"</tspan><tspan class="grey">&gt;</tspan>  <tspan class="grey">&lt;</tspan><tspan class="orange">meta</tspan> <tspan class="grey">…&gt;</tspan></text>
+</svg>

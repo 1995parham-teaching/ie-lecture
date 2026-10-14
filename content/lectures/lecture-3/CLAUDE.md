@@ -1,6 +1,6 @@
 # Lecture 3 — HTML
 
-106 slides, 13 vertical stacks. Topics (TOC indices): `0` Introduction ·
+105 slides (plus the generated title slide), 15 vertical stacks. Topics (TOC indices): `0` Introduction ·
 `1` HTML · `2` Body · `3` Semantic Tags · `4` Head · `5` HTML in Practice.
 
 The element tour ("Main root", "Content sectioning", "Text content", "Inline
@@ -15,9 +15,40 @@ correspondence — it is what makes the slides usable next to MDN.
   contain no whitespace. The "must start with a letter A–Z or a–z" rule is
   **XHTML/HTML 4**, not HTML5.
 - `<meta>` is a void element — no closing tag.
+- Parser behaviour on the slides was checked in headless Chrome, not taken
+  from memory: `<p>Hello <div>World</div></p>` becomes
+  `<p>Hello </p><div>World</div><p></p>`; `<div />` does not close; an unknown
+  tag (`<blink>`) is an `HTMLUnknownElement` and its content shows; a
+  `<button>` in a form defaults to `type="submit"`; a form defaults to `get`.
+- History dates: HTML Tags 1991 (not 1989, that is the WWW proposal), HTML 2.0
+  is RFC 1866 of 1995, HTML 3.2 and 4.0 are both 1997.
 - The 12 form `action` URLs were all switched from `http://` to `https://`.
   Keep new ones on https; a form demo posting over cleartext undercuts
   lecture 11.
+
+## Diagrams
+
+Hand-written SVGs in `img/`, drawn for the league background (see the root
+`CLAUDE.md`). They have no draw.io source:
+
+| File                  | Slide                                          |
+| --------------------- | ---------------------------------------------- |
+| `html-timeline.svg`   | Introduction (Cont.) — 1991 to Living Standard |
+| `element-anatomy.svg` | Tag & Attribute & Element, plus void elements  |
+| `block-inline.svg`    | Rendering — block vs inline, `ltr` vs `rtl`    |
+| `dom-tree.svg`        | Nested Tags — the Hello World page as a tree   |
+| `url-resolution.svg`  | `<a>` — how each `href` resolves               |
+| `form-get-post.svg`   | Forms — the same fields sent by GET and POST   |
+| `semantic-layout.svg` | Semantic Tags Example                          |
+
+- `dom-tree.svg` matches what Chrome builds for the Hello World sample: the
+  leading comment is a child of `Document`, not of `html`. If the sample
+  changes, re-check the tree.
+- `url-resolution.svg` results come from `new URL(href, page)` in Node.
+- `form-get-post.svg` shows a real request captured from headless Chrome
+  submitting to a local socket server (other headers left out). If the
+  fields change, capture again.
+- `example.png` and `summary.png` are still the old screenshots.
 
 ## Cautions
 
@@ -27,5 +58,5 @@ correspondence — it is what makes the slides usable next to MDN.
 - Figures use `<figure>` / `<figcaption>` rather than a bare `<img>` plus a
   paragraph. Follow that when adding one.
 - This deck teaches correct HTML while the deck itself nests `<ul>` directly
-  inside `<ul>` in 79 places (see the repo-wide note in the root `CLAUDE.md`).
+  inside `<ul>` in 89 places (see the repo-wide note in the root `CLAUDE.md`).
   If that ever gets fixed, fix it here first.

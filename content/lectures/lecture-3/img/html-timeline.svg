@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 900 260">
+  <title>From HTML Tags in 1991 to the HTML Living Standard</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <path class="line" d="M30,180 H830" />
+  <rect x="148.66666666666669" y="170" width="71.53333333333555" height="20" style="fill: rgba(255,82,82,0.25)" />
+  <text class="red" x="184.43333333333447" y="230" style="font-size: 13px">browser war</text>
+  <circle cx="74.66666666666667" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M74.66666666666667,172 V108" />
+  <text class="orange" x="74.66666666666667" y="80" style="font-size: 18px">HTML Tags</text>
+  <text class="small" x="74.66666666666667" y="100" style="font-size: 14px">Berners-Lee</text>
+  <text class="mono grey" x="74.66666666666667" y="202" style="font-size: 13px">1991</text>
+  <circle cx="124.0" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M124.0,188 V232" />
+  <text class="" x="124.0" y="260" style="font-size: 18px">Mosaic</text>
+  <text class="small" x="124.0" y="280" style="font-size: 14px">adds images</text>
+  <text class="mono grey" x="124.0" y="158" style="font-size: 13px">1993</text>
+  <circle cx="173.33333333333331" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M173.33333333333331,172 V108" />
+  <text class="orange" x="173.33333333333331" y="80" style="font-size: 18px">HTML 2.0</text>
+  <text class="small" x="173.33333333333331" y="100" style="font-size: 14px">IETF, RFC 1866</text>
+  <text class="mono grey" x="173.33333333333331" y="202" style="font-size: 13px">1995</text>
+  <circle cx="222.66666666666666" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M222.66666666666666,188 V232" />
+  <text class="orange" x="222.66666666666666" y="260" style="font-size: 18px">HTML 3.2 · 4.0</text>
+  <text class="small" x="222.66666666666666" y="280" style="font-size: 14px">W3C</text>
+  <text class="mono grey" x="222.66666666666666" y="158" style="font-size: 13px">1997</text>
+  <circle cx="296.66666666666663" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M296.66666666666663,172 V108" />
+  <text class="violet" x="296.66666666666663" y="80" style="font-size: 18px">XHTML 1.0</text>
+  <text class="small" x="296.66666666666663" y="100" style="font-size: 14px">W3C, XML rules</text>
+  <text class="mono grey" x="296.66666666666663" y="202" style="font-size: 13px">2000</text>
+  <circle cx="395.3333333333333" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M395.3333333333333,188 V232" />
+  <text class="green" x="395.3333333333333" y="260" style="font-size: 18px">WHATWG</text>
+  <text class="small" x="395.3333333333333" y="280" style="font-size: 14px">is founded</text>
+  <text class="mono grey" x="395.3333333333333" y="158" style="font-size: 13px">2004</text>
+  <circle cx="642.0" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M642.0,172 V108" />
+  <text class="orange" x="642.0" y="80" style="font-size: 18px">HTML5</text>
+  <text class="small" x="642.0" y="100" style="font-size: 14px">W3C Recommendation</text>
+  <text class="mono grey" x="642.0" y="202" style="font-size: 13px">2014</text>
+  <circle cx="765.3333333333334" cy="180" r="6" style="fill: #2b2b2b; stroke: #cfd3da; stroke-width: 2" />
+  <path class="dash" d="M765.3333333333334,188 V232" />
+  <text class="yellow" x="765.3333333333334" y="260" style="font-size: 18px">Living Standard</text>
+  <text class="small" x="765.3333333333334" y="280" style="font-size: 14px">W3C hands HTML to WHATWG</text>
+  <text class="mono grey" x="765.3333333333334" y="158" style="font-size: 13px">2019</text>
+</svg>

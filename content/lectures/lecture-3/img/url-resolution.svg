@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>How the browser resolves an href against the address of the page</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="20" y="30">the page is at</text>
+  <text class="mono" x="160" y="30" style="text-anchor: start; font-size: 19px"><tspan class="red">https:</tspan><tspan class="grey">//</tspan><tspan class="cyan">example.com</tspan><tspan class="yellow">/ie/lecture-3/</tspan><tspan>index.html</tspan></text>
+  <text class="small" x="194" y="56" style="font-size: 13px">scheme</text>
+  <text class="small" x="314" y="56" style="font-size: 13px">host</text>
+  <text class="small" x="456" y="56" style="font-size: 13px">current directory</text>
+  <path class="dash" d="M20,76 H880" />
+  <text class="label" x="20" y="98" style="font-size: 15px">href="…"</text>
+  <text class="label" x="260" y="98" style="font-size: 15px">kind</text>
+  <text class="label" x="400" y="98" style="font-size: 15px">the browser opens</text>
+  <rect x="14" y="112" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0.05)" />
+  <text class="mono orange" x="20" y="130" style="text-anchor: start; font-size: 16px">https://www.google.com</text>
+  <text class="small" x="260" y="130" style="text-anchor: start; font-size: 15px">absolute URL</text>
+  <text class="mono" x="400" y="130" style="text-anchor: start; font-size: 15px"><tspan class="">https://www.google.com/</tspan></text>
+  <rect x="14" y="154" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0)" />
+  <text class="mono orange" x="20" y="172" style="text-anchor: start; font-size: 16px">www.google.com</text>
+  <text class="small" x="260" y="172" style="text-anchor: start; font-size: 15px">relative path</text>
+  <text class="mono" x="400" y="172" style="text-anchor: start; font-size: 15px"><tspan class="cyan">https://example.com</tspan><tspan class="yellow">/ie/lecture-3/</tspan><tspan class="red">www.google.com</tspan></text>
+  <rect x="14" y="196" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0.05)" />
+  <text class="mono orange" x="20" y="214" style="text-anchor: start; font-size: 16px">/www.google.com</text>
+  <text class="small" x="260" y="214" style="text-anchor: start; font-size: 15px">root-relative</text>
+  <text class="mono" x="400" y="214" style="text-anchor: start; font-size: 15px"><tspan class="cyan">https://example.com</tspan><tspan class="red">/www.google.com</tspan></text>
+  <rect x="14" y="238" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0)" />
+  <text class="mono orange" x="20" y="256" style="text-anchor: start; font-size: 16px">forms.html</text>
+  <text class="small" x="260" y="256" style="text-anchor: start; font-size: 15px">relative path</text>
+  <text class="mono" x="400" y="256" style="text-anchor: start; font-size: 15px"><tspan class="cyan">https://example.com</tspan><tspan class="yellow">/ie/lecture-3/</tspan>forms.html</text>
+  <rect x="14" y="280" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0.05)" />
+  <text class="mono orange" x="20" y="298" style="text-anchor: start; font-size: 16px">../lecture-4/</text>
+  <text class="small" x="260" y="298" style="text-anchor: start; font-size: 15px">relative path</text>
+  <text class="mono" x="400" y="298" style="text-anchor: start; font-size: 15px"><tspan class="cyan">https://example.com</tspan><tspan class="yellow">/ie/</tspan>lecture-4/</text>
+  <rect x="14" y="322" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0)" />
+  <text class="mono orange" x="20" y="340" style="text-anchor: start; font-size: 16px">#forms</text>
+  <text class="small" x="260" y="340" style="text-anchor: start; font-size: 15px">fragment</text>
+  <text class="mono" x="400" y="340" style="text-anchor: start; font-size: 15px"><tspan class="cyan">https://example.com</tspan><tspan class="yellow">/ie/lecture-3/index.html</tspan><tspan class="green">#forms</tspan></text>
+  <rect x="14" y="364" width="872" height="36" rx="4" style="fill: rgba(255,255,255,0.05)" />
+  <text class="mono orange" x="20" y="382" style="text-anchor: start; font-size: 16px">mailto:you@example.com</text>
+  <text class="small" x="260" y="382" style="text-anchor: start; font-size: 15px">other scheme</text>
+  <text class="mono" x="400" y="382" style="text-anchor: start; font-size: 15px"><tspan class="violet">mailto:you@example.com</tspan></text>
+  <text class="label" x="20" y="430" style="font-size: 14px">Results from the WHATWG URL parser (new URL(href, page) in Node). Without a scheme, www.google.com is only a file name.</text>
+</svg>

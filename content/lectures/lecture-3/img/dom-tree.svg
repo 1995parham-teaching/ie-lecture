@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>The Hello World page as a tree of nodes</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <path class="line" d="M450,62.0 L200,106.0" />
+  <path class="line" d="M450,62.0 L600,106.0" />
+  <path class="line" d="M600,152.0 L450,196.0" />
+  <path class="line" d="M600,152.0 L750,196.0" />
+  <path class="line" d="M450,242.0 L450,286.0" />
+  <path class="line" d="M750,242.0 L750,286.0" />
+  <path class="line" d="M450,332.0 L450,376.0" />
+  <path class="line" d="M750,332.0 L750,376.0" />
+  <rect class="box" x="370.0" y="18.0" width="160" height="44" rx="6" />
+  <text class="mono " x="450" y="40">Document</text>
+  <rect class="dash" x="50.0" y="108.0" width="300" height="44" rx="6" />
+  <text class="mono grey" x="200" y="130">&lt;!-- comment --&gt;</text>
+  <rect class="box" x="535.0" y="108.0" width="130" height="44" rx="6" />
+  <text class="mono orange" x="600" y="130">html</text>
+  <rect class="box" x="385.0" y="198.0" width="130" height="44" rx="6" />
+  <text class="mono orange" x="450" y="220">head</text>
+  <rect class="box" x="685.0" y="198.0" width="130" height="44" rx="6" />
+  <text class="mono orange" x="750" y="220">body</text>
+  <rect class="box" x="385.0" y="288.0" width="130" height="44" rx="6" />
+  <text class="mono orange" x="450" y="310">title</text>
+  <rect class="box" x="685.0" y="288.0" width="130" height="44" rx="6" />
+  <text class="mono orange" x="750" y="310">p</text>
+  <rect class="dash" x="345.0" y="378.0" width="210" height="44" rx="6" />
+  <text class="mono green" x="450" y="400">"First Example"</text>
+  <rect class="dash" x="645.0" y="378.0" width="210" height="44" rx="6" />
+  <text class="mono green" x="750" y="400">" Hello World! "</text>
+  <rect class="box" x="40" y="452" width="28" height="20" rx="4" /><text class="label" x="78" y="462">element node</text>
+  <rect class="dash" x="230" y="452" width="28" height="20" rx="4" /><text class="label" x="268" y="462">text / comment node</text>
+  <text class="label" x="40" y="490" style="font-size: 14px">Most of the whitespace between tags also becomes text nodes; they are not drawn here.</text>
+</svg>

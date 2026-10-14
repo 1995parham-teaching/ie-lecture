@@ -67,7 +67,10 @@ topics:
     </ul>
     <li>HTML</li>
     <ul>
-      <li>Was defined with SGML (Standard Generalized Markup Language)</li>
+      <li>
+        Was defined with SGML (Standard Generalized Markup Language) — until
+        HTML5, which dropped SGML and specifies its own parser
+      </li>
       <li>Is not a programming language</li>
       <ul>
         <li>
@@ -86,22 +89,32 @@ topics:
 <section>
   <section>
     <h2>Introduction (Cont.)</h2>
+    <img
+      src="./img/html-timeline.svg"
+      alt="A timeline: HTML Tags by Berners-Lee in 1991, Mosaic adds images in 1993, HTML 2.0 as RFC 1866 in 1995, the browser war from 1994 to 1996, HTML 3.2 and 4.0 in 1997, XHTML 1.0 in 2000, WHATWG founded in 2004, HTML5 in 2014, and the Living Standard from 2019"
+      width="900"
+    />
+  </section>
+  <section>
     <ul>
       <li>
-        HTML 1 (Berners-Lee, 1989): very basic, limited integration of
+        HTML Tags (Berners-Lee, 1991): very basic, limited integration of
         multimedia
       </li>
       <li>1993, Mosaic added many new features (e.g., integrated images)</li>
       <li>
-        HTML 2.0 (IETF, 1994): tried to standardize these &amp; other features
+        HTML 2.0 (IETF, RFC 1866, 1995): tried to standardize these &amp; other
+        features
       </li>
       <li>1994-96, Netscape &amp; IE added many new, divergent features</li>
     </ul>
   </section>
   <section>
     <ul>
-      <li>HTML 3.2 (W3C, 1996): attempted to unify into a single standard</li>
-      <li>HTML 4.0 (W3C, 1997): attempted to map out future direction</li>
+      <li>
+        HTML 3.2 (W3C, Jan 1997): attempted to unify into a single standard
+      </li>
+      <li>HTML 4.0 (W3C, Dec 1997): attempted to map out future direction</li>
       <li>XHTML 1.0 (W3C, 2000): modified to conform to XML standards</li>
       <li>HTML5 (WHATWG + W3C, 2014): supersedes HTML 4.01 and XHTML 1.0</li>
       <li>
@@ -131,7 +144,17 @@ topics:
     <ul>
       <li>&lt;tagname&gt;: opening (start) tag</li>
       <li>&lt;/tagname&gt;: closing (end) tag</li>
-      <li>&lt;tagname /&gt;: self-closing tag</li>
+      <li>
+        <span class="hl-orange">Void</span> elements (&lt;br&gt;, &lt;img&gt;,
+        &lt;meta&gt;, ...) have no content and no closing tag
+      </li>
+      <ul>
+        <li>
+          &lt;br /&gt; is allowed, but in HTML the
+          <code>/</code> does nothing — &lt;div /&gt; does
+          <strong class="hl-red">not</strong> close the div
+        </li>
+      </ul>
     </ul>
   </ul>
 </section>
@@ -143,7 +166,7 @@ topics:
       <li>Attributes customize tags</li>
     </ul>
     <pre><code class="lang-html">
-&lt;tagname attrib1=“setting” attrib2=“setting” ...&gt;
+&lt;tagname attrib1="setting" attrib2="setting" ...&gt;
 ...
 &lt;/tagname&gt;
     </code></pre>
@@ -174,8 +197,9 @@ topics:
 <section>
   <h2>HTML Basics: Tag &amp; Attribute &amp; Element</h2>
   <img
-    src="./img/html-tag.png"
-    alt="an element labelled: opening tag, attribute, content, closing tag"
+    src="./img/element-anatomy.svg"
+    alt="The element h1 class=primary Example Heading /h1, labelled: tag name h1, attribute name class, attribute value primary; the start tag, the content and the end tag together are the element. Below: br, img and meta are void elements with no content and no end tag"
+    width="880"
   />
 </section>
 <section>
@@ -235,7 +259,7 @@ topics:
         <em>I am important</em>
       </div>
       <li>
-        If tag has not content, the presentation is displayed (if it is needed)
+        If tag has no content, the presentation is displayed (if it is needed)
       </li>
       <pre><code class="lang-html">
 I am a &lt;br /&gt; break
@@ -248,41 +272,66 @@ I am a &lt;br /&gt; break
   </section>
 </section>
 <section>
-  <h2>HTML Processing: Rendering (Cont.)</h2>
-  <ul>
-    <li>
-      Web browsers by default start placing elements from
-      <span class="hl-orange">left-top corner</span>
-    </li>
+  <section>
+    <h2>HTML Processing: Rendering (Cont.)</h2>
     <ul>
       <li>
-        <span class="hl-green">In-line</span> elements are placed from left to
-        right
+        Web browsers by default start placing elements from
+        <span class="hl-orange">left-top corner</span>
       </li>
-      <li>
-        A new line is created for each
-        <span class="hl-cyan">block-level</span> element
-      </li>
-    </ul>
-    <li>Web browsers ignore</li>
-    <ul>
-      <li>Comments</li>
-      <pre><code class="lang-html">
-<!-- ... -->
-      </code></pre>
-      <li>Tags that don’t recognize</li>
-      <li>More than single whitespaces</li>
       <ul>
-        <li>E.g., Multiple newlines + tabs + spaces &rarr; single space</li>
+        <li>
+          <span class="hl-green">In-line</span> elements are placed from left to
+          right
+        </li>
+        <li>
+          A new line is created for each
+          <span class="hl-cyan">block-level</span> element
+        </li>
+        <li>
+          With <code class="hl-yellow">dir="rtl"</code> (e.g., Persian) the
+          browser starts from the <span class="hl-orange">right-top</span>
+          corner
+        </li>
       </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <img
+      src="./img/block-inline.svg"
+      alt="Two pages side by side. In both, the block elements h1, p, div and table each start a new line and take the full width. Inside the p, inline boxes 1 to 6 flow left to right and wrap when dir is ltr, and flow right to left when dir is rtl"
+      width="900"
+    />
+  </section>
+  <section>
+    <ul>
+      <li>Web browsers ignore</li>
+      <ul>
+        <li>Comments</li>
+        <pre><code class="lang-html">
+&lt;!-- ... --&gt;
+        </code></pre>
+        <li>
+          Tags they do not recognize — but the
+          <span class="hl-orange">content</span> of an unknown tag is still
+          shown
+        </li>
+        <pre><code class="lang-html">
+&lt;blink&gt;still visible&lt;/blink&gt;
+        </code></pre>
+        <li>More than single whitespaces</li>
+        <ul>
+          <li>E.g., Multiple newlines + tabs + spaces &rarr; single space</li>
+        </ul>
+      </ul>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
     <h2>The “Hello World” Example</h2>
     <pre><code class="lang-html">
-<!-- This is the “Hello World” Example -->
+&lt;!-- This is the “Hello World” Example --&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;First Example&lt;/title&gt;
@@ -303,35 +352,45 @@ I am a &lt;br /&gt; break
 <section>
   <h2>Nested Tags</h2>
   <ul>
-    <li>Nested Tags</li>
-    <ul>
-      <li>Tree of elements</li>
-      <li>Parent &amp; Child relationship</li>
-    </ul>
+    <li>
+      Nested tags make a <span class="hl-orange">tree</span>: parent &amp; child
+      relationship
+    </li>
+    <li>
+      The browser builds this tree from the text — the
+      <span class="hl-cyan">DOM</span> (Document Object Model)
+    </li>
   </ul>
   <img
-    src="./img/nested.png"
-    style="background-color: white"
-    alt="nested tags drawn as a tree of parent and child elements"
+    src="./img/dom-tree.svg"
+    alt="The Hello World page as a tree: Document has two children, the comment and html; html has head and body; head has title with the text First Example; body has p with the text Hello World"
+    width="760"
   />
 </section>
 <section>
   <h2>
-    <a href="https://www.toptal.com/designers/htmlarrows/numbers/"
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Glossary/Character_reference"
       >Special Characters/Symbols</a
     >
   </h2>
   <ul>
     <li>Some characters and symbols are encoded</li>
     <ul>
-      <li>Because cannot be used directly in text files</li>
+      <li>
+        <code>&lt;</code> and <code>&amp;</code> start markup, so they cannot be
+        written directly as text
+      </li>
+      <li>Others are hard to type, or invisible (non-breaking space)</li>
     </ul>
   </ul>
   <table>
     <thead>
-      <th>Character</th>
-      <th>Coding</th>
-      <th>Number code</th>
+      <tr>
+        <th>Character</th>
+        <th>Coding</th>
+        <th>Number code</th>
+      </tr>
     </thead>
     <tbody>
       <tr>
@@ -402,8 +461,15 @@ I am a &lt;br /&gt; break
         <li>Who is parent? Who is child?</li>
       </ul>
       <li>All tags are lowercase</li>
-      <li>Attributes' value must be in double quotation</li>
-      <li>Browsers ignore unknown tags and attributes</li>
+      <li>Attribute values must be quoted</li>
+      <li>
+        Attributes cannot be minimized:
+        <code>checked="checked"</code>, not <code>checked</code>
+      </li>
+      <li>
+        An XML parser <span class="hl-red">stops</span> at the first error; an
+        HTML parser recovers and continues
+      </li>
     </ul>
   </section>
   <section>
@@ -631,6 +697,25 @@ I am a &lt;br /&gt; break
       </li>
     </ul>
   </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;main&gt;</code> element represents
+        the dominant content of the body. A page has only one visible
+        <code class="hl-orange">&lt;main&gt;</code>.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;article&gt;</code> element
+        represents a self-contained composition that makes sense on its own: a
+        blog post, a news story, a comment, a product card.
+      </li>
+      <li>
+        The HTML <code class="hl-orange">&lt;aside&gt;</code> element represents
+        content only indirectly related to the main content, often shown as a
+        sidebar.
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -663,7 +748,7 @@ I am a &lt;br /&gt; break
       <ul>
         <li>
           The ordered list uses a specific attribute to define a custom start
-          number. The attribute syntax is start=”X”, where the X value is the
+          number. The attribute syntax is start="X", where the X value is the
           list custom starting number.
         </li>
       </ul>
@@ -767,28 +852,20 @@ I am a &lt;br /&gt; break
       </li>
       <ul>
         <li>
-          When scheme is not give in the URL &amp; base is not set in
-          <code class="hl-orange">&lt;head&gt;</code>, it is assumed as a file
-          in current domain
+          When the scheme is not given in the URL, the browser resolves it
+          against the address of the current page (or the
+          <code class="hl-orange">&lt;base&gt;</code> in
+          <code class="hl-orange">&lt;head&gt;</code>, if set)
         </li>
-        <ul>
-          <li>
-            <span class="hl-yellow">href</span>=“<span class="hl-red"
-              >http://</span
-            >www.google.com” open Google
-          </li>
-          <li>
-            <span class="hl-yellow">href</span>=“www.google.com” open a file in
-            current directory named www.google.com
-          </li>
-          <li>
-            <span class="hl-yellow">href</span>= “<span class="hl-red">/</span
-            >www.google.com” open a file in the root directory named
-            www.google.com
-          </li>
-        </ul>
       </ul>
     </ul>
+  </section>
+  <section>
+    <img
+      src="./img/url-resolution.svg"
+      alt="For a page at https://example.com/ie/lecture-3/index.html: https://www.google.com opens Google; www.google.com opens https://example.com/ie/lecture-3/www.google.com; /www.google.com opens https://example.com/www.google.com; forms.html opens https://example.com/ie/lecture-3/forms.html; ../lecture-4/ opens https://example.com/ie/lecture-4/; #forms opens the same page at #forms; mailto:you@example.com stays as it is"
+      width="900"
+    />
   </section>
   <section>
     <ul>
@@ -799,32 +876,41 @@ I am a &lt;br /&gt; break
         </li>
         <ul>
           <li>
-            <span class="hl-cyan">Absolute</span>: Path starts from web server
-            root directory
+            <span class="hl-cyan">Root-relative</span> (<code>/x</code>): Path
+            starts from web server root directory
           </li>
           <li>
-            <span class="hl-violet">Relative</span>: Path starts from current
-            directory
+            <span class="hl-violet">Relative</span> (<code>x</code>,
+            <code>../x</code>): Path starts from current directory
           </li>
         </ul>
         <li>Scheme can be every supported protocol</li>
         <ul>
           <li>E.g. <code>mailto</code> for sending email</li>
-          <li>E.g. <code>javascript</code> to run code</li>
+          <li>
+            E.g. <code>javascript</code> to run code — avoid it, use a
+            <code>&lt;button&gt;</code>
+          </li>
         </ul>
         <li>
           By default links are opened in the same window, to open link in new
           window
         </li>
         <ul>
-          <li>Attribute <span class="hl-yellow">target</span>="_blank"</li>
+          <li>
+            Attribute <span class="hl-yellow">target</span>="_blank" (modern
+            browsers also apply <code>rel="noopener"</code> to it)
+          </li>
         </ul>
         <li>
           Everything between
           <code class="hl-orange">&lt;a&gt; &lt;/a&gt;</code> is considered as
           link name
         </li>
-        <li>Avoid spaces after <code>&lt;a&gt;</code> and before &lt;/a&gt;</li>
+        <li>
+          Avoid spaces after <code>&lt;a&gt;</code> and before
+          <code>&lt;/a&gt;</code>
+        </li>
       </ul>
     </ul>
   </section>
@@ -876,41 +962,69 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
   </section>
 </section>
 <section>
-  <h2>Image and multimedia</h2>
-  <ul>
-    <li>
-      The HTML <code class="hl-orange">&lt;img&gt;</code> element embeds an
-      image into the document.
-    </li>
+  <section>
+    <h2>Image and multimedia</h2>
     <ul>
       <li>
-        <code class="hl-yellow">src</code>: address of file (local or remote)
+        The HTML <code class="hl-orange">&lt;img&gt;</code> element embeds an
+        image into the document.
       </li>
-      <li>
-        <code class="hl-yellow">alt</code>: alternative message shown if image
-        cannot be displayed
-      </li>
-      <li>
-        align: alignment of image with respect to text line (deprecated, is
-        controller by CSS)
-      </li>
-      <li>
-        <code class="hl-orange">&lt;img&gt;</code> is an inline element and has
-        no caption of its own
-      </li>
-      <li>
-        To caption one, wrap it:
-        <code class="hl-green">&lt;figure&gt;</code> +
-        <code class="hl-green">&lt;figcaption&gt;</code>
-      </li>
-      <pre><code class="lang-html">
+      <ul>
+        <li>
+          <code class="hl-yellow">src</code>: address of file (local or remote)
+        </li>
+        <li>
+          <code class="hl-yellow">alt</code>: alternative text, shown if the
+          image cannot be displayed and read aloud by screen readers
+        </li>
+        <li>
+          align: alignment of image with respect to text line (deprecated, is
+          controlled by CSS)
+        </li>
+        <li>
+          <code class="hl-orange">&lt;img&gt;</code> is an inline element and
+          has no caption of its own
+        </li>
+        <li>
+          To caption one, wrap it:
+          <code class="hl-green">&lt;figure&gt;</code> +
+          <code class="hl-green">&lt;figcaption&gt;</code>
+        </li>
+        <pre><code class="lang-html">
 &lt;figure&gt;
   &lt;img src="gopher.png" alt="the Go gopher" /&gt;
   &lt;figcaption&gt;The Go gopher, by Renée French&lt;/figcaption&gt;
 &lt;/figure&gt;
       </code></pre>
+      </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;video&gt;</code> and
+        <code class="hl-orange">&lt;audio&gt;</code> elements embed media; no
+        plugin (Flash) is needed any more
+      </li>
+      <ul>
+        <li>
+          <code class="hl-yellow">controls</code>: show the play/pause/volume
+          bar of the browser
+        </li>
+        <li>
+          Several <code class="hl-orange">&lt;source&gt;</code> children: the
+          browser plays the first format it supports
+        </li>
+      </ul>
+    </ul>
+    <pre><code class="lang-html">
+&lt;video controls width="480"&gt;
+  &lt;source src="lecture.webm" type="video/webm" /&gt;
+  &lt;source src="lecture.mp4" type="video/mp4" /&gt;
+  Your browser cannot play this video.
+&lt;/video&gt;
+    </code></pre>
+  </section>
 </section>
 <section>
   <h2>Embedded content</h2>
@@ -951,38 +1065,42 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
         <code class="hl-orange">&lt;tr&gt; &lt;/tr&gt;</code>
       </li>
       <li>
-        Each column inside a row is created by
+        Each cell inside a row is created by
         <code class="hl-orange">&lt;td&gt; &lt;/td&gt;</code>
       </li>
       <li>
-        Heading of a column is by
+        A header cell is created by
         <code class="hl-orange">&lt;th&gt; &lt;/th&gt;</code>
+      </li>
+      <li>
+        A cell can span: <code class="hl-yellow">colspan</code>,
+        <code class="hl-yellow">rowspan</code>
       </li>
       <li>Block-level element</li>
     </ul>
   </section>
   <section>
     <pre><code class="lang-html">
-    &lt;table&gt;
-      &lt;caption&gt;I am a lonely table&lt;/caption&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;Head Col 0&lt;/th&gt;
-          &lt;th&gt;Head Col 1&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Row 0 Col 0&lt;/td&gt;
-          &lt;td&gt;Row 0 Col 1&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Row 1 Col 0&lt;/td&gt;
-          &lt;td&gt;Row 1 Col 1&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  </code></pre>
+&lt;table&gt;
+  &lt;caption&gt;I am a lonely table&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Head Col 0&lt;/th&gt;
+      &lt;th&gt;Head Col 1&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Row 0 Col 0&lt;/td&gt;
+      &lt;td&gt;Row 0 Col 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Row 1 Col 0&lt;/td&gt;
+      &lt;td&gt;Row 1 Col 1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+    </code></pre>
   </section>
   <section>
     <table>
@@ -1012,6 +1130,7 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
   <img
     src="./img/summary.png"
     alt="a summary of the HTML elements covered so far"
+    width="860"
   />
 </section>
 <section>
@@ -1028,7 +1147,7 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
         <li>Data are processed by server side scripts</li>
         <ul>
           <li>
-            However, some preprocessing can also be performed in client slide
+            However, some preprocessing can also be performed in client side
           </li>
           <li>
             As we are going to see, with Javascript we can even use forms' data
@@ -1063,13 +1182,14 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
     <ul>
       <li>Forms are created by <code class="hl-orange">form</code></li>
       <li>
-        Each form must have <code class="hl-green">action</code> and
+        Each form should have <code class="hl-green">action</code> and
         <code class="hl-green">method</code> attributes
       </li>
       <ul>
         <li><code class="hl-green">action</code> is a URL</li>
         <ul>
           <li>Server side script that process the data</li>
+          <li>If omitted, the form is sent to the URL of the current page</li>
         </ul>
         <li>
           <code class="hl-green">method</code> is a HTTP method used to send
@@ -1084,9 +1204,17 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
             <code class="hl-yellow">post</code>: User input data is sent as the
             <em class="hl-red">body</em> of HTTP message by HTTP POST method
           </li>
+          <li>If omitted, the method is <code class="hl-yellow">get</code></li>
         </ul>
       </ul>
     </ul>
+  </section>
+  <section>
+    <img
+      src="./img/form-get-post.svg"
+      alt="A form with txtSearch=html tags, grade=M and pass=s3cret. With method get, Chrome sends GET /get?txtSearch=html+tags&amp;grade=M&amp;pass=s3cret, so the password is in the URL. With method post, Chrome sends POST /post with Content-Type application/x-www-form-urlencoded and the same name=value pairs in the body"
+      width="900"
+    />
   </section>
   <section>
     <ul>
@@ -1161,7 +1289,11 @@ To see result &lt;a href="xyz#section-result"&gt;click here&lt;/a&gt;
         of component is sent to server
       </li>
       <ul>
-        <li>Password in plain text format 😱</li>
+        <li>
+          Password in plain text format 😱 — with
+          <code class="hl-yellow">get</code> it is even in the URL
+        </li>
+        <li>Use <code class="hl-yellow">post</code> + HTTPS for a password</li>
       </ul>
     </ul>
   </section>
@@ -1188,7 +1320,8 @@ Please enter your message&lt;/textarea&gt;
       <br />
       Text:
       <textarea name="inputtext" cols="30" rows="3">
-Please enter your message</textarea>
+Please enter your message</textarea
+      >
       <button type="submit">Submit</button>
     </form>
   </section>
@@ -1285,7 +1418,7 @@ Please enter your message</textarea>
       </li>
       <li>
         <span class="hl-orange">name</span>=<span class="hl-green">value</span>
-        of the selected button will sent
+        of the selected button is sent
       </li>
       <li>Again, user cannot change/enter the value</li>
       <li>
@@ -1440,6 +1573,11 @@ Please enter your message</textarea>
             <code class="hl-green">"button"</code>: To run client side script.
           </li>
         </ul>
+        <li>
+          Inside a form the default is
+          <code class="hl-green">"submit"</code> — a
+          <code>&lt;button&gt;</code> without a type submits the form
+        </li>
       </ul>
       <li>
         The <code class="hl-yellow">name</code> of the button, submitted as a
@@ -1468,6 +1606,70 @@ Please enter your message</textarea>
   &lt;button type="button"&gt;Click Me&lt;/button&gt; &lt;br /&gt;
 &lt;/form&gt;
     </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The HTML <code class="hl-orange">&lt;label&gt;</code> element gives an
+        input its caption
+      </li>
+      <ul>
+        <li>Click on the label &rarr; the input gets the focus</li>
+        <li>Screen readers read the label with the input</li>
+        <li>
+          Connect them with <code class="hl-yellow">for</code> =
+          <code class="hl-yellow">id</code> of the input, or put the input
+          inside the label
+        </li>
+      </ul>
+    </ul>
+    <pre><code class="lang-html">
+&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input type="email" id="email" name="email" required /&gt;
+
+&lt;label&gt;&lt;input type="checkbox" name="news" /&gt; Send me news&lt;/label&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        More <code class="hl-yellow">type</code> values: the browser gives a
+        suitable keyboard or picker
+      </li>
+      <ul>
+        <li>
+          <code class="hl-green">email</code>,
+          <code class="hl-green">url</code>, <code class="hl-green">tel</code>,
+          <code class="hl-green">number</code>,
+          <code class="hl-green">range</code>,
+          <code class="hl-green">date</code>,
+          <code class="hl-green">color</code>,
+          <code class="hl-green">search</code>
+        </li>
+      </ul>
+      <li>Validation in the browser, before the form is sent</li>
+      <ul>
+        <li>
+          <code class="hl-yellow">required</code>,
+          <code class="hl-yellow">min</code> /
+          <code class="hl-yellow">max</code>,
+          <code class="hl-yellow">maxlength</code>,
+          <code class="hl-yellow">pattern</code>
+        </li>
+        <li>
+          Only for the user experience — the server
+          <strong class="hl-red">must</strong> validate again, because a client
+          can send any request
+        </li>
+      </ul>
+    </ul>
+    <form action="https://httpbin.org/get" method="get">
+      <label
+        >Age <input type="number" name="age" min="18" max="99" required
+      /></label>
+      <label>Date <input type="date" name="date" /></label>
+      <input type="submit" value="Submit" />
+    </form>
   </section>
 </section>
 <section>
@@ -1528,7 +1730,42 @@ Please enter your message</textarea>
 <section>
   <h2>Semantic Tags Example</h2>
 
-  <img src="./img/semantic-tags.png" alt="Semantic tags example" />
+  <img
+    src="./img/semantic-layout.svg"
+    alt="A body that holds a header with a nav inside, a main with a section of two articles, an aside next to main, and a footer; at the side, one line on the purpose of each element"
+    width="860"
+  />
+</section>
+
+<section>
+  <h2>Semantic Tags Example (Cont.)</h2>
+  <ul>
+    <li>
+      The same layout is possible with only
+      <code class="hl-orange">&lt;div&gt;</code> — it looks the same in the
+      browser
+    </li>
+    <li>
+      The difference is for the
+      <span class="hl-cyan">machines</span> that read the page
+    </li>
+  </ul>
+  <pre><code class="lang-html">
+&lt;!-- says nothing --&gt;
+&lt;div class="top"&gt;&lt;div class="menu"&gt;...&lt;/div&gt;&lt;/div&gt;
+&lt;div class="content"&gt;...&lt;/div&gt;
+
+&lt;!-- says what each part is --&gt;
+&lt;header&gt;&lt;nav&gt;...&lt;/nav&gt;&lt;/header&gt;
+&lt;main&gt;...&lt;/main&gt;
+  </code></pre>
+  <ul>
+    <li>
+      Screen readers can jump to <code>&lt;nav&gt;</code> or
+      <code>&lt;main&gt;</code>; reader mode and search engines find the
+      <code>&lt;article&gt;</code>
+    </li>
+  </ul>
 </section>
 
 <section>
@@ -1590,8 +1827,8 @@ Please enter your message</textarea>
           </li>
           <li>
             <code class="hl-violet">description</code>: a short and accurate
-            summary of the content of the page. Several browsers, like Firefox
-            and Opera, use this as the default description of bookmarked pages.
+            summary of the content of the page. Search engines often show it
+            under the link in the results.
           </li>
           <li>
             <code class="hl-yellow">generator</code>: the identifier of the
@@ -1599,7 +1836,7 @@ Please enter your message</textarea>
           </li>
           <li>
             <code class="hl-red">keywords</code>: words relevant to the page's
-            content separated by commas.
+            content separated by commas. Google search ignores it (since 2009).
           </li>
         </ul>
         <pre><code class="lang-html">
@@ -1654,6 +1891,26 @@ Please enter your message</textarea>
       </ul>
     </ul>
   </section>
+  <section>
+    <ul>
+      <li>
+        The <span class="hl-green">viewport</span> meta: put it in every page
+      </li>
+      <ul>
+        <li>
+          Without it, a mobile browser draws the page about 980px wide and zooms
+          out — the text becomes very small
+        </li>
+        <li>
+          With it, the page width is the width of the device; CSS can then adapt
+          the layout (lecture 4)
+        </li>
+      </ul>
+    </ul>
+    <pre><code class="lang-html">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    </code></pre>
+  </section>
 </section>
 <section>
   <ul>
@@ -1674,12 +1931,15 @@ Please enter your message</textarea>
 <section>
   <h2>HTML Remarks</h2>
   <ul>
-    <li>HTML is open source</li>
+    <li>The HTML source of every page is public (View Source)</li>
     <ul>
       <li>We can find how others do amazing things in web</li>
       <li>Learning by reading the others' codes</li>
       <ul>
-        <li>Copy/Paste is strictly prohibited (copyright)</li>
+        <li>
+          Public is not open source: Copy/Paste is strictly prohibited
+          (copyright)
+        </li>
       </ul>
     </ul>
     <li>HTML is not a programming language</li>
@@ -1688,11 +1948,40 @@ Please enter your message</textarea>
       <ul>
         <li>So, what happen if there is an error?</li>
         <ul>
-          <li>Depends on browser</li>
-          <li>Developer should check with multiple browsers</li>
+          <li>
+            No error message: the HTML standard defines how to
+            <span class="hl-green">recover</span>, so modern browsers build the
+            same tree
+          </li>
+          <li>
+            The recovered tree may not be what you meant — check with a
+            <a href="https://validator.w3.org/nu/">validator</a>
+          </li>
         </ul>
       </ul>
     </ul>
+  </ul>
+</section>
+<section>
+  <h2>HTML Remarks (Cont.)</h2>
+  <ul>
+    <li>
+      Example: a <code>&lt;p&gt;</code> cannot contain a
+      <code>&lt;div&gt;</code>, so the parser closes the paragraph early
+    </li>
+  </ul>
+  <pre><code class="lang-html">
+&lt;!-- what you wrote --&gt;
+&lt;p&gt;Hello &lt;div&gt;World&lt;/div&gt;&lt;/p&gt;
+
+&lt;!-- the tree the browser builds --&gt;
+&lt;p&gt;Hello &lt;/p&gt;&lt;div&gt;World&lt;/div&gt;&lt;p&gt;&lt;/p&gt;
+  </code></pre>
+  <ul>
+    <li>
+      Open DevTools (<strong>Elements</strong> tab) to see the tree the browser
+      built
+    </li>
   </ul>
 </section>
 <section>
@@ -1731,8 +2020,12 @@ Please enter your message</textarea>
   <ul>
     <li>A rendering software</li>
     <ul>
-      <li>Common browsers Try different browsers</li>
+      <li>Common browsers — try more than one</li>
     </ul>
+    <li>
+      A validator:
+      <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>
+    </li>
     <li>Additional debugging tools</li>
     <li>HTML Debugging</li>
     <ul>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>One form, two methods: GET puts the fields in the URL, POST puts them in the body</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="20" y="150" width="250" height="170" rx="6" />
+  <text class="orange mono" x="145" y="172" style="font-size: 16px">&lt;form&gt;</text>
+  <text class="mono" x="36" y="210" style="text-anchor: start; font-size: 16px"><tspan class="yellow">txtSearch</tspan><tspan class="grey">=</tspan><tspan class="green">html tags</tspan></text>
+  <text class="mono" x="36" y="246" style="text-anchor: start; font-size: 16px"><tspan class="yellow">grade</tspan><tspan class="grey">=</tspan><tspan class="green">M</tspan></text>
+  <text class="mono" x="36" y="282" style="text-anchor: start; font-size: 16px"><tspan class="yellow">pass</tspan><tspan class="grey">=</tspan><tspan class="green">s3cret</tspan></text>
+  <text class="small" x="145" y="345">name = value of each field</text>
+  <path class="line" d="M272,235 C330,235 320,58.0 378,58.0" />
+  <text class="cyan mono" x="368" y="32" style="font-size: 15px; text-anchor: end">method="get"</text>
+  <rect class="box" x="380" y="20" width="500" height="76" rx="6" />
+  <text class="mono" x="396" y="42" style="text-anchor: start; font-size: 15px"><tspan class="cyan">GET</tspan> /get?<tspan class="yellow">txtSearch</tspan>=<tspan class="green">html+tags</tspan>&amp;<tspan class="yellow">grade</tspan>=<tspan class="green">M</tspan>&amp;<tspan class="yellow">pass</tspan>=<tspan class="red">s3cret</tspan></text>
+  <text class="mono" x="396" y="66" style="text-anchor: start; font-size: 15px"><tspan class="grey">HTTP/1.1</tspan></text>
+  <text class="label" x="380" y="114" style="font-size: 14px">fields go in the query of the URL: visible in the address bar, history and logs</text>
+  <path class="line" d="M272,235 C330,235 320,324.0 378,324.0" />
+  <text class="violet mono" x="368" y="376.0" style="font-size: 15px; text-anchor: end">method="post"</text>
+  <rect class="box" x="380" y="250" width="500" height="148" rx="6" />
+  <text class="mono" x="396" y="272" style="text-anchor: start; font-size: 15px"><tspan class="violet">POST</tspan> /post <tspan class="grey">HTTP/1.1</tspan></text>
+  <text class="mono" x="396" y="296" style="text-anchor: start; font-size: 15px"><tspan class="grey">Content-Type: application/x-www-form-urlencoded</tspan></text>
+  <text class="mono" x="396" y="320" style="text-anchor: start; font-size: 15px"><tspan class="grey">Content-Length: 39</tspan></text>
+  <text class="mono" x="396" y="344" style="text-anchor: start; font-size: 15px"></text>
+  <text class="mono" x="396" y="368" style="text-anchor: start; font-size: 15px"><tspan class="yellow">txtSearch</tspan>=<tspan class="green">html+tags</tspan>&amp;<tspan class="yellow">grade</tspan>=<tspan class="green">M</tspan>&amp;<tspan class="yellow">pass</tspan>=<tspan class="red">s3cret</tspan></text>
+  <text class="label" x="380" y="416" style="font-size: 14px">fields go in the body: not in the URL, but still clear text without HTTPS</text>
+  <text class="label" x="20" y="455" style="font-size: 13px">Captured from Chrome submitting to a local server; the other request headers are not shown.</text>
+</svg>
