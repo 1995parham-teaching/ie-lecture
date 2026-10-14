@@ -758,16 +758,18 @@ h3~p {color:green;}
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
-      width: 120%;
+      align-items: flex-start;
     "
   >
     <img
       src="./img/cascading.png"
-      alt="the order styles are applied in: browser, external, internal, inline"
+      alt="the order styles are applied in, weakest first: browser default, user, external, internal, inline"
+      width="560"
     />
-    <p style="text-align: left; margin: 20px">
+    <p style="text-align: left; margin: 20px; font-size: 0.8em">
       Assuming there is not any conflicting style and external styles are linked
-      before internal styles in the head
+      before internal styles in the head. User means the reader's normal styles;
+      only a user <code>!important</code> beats the page.
     </p>
   </div>
 </section>
@@ -869,13 +871,6 @@ code {color: red;}
     src="./img/specificity.svg"
     alt="Specificity as three counts: IDs, then classes, attributes and pseudo-classes, then types and pseudo-elements. p scores 0 0 1, p.c scores 0 1 1, p#i scores 1 0 1 and wins. A style attribute is not a selector and wins before specificity is compared. One ID beats eleven classes; the universal selector and combinators add nothing."
     width="860"
-  />
-</section>
-<section>
-  <img
-    src="img/specifishity.png"
-    style="height: 800px"
-    alt="a chart ranking selector specificity from type through class to id and inline"
   />
 </section>
 <section>
@@ -1255,8 +1250,9 @@ p#red{
     <h2>Specified Positioning</h2>
     <ul>
       <li>
-        Positioning of <span class="hl-orange">block-level</span> element can be
-        specified using the <code class="hl-green">position</code> property
+        Positioning of <span class="hl-orange">any element</span>, block-level
+        or inline, can be specified using the
+        <code class="hl-green">position</code> property
       </li>
     </ul>
     <img
@@ -1333,8 +1329,8 @@ p#red{
       <span class="hl-orange">normal position</span>
     </li>
     <li>
-      The reserved space (box model: content + padding + margin) for the element
-      is still preserved in normal flow
+      The reserved space (box model: content + padding + border + margin) for
+      the element is still preserved in normal flow
     </li>
     <li>Position is specified by top, left, right, bottom properties, e.g.,</li>
     <dl>
@@ -1406,15 +1402,16 @@ p.demo.five {
     </li>
     <ul>
       <li>
-        If no such element is found, the containing block is
-        <code>&lt;html&gt;</code>
+        If no such element is found, the containing block is the
+        <span class="hl-orange">initial containing block</span>: a
+        viewport-sized rectangle, not the <code>&lt;html&gt;</code> element
       </li>
     </ul>
     <li>Absolute positioned elements are removed from the normal flow</li>
     <ul>
       <li>
         The document and other elements behave like the positioned element does
-        not exist (no space for content, padding, margin)
+        not exist (no space for content, padding, border, margin)
       </li>
       <li>The positioned elements can overlap other elements</li>
       <li>
@@ -1475,7 +1472,7 @@ p.demo.five {
     <ul>
       <li>
         The document and other elements behave like the fixed positioned element
-        does not exist (no content, padding, margin)
+        does not exist (no content, padding, border, margin)
       </li>
       <li>Fixed positioned elements can overlap other elements</li>
     </ul>
@@ -1967,7 +1964,7 @@ h1 {
 
 <section>
   <section>
-    <h2>FlexBox Axises</h2>
+    <h2>FlexBox Axes</h2>
 
     <img
       src="./img/flex-axes.svg"

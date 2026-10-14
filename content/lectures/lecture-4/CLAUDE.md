@@ -1,6 +1,6 @@
 # Lecture 4 — CSS
 
-211 slides, 36 vertical stacks — the second-largest deck. Topics (TOC indices):
+210 slides, 36 vertical stacks — the second-largest deck. Topics (TOC indices):
 `0` Introduction · `1` Style Types · `2` Selectors · `3` Cascading ·
 `4` Box-Model · `5` Layout Design · `6` Miscellaneous · `7` CSS Tools.
 
@@ -37,7 +37,7 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 | `margin-collapse.svg` | Vertical Margin Collapse (replaced the book scan)     |
 | `positioning.svg`     | Specified Positioning — static, relative, absolute    |
 | `float-clear.svg`     | Clearing around Float Elements                        |
-| `flex-axes.svg`       | FlexBox Axises (replaced `flex-axises.png`)           |
+| `flex-axes.svg`       | FlexBox Axes (replaced `flex-axises.png`)             |
 | `justify-content.svg` | justify-content (replaced the two `flex-justify-*`)   |
 | `grid-lines.svg`      | Grid Lines — new sub-slide after Placing Items        |
 
@@ -68,15 +68,34 @@ If you change one, measure again:
 
 The generator scripts were throwaway; edit the SVG directly and re-render it.
 
+One draw.io diagram remains: `img/cascading.png`, exported from
+`diag/cascading.drawio` (the "Cascading" slide). Order, weakest first: Browser
+Default, User, External-1…n, Internal-1…2, Inline. User sits below the author
+sheets because normal user styles lose to author styles; only user
+`!important` beats them. This agrees with `cascade-order.svg` (browser < author
+< author `!important`; `style=""` beats every selector). Export with
+`docker run --rm -v "$PWD":/data rlespinasse/drawio-export --format png --output out /data`
+on a copy of the `.drawio`, then copy `out/cascading-Page-1.png` over the PNG.
+
+The fish chart `specifishity.png` was removed: it used the old 4-part notation
+that counts `style=""` and `!important` as specificity digits, which contradicts
+`specificity.svg`.
+
+## Positioning facts (measured in headless Chrome)
+
+- With no positioned ancestor, an absolute box uses the **initial containing
+  block**, not `<html>`. Test: `html { margin-left: 100px; height: 300px }` in
+  an 800-wide window; `position: absolute; left: 0; bottom: 0` landed at x = 0
+  and at the viewport bottom (513), not at the html box (x = 100, bottom 310);
+  `width: 50%` gave 400, half the viewport, not half of html (700).
+- Relative positioning keeps the **border box plus margin** in flow: a
+  relative `div` (`height 20, padding 5, border 10, margin 7`, `top: 100px`)
+  left the next sibling at 30 + 50 + 7 = 87.
+- `position` applies to **all elements**: a relative inline `span` stayed
+  `display: inline` and moved by its `left: 20px`.
+
 ## Cautions
 
 - Two `width="350px"` / `width="850px"` attributes remain; dimension attributes
   take a bare integer.
-- `img/cascading.png` (from `diag/cascading.drawio`) puts **User** after
-  Inline as the strongest layer. That is wrong: normal user styles lose to
-  author styles; only user `!important` beats them. Fix it in the `.drawio`.
-- "Absolute Positioning" says that with no positioned ancestor the containing
-  block is `<html>`. It is the _initial containing block_ (a viewport-sized
-  rectangle), not the `html` element.
-- `diag/cascading.drawio` is the source for the cascade diagram.
 - The one hands-on section here uses `class="hands-on"` on the `<section>`.
