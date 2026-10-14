@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>The string سلام دنیا is 17 bytes of UTF-8 holding 9 runes; range jumps from rune start to rune start</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono end" x="272" y="24" style="font-size: 18px">s3 := "</text>
+  <text x="310" y="24" direction="rtl" style="font-size: 20px; text-anchor: middle">سلام دنیا</text>
+  <text class="mono start" x="344" y="24" style="font-size: 18px">"</text>
+  <text class="mono start grey" x="376" y="24" style="font-size: 18px">// len(s3) = 17, but 9 runes</text>
+  <rect class="cool" x="44" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="90" y="88" style="font-size: 26px">س</text>
+  <text class="small mono" x="90" y="120" style="font-size: 13px">U+0633</text>
+  <rect class="cool" x="140" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="186" y="88" style="font-size: 26px">ل</text>
+  <text class="small mono" x="186" y="120" style="font-size: 13px">U+0644</text>
+  <rect class="cool" x="236" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="282" y="88" style="font-size: 26px">ا</text>
+  <text class="small mono" x="282" y="120" style="font-size: 13px">U+0627</text>
+  <rect class="cool" x="332" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="378" y="88" style="font-size: 26px">م</text>
+  <text class="small mono" x="378" y="120" style="font-size: 13px">U+0645</text>
+  <rect class="box" x="428" y="60" width="44" height="76" rx="6" />
+  <text class="grey" x="450" y="88" style="font-size: 26px">␠</text>
+  <text class="small mono" x="450" y="120" style="font-size: 9px">U+0020</text>
+  <rect class="cool" x="476" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="522" y="88" style="font-size: 26px">د</text>
+  <text class="small mono" x="522" y="120" style="font-size: 13px">U+062F</text>
+  <rect class="cool" x="572" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="618" y="88" style="font-size: 26px">ن</text>
+  <text class="small mono" x="618" y="120" style="font-size: 13px">U+0646</text>
+  <rect class="cool" x="668" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="714" y="88" style="font-size: 26px">ی</text>
+  <text class="small mono" x="714" y="120" style="font-size: 13px">U+06CC</text>
+  <rect class="cool" x="764" y="60" width="92" height="76" rx="6" />
+  <text class="cyan" x="810" y="88" style="font-size: 26px">ا</text>
+  <text class="small mono" x="810" y="120" style="font-size: 13px">U+0627</text>
+  <rect class="hot" x="42" y="160" width="48" height="44" rx="0" />
+  <text class="mono orange" x="66" y="182" style="font-size: 16px">216</text>
+  <text class="mono green" x="66" y="222" style="font-size: 15px">0</text>
+  <rect class="box" x="90" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="114" y="182" style="font-size: 16px">179</text>
+  <text class="mono grey" x="114" y="222" style="font-size: 15px">1</text>
+  <rect class="box" x="138" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="162" y="182" style="font-size: 16px">217</text>
+  <text class="mono green" x="162" y="222" style="font-size: 15px">2</text>
+  <rect class="box" x="186" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="210" y="182" style="font-size: 16px">132</text>
+  <text class="mono grey" x="210" y="222" style="font-size: 15px">3</text>
+  <rect class="box" x="234" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="258" y="182" style="font-size: 16px">216</text>
+  <text class="mono green" x="258" y="222" style="font-size: 15px">4</text>
+  <rect class="box" x="282" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="306" y="182" style="font-size: 16px">167</text>
+  <text class="mono grey" x="306" y="222" style="font-size: 15px">5</text>
+  <rect class="box" x="330" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="354" y="182" style="font-size: 16px">217</text>
+  <text class="mono green" x="354" y="222" style="font-size: 15px">6</text>
+  <rect class="box" x="378" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="402" y="182" style="font-size: 16px">133</text>
+  <text class="mono grey" x="402" y="222" style="font-size: 15px">7</text>
+  <rect class="box" x="426" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="450" y="182" style="font-size: 16px">32</text>
+  <text class="mono green" x="450" y="222" style="font-size: 15px">8</text>
+  <rect class="box" x="474" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="498" y="182" style="font-size: 16px">216</text>
+  <text class="mono green" x="498" y="222" style="font-size: 15px">9</text>
+  <rect class="box" x="522" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="546" y="182" style="font-size: 16px">175</text>
+  <text class="mono grey" x="546" y="222" style="font-size: 15px">10</text>
+  <rect class="box" x="570" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="594" y="182" style="font-size: 16px">217</text>
+  <text class="mono green" x="594" y="222" style="font-size: 15px">11</text>
+  <rect class="box" x="618" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="642" y="182" style="font-size: 16px">134</text>
+  <text class="mono grey" x="642" y="222" style="font-size: 15px">12</text>
+  <rect class="box" x="666" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="690" y="182" style="font-size: 16px">219</text>
+  <text class="mono green" x="690" y="222" style="font-size: 15px">13</text>
+  <rect class="box" x="714" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="738" y="182" style="font-size: 16px">140</text>
+  <text class="mono grey" x="738" y="222" style="font-size: 15px">14</text>
+  <rect class="box" x="762" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="786" y="182" style="font-size: 16px">216</text>
+  <text class="mono green" x="786" y="222" style="font-size: 15px">15</text>
+  <rect class="box" x="810" y="160" width="48" height="44" rx="0" />
+  <text class="mono" x="834" y="182" style="font-size: 16px">167</text>
+  <text class="mono grey" x="834" y="222" style="font-size: 15px">16</text>
+  <text class="small end" x="32" y="182" style="font-size: 14px"></text>
+  <text class="mono end grey" x="34" y="222" style="font-size: 15px">i</text>
+  <text x="42" y="266" style="text-anchor: start; font-size: 17px"><tspan class="orange mono">s3[0]</tspan> is <tspan class="orange mono">216</tspan>: one byte, half of <tspan class="cyan">س</tspan>. Indexing a string gives bytes, never characters</text>
+  <text x="42" y="300" style="text-anchor: start; font-size: 17px"><tspan class="green mono">for i, c := range s3</tspan> decodes runes: i = <tspan class="green mono">0, 2, 4, 6, 8, 9, 11, 13, 15</tspan></text>
+  <text class="label" x="42" y="334" style="font-size: 15px">Bytes are drawn in memory order, left to right; on screen the Persian text reads right to left</text>
+  <text class="label" x="42" y="362" style="font-size: 15px">These letters take 2 bytes each in UTF-8, the space takes 1: 8 × 2 + 1 = 17</text>
+</svg>

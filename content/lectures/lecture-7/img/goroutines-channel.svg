@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>Three goroutines send on one unbuffered channel at their own pace; main receives one value at a time, in the order they arrive</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="20" y="24" style="font-size: 15px">go f(msg, delay, ch) three times; main does fmt.Println(i, &lt;-ch)</text>
+  <text class="mono end orange" x="150" y="60" style="font-size: 15px">goroutine "A--"</text>
+  <path class="brace" d="M170,60 L870,60" />
+  <circle cx="170" cy="60" r="6" fill="#ff9100" />
+  <path d="M170,68 L170,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="301.25" cy="60" r="6" fill="#ff9100" />
+  <path d="M301.25,68 L301.25,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="432.5" cy="60" r="6" fill="#ff9100" />
+  <path d="M432.5,68 L432.5,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="563.75" cy="60" r="6" fill="#ff9100" />
+  <path d="M563.75,68 L563.75,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="695" cy="60" r="6" fill="#ff9100" />
+  <path d="M695,68 L695,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="826.25" cy="60" r="6" fill="#ff9100" />
+  <path d="M826.25,68 L826.25,234" fill="none" stroke="#ff9100" stroke-opacity="0.45" stroke-width="2" />
+  <text class="mono end cyan" x="150" y="120" style="font-size: 15px">goroutine "-B-"</text>
+  <path class="brace" d="M170,120 L870,120" />
+  <circle cx="170" cy="120" r="6" fill="#00e5ff" />
+  <path d="M170,128 L170,234" fill="none" stroke="#00e5ff" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="388.75" cy="120" r="6" fill="#00e5ff" />
+  <path d="M388.75,128 L388.75,234" fill="none" stroke="#00e5ff" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="607.5" cy="120" r="6" fill="#00e5ff" />
+  <path d="M607.5,128 L607.5,234" fill="none" stroke="#00e5ff" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="826.25" cy="120" r="6" fill="#00e5ff" />
+  <path d="M826.25,128 L826.25,234" fill="none" stroke="#00e5ff" stroke-opacity="0.45" stroke-width="2" />
+  <text class="mono end violet" x="150" y="180" style="font-size: 15px">goroutine "--C"</text>
+  <path class="brace" d="M170,180 L870,180" />
+  <circle cx="170" cy="180" r="6" fill="#ee82ee" />
+  <path d="M170,188 L170,234" fill="none" stroke="#ee82ee" stroke-opacity="0.45" stroke-width="2" />
+  <circle cx="651.25" cy="180" r="6" fill="#ee82ee" />
+  <path d="M651.25,188 L651.25,234" fill="none" stroke="#ee82ee" stroke-opacity="0.45" stroke-width="2" />
+  <rect class="box" x="160" y="234" width="720" height="32" rx="16" />
+  <text class="mono end" x="150" y="250" style="font-size: 15px">ch (unbuffered)</text>
+  <text class="mono end" x="150" y="330" style="font-size: 15px">main</text>
+  <path class="brace" d="M170,330 L870,330" />
+  <path class="line" d="M170.0,266 L170.0,321" />
+  <path class="line" d="M301.25,266 L301.25,321" />
+  <path class="line" d="M388.75,266 L388.75,321" />
+  <path class="line" d="M432.5,266 L432.5,321" />
+  <path class="line" d="M563.75,266 L563.75,321" />
+  <path class="line" d="M607.5,266 L607.5,321" />
+  <path class="line" d="M651.25,266 L651.25,321" />
+  <path class="line" d="M695.0,266 L695.0,321" />
+  <path class="line" d="M826.25,266 L826.25,321" />
+  <circle cx="170" cy="330" r="6" fill="#ee82ee" />
+  <text class="mono" x="170" y="356" style="font-size: 15px; fill: #ee82ee">0</text>
+  <text class="mono" x="170" y="376" style="font-size: 15px; fill: #ff9100">1</text>
+  <text class="mono" x="170" y="396" style="font-size: 15px; fill: #00e5ff">2</text>
+  <circle cx="301.25" cy="330" r="6" fill="#ff9100" />
+  <text class="mono" x="301.25" y="356" style="font-size: 15px; fill: #ff9100">3</text>
+  <circle cx="388.75" cy="330" r="6" fill="#00e5ff" />
+  <text class="mono" x="388.75" y="356" style="font-size: 15px; fill: #00e5ff">4</text>
+  <circle cx="432.5" cy="330" r="6" fill="#ff9100" />
+  <text class="mono" x="432.5" y="356" style="font-size: 15px; fill: #ff9100">5</text>
+  <circle cx="563.75" cy="330" r="6" fill="#ff9100" />
+  <text class="mono" x="563.75" y="356" style="font-size: 15px; fill: #ff9100">6</text>
+  <circle cx="607.5" cy="330" r="6" fill="#00e5ff" />
+  <text class="mono" x="607.5" y="356" style="font-size: 15px; fill: #00e5ff">7</text>
+  <circle cx="651.25" cy="330" r="6" fill="#ee82ee" />
+  <text class="mono" x="651.25" y="356" style="font-size: 15px; fill: #ee82ee">8</text>
+  <circle cx="695" cy="330" r="6" fill="#ff9100" />
+  <text class="mono" x="695" y="356" style="font-size: 15px; fill: #ff9100">9</text>
+  <circle cx="826.25" cy="330" r="6" fill="#00e5ff" />
+  <text class="mono" x="826.25" y="356" style="font-size: 15px; fill: #00e5ff">10</text>
+  <text class="mono" x="826.25" y="376" style="font-size: 15px; fill: #ff9100">11</text>
+  <text class="small end" x="870" y="452" style="font-size: 13px">i printed by main; colour = sender</text>
+  <text class="small start" x="200" y="452" style="font-size: 13px">↑ three sends at 0 s: their order changes from run to run</text>
+  <text class="small" x="170" y="418" style="font-size: 13px">0 s</text>
+  <text class="small" x="345" y="418" style="font-size: 13px">0.4 s</text>
+  <text class="small" x="520" y="418" style="font-size: 13px">0.8 s</text>
+  <text class="small" x="695" y="418" style="font-size: 13px">1.2 s</text>
+  <text class="small" x="870" y="418" style="font-size: 13px">1.6 s</text>
+  <text class="small" x="870" y="420" style="font-size: 13px"></text>
+</svg>

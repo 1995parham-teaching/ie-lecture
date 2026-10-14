@@ -858,21 +858,11 @@ Global string is which defined
   </section>
   <section>
     <h2>What Happened?</h2>
-    <ul>
-      <li>
-        <code class="hl-yellow">len(s3)</code> is
-        <strong class="hl-red">17</strong>, not 9: those letters need two bytes
-        each in UTF-8
-      </li>
-      <li>
-        <code>s3[0]</code> is <code>216</code>, half of a character, and
-        printing it as <code>%c</code> gives nonsense
-      </li>
-      <li>
-        <code class="hl-green">range</code> decodes runes, so the index jumps 0,
-        2, 4, … and each character arrives whole
-      </li>
-    </ul>
+    <img
+      src="./img/string-bytes.svg"
+      alt="s3 is 17 bytes holding 9 runes. Each Persian letter is 2 bytes in UTF-8 and the space is 1: س is 216 179, ل is 217 132, ا is 216 167, م is 217 133, space is 32, د is 216 175, ن is 217 134, ی is 219 140, ا is 216 167. s3[0] is 216, one byte and half of س. range decodes runes, so i is 0, 2, 4, 6, 8, 9, 11, 13, 15"
+      width="880"
+    />
   </section>
 </section>
 <section>
@@ -940,8 +930,9 @@ for _, v := range a {
   </section>
   <section>
     <img
-      src="./img/slice.png"
-      alt="a slice header pointing into a backing array"
+      src="./img/slice.svg"
+      alt="a := [6]int{10, 20, 30, 40, 50, 60}, s := a[1:4] and t := a[3:5]. The header of s is ptr to a[1], len 3, cap 5; the header of t is ptr to a[3], len 2, cap 3. Both point into the same backing array, so s[2] and t[0] are the same element: s[2] = 99 makes t[0] read 99"
+      width="880"
     />
   </section>
   <section>
@@ -963,6 +954,14 @@ append(s, x)  // append element x to slice s and return new slice
       <li>Slices play the role of dynamically sized arrays</li>
       <li>Widely used in Go code</li>
     </ul>
+  </section>
+  <section>
+    <h2><code>append</code> and the Backing Array</h2>
+    <img
+      src="./img/slice-append.svg"
+      alt="Starting from s := a[1:4] with len 3 and cap 5. u := append(s, 7) fits in the capacity, so it writes 7 into a[4], overwriting 50, and t := a[3:5] now reads [40 7]. v := append(u, 8, 9) needs length 6, more than cap 5, so Go allocates a new array of capacity 10, copies 20 30 40 7 and appends 8 9; a is untouched and writing v[0] no longer changes s"
+      width="860"
+    />
   </section>
 </section>
 <section>
@@ -1219,6 +1218,14 @@ Hello
         you get <code>false</code> instead
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>What Is Inside <code>p</code>?</h2>
+    <img
+      src="./img/interface-value.svg"
+      alt="After p = s, the interface value p holds two words: the dynamic type Student, with methods Print and Hello, and the dynamic value, a copy of Student{Name: Linus Torvalds}. At run time p.Print() calls Student's Print, p.(Student) gives the Student back, _, ok := p.(Person) gives ok false, and p.(Person) panics with main.Printer is main.Student, not main.Person. At compile time p.Hello() fails because Printer has no method Hello. A nil Printer is (nil, nil)"
+      width="880"
+    />
   </section>
 </section>
 <section>
@@ -1517,43 +1524,11 @@ func main() {
     </ul>
   </section>
   <section>
-    <ul>
-      <li>
-        The repository root path is the portion of the module path that
-        corresponds to the <strong class="hl-green">root directory</strong> of
-        the <em class="hl-cyan">version control repository</em>
-        where the module is developed.
-      </li>
-      <ul>
-        <li>
-          Most modules are defined in their repository's root directory, so this
-          is usually the entire path.
-        </li>
-        <li>
-          For example, golang.org/x/net is the repository root path for the
-          module of the same name.
-        </li>
-      </ul>
-      <li>
-        If the module is not defined in the repository's root directory, the
-        <em class="hl-orange">module subdirectory</em> is the part of the module
-        path that names the directory, not including the major version suffix.
-      </li>
-      <li>
-        If the module is released at major version 2 or higher, the module path
-        <strong class="hl-yellow"
-          >must end with a major version suffix like /v2</strong
-        >.
-      </li>
-      <ul>
-        <li>
-          This <strong class="hl-red">may or may not</strong> be part of the
-          subdirectory name. For example, the module with path
-          golang.org/x/repo/sub/v2 could be in the /sub or /sub/v2 subdirectory
-          of the repository golang.org/x/repo.
-        </li>
-      </ul>
-    </ul>
+    <img
+      src="./img/module-path.svg"
+      alt="Three paths taken apart. golang.org/x/net/html: golang.org/x/net is the repository root and the whole module path, and /html is a package directory. golang.org/x/tools/gopls: repository root golang.org/x/tools plus the module subdirectory /gopls, so its tags look like gopls/v0.4.0. golang.org/x/repo/sub/v2: repository root, module subdirectory /sub and the major version suffix /v2, which is required in the path while the code may live in /sub or /sub/v2"
+      width="880"
+    />
   </section>
 </section>
 <section>
@@ -1760,6 +1735,14 @@ srv.Handler = logging(logger, mux)
       </li>
     </ul>
   </section>
+  <section>
+    <h2>One Request, End to End</h2>
+    <img
+      src="./img/http-request-flow.svg"
+      alt="A request passes through http.Server (timeouts, one goroutine per connection), then the logging middleware, then the ServeMux, which picks GET /hello, POST /hello or GET /hello/{username} by method and path, or answers 405 or 404 itself. Captured with curl: GET /hello gives 200, GET /hello/parham matches GET /hello/{username} and gives 204, DELETE /hello gives 405 with Allow: GET, HEAD, POST, and GET /nope gives 404"
+      width="880"
+    />
+  </section>
 </section>
 <section>
   <section>
@@ -1814,6 +1797,14 @@ _ = srv.Shutdown(shutdownCtx)
         an error
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>Shutdown, Measured</h2>
+    <img
+      src="./img/graceful-shutdown.svg"
+      alt="A timeline from 0 to 2.5 seconds. GET /slow, a handler that sleeps 2 seconds, starts at 0.3 s. Ctrl-C sends SIGINT at 0.8 s: main leaves ctx.Done and calls srv.Shutdown, and ListenAndServe returns http.ErrServerClosed at once. A new client at 1.1 s gets connection refused. GET /slow still finishes with 200 at 2.3 s, and Shutdown returns nil at 2.4 s"
+      width="880"
+    />
   </section>
 </section>
 <section>
@@ -1970,31 +1961,42 @@ x = &lt;-ch  // receive a value from channel ch (and assign to x)
   </ul>
 </section>
 <section>
-  <h2>Communicating goroutines</h2>
-  <p>Each goroutine sends its results via channel ch:</p>
-  <pre><code class="lang-go">
-func f(msg string, delay time.Duration, ch chan string) {
-  for {
-    ch &lt;- msg
-    time.Sleep(delay)
+  <section>
+    <h2>Communicating goroutines</h2>
+    <p>Each goroutine sends its results via channel ch:</p>
+    <pre><code class="lang-go">
+  func f(msg string, delay time.Duration, ch chan string) {
+    for {
+      ch &lt;- msg
+      time.Sleep(delay)
+    }
   }
-}
-  </code></pre>
-  <p>
-    The main goroutine receives (and prints) all results from the same channel:
-  </p>
-  <pre><code class="lang-go">
-func main() {
-  ch := make(chan string)
-  go f("A--", 300*time.Millisecond, ch)
-  go f("-B-", 500*time.Millisecond, ch)
-  go f("--C", 1100*time.Millisecond, ch)
+    </code></pre>
+    <p>
+      The main goroutine receives (and prints) all results from the same
+      channel:
+    </p>
+    <pre><code class="lang-go">
+  func main() {
+    ch := make(chan string)
+    go f("A--", 300*time.Millisecond, ch)
+    go f("-B-", 500*time.Millisecond, ch)
+    go f("--C", 1100*time.Millisecond, ch)
 
-  for i := 0; i &lt; 100; i++ {
-    fmt.Println(i, &lt;-ch)
+    for i := 0; i &lt; 100; i++ {
+      fmt.Println(i, &lt;-ch)
+    }
   }
-}
-  </code></pre>
+    </code></pre>
+  </section>
+  <section>
+    <h2>Who Sends When</h2>
+    <img
+      src="./img/goroutines-channel.svg"
+      alt="A captured run over the first 1.6 seconds. Goroutine A-- sends every 0.3 s, -B- every 0.5 s and --C every 1.1 s, all on the same unbuffered channel ch. main receives one value at a time, numbered 0 to 11 in arrival order. At 0 s all three send at once, so the order of the first three changes from run to run"
+      width="880"
+    />
+  </section>
 </section>
 <section>
   <h2>References 📚</h2>

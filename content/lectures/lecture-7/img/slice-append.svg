@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <title>append within capacity writes into the shared backing array; append past capacity allocates a new array and copies</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono" x="20" y="24" style="text-anchor: start; font-size: 17px">a := [6]int{10, 20, 30, 40, 50, 60}<tspan dx="24">s := a[1:4]</tspan><tspan dx="20" class="grey">// len 3, cap 5</tspan></text>
+  <rect class="box" x="10" y="46" width="880" height="214" rx="6" />
+  <text class="mono start yellow" x="28" y="72" style="font-size: 19px">u := append(s, 7)</text>
+  <text class="end" x="872" y="72" style="font-size: 17px">len 4 ≤ cap 5: no allocation</text>
+  <text class="mono yellow" x="366" y="130" style="font-size: 22px">u</text>
+  <rect class="box" x="386" y="112" width="64" height="36" rx="0" />
+  <text class="mono" x="418" y="130" style="font-size: 17px">•</text>
+  <text class="small" x="418" y="101" style="font-size: 13px">ptr</text>
+  <rect class="box" x="450" y="112" width="64" height="36" rx="0" />
+  <text class="mono" x="482" y="130" style="font-size: 17px">4</text>
+  <text class="small" x="482" y="101" style="font-size: 13px">len</text>
+  <rect class="box" x="514" y="112" width="64" height="36" rx="0" />
+  <text class="mono" x="546" y="130" style="font-size: 17px">5</text>
+  <text class="small" x="546" y="101" style="font-size: 13px">cap</text>
+  <path class="line" d="M418,148 L418,176" />
+  <rect class="box" x="300" y="178" width="80" height="50" rx="0" />
+  <text class="mono" x="340" y="203" style="font-size: 19px">10</text>
+  <rect class="box" x="380" y="178" width="80" height="50" rx="0" />
+  <text class="mono" x="420" y="203" style="font-size: 19px">20</text>
+  <rect class="box" x="460" y="178" width="80" height="50" rx="0" />
+  <text class="mono" x="500" y="203" style="font-size: 19px">30</text>
+  <rect class="box" x="540" y="178" width="80" height="50" rx="0" />
+  <text class="mono" x="580" y="203" style="font-size: 19px">40</text>
+  <rect class="bad" x="620" y="178" width="80" height="50" rx="0" />
+  <text class="mono red" x="660" y="203" style="font-size: 19px">7</text>
+  <rect class="box" x="700" y="178" width="80" height="50" rx="0" />
+  <text class="mono" x="740" y="203" style="font-size: 19px">60</text>
+  <text class="mono cyan end" x="286" y="203" style="font-size: 20px">a</text>
+  <text class="small" x="660" y="242" style="font-size: 14px">was 50</text>
+  <text class="label" x="28" y="140">writes into a</text>
+  <text class="label" x="28" y="162">t := a[3:5] now</text>
+  <text class="label" x="28" y="184">reads [40 7]</text>
+  <rect class="box" x="10" y="282" width="880" height="228" rx="6" />
+  <text class="mono start yellow" x="28" y="308" style="font-size: 19px">v := append(u, 8, 9)</text>
+  <text class="end" x="872" y="308" style="font-size: 17px">len 6 &gt; cap 5: allocate, copy, append</text>
+  <text class="mono green" x="286" y="368" style="font-size: 22px">v</text>
+  <rect class="box" x="306" y="350" width="64" height="36" rx="0" />
+  <text class="mono" x="338" y="368" style="font-size: 17px">•</text>
+  <text class="small" x="338" y="339" style="font-size: 13px">ptr</text>
+  <rect class="box" x="370" y="350" width="64" height="36" rx="0" />
+  <text class="mono" x="402" y="368" style="font-size: 17px">6</text>
+  <text class="small" x="402" y="339" style="font-size: 13px">len</text>
+  <rect class="box" x="434" y="350" width="64" height="36" rx="0" />
+  <text class="mono" x="466" y="368" style="font-size: 17px">10</text>
+  <text class="small" x="466" y="339" style="font-size: 13px">cap</text>
+  <path class="line" d="M338,386 L338,414" />
+  <rect class="box" x="300" y="416" width="56" height="50" rx="0" />
+  <text class="mono" x="328" y="441" style="font-size: 19px">20</text>
+  <rect class="box" x="356" y="416" width="56" height="50" rx="0" />
+  <text class="mono" x="384" y="441" style="font-size: 19px">30</text>
+  <rect class="box" x="412" y="416" width="56" height="50" rx="0" />
+  <text class="mono" x="440" y="441" style="font-size: 19px">40</text>
+  <rect class="box" x="468" y="416" width="56" height="50" rx="0" />
+  <text class="mono" x="496" y="441" style="font-size: 19px">7</text>
+  <rect class="good" x="524" y="416" width="56" height="50" rx="0" />
+  <text class="mono green" x="552" y="441" style="font-size: 19px">8</text>
+  <rect class="good" x="580" y="416" width="56" height="50" rx="0" />
+  <text class="mono green" x="608" y="441" style="font-size: 19px">9</text>
+  <rect class="box" x="636" y="416" width="56" height="50" rx="0" />
+  <text class="mono grey" x="664" y="441" style="font-size: 19px">0</text>
+  <rect class="box" x="692" y="416" width="56" height="50" rx="0" />
+  <text class="mono grey" x="720" y="441" style="font-size: 19px">0</text>
+  <rect class="box" x="748" y="416" width="56" height="50" rx="0" />
+  <text class="mono grey" x="776" y="441" style="font-size: 19px">0</text>
+  <rect class="box" x="804" y="416" width="56" height="50" rx="0" />
+  <text class="mono grey" x="832" y="441" style="font-size: 19px">0</text>
+  <text class="small end" x="286" y="441" style="font-size: 15px">new</text>
+  <text class="label" x="28" y="370">a is untouched;</text>
+  <text class="label" x="28" y="392">v[0] = -1 no longer</text>
+  <text class="label" x="28" y="414">changes s</text>
+  <text class="small" x="580" y="486" style="font-size: 14px">cap 10 here; the growth factor is a runtime detail, not in the spec</text>
+</svg>

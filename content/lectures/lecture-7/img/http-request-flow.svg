@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>A request goes through http.Server, then the logging middleware, then the ServeMux, which picks a handler by method and path or answers 405 or 404 itself</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="120" width="76" height="100" rx="6" />
+  <text class="mono " x="48" y="170" style="font-size: 16px">request</text>
+  <rect class="box" x="108" y="120" width="136" height="100" rx="6" />
+  <text class="mono cyan" x="176" y="158" style="font-size: 16px">http.Server</text>
+  <text class="small" x="176" y="182" style="font-size: 13px">timeouts,</text>
+  <text class="small" x="176" y="200" style="font-size: 13px">a goroutine each</text>
+  <rect class="box" x="266" y="120" width="132" height="100" rx="6" />
+  <text class="mono violet" x="332" y="158" style="font-size: 16px">logging</text>
+  <text class="small" x="332" y="182" style="font-size: 13px">middleware:</text>
+  <text class="small" x="332" y="200" style="font-size: 13px">sees every request</text>
+  <rect class="box" x="420" y="120" width="114" height="100" rx="6" />
+  <text class="mono orange" x="477" y="158" style="font-size: 16px">ServeMux</text>
+  <text class="small" x="477" y="182" style="font-size: 13px">method + path</text>
+  <text class="small" x="477" y="200" style="font-size: 13px">→ handler</text>
+  <path class="line" d="M86,170.0 L106,170.0" />
+  <path class="line" d="M244,170.0 L264,170.0" />
+  <path class="line" d="M398,170.0 L418,170.0" />
+  <rect class="box" x="590" y="20" width="300" height="48" rx="6" />
+  <text class="mono start yellow" x="602" y="44" style="font-size: 15px">GET /hello</text>
+  <text class="mono end green" x="878" y="44" style="font-size: 15px">h.Get</text>
+  <path class="line" d="M534,170.0 C564,170.0 564,44.0 588,44.0" />
+  <rect class="box" x="590" y="80" width="300" height="48" rx="6" />
+  <text class="mono start yellow" x="602" y="104" style="font-size: 15px">POST /hello</text>
+  <text class="mono end green" x="878" y="104" style="font-size: 15px">h.Post</text>
+  <path class="line" d="M534,170.0 C564,170.0 564,104.0 588,104.0" />
+  <rect class="box" x="590" y="140" width="300" height="48" rx="6" />
+  <text class="mono start yellow" x="602" y="164" style="font-size: 15px">GET /hello/{username}</text>
+  <text class="mono end green" x="878" y="164" style="font-size: 15px">h.User</text>
+  <path class="line" d="M534,170.0 C564,170.0 564,164.0 588,164.0" />
+  <rect class="bad" x="590" y="200" width="300" height="48" rx="6" />
+  <text class="mono red" x="740" y="224" style="font-size: 15px">405 Method Not Allowed</text>
+  <path class="line" d="M534,170.0 C564,170.0 564,224.0 588,224.0" />
+  <rect class="bad" x="590" y="260" width="300" height="48" rx="6" />
+  <text class="mono red" x="740" y="284" style="font-size: 15px">404 Not Found</text>
+  <path class="line" d="M534,170.0 C564,170.0 564,284.0 588,284.0" />
+  <text class="small" x="740" y="318" style="font-size: 13px">the mux answers these two itself</text>
+  <text class="label" x="20" y="352">request</text>
+  <text class="label" x="250" y="352">matched</text>
+  <text class="label" x="580" y="352">status (captured with curl)</text>
+  <path class="brace" d="M20,366 L880,366" />
+  <text class="mono start" x="20" y="392" style="font-size: 15px">GET /hello</text>
+  <text class="mono start yellow" x="250" y="392" style="font-size: 15px">GET /hello</text>
+  <text class="mono start green" x="580" y="392" style="font-size: 15px">200</text>
+  <text class="mono start" x="20" y="422" style="font-size: 15px">GET /hello/parham</text>
+  <text class="mono start yellow" x="250" y="422" style="font-size: 15px">GET /hello/{username}</text>
+  <text class="mono start green" x="580" y="422" style="font-size: 15px">204</text>
+  <text class="mono start" x="20" y="452" style="font-size: 15px">DELETE /hello</text>
+  <text class="start small" x="250" y="452" style="font-size: 15px">path matches, method does not</text>
+  <text class="mono start red" x="580" y="452" style="font-size: 15px">405 · Allow: GET, HEAD, POST</text>
+  <text class="mono start" x="20" y="482" style="font-size: 15px">GET /nope</text>
+  <text class="start small" x="250" y="482" style="font-size: 15px">no pattern</text>
+  <text class="mono start red" x="580" y="482" style="font-size: 15px">404</text>
+</svg>

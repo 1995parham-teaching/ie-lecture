@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>Three paths taken apart: golang.org/x/net/html is a package in the module golang.org/x/net; golang.org/x/tools/gopls is a module in a subdirectory; golang.org/x/repo/sub/v2 adds a major version suffix</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="start yellow" x="560" y="34" style="font-size: 19px">A package inside a module</text>
+  <rect class="cool" x="30" y="34" width="230" height="46" rx="4" />
+  <text class="mono cyan" x="145" y="57" style="font-size: 22px">golang.org/x/net</text>
+  <rect class="box" x="264" y="34" width="84.25" height="46" rx="4" />
+  <text class="mono " x="306.125" y="57" style="font-size: 22px">/html</text>
+  <text class="small cyan" x="145" y="106" style="font-size: 14px">repository root</text>
+  <text class="small" x="306.125" y="106" style="font-size: 14px">package directory</text>
+  <path class="brace" d="M30,28 L30,22 L260.0,22 L260.0,28" />
+  <text class="small start" x="268" y="22" style="font-size: 14px">module path</text>
+  <text class="start" x="560" y="66" style="font-size: 16px">the module is the whole repository;</text>
+  <text class="start" x="560" y="90" style="font-size: 16px">golang.org/x/net/html is a package</text>
+  <text class="start yellow" x="560" y="190" style="font-size: 19px">A module in a subdirectory</text>
+  <rect class="cool" x="30" y="190" width="256.5" height="46" rx="4" />
+  <text class="mono cyan" x="158.25" y="213" style="font-size: 22px">golang.org/x/tools</text>
+  <rect class="hot" x="290.5" y="190" width="97.5" height="46" rx="4" />
+  <text class="mono orange" x="339.25" y="213" style="font-size: 22px">/gopls</text>
+  <text class="small cyan" x="158.25" y="262" style="font-size: 14px">repository root</text>
+  <text class="small orange" x="339.25" y="262" style="font-size: 14px">module subdirectory</text>
+  <path class="brace" d="M30,184 L30,178 L388.0,178 L388.0,184" />
+  <text class="small start" x="396" y="178" style="font-size: 14px">module path</text>
+  <text class="start" x="560" y="222" style="font-size: 16px">its version tags carry the prefix:</text>
+  <text class="start" x="560" y="246" style="font-size: 16px">gopls/v0.4.0</text>
+  <text class="start yellow" x="560" y="336" style="font-size: 19px">Major version 2 or higher</text>
+  <rect class="cool" x="30" y="336" width="243.25" height="46" rx="4" />
+  <text class="mono cyan" x="151.625" y="359" style="font-size: 22px">golang.org/x/repo</text>
+  <rect class="hot" x="277.25" y="336" width="71" height="46" rx="4" />
+  <text class="mono orange" x="312.75" y="359" style="font-size: 22px">/sub</text>
+  <rect class="good" x="352.25" y="336" width="57.75" height="46" rx="4" />
+  <text class="mono green" x="381.125" y="359" style="font-size: 22px">/v2</text>
+  <text class="small cyan" x="151.625" y="408" style="font-size: 14px">repository root</text>
+  <path class="brace" d="M312.75,382 L312.75,422" />
+  <text class="small end orange" x="306.75" y="430" style="font-size: 14px">module subdirectory</text>
+  <path class="brace" d="M381.125,382 L381.125,444" />
+  <text class="small start green" x="387.125" y="452" style="font-size: 14px">major version suffix</text>
+  <path class="brace" d="M30,330 L30,324 L410.0,324 L410.0,330" />
+  <text class="small start" x="418" y="324" style="font-size: 14px">module path</text>
+  <text class="start" x="560" y="368" style="font-size: 16px">/v2 is required in the path;</text>
+  <text class="start" x="560" y="392" style="font-size: 16px">the code may live in /sub or /sub/v2</text>
+</svg>
