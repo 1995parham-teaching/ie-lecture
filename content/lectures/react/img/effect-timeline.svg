@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>When the Person effect and its cleanup run as id changes from 1 to 2</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 17px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .axis { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .tick { stroke: #cfd3da; stroke-width: 2; }
+    .req1 { fill: none; stroke: #00e5ff; stroke-width: 6; stroke-linecap: round; }
+    .req2 { fill: none; stroke: #00e5ff; stroke-width: 6; stroke-linecap: round; }
+    .guide { fill: none; stroke: #8d97a8; stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .x { stroke: #ff5252; stroke-width: 4; stroke-linecap: round; }
+    .dot { stroke: #2b2b2b; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .grey { fill: #8d97a8; } .yellow { fill: #ffcc00; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="450" y="20">&lt;Person id={1} /&gt; is rendered twice, then gets id={2}, then is removed</text>
+
+  <!-- axis -->
+  <path class="axis" d="M40,180 L880,180" />
+  <text class="small" x="862" y="200">time</text>
+
+  <!-- events -->
+  <circle class="dot green" cx="80" cy="180" r="9" />
+  <text class="green" x="80" y="126">render</text><text class="mono" x="80" y="150">id=1</text>
+
+  <circle class="dot cyan" cx="185" cy="180" r="9" />
+  <text class="cyan" x="185" y="126">effect</text><text class="mono" x="185" y="150">id=1</text>
+
+  <circle class="dot green" cx="290" cy="180" r="9" />
+  <text class="green" x="290" y="126">render</text><text class="mono" x="290" y="150">id=1</text>
+  <text class="small" x="290" y="66">[1] unchanged:</text><text class="small" x="290" y="86">no effect</text>
+
+  <circle class="dot green" cx="400" cy="180" r="9" />
+  <text class="green" x="400" y="126">render</text><text class="mono" x="400" y="150">id=2</text>
+
+  <circle class="dot red" cx="505" cy="180" r="9" />
+  <text class="red" x="505" y="126">cleanup</text><text class="mono" x="505" y="150">id=1</text>
+
+  <circle class="dot cyan" cx="610" cy="180" r="9" />
+  <text class="cyan" x="610" y="126">effect</text><text class="mono" x="610" y="150">id=2</text>
+
+  <circle class="dot red" cx="810" cy="180" r="9" />
+  <text class="red" x="810" y="126">cleanup</text><text class="mono" x="810" y="150">id=2</text>
+  <text class="small" x="810" y="86">unmount</text>
+
+  <!-- requests -->
+  <path class="guide" d="M185,189 L185,250" />
+  <path class="req1" d="M185,256 L497,256" />
+  <path class="x" d="M495,246 L515,266 M515,246 L495,266" />
+  <path class="guide" d="M505,189 L505,244" />
+  <text class="mono" x="341" y="236">GET /people/1/</text>
+  <text class="small" x="505" y="290">abort() — AbortError, ignored</text>
+
+  <path class="guide" d="M610,189 L610,320" />
+  <path class="req2" d="M610,326 L750,326" />
+  <circle class="green" cx="750" cy="326" r="8" />
+  <text class="mono" x="692" y="304">GET /people/2/</text>
+  <text class="small" x="740" y="356">response → setPerson</text>
+
+  <text class="small" x="450" y="388">Effects run after the render is on screen. Each cleanup runs just before the next effect, and once more on unmount.</text>
+</svg>

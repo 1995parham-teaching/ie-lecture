@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330">
+  <title>Form passes a different text prop to each Button</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .prop { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 17px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .down { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#garrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="garrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#76ff03" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="375" y="18" width="150" height="44" rx="6" />
+  <text class="mono orange" x="450" y="40">Form</text>
+
+  <path class="down" d="M420,62 L260,144" />
+  <path class="down" d="M480,62 L640,144" />
+  <text class="prop green" x="250" y="96">text="Sign up"</text>
+  <text class="prop green" x="660" y="96">text="Login"</text>
+
+  <rect class="box" x="175" y="146" width="150" height="44" rx="6" />
+  <text class="mono orange" x="250" y="168">Button</text>
+  <rect class="box" x="575" y="146" width="150" height="44" rx="6" />
+  <text class="mono orange" x="650" y="168">Button</text>
+
+  <path class="line" d="M250,190 L250,232" />
+  <path class="line" d="M650,190 L650,232" />
+  <text class="label" x="450" y="212">same function, different props</text>
+
+  <rect class="dash" x="90" y="234" width="320" height="44" rx="6" />
+  <text class="mono" x="250" y="256"><tspan class="orange">&lt;button&gt;</tspan>Sign up<tspan class="orange">&lt;/button&gt;</tspan></text>
+  <rect class="dash" x="490" y="234" width="320" height="44" rx="6" />
+  <text class="mono" x="650" y="256"><tspan class="orange">&lt;button&gt;</tspan>Login<tspan class="orange">&lt;/button&gt;</tspan></text>
+
+  <text class="label" x="450" y="308">Props only travel <tspan class="green">down</tspan>, parent to child. A Button cannot change the text it was given.</text>
+</svg>

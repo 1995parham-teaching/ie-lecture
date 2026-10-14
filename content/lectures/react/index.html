@@ -199,6 +199,15 @@ function Button({ isLoading }) {
   </section>
 
   <section>
+    <h2>What the Build Step Makes</h2>
+    <img
+      src="./img/jsx-compile.svg"
+      alt="A JSX button tag is compiled to a jsx function call, which returns a plain object with type button and props className and children, which React DOM turns into a button element with class primary"
+      width="760"
+    />
+  </section>
+
+  <section>
     <p>
       We can write JavaScript inside JSX inside
       <span class="hl-green">{ }</span>
@@ -263,6 +272,15 @@ function HomePage() {
   );
 }
     </code></pre>
+  </section>
+
+  <section>
+    <p>The same page as a tree</p>
+    <img
+      src="./img/component-tree.svg"
+      alt="HomePage renders Page; Page holds Header and Main; Header holds Navigation; Main holds a div, which holds Profile, Articles and Videos. Every node is a component except the div, which is a built-in element"
+      width="760"
+    />
   </section>
 
   <section>
@@ -358,6 +376,11 @@ function SubmitButton() {
   &lt;Button text="Login" /&gt;
 &lt;/Form&gt;
     </code></pre>
+    <img
+      src="./img/props-down.svg"
+      alt="Form passes text Sign up to one Button and text Login to the other; each renders a button element with its own label. Props travel only down, from parent to child"
+      width="700"
+    />
   </section>
 
   <section>
@@ -507,6 +530,15 @@ function Counter() {
   </section>
 
   <section>
+    <h2>What a Click Does</h2>
+    <img
+      src="./img/render-cycle.svg"
+      alt="One click: setValue(1), then React calls Counter again and useState returns 1, then React compares the new elements with the previous ones, then commits. The only DOM change is the text node 0 becoming 1"
+      width="820"
+    />
+  </section>
+
+  <section>
     <h2>Updating From the Previous Value</h2>
     <pre><code class="lang-jsx">
 // ❌ both calls read the same `value`, so this adds 1, not 2
@@ -517,6 +549,11 @@ setValue(value + 1);
 setValue((v) =&gt; v + 1);
 setValue((v) =&gt; v + 1);
     </code></pre>
+    <img
+      src="./img/state-queue.svg"
+      alt="Starting from 0, two replace-with-1 updates end at 1, while two v plus 1 updater functions go 0 to 1 to 2. React renders once for the whole click"
+      width="760"
+    />
     <ul>
       <li>
         <code>value</code> is a <em class="hl-cyan">snapshot</em> of this
@@ -675,6 +712,15 @@ function Person({ id }) {
         last and overwrite the new one
       </li>
     </ul>
+  </section>
+
+  <section>
+    <h2>Effect Timeline</h2>
+    <img
+      src="./img/effect-timeline.svg"
+      alt="Timeline: render id 1, effect id 1 starts GET people 1; a second render with id 1 runs no effect; render id 2, cleanup id 1 aborts the first request, effect id 2 starts GET people 2, whose response calls setPerson; on unmount cleanup id 2 runs"
+      width="840"
+    />
   </section>
 
   <section>

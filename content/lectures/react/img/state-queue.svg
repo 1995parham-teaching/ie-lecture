@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 290">
+  <title>How React works through queued state updates: values versus updater functions</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 17px; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 22px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .circle { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .bad { fill: none; stroke: #ff5252; stroke-width: 2.5; }
+    .good { fill: none; stroke: #76ff03; stroke-width: 2.5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .red { fill: #ff5252; } .cyan { fill: #00e5ff; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- value form -->
+  <text class="label" x="450" y="18">queue built by one click, then worked through once, in order, starting from 0</text>
+
+  <text class="mono red" x="60" y="80" style="text-anchor: start">value + 1</text>
+  <circle class="circle" cx="250" cy="80" r="24" /><text class="num grey" x="250" y="81">0</text>
+  <path class="line" d="M276,80 L314,80" />
+  <rect class="box" x="316" y="58" width="190" height="44" rx="6" /><text class="mono" x="411" y="81">replace with 1</text>
+  <path class="line" d="M506,80 L530,80" />
+  <rect class="box" x="532" y="58" width="190" height="44" rx="6" /><text class="mono" x="627" y="81">replace with 1</text>
+  <path class="line" d="M722,80 L776,80" />
+  <circle class="bad" cx="802" cy="80" r="24" /><text class="num red" x="802" y="81">1</text>
+  <text class="label" x="520" y="126">both calls read the same snapshot, value = 0</text>
+
+  <!-- updater form -->
+  <text class="mono green" x="60" y="190" style="text-anchor: start">v =&gt; v + 1</text>
+  <circle class="circle" cx="250" cy="190" r="24" /><text class="num grey" x="250" y="191">0</text>
+  <path class="line" d="M276,190 L314,190" />
+  <rect class="box" x="316" y="168" width="190" height="44" rx="6" /><text class="mono" x="411" y="191"><tspan class="cyan">v</tspan>=0 → 1</text>
+  <path class="line" d="M506,190 L530,190" />
+  <rect class="box" x="532" y="168" width="190" height="44" rx="6" /><text class="mono" x="627" y="191"><tspan class="cyan">v</tspan>=1 → 2</text>
+  <path class="line" d="M722,190 L776,190" />
+  <circle class="good" cx="802" cy="190" r="24" /><text class="num green" x="802" y="191">2</text>
+  <text class="label" x="520" y="236">each updater receives the result of the one before it</text>
+
+  <text class="label" x="450" y="274">Either way React renders <tspan class="orange">once</tspan> for the whole click, after the handler returns.</text>
+</svg>

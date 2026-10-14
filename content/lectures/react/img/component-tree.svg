@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>The HomePage sample as a tree of components</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .cyan { fill: #00e5ff; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <path class="line" d="M450,62 L450,96" />
+  <path class="line" d="M450,142 L250,176" />
+  <path class="line" d="M450,142 L650,176" />
+  <path class="line" d="M250,222 L250,256" />
+  <path class="line" d="M650,222 L650,256" />
+  <path class="line" d="M650,302 L480,336" />
+  <path class="line" d="M650,302 L650,336" />
+  <path class="line" d="M650,302 L820,336" />
+
+  <rect class="box" x="360" y="18" width="180" height="44" rx="6" />
+  <text class="mono orange" x="450" y="40">HomePage</text>
+  <rect class="box" x="375" y="98" width="150" height="44" rx="6" />
+  <text class="mono orange" x="450" y="120">Page</text>
+  <rect class="box" x="175" y="178" width="150" height="44" rx="6" />
+  <text class="mono orange" x="250" y="200">Header</text>
+  <rect class="box" x="575" y="178" width="150" height="44" rx="6" />
+  <text class="mono orange" x="650" y="200">Main</text>
+  <rect class="box" x="160" y="258" width="180" height="44" rx="6" />
+  <text class="mono orange" x="250" y="280">Navigation</text>
+  <rect class="dash" x="590" y="258" width="120" height="44" rx="6" />
+  <text class="mono cyan" x="650" y="280">div</text>
+  <rect class="box" x="405" y="338" width="150" height="44" rx="6" />
+  <text class="mono orange" x="480" y="360">Profile</text>
+  <rect class="box" x="575" y="338" width="150" height="44" rx="6" />
+  <text class="mono orange" x="650" y="360">Articles</text>
+  <rect class="box" x="745" y="338" width="150" height="44" rx="6" />
+  <text class="mono orange" x="820" y="360">Videos</text>
+
+  <rect class="box" x="40" y="414" width="28" height="20" rx="4" /><text class="label" x="78" y="424">component — capital letter, React calls your function</text>
+  <rect class="dash" x="40" y="442" width="28" height="20" rx="4" /><text class="label" x="78" y="452">built-in element — lowercase, becomes a DOM node</text>
+</svg>

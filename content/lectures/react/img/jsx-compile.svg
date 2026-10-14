@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>What a JSX tag turns into, from source to DOM</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; dominant-baseline: middle; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 18px; text-anchor: middle; }
+    .label { font-size: 17px; fill: #b0b4bc; }
+    .note { font-size: 16px; fill: #b0b4bc; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .yellow { fill: #ffcc00; } .violet { fill: #ee82ee; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- 1. JSX -->
+  <text class="label" x="40" y="22">1 · the JSX you write</text>
+  <rect class="box" x="40" y="38" width="820" height="52" rx="6" />
+  <text class="mono" x="450" y="64"><tspan class="orange">&lt;button</tspan> <tspan class="green">className</tspan>="primary"<tspan class="orange">&gt;</tspan>{text}<tspan class="orange">&lt;/button&gt;</tspan></text>
+
+  <path class="line" d="M450,92 L450,136" />
+  <text class="note" x="466" y="114">build step (Babel, esbuild, SWC), before the browser</text>
+
+  <!-- 2. JS call -->
+  <text class="label" x="40" y="152">2 · the JavaScript that actually ships</text>
+  <rect class="box" x="40" y="168" width="820" height="52" rx="6" />
+  <text class="mono" x="450" y="194"><tspan class="cyan">jsx</tspan>(<tspan class="orange">"button"</tspan>, { <tspan class="green">className</tspan>: "primary", <tspan class="yellow">children</tspan>: text })</text>
+
+  <path class="line" d="M450,222 L450,266" />
+  <text class="note" x="466" y="244">runs on every render — here with text = "Sign up"</text>
+
+  <!-- 3. element object -->
+  <text class="label" x="40" y="282">3 · a React element: a plain object describing the UI</text>
+  <rect class="box" x="40" y="298" width="820" height="52" rx="6" />
+  <text class="mono" x="450" y="324">{ <tspan class="violet">type</tspan>: <tspan class="orange">"button"</tspan>, <tspan class="violet">props</tspan>: { <tspan class="green">className</tspan>: "primary", <tspan class="yellow">children</tspan>: "Sign up" } }</text>
+
+  <path class="line" d="M450,352 L450,396" />
+  <text class="note" x="466" y="374">React DOM creates or updates the real node</text>
+
+  <!-- 4. DOM -->
+  <text class="label" x="40" y="412">4 · the DOM node in the page</text>
+  <rect class="dash" x="40" y="428" width="820" height="52" rx="6" />
+  <text class="mono" x="450" y="454"><tspan class="orange">&lt;button</tspan> <tspan class="green">class</tspan>="primary"<tspan class="orange">&gt;</tspan>Sign up<tspan class="orange">&lt;/button&gt;</tspan></text>
+</svg>
