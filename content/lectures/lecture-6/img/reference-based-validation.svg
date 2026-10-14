@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <title>Reference-based validation: JSON text goes through a parser, which checks syntax, then a general validator, which checks structure against a schema; only data that passes both reaches the application</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .warn { fill: rgba(255, 204, 0, 0.10); stroke: #ffcc00; stroke-width: 2; }
+    .doc { fill: rgba(0, 229, 255, 0.08); stroke: #00e5ff; stroke-width: 2; }
+    .dash { fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .ok { fill: none; stroke: #76ff03; stroke-width: 2; marker-end: url(#arrow-green); }
+    .no { fill: none; stroke: #ff5252; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow-red); }
+    .no-y { fill: none; stroke: #ffcc00; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow-yellow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#76ff03" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff5252" />
+    </marker>
+    <marker id="arrow-yellow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ffcc00" />
+    </marker>
+  </defs>
+
+  <!-- the idea, in words -->
+  <text class="label" x="20" y="34"><tspan class="orange">Parser</tspan>: is this JSON at all? (syntax)</text>
+  <text class="label" x="20" y="64"><tspan class="cyan">Validator</tspan>: is it the data we expect? (structure)</text>
+  <text class="label" x="20" y="104">The validator is general; the rules live in</text>
+  <text class="label" x="20" y="128">the schema. New rules: change the schema,</text>
+  <text class="label" x="20" y="152">not the code.</text>
+
+  <!-- schema -->
+  <rect class="doc" x="520" y="10" width="360" height="204" rx="6" />
+  <text class="cyan start" x="536" y="32" style="font-size: 16px">schema (JSON Schema 2020-12)</text>
+  <text class="mono start" xml:space="preserve" x="536" y="58">{</text>
+  <text class="mono start" xml:space="preserve" x="536" y="78">  "type": "object",</text>
+  <text class="mono start" xml:space="preserve" x="536" y="98">  "required": [<tspan class="yellow">"id"</tspan>],</text>
+  <text class="mono start" xml:space="preserve" x="536" y="118">  "properties": {</text>
+  <text class="mono start" xml:space="preserve" x="536" y="138">    "id":   { "type": "integer" },</text>
+  <text class="mono start" xml:space="preserve" x="536" y="158">    "name": { "type": "string" }</text>
+  <text class="mono start" xml:space="preserve" x="536" y="178">  }</text>
+  <text class="mono start" xml:space="preserve" x="536" y="198">}</text>
+  <path class="dash" d="M615,214 L615,248" />
+
+  <!-- the pipeline -->
+  <text class="label" x="20" y="212">JSON text, as received</text>
+  <rect class="box" x="20" y="228" width="310" height="104" rx="6" />
+  <text class="mono start green" x="34" y="254">{"id": 9531024, "name": "Ali"}</text>
+  <text class="mono start red" x="34" y="280">{id: 9531024}</text>
+  <text class="mono start yellow" x="34" y="306">{"name": "Ali"}</text>
+  <path class="line" d="M332,280 L366,280" />
+
+  <rect class="box" x="370" y="250" width="130" height="60" rx="8" style="stroke: #ff9100" />
+  <text class="orange" x="435" y="272">Parser</text>
+  <text class="small" x="435" y="294">syntax</text>
+  <path class="line" d="M502,280 L536,280" />
+
+  <rect class="box" x="540" y="250" width="150" height="60" rx="8" style="stroke: #00e5ff" />
+  <text class="cyan" x="615" y="272">Validator</text>
+  <text class="small" x="615" y="294">structure</text>
+  <path class="ok" d="M692,280 L736,280" />
+
+  <rect class="good" x="740" y="250" width="140" height="60" rx="8" />
+  <text x="810" y="272">Application</text>
+  <text class="small" x="810" y="294">only valid data</text>
+
+  <!-- rejections -->
+  <path class="no" d="M435,312 L435,346" />
+  <rect class="bad" x="290" y="350" width="270" height="96" rx="6" />
+  <text class="mono start red" x="304" y="372">{id: 9531024}</text>
+  <text class="small start" x="304" y="398">SyntaxError: Expected property</text>
+  <text class="small start" x="304" y="422">name or '}' in JSON at position 1</text>
+
+  <path class="no-y" d="M640,312 L640,346" />
+  <rect class="warn" x="580" y="350" width="300" height="96" rx="6" />
+  <text class="mono start yellow" x="594" y="372">{"name": "Ali"}</text>
+  <text class="small start" x="594" y="398">parses fine, but: must have</text>
+  <text class="small start" x="594" y="422">required property 'id'</text>
+
+  <text class="label" x="20" y="372">The validator works on parsed</text>
+  <text class="label" x="20" y="396">values, so the parser runs first.</text>
+</svg>

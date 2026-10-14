@@ -27,13 +27,14 @@ python, thrift. Each one has to be valid in its own right.
 Hand-written SVGs in `img/`, drawn for the league background (see the root
 `CLAUDE.md`). They have no draw.io source:
 
-| File                 | Slide                                         |
-| -------------------- | --------------------------------------------- |
-| `thrift-stack.svg`   | The Stack — after Java Handler                |
-| `thrift-wire.svg`    | On the Wire — `add(1, 1)`, binary vs compact  |
-| `protobuf-wire.svg`  | gRPC stack: On the Wire — after Field Numbers |
-| `grpc-http2.svg`     | gRPC stack: One Call over HTTP/2              |
-| `grpc-streaming.svg` | gRPC stack: Four Kinds of RPC                 |
+| File                             | Slide                                          |
+| -------------------------------- | ---------------------------------------------- |
+| `thrift-stack.svg`               | The Stack — after Java Handler                 |
+| `thrift-wire.svg`                | On the Wire — `add(1, 1)`, binary vs compact   |
+| `protobuf-wire.svg`              | gRPC stack: On the Wire — after Field Numbers  |
+| `grpc-http2.svg`                 | gRPC stack: One Call over HTTP/2               |
+| `grpc-streaming.svg`             | gRPC stack: Four Kinds of RPC                  |
+| `reference-based-validation.svg` | Parser, then Validator — after How to Validate |
 
 - `protobuf-wire.svg` bytes come from `protoc --encode=course.Course` on the
   Service Definition `.proto`, with the same values as the Introduction
@@ -55,6 +56,17 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
   slides. The server's `TBinaryProtocol` is not in that code: it is the default
   protocol of `TSimpleServer.Args`. Layer names follow
   thrift.apache.org/docs/concepts (Server, Processor, Protocol, Transport).
+- `reference-based-validation.svg` replaced the draw.io
+  `reference-based-validation.png` (source `diag/` removed). The old drawing put
+  the validator before the parser; a JSON Schema validator works on parsed
+  values, so the parser comes first. "Reference-based" means validation
+  against a reference document (the schema), not `$ref`. The schema and the
+  three inputs were run through Ajv 8.20 (`Ajv2020`, `strict: true`, schema
+  text extracted from the SVG) after `JSON.parse` in Node 20: the valid one
+  passes, `{id: 9531024}` throws `SyntaxError: Expected property name or '}'
+in JSON at position 1`, `{"name": "Ali"}` gives `must have required
+property 'id'`. Node's message wording changes between versions; re-capture
+  if you change the input.
 - `thrift-efficiency.png` is a chart from an external source and
   `thrift.png` is a logo; both are untouched.
 
@@ -93,5 +105,3 @@ deck teaches both. If you add a section on one of these, remove it here.
 
 - Any JSON or JSON Schema you add must be run through a parser before it goes on
   a slide — this deck is specifically about schema validity.
-- `diag/reference-based-validation.drawio` is the source for the validation
-  diagram.

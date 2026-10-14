@@ -317,9 +317,11 @@ null
   </ul>
 </section>
 <section>
+  <h2>Parser, then Validator</h2>
   <img
-    alt="reference-based-validation"
-    src="./img/reference-based-validation.png"
+    alt='JSON text goes to a parser, which checks syntax, then to a general validator, which checks structure against a schema that requires an integer id and allows a string name. {"id": 9531024, "name": "Ali"} passes both and reaches the application. {id: 9531024} is rejected by the parser with SyntaxError: Expected property name or &apos;}&apos; in JSON at position 1. {"name": "Ali"} parses fine but the validator rejects it: must have required property &apos;id&apos;'
+    src="./img/reference-based-validation.svg"
+    width="880"
   />
 </section>
 <section>
