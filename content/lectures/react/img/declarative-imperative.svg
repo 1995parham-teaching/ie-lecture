@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <title>The same todo list written declaratively and imperatively</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; }
+    .head { font-size: 22px; font-weight: bold; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- declarative -->
+  <text class="head green" x="225" y="22">Declarative: what</text>
+  <rect class="box" x="20" y="44" width="410" height="200" rx="6" />
+  <text xml:space="preserve" class="code" x="40" y="92"><tspan class="orange">&lt;ul&gt;</tspan></text>
+  <text xml:space="preserve" class="code" x="40" y="118">  {todos.<tspan class="cyan">map</tspan>((t) =&gt; (</text>
+  <text xml:space="preserve" class="code" x="40" y="144">    <tspan class="orange">&lt;li</tspan> key={t}<tspan class="orange">&gt;</tspan>{t}<tspan class="orange">&lt;/li&gt;</tspan></text>
+  <text xml:space="preserve" class="code" x="40" y="170">  ))}</text>
+  <text xml:space="preserve" class="code" x="40" y="196"><tspan class="orange">&lt;/ul&gt;</tspan></text>
+  <text class="label" x="225" y="262">describe the result, React works out the steps</text>
+
+  <!-- imperative -->
+  <text class="head orange" x="675" y="22">Imperative: how</text>
+  <rect class="box" x="470" y="44" width="410" height="200" rx="6" />
+  <text xml:space="preserve" class="code" x="486" y="70">const ul = document.<tspan class="cyan">querySelector</tspan>("ul");</text>
+  <text xml:space="preserve" class="code" x="486" y="94">ul.<tspan class="cyan">replaceChildren</tspan>();</text>
+  <text xml:space="preserve" class="code" x="486" y="118"><tspan class="grey">for</tspan> (const t of todos) {</text>
+  <text xml:space="preserve" class="code" x="486" y="142">  const li = document.<tspan class="cyan">createElement</tspan>("li");</text>
+  <text xml:space="preserve" class="code" x="486" y="166">  li.textContent = t;</text>
+  <text xml:space="preserve" class="code" x="486" y="190">  ul.<tspan class="cyan">append</tspan>(li);</text>
+  <text xml:space="preserve" class="code" x="486" y="214">}</text>
+  <text class="label" x="675" y="262">list every DOM step yourself</text>
+
+  <!-- same result -->
+  <path class="line" d="M225,276 L400,318" />
+  <path class="line" d="M675,276 L500,318" />
+  <rect class="dash" x="150" y="322" width="600" height="48" rx="6" />
+  <text class="mono" x="450" y="346"><tspan class="orange">&lt;ul&gt;&lt;li&gt;</tspan>Buy milk<tspan class="orange">&lt;/li&gt;&lt;li&gt;</tspan>Learn React<tspan class="orange">&lt;/li&gt;&lt;/ul&gt;</tspan></text>
+  <text class="label" x="450" y="398">The same DOM either way. With React you write only the left side.</text>
+</svg>

@@ -45,14 +45,15 @@ detour still earns its slides is a teaching call, not an editing one.
 Hand-written SVGs in `img/`, drawn for the league background (see the root
 `CLAUDE.md`). They have no draw.io source:
 
-| File                  | Slide                                                    |
-| --------------------- | -------------------------------------------------------- |
-| `jsx-compile.svg`     | What the Build Step Makes — JSX → `jsx()` → object → DOM |
-| `component-tree.svg`  | The same page as a tree (after Composing components)     |
-| `props-down.svg`      | Pass props down to components                            |
-| `render-cycle.svg`    | What a Click Does — set state, render, reconcile, commit |
-| `state-queue.svg`     | Updating From the Previous Value                         |
-| `effect-timeline.svg` | Effect Timeline (after The Two Details That Matter)      |
+| File                         | Slide                                                    |
+| ---------------------------- | -------------------------------------------------------- |
+| `declarative-imperative.svg` | Declarative — the same list written both ways            |
+| `jsx-compile.svg`            | What the Build Step Makes — JSX → `jsx()` → object → DOM |
+| `component-tree.svg`         | The same page as a tree (after Composing components)     |
+| `props-down.svg`             | Pass props down to components                            |
+| `render-cycle.svg`           | What a Click Does — set state, render, reconcile, commit |
+| `state-queue.svg`            | Updating From the Previous Value                         |
+| `effect-timeline.svg`        | Effect Timeline (after The Two Details That Matter)      |
 
 Verified with React 19.3 and react-dom in jsdom, and esbuild 0.28:
 
@@ -67,5 +68,9 @@ Verified with React 19.3 and react-dom in jsdom, and esbuild 0.28:
 - `effect-timeline.svg`: the logged order is render 1, effect 1, render 1,
   render 2, cleanup 1, effect 2, cleanup 2 (no StrictMode). If a sample
   changes, re-run it before editing the drawing.
-- `declarative-imperative.png`, `jsx.png` and the two `.jpg` files are memes
-  and screenshots, kept as they were.
+- `declarative-imperative.svg` replaced a black-on-white meme PNG that showed
+  as a white rectangle on the dark slide. Both code boxes were run in jsdom: the JSX, compiled by
+  esbuild and rendered by React, and the DOM loop each give
+  `<ul><li>Buy milk</li><li>Learn React</li></ul>`, with no React key warning.
+- `jsx.png` and the two `.jpg` files are memes and screenshots, kept as they
+  were.
