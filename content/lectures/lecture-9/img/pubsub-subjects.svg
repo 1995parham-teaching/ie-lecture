@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380">
+  <title>A publisher sends PUB foo to the broker. The broker delivers MSG foo to the subscriber on foo and to the subscriber on foo and bar; the subscriber on bar alone receives nothing. The publisher does not know who, if anyone, is subscribed.</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .ret { fill: none; stroke: #cfd3da; stroke-width: 2; stroke-dasharray: 7 4; marker-end: url(#arrow); }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="150" width="170" height="70" rx="6" style="stroke: #ff9100" />
+  <text class="orange" x="105" y="185">Publisher</text>
+  <circle cx="420" cy="185" r="78" style="fill: rgba(118, 255, 3, 0.1); stroke: #76ff03; stroke-width: 2" />
+  <text class="green" x="420" y="174">broker</text>
+  <text class="small" x="420" y="200" style="font-size: 14px">routes by subject</text>
+  <text class="mono cyan" x="268" y="166">PUB foo</text>
+  <path class="line" d="M192,185 L340,185" />
+
+  <rect class="box" x="690" y="20" width="190" height="70" rx="6" />
+  <text x="785" y="44" style="font-size: 18px">Subscriber</text>
+  <text class="mono yellow" x="785" y="70">SUB foo</text>
+  <rect class="box" x="690" y="150" width="190" height="70" rx="6" />
+  <text x="785" y="174" style="font-size: 18px">Subscriber</text>
+  <text class="mono yellow" x="785" y="200">SUB foo, bar</text>
+  <rect class="box" x="690" y="280" width="190" height="70" rx="6" style="stroke: #8d97a8" />
+  <text class="grey" x="785" y="304" style="font-size: 18px">Subscriber</text>
+  <text class="mono grey" x="785" y="330">SUB bar</text>
+
+  <path class="line" d="M486,144 L688,62" />
+  <text class="mono cyan" x="580" y="88" transform="rotate(-22 580 88)">MSG foo</text>
+  <path class="line" d="M500,185 L688,185" />
+  <text class="mono cyan" x="594" y="170">MSG foo</text>
+  <path class="dash" d="M486,226 L680,308" />
+  <text class="red" x="583" y="266" style="font-size: 22px">✕</text>
+  <text class="small" x="572" y="286" style="font-size: 14px" transform="rotate(23 572 286)">no match</text>
+
+  <text class="small" x="320" y="320">the publisher does not know</text>
+  <text class="small" x="320" y="344">who, if anyone, is listening</text>
+</svg>

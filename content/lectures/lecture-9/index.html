@@ -256,21 +256,28 @@ topics:
 </section>
 <section>
   <h2>Traditional Multi-layer Web App</h2>
-  <ul>
-    <li>Server-Side Rendering</li>
-    <li>Checkout <a href="https://github.com/9231058/TMail">here</a></li>
-  </ul>
-  <img src="./img/ssr.png" alt="ssr" />
+  <p>
+    Server-side rendering: the server builds the HTML. Example:
+    <a href="https://github.com/9231058/TMail">TMail</a> (PHP).
+  </p>
+  <img
+    src="./img/ssr.svg"
+    alt="Server-side rendering: the browser sends GET /, the server queries the database, fills an HTML template and answers with HTML that already contains the list. One request, and the page can be shown at once."
+    width="820"
+  />
 </section>
 <section>
   <h2>Modern Multi-layer Web App</h2>
-  <ul>
-    <li>Client-Side Rendering</li>
-    <li>
-      Checkout <a href="https://github.com/cng-by-example/say-hello">here</a>
-    </li>
-  </ul>
-  <img src="./img/csr.png" alt="csr" />
+  <p>
+    Client-side rendering: the browser builds the HTML. Example:
+    <a href="https://github.com/1995parham-teaching/say-hello">say-hello</a>
+    (React).
+  </p>
+  <img
+    src="./img/csr.svg"
+    alt="Client-side rendering: GET / returns an empty shell with a script tag; the browser then fetches /app.js, and the script fetches /api/inbox, which the server answers with JSON from the database. The browser builds the list itself, after three requests."
+    width="760"
+  />
 </section>
 <section>
   <h2>Service-oriented architecture (SOA)</h2>
@@ -615,10 +622,10 @@ topics:
   <section>
     <h2>Remote procedure calls (RPC) versus shared resources</h2>
     <img
-      src="./img/diag-shared-resource-based-communication.drawio.png"
-      alt="shared-resource communication"
+      src="./img/rpc-shared.svg"
+      alt="Shared resource: System 1 writes order 42 into a shared database and System 2 reads it; they never talk to each other, and the table schema is their contract. RPC: System 1 calls Payment.Charge(42, 50) as if it were local; the client stub marshals the arguments onto the network, the server stub unmarshals them and calls the procedure, and the result comes back the same way."
+      width="860"
     />
-    <img src="./img/diag-rpc.drawio.png" alt="remote procedure call" />
   </section>
   <section>
     <h2>Synchronous versus asynchronous</h2>
@@ -668,9 +675,11 @@ topics:
     </ul>
   </section>
   <section>
+    <h3>Routing by subject</h3>
     <img
-      src="./img/asyn-messaging.png"
-      alt="asynchronous messaging through a broker"
+      src="./img/pubsub-subjects.svg"
+      alt="A publisher sends PUB foo to the broker. The broker delivers MSG foo to the subscriber on foo and to the subscriber on foo and bar; the subscriber on bar alone receives nothing. The publisher does not know who, if anyone, is subscribed."
+      width="860"
     />
   </section>
   <section>
