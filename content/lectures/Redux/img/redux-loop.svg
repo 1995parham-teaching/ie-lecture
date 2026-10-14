@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>One trip around the Redux loop, using the template's Add Amount button</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 20px; font-weight: bold; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .store { fill: rgba(238, 130, 238, 0.06); stroke: #ee82ee; stroke-width: 2; }
+    .inner { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 1.5; }
+    .old { fill: none; stroke: #8d97a8; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2.5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .yellow { fill: #ffcc00; } .violet { fill: #ee82ee; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- UI -->
+  <rect class="box" x="20" y="170" width="220" height="140" rx="10" />
+  <text class="head green" x="130" y="196">View</text>
+  <text class="mono" x="130" y="228">&lt;Counter /&gt;</text>
+  <text class="small" x="130" y="258">shows 0, user clicks</text>
+  <text class="small" x="130" y="282">"Add Amount"</text>
+
+  <!-- action -->
+  <rect class="box" x="320" y="20" width="400" height="104" rx="10" />
+  <text class="head orange" x="520" y="44">Action — a plain object</text>
+  <text class="mono" x="520" y="76">{ type: "counter/incrementByAmount",</text>
+  <text class="mono" x="520" y="100">  payload: 2 }</text>
+
+  <!-- store -->
+  <rect class="store" x="620" y="160" width="260" height="180" rx="10" />
+  <text class="head violet" x="750" y="184">Store</text>
+  <rect class="inner" x="640" y="204" width="220" height="56" rx="6" />
+  <text class="mono" x="750" y="224">reducer(</text>
+  <text class="mono" x="750" y="244"><tspan class="grey">state</tspan>, <tspan class="orange">action</tspan>)</text>
+  <text class="small" x="750" y="284">pure: same input, same output</text>
+  <text class="small" x="750" y="306">no fetch, no Math.random()</text>
+
+  <!-- new state -->
+  <rect class="box" x="250" y="368" width="480" height="96" rx="10" />
+  <text class="head cyan" x="500" y="392">New state — a new object</text>
+  <text class="mono" x="500" y="424">{ counter: { value: <tspan class="cyan">2</tspan>, status: "idle" }, … }</text>
+  <text class="small" x="500" y="450">the old { value: 0, … } object is left as it was</text>
+
+  <!-- arrows -->
+  <path class="line" d="M130,170 L130,72 L316,72" />
+  <text class="mono yellow" x="140" y="56" style="text-anchor: start">dispatch(action)</text>
+
+  <path class="line" d="M720,72 L750,72 L750,158" />
+
+  <path class="line" d="M780,340 L780,416 L734,416" />
+  <text class="small" x="790" y="378" style="text-anchor: start">returns</text>
+
+  <path class="line" d="M250,416 L130,416 L130,314" />
+  <text class="mono yellow" x="140" y="346" style="text-anchor: start">useAppSelector</text>
+  <text class="small" x="140" y="380" style="text-anchor: start">re-render,</text>
+  <text class="small" x="140" y="400" style="text-anchor: start">shows 2</text>
+</svg>

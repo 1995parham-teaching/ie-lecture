@@ -15,6 +15,15 @@ lecture: false
 npx degit reduxjs/redux-templates/packages/vite-template-redux redux-essentials-example
 	</code></pre>
 </section>
+<section>
+  <h2>The Redux Loop</h2>
+  <img
+    src="./img/redux-loop.svg"
+    alt="The Counter view dispatches the action counter/incrementByAmount with payload 2; the store runs reducer(state, action), which returns a new state object with counter value 2 while the old object is left as it was; useAppSelector re-renders the view, which now shows 2"
+    width="820"
+  />
+  <p>Data goes one way: the view never changes state, it only dispatches.</p>
+</section>
 <section data-background-iframe="./Slides.pdf" data-background-interactive>
   <div style="background: rgba(28, 30, 32, 0.85); padding: 10px">
     <h2>Slides</h2>
