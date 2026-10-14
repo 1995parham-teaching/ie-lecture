@@ -111,41 +111,48 @@ const data = await response.json();
     />
   </section>
   <section>
-    <p>Let's look at what the browser will send to the server in this case:</p>
+    <p>
+      Here is what Chrome actually sent to the server in this case (<code
+        >User-Agent</code
+      >
+      and the <code>sec-ch-ua</code> client hints left out):
+    </p>
     <pre><code class="language-http">
 GET /resources/public-data/ HTTP/1.1
 Host: bar.other
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-us,en;q=0.5
-Accept-Encoding: gzip,deflate
 Connection: keep-alive
+Accept: */*
 Origin: https://foo.example
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://foo.example/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
         </code>
         </pre>
   </section>
   <section>
     <p>
-      The request header of note is Origin, which shows that the invocation is
-      coming from
+      The request header of note is <code>Origin</code>, which the browser adds
+      to show that the invocation is coming from
       <em class="hl-orange">https://foo.example</em>. Now let's see how the
       server responds:
     </p>
     <pre><code class="language-http">
 HTTP/1.1 200 OK
-Date: Mon, 01 Dec 2008 00:23:53 GMT
-Server: Apache/2
 Access-Control-Allow-Origin: *
-Keep-Alive: timeout=2, max=100
-Connection: Keep-Alive
+Content-Type: application/json
+Date: Wed, 14 Oct 2026 04:28:57 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 Transfer-Encoding: chunked
-Content-Type: application/xml
 
-[…XML Data…]
+{"users":42}
         </code>
         </pre>
     <p>
-      In response, the server returns a Access-Control-Allow-Origin header with
+      The server answers with
       <strong style="color: #cf0000">Access-Control-Allow-Origin: *</strong>,
       which means that the resource can be accessed by any origin.
     </p>
@@ -190,12 +197,14 @@ Content-Type: application/xml
   <section>
     <h2>Proxy Server (Frontend)</h2>
     <p>
-      When you are developing a Front-end application, you cannot change the
-      responses from the server that you are requesting to. So you need to make
-      http requests with help of a third party application like a proxy server.
-      In this method you send CORS requests to your proxy server, the proxy
-      server sends a non-CORS request to the requested server, then it gets a
-      non-CORS response from that server and sends us a CORS response.
+      When you are developing a Front-end application, you often cannot change
+      the responses of the server you are calling. Instead, let the development
+      server act as a <strong class="hl-orange">proxy</strong>: the page sends
+      its request to the server it came from, so the browser sees a
+      <span class="hl-green">same-origin</span> request. The proxy forwards it
+      to the back-end server to server, where the same-origin policy does not
+      apply, and hands the answer back as its own response.
+      <em>No CORS is involved at any step.</em>
     </p>
   </section>
   <section>

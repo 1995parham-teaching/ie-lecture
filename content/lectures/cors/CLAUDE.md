@@ -65,3 +65,19 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 - `dev-proxy.svg` is from Vite 6 with the `vite.config.js` shown on the slide:
   the back-end received `GET /api/users` with no `Origin` header (the browser
   saw a same-origin request), and the path was forwarded unchanged.
+
+## Captured transcripts
+
+The two HTTP transcripts on the "Another Example" stack (request and response)
+are a real run, not MDN's Firefox sample: headless Chrome 155 loaded a page
+from `https://foo.example` that called the `fetch` on the slide, and a Node
+HTTPS server for `https://bar.other` logged the raw request (`rawHeaders`, in
+order) and the raw response header it sent (`res._header`). Both names were
+mapped to `127.0.0.1` with `--host-resolver-rules` and a self-signed cert
+(`--ignore-certificate-errors`). The request slide omits `User-Agent` and the
+`sec-ch-ua*` client hints, and says so; everything else is verbatim. The body
+`{"users":42}` is what the server sent. If you change the code on the slide,
+re-capture.
+
+The "Proxy Server (Frontend)" text matches `dev-proxy.svg`: the browser sees a
+same-origin request and response, and no CORS is involved at any step.
