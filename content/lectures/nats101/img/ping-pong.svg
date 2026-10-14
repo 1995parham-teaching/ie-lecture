@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+  <title>PING/PONG on the wire: a client that answers stays connected; one that misses two PINGs gets -ERR 'Stale Connection' and is closed</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="start" x="10" y="20" style="font-size: 18px">client answers</text>
+  <rect class="box" x="55" y="40" width="120" height="44" rx="6" />
+  <text x="115" y="62" style="font-size: 18px">client</text>
+  <rect class="box" x="285" y="40" width="140" height="44" rx="22" />
+  <text x="355" y="62" style="font-size: 18px">nats-server</text>
+  <path class="dash" d="M115,86 L115,370" />
+  <path class="dash" d="M355,86 L355,370" />
+  <text class="mono small start" x="6" y="120" style="font-size: 13px">0.0s</text>
+  <path class="line" d="M115,120 L351,120" />
+  <text class="mono cyan" x="235" y="108" style="font-size: 14px">PING</text>
+  <text class="mono small start" x="6" y="160" style="font-size: 13px">0.0s</text>
+  <path class="line" d="M355,160 L119,160" />
+  <text class="mono green" x="235" y="148" style="font-size: 14px">PONG</text>
+  <text class="mono small start" x="6" y="210" style="font-size: 13px">2.4s</text>
+  <path class="line" d="M355,210 L119,210" />
+  <text class="mono orange" x="235" y="198" style="font-size: 14px">PING</text>
+  <text class="mono small start" x="6" y="246" style="font-size: 13px">2.4s</text>
+  <path class="line" d="M115,246 L351,246" />
+  <text class="mono green" x="235" y="234" style="font-size: 14px">PONG</text>
+  <text class="mono small start" x="6" y="296" style="font-size: 13px">5.4s</text>
+  <path class="line" d="M355,296 L119,296" />
+  <text class="mono orange" x="235" y="284" style="font-size: 14px">PING</text>
+  <text class="mono small start" x="6" y="332" style="font-size: 13px">5.4s</text>
+  <path class="line" d="M115,332 L351,332" />
+  <text class="mono green" x="235" y="320" style="font-size: 14px">PONG</text>
+  <text class="start" x="470" y="20" style="font-size: 18px">client stays silent</text>
+  <rect class="box" x="515" y="40" width="120" height="44" rx="6" />
+  <text x="575" y="62" style="font-size: 18px">client</text>
+  <rect class="box" x="745" y="40" width="140" height="44" rx="22" />
+  <text x="815" y="62" style="font-size: 18px">nats-server</text>
+  <path class="dash" d="M575,86 L575,370" />
+  <path class="dash" d="M815,86 L815,370" />
+  <text class="mono small start" x="466" y="120" style="font-size: 13px">0.0s</text>
+  <path class="line" d="M575,120 L811,120" />
+  <text class="mono cyan" x="695" y="108" style="font-size: 14px">PING</text>
+  <text class="mono small start" x="466" y="160" style="font-size: 13px">0.0s</text>
+  <path class="line" d="M815,160 L579,160" />
+  <text class="mono green" x="695" y="148" style="font-size: 14px">PONG</text>
+  <text class="mono small start" x="466" y="210" style="font-size: 13px">2.3s</text>
+  <path class="line" d="M815,210 L579,210" />
+  <text class="mono orange" x="695" y="198" style="font-size: 14px">PING</text>
+  <text class="small start" x="825" y="210" style="font-size: 13px">1 out</text>
+  <text class="mono small start" x="466" y="264" style="font-size: 13px">5.3s</text>
+  <path class="line" d="M815,264 L579,264" />
+  <text class="mono orange" x="695" y="252" style="font-size: 14px">PING</text>
+  <text class="small start" x="825" y="264" style="font-size: 13px">2 out</text>
+  <text class="mono small start" x="466" y="318" style="font-size: 13px">8.3s</text>
+  <path class="line" d="M815,318 L579,318" />
+  <text class="mono red" x="695" y="306" style="font-size: 14px">-ERR 'Stale Connection'</text>
+  <text class="small" x="235" y="362" style="font-size: 14px">… every ping_interval, forever</text>
+  <text class="red" x="695" y="354" style="font-size: 15px">server closes the TCP connection</text>
+  <path class="brace" d="M448,10 L448,380" />
+  <text class="label" x="10" y="410" style="font-size: 15px">Captured with <tspan class="mono orange">ping_interval: "3s"</tspan>. Defaults: <tspan class="mono orange">ping_interval</tspan> 2 min, <tspan class="mono orange">ping_max</tspan> 2 unanswered PINGs;</text>
+  <text class="label" x="10" y="434" style="font-size: 15px">on the next tick the connection is stale. Either side may send PING; the other must answer PONG.</text>
+</svg>

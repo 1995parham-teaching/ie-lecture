@@ -40,7 +40,10 @@ topics:
     <li>Client publishes message on <q>foo</q> subject</li>
     <li>Only clients subscribed to <q>foo</q> receive the message</li>
   </ol>
-  <img src="./img/overview.png" alt="overview" />
+  <img
+    src="./img/overview.svg"
+    alt="A publisher sends PUB foo 5 hello. nats-server delivers MSG foo 1 5 and MSG foo 7 5 to the two foo subscribers; the bar subscriber gets nothing"
+  />
 </section>
 <section>
   <h2>How Simple!</h2>
@@ -60,21 +63,15 @@ Hello World!
 </section>
 <section>
   <h2>Request/Response</h2>
-  <ol>
-    <li>
-      Client connected to NATS publishes a request on a <q>help</q> subject
-    </li>
-    <li>
-      Worker client subscribed to <q>help</q>, processes requests, then sends
-      response
-    </li>
-    <li>
-      Audit client is subscribed to all subjects via a wildcard, so also
-      receives message but does not reply
-    </li>
-    <li>Publisher receives the response from the worker client</li>
-  </ol>
-  <img src="./img/rr.png" alt="rr" />
+  <p>
+    A request is a publish with a reply subject: a unique
+    <q>_INBOX</q> subject that only the requester listens on. A wildcard audit
+    subscriber sees both the request and the reply.
+  </p>
+  <img
+    src="./img/request-reply.svg"
+    alt="Sequence: the requester subscribes to _INBOX.5qlz….*, publishes PUB help _INBOX.5qlz….Oi9iNmkp 5; the server delivers MSG help to the worker and to the audit subscriber on &gt;; the worker publishes I can help on the inbox; the server delivers it to the requester and to audit"
+  />
 </section>
 <section>
   <h2>Request/Response (cont'd)</h2>
@@ -97,18 +94,14 @@ Hello World!
 </section>
 <section>
   <h2>Queue</h2>
-  <ol>
-    <li>Publisher sends multiple help requests on a <q>help</q> subject</li>
-    <li>
-      Multiple worker clients subscribed to the <q>help</q> subject form a
-      distributed queue
-    </li>
-    <li>
-      Each published request is randomly balanced to only one of the worker
-      clients in the distributed queue
-    </li>
-  </ol>
-  <img src="./img/queues.png" alt="queues" />
+  <p>
+    Workers that subscribe to <q>help</q> with the same queue name form a group:
+    each message goes to one random member of it.
+  </p>
+  <img
+    src="./img/queue-group.svg"
+    alt="900 requests on help: the queue group workers splits them 302, 303 and 295 across three workers, while a plain subscriber on help gets all 900"
+  />
 </section>
 <section>
   <h2>NATS As an Always Available Dial Tone</h2>
@@ -155,42 +148,34 @@ Hello World!
     </ul>
   </section>
   <section>
-    <img src="./img/ha.png" alt="ha" />
+    <h2>Cluster Failover</h2>
+    <img
+      src="./img/cluster-failover.svg"
+      alt="Three servers n0, n1, n2 joined by routes in a full mesh. The client on n0 gets EOF when n0 is killed and reconnects to n2 after 0.61 s; the subscriber on n2 gets all 40 messages"
+    />
   </section>
 </section>
 <section>
   <h2>Slow Consumer</h2>
-  <ul>
-    <li>
-      By default, if a client fails to drain the pending data that the server is
-      holding for the client for over two seconds, the server will disconnect
-      the client
-    </li>
-    <li>
-      Read more about it
-      <a
-        href="https://github.com/nats-io/nats-server/blob/c76dd8f67376bcf78ee09147e62242a29eccfa2e/server/client.go#L1270"
-        >here</a
-      >
-    </li>
-  </ul>
-  <img src="./img/sc.png" alt="sc" />
+  <p>
+    The server will not buffer without limit for a client that does not read: it
+    disconnects it instead.
+  </p>
+  <img
+    src="./img/slow-consumer.svg"
+    alt="The server queues pending bytes for a subscriber that is not reading. Past max_pending (64 MB) or a write_deadline (10 s) it closes the connection; the log says Slow Consumer Detected: MaxPending of 67108864 Exceeded, and the client sees only the TCP close, no -ERR"
+  />
 </section>
 <section>
   <h2>Ping/Pong</h2>
-  <ul>
-    <li>
-      There is a PING/PONG interval happening that the client has to follow
-      otherwise the server will reset the connection in case there are many PONG
-      replies missing.
-    </li>
-    <li>
-      Server sends PING messages to client in each interval and client has to
-      respond
-    </li>
-    <li>Client also can send PING messages to the server</li>
-  </ul>
-  <img src="./img/ping-pong.png" alt="ping-pong" />
+  <p>
+    The server PINGs every client on an interval; a client that stops answering
+    PONG is closed as stale.
+  </p>
+  <img
+    src="./img/ping-pong.svg"
+    alt="Two timelines. A client that answers every PING with PONG stays connected. A silent client gets PINGs at 2.3 s and 5.3 s, then -ERR 'Stale Connection' at 8.3 s and the connection is closed"
+  />
 </section>
 <section>
   <section>

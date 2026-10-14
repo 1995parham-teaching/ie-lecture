@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>Request/reply on the wire: the request carries a unique _INBOX reply subject, the worker publishes its answer there, and the wildcard audit subscriber sees both</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="40" y="10" width="140" height="50" rx="6" />
+  <text x="110" y="35">requester</text>
+  <rect class="box" x="275" y="10" width="170" height="50" rx="25" />
+  <text x="360" y="35">nats-server</text>
+  <rect class="box" x="550" y="10" width="140" height="50" rx="6" />
+  <text x="620" y="28">worker</text>
+  <text class="mono cyan" x="620" y="48" style="font-size: 14px">SUB help</text>
+  <rect class="box" x="745" y="10" width="140" height="50" rx="6" />
+  <text x="815" y="28">audit</text>
+  <text class="mono violet" x="815" y="48" style="font-size: 14px">SUB &gt;</text>
+  <path class="dash" d="M110,62 L110,392" />
+  <path class="dash" d="M360,62 L360,392" />
+  <path class="dash" d="M620,62 L620,392" />
+  <path class="dash" d="M815,62 L815,392" />
+
+  <text class="orange" x="18" y="106" style="font-size: 18px">0</text>
+  <path class="line" d="M110,106 L356,106" />
+  <text class="mono small" x="235" y="92" style="font-size: 12px">SUB _INBOX.5qlz….*</text>
+
+  <text class="orange" x="18" y="156" style="font-size: 18px">1</text>
+  <path class="line" d="M110,156 L356,156" />
+  <text class="mono yellow" x="235" y="142" style="font-size: 12px">PUB help _INBOX.5qlz….Oi9iNmkp 5</text>
+  <text class="mono small" x="235" y="170" style="font-size: 12px">help!</text>
+
+  <text class="orange" x="18" y="210" style="font-size: 18px">2</text>
+  <path class="line" d="M360,210 L616,210" />
+  <text class="mono yellow" x="490" y="196" style="font-size: 12px">MSG help 1 _INBOX.5qlz….Oi9iNmkp 5</text>
+  <path class="dline" d="M360,236 L811,236" />
+  <text class="small" x="718" y="224" style="font-size: 13px">same MSG</text>
+
+  <text class="orange" x="18" y="290" style="font-size: 18px">3</text>
+  <path class="line" d="M620,290 L364,290" />
+  <text class="mono green" x="490" y="276" style="font-size: 12px">PUB _INBOX.5qlz….Oi9iNmkp 10</text>
+  <text class="mono small" x="490" y="304" style="font-size: 12px">I can help</text>
+
+  <text class="orange" x="18" y="344" style="font-size: 18px">4</text>
+  <path class="line" d="M360,344 L114,344" />
+  <text class="mono green" x="235" y="330" style="font-size: 12px">MSG _INBOX.5qlz….Oi9iNmkp 1 10</text>
+  <path class="dline" d="M360,370 L811,370" />
+  <text class="small" x="718" y="358" style="font-size: 13px">&gt; matches the inbox too</text>
+
+  <text class="label" x="10" y="424" style="font-size: 15px">reply subject</text>
+  <text class="mono green start" x="120" y="424" style="font-size: 15px">_INBOX.<tspan class="cyan">5qlz3fad9s1synmDLXWYnu</tspan>.<tspan class="orange">Oi9iNmkp</tspan></text>
+  <text class="label" x="10" y="452" style="font-size: 14px"><tspan class="cyan">one prefix per connection</tspan> (subscribed once, step 0) + <tspan class="orange">one token per request</tspan></text>
+</svg>

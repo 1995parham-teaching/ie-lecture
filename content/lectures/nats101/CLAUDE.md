@@ -30,7 +30,8 @@ version is consistent across the hands-on run.
 
 ## Diagrams (hand-written SVG)
 
-These SVGs in `img/` have no draw.io source; they are their own source:
+Every diagram is a hand-written SVG in `img/` and is its own source; the deck
+has no draw.io files.
 
 | File                      | Slide                                         |
 | ------------------------- | --------------------------------------------- |
@@ -39,6 +40,12 @@ These SVGs in `img/` have no draw.io source; they are their own source:
 | `retention-policies.svg`  | Retention → Retention policy                  |
 | `exactly-once.svg`        | Exactly once semantics (Cont.)                |
 | `jetstream-consumers.svg` | Consumers                                     |
+| `overview.svg`            | Overview                                      |
+| `request-reply.svg`       | Request/Response                              |
+| `queue-group.svg`         | Queue                                         |
+| `cluster-failover.svg`    | Availability → Cluster Failover               |
+| `slow-consumer.svg`       | Slow Consumer                                 |
+| `ping-pong.svg`           | Ping/Pong                                     |
 
 All checked against a local `nats-server` 2.15.1 (`-js`) with `nats.go`:
 
@@ -57,6 +64,32 @@ All checked against a local `nats-server` 2.15.1 (`-js`) with `nats.go`:
 - `jetstream-consumers.svg`: two clients fetching from one durable pull
   consumer got seqs 1 3 5 and 2 4 6 (the exact split depends on timing); a
   consumer with `OptStartSeq: 4` got 4 5 6.
+- `overview.svg`: raw-socket clients `SUB foo 1`, `SUB foo 7`, `SUB bar 1`;
+  `PUB foo 5 hello` gave `MSG foo 1 5` and `MSG foo 7 5`, and nothing on bar.
+- `request-reply.svg`: every protocol line is from the server's `-V` trace of a
+  `nc.Request` with a worker on `help` and an audit subscriber on `>`. The
+  requester subscribes `_INBOX.<prefix>.*` once per connection; each request
+  adds a token. **The audit subscriber also receives the reply** (the old
+  drawing showed it getting only the request).
+- `queue-group.svg`: three `QueueSubscribe("help", "workers")` and one plain
+  `Subscribe("help")`; 900 requests split 302/303/295 (varies per run) and the
+  plain subscriber got all 900. Wire form `SUB help workers 1`.
+- `cluster-failover.svg`: three servers `--cluster_name ha` with `--routes` to
+  all three; `/routez` showed each routed to the other two. The client was
+  given only `:4222`; `kill` of n0 gave `EOF`, reconnect to n2 after 0.61 s,
+  and the subscriber on n2 got 40 of 40.
+- `slow-consumer.svg`: a raw client with a 4 KiB receive buffer subscribed and
+  never read while a publisher flooded 1 KiB messages. The server logged
+  `Slow Consumer Detected: MaxPending of 67108864 Exceeded`, `/connz` gave
+  reason `Slow Consumer (Pending Bytes)`, and the client got **no `-ERR`**,
+  only the close (the old drawing showed `-ERR 'Slow Consumer'`, which the
+  server never sends; checked in `server/client.go`). Defaults from `/varz`:
+  `write_deadline` 10 s (the slide used to say two seconds), `max_pending`
+  64 MB. The nats.go line is from a handler slower than
+  `SetPendingLimits(1000, 1MiB)`: it dropped 4000 and stayed connected.
+- `ping-pong.svg`: a Python socket client against `ping_interval: "3s"`,
+  `ping_max: 2`; times and lines are the capture. Defaults from `/varz`:
+  2 min, 2. (The old `ping-pong.png` was a stock photo of two paddles.)
 
 ## Notes
 
@@ -67,8 +100,6 @@ All checked against a local `nats-server` 2.15.1 (`-js`) with `nats.go`:
 - Every slide's prose sits in a block element. The "Retention policies and
   limits" intro was bare text after the `<h2>`; it is now a `<p>`.
 
-- `diag/nats101.xml` is the draw.io source for the PNG diagrams (overview,
-  request/reply, queues, HA, slow consumer, ping/pong). Edit it there.
 - The hand-written "Introduction to NATS" title slide (with `img/background.jpg`)
   was removed: `layouts/lectures/single.html` generates the title slide.
 - Code samples are shell only.

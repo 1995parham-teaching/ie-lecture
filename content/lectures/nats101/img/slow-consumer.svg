@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>The server buffers outbound data per client; past max_pending or a 10 s write deadline it closes the client's connection without sending an error</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="60" width="150" height="70" rx="6" />
+  <text x="85" y="84" style="font-size: 18px">publisher</text>
+  <text class="mono small" x="85" y="110" style="font-size: 13px">fast, 1 KiB msgs</text>
+  <path class="line" d="M162,95 L216,95" />
+
+  <rect class="box" x="220" y="20" width="420" height="150" rx="10" />
+  <text class="start" x="236" y="44">nats-server</text>
+  <text class="label" x="236" y="76" style="font-size: 14px">pending bytes for this one client</text>
+  <rect x="236" y="92" width="388" height="36" rx="4" style="fill: none; stroke: #cfd3da; stroke-width: 2" />
+  <rect x="238" y="94" width="300" height="32" style="fill: #ff9100; opacity: 0.35" />
+  <rect x="538" y="94" width="84" height="32" style="fill: #ff5252; opacity: 0.55" />
+  <text class="mono small" x="388" y="111" style="font-size: 13px; fill: #eeeeee">MSG MSG MSG MSG MSG …</text>
+  <path d="M622,84 L622,136" style="stroke: #ff5252; stroke-width: 3" />
+  <text class="red mono" x="622" y="152" style="font-size: 13px; text-anchor: end">max_pending 64 MB</text>
+
+  <path class="dline" d="M642,95 L726,95" />
+  <text class="small" x="684" y="80" style="font-size: 13px">TCP full</text>
+  <rect class="box" x="730" y="60" width="160" height="70" rx="6" />
+  <text x="810" y="84" style="font-size: 18px">subscriber</text>
+  <text class="mono small" x="810" y="110" style="font-size: 13px">not reading</text>
+
+  <text class="label" x="10" y="206" style="font-size: 16px">The server closes the connection when either limit is hit:</text>
+  <text class="mono orange start" x="30" y="236" style="font-size: 15px">max_pending</text>
+  <text class="label" x="200" y="236" style="font-size: 15px">default 64 MB queued for one client</text>
+  <text class="mono orange start" x="30" y="262" style="font-size: 15px">write_deadline</text>
+  <text class="label" x="200" y="262" style="font-size: 15px">default 10 s for one socket write to finish</text>
+
+  <text class="label" x="10" y="300" style="font-size: 15px">server log</text>
+  <text class="mono yellow start" x="120" y="300" style="font-size: 13px">Slow Consumer Detected: MaxPending of 67108864 Exceeded</text>
+  <text class="label" x="10" y="326" style="font-size: 15px">close reason</text>
+  <text class="mono yellow start" x="120" y="326" style="font-size: 13px">Slow Consumer (Pending Bytes)</text>
+  <text class="label" x="10" y="352" style="font-size: 15px">client sees</text>
+  <text class="start" x="120" y="352" style="font-size: 15px"><tspan class="red">only the TCP close</tspan><tspan class="grey">, no -ERR line</tspan></text>
+
+  <path class="dash" d="M10,378 L890,378" />
+  <text class="label" x="10" y="404" style="font-size: 14px">nats.go has its own limit per subscription (500,000 msgs / 64 MB): past it, the client drops messages,</text>
+  <text class="label" x="10" y="426" style="font-size: 14px">stays connected and reports <tspan class="mono yellow">nats: slow consumer, messages dropped</tspan></text>
+</svg>

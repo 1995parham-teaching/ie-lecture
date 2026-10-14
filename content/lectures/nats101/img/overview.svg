@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320">
+  <title>A message published on foo is delivered to every subscriber of foo and to no one else</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .dline { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="120" width="170" height="80" rx="6" />
+  <text x="95" y="160">publisher</text>
+  <path class="line" d="M182,160 L326,160" />
+  <text class="mono yellow" x="254" y="122" style="font-size: 16px">PUB foo 5</text>
+  <text class="mono small" x="254" y="142" style="font-size: 14px">hello</text>
+
+  <rect class="box" x="330" y="110" width="190" height="100" rx="50" />
+  <text x="425" y="150">nats-server</text>
+  <text class="small" x="425" y="178" style="font-size: 14px">routes by subject</text>
+
+  <rect class="box" x="690" y="20" width="200" height="70" rx="6" />
+  <text x="790" y="44" style="font-size: 18px">subscriber A</text>
+  <text class="mono cyan" x="790" y="70" style="font-size: 15px">SUB foo 1</text>
+  <rect class="box" x="690" y="125" width="200" height="70" rx="6" />
+  <text x="790" y="149" style="font-size: 18px">subscriber B</text>
+  <text class="mono cyan" x="790" y="175" style="font-size: 15px">SUB foo 7</text>
+  <rect class="box" x="690" y="230" width="200" height="70" rx="6" />
+  <text x="790" y="254" style="font-size: 18px">subscriber C</text>
+  <text class="mono violet" x="790" y="280" style="font-size: 15px">SUB bar 1</text>
+
+  <path class="line" d="M500,128 L686,60" />
+  <text class="mono green" x="590" y="70" style="font-size: 15px">MSG foo 1 5</text>
+  <path class="line" d="M522,160 L686,160" />
+  <text class="mono green" x="604" y="146" style="font-size: 15px">MSG foo 7 5</text>
+  <path class="dash" d="M500,192 L686,262" />
+  <text class="red" x="590" y="258" style="font-size: 15px">nothing</text>
+  <text class="small" x="95" y="250" style="font-size: 14px">5 = payload bytes</text>
+  <text class="small" x="95" y="272" style="font-size: 14px">1, 7 = each client's sid</text>
+</svg>
