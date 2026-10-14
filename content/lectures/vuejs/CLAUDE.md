@@ -1,8 +1,8 @@
 # VueJS
 
 An extra deck (`lecture: false`), 24 slides, 4 vertical stacks. Originally
-presented by **Pooya** and **Parsa**; `presentation.pptx` is the original source
-and is linked from the first slide.
+presented by **Pooya** and **Parsa**; `presentation.pptx` is their original
+deck and is linked from the first slide.
 
 Declared topics: Introduction · Reactivity · Template Syntax · Components ·
 Tooling.
@@ -30,13 +30,22 @@ contradict the `ref`/`reactive` slides that precede it.
 - **Vue is not on the syllabus** — this is a student presentation deck, parallel
   to `react`. The course teaches React in the TA sessions. Keep the two decks
   independent; neither should assume the other was shown.
-- If a slide changes materially, the `.pptx` becomes stale. Either update both
-  or stop advertising the pptx as the source.
+- **`presentation.pptx` is not the source of this deck and is not kept in
+  step with it.** It is the 40-slide Spring 2020 original: Vue 2, Options API
+  (`new Vue({ el, data, methods })`), with Vue 2 lifecycle and reactivity
+  pictures. This deck was rewritten for Vue 3 and the Composition API, so the
+  two differ on almost every code slide. The first slide says so ("written for
+  Vue 2 and the Options API ... this deck is Vue 3"). Do not edit the pptx to
+  match: adding Vue 3 material would put both APIs in one file.
 
 ## Diagrams
 
-Hand-written SVGs in `img/`, no draw.io source. They are not in
-`presentation.pptx`:
+Hand-written SVGs in `img/`, no draw.io source. They are deliberately **not**
+in `presentation.pptx`: both show Vue 3 APIs (`ref`, `count.value`, `emit`)
+that the Vue 2 pptx never uses, so inserting them would contradict the slides
+around them (its slide 5 "Reactivity" is the Vue 2 docs' Watcher and
+getter/setter picture). Checked by dumping the pptx text and slide 5's image
+with python-pptx 1.0.
 
 | File               | Slide                                        |
 | ------------------ | -------------------------------------------- |
