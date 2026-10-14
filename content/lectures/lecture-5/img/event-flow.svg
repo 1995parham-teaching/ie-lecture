@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 486">
+  <title>A click on the button travels down from window in the capture phase and back up in the bubble phase</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <defs>
+    <marker id="ared" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+    <marker id="agreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+  <rect class="box" x="330.0" y="20" width="240" height="44" rx="6" />
+  <text class="mono " x="450" y="42.0" style="font-size: 18px">window</text>
+  <path d="M450,64 V86" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="330.0" y="86" width="240" height="44" rx="6" />
+  <text class="mono " x="450" y="108.0" style="font-size: 18px">document</text>
+  <path d="M450,130 V152" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="330.0" y="152" width="240" height="44" rx="6" />
+  <text class="mono orange" x="450" y="174.0" style="font-size: 18px">html</text>
+  <path d="M450,196 V218" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="330.0" y="218" width="240" height="44" rx="6" />
+  <text class="mono orange" x="450" y="240.0" style="font-size: 18px">body</text>
+  <path d="M450,262 V284" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="330.0" y="284" width="240" height="44" rx="6" />
+  <text class="mono orange" x="450" y="306.0" style="font-size: 18px">div#parent</text>
+  <path d="M450,328 V350" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="330.0" y="350" width="240" height="44" rx="6" style="stroke:#00e5ff;stroke-width:3" />
+  <text class="mono cyan" x="450" y="372.0" style="font-size: 18px">button#click-btn-1</text>
+  <path d="M280,30 V360" style="stroke:#ff5252;stroke-width:4;fill:none;marker-end:url(#ared)" />
+  <text class="red" x="200" y="80">1 capture</text>
+  <text class="small" x="200" y="106" style="font-size: 14px">window → target</text>
+  <text class="mono small" x="160" y="170" style="font-size: 13px">addEventListener(</text>
+  <text class="mono small" x="160" y="190" style="font-size: 13px">"click", f, true)</text>
+  <path d="M620,384 V24" style="stroke:#76ff03;stroke-width:4;fill:none;marker-end:url(#agreen)" />
+  <text class="green" x="730" y="80">3 bubble</text>
+  <text class="small" x="730" y="106" style="font-size: 14px">target → window</text>
+  <text class="small" x="730" y="170" style="font-size: 14px">the default for</text>
+  <text class="mono small" x="730" y="190" style="font-size: 13px">addEventListener</text>
+  <text class="cyan" x="450" y="422">2 target</text>
+  <text class="small start" x="660" y="298.0" style="font-size: 14px">parent handler runs here:</text>
+  <text class="mono small start" x="660" y="318.0" style="font-size: 13px"><tspan class="orange">this</tspan> = div#parent</text>
+  <text class="mono small start" x="660" y="338.0" style="font-size: 13px"><tspan class="green">event.target</tspan> = button</text>
+  <text class="small" x="450" y="462" style="font-size: 16px"><tspan class="mono">event.stopPropagation()</tspan> in the button handler: the parent never hears the click.</text>
+</svg>

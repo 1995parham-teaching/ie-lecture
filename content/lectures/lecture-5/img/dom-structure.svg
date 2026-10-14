@@ -1,62 +1,68 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="119.5 281.5 291 379" width="291" height="379">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <title>The window object holds the DOM tree of the page and the browser objects of the BOM</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
   <defs>
-    <font-face font-family="Courier New" font-size="14" panose-1="2 7 3 9 2 2 5 2 4 4" units-per-em="1000" underline-position="-232.91016" underline-thickness="41.015625" slope="0" x-height="422.85156" cap-height="571.28906" ascent="832.5195" descent="-300.29297" font-weight="400">
-      <font-face-src>
-        <font-face-name name="CourierNewPSMT"/>
-      </font-face-src>
-    </font-face>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
   </defs>
-  <metadata> Produced by OmniGraffle 7.10.2 
-    <dc:date>2019-04-23 21:57:02 +0000</dc:date>
-  </metadata>
-  <g id="Canvas_1" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none" stroke="none">
-    <title>Canvas 1</title>
-    <g id="Canvas_1: Layer 1">
-      <title>Layer 1</title>
-      <g id="Graphic_2">
-        <rect x="120" y="282" width="290" height="378" fill="#ededff"/>
-        <rect x="120" y="282" width="290" height="378" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(125 287)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Window</tspan>
-        </text>
-      </g>
-      <g id="Graphic_7">
-        <rect x="130" y="312" width="266.98413" height="338" fill="#ffc0c0"/>
-        <rect x="130" y="312" width="266.98413" height="338" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(135 317)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Document</tspan>
-        </text>
-      </g>
-      <g id="Graphic_8">
-        <rect x="143.01587" y="340" width="246.98413" height="80" fill="#ffffc0"/>
-        <rect x="143.01587" y="340" width="246.98413" height="80" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(148.01587 345)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
-        </text>
-      </g>
-      <g id="Graphic_9">
-        <rect x="143.01587" y="430" width="246.98413" height="130" fill="#ffffc0"/>
-        <rect x="143.01587" y="430" width="246.98413" height="130" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(148.01587 435)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
-        </text>
-      </g>
-      <g id="Graphic_10">
-        <rect x="150" y="460" width="230" height="30" fill="#c0ffff"/>
-        <rect x="150" y="460" width="230" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(155 465)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
-        </text>
-      </g>
-      <g id="Graphic_11">
-        <rect x="150" y="500" width="230" height="30" fill="#c0ffff"/>
-        <rect x="150" y="500" width="230" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(155 505)" fill="black">
-          <tspan font-family="Courier New" font-size="14" font-weight="400" fill="black" x="0" y="12">Element</tspan>
-        </text>
-      </g>
-    </g>
-  </g>
+
+  <rect class="box" x="10" y="10" width="880" height="440" rx="10" style="fill: rgba(255,255,255,0.03)" />
+  <text class="mono yellow start" x="30" y="38">window</text>
+  <text class="small start" x="122" y="39" style="font-size: 14px">the global object: one per tab or frame</text>
+  <rect class="dash" x="30" y="60" width="560" height="372" rx="8" style="stroke:#ff9100" />
+  <text class="label" x="44" y="80" style="font-size: 14px"><tspan class="orange">DOM</tspan>: one object per node of the page</text>
+  <path d="M310,145 L310,180" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M310,220 L170,255" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M310,220 L430,255" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M170,295 L100,335" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M430,295 L250,335" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M430,295 L370,335" style="stroke:#8d97a8;stroke-width:2" />
+  <path d="M430,295 L490,335" style="stroke:#8d97a8;stroke-width:2" />
+  <rect class="box" x="245.0" y="105" width="130" height="40" rx="6" />
+  <text class="mono " x="310" y="125" style="font-size: 17px">document</text>
+  <rect class="box" x="265.0" y="180" width="90" height="40" rx="6" />
+  <text class="mono orange" x="310" y="200" style="font-size: 17px">html</text>
+  <rect class="box" x="125.0" y="255" width="90" height="40" rx="6" />
+  <text class="mono orange" x="170" y="275" style="font-size: 17px">head</text>
+  <rect class="box" x="385.0" y="255" width="90" height="40" rx="6" />
+  <text class="mono orange" x="430" y="275" style="font-size: 17px">body</text>
+  <rect class="box" x="55.0" y="335" width="90" height="40" rx="6" />
+  <text class="mono orange" x="100" y="355" style="font-size: 17px">title</text>
+  <rect class="box" x="205.0" y="335" width="90" height="40" rx="6" />
+  <text class="mono orange" x="250" y="355" style="font-size: 17px">h1</text>
+  <rect class="box" x="325.0" y="335" width="90" height="40" rx="6" />
+  <text class="mono orange" x="370" y="355" style="font-size: 17px">p</text>
+  <rect class="box" x="445.0" y="335" width="90" height="40" rx="6" />
+  <text class="mono orange" x="490" y="355" style="font-size: 17px">form</text>
+  <text class="small" x="310" y="410" style="font-size: 14px"><tspan class="mono">window.document</tspan>, built by parsing the HTML</text>
+  <rect class="dash" x="610" y="60" width="260" height="372" rx="8" style="stroke:#00e5ff" />
+  <text class="label" x="624" y="80" style="font-size: 14px"><tspan class="cyan">BOM</tspan>: the browser, no HTML tag</text>
+  <rect class="box" x="630" y="96" width="220" height="50" rx="6" />
+  <text class="mono cyan" x="740" y="112" style="font-size: 17px">navigator</text>
+  <text class="small" x="740" y="133" style="font-size: 13px">browser, language</text>
+  <rect class="box" x="630" y="158" width="220" height="50" rx="6" />
+  <text class="mono cyan" x="740" y="174" style="font-size: 17px">location</text>
+  <text class="small" x="740" y="195" style="font-size: 13px">the URL</text>
+  <rect class="box" x="630" y="220" width="220" height="50" rx="6" />
+  <text class="mono cyan" x="740" y="236" style="font-size: 17px">history</text>
+  <text class="small" x="740" y="257" style="font-size: 13px">back, forward</text>
+  <rect class="box" x="630" y="282" width="220" height="50" rx="6" />
+  <text class="mono cyan" x="740" y="298" style="font-size: 17px">screen</text>
+  <text class="small" x="740" y="319" style="font-size: 13px">display size</text>
+  <rect class="box" x="630" y="344" width="220" height="50" rx="6" />
+  <text class="mono cyan" x="740" y="360" style="font-size: 17px">localStorage</text>
+  <text class="small" x="740" y="381" style="font-size: 13px">saved key/value</text>
 </svg>

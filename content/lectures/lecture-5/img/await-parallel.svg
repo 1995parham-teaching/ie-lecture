@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>Two awaits in a row take 600 ms, Promise.all of the same two calls takes 300 ms</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label" x="30" y="30">two <tspan class="mono yellow">await</tspan>s in a row</text>
+  <text class="mono small start" x="30" y="76" style="font-size: 15px">const a = …</text>
+  <text class="mono small start" x="30" y="122" style="font-size: 15px">const b = …</text>
+  <rect class="box" x="242.0" y="56" width="296.0" height="40" rx="6" />
+  <text class="mono orange" x="390.0" y="76" style="font-size: 16px">longCalculation(1)</text>
+  <rect class="box" x="542.0" y="102" width="296.0" height="40" rx="6" />
+  <text class="mono orange" x="690.0" y="122" style="font-size: 16px">longCalculation(2)</text>
+  <path class="dash" d="M840,46 V152" style="stroke:#ff5252" />
+  <text class="red" x="848" y="30" style="text-anchor: end; font-size: 17px">ready at 600 ms</text>
+  <text class="label" x="30" y="200"><tspan class="mono yellow">Promise.all</tspan> of two started calls</text>
+  <text class="mono small start" x="30" y="246" style="font-size: 15px">c</text>
+  <text class="mono small start" x="30" y="292" style="font-size: 15px">d</text>
+  <rect class="box" x="242.0" y="226" width="296.0" height="40" rx="6" />
+  <text class="mono green" x="390.0" y="246" style="font-size: 16px">longCalculation(3)</text>
+  <rect class="box" x="242.0" y="272" width="296.0" height="40" rx="6" />
+  <text class="mono green" x="390.0" y="292" style="font-size: 16px">longCalculation(4)</text>
+  <path class="dash" d="M540,216 V322" style="stroke:#76ff03" />
+  <text class="green start" x="552" y="270" style="font-size: 17px">[c, d] ready at 300 ms</text>
+  <path class="line" d="M240,350 H880" />
+  <path d="M240.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="240.0" y="376" style="font-size: 14px">0</text>
+  <path d="M340.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="340.0" y="376" style="font-size: 14px">100</text>
+  <path d="M440.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="440.0" y="376" style="font-size: 14px">200</text>
+  <path d="M540.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="540.0" y="376" style="font-size: 14px">300</text>
+  <path d="M640.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="640.0" y="376" style="font-size: 14px">400</text>
+  <path d="M740.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="740.0" y="376" style="font-size: 14px">500</text>
+  <path d="M840.0,344 V356" style="stroke:#cfd3da;stroke-width:2" />
+  <text class="small" x="840.0" y="376" style="font-size: 14px">600</text>
+  <text class="small start" x="860" y="376" style="font-size: 14px">ms</text>
+  <text class="small" x="450" y="420" style="font-size: 16px">Measured in Node with <tspan class="mono">timeout = 300</tspan>: 603 ms and 301 ms.</text>
+</svg>

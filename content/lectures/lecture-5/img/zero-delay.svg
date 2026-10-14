@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>Zero delays: the timeline of the setTimeout example</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- time axis -->
+  <path class="line" d="M30,230 H880" />
+  <text class="small" x="870" y="250" style="text-anchor: end; font-size: 14px">time</text>
+
+  <!-- queue notes above -->
+  <path class="dash" d="M150,82 V170" />
+  <text class="mono small start" x="60" y="34" style="font-size: 15px">setTimeout(cb)</text>
+  <text class="small start" x="60" y="58" style="font-size: 14px">starts a 0 ms timer for <tspan class="mono orange">cb</tspan></text>
+  <path class="dash" d="M370,82 V170" />
+  <text class="mono small start" x="280" y="34" style="font-size: 15px">setTimeout(cb1, 0)</text>
+  <text class="small start" x="280" y="58" style="font-size: 14px">starts a 0 ms timer for <tspan class="mono orange">cb1</tspan></text>
+
+  <!-- call stack blocks -->
+  <text class="label" x="30" y="156" style="font-size: 14px">call stack</text>
+  <rect class="box" x="30" y="170" width="460" height="56" rx="6" />
+  <text class="mono" x="260" y="198" style="font-size: 17px">task 1: the whole IIFE</text>
+  <rect class="box" x="560" y="170" width="140" height="56" rx="6" />
+  <text class="mono orange" x="630" y="198" style="font-size: 17px">cb</text>
+  <rect class="box" x="730" y="170" width="140" height="56" rx="6" />
+  <text class="mono orange" x="800" y="198" style="font-size: 17px">cb1</text>
+  <text class="small" x="525" y="118" style="font-size: 14px">stack empty:</text>
+  <text class="small" x="525" y="138" style="font-size: 14px">next task</text>
+  <path class="line" d="M525,160 V196" style="stroke:#ffcc00" />
+
+  <!-- output -->
+  <text class="label" x="30" y="282" style="font-size: 14px">what the page prints</text>
+  <text class="start yellow" x="30" y="314" style="font-size: 17px">1</text><text class="start" x="50" y="314" style="font-size: 17px">this is the start</text>
+  <text class="start yellow" x="30" y="342" style="font-size: 17px">2</text><text class="start" x="50" y="342" style="font-size: 17px">this is just a message</text>
+  <text class="start yellow" x="30" y="370" style="font-size: 17px">3</text><text class="start" x="50" y="370" style="font-size: 17px">this is the end</text>
+  <text class="start yellow" x="560" y="314" style="font-size: 17px">4</text><text class="start" x="580" y="314" style="font-size: 17px">Callback 1</text>
+  <text class="start yellow" x="730" y="314" style="font-size: 17px">5</text><text class="start" x="750" y="314" style="font-size: 17px">Callback 2</text>
+
+  <text class="small" x="450" y="420" style="font-size: 16px">A delay of 0 is a minimum, not a deadline: a callback waits until the stack is empty.</text>
+</svg>

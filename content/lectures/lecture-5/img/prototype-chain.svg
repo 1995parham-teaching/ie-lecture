@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>The prototype chain of an object made by Object.create and of one made by new</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- row 1: Object.create -->
+  <text class="label" x="30" y="26"><tspan class="mono">let p1 = Object.create(Person)</tspan></text>
+  <rect class="box" x="30" y="46" width="170" height="96" rx="8" />
+  <text class="mono orange" x="115" y="70">p1</text>
+  <text class="mono small" x="115" y="100" style="font-size: 15px">_name</text>
+  <text class="mono small" x="115" y="122" style="font-size: 15px">_family</text>
+
+  <rect class="box" x="250" y="46" width="220" height="96" rx="8" />
+  <text class="mono orange" x="360" y="70">Person</text>
+  <text class="mono small" x="360" y="100" style="font-size: 15px">get/set name</text>
+  <text class="mono small" x="360" y="122" style="font-size: 15px">get/set family</text>
+
+  <!-- row 2: new -->
+  <text class="label" x="30" y="196"><tspan class="mono">let person1 = new Person(…)</tspan></text>
+  <rect class="box" x="30" y="216" width="170" height="96" rx="8" />
+  <text class="mono orange" x="115" y="240">person1</text>
+  <text class="small" x="115" y="270" style="font-size: 14px">own properties,</text>
+  <text class="small" x="115" y="290" style="font-size: 14px">set by <tspan class="mono">this.x = …</tspan></text>
+
+  <rect class="box" x="250" y="216" width="220" height="96" rx="8" />
+  <text class="mono orange" x="360" y="240">Person.prototype</text>
+  <text class="mono small" x="360" y="270" style="font-size: 15px">farewell</text>
+  <text class="mono small" x="360" y="292" style="font-size: 15px">constructor</text>
+
+  <rect class="box" x="250" y="370" width="220" height="50" rx="8" />
+  <text class="mono" x="360" y="395">function Person</text>
+  <path class="line" d="M360,368 V316" />
+  <text class="mono small start" x="370" y="343" style="font-size: 14px">.prototype</text>
+
+  <!-- shared tail -->
+  <rect class="box" x="540" y="130" width="230" height="96" rx="8" />
+  <text class="mono orange" x="655" y="154">Object.prototype</text>
+  <text class="mono small" x="655" y="184" style="font-size: 15px">toString</text>
+  <text class="mono small" x="655" y="206" style="font-size: 15px">hasOwnProperty …</text>
+  <text class="mono grey" x="855" y="178">null</text>
+
+  <path class="line" d="M202,94 H246" />
+  <path class="line" d="M202,264 H246" />
+  <path class="line" d="M472,94 L536,150" />
+  <path class="line" d="M472,264 L536,206" />
+  <path class="line" d="M772,178 H822" />
+  <text class="small" x="450" y="462" style="font-size: 15px"><tspan class="mono">→</tspan> is the hidden <tspan class="mono yellow">[[Prototype]]</tspan> link, read by <tspan class="mono">Object.getPrototypeOf</tspan></text>
+
+  <!-- lookup -->
+  <text class="label" x="540" y="290">looking up a name walks →</text>
+  <text class="mono start" x="540" y="320" style="font-size: 15px">person1.farewell</text>
+  <text class="small start" x="700" y="320" style="font-size: 14px">found on Person.prototype</text>
+  <text class="mono start" x="540" y="348" style="font-size: 15px">person1.toString</text>
+  <text class="small start" x="700" y="348" style="font-size: 14px">found on Object.prototype</text>
+  <text class="mono start" x="540" y="376" style="font-size: 15px">person1.nope</text>
+  <text class="small start" x="700" y="376" style="font-size: 14px">reaches null:</text>
+  <text class="mono red start" x="700" y="398" style="font-size: 15px">undefined</text>
+</svg>

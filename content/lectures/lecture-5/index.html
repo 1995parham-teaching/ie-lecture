@@ -948,15 +948,16 @@ console.log(p1.name, p1.family);
     </code></pre>
   </section>
   <section>
-    <ul>
-      <li>
-        Prototypes are the mechanism by which JavaScript objects inherit
-        features from one another.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <img src="./img/prototype.png" alt="prototype" />
+    <figure>
+      <img
+        src="./img/prototype-chain.svg"
+        alt="p1, made by Object.create(Person), holds _name and _family and links to Person, which holds the getters and setters, which links to Object.prototype, which links to null. person1, made by new Person, links to Person.prototype, which holds farewell and constructor and is the .prototype of function Person, and then to Object.prototype and null. Looking up person1.farewell finds it on Person.prototype, person1.toString on Object.prototype, and person1.nope reaches null and gives undefined"
+        width="860"
+      />
+      <figcaption>
+        Prototypes are how JavaScript objects inherit features from one another.
+      </figcaption>
+    </figure>
   </section>
   <section>
     <ul>
@@ -1256,19 +1257,11 @@ function myFunction() {
     </p>
   </section>
   <section>
-    <h3>Stack</h3>
-    <p>Function calls form a stack of frames.</p>
-    <h3>Heap</h3>
-    <p>
-      Objects are allocated in a heap which is just a name to denote a large
-      (mostly unstructured) region of memory.
-    </p>
-    <h3>Queue</h3>
-    <p>
-      A JavaScript runtime uses a message queue, which is a list of messages to
-      be processed. Each message has an associated function which gets called in
-      order to handle the message.
-    </p>
+    <img
+      src="./img/event-loop.svg"
+      alt="Function calls form frames on the call stack; objects live in the heap. The stack calls Web APIs such as setTimeout, fetch and addEventListener, which wait outside JavaScript. When a timer fires, a click happens or I/O is done, a callback joins the task queue. Settled promises put their reactions on the microtask queue. The event loop takes the oldest task and runs it until the stack is empty, then runs every microtask, then renders if needed, and repeats"
+      width="860"
+    />
   </section>
   <section>
     <h2>Event Loop</h2>
@@ -1366,6 +1359,13 @@ while (queue.waitForMessage()) {
     </code></pre>
   </section>
   <section>
+    <img
+      src="./img/zero-delay.svg"
+      alt="A timeline. Task 1, the whole IIFE, runs first: it prints this is the start, starts a 0 ms timer for cb, prints this is just a message, starts a 0 ms timer for cb1 and prints this is the end. Only when the stack is empty does the event loop run cb, which prints Callback 1, and then cb1, which prints Callback 2"
+      width="880"
+    />
+  </section>
+  <section>
     <h2>Never Blocking</h2>
     <ul>
       <li>
@@ -1427,7 +1427,11 @@ while (queue.waitForMessage()) {
     </ul>
   </section>
   <section>
-    <img src="./img/promises.png" alt="the three states of a promise" />
+    <img
+      src="./img/promise-states.svg"
+      alt="A promise starts pending. resolve(value) makes it fulfilled; reject(reason) or a throw makes it rejected. Fulfilled and rejected are settled and never change again. A fulfilled promise runs .then(onFulfilled), a rejected one runs .catch(onRejected), and each of them returns a new pending promise: a handler that returns v fulfils it with v, a handler that throws e rejects it with e"
+      width="880"
+    />
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -1540,6 +1544,13 @@ const b = await longCalculation(2);
 // 300ms: both are already running
 const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
     </code></pre>
+  </section>
+  <section>
+    <img
+      src="./img/await-parallel.svg"
+      alt="Two awaits in a row: longCalculation(1) runs from 0 to 300 ms, then longCalculation(2) from 300 to 600 ms, so a and b are ready at 600 ms. With Promise.all, longCalculation(3) and longCalculation(4) both run from 0 to 300 ms, so c and d are ready at 300 ms. Measured in Node: 603 ms and 301 ms"
+      width="880"
+    />
   </section>
 </section>
 <section>
@@ -1687,7 +1698,8 @@ console.log(await longCalculation(1), timeout);
   <section>
     <img
       src="./img/dom-structure.svg"
-      alt="the DOM tree of a small HTML document"
+      alt="The window object, the global object, holds two things. The DOM: document, then html, which has head with title and body with h1, p and form, one object per node of the page. The BOM: navigator, location, history, screen and localStorage, which belong to the browser and have no HTML tag"
+      width="860"
     />
   </section>
 </section>
@@ -2525,8 +2537,9 @@ myButton.onclick = function(event){alert('Hello world')}
   </section>
   <section>
     <img
-      src="./img/eventflow.png"
-      alt="event capture, target, and bubble phases"
+      src="./img/event-flow.svg"
+      alt="A click on button#click-btn-1 travels from window through document, html, body and div#parent down to the button in the capture phase, reaches the target, then bubbles back up to window. Capture listeners need addEventListener with true; bubble is the default. The parent handler runs during bubbling with this as div#parent and event.target as the button. Calling event.stopPropagation in the button handler means the parent never hears the click"
+      width="860"
     />
   </section>
 </section>
