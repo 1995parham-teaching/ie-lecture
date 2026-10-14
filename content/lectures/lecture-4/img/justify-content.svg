@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 452">
+  <title>justify-content distributes the free space along the main axis</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="small" x="490.0" y="22" style="font-size: 16px">justify-content — three items (120, 80, 160px) in a 600px row</text>
+  <text class="mono end cyan" x="234" y="70" style="font-size: 17px">flex-start</text>
+  <rect class="dash" x="250" y="46" width="480.0" height="48" rx="4" />
+  <rect x="250.0" y="54" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="298.0" y="70" style="font-size: 15px">A</text>
+  <rect x="346.0" y="54" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="378.0" y="70" style="font-size: 15px">B</text>
+  <rect x="410.0" y="54" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="474.0" y="70" style="font-size: 15px">C</text>
+  <text class="mono small" x="634.0" y="70" style="font-size: 13px">240</text>
+  <text class="mono end cyan" x="234" y="134" style="font-size: 17px">flex-end</text>
+  <rect class="dash" x="250" y="110" width="480.0" height="48" rx="4" />
+  <rect x="442.0" y="118" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="490.0" y="134" style="font-size: 15px">A</text>
+  <rect x="538.0" y="118" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="570.0" y="134" style="font-size: 15px">B</text>
+  <rect x="602.0" y="118" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="666.0" y="134" style="font-size: 15px">C</text>
+  <text class="mono small" x="346.0" y="134" style="font-size: 13px">240</text>
+  <text class="mono end cyan" x="234" y="198" style="font-size: 17px">center</text>
+  <rect class="dash" x="250" y="174" width="480.0" height="48" rx="4" />
+  <rect x="346.0" y="182" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="394.0" y="198" style="font-size: 15px">A</text>
+  <rect x="442.0" y="182" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="474.0" y="198" style="font-size: 15px">B</text>
+  <rect x="506.0" y="182" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="570.0" y="198" style="font-size: 15px">C</text>
+  <text class="mono small" x="298.0" y="198" style="font-size: 13px">120</text>
+  <text class="mono small" x="682.0" y="198" style="font-size: 13px">120</text>
+  <text class="mono end cyan" x="234" y="262" style="font-size: 17px">space-between</text>
+  <rect class="dash" x="250" y="238" width="480.0" height="48" rx="4" />
+  <rect x="250.0" y="246" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="298.0" y="262" style="font-size: 15px">A</text>
+  <rect x="442.0" y="246" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="474.0" y="262" style="font-size: 15px">B</text>
+  <rect x="602.0" y="246" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="666.0" y="262" style="font-size: 15px">C</text>
+  <text class="mono small" x="394.0" y="262" style="font-size: 13px">120</text>
+  <text class="mono small" x="554.0" y="262" style="font-size: 13px">120</text>
+  <text class="mono end cyan" x="234" y="326" style="font-size: 17px">space-around</text>
+  <rect class="dash" x="250" y="302" width="480.0" height="48" rx="4" />
+  <rect x="282.0" y="310" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="330.0" y="326" style="font-size: 15px">A</text>
+  <rect x="442.0" y="310" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="474.0" y="326" style="font-size: 15px">B</text>
+  <rect x="570.0" y="310" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="634.0" y="326" style="font-size: 15px">C</text>
+  <text class="mono small" x="266.0" y="326" style="font-size: 13px">40</text>
+  <text class="mono small" x="410.0" y="326" style="font-size: 13px">80</text>
+  <text class="mono small" x="538.0" y="326" style="font-size: 13px">80</text>
+  <text class="mono small" x="714.0" y="326" style="font-size: 13px">40</text>
+  <text class="mono end cyan" x="234" y="390" style="font-size: 17px">space-evenly</text>
+  <rect class="dash" x="250" y="366" width="480.0" height="48" rx="4" />
+  <rect x="298.0" y="374" width="96.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="346.0" y="390" style="font-size: 15px">A</text>
+  <rect x="442.0" y="374" width="64.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="474.0" y="390" style="font-size: 15px">B</text>
+  <rect x="554.0" y="374" width="128.0" height="32" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="618.0" y="390" style="font-size: 15px">C</text>
+  <text class="mono small" x="274.0" y="390" style="font-size: 13px">60</text>
+  <text class="mono small" x="418.0" y="390" style="font-size: 13px">60</text>
+  <text class="mono small" x="530.0" y="390" style="font-size: 13px">60</text>
+  <text class="mono small" x="706.0" y="390" style="font-size: 13px">60</text>
+  <text class="small" x="490.0" y="436" style="font-size: 14px">numbers are the free space, in px, measured in Chrome</text>
+</svg>

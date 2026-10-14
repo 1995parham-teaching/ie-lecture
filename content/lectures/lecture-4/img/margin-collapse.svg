@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 310">
+  <title>Adjacent vertical margins collapse to the larger one; horizontal margins add up</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="yellow" x="230" y="24" style="font-size: 19px">vertical: margins collapse</text>
+  <rect class="box" x="60" y="56" width="300" height="70" />
+  <text class="mono" x="210" y="91" style="font-size: 15px">A   margin-bottom: 40px</text>
+  <rect x="60" y="126" width="300" height="60" style="fill: rgba(255,145,0,0.14); stroke: #ff9100; stroke-width: 1.5; stroke-dasharray: 5 4" />
+  <rect x="60" y="156" width="300" height="30" style="fill: rgba(238,130,238,0.14); stroke: #ee82ee; stroke-width: 1.5; stroke-dasharray: 5 4" />
+  <rect class="box" x="60" y="186" width="300" height="70" />
+  <text class="mono" x="210" y="221" style="font-size: 15px">B   margin-top: 20px</text>
+  <path class="thin" d="M372,126 H380 V186 H372" style="stroke: #eeeeee" />
+  <text class="start" x="388" y="148" style="font-size: 17px">gap 40px</text>
+  <text class="small start" x="388" y="170" style="font-size: 14px">the larger one</text>
+  <text class="small" x="210" y="290" style="font-size: 15px">B’s 20px margin sits inside A’s 40px</text>
+  <text class="yellow" x="700" y="24" style="font-size: 19px">horizontal: margins add up</text>
+  <rect class="box" x="520" y="96" width="110" height="110" />
+  <text class="mono" x="575" y="151" style="font-size: 18px">A</text>
+  <rect x="630" y="96" width="60" height="110" style="fill: rgba(255,145,0,0.14); stroke: #ff9100; stroke-width: 1.5; stroke-dasharray: 5 4" />
+  <rect x="690" y="96" width="30" height="110" style="fill: rgba(238,130,238,0.14); stroke: #ee82ee; stroke-width: 1.5; stroke-dasharray: 5 4" />
+  <rect class="box" x="720" y="96" width="110" height="110" />
+  <text class="mono" x="775" y="151" style="font-size: 18px">B</text>
+  <text class="orange mono" x="660" y="82" style="font-size: 14px">40</text>
+  <text class="violet mono" x="705" y="82" style="font-size: 14px">20</text>
+  <path class="thin" d="M630,218 V226 H720 V218" style="stroke: #eeeeee" />
+  <text x="675" y="244" style="font-size: 17px">gap 60px = 40 + 20</text>
+  <text class="mono small" x="575" y="290" style="font-size: 14px">A  margin-right: 40px</text>
+  <text class="mono small" x="790" y="290" style="font-size: 14px">B  margin-left: 20px</text>
+</svg>

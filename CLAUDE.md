@@ -157,5 +157,5 @@ fix makes the decks inconsistent. Raise them first.
   because lecture 3 teaches HTML.
 - **Dimension attributes with units**, e.g. `height="250px"`. `width`/`height`
   take a bare integer; browsers salvage the rest. Remaining in `lecture-2` (3)
-  and `lecture-4` (3).
+  and `lecture-4` (2).
 - **`cors` and `lecture-8`** declare `topics` but render no TOC slides.

@@ -862,32 +862,14 @@ code {color: red;}
 </section>
 <section>
   <h2>Overriding</h2>
-  <ul>
-    <li>In general,</li>
-    <ul>
-      <li>
-        Priority 1: more <span class="hl-orange">specific</span> (increase by
-        specificity)
-      </li>
-      <ol>
-        <li>
-          <ul>
-            <li>Type selectors (e.g., <code>h1</code>)</li>
-            <li>pseudo-elements (e.g., <code>::before</code>).</li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>Class selectors (e.g., <code>.example</code>)</li>
-            <li>attributes selectors (e.g., <code>[type="radio"]</code>)</li>
-            <li>pseudo-classes (e.g., <code>:hover</code>)</li>
-          </ul>
-        </li>
-        <li>ID selectors (e.g., <code>#example</code>).</li>
-        <li>Inline</li>
-      </ol>
-    </ul>
-  </ul>
+  <p>
+    Priority 1: the more <span class="hl-orange">specific</span> selector wins
+  </p>
+  <img
+    src="./img/specificity.svg"
+    alt="Specificity as three counts: IDs, then classes, attributes and pseudo-classes, then types and pseudo-elements. p scores 0 0 1, p.c scores 0 1 1, p#i scores 1 0 1 and wins. A style attribute is not a selector and wins before specificity is compared. One ID beats eleven classes; the universal selector and combinators add nothing."
+    width="860"
+  />
 </section>
 <section>
   <img
@@ -897,25 +879,12 @@ code {color: red;}
   />
 </section>
 <section>
-  <h2>Overriding</h2>
-  <ul>
-    <li>
-      Priority 2: more <span class="hl-orange">closer</span> to the element if
-      they are specific as the same as each other (e.g., both are id selector)
-    </li>
-    <ul>
-      <li>Inline &gt; Internal</li>
-      <li>Inline &gt; External</li>
-      <li>Internal &lt;?&gt; External</li>
-      <ul>
-        <li>The style that comes after the other</li>
-      </ul>
-    </ul>
-    <li>styles override more general styles</li>
-    <ul>
-      <li>Children’s style overrides parent’s style</li>
-    </ul>
-  </ul>
+  <h2>Overriding: the Full Order</h2>
+  <img
+    src="./img/cascade-order.svg"
+    alt="The cascade in four steps, each consulted only on a tie: 1 origin and importance (browser, then author, then author !important); 2 the style attribute beats every selector; 3 specificity; 4 order of appearance, the later declaration wins. Inherited values lose to any rule that targets the element itself."
+    width="900"
+  />
 </section>
 <section>
   <section>
@@ -978,19 +947,15 @@ color: blue !important}
 </section>
 <section>
   <h2>CSS Box Model</h2>
-  <ul>
-    <li>Each HTML element is a box</li>
-    <ul>
-      <li>Content</li>
-      <li>Padding</li>
-      <li>Border</li>
-      <li>Margin</li>
-    </ul>
-  </ul>
+  <p>
+    Each HTML element is a box: <span class="hl-cyan">content</span>,
+    <span class="hl-green">padding</span>, border and
+    <span class="hl-orange">margin</span>
+  </p>
   <img
-    src="./img/box-model.png"
-    style="height: 400px"
-    alt="the box model: content, padding, border, margin"
+    src="./img/box-model.svg"
+    alt="A 200 by 100 content box with 20px padding, a 5px border and 30px margin. The ruler adds up 30, 5, 20, 200, 20, 5, 30; the visible box is 250 by 150. With box-sizing border-box the same rule gives 200 by 100."
+    width="860"
   />
 </section>
 <section>
@@ -1094,22 +1059,15 @@ This is the &lt;span class="demo one"&gt;first box&lt;/span&gt;, and this is the
 </section>
 <section>
   <h2>Vertical Margin Collapse</h2>
-  <div style="display: flex">
-    <ul>
-      <li>
-        When a bottom margin of one element meets the top margin of another,
-        only the larger of the two will show
-      </li>
-      <li>
-        This only applies to vertical margins; the same is not true for left and
-        right margins
-      </li>
-    </ul>
-    <img
-      src="./img/vertical-margin-collapse.png"
-      alt="two adjacent vertical margins collapsing into the larger one"
-    />
-  </div>
+  <p>
+    When a bottom margin meets a top margin, only the larger one shows. Left and
+    right margins never collapse.
+  </p>
+  <img
+    src="./img/margin-collapse.svg"
+    alt="Left: box A with margin-bottom 40px above box B with margin-top 20px; the gap is 40px, the larger one. Right: A with margin-right 40px beside B with margin-left 20px; the gap is 60px."
+    width="860"
+  />
 </section>
 <section
   data-background-image="./img/linux.jpg"
@@ -1301,6 +1259,11 @@ p#red{
         specified using the <code class="hl-green">position</code> property
       </li>
     </ul>
+    <img
+      src="./img/positioning.svg"
+      alt="Four stacked paragraphs. Static: normal flow. Relative with top 150px and left 50%: paragraph 2 moves 150px down from where it was and its old space stays empty. Absolute: paragraph 2 is placed 150px from the top of its positioned ancestor, and paragraphs 3 and 4 move up into its space."
+      width="860"
+    />
   </section>
   <section>
     <table style="font-size: large">
@@ -1764,38 +1727,16 @@ h1 {
 </section>
 <section>
   <h2>Clearing around Float Elements</h2>
-  <ul>
-    <li>
-      Remark: Contents of other elements wrap around previously positioned float
-      object
-    </li>
-    <li>
-      To stop wrapping content of an element around a float object, the
-      <code class="hl-orange">normal</code> element must set the
-      <code class="hl-yellow">clear</code> property
-    </li>
-    <ul>
-      <li>
-        The <code class="hl-orange">clear</code> property can be set to
-        <code class="hl-green">left</code>, <code class="hl-green">right</code>,
-        or <code class="hl-green">both</code>
-      </li>
-    </ul>
-    <li>Setting the clear property of an element to left (right)</li>
-    <ul>
-      <li>
-        My content does not wrap around any float object that is in left (right)
-        side of me
-      </li>
-      <li>
-        In other words, the content of the element is rendered if the float
-        object wouldn't be float
-      </li>
-    </ul>
-    <li>
-      Applicable only for <strong class="hl-red">block-level</strong> elements
-    </li>
-  </ul>
+  <p>
+    A <strong class="hl-red">block-level</strong> element with
+    <code class="hl-yellow">clear: left | right | both</code> starts below the
+    earlier floats on that side instead of wrapping around them.
+  </p>
+  <img
+    src="./img/float-clear.svg"
+    alt="A left float with a paragraph and a footer after it. Without clear, both blocks run under the float and only their text moves aside; the float hangs out of its parent. With clear both on the footer, the footer starts below the float."
+    width="860"
+  />
 </section>
 <section>
   <section>
@@ -2028,7 +1969,11 @@ h1 {
   <section>
     <h2>FlexBox Axises</h2>
 
-    <img width="650px" src="./img/flex-axises.png" alt="FlexBox axises" />
+    <img
+      src="./img/flex-axes.svg"
+      alt="In a row the main axis runs left to right and the cross axis top to bottom; in a column the main axis runs top to bottom and the cross axis left to right. justify-content works on the main axis, align-items on the cross axis."
+      width="800"
+    />
 
     <pre><code class="lang-css">
       .flex-container {
@@ -2055,18 +2000,11 @@ h1 {
       <span class="hl-green">justify-content</span> property
     </p>
 
-    <div class="flex-container align-items-center">
-      <div>
-        <img src="./img/flex-justify-content.png" alt="Flex justify content" />
-      </div>
-
-      <div>
-        <img
-          src="./img/flex-justify-content-2.png"
-          alt="Flex justify content"
-        />
-      </div>
-    </div>
+    <img
+      src="./img/justify-content.svg"
+      alt="Three items of 120, 80 and 160px in a 600px row, leaving 240px free. flex-start puts it all at the end, flex-end all at the start, center 120 on each side, space-between 120 between items, space-around 40, 80, 80, 40, and space-evenly 60 in all four gaps."
+      width="720"
+    />
   </section>
 
   <section>
@@ -2752,6 +2690,14 @@ h1 {
         .page > nav { grid-area: side; }
       </code>
     </pre>
+  </section>
+  <section>
+    <h2>Grid Lines</h2>
+    <img
+      src="./img/grid-lines.svg"
+      alt="A 760px grid with columns 200px 1fr 1fr and a 16px gap. Column lines 1 to 4 and row lines 1 to 3 are numbered. .hero with grid-column 1 / 3 spans the first two tracks; item 2 fills the third track, and items 3 to 5 go to the second row. Each 1fr is 264px."
+      width="860"
+    />
   </section>
 </section>
 

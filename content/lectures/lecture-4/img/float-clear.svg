@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 414.0">
+  <title>A left float with and without clear on the following footer</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono yellow" x="240" y="26" style="font-size: 18px">no clear</text>
+  <rect class="thin" x="32" y="72" width="416" height="106.0" style="stroke-dasharray: 2 4" />
+  <rect x="40" y="80" width="150" height="180.0" rx="2" style="fill: rgba(255,145,0,0.16); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="115" y="230.0" style="font-size: 15px">float: left</text>
+  <rect x="40" y="80" width="400" height="60.0" style="fill: rgba(0,229,255,0.06); stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <rect x="190" y="90.0" width="231.2" height="10" rx="3" style="fill: #00e5ff; opacity: 0.75" />
+  <rect x="190" y="120.0" width="231.2" height="10" rx="3" style="fill: #00e5ff; opacity: 0.75" />
+  <rect x="40" y="140.0" width="400" height="30.0" style="fill: rgba(118,255,3,0.06); stroke: #76ff03; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <rect x="190" y="150.0" width="125.2" height="10" rx="3" style="fill: #76ff03; opacity: 0.75" />
+  <text class="mono yellow" x="700" y="26" style="font-size: 18px">footer { clear: both }</text>
+  <rect class="thin" x="492" y="72" width="416" height="226.0" style="stroke-dasharray: 2 4" />
+  <rect x="500" y="80" width="150" height="180.0" rx="2" style="fill: rgba(255,145,0,0.16); stroke: #ff9100; stroke-width: 1.5" />
+  <text class="mono orange" x="575" y="230.0" style="font-size: 15px">float: left</text>
+  <rect x="500" y="80" width="400" height="60.0" style="fill: rgba(0,229,255,0.06); stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <rect x="650" y="90.0" width="231.2" height="10" rx="3" style="fill: #00e5ff; opacity: 0.75" />
+  <rect x="650" y="120.0" width="231.2" height="10" rx="3" style="fill: #00e5ff; opacity: 0.75" />
+  <rect x="500" y="260.0" width="400" height="30.0" style="fill: rgba(118,255,3,0.06); stroke: #76ff03; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <rect x="500" y="270.0" width="125.2" height="10" rx="3" style="fill: #76ff03; opacity: 0.75" />
+  <text class="small start" x="205" y="215.0" style="font-size: 15px">← the float hangs out</text>
+  <text class="small start" x="205" y="235.0" style="font-size: 15px">   of its parent</text>
+  <rect x="40" y="321.0" width="26" height="18" style="fill: rgba(0,229,255,0.06); stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <text class="label" x="76" y="330.0" style="font-size: 16px">&lt;p&gt; box</text>
+  <rect x="270" y="321.0" width="26" height="18" style="fill: rgba(118,255,3,0.06); stroke: #76ff03; stroke-width: 1.5; stroke-dasharray: 6 4" />
+  <text class="label" x="306" y="330.0" style="font-size: 16px">footer box</text>
+  <rect class="thin" x="500" y="321.0" width="26" height="18" style="stroke-dasharray: 2 4" />
+  <text class="label" x="536" y="330.0" style="font-size: 16px">parent box</text>
+  <text class="label" x="40" y="368.0" style="font-size: 16px">The block boxes run under the float; only their line boxes (the text) move aside.</text>
+  <text class="label" x="40" y="394.0" style="font-size: 16px">clear: both pushes the footer’s top edge below the float.</text>
+</svg>

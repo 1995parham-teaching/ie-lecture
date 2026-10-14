@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 374">
+  <title>The same four paragraphs with #2 static, relative and absolute</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono yellow" x="166.0" y="24" style="font-size: 17px">position: static</text>
+  <rect class="dash" x="30" y="84" width="272.0" height="144" />
+  <rect class="box" x="30.0" y="84" width="103.4" height="24" />
+  <text class="mono " x="81.68" y="96" style="font-size: 15px">1</text>
+  <rect x="30.0" y="124" width="103.4" height="24" rx="2" style="fill: rgba(255,82,82,0.18); stroke: #ff5252; stroke-width: 1.5" />
+  <text class="mono red" x="81.68" y="136" style="font-size: 15px">2</text>
+  <rect class="box" x="30.0" y="164" width="103.4" height="24" />
+  <text class="mono " x="81.68" y="176" style="font-size: 15px">3</text>
+  <rect class="box" x="30.0" y="204" width="103.4" height="24" />
+  <text class="mono " x="81.68" y="216" style="font-size: 15px">4</text>
+  <text class="small" x="166.0" y="334" style="font-size: 16px">the normal flow</text>
+  <text class="small" x="166.0" y="356" style="font-size: 16px"></text>
+  <text class="mono yellow" x="476.0" y="24" style="font-size: 17px">position: relative</text>
+  <text class="mono small" x="476.0" y="50" style="font-size: 13px">#2 { top: 150px; left: 50% }</text>
+  <rect class="dash" x="340" y="84" width="272.0" height="144" />
+  <rect x="340.0" y="124" width="103.4" height="24" style="fill: none; stroke: #ff5252; stroke-width: 1.5; stroke-dasharray: 4 4" />
+  <rect class="box" x="340.0" y="84" width="103.4" height="24" />
+  <text class="mono " x="391.68" y="96" style="font-size: 15px">1</text>
+  <rect x="476.0" y="274" width="103.4" height="24" rx="2" style="fill: rgba(255,82,82,0.18); stroke: #ff5252; stroke-width: 1.5" />
+  <text class="mono red" x="527.6800000000001" y="286" style="font-size: 15px">2</text>
+  <rect class="box" x="340.0" y="164" width="103.4" height="24" />
+  <text class="mono " x="391.68" y="176" style="font-size: 15px">3</text>
+  <rect class="box" x="340.0" y="204" width="103.4" height="24" />
+  <text class="mono " x="391.68" y="216" style="font-size: 15px">4</text>
+  <path class="thin" d="M443.4,124 H535.7" style="stroke-dasharray: 3 3" />
+  <path class="line" d="M527.7,124 V272" />
+  <text class="small start" x="535.6800000000001" y="199" style="font-size: 14px">150px</text>
+  <text class="small" x="476.0" y="334" style="font-size: 16px">moved from where it was;</text>
+  <text class="small" x="476.0" y="356" style="font-size: 16px">its space is kept</text>
+  <text class="mono yellow" x="786.0" y="24" style="font-size: 17px">position: absolute</text>
+  <text class="mono small" x="786.0" y="50" style="font-size: 13px">#2 { top: 150px; left: 50% }</text>
+  <rect class="dash" x="650" y="84" width="272.0" height="104" />
+  <text class="mono small start" x="650" y="204" style="font-size: 12px">position: relative</text>
+  <rect class="box" x="650.0" y="84" width="103.4" height="24" />
+  <text class="mono " x="701.6800000000001" y="96" style="font-size: 15px">1</text>
+  <rect x="786.0" y="234" width="103.4" height="24" rx="2" style="fill: rgba(255,82,82,0.18); stroke: #ff5252; stroke-width: 1.5" />
+  <text class="mono red" x="837.6800000000001" y="246" style="font-size: 15px">2</text>
+  <rect class="box" x="650.0" y="124" width="103.4" height="24" />
+  <text class="mono " x="701.6800000000001" y="136" style="font-size: 15px">3</text>
+  <rect class="box" x="650.0" y="164" width="103.4" height="24" />
+  <text class="mono " x="701.6800000000001" y="176" style="font-size: 15px">4</text>
+  <path class="line" d="M837.7,84 V232" />
+  <text class="small start" x="845.6800000000001" y="159" style="font-size: 14px">150px</text>
+  <text class="small" x="786.0" y="334" style="font-size: 16px">moved from the positioned</text>
+  <text class="small" x="786.0" y="356" style="font-size: 16px">ancestor; its space is gone</text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 352">
+  <title>A three-column grid with numbered lines and an item spanning lines 1 to 3</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="dash" x="90.0" y="70" width="760.0" height="156" />
+  <rect x="90.0" y="70" width="480.0" height="70" rx="3" style="fill: rgba(255,145,0,0.18); stroke: #ff9100; stroke-width: 2" />
+  <text class="mono orange" x="330.0" y="93.0" style="font-size: 18px">.hero</text>
+  <text class="mono small" x="330.0" y="119.0" style="font-size: 15px">grid-column: 1 / 3</text>
+  <rect class="box" x="586.0" y="70" width="264.0" height="70" rx="3" />
+  <text class="mono" x="718.0" y="105.0" style="font-size: 18px">2</text>
+  <rect class="box" x="90.0" y="156" width="200.0" height="70" rx="3" />
+  <text class="mono" x="190.0" y="191.0" style="font-size: 18px">3</text>
+  <rect class="box" x="306.0" y="156" width="264.0" height="70" rx="3" />
+  <text class="mono" x="438.0" y="191.0" style="font-size: 18px">4</text>
+  <rect class="box" x="586.0" y="156" width="264.0" height="70" rx="3" />
+  <text class="mono" x="718.0" y="191.0" style="font-size: 18px">5</text>
+  <path d="M90.0,44 V234" style="stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="90.0" cy="30" r="13" style="fill: none; stroke: #00e5ff; stroke-width: 1.5" />
+  <text class="cyan mono" x="90.0" y="31" style="font-size: 15px">1</text>
+  <path d="M298.0,44 V234" style="stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="298.0" cy="30" r="13" style="fill: none; stroke: #00e5ff; stroke-width: 1.5" />
+  <text class="cyan mono" x="298.0" y="31" style="font-size: 15px">2</text>
+  <path d="M578.0,44 V234" style="stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="578.0" cy="30" r="13" style="fill: none; stroke: #00e5ff; stroke-width: 1.5" />
+  <text class="cyan mono" x="578.0" y="31" style="font-size: 15px">3</text>
+  <path d="M850.0,44 V234" style="stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="850.0" cy="30" r="13" style="fill: none; stroke: #00e5ff; stroke-width: 1.5" />
+  <text class="cyan mono" x="850.0" y="31" style="font-size: 15px">4</text>
+  <path d="M64.0,70 H90.0" style="stroke: #ee82ee; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="50.0" cy="70" r="13" style="fill: none; stroke: #ee82ee; stroke-width: 1.5" />
+  <text class="violet mono" x="50.0" y="71" style="font-size: 15px">1</text>
+  <path d="M64.0,148 H90.0" style="stroke: #ee82ee; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="50.0" cy="148" r="13" style="fill: none; stroke: #ee82ee; stroke-width: 1.5" />
+  <text class="violet mono" x="50.0" y="149" style="font-size: 15px">2</text>
+  <path d="M64.0,226 H90.0" style="stroke: #ee82ee; stroke-width: 1.5; stroke-dasharray: 3 4" />
+  <circle cx="50.0" cy="226" r="13" style="fill: none; stroke: #ee82ee; stroke-width: 1.5" />
+  <text class="violet mono" x="50.0" y="227" style="font-size: 15px">3</text>
+  <path class="thin" d="M90.0,252 V260 H290.0 V252" />
+  <text class="mono small" x="190.0" y="278" style="font-size: 15px">200px</text>
+  <path class="thin" d="M306.0,252 V260 H570.0 V252" />
+  <text class="mono small" x="438.0" y="278" style="font-size: 15px">1fr = 264px</text>
+  <path class="thin" d="M586.0,252 V260 H850.0 V252" />
+  <text class="mono small" x="718.0" y="278" style="font-size: 15px">1fr = 264px</text>
+  <text class="mono grey" x="298.0" y="278" style="font-size: 12px">16</text>
+  <text class="mono grey" x="578.0" y="278" style="font-size: 12px">16</text>
+  <text class="small" x="470.0" y="312" style="font-size: 15px">760px wide: 760 − 200 − 2 × 16 gap = 528 left over, 264 per fr</text>
+  <text class="small" x="470.0" y="336" style="font-size: 15px">lines are numbered from 1; a gap sits on a line, never inside a track</text>
+</svg>
