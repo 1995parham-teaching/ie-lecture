@@ -133,14 +133,13 @@ strips the `ETag`, so it cannot be used for a 304 demo.
 - The capture on the URL slide states `length 85`, which depends on the path in
   it. The path was changed from `/~bakhshis/` to `/~students/` **because both
   are 11 characters** — keep any replacement the same length or re-capture.
-- `diag/reverse-proxy.drawio` is the source for `img/reverse-proxy.png`.
 - The `QUERY` slides claim framework support is thin (Node.js parses it, OpenAPI
   3.2 documents it). That ages fast — re-check before teaching it.
 
 ## Diagrams
 
 Hand-written SVGs in `img/`, drawn for the league background (see the root
-`CLAUDE.md`). Only `reverse-proxy.png` has a draw.io source. No slide was added
+`CLAUDE.md`). None has a draw.io source. No slide was added
 for any of them — each replaced an image or a list in place, so every `#/N/M`
 stayed where it was.
 
@@ -163,6 +162,7 @@ stayed where it was.
 | `sub-domain-cookies.svg`    | Domain & Path stack (2nd) — host-only vs `Domain=`        |
 | `csrf-attack.svg`           | CSRF, in One Slide — the auto-submitting form             |
 | `proxy.svg`                 | Proxy — server to the client, client to the server        |
+| `reverse-proxy.svg`         | One Address, Many Sites — routing on `Host`               |
 
 How the facts were checked:
 
@@ -216,6 +216,17 @@ How the facts were checked:
 - `proxy.svg`: `curl -x` to a listening socket sent
   `GET http://example.com/index.html HTTP/1.1` (absolute-form); the outbound
   origin-form is RFC 9112 §3.2.1.
+- `reverse-proxy.svg` replaced `reverse-proxy.png` (draw.io, 2020; its source
+  `diag/reverse-proxy.drawio` went with it). It is the one proxy drawing that
+  is not about who the proxy works for — that is `forward-reverse-proxy.svg` —
+  but about name-based routing. The DNS lines are `dig +noall +answer` from
+  October 2026: `file` and `platform` are both `CNAME gateway.ceit.aut.ac.ir.`,
+  `A 185.211.88.186`. The hosts did not answer HTTP or HTTPS from outside
+  Iran, so the routing was checked on nginx 1.27 in Docker with the same
+  `server_name`s: `Host` alone picked the site, and the two file servers were
+  taken in turn — but only with `zone` in the `upstream`; without it each
+  worker keeps its own round-robin counter and four requests all went to the
+  first server.
 
 Removed with the redraw: `message-structure.jpg`, `3xx.png`,
 `http-cache-types.png` (its shared-cache box was labelled "Browser 1"),

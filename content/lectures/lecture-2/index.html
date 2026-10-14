@@ -2738,7 +2738,12 @@ Host: example.com:443
     </ul>
   </section>
   <section>
-    <img src="./img/reverse-proxy.png" alt="reverse-proxy" />
+    <h2>One Address, Many Sites</h2>
+    <img
+      src="./img/reverse-proxy.svg"
+      alt="DNS: file.ceit.aut.ac.ir and platform.ceit.aut.ac.ir are both CNAMEs of gateway.ceit.aut.ac.ir, whose A record is 185.211.88.186, so both browsers connect to the same IP and port. One sends GET / with Host: file.ceit.aut.ac.ir, the other with Host: platform.ceit.aut.ac.ir. The gateway, a reverse proxy such as nginx or HAProxy, reads Host and picks the site: file requests go to file server 1 and 2 in turn, platform requests to the platform server. A cache beside it can answer repeats without reaching a server. For HTTPS, SNI picks the certificate"
+      width="880"
+    />
   </section>
   <section>
     <h2>Who Is the Real Client?</h2>
