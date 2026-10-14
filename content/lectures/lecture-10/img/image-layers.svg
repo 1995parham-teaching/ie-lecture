@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+  <title>Each filesystem-changing Dockerfile instruction adds a read-only layer; each container adds its own thin writable layer on top</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 19px; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .layer { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .rw { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; stroke-dasharray: 6 4; }
+    .meta { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 5 4; }
+    .line { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .arr { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .size { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; text-anchor: end; fill: #ffcc00; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+  </defs>
+
+  <text class="head" x="160" y="18">Dockerfile</text>
+  <text class="head" x="520" y="18">image <tspan class="small">(read-only layers)</tspan></text>
+
+  <!-- metadata-only instructions -->
+  <rect class="meta" x="20" y="44" width="300" height="56" rx="5" />
+  <text class="mono grey" x="34" y="62">EXPOSE 27017</text>
+  <text class="mono grey" x="34" y="84">ENTRYPOINT ["/usr/bin/mongod"]</text>
+  <rect class="meta" x="380" y="44" width="280" height="56" rx="5" />
+  <text class="small" x="520" y="64">image config only:</text>
+  <text class="small" x="520" y="84">no layer, 0 bytes</text>
+  <path class="line" d="M320,72 L380,72" />
+
+  <!-- layers, top to bottom = last to first -->
+  <rect class="box" x="20" y="116" width="300" height="44" rx="5" />
+  <text class="mono" x="34" y="138">RUN mkdir -p /data/db</text>
+  <rect class="layer" x="380" y="116" width="280" height="44" rx="5" />
+  <text class="small" x="396" y="138" style="text-anchor: start">one empty directory</text>
+  <text class="size" x="646" y="138">2 KB</text>
+  <path class="line" d="M320,138 L380,138" />
+
+  <rect class="box" x="20" y="168" width="300" height="44" rx="5" />
+  <text class="mono" x="34" y="190">RUN apt-get … mongodb-org</text>
+  <rect class="layer" x="380" y="168" width="280" height="44" rx="5" />
+  <text class="small" x="396" y="190" style="text-anchor: start">MongoDB 8.0</text>
+  <text class="size" x="646" y="190">854 MB</text>
+  <path class="line" d="M320,190 L380,190" />
+
+  <rect class="box" x="20" y="220" width="300" height="44" rx="5" />
+  <text class="mono" x="34" y="242">RUN curl … mongodb.gpg</text>
+  <rect class="layer" x="380" y="220" width="280" height="44" rx="5" />
+  <text class="small" x="396" y="242" style="text-anchor: start">a key + a sources file</text>
+  <text class="size" x="646" y="242">6 KB</text>
+  <path class="line" d="M320,242 L380,242" />
+
+  <rect class="box" x="20" y="272" width="300" height="44" rx="5" />
+  <text class="mono" x="34" y="294">RUN apt-get … curl gnupg</text>
+  <rect class="layer" x="380" y="272" width="280" height="44" rx="5" />
+  <text class="small" x="396" y="294" style="text-anchor: start">curl, gnupg, CA certs</text>
+  <text class="size" x="646" y="294">22 MB</text>
+  <path class="line" d="M320,294 L380,294" />
+
+  <rect class="box" x="20" y="324" width="300" height="44" rx="5" />
+  <text class="mono" x="34" y="346">FROM ubuntu:24.04</text>
+  <rect class="layer" x="380" y="324" width="280" height="44" rx="5" />
+  <text class="small" x="396" y="346" style="text-anchor: start">Ubuntu base</text>
+  <text class="size" x="646" y="346">81 MB</text>
+  <path class="line" d="M320,346 L380,346" />
+
+  <!-- containers -->
+  <text class="head" x="790" y="18">containers</text>
+  <path class="line" d="M668,116 L676,116 L676,368 L668,368" style="stroke: #cfd3da; stroke-width: 2" />
+  <rect class="rw" x="730" y="130" width="140" height="44" rx="5" />
+  <text class="green" x="800" y="152" style="font-size: 16px">R/W layer</text>
+  <text class="small" x="800" y="190">container 1</text>
+  <rect class="rw" x="730" y="250" width="140" height="44" rx="5" />
+  <text class="green" x="800" y="272" style="font-size: 16px">R/W layer</text>
+  <text class="small" x="800" y="310">container 2</text>
+  <path class="arr" d="M728,152 L680,152" />
+  <path class="arr" d="M728,272 L680,272" />
+  <text class="small" x="800" y="342">same image</text>
+  <text class="small" x="800" y="360">underneath</text>
+
+  <text class="small" x="450" y="400">A container writes only to its own layer. Changing a file from the image first <tspan class="green">copies it up</tspan> (overlayfs).</text>
+  <text class="small" x="450" y="426">Change one line in the Dockerfile and that layer and every one above it is rebuilt; the ones below come from cache.</text>
+  <text class="small" x="450" y="458" style="font-size: 12px; fill: #8d97a8">Uncompressed layer sizes from building the deck's Dockerfile for linux/amd64.</text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+  <title>Virtual machines each carry a guest kernel on a hypervisor; containers share the one host kernel</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 22px; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .kernel { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .app { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .unit { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .orange { fill: #ff9100; } .cyan { fill: #00e5ff; } .green { fill: #76ff03; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- Virtual machines -->
+  <text class="head" x="215" y="22">Virtual machines</text>
+
+  <rect class="unit" x="20" y="46" width="130" height="214" rx="8" />
+  <rect class="unit" x="160" y="46" width="130" height="214" rx="8" />
+  <rect class="unit" x="300" y="46" width="130" height="214" rx="8" />
+  <text class="small" x="85" y="62">VM</text>
+  <text class="small" x="225" y="62">VM</text>
+  <text class="small" x="365" y="62">VM</text>
+
+  <rect class="app" x="30" y="76" width="110" height="50" rx="5" />
+  <rect class="app" x="170" y="76" width="110" height="50" rx="5" />
+  <rect class="app" x="310" y="76" width="110" height="50" rx="5" />
+  <text x="85" y="101">App A</text>
+  <text x="225" y="101">App B</text>
+  <text x="365" y="101">App C</text>
+
+  <rect class="box" x="30" y="134" width="110" height="50" rx="5" />
+  <rect class="box" x="170" y="134" width="110" height="50" rx="5" />
+  <rect class="box" x="310" y="134" width="110" height="50" rx="5" />
+  <text x="85" y="159">Bins/Libs</text>
+  <text x="225" y="159">Bins/Libs</text>
+  <text x="365" y="159">Bins/Libs</text>
+
+  <rect class="kernel" x="30" y="192" width="110" height="58" rx="5" />
+  <rect class="kernel" x="170" y="192" width="110" height="58" rx="5" />
+  <rect class="kernel" x="310" y="192" width="110" height="58" rx="5" />
+  <text x="85" y="211">Guest OS</text>
+  <text class="orange" x="85" y="233" style="font-size: 15px">+ kernel</text>
+  <text x="225" y="211">Guest OS</text>
+  <text class="orange" x="225" y="233" style="font-size: 15px">+ kernel</text>
+  <text x="365" y="211">Guest OS</text>
+  <text class="orange" x="365" y="233" style="font-size: 15px">+ kernel</text>
+
+  <rect class="box" x="20" y="272" width="410" height="50" rx="5" />
+  <text x="225" y="297">Hypervisor</text>
+  <rect class="box" x="20" y="332" width="410" height="50" rx="5" />
+  <text x="225" y="357">Hardware</text>
+
+  <text class="small" x="225" y="408">virtual hardware: each VM boots a whole OS</text>
+  <text class="small" x="225" y="432"><tspan class="orange">3 guest kernels</tspan>, image sizes in GB</text>
+
+  <!-- Containers -->
+  <text class="head" x="685" y="22">Containers</text>
+
+  <rect class="unit" x="470" y="46" width="130" height="146" rx="8" />
+  <rect class="unit" x="610" y="46" width="130" height="146" rx="8" />
+  <rect class="unit" x="750" y="46" width="130" height="146" rx="8" />
+  <text class="small" x="535" y="62">container</text>
+  <text class="small" x="675" y="62">container</text>
+  <text class="small" x="815" y="62">container</text>
+
+  <rect class="app" x="480" y="76" width="110" height="50" rx="5" />
+  <rect class="app" x="620" y="76" width="110" height="50" rx="5" />
+  <rect class="app" x="760" y="76" width="110" height="50" rx="5" />
+  <text x="535" y="101">App A</text>
+  <text x="675" y="101">App B</text>
+  <text x="815" y="101">App C</text>
+
+  <rect class="box" x="480" y="134" width="110" height="50" rx="5" />
+  <rect class="box" x="620" y="134" width="110" height="50" rx="5" />
+  <rect class="box" x="760" y="134" width="110" height="50" rx="5" />
+  <text x="535" y="159">Bins/Libs</text>
+  <text x="675" y="159">Bins/Libs</text>
+  <text x="815" y="159">Bins/Libs</text>
+
+  <rect class="box" x="470" y="212" width="410" height="50" rx="5" />
+  <text x="675" y="237">Container engine <tspan class="small">(docker, podman, containerd)</tspan></text>
+  <rect class="kernel" x="470" y="272" width="410" height="50" rx="5" />
+  <text x="675" y="297">Host OS <tspan class="orange">— one Linux kernel, shared</tspan></text>
+  <rect class="box" x="470" y="332" width="410" height="50" rx="5" />
+  <text x="675" y="357">Hardware <tspan class="small">(or a VM)</tspan></text>
+
+  <text class="small" x="675" y="408">isolated processes: namespaces + cgroups</text>
+  <text class="small" x="675" y="432"><tspan class="orange">1 kernel</tspan>, image sizes in MB</text>
+</svg>

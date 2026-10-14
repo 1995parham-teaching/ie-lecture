@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430">
+  <title>Type 1 hypervisors run on the hardware; type 2 hypervisors run as an application on a host OS</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 22px; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hv { fill: rgba(238, 130, 238, 0.14); stroke: #ee82ee; stroke-width: 2; }
+    .vm { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .violet { fill: #ee82ee; } .cyan { fill: #00e5ff; } .yellow { fill: #ffcc00; }
+  </style>
+
+  <!-- Type 1 -->
+  <text class="head" x="215" y="22">Type 1 <tspan class="small">— bare metal</tspan></text>
+  <rect class="vm" x="20" y="50" width="130" height="110" rx="6" />
+  <rect class="vm" x="160" y="50" width="130" height="110" rx="6" />
+  <rect class="vm" x="300" y="50" width="130" height="110" rx="6" />
+  <text x="85" y="85">VM</text><text class="small" x="85" y="115">guest OS</text>
+  <text x="225" y="85">VM</text><text class="small" x="225" y="115">guest OS</text>
+  <text x="365" y="85">VM</text><text class="small" x="365" y="115">guest OS</text>
+  <rect class="hv" x="20" y="172" width="410" height="110" rx="6" />
+  <text class="violet" x="225" y="210">Hypervisor</text>
+  <text class="small" x="225" y="240">runs directly on the hardware, below every OS</text>
+  <rect class="box" x="20" y="294" width="410" height="50" rx="6" />
+  <text x="225" y="319">Hardware</text>
+  <text class="small" x="225" y="372"><tspan class="yellow">VMware ESXi</tspan>, <tspan class="yellow">Xen</tspan>, <tspan class="yellow">Microsoft Hyper-V</tspan></text>
+  <text class="small" x="225" y="398"><tspan class="yellow">KVM</tspan>: a kernel module that makes Linux itself one</text>
+
+  <!-- Type 2 -->
+  <text class="head" x="685" y="22">Type 2 <tspan class="small">— hosted</tspan></text>
+  <rect class="vm" x="470" y="50" width="130" height="110" rx="6" />
+  <rect class="vm" x="610" y="50" width="130" height="110" rx="6" />
+  <text x="535" y="85">VM</text><text class="small" x="535" y="115">guest OS</text>
+  <text x="675" y="85">VM</text><text class="small" x="675" y="115">guest OS</text>
+  <rect class="hv" x="470" y="172" width="270" height="50" rx="6" />
+  <text class="violet" x="605" y="197">Hypervisor <tspan class="small">(an app)</tspan></text>
+  <rect class="box" x="750" y="50" width="130" height="172" rx="6" />
+  <text x="815" y="125">browser,</text>
+  <text x="815" y="149">editor, …</text>
+  <rect class="box" x="470" y="234" width="410" height="48" rx="6" />
+  <text x="675" y="258">Host OS <tspan class="small">(Windows, macOS, Linux)</tspan></text>
+  <rect class="box" x="470" y="294" width="410" height="50" rx="6" />
+  <text x="675" y="319">Hardware</text>
+  <text class="small" x="675" y="372"><tspan class="yellow">VirtualBox</tspan>, <tspan class="yellow">VMware Workstation</tspan>, <tspan class="yellow">Parallels</tspan></text>
+  <text class="small" x="675" y="398">the host OS schedules it like any other program</text>
+</svg>

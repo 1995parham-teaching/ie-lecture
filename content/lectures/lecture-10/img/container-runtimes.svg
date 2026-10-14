@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>Docker, Kubernetes and podman all end at an OCI runtime (runc or crun) that creates the container process</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .cli { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .rt { fill: rgba(255, 145, 0, 0.12); stroke: #ff9100; stroke-width: 2; }
+    .proc { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .lbl { font-size: 13px; fill: #b0b4bc; text-anchor: start; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+  </defs>
+
+  <!-- clients -->
+  <rect class="cli" x="40" y="14" width="220" height="46" rx="6" />
+  <text class="mono cyan" x="150" y="37">docker</text>
+  <rect class="cli" x="340" y="14" width="220" height="46" rx="6" />
+  <text class="mono cyan" x="450" y="37">kubelet</text>
+  <rect class="cli" x="640" y="14" width="220" height="46" rx="6" />
+  <text class="mono cyan" x="750" y="37">podman</text>
+
+  <!-- daemons -->
+  <path class="line" d="M150,62 L150,100" />
+  <text class="lbl" x="158" y="81">REST, /var/run/docker.sock</text>
+  <rect class="box" x="40" y="102" width="220" height="46" rx="6" />
+  <text class="mono" x="150" y="125">dockerd</text>
+  <text class="small" x="750" y="100">no daemon:</text>
+  <text class="small" x="750" y="120">forks straight into</text>
+  <text class="small" x="750" y="140">a monitor</text>
+
+  <path class="line" d="M150,150 L150,188" />
+  <text class="lbl" x="158" y="169">gRPC</text>
+  <path class="line" d="M400,62 C400,130 260,140 240,188" />
+  <path class="line" d="M500,62 L500,188" />
+  <text class="lbl" x="508" y="125">CRI (gRPC)</text>
+  <text class="lbl" x="268" y="176">CRI</text>
+
+  <!-- high-level runtimes -->
+  <rect class="box" x="40" y="190" width="300" height="46" rx="6" />
+  <text class="mono" x="190" y="213">containerd</text>
+  <rect class="box" x="420" y="190" width="160" height="46" rx="6" />
+  <text class="mono" x="500" y="213">CRI-O</text>
+
+  <!-- shims -->
+  <path class="line" d="M190,238 L190,276" />
+  <rect class="box" x="40" y="278" width="300" height="50" rx="6" />
+  <text class="mono" x="190" y="296" style="font-size: 15px">containerd-shim-runc-v2</text>
+  <text class="small" x="190" y="316">one per container</text>
+  <path class="line" d="M500,238 L500,276" />
+  <path class="line" d="M750,148 L750,276" />
+  <rect class="box" x="420" y="278" width="440" height="50" rx="6" />
+  <text class="mono" x="640" y="296">conmon</text>
+  <text class="small" x="640" y="316">one per container</text>
+
+  <!-- OCI runtime -->
+  <path class="line" d="M190,330 L190,366" />
+  <path class="line" d="M640,330 L640,366" />
+  <rect class="rt" x="40" y="368" width="820" height="50" rx="6" />
+  <text x="450" y="386">OCI runtime: <tspan class="mono orange">runc</tspan> or <tspan class="mono orange">crun</tspan></text>
+  <text class="small" x="450" y="406">sets up namespaces and cgroups, starts the process, then exits</text>
+
+  <path class="line" d="M450,420 L450,446" />
+  <rect class="proc" x="300" y="448" width="300" height="40" rx="6" />
+  <text class="green" x="450" y="468">your container's process</text>
+  <text class="small" x="620" y="468" style="text-anchor: start">a child of the shim or conmon</text>
+</svg>

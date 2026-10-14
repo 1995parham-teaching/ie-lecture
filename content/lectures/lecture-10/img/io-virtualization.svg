@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>Full I/O virtualization emulates a real NIC and traps on every register access; virtio shares a ring of buffers and notifies once per batch</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .head { font-size: 21px; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 16px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .guest { fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 6 5; }
+    .hv { fill: rgba(238, 130, 238, 0.14); stroke: #ee82ee; stroke-width: 2; }
+    .ring { fill: rgba(255, 204, 0, 0.12); stroke: #ffcc00; stroke-width: 2; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .exit { fill: none; stroke: #ff5252; stroke-width: 2; marker-end: url(#red); }
+    .kick { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#green); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <!-- Full virtualization -->
+  <text class="head" x="215" y="20">Full virtualization</text>
+  <rect class="guest" x="20" y="42" width="410" height="150" rx="8" />
+  <text class="small cyan" x="34" y="60" style="text-anchor: start">guest</text>
+  <rect class="box" x="60" y="72" width="330" height="44" rx="5" />
+  <text x="225" y="94">network stack</text>
+  <rect class="box" x="60" y="132" width="330" height="48" rx="5" />
+  <text x="225" y="156"><tspan class="mono orange">e1000</tspan> driver <tspan class="small">(stock, unmodified)</tspan></text>
+
+  <path class="exit" d="M110,182 L110,262" />
+  <path class="exit" d="M160,182 L160,262" />
+  <path class="exit" d="M210,182 L210,262" />
+  <path class="exit" d="M260,182 L260,262" />
+  <path class="exit" d="M310,182 L310,262" />
+  <rect x="96" y="208" width="258" height="28" rx="4" fill="#2b2b2b" />
+  <text class="red" x="225" y="222" style="font-size: 16px">VM exit on every register access</text>
+
+  <rect class="hv" x="60" y="266" width="330" height="62" rx="5" />
+  <text x="225" y="288">QEMU <tspan class="small">pretends to be an</tspan></text>
+  <text x="225" y="312" class="small">Intel 82540EM (e1000) card</text>
+  <path class="line" d="M225,330 L225,370" />
+  <rect class="box" x="60" y="372" width="330" height="44" rx="5" />
+  <text x="225" y="394">host kernel → real NIC</text>
+  <text class="small" x="225" y="446">any guest works, but slow</text>
+
+  <!-- virtio -->
+  <text class="head" x="685" y="20">Paravirtualized (virtio)</text>
+  <rect class="guest" x="470" y="42" width="410" height="150" rx="8" />
+  <text class="small cyan" x="484" y="60" style="text-anchor: start">guest</text>
+  <rect class="box" x="510" y="72" width="330" height="44" rx="5" />
+  <text x="675" y="94">network stack</text>
+  <rect class="box" x="510" y="132" width="330" height="48" rx="5" />
+  <text x="675" y="156"><tspan class="mono green">virtio-net</tspan> driver <tspan class="small">(knows it is virtual)</tspan></text>
+
+  <rect class="ring" x="490" y="204" width="220" height="48" rx="5" />
+  <text class="yellow" x="600" y="220" style="font-size: 16px">virtqueue</text>
+  <text class="small" x="600" y="240" style="font-size: 13px">ring of buffers, shared memory</text>
+  <path class="line" d="M570,182 L570,202" />
+  <path class="line" d="M630,254 L630,264" />
+  <path class="kick" d="M780,182 L780,262" />
+  <text class="green" x="790" y="222" style="text-anchor: start; font-size: 16px">one kick</text>
+  <text class="green" x="790" y="242" style="text-anchor: start; font-size: 16px">per batch</text>
+
+  <rect class="hv" x="510" y="266" width="330" height="62" rx="5" />
+  <text x="675" y="288">virtio back-end</text>
+  <text x="675" y="312" class="small">QEMU, or <tspan class="mono" style="font-size: 14px">vhost-net</tspan> in the host kernel</text>
+  <path class="line" d="M675,330 L675,370" />
+  <rect class="box" x="510" y="372" width="330" height="44" rx="5" />
+  <text x="675" y="394">host kernel → real NIC</text>
+  <text class="small" x="675" y="446">needs a virtio driver in the guest, but fast</text>
+</svg>

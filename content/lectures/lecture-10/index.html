@@ -85,97 +85,67 @@ topics:
   </p>
 </section>
 <section>
-  <img src="./img/overview-vm-1.png" alt="overview-vm" />
-</section>
-<section>
-  <img src="./img/overview-vm-2.png" alt="overview-vm" />
-</section>
-<section>
   <h2>Virtualization Techniques</h2>
-  <ul>
-    <li>
-      The <strong>VM-based</strong> approach virtualizes the complete OS. The
-      abstraction it presents to the VM are virtual devices like virtual disk,
-      virtual CPUs, and virtual NICs. With virtual machines, multiple OSes can
-      share the same hardware resources, with virtualized representations of
-      each of the resources available to the VM.
-    </li>
-    <li>
-      <strong>Container-based</strong> form of virtualization doesn't abstract
-      the hardware but uses techniques within the Linux kernel to isolate access
-      paths for different resources. It carves out a logical boundary within the
-      same operating system.
-    </li>
-  </ul>
+  <p>
+    A <strong>VM</strong> virtualizes the hardware and boots a whole OS; a
+    <strong>container</strong> is an isolated process on the host's kernel.
+  </p>
+  <img
+    src="./img/vm-vs-container.svg"
+    alt="Left: three VMs, each with app, bins and libs, and a guest OS with its own kernel, on a hypervisor on the hardware. Right: three containers, each with app and bins and libs, on a container engine on one shared Linux kernel on the hardware"
+    width="860"
+  />
 </section>
 <section>
   <h2>Hypervisors</h2>
-  <p>A special piece of software is used to virtualize the OS.</p>
+  <p>The software that creates and runs VMs. Where it sits gives two types.</p>
+  <img
+    src="./img/hypervisor-types.svg"
+    alt="Type 1: VMs on a hypervisor that runs directly on the hardware, for example VMware ESXi, Xen, Hyper-V, and KVM. Type 2: VMs on a hypervisor that is an application on a host OS next to other apps, for example VirtualBox, VMware Workstation and Parallels"
+    width="880"
+  />
 </section>
 <section>
   <section>
     <h2>CPU Virtualization</h2>
-    <ul>
-      <li>
-        <strong>Binary Translation in the Case of Full Virtualization:</strong>
-        In this case, the guest OS is used without any changes. The instructions
-        are trapped and emulated for the target environment. This cause a lot of
-        performance overhead, as lots of instructions have to be trapped into
-        the host/hypervisor and emulated.
-      </li>
-      <li>
-        To avoid the performance problems related to binary translation when
-        using full virtualization, we use
-        <strong>paravirtualization</strong> wherein the guest knows that it is
-        running in a virtualized environment and its interaction with the host
-        is optimized to avoid excessive trapping.
-      </li>
-    </ul>
+    <p>
+      A guest kernel's privileged instructions must reach the hypervisor. There
+      are three ways to get them there.
+    </p>
+    <img
+      src="./img/cpu-virtualization.svg"
+      alt="Binary translation, VMware 1999: the unmodified guest kernel runs outside ring 0 and the VMM rewrites its privileged code on the fly. Paravirtualization, Xen 2003: a modified guest kernel makes hypercalls to the hypervisor. Hardware-assisted, VT-x 2005 and AMD-V 2006: the unmodified guest kernel runs in its own ring 0 in non-root mode, and sensitive instructions cause a VM exit to the hypervisor in root mode"
+      width="880"
+    />
   </section>
   <section>
-    <h2>CPU Virtualization (Contd)</h2>
-    <ul>
-      <li>
-        In 2005, x86 finally became virtualizable. Advantages of
-        <strong>hardware-assisted virtulization</strong>
-        are two fold:
-        <ul>
-          <li>No binary translation</li>
-          <li>No OS modification</li>
-        </ul>
-      </li>
-    </ul>
+    <h2>Virtual CPUs</h2>
+    <img
+      src="./img/vcpu-scheduling.svg"
+      alt="VM A has two vCPUs and VM B has four. The hypervisor scheduler places them on four physical CPUs: four vCPUs run at this moment and two wait. With KVM each vCPU is a host thread"
+      width="900"
+    />
   </section>
   <section>
     <h2>IO Virtualization</h2>
-    <ul>
-      <li>
-        With <strong>full virtualization</strong>, the guest does not know it's
-        running on a hypervisor and the guest OS doesn't need any changes to run
-        on a hypervisor.
-      </li>
-      <li>
-        In <strong>paravirtualization</strong> case, the guest OS is made aware
-        that it's running in a virtualized environment and special drivers are
-        loaded into the guest to take care of the I/O.
-      </li>
-    </ul>
+    <img
+      src="./img/io-virtualization.svg"
+      alt="Full virtualization: the guest's stock e1000 driver touches device registers and every access is a VM exit to QEMU, which emulates an Intel e1000 card. Paravirtualized: the guest's virtio-net driver places buffers in a shared virtqueue and sends one kick per batch to a virtio back-end in QEMU or vhost-net"
+      width="880"
+    />
   </section>
 </section>
 <section>
   <h2>The Quick Emulator (QEMU)</h2>
-  <ul>
-    <li>The QEMU runs as a user process and handles the KVM kernel module.</li>
-    <li>
-      It uses the <code>vt-x</code> extensions to provide the guest with an
-      isolated environment from a memory and cpu perspective.
-    </li>
-    <li>
-      The QEMU also dedicates a separate thread for I/O. This thread runs an
-      event loop and is based on the non-blocking mechanism.
-    </li>
-    <li>The QEMU can use paravirtualized drivers.</li>
-  </ul>
+  <p>
+    With KVM, QEMU is an ordinary process: each vCPU is a thread that asks the
+    kernel to run guest code, and an I/O thread emulates the devices.
+  </p>
+  <img
+    src="./img/qemu-kvm.svg"
+    alt="The guest runs on the real CPU in VT-x non-root mode. The QEMU process holds one thread per vCPU, each calling ioctl KVM_RUN on /dev/kvm, an I/O thread with a non-blocking event loop for device emulation and virtio back-ends, and the guest RAM as plain mmap'd memory. Below it, the host kernel has kvm.ko and kvm_intel.ko, tap devices and disk files"
+    width="820"
+  />
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
@@ -193,9 +163,6 @@ topics:
   <img src="./img/docker-growth.png" alt="docker-growth" />
 </section>
 <section>
-  <img src="./img/overview-container.png" alt="overview-container" />
-</section>
-<section>
   <h2>Containers vs VMs (Pros)</h2>
   <ul>
     <li>Lightweight (MBs vs GBs)</li>
@@ -211,41 +178,45 @@ topics:
   </ul>
 </section>
 <section>
-  Linux containers are made of three Linux kernel primitives:
-  <ul>
-    <li>Linux namespaces</li>
-    <li>cgroups</li>
-    <li>Layered file systems</li>
-  </ul>
+  <h2>Namespaces</h2>
+  <p>
+    Linux containers are made of three kernel primitives. A
+    <em>namespace</em> controls what a process can see.
+  </p>
+  <img
+    src="./img/namespaces.svg"
+    alt="docker run with hostname web, then the same sleep process seen two ways. Inside: PID 1, hostname web, eth0 172.17.0.4. On the host: PID 33457, hostname docker-desktop, eth0 192.168.65.3. The pid, uts, net, mnt, ipc and cgroup namespaces are new; the user namespace is shared. Below: namespaces limit what a process sees, cgroups what it uses, and the layered filesystem what it runs"
+    width="840"
+  />
 </section>
 <section>
-  <h2>Namespace</h2>
-  <ul>
-    <li>
-      A <em>namespace</em> is a logical isolation within the Linux kernel.
-    </li>
-    <li>A namespace controls visibility within the kernel.</li>
-    <li>All controls are defined at the process level.</li>
-  </ul>
-</section>
-<section>
-  <h2>Container Engines</h2>
-  <ul>
-    <li><a href="https://github.com/moby/moby">docker (moby)</a></li>
-    <li>
-      <a href="https://github.com/containers/podman">podman</a> — daemonless,
-      rootless
-    </li>
-    <li>
-      <a href="https://github.com/containerd/containerd">containerd</a> and
-      <a href="https://github.com/cri-o/cri-o">CRI-O</a> — what actually runs
-      containers under Kubernetes
-    </li>
-    <li>
-      <a href="https://github.com/rkt/rkt">rkt</a> ⚰️ — archived by the CNCF in
-      2020
-    </li>
-  </ul>
+  <section>
+    <h2>Container Engines</h2>
+    <ul>
+      <li><a href="https://github.com/moby/moby">docker (moby)</a></li>
+      <li>
+        <a href="https://github.com/containers/podman">podman</a> — daemonless,
+        rootless
+      </li>
+      <li>
+        <a href="https://github.com/containerd/containerd">containerd</a> and
+        <a href="https://github.com/cri-o/cri-o">CRI-O</a> — what actually runs
+        containers under Kubernetes
+      </li>
+      <li>
+        <a href="https://github.com/rkt/rkt">rkt</a> ⚰️ — archived by the CNCF
+        in 2020
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Who Runs the Container?</h2>
+    <img
+      src="./img/container-runtimes.svg"
+      alt="docker talks REST to dockerd, which talks gRPC to containerd. kubelet talks CRI to containerd or CRI-O. podman has no daemon. containerd starts one containerd-shim-runc-v2 per container; CRI-O and podman start one conmon per container. All end at an OCI runtime, runc or crun, which sets up namespaces and cgroups, starts the process and exits"
+      width="860"
+    />
+  </section>
 </section>
 <section>
   <h2>403 Forbidden</h2>
@@ -338,7 +309,11 @@ ENTRYPOINT ["/usr/bin/mongod"]
 </section>
 <section>
   <h2>Image Layers</h2>
-  <img src="./img/image-layers.png" alt="image-layers" />
+  <img
+    src="./img/image-layers.svg"
+    alt="The Dockerfile above as an image. FROM ubuntu:24.04 is 81 MB, the curl and gnupg install 22 MB, the MongoDB key 6 KB, the MongoDB install 854 MB, and mkdir 2 KB. EXPOSE and ENTRYPOINT only change the image config. Two containers each add their own writable layer on top of the same image"
+    width="880"
+  />
 </section>
 <section>
   <h2>Docker CLI (Cheatsheet)</h2>

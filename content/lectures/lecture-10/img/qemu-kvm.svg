@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>QEMU is an ordinary process: one thread per vCPU calls KVM_RUN on /dev/kvm, and an I/O thread runs the event loop for device emulation</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .guest { fill: rgba(0, 229, 255, 0.08); stroke: #00e5ff; stroke-width: 2; }
+    .proc { fill: none; stroke: #ff9100; stroke-width: 2; stroke-dasharray: 6 5; }
+    .kern { fill: rgba(238, 130, 238, 0.12); stroke: #ee82ee; stroke-width: 2; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .y { fill: none; stroke: #ffcc00; stroke-width: 2.5; marker-end: url(#ya); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="ya" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffcc00" /></marker>
+  </defs>
+
+  <!-- guest -->
+  <rect class="guest" x="20" y="14" width="860" height="84" rx="8" />
+  <text class="cyan" x="36" y="34" style="text-anchor: start; font-size: 16px">guest — runs on the real CPU in VT-x non-root mode</text>
+  <text x="140" y="70">guest kernel + apps</text>
+  <rect class="box" x="560" y="50" width="300" height="38" rx="5" />
+  <text x="710" y="69"><tspan class="mono green">virtio</tspan> drivers</text>
+
+  <!-- QEMU process -->
+  <rect class="proc" x="80" y="132" width="800" height="200" rx="8" />
+  <text class="orange" x="96" y="152" style="text-anchor: start; font-size: 16px">qemu-system-x86_64 — one ordinary user-space process</text>
+
+  <rect class="box" x="96" y="172" width="150" height="70" rx="5" />
+  <text x="171" y="196">vCPU thread 0</text>
+  <text class="mono yellow" x="171" y="222" style="font-size: 13px">ioctl(KVM_RUN)</text>
+  <rect class="box" x="262" y="172" width="150" height="70" rx="5" />
+  <text x="337" y="196">vCPU thread 1</text>
+  <text class="mono yellow" x="337" y="222" style="font-size: 13px">ioctl(KVM_RUN)</text>
+
+  <rect class="box" x="420" y="172" width="250" height="140" rx="5" />
+  <text x="545" y="194">I/O thread</text>
+  <text class="small" x="545" y="220">event loop on file descriptors</text>
+  <text class="small" x="545" y="244">(non-blocking)</text>
+  <text class="small" x="545" y="276">device emulation,</text>
+  <text class="small" x="545" y="298">virtio back-ends</text>
+
+  <rect class="box" x="690" y="172" width="170" height="140" rx="5" />
+  <text x="775" y="216">guest RAM</text>
+  <text class="small" x="775" y="244">plain memory</text>
+  <text class="small" x="775" y="266">mmap'd by QEMU</text>
+
+  <text class="small" x="254" y="282">one thread per vCPU,</text>
+  <text class="small" x="254" y="304">scheduled by Linux</text>
+
+  <!-- arrows guest <-> vCPU threads -->
+  <path class="y" d="M78,432 L48,432 L48,102" style="marker-start: url(#ya)" />
+  <text class="label yellow" x="0" y="0" transform="translate(31,280) rotate(-90)" style="font-size: 14px; text-anchor: middle">VM entry / VM exit</text>
+  <path class="line" d="M710,90 C710,120 600,120 580,168" />
+  <text class="label" x="672" y="122" style="font-size: 13px">I/O requests</text>
+
+  <!-- host kernel -->
+  <rect class="kern" x="20" y="366" width="860" height="110" rx="8" />
+  <text class="violet" x="864" y="386" style="text-anchor: end; font-size: 16px">host Linux kernel</text>
+  <rect class="box" x="80" y="404" width="332" height="56" rx="5" />
+  <text x="246" y="424"><tspan class="mono">kvm.ko</tspan> + <tspan class="mono">kvm_intel.ko</tspan></text>
+  <text class="small" x="246" y="446">behind <tspan class="mono" style="font-size: 13px">/dev/kvm</tspan>; uses VT-x</text>
+  <rect class="box" x="420" y="404" width="250" height="56" rx="5" />
+  <text x="545" y="424">tap device, disk files</text>
+  <text class="small" x="545" y="446">real I/O on the host</text>
+  <rect class="box" x="690" y="404" width="170" height="56" rx="5" />
+  <text x="775" y="432">scheduler, MM</text>
+
+  <path class="y" d="M171,244 L171,400" />
+  <path class="y" d="M337,244 L337,400" />
+  <path class="line" d="M545,314 L545,400" />
+</svg>
