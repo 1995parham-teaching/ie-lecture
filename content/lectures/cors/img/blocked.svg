@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540">
+  <title>A blocked cross-origin request: the request reaches the server and the server answers, but without Access-Control-Allow-Origin the browser keeps the response from the script</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="12" width="150" height="48" rx="6" />
+  <text x="95" y="36" style="font-size: 18px">Your script</text>
+  <rect class="box" x="320" y="12" width="160" height="48" rx="6" />
+  <text x="400" y="36" style="font-size: 18px">Browser</text>
+  <rect class="box" x="720" y="12" width="160" height="48" rx="6" />
+  <text x="800" y="36" style="font-size: 18px">Server</text>
+  <path class="dash" d="M95,60 L95,400" />
+  <path class="dash" d="M400,60 L400,400" />
+  <path class="dash" d="M800,60 L800,400" />
+
+  <text class="mono l" x="110" y="90" style="font-size: 14px">fetch(".../private.json")</text>
+  <path class="line" d="M97,110 L398,110" />
+
+  <text class="mono l" x="420" y="124">GET /private.json</text>
+  <text class="mono l orange" x="420" y="146">Origin: http://localhost:8081</text>
+  <path class="line" d="M402,166 L798,166" />
+
+  <rect class="bar" x="790" y="166" width="20" height="148" />
+  <text class="label" x="420" y="194" style="font-size: 14px">the request <tspan class="yellow">reached</tspan> the server and its handler ran</text>
+
+  <text class="mono" x="780" y="236" style="text-anchor: end">HTTP/1.1 200 OK</text>
+  <text class="mono" x="780" y="258" style="text-anchor: end">{"secret":42}</text>
+  <text class="mono red" x="780" y="280" style="text-anchor: end">no Access-Control-Allow-Origin</text>
+  <path class="line" d="M798,300 L402,300" />
+
+  <text class="red l" x="414" y="332" style="font-size: 18px">✗ blocked by the browser</text>
+  <text class="mono l red" x="110" y="340" style="font-size: 14px">TypeError: Failed to fetch</text>
+  <path class="line" d="M398,360 L97,360" />
+  <text class="label" x="110" y="384" style="font-size: 14px">the script never sees the status or the body</text>
+
+  <rect class="box" x="20" y="436" width="860" height="84" rx="6" style="stroke: #ff5252" />
+  <text class="label" x="36" y="456" style="font-size: 13px">console</text>
+  <text class="mono l red" x="36" y="480" style="font-size: 13px">Access to fetch at 'http://localhost:8082/private.json' from origin 'http://localhost:8081' has been</text>
+  <text class="mono l red" x="36" y="502" style="font-size: 13px">blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.</text>
+</svg>

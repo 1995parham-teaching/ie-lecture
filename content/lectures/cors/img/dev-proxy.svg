@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380">
+  <title>A development proxy: the browser only talks to the dev server, which is same-origin, and the dev server forwards /api to the back-end outside the browser</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect class="dash" x="10" y="20" width="250" height="240" rx="10" />
+  <text class="small" x="135" y="44" style="font-size: 14px">inside the browser:</text>
+  <text class="small" x="135" y="64" style="font-size: 14px">same-origin policy applies</text>
+  <rect class="box" x="30" y="90" width="210" height="130" rx="6" />
+  <text x="135" y="122" style="font-size: 18px">page from</text>
+  <text class="mono orange" x="135" y="148" style="font-size: 14px">localhost:5173</text>
+  <text class="mono" x="135" y="184" style="font-size: 14px">fetch("/api/users")</text>
+
+  <rect class="box" x="340" y="90" width="220" height="130" rx="6" />
+  <text x="450" y="122" style="font-size: 18px">Vite dev server</text>
+  <text class="mono orange" x="450" y="148" style="font-size: 14px">localhost:5173</text>
+  <text class="small" x="450" y="184" style="font-size: 14px">serves the page</text>
+  <text class="small" x="450" y="204" style="font-size: 14px">and proxies /api</text>
+
+  <rect class="box" x="660" y="90" width="220" height="130" rx="6" />
+  <text x="770" y="122" style="font-size: 18px">Back-end</text>
+  <text class="mono cyan" x="770" y="148" style="font-size: 14px">localhost:8080</text>
+  <text class="small" x="770" y="184" style="font-size: 14px">no CORS headers</text>
+  <text class="small" x="770" y="204" style="font-size: 14px">configured</text>
+
+  <text class="mono" x="290" y="122" style="font-size: 12px">/api/users</text>
+  <path class="line" d="M242,135 L338,135" />
+  <path class="line" d="M338,175 L242,175" />
+  <text class="mono" x="610" y="122" style="font-size: 12px">/api/users</text>
+  <path class="line" d="M562,135 L658,135" />
+  <path class="line" d="M658,175 L562,175" />
+
+  <text class="green" x="290" y="290" style="font-size: 17px">same origin</text>
+  <text class="small" x="290" y="314" style="font-size: 14px">no preflight,</text>
+  <text class="small" x="290" y="334" style="font-size: 14px">no Origin header</text>
+  <text class="cyan" x="610" y="290" style="font-size: 17px">server to server</text>
+  <text class="small" x="610" y="314" style="font-size: 14px">no browser, so no</text>
+  <text class="small" x="610" y="334" style="font-size: 14px">same-origin policy</text>
+  <path class="brace" d="M290,272 L290,240" />
+  <path class="brace" d="M610,272 L610,240" />
+
+  <text class="label" x="10" y="368" style="font-size: 13px">Captured with Vite 6 and headless Chrome: the back-end saw GET /api/users with no Origin header.</text>
+</svg>

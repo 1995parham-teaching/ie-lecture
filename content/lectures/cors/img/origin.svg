@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>An origin is scheme, host and port; a request is cross-origin when any one of them differs from the page</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text x="450" y="22">the page: its origin is <tspan class="cyan">scheme</tspan> + <tspan class="orange">host</tspan> + <tspan class="green">port</tspan></text>
+
+  <!-- 24px Menlo is about 14.7px per character; each part has its own x so the braces line up -->
+  <text class="mono" x="160" y="70" style="font-size: 24px; text-anchor: start"><tspan class="cyan">https</tspan><tspan class="grey" x="233">://</tspan><tspan class="orange" x="277">domain-a.com</tspan><tspan class="green" x="453">:443</tspan><tspan class="grey" x="512">/index.html</tspan></text>
+  <path class="brace" d="M160,90 L160,98 L231,98 L231,90 M195,98 L195,106" />
+  <path class="brace" d="M277,90 L277,98 L451,98 L451,90 M364,98 L364,106" />
+  <path class="brace" d="M455,90 L455,98 L510,98 L510,90 M482,98 L482,106" />
+  <path class="brace" d="M514,90 L514,98 L672,98 L672,90 M593,98 L593,106" />
+  <text class="cyan" x="195" y="122" style="font-size: 16px">scheme</text>
+  <text class="orange" x="364" y="122" style="font-size: 16px">host</text>
+  <text class="green" x="482" y="122" style="font-size: 16px">port</text>
+  <text class="small" x="482" y="142" style="font-size: 13px">(443 if not written)</text>
+  <text class="small" x="593" y="122">path: not part of it</text>
+
+  <path d="M30,170 L870,170" style="stroke: #555b66; stroke-width: 2" />
+  <text class="label" x="40" y="194">a <tspan style="fill: #eeeeee">fetch()</tspan> from that page to …</text>
+
+  <text class="mono l" x="40" y="236" style="font-size: 17px">https://domain-a.com/data.json</text>
+  <text class="green l" x="560" y="236" style="font-size: 18px">same origin</text>
+
+  <text class="mono l" x="40" y="276" style="font-size: 17px"><tspan class="red">http</tspan>://domain-a.com/data.json</text>
+  <text class="red l" x="560" y="276" style="font-size: 18px">cross-origin <tspan class="small">— scheme differs</tspan></text>
+
+  <text class="mono l" x="40" y="316" style="font-size: 17px">https://<tspan class="red">api.domain-a.com</tspan>/data.json</text>
+  <text class="red l" x="560" y="316" style="font-size: 18px">cross-origin <tspan class="small">— host differs</tspan></text>
+
+  <text class="mono l" x="40" y="356" style="font-size: 17px">https://domain-a.com<tspan class="red">:8443</tspan>/data.json</text>
+  <text class="red l" x="560" y="356" style="font-size: 18px">cross-origin <tspan class="small">— port differs</tspan></text>
+
+  <text class="mono l" x="40" y="396" style="font-size: 17px">https://<tspan class="red">domain-b.com</tspan>/data.json</text>
+  <text class="red l" x="560" y="396" style="font-size: 18px">cross-origin <tspan class="small">— host differs</tspan></text>
+
+  <text class="label" x="40" y="428" style="font-size: 13px">Results from new URL(u).origin in Node, compared with the page's origin.</text>
+</svg>
