@@ -52,7 +52,7 @@ topics: []
     <h2>create_container.sh</h2>
     <img
       src="./img/container-from-scratch.svg"
-      alt="Five steps: docker export a centos container to a tarball; untar it into mycontainer; unshare the mount, uts, ipc, net and pid namespaces with bash as PID 1; pivot_root into mycontainer and unmount the old root; mount /proc. The result: hostname mohammad, ps shows our shell as PID 1, ip a shows no eth0, and ls / shows the image's files"
+      alt="Five steps: docker run a centos stream9 container that installs ps, ip and hostname, and docker export it to a tarball; untar it into mycontainer; unshare the mount, uts, ipc, net and pid namespaces with bash as PID 1; bind mycontainer onto itself and pivot_root into it, so the host's root moves to /oldroot; mount /proc and lazily unmount /oldroot. The result: hostname mohammad, ps shows our shell as PID 1, ip a shows no eth0, and ls / shows the image's files"
       width="880"
     />
   </section>
@@ -60,7 +60,7 @@ topics: []
     <h2>play_with_netns.sh</h2>
     <img
       src="./img/netns.svg"
-      alt="First, netns parham with head1 at 192.168.2.1/24 and netns mohammad with head2 at 192.168.2.2/24 joined by one veth pair; ping succeeds. Second, each namespace has a veth whose other end, parham-br or mohammad-br, is a port on my-bridge in the host namespace, with iptables MASQUERADE out and DNAT of port 80 to 192.168.2.2. Marked as not in the script: the addresses on the namespace ends, a gateway address on the bridge, default routes and ip_forward"
+      alt="First, netns parham with head1 at 192.168.2.1/24 and netns mohammad with head2 at 192.168.2.2/24 joined by one veth pair; ping succeeds. Second, each namespace has a veth end, parham-end at 192.168.2.1/24 and mohammad-end at 192.168.2.2/24, whose other end, parham-br or mohammad-br, is a port on my-bridge in the host namespace. The bridge holds 192.168.2.254/24 as the gateway; with default routes, ip_forward and iptables MASQUERADE out and DNAT of port 80 to 192.168.2.2, parham pings mohammad through the bridge, pings 1.1.1.1 through NAT, and another host reaches a web server in mohammad on port 80"
       width="820"
     />
   </section>

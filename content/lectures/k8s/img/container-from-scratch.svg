@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
-  <title>create_container.sh in five steps: export an image, untar it, unshare namespaces, pivot_root into it, mount /proc</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 446">
+  <title>create_container.sh in five steps: export an image, untar it, unshare namespaces, pivot_root into it, mount /proc and detach the old root</title>
   <style>
     text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
     .small { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
@@ -16,60 +16,63 @@
   </defs>
 
   <!-- 1 -->
-  <circle class="num" cx="40" cy="40" r="18" /><text class="yellow" x="40" y="41">1</text>
-  <text x="74" y="30" style="text-anchor: start">image</text>
-  <rect class="box" x="180" y="14" width="470" height="52" rx="5" />
-  <text class="mono" x="192" y="32"><tspan class="cyan">docker export</tspan> $(docker run -d centos true)</text>
-  <text class="mono" x="192" y="52">  -o centos.tar</text>
-  <text class="small" x="666" y="40">a tarball of a root filesystem</text>
-  <path class="line" d="M40,60 L40,90" />
+  <circle class="num" cx="40" cy="50" r="18" /><text class="yellow" x="40" y="51">1</text>
+  <text x="74" y="50" style="text-anchor: start">image</text>
+  <rect class="box" x="180" y="14" width="470" height="72" rx="5" />
+  <text class="mono" x="192" y="32"><tspan class="cyan">docker run</tspan> --name centos centos:stream9</text>
+  <text class="mono" x="192" y="52">  dnf install -y procps-ng iproute hostname</text>
+  <text class="mono" x="192" y="72"><tspan class="cyan">docker export</tspan> centos -o centos.tar</text>
+  <text class="small" x="666" y="40">a tarball of a root filesystem,</text>
+  <text class="small" x="666" y="60">with ps, ip and hostname added</text>
+  <path class="line" d="M40,70 L40,98" />
 
   <!-- 2 -->
-  <circle class="num" cx="40" cy="112" r="18" /><text class="yellow" x="40" y="113">2</text>
-  <text x="74" y="112" style="text-anchor: start">untar</text>
-  <rect class="box" x="180" y="92" width="470" height="40" rx="5" />
-  <text class="mono" x="192" y="112"><tspan class="cyan">tar</tspan> -C mycontainer -xf centos.tar</text>
-  <text class="small" x="666" y="112">a directory that looks like <tspan class="mono">/</tspan></text>
-  <path class="line" d="M40,132 L40,162" />
+  <circle class="num" cx="40" cy="120" r="18" /><text class="yellow" x="40" y="121">2</text>
+  <text x="74" y="120" style="text-anchor: start">untar</text>
+  <rect class="box" x="180" y="100" width="470" height="40" rx="5" />
+  <text class="mono" x="192" y="120"><tspan class="cyan">tar</tspan> -C mycontainer -xf centos.tar</text>
+  <text class="small" x="666" y="120">a directory that looks like <tspan class="mono">/</tspan></text>
+  <path class="line" d="M40,140 L40,152" />
 
   <!-- 3 -->
-  <circle class="num" cx="40" cy="184" r="18" /><text class="yellow" x="40" y="185">3</text>
-  <text x="74" y="184" style="text-anchor: start">unshare</text>
-  <rect class="box" x="180" y="164" width="470" height="40" rx="5" />
-  <text class="mono" x="192" y="184"><tspan class="cyan">unshare</tspan> --mount --uts --ipc --net --pid --fork bash</text>
-  <text class="small" x="666" y="176">new namespaces; this bash</text>
-  <text class="small" x="666" y="196">is PID 1 inside them</text>
-  <path class="line" d="M40,204 L40,234" />
+  <circle class="num" cx="40" cy="174" r="18" /><text class="yellow" x="40" y="175">3</text>
+  <text x="74" y="174" style="text-anchor: start">unshare</text>
+  <rect class="box" x="180" y="154" width="470" height="40" rx="5" />
+  <text class="mono" x="192" y="174"><tspan class="cyan">unshare</tspan> --mount --uts --ipc --net --pid --fork bash</text>
+  <text class="small" x="666" y="166">new namespaces; this bash</text>
+  <text class="small" x="666" y="186">is PID 1 inside them</text>
+  <path class="line" d="M40,194 L40,212" />
 
   <!-- 4 -->
-  <circle class="num" cx="40" cy="262" r="18" /><text class="yellow" x="40" y="263">4</text>
-  <text x="74" y="262" style="text-anchor: start">pivot_root</text>
-  <rect class="box" x="180" y="236" width="470" height="52" rx="5" />
-  <text class="mono" x="192" y="254"><tspan class="cyan">pivot_root</tspan> . oldroot</text>
-  <text class="mono" x="192" y="274"><tspan class="cyan">umount</tspan> -l /oldroot</text>
-  <text class="small" x="666" y="252">mycontainer becomes <tspan class="mono">/</tspan>; the</text>
-  <text class="small" x="666" y="272">host's <tspan class="mono">/</tspan> is unmounted</text>
-  <path class="line" d="M40,282 L40,312" />
+  <circle class="num" cx="40" cy="234" r="18" /><text class="yellow" x="40" y="235">4</text>
+  <text x="74" y="234" style="text-anchor: start">pivot_root</text>
+  <rect class="box" x="180" y="208" width="470" height="52" rx="5" />
+  <text class="mono" x="192" y="224"><tspan class="cyan">mount</tspan> --bind mycontainer mycontainer</text>
+  <text class="mono" x="192" y="244"><tspan class="cyan">pivot_root</tspan> . oldroot</text>
+  <text class="small" x="666" y="224">mycontainer becomes <tspan class="mono">/</tspan>; the</text>
+  <text class="small" x="666" y="244">host's <tspan class="mono">/</tspan> moves to /oldroot</text>
+  <path class="line" d="M40,254 L40,278" />
 
   <!-- 5 -->
-  <circle class="num" cx="40" cy="334" r="18" /><text class="yellow" x="40" y="335">5</text>
-  <text x="74" y="334" style="text-anchor: start">/proc</text>
-  <rect class="box" x="180" y="314" width="470" height="40" rx="5" />
-  <text class="mono" x="192" y="334"><tspan class="cyan">mount</tspan> -t proc none /proc</text>
-  <text class="small" x="666" y="326"><tspan class="mono">ps</tspan> now reads the new</text>
-  <text class="small" x="666" y="346">PID namespace</text>
+  <circle class="num" cx="40" cy="300" r="18" /><text class="yellow" x="40" y="301">5</text>
+  <text x="74" y="300" style="text-anchor: start">clean up</text>
+  <rect class="box" x="180" y="274" width="470" height="52" rx="5" />
+  <text class="mono" x="192" y="290"><tspan class="cyan">mount</tspan> -t proc none /proc</text>
+  <text class="mono" x="192" y="310"><tspan class="cyan">umount</tspan> -l /oldroot</text>
+  <text class="small" x="666" y="290"><tspan class="mono">ps</tspan> reads the new PID ns;</text>
+  <text class="small" x="666" y="310">the host's <tspan class="mono">/</tspan> is detached</text>
 
   <!-- result -->
-  <rect class="res" x="20" y="376" width="860" height="94" rx="6" />
-  <text class="green" x="36" y="396" style="text-anchor: start; font-size: 16px">the result is a container, without docker run</text>
-  <text class="mono" x="36" y="424"><tspan class="grey">$</tspan> hostname</text>
-  <text class="mono green" x="150" y="424">mohammad</text>
-  <text class="mono grey" x="330" y="424">uts: set only in here</text>
-  <text class="mono" x="36" y="448"><tspan class="grey">$</tspan> ps</text>
-  <text class="mono green" x="150" y="448">PID 1 is our shell</text>
-  <text class="mono grey" x="330" y="448">pid: no host processes</text>
-  <text class="mono" x="600" y="424"><tspan class="grey">$</tspan> ip a</text>
-  <text class="mono green" x="680" y="424">no eth0, lo down</text>
-  <text class="mono" x="600" y="448"><tspan class="grey">$</tspan> ls /</text>
-  <text class="mono green" x="680" y="448">the image's files</text>
+  <rect class="res" x="20" y="342" width="860" height="94" rx="6" />
+  <text class="green" x="36" y="362" style="text-anchor: start; font-size: 16px">the result is a container, without docker run</text>
+  <text class="mono" x="36" y="390"><tspan class="grey">$</tspan> hostname</text>
+  <text class="mono green" x="150" y="390">mohammad</text>
+  <text class="mono grey" x="330" y="390">uts: set only in here</text>
+  <text class="mono" x="36" y="414"><tspan class="grey">$</tspan> ps aux</text>
+  <text class="mono green" x="150" y="414">PID 1 is our shell</text>
+  <text class="mono grey" x="330" y="414">pid: no host processes</text>
+  <text class="mono" x="600" y="390"><tspan class="grey">$</tspan> ip a</text>
+  <text class="mono green" x="680" y="390">no eth0, lo down</text>
+  <text class="mono" x="600" y="414"><tspan class="grey">$</tspan> ls /</text>
+  <text class="mono green" x="680" y="414">the image's files</text>
 </svg>

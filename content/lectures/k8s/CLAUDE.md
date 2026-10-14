@@ -37,16 +37,24 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 | `container-from-scratch.svg` | create_container.sh — the five steps   |
 | `netns.svg`                  | play_with_netns.sh — veth, then bridge |
 
-Both were checked by running the scripts' commands in a privileged
-`alpine:3.20` container (an alpine export instead of centos):
+Both scripts were run end to end, and the diagrams drawn from those runs:
 
-- `create_container.sh` works once its two broken `mount` lines are written as
-  `mount --bind /mycontainer /mycontainer`. As committed, line 12 has no
-  target and both lines say `mycontainers` while the directory is
-  `mycontainer`. Inside, `hostname` is `mohammad`, `ps` shows the shell as
-  PID 1, and `ip a` shows only `lo` (and the kernel's tunnel stubs), all down.
-- `play_with_netns.sh`: the veth-pair half pings. The bridge half leaves
-  `parham-end` and `mohammad-end` without addresses and down, so nothing
-  pings; and its NAT rules also need a gateway address on `my-bridge`, a
-  default route in each namespace and `ip_forward`. The diagram draws those
-  missing steps in yellow and says they are not in the script.
+- `create_container.sh`: piped into `bash -x` in a privileged `docker:27-cli`
+  container (plus `apk add bash util-linux iproute2 sudo tar`) with the host's
+  `docker.sock` mounted, so the `docker run`/`docker export` lines really ran.
+  Docker Hub no longer has a `centos` image, and `quay.io/centos/centos:stream9`
+  has no `ps`, `ip` or `hostname`, so step 1 installs them before exporting.
+  Inside: `hostname` is `mohammad`, `ps aux` shows `bash` as PID 1, `ip a`
+  shows `lo` down (plus the kernel's tunnel stubs), `ls /` is the image and
+  `/proc/mounts` lists only `/` and `/proc`. Two traps found on the way:
+  `pivot_root` needs the new root to be a mount point (hence the bind mount
+  onto itself), and `umount` reads `/proc/self/mounts`, so `/proc` must be
+  mounted **before** `umount -l /oldroot` or the host's root silently stays
+  mounted at `/oldroot`.
+- `play_with_netns.sh`: run with `bash -x` in a privileged `alpine:3.20`
+  container (plus `iproute2 iptables`) on a user-defined Docker network. Both
+  halves ping between the namespaces; `ping 1.1.1.1` from `parham` gets
+  replies, and fails once the MASQUERADE rule is deleted; a second container
+  on the network fetched a page served by `busybox httpd` inside `mohammad`
+  through the DNAT rule. The `FORWARD ACCEPT` rules matter on a host running
+  Docker, whose FORWARD policy is DROP.
