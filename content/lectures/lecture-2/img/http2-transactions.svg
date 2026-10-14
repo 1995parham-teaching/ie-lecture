@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>The same three requests over HTTP/1.1 and over HTTP/2. HTTP/1.1 sends them one after another; HTTP/2 sends styles.css and scripts.js at once on streams 3 and 5 of one connection, and their responses come back as interleaved frames, one round trip sooner</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .head { font-size: 19px; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .done { fill: none; stroke: #ffcc00; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .time { fill: none; stroke: #8d97a8; stroke-width: 2; marker-end: url(#grey); }
+    .cyanl { fill: none; stroke: #00e5ff; stroke-width: 2.5; marker-end: url(#cyan); }
+    .orangel { fill: none; stroke: #ff9100; stroke-width: 2.5; marker-end: url(#orange); }
+    .greenl { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#green); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8d97a8" /></marker>
+    <marker id="cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#00e5ff" /></marker>
+    <marker id="orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff9100" /></marker>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <!-- HTTP/1.1 -->
+  <text class="head" x="220" y="20">HTTP/1.1</text>
+  <rect class="box" x="20" y="40" width="100" height="36" rx="6" />
+  <text x="70" y="58" style="font-size: 17px">Browser</text>
+  <rect class="box" x="320" y="40" width="100" height="36" rx="6" />
+  <text x="370" y="58" style="font-size: 17px">Server</text>
+  <path class="life" d="M70,76 V400" />
+  <path class="life" d="M370,76 V400" />
+
+  <text class="code cyan" x="220" y="92">GET /index.html</text>
+  <path class="cyanl" d="M70,100 L366,134" />
+  <path class="cyanl" d="M370,140 L74,174" />
+  <text class="code orange" x="220" y="182">GET /styles.css</text>
+  <path class="orangel" d="M70,190 L366,224" />
+  <path class="orangel" d="M370,230 L74,264" />
+  <text class="code green" x="220" y="272">GET /scripts.js</text>
+  <path class="greenl" d="M70,280 L366,314" />
+  <path class="greenl" d="M370,320 L74,354" />
+  <path class="done" d="M30,362 H410" />
+  <text class="small yellow" x="220" y="376">all three done</text>
+
+  <!-- HTTP/2 -->
+  <text class="head" x="680" y="20">HTTP/2</text>
+  <rect class="box" x="480" y="40" width="100" height="36" rx="6" />
+  <text x="530" y="58" style="font-size: 17px">Browser</text>
+  <rect class="box" x="780" y="40" width="100" height="36" rx="6" />
+  <text x="830" y="58" style="font-size: 17px">Server</text>
+  <path class="life" d="M530,76 V400" />
+  <path class="life" d="M830,76 V400" />
+
+  <text class="code cyan" x="680" y="92">[1] GET /index.html</text>
+  <path class="cyanl" d="M530,100 L826,134" />
+  <path class="cyanl" d="M830,140 L534,174" />
+  <text class="code orange" x="680" y="180">[3] GET /styles.css</text>
+  <path class="orangel" d="M530,190 L826,224" />
+  <path class="greenl" d="M530,198 L826,232" />
+  <text class="code green" x="606" y="232">[5] GET /scripts.js</text>
+  <!-- responses: frames from both streams, interleaved -->
+  <path class="greenl" d="M830,238 L534,272" />
+  <path class="orangel" d="M830,248 L534,282" />
+  <path class="greenl" d="M830,258 L534,292" />
+  <path class="orangel" d="M830,268 L534,302" />
+  <path class="done" d="M490,314 H870" />
+  <text class="small yellow" x="680" y="328">all three done</text>
+  <text class="code" x="534" y="356" style="text-anchor: start; font-size: 13px"><tspan class="green">[5]</tspan> <tspan class="orange">[3]</tspan> <tspan class="green">[5]</tspan> <tspan class="orange">[3]</tspan><tspan class="grey" dx="10" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px">DATA frames, interleaved</tspan></text>
+
+  <!-- time -->
+  <path class="time" d="M450,100 V380" />
+  <text class="small" x="450" y="394">time</text>
+
+  <!-- the point -->
+  <text class="small" x="20" y="430" style="text-anchor: start">HTTP/1.1: the next request waits for the whole previous response</text>
+  <text class="small" x="20" y="454" style="text-anchor: start">HTTP/2: many streams on one connection; the client numbers its streams 1, 3, 5 … (odd, RFC 9113 §5.1.1)</text>
+  <text class="small" x="20" y="478" style="text-anchor: start">still one TCP connection, so one lost packet stalls every stream — what HTTP/3 over QUIC fixes</text>
+</svg>

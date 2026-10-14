@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>Two cookies from 127.0.0.1:8210, session with Path / and admin_token with Path /admin. A request for / carries only session; /admin and /admin/panel carry both, admin_token first; /administrator carries only session, because a path matches whole segments, not a string prefix</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .jar { fill: rgba(255, 145, 0, 0.08); stroke: #ff9100; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.08); stroke: #ff5252; stroke-width: 2; }
+    .tree { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .redl { fill: none; stroke: #ff5252; stroke-width: 2.5; marker-end: url(#red); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+  </defs>
+
+  <!-- the jar -->
+  <rect class="jar" x="20" y="14" width="860" height="92" rx="8" />
+  <text class="label" x="40" y="36" style="fill: #ff9100">cookie jar · 127.0.0.1:8210 (set by GET /login)</text>
+  <text class="code" x="40" y="64"><tspan class="green">session</tspan>=abc123;     Path=<tspan class="green">/</tspan></text>
+  <text class="code" x="40" y="88"><tspan class="yellow">admin_token</tspan>=xyz789; Path=<tspan class="yellow">/admin</tspan></text>
+  <text class="small" x="440" y="64" style="text-anchor: start">goes to every path</text>
+  <text class="small" x="440" y="88" style="text-anchor: start">goes only to /admin and below it</text>
+
+  <!-- the requests -->
+  <text class="label" x="40" y="140">request</text>
+  <text class="label" x="330" y="140">Cookie header the browser sends</text>
+  <path class="tree" d="M30,156 H870" style="stroke-width: 1" />
+
+  <text class="code" x="40" y="182">GET /</text>
+  <path class="line" d="M240,182 H310" />
+  <text class="code" x="330" y="182"><tspan class="green">session</tspan>=abc123</text>
+
+  <text class="code" x="40" y="224">GET /admin</text>
+  <path class="line" d="M240,224 H310" />
+  <text class="code" x="330" y="224"><tspan class="yellow">admin_token</tspan>=xyz789; <tspan class="green">session</tspan>=abc123</text>
+
+  <text class="code" x="40" y="266">GET /admin/panel</text>
+  <path class="line" d="M240,266 H310" />
+  <text class="code" x="330" y="266"><tspan class="yellow">admin_token</tspan>=xyz789; <tspan class="green">session</tspan>=abc123</text>
+
+  <text class="code" x="40" y="308">GET /administrator</text>
+  <path class="line" d="M240,308 H310" />
+  <text class="code" x="330" y="308"><tspan class="green">session</tspan>=abc123</text>
+  <text class="small red" x="640" y="308" style="text-anchor: start">not under /admin</text>
+
+  <text class="small" x="40" y="352" style="text-anchor: start">/admin matches /admin and /admin/…, whole segments, never /administrator (RFC 6265 §5.1.4)</text>
+  <text class="small" x="40" y="376" style="text-anchor: start">the cookie with the longer Path is listed first (§5.4)</text>
+</svg>

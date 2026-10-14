@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>CSRF. The victim is logged in to bank.example. They visit evil.example, whose page auto-submits a form that POSTs to bank.example/transfer. The browser attaches the bank's session cookie, so the bank sees an authenticated request and moves the money</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .jar { fill: rgba(255, 145, 0, 0.08); stroke: #ff9100; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.08); stroke: #ff5252; stroke-width: 2; }
+    .tree { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .redl { fill: none; stroke: #ff5252; stroke-width: 2.5; marker-end: url(#red); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+  </defs>
+
+  <rect class="bad" x="20" y="14" width="140" height="44" rx="6" />
+  <text x="90" y="36">evil.example</text>
+  <rect class="box" x="480" y="14" width="160" height="44" rx="6" />
+  <text x="560" y="36">Browser</text>
+  <rect class="box" x="750" y="14" width="140" height="44" rx="6" />
+  <text x="820" y="36" style="font-size: 18px">bank.example</text>
+  <path class="life" d="M90,58 V330" />
+  <path class="life" d="M560,58 V72 M560,128 V490" />
+  <path class="life" d="M820,58 V490" />
+
+  <!-- the jar, from an earlier login -->
+  <rect class="jar" x="400" y="72" width="320" height="56" rx="8" />
+  <text class="small" x="560" y="88" style="fill: #ff9100">cookie jar · bank.example (logged in earlier)</text>
+  <text class="code" x="414" y="112" style="font-size: 13px"><tspan class="yellow">session</tspan>=7f3a; SameSite=None; Secure</text>
+
+  <!-- 1 -->
+  <text class="num" x="580" y="160" style="text-anchor: start">1</text>
+  <text class="code" x="300" y="148">GET /</text>
+  <path class="line" d="M560,162 H94" />
+
+  <!-- 2 -->
+  <text class="num" x="70" y="198">2</text>
+  <text class="code" x="110" y="186">200 OK · text/html</text>
+  <path class="line" d="M90,200 H556" />
+  <text class="code" x="110" y="226" style="font-size: 14px">&lt;form method="POST"</text>
+  <text class="code" x="127" y="248" style="font-size: 14px">action="https://<tspan class="red">bank.example/transfer</tspan>"&gt;</text>
+  <text class="code" x="127" y="270" style="font-size: 14px">&lt;input name="to" value="attacker"&gt;</text>
+  <text class="code" x="110" y="292" style="font-size: 14px">&lt;/form&gt;</text>
+  <text class="code" x="110" y="314" style="font-size: 14px">&lt;script&gt;document.forms[0].submit()&lt;/script&gt;</text>
+
+  <!-- 3 -->
+  <text class="small" x="575" y="334" style="text-anchor: start">the script submits it</text>
+  <text class="num" x="540" y="364">3</text>
+  <text class="code" x="575" y="362" style="font-size: 14px">POST /transfer</text>
+  <path class="redl" d="M560,376 H816" />
+  <text class="code" x="575" y="396" style="font-size: 13px">Cookie: <tspan class="yellow">session</tspan>=7f3a</text>
+  <text class="code" x="575" y="416" style="font-size: 13px"><tspan class="grey">Origin: https://evil.example</tspan></text>
+  <text class="code" x="575" y="436" style="font-size: 13px">to=attacker</text>
+
+  <!-- 4 -->
+  <text class="num" x="540" y="472">4</text>
+  <text class="code red" x="575" y="460" style="font-size: 14px">200 OK · money moved</text>
+  <path class="line" d="M820,474 H564" />
+
+  <!-- what stops it -->
+  <text class="small" x="20" y="372" style="text-anchor: start">the bank sees its own cookie and cannot tell who sent the form</text>
+  <text class="small green" x="20" y="410" style="text-anchor: start">SameSite=Lax or Strict: step 3 goes without the cookie</text>
+  <text class="small" x="20" y="434" style="text-anchor: start">Origin says who started it; a per-session token proves it</text>
+</svg>

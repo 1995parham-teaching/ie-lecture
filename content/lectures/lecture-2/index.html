@@ -399,9 +399,9 @@ sudo tcpdump --interface utun5 --number -n -v 'port 80 and host 185.211.88.131'
 <section>
   <h2>HTTP Transactions</h2>
   <img
-    src="./img/http-transactions.png"
-    height="500px"
-    alt="http-transactions"
+    src="./img/http-transactions.svg"
+    alt="HTTP/1.1 over one TCP connection to example.com. The browser sends GET /index.html and gets 200 OK text/html, parses it and finds styles.css and scripts.js, then sends GET /styles.css and waits for its 200 OK, then GET /scripts.js and waits again. One request at a time; the connection stays open afterwards"
+    height="540"
   />
 </section>
 <section>
@@ -468,9 +468,9 @@ sudo tcpdump --interface utun5 --number -n -v 'port 80 and host 185.211.88.131'
 <section>
   <h2>HTTP/2 for a Faster Web (Cont.)</h2>
   <img
-    src="./img/http2-transactions.png"
-    height="500px"
-    alt="http2-transactions"
+    src="./img/http2-transactions.svg"
+    alt="The same three requests over HTTP/1.1 and HTTP/2. HTTP/1.1 sends index.html, styles.css and scripts.js one after another, each waiting for the previous response. HTTP/2 sends index.html on stream 1, then styles.css and scripts.js together on streams 3 and 5 of the same connection; their responses come back as interleaved DATA frames and all three are done one round trip sooner. Client streams are odd-numbered (RFC 9113 section 5.1.1); it is still one TCP connection, so a lost packet stalls every stream, which HTTP/3 fixes"
+    width="900"
   />
 </section>
 <section class="hands-on">
@@ -2424,14 +2424,16 @@ Access-Control-Allow-Credentials: true
 <section>
   <section>
     <img
-      src="./img/cookies.png"
-      alt="which cookies a browser returns for each path"
+      src="./img/cookie-paths.svg"
+      alt="Two cookies from 127.0.0.1:8210: session=abc123 with Path=/ and admin_token=xyz789 with Path=/admin. GET / carries session=abc123. GET /admin and GET /admin/panel carry admin_token=xyz789; session=abc123. GET /administrator carries only session=abc123, because /admin matches whole path segments, not a string prefix (RFC 6265 section 5.1.4). The cookie with the longer path is listed first"
+      width="900"
     />
   </section>
   <section>
     <img
-      src="./img/sub-domain-cookies.png"
-      alt="how a Domain attribute widens a cookie to sub-domains"
+      src="./img/sub-domain-cookies.svg"
+      alt="lms.aut.ac.ir sets five cookies. sid=a1b2 has no Domain, so it is host-only and goes back to lms.aut.ac.ir alone, not even to x.lms.aut.ac.ir. theme=dark with Domain=aut.ac.ir goes to aut.ac.ir, lms.aut.ac.ir, x.lms.aut.ac.ir and www.aut.ac.ir. Domain=x.lms.aut.ac.ir is rejected as a sub-domain of the sender, Domain=ut.ac.ir as another site, and Domain=ac.ir as a public suffix. ut.ac.ir receives nothing"
+      width="900"
     />
   </section>
 </section>
@@ -2601,9 +2603,9 @@ Set-Cookie: __Host-chat=7f3a9c; Path=/; Secure; SameSite=None; Partitioned
     </li>
   </ul>
   <img
-    src="img/csrf-attack.png"
-    style="background-color: white"
-    alt="a request from an attacker's page to the bank, carrying the victim's cookie"
+    src="img/csrf-attack.svg"
+    alt="The victim is logged in to bank.example with session=7f3a; SameSite=None; Secure. They visit evil.example, whose page contains a form that POSTs to=attacker to https://bank.example/transfer and a script that submits it. The browser sends POST /transfer with Cookie: session=7f3a and Origin: https://evil.example, and the bank answers 200 OK and moves the money. With SameSite=Lax or Strict the cookie is left off; Origin says who started the request and a per-session token proves it"
+    height="340"
   />
   <div class="box">
     <p>Covered properly in the Web Security lecture.</p>
@@ -2657,7 +2659,11 @@ Set-Cookie: __Host-chat=7f3a9c; Path=/; Secure; SameSite=None; Partitioned
       <li>Act as server for client</li>
       <li>Act as client for server</li>
     </ul>
-    <img src="./img/proxy.png" alt="proxy" />
+    <img
+      src="./img/proxy.svg"
+      alt="A proxy sits between client and server: to the client it acts as a server, to the server it acts as a client. The client sends it the whole URL, GET http://example.com/index.html HTTP/1.1; the proxy sends the server only the path, GET /index.html HTTP/1.1, with Host: example.com (absolute-form and origin-form, RFC 9112 section 3.2)"
+      width="900"
+    />
   </section>
   <section>
     <h2>Forward Proxies</h2>
@@ -3497,9 +3503,16 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
       </li>
     </ul>
     <pre><code class="lang-sh">
-$ curl --connect-to example.com:80:127.0.0.1:9080   http://example.com/
-$ curl --connect-to example.com:443:127.0.0.1:9443 https://example.com/
+$ curl           --connect-to example.com:80:127.0.0.1:9080   http://example.com/
+$ curl --http1.1 --connect-to example.com:443:127.0.0.1:9443 https://example.com/
     </code></pre>
+    <ul>
+      <li>
+        Without <code class="hl-orange">--http1.1</code>, curl offers
+        <code>h2</code> in the ClientHello (ALPN) and example.com accepts it, so
+        port 443 would carry HTTP/2 frames, not the same request
+      </li>
+    </ul>
   </section>
   <section>
     <h2>Port 80: It Is Just Text</h2>
@@ -3508,10 +3521,9 @@ C-&gt;S  47 45 54 20 2f 20 48 54 54 50 2f 31 2e 31 0d 0a  |GET / HTTP/1.1..|
 C-&gt;S  48 6f 73 74 3a 20 65 78 61 6d 70 6c 65 2e 63 6f  |Host: example.co|
 C-&gt;S  6d 0d 0a 55 73 65 72 2d 41 67 65 6e 74 3a 20 63  |m..User-Agent: c|
 C-&gt;S  75 72 6c 2f 38 2e 37 2e 31 0d 0a 41 63 63 65 70  |url/8.7.1..Accep|
-C-&gt;S  74 3a 20 2a 2f 2a 0d 0a 43 6f 6e 6e 65 63 74 69  |t: */*..Connecti|
-C-&gt;S  6f 6e 3a 20 63 6c 6f 73 65 0d 0a 0d 0a           |on: close....|
+C-&gt;S  74 3a 20 2a 2f 2a 0d 0a 0d 0a                    |t: */*....|
 S-&gt;C  48 54 54 50 2f 31 2e 31 20 32 30 30 20 4f 4b 0d  |HTTP/1.1 200 OK.|
-S-&gt;C  0a 44 61 74 65 3a 20 4d 6f 6e 2c 20 31 37 20 41  |.Date: Mon, 17 A|
+S-&gt;C  0a 44 61 74 65 3a 20 57 65 64 2c 20 31 34 20 4f  |.Date: Wed, 14 O|
     </code></pre>
     <ul>
       <li>
@@ -3524,23 +3536,22 @@ S-&gt;C  0a 44 61 74 65 3a 20 4d 6f 6e 2c 20 31 37 20 41  |.Date: Mon, 17 A|
   <section>
     <h2>Port 443: The Same Request</h2>
     <pre><code class="no-highlight">
-C-&gt;S  17 03 03 00 6e b8 bc 67 ba 90 7c 40 2c e2 bb 5a  |....n..g..|@,..Z|
-C-&gt;S  c0 1d 7b 7f 27 49 9e aa 81 81 cc 7f 10 d6 a1 40  |..{.'I.........@|
-C-&gt;S  06 41 a7 a3 9f 94 ab 22 a9 40 4c 03 f2 25 4a b2  |.A.....".@L..%J.|
-C-&gt;S  ca 54 00 a3 38 89 bb cb 10 bf 2e a1 a8 24 03 94  |.T..8........$..|
-C-&gt;S  8c f2 24 6b 71 19 40 f4 3b 24 d6 66 fe 1a e7 5c  |..$kq.@.;$.f...\|
-C-&gt;S  49 9d 2a 71 63 6d d4 b6 6a 53 30 33 bc ee b5 77  |I.*qcm..jS03...w|
-C-&gt;S  cf a2 30 c9 06 ff 4d 81 0c 8d d1 7e 5b 1c b4 54  |..0...M....~[..T|
-C-&gt;S  7e 53 45                                         |~SE|
+C-&gt;S  17 03 03 00 5b 0b 60 09 0c 50 33 c2 e5 9a fc 41  |....[.`..P3....A|
+C-&gt;S  99 89 18 bc bd cf c7 8d 1b cb 28 5b fe e1 e5 44  |..........([...D|
+C-&gt;S  04 b6 18 9e 8c 60 0d b4 e2 20 40 11 a7 05 30 6f  |.....`... @...0o|
+C-&gt;S  99 36 41 bc d5 14 e4 f9 2e 1b 1c f0 9d 11 d0 73  |.6A............s|
+C-&gt;S  19 62 10 89 f9 81 9a 4b 67 ca dd f3 6b 7d b9 58  |.b.....Kg...k}.X|
+C-&gt;S  55 f6 83 87 2b 01 23 d5 6d 2e 0a b2 e1 1f 4f 6e  |U...+.#.m.....On|
     </code></pre>
     <ul>
       <li>
         <code class="hl-orange">17</code> = application data,
         <code class="hl-green">03 03</code> = record version,
-        <code class="hl-cyan">00 6e</code> = 110 bytes follow
+        <code class="hl-cyan">00 5b</code> = 91 bytes follow
       </li>
       <li>
-        That is the whole HTTP request —
+        That is the whole 74-byte HTTP request from port 80, plus a 16-byte auth
+        tag and 1 byte of hidden record type —
         <em>the record header is the only thing the tap can still parse</em>
       </li>
     </ul>
@@ -3548,8 +3559,8 @@ C-&gt;S  7e 53 45                                         |~SE|
   <section>
     <h2>What TLS Does <span class="hl-red">Not</span> Hide</h2>
     <pre><code class="no-highlight">
-C-&gt;S  16 03 01 01 39 01 00 01 35 03 03 0f 96 b0 2f 41  |....9...5...../A|
-      ...  cipher suites, key share, 220 bytes  ...
+C-&gt;S  16 03 01 01 39 01 00 01 35 03 03 31 85 3d db b3  |....9...5..1.=..|
+      ...  cipher suites, key share, 224 bytes  ...
 C-&gt;S  0e 00 00 0b 65 78 61 6d 70 6c 65 2e 63 6f 6d 00  |....example.com.|
     </code></pre>
     <ul>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 556">
+  <title>HTTP/1.1 over one TCP connection: the browser asks for index.html, then styles.css, then scripts.js, and each request waits for the previous response</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 17px; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .conn { fill: none; stroke: #8d97a8; stroke-width: 2; marker-start: url(#grey); marker-end: url(#grey); }
+    .time { fill: none; stroke: #8d97a8; stroke-width: 2; marker-end: url(#grey); }
+    .cyanl { fill: none; stroke: #00e5ff; stroke-width: 2.5; marker-end: url(#cyan); }
+    .orangel { fill: none; stroke: #ff9100; stroke-width: 2.5; marker-end: url(#orange); }
+    .greenl { fill: none; stroke: #76ff03; stroke-width: 2.5; marker-end: url(#green); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8d97a8" /></marker>
+    <marker id="cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#00e5ff" /></marker>
+    <marker id="orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff9100" /></marker>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <rect class="box" x="80" y="14" width="160" height="44" rx="6" />
+  <text x="160" y="36">Browser</text>
+  <rect class="box" x="580" y="14" width="200" height="44" rx="6" />
+  <text x="680" y="36">example.com</text>
+  <path class="life" d="M160,58 V496" />
+  <path class="life" d="M680,58 V496" />
+
+  <!-- the connection -->
+  <path class="conn" d="M172,84 H668" />
+  <text class="small" x="420" y="72">one TCP connection (handshake first)</text>
+
+  <!-- 1: the page -->
+  <text class="num" x="140" y="116">1</text>
+  <text class="code cyan" x="420" y="106">GET /index.html</text>
+  <path class="cyanl" d="M160,116 L676,150" />
+  <path class="cyanl" d="M680,160 L164,194" />
+  <text class="code cyan" x="420" y="196">200 OK · text/html</text>
+  <text class="small" x="176" y="226" style="text-anchor: start">parse the HTML: it links styles.css and scripts.js</text>
+
+  <!-- 2: the stylesheet -->
+  <text class="num" x="140" y="270">2</text>
+  <text class="code orange" x="420" y="260">GET /styles.css</text>
+  <path class="orangel" d="M160,270 L676,304" />
+  <path class="orangel" d="M680,314 L164,348" />
+  <text class="code orange" x="420" y="350">200 OK · text/css</text>
+
+  <!-- 3: the script -->
+  <text class="num" x="140" y="390">3</text>
+  <text class="code green" x="420" y="380">GET /scripts.js</text>
+  <path class="greenl" d="M160,390 L676,424" />
+  <path class="greenl" d="M680,434 L164,468" />
+  <text class="code green" x="420" y="470">200 OK · text/javascript</text>
+
+  <text class="small" x="420" y="514">one request at a time: the next one waits for the whole previous response</text>
+  <text class="small" x="420" y="538">the connection stays open afterwards (persistent, the HTTP/1.1 default)</text>
+
+  <!-- time -->
+  <path class="time" d="M830,90 V500" />
+  <text class="small" x="830" y="520">time</text>
+</svg>

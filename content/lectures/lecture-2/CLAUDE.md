@@ -51,10 +51,21 @@ to is that logout is the **store delete**, not the `Max-Age=0` cookie.
 hexdumps are real, captured with a byte-level TCP relay between curl and
 `example.com` — curl's own `--trace` shows plaintext on both ports because it
 traces above TLS, so it cannot make this point. Port 80 shows a readable
-`GET / HTTP/1.1`; port 443 shows the same request as a
-`17 03 03 00 6e` application-data record; the last slide shows the SNI hostname
-in the plaintext ClientHello. If you re-capture, keep all three from **one** pair
-of runs or the story stops lining up.
+74-byte `GET / HTTP/1.1`; port 443 shows the same request as a
+`17 03 03 00 5b` application-data record (91 = 74 + 16-byte tag + 1 byte of
+inner content type); the last slide shows the SNI hostname in the plaintext
+ClientHello (224 bytes elided before it). If you re-capture, keep all three from
+**one** pair of runs or the story stops lining up.
+
+The 443 command carries `--http1.1`, and that is load-bearing: curl 8.7.1 offers
+`h2` by ALPN and example.com accepts it, so without the flag port 443 carries
+HTTP/2 frames (after the Finished record, an 81-byte and a 54-byte record, the
+size of the connection preface plus SETTINGS and of one HPACK `HEADERS` frame),
+not the same request. The previous transcript claimed the
+plain command and showed a `Connection: close` request with a 110-byte record,
+which matched neither command. Re-captured 14 October 2026 with a Python byte
+relay (`127.0.0.1:9080`/`9443` → `example.com:80`/`443`), records split by
+parsing the TLS record headers.
 
 **Base64** (2 slides, inside Authentication) is two hand-written SVGs in
 `img/` — `base64.svg` (`Man` → 24 bits → `TWFu`) and `base64-padding.svg`
@@ -122,8 +133,6 @@ strips the `ETag`, so it cannot be used for a 304 demo.
 - The capture on the URL slide states `length 85`, which depends on the path in
   it. The path was changed from `/~bakhshis/` to `/~students/` **because both
   are 11 characters** — keep any replacement the same length or re-capture.
-- Three `height="500px"` / `height="400px"` attributes remain; dimension
-  attributes take a bare integer.
 - `diag/reverse-proxy.drawio` is the source for `img/reverse-proxy.png`.
 - The `QUERY` slides claim framework support is thin (Node.js parses it, OpenAPI
   3.2 documents it). That ages fast — re-check before teaching it.
@@ -148,6 +157,12 @@ stayed where it was.
 | `auth-challenge.svg`        | HTTP Authentication — 401, prompt, Authorization          |
 | `jwt-anatomy.svg`           | JWT — header, payload, signature                          |
 | `tls13-handshake.svg`       | Security (2nd) — the TLS 1.3 handshake                    |
+| `http-transactions.svg`     | HTTP Transactions — HTTP/1.1, one request at a time       |
+| `http2-transactions.svg`    | HTTP/2 for a Faster Web (Cont.) — 1.1 vs 2, streams 1/3/5 |
+| `cookie-paths.svg`          | Domain & Path stack (1st) — which cookies each path gets  |
+| `sub-domain-cookies.svg`    | Domain & Path stack (2nd) — host-only vs `Domain=`        |
+| `csrf-attack.svg`           | CSRF, in One Slide — the auto-submitting form             |
+| `proxy.svg`                 | Proxy — server to the client, client to the server        |
 
 How the facts were checked:
 
@@ -177,13 +192,39 @@ How the facts were checked:
   logged against `example.com` (key exchange `X25519MLKEM768`). It replaced
   `ssl.jpg`, which drew RSA key transport — the client encrypting a session key
   with the server's public key — and TLS 1.3 no longer has that.
+- `http2-transactions.svg`: `curl -Z --http2` for three cdnjs files opened
+  one connection and streams `[1]`, `[3]`, `[5]` (RFC 9113 §5.1.1: client
+  streams are odd). The timing is schematic — HTTP/2 saves the round trip the
+  third request would wait for; it is not a capture.
+- `cookie-paths.svg` and `sub-domain-cookies.svg` were checked in headless
+  Chrome 155 against a local server on `*.localhost` hosts (Chrome resolves
+  them to loopback), with the same cookie names, chained by top-level
+  redirects. Results: `sid` (no `Domain`) reached `lms.aut` only — not
+  `x.lms.aut`; `theme` (`Domain=aut`) reached `aut`, `lms.aut`, `www.aut`,
+  `x.lms.aut`; a sub-domain `Domain`, a foreign `Domain`, and `Domain=localhost`
+  were all dropped; `/admin` matched `/admin` and `/admin/panel` but not
+  `/administrator`, with `admin_token` listed first. `ac.ir` is on the Public
+  Suffix List (checked October 2026). The path diagram uses the hands-on's
+  cookies, so it agrees with its `Result` slide.
+- `csrf-attack.svg`: the same headless Chrome on `bank.localhost` /
+  `evil.localhost`. The cross-site auto-submitted POST carried the
+  `SameSite=None; Secure` cookie, not the `Lax` or `Strict` ones, with
+  `Origin: http://evil.localhost:8213` and `Sec-Fetch-Site: cross-site`. A cookie
+  with **no** `SameSite` was also sent, because Chrome lets a cookie younger
+  than 2 minutes through on a top-level POST ("Lax-allowing-unsafe"); that is
+  why the drawing uses `SameSite=None` and says nothing about the default.
+- `proxy.svg`: `curl -x` to a listening socket sent
+  `GET http://example.com/index.html HTTP/1.1` (absolute-form); the outbound
+  origin-form is RFC 9112 §3.2.1.
 
 Removed with the redraw: `message-structure.jpg`, `3xx.png`,
 `http-cache-types.png` (its shared-cache box was labelled "Browser 1"),
-`staleness.png`, `ssl.jpg`. Still screenshots or third-party images:
-`http-transactions.png`, `http2-transactions.png`, `proxy.png`, `cookies.png`,
-`sub-domain-cookies.png`, `csrf-attack.png`, `basic-auth-in-action.png`, the
-three `moodle-*.png`, `noodle.png`.
+`staleness.png`, `ssl.jpg`, and later `http-transactions.png`,
+`http2-transactions.png` (light, third-party), `proxy.png`, `csrf-attack.png`
+(third-party, needed a white background), `sub-domain-cookies.png` and
+`cookies.png` (2020 Chrome screenshots of lms.aut.ac.ir and of plain-HTTP
+httpbin). None had a draw.io source. Still screenshots or third-party images:
+`basic-auth-in-action.png`, the three `moodle-*.png`, `noodle.png`.
 
 The Digest slide's formula was `MD5(HA1:nonce:HA2)`, which is the form
 **without** `qop`; the header under it has `qop=auth`, and its `response` value

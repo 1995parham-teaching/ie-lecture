@@ -122,6 +122,13 @@ for the league background — light strokes, transparent fill — with the
 deck's CSS. Render one (`rsvg-convert -b '#2b2b2b'`) before and after an edit:
 text that overflows a box is not reported anywhere.
 
+`content/lectures/lecture-3/img/*.svg` is the reference style: `viewBox`, a
+`<title>`, an inline `<style>`, Helvetica for text and Menlo for code. Draw the
+mechanism with real values (captured requests, measured sizes, real bytes), not
+boxes that repeat a bullet list, and verify every value before drawing it. Each
+deck's `CLAUDE.md` has a "Diagrams" table recording how each one was checked;
+add a row for every new diagram.
+
 ## Things that fail silently
 
 - **Overflow.** The slide is 960×700 logical px at `--r-main-font-size: 24px`.
@@ -156,6 +163,6 @@ fix makes the decks inconsistent. Raise them first.
   HTML (a `ul` may contain only `li`), but every browser renders it. Notable
   because lecture 3 teaches HTML.
 - **Dimension attributes with units**, e.g. `height="250px"`. `width`/`height`
-  take a bare integer; browsers salvage the rest. Remaining in `lecture-2` (2)
-  and `lecture-4` (2).
+  take a bare integer; browsers salvage the rest. Remaining in `lecture-4` (2);
+  `lecture-2` has none left.
 - **`cors` and `lecture-8`** declare `topics` but render no TOC slides.

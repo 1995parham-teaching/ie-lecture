@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>lms.aut.ac.ir sets five cookies. sid with no Domain is host-only and goes back to lms.aut.ac.ir alone. theme with Domain=aut.ac.ir goes to aut.ac.ir and every sub-domain of it. Domain=x.lms.aut.ac.ir, a sub-domain, Domain=ut.ac.ir, another site, and Domain=ac.ir, a public suffix, are all rejected</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 15px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .jar { fill: rgba(255, 145, 0, 0.08); stroke: #ff9100; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.08); stroke: #ff5252; stroke-width: 2; }
+    .tree { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .redl { fill: none; stroke: #ff5252; stroke-width: 2.5; marker-end: url(#red); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff5252" /></marker>
+  </defs>
+
+  <!-- what the server sends -->
+  <text class="label" x="20" y="18">lms.aut.ac.ir answers with</text>
+  <rect class="box" x="20" y="34" width="860" height="160" rx="8" />
+  <text class="code" x="40" y="58">Set-Cookie: <tspan class="cyan">sid</tspan>=a1b2</text>
+  <text class="code" x="40" y="88">Set-Cookie: <tspan class="orange">theme</tspan>=dark; Domain=<tspan class="orange">aut.ac.ir</tspan></text>
+  <text class="code" x="40" y="118">Set-Cookie: x=1; Domain=x.lms.aut.ac.ir</text>
+  <text class="code" x="40" y="148">Set-Cookie: y=1; Domain=ut.ac.ir</text>
+  <text class="code" x="40" y="178">Set-Cookie: z=1; Domain=ac.ir</text>
+  <text class="small green" x="490" y="58" style="text-anchor: start">✓ host-only: lms.aut.ac.ir, nothing else</text>
+  <text class="small green" x="490" y="88" style="text-anchor: start">✓ aut.ac.ir and every sub-domain</text>
+  <text class="small red" x="490" y="118" style="text-anchor: start">✗ a sub-domain of the sender</text>
+  <text class="small red" x="490" y="148" style="text-anchor: start">✗ not the sender's domain</text>
+  <text class="small red" x="490" y="178" style="text-anchor: start">✗ a public suffix (publicsuffix.org)</text>
+
+  <!-- where they go back -->
+  <text class="label" x="20" y="226">host</text>
+  <text class="label" x="490" y="226">Cookie header it receives</text>
+  <path class="tree" d="M20,240 H880" style="stroke-width: 1" />
+
+  <rect class="box" x="20" y="252" width="200" height="36" rx="6" />
+  <text class="code" x="34" y="270">aut.ac.ir</text>
+  <text class="code" x="490" y="270"><tspan class="orange">theme</tspan>=dark</text>
+
+  <path class="tree" d="M50,288 V316 H80 M50,316 V404 H80" />
+  <rect class="box" x="80" y="298" width="220" height="36" rx="6" />
+  <text class="code" x="94" y="316">lms.aut.ac.ir</text>
+  <text class="code" x="490" y="316"><tspan class="cyan">sid</tspan>=a1b2; <tspan class="orange">theme</tspan>=dark</text>
+
+  <path class="tree" d="M110,334 V360 H140" />
+  <rect class="box" x="140" y="342" width="240" height="36" rx="6" />
+  <text class="code" x="154" y="360">x.lms.aut.ac.ir</text>
+  <text class="code" x="490" y="360"><tspan class="orange">theme</tspan>=dark</text>
+  <text class="small" x="640" y="360" style="text-anchor: start">no sid: host-only skips sub-domains</text>
+
+  <rect class="box" x="80" y="386" width="220" height="36" rx="6" />
+  <text class="code" x="94" y="404">www.aut.ac.ir</text>
+  <text class="code" x="490" y="404"><tspan class="orange">theme</tspan>=dark</text>
+
+  <rect class="bad" x="20" y="430" width="200" height="36" rx="6" />
+  <text class="code" x="34" y="448">ut.ac.ir</text>
+  <text class="small" x="490" y="448" style="text-anchor: start">nothing</text>
+</svg>
