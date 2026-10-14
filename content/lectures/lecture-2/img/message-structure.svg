@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380">
+  <title>An HTTP request and response line by line: start line, header fields, an empty line, then the body</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 13px; text-anchor: start; }
+    .crlf { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 12px; fill: #8d97a8; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .row { fill: rgba(255, 255, 255, 0.05); }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <text class="small" x="315" y="22">request</text>
+  <text class="small" x="685" y="22">response</text>
+
+  <!-- start line -->
+  <rect class="row" x="150" y="38" width="740" height="40" rx="4" />
+  <text class="label orange" x="14" y="52" style="font-size: 16px">start line</text>
+  <text class="label" x="14" y="70" style="font-size: 12px">one line</text>
+  <text class="code" x="160" y="58"><tspan class="orange">GET</tspan> <tspan class="green">/~students/</tspan> <tspan class="grey">HTTP/1.1</tspan><tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="492" y="58"><tspan class="grey">HTTP/1.1</tspan> <tspan class="orange">301</tspan> <tspan class="green">Moved Permanently</tspan><tspan class="crlf"> \r\n</tspan></text>
+
+  <!-- header fields -->
+  <rect class="row" x="150" y="86" width="740" height="104" rx="4" />
+  <text class="label cyan" x="14" y="124" style="font-size: 16px">header fields</text>
+  <text class="label" x="14" y="144" style="font-size: 12px">Name: value</text>
+  <text class="code" x="160" y="106"><tspan class="cyan">Host</tspan>: ce.aut.ac.ir<tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="160" y="130"><tspan class="cyan">User-Agent</tspan>: curl/8.7.1<tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="160" y="154"><tspan class="cyan">Accept</tspan>: */*<tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="492" y="106"><tspan class="cyan">Location</tspan>: https://ce.aut.ac.ir:443/~students/<tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="492" y="130"><tspan class="cyan">Content-Length</tspan>: <tspan class="yellow">98</tspan><tspan class="crlf"> \r\n</tspan></text>
+  <text class="code" x="492" y="154"><tspan class="cyan">Content-Type</tspan>: text/html<tspan class="crlf"> \r\n</tspan></text>
+
+  <!-- empty line -->
+  <rect class="row" x="150" y="198" width="740" height="34" rx="4" />
+  <text class="label red" x="14" y="215" style="font-size: 16px">empty line</text>
+  <text class="crlf" x="160" y="215" style="font-size: 13px">\r\n</text>
+  <text class="crlf" x="492" y="215" style="font-size: 13px">\r\n</text>
+  <text class="small" x="206" y="215" style="text-anchor: start; font-size: 12px">the header is over</text>
+  <text class="small" x="536" y="215" style="text-anchor: start; font-size: 12px">the header is over</text>
+
+  <!-- body -->
+  <rect class="row" x="150" y="240" width="740" height="56" rx="4" />
+  <text class="label violet" x="14" y="260" style="font-size: 16px">body</text>
+  <text class="label" x="14" y="280" style="font-size: 12px">any bytes, optional</text>
+  <text class="small" x="160" y="268" style="text-anchor: start; font-size: 13px">none — this GET carries no body</text>
+  <text class="code" x="492" y="260">&lt;head&gt;&lt;title&gt;Object moved permanently…</text>
+  <text class="small" x="492" y="282" style="text-anchor: start; font-size: 12px"><tspan class="yellow">98</tspan> bytes, as Content-Length said</text>
+
+  <path class="dash" d="M480,38 V296" />
+
+  <text class="label" x="14" y="328" style="font-size: 14px">Text you can read, with every line ending in \r\n (CR LF). The request is 85 bytes: 26 + 20 + 24 + 13 for the lines, 2 for the empty one.</text>
+  <text class="label" x="14" y="354" style="font-size: 13px">Both messages are the curl capture of ce.aut.ac.ir from the URL in Action slides.</text>
+</svg>

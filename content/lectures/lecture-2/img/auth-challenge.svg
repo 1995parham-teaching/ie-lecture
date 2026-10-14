@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 390">
+  <title>HTTP authentication as a challenge: the server answers 401 with WWW-Authenticate, the browser asks the user, then repeats the request with Authorization</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .prompt { fill: rgba(255, 204, 0, 0.07); stroke: #ffcc00; stroke-width: 2; }
+    .field { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="60" y="14" width="160" height="44" rx="6" />
+  <text x="140" y="36">Browser</text>
+  <rect class="box" x="720" y="14" width="160" height="44" rx="6" />
+  <text x="800" y="36">httpbin.org</text>
+  <path class="life" d="M140,58 V164 M140,246 V376" />
+  <path class="life" d="M800,58 V376" />
+
+  <!-- 1 -->
+  <text class="num" x="118" y="92">1</text>
+  <text class="code" x="300" y="80">GET /basic-auth/admin/admin</text>
+  <path class="line" d="M140,94 H796" />
+
+  <!-- 2: the challenge -->
+  <text class="num" x="118" y="152">2</text>
+  <text class="code" x="300" y="116"><tspan class="red">401 Unauthorized</tspan></text>
+  <text class="code" x="300" y="138"><tspan class="orange">WWW-Authenticate</tspan>: Basic realm="Fake Realm"</text>
+  <path class="line" d="M800,152 H144" />
+
+  <!-- the prompt -->
+  <rect class="prompt" x="30" y="168" width="220" height="74" rx="8" />
+  <text class="small" x="140" y="184" style="fill: #ffcc00; font-size: 13px">the browser asks the user</text>
+  <rect class="field" x="44" y="198" width="92" height="30" rx="4" />
+  <text class="code" x="54" y="214" style="font-size: 14px">admin</text>
+  <rect class="field" x="144" y="198" width="92" height="30" rx="4" />
+  <text class="code" x="154" y="214" style="font-size: 14px">•••••</text>
+  <text class="small" x="280" y="205" style="text-anchor: start">base64("admin:admin") = <tspan class="cyan" style="font-family: Menlo, Consolas, monospace">YWRtaW46YWRtaW4=</tspan></text>
+
+  <!-- 3: the same request again, with credentials -->
+  <text class="num" x="118" y="292">3</text>
+  <text class="code" x="300" y="256">GET /basic-auth/admin/admin</text>
+  <text class="code" x="300" y="278"><tspan class="green">Authorization</tspan>: Basic <tspan class="cyan">YWRtaW46YWRtaW4=</tspan></text>
+  <path class="line" d="M140,292 H796" />
+
+  <!-- 4 -->
+  <text class="num" x="118" y="342">4</text>
+  <text class="code" x="300" y="328">200 OK   {"authenticated": true, "user": "admin"}</text>
+  <path class="line" d="M800,342 H144" />
+
+  <text class="label" x="300" y="372" style="font-size: 14px">From now on the browser adds Authorization to every request to this realm.</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 644">
+  <title>The life of a cached response: stored when first fetched, served fresh while younger than max-age, then revalidated with If-None-Match and a 304</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .dash { fill: none; stroke: #6b7385; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="30" y="14" width="160" height="44" rx="6" />
+  <text x="110" y="36">clients</text>
+  <rect class="box" x="370" y="14" width="160" height="44" rx="6" />
+  <text x="450" y="36">cache</text>
+  <rect class="box" x="720" y="14" width="160" height="44" rx="6" />
+  <text x="800" y="36">server</text>
+  <path class="life" d="M110,58 V624" />
+  <path class="life" d="M450,58 V624" />
+  <path class="life" d="M800,58 V624" />
+
+  <path class="dash" d="M20,84 H880" />
+  <text class="label yellow" x="24" y="102" style="font-size: 15px">t = 0 s</text>
+  <path class="line" d="M110,128 L446,128" />
+  <text class="code" x="128" y="116">GET /doc</text>
+  <text class="small" x="438" y="146" style="text-anchor: end; font-size: 14px">empty: miss</text>
+  <path class="line" d="M450,170 L796,170" />
+  <text class="code" x="468" y="158">GET /doc</text>
+  <path class="line" d="M800,246 L454,246" />
+  <text class="code" x="468" y="234">ETag: <tspan class="cyan">"v1"</tspan></text>
+  <text class="code" x="468" y="214">Cache-Control: max-age=100</text>
+  <text class="code" x="468" y="194">200 OK</text>
+  <text class="small green" x="462" y="264" style="text-anchor: start; font-size: 14px">stored · age 0</text>
+  <path class="line" d="M450,284 L114,284" />
+  <text class="code" x="128" y="272">200 OK  <tspan class="grey">Age: 0</tspan></text>
+  <path class="dash" d="M20,310 H880" />
+  <text class="label yellow" x="24" y="328" style="font-size: 15px">t = 10 s</text>
+  <path class="line" d="M110,352 L446,352" />
+  <text class="code" x="128" y="340">GET /doc</text>
+  <text class="small" x="462" y="370" style="text-anchor: start; font-size: 14px">age 10 &lt; 100: <tspan class="green">fresh</tspan></text>
+  <path class="line" d="M450,394 L114,394" />
+  <text class="code" x="128" y="382">200 OK  <tspan class="green">Age: 10</tspan></text>
+  <path class="dash" d="M20,420 H880" />
+  <text class="label yellow" x="24" y="438" style="font-size: 15px">t = 110 s</text>
+  <path class="line" d="M110,462 L446,462" />
+  <text class="code" x="128" y="450">GET /doc</text>
+  <text class="small" x="438" y="480" style="text-anchor: end; font-size: 14px">age 110 &gt; 100: <tspan class="red">stale</tspan></text>
+  <path class="line" d="M450,524 L796,524" />
+  <text class="code" x="468" y="512">If-None-Match: <tspan class="cyan">"v1"</tspan></text>
+  <text class="code" x="468" y="492">GET /doc</text>
+  <path class="line" d="M800,564 L454,564" />
+  <text class="code" x="468" y="552"><tspan class="orange">304 Not Modified</tspan></text>
+  <text class="small" x="462" y="582" style="text-anchor: start; font-size: 14px">still "v1": refreshed · age 0</text>
+  <path class="line" d="M450,606 L114,606" />
+  <text class="code" x="128" y="594">200 OK  <tspan class="grey">Age: 0</tspan></text>
+</svg>

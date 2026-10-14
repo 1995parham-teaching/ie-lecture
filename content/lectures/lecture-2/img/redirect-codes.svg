@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>The five redirect codes on two axes: permanent or temporary, and what happens to the method</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 15px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 34px; font-weight: bold; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .empty { fill: none; stroke: #8d97a8; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- column heads -->
+  <text x="450" y="30">permanent</text>
+  <text class="small" x="450" y="54">clients and caches may remember it</text>
+  <text x="740" y="30">temporary</text>
+  <text class="small" x="740" y="54">ask again next time</text>
+
+  <!-- row 1: the ambiguous pair -->
+  <text class="label yellow" x="20" y="102" style="font-size: 18px">a POST may</text>
+  <text class="label yellow" x="20" y="126" style="font-size: 18px">become GET</text>
+  <text class="label" x="20" y="152" style="font-size: 14px">for historical reasons</text>
+  <rect class="box" x="320" y="76" width="260" height="96" rx="8" />
+  <text class="code yellow" x="450" y="112">301</text>
+  <text class="small" x="450" y="150">Moved Permanently</text>
+  <rect class="box" x="610" y="76" width="260" height="96" rx="8" />
+  <text class="code yellow" x="740" y="112">302</text>
+  <text class="small" x="740" y="150">Found</text>
+
+  <!-- row 2: always GET -->
+  <text class="label green" x="20" y="212" style="font-size: 18px">always GET</text>
+  <text class="label" x="20" y="238" style="font-size: 14px">“the result is over there”</text>
+  <rect class="empty" x="320" y="182" width="260" height="96" rx="8" />
+  <text class="small grey" x="450" y="230">no permanent twin</text>
+  <rect class="box" x="610" y="182" width="260" height="96" rx="8" />
+  <text class="code green" x="740" y="218">303</text>
+  <text class="small" x="740" y="256">See Other</text>
+
+  <!-- row 3: preserved -->
+  <text class="label cyan" x="20" y="306" style="font-size: 18px">method and body</text>
+  <text class="label cyan" x="20" y="330" style="font-size: 18px">kept as they were</text>
+  <text class="label" x="20" y="356" style="font-size: 14px">a POST is sent again as a POST</text>
+  <rect class="box" x="320" y="288" width="260" height="96" rx="8" />
+  <text class="code cyan" x="450" y="324">308</text>
+  <text class="small" x="450" y="362">Permanent Redirect</text>
+  <rect class="box" x="610" y="288" width="260" height="96" rx="8" />
+  <text class="code cyan" x="740" y="324">307</text>
+  <text class="small" x="740" y="362">Temporary Redirect</text>
+</svg>

@@ -124,6 +124,68 @@ strips the `ETag`, so it cannot be used for a 304 demo.
   are 11 characters** — keep any replacement the same length or re-capture.
 - Three `height="500px"` / `height="400px"` attributes remain; dimension
   attributes take a bare integer.
-- `diag/reverse-proxy.drawio` is the source for the proxy diagram.
+- `diag/reverse-proxy.drawio` is the source for `img/reverse-proxy.png`.
 - The `QUERY` slides claim framework support is thin (Node.js parses it, OpenAPI
   3.2 documents it). That ages fast — re-check before teaching it.
+
+## Diagrams
+
+Hand-written SVGs in `img/`, drawn for the league background (see the root
+`CLAUDE.md`). Only `reverse-proxy.png` has a draw.io source. No slide was added
+for any of them — each replaced an image or a list in place, so every `#/N/M`
+stayed where it was.
+
+| File                        | Slide                                                     |
+| --------------------------- | --------------------------------------------------------- |
+| `url-anatomy.svg`           | URL — the parts, and what reaches the server              |
+| `url-in-action.svg`         | URL in Action (2nd) — DNS, handshake, request, close      |
+| `message-structure.svg`     | HTTP Messages — start line, headers, empty line, body     |
+| `redirect-codes.svg`        | The Shape of It — 301/302/303/307/308 on two axes         |
+| `cookie-flow.svg`           | Solution of Stateless Problem — Set-Cookie then Cookie    |
+| `forward-reverse-proxy.svg` | Reverse Proxies — who each kind works for                 |
+| `cache-types.svg`           | Caching (2nd) — no cache, shared, private: 4 / 1 / 2 hits |
+| `cache-staleness.svg`       | Caching Algorithm (Cont.) — fresh, stale, 304             |
+| `auth-challenge.svg`        | HTTP Authentication — 401, prompt, Authorization          |
+| `jwt-anatomy.svg`           | JWT — header, payload, signature                          |
+| `tls13-handshake.svg`       | Security (2nd) — the TLS 1.3 handshake                    |
+
+How the facts were checked:
+
+- `url-anatomy.svg`: the parts come from `new URL()` in Node. The request box
+  is what curl sent to a local server for the same URL (`user:pass` became
+  `Authorization: Basic dXNlcjpwYXNz`); Chrome sent the same request line
+  without it. Neither sent `#intro`.
+- `url-in-action.svg` and `message-structure.svg` are drawn from the tcpdump
+  capture on the URL in Action slides: the packet numbers, 85 and 224 bytes, the
+  283 ms between packets 5 and 6, and the 98-byte body. The 85 is 26 + 20 + 24 +
+  13 + 2. If that capture is redone, redraw both.
+- `cookie-flow.svg` is a fresh capture of the httpbin exchange (October 2026,
+  same headers as the Cookies in Action slide). The `Cookie` order
+  `name=parham; family=alvani` is what headless Chrome sent; curl sends them
+  the other way round.
+- `redirect-codes.svg` follows RFC 9110 §15.4. It replaced `3xx.png`, which put
+  301 under "do a GET? yes" and left 302 out.
+- `cache-staleness.svg` redraws the old MDN `staleness.png` (max-age 100, ages
+  0 / 10 / 110), with an explicit `ETag` so the `If-None-Match` has something to
+  match.
+- `auth-challenge.svg` is a fresh httpbin capture: `401` with
+  `WWW-Authenticate: Basic realm="Fake Realm"`, and `base64 admin:admin` is
+  `YWRtaW46YWRtaW4=`.
+- `jwt-anatomy.svg` decodes the Sample Token slide in Node; its HS256 signature
+  verifies with the secret `your-256-bit-secret`. Change the token and redo both.
+- `tls13-handshake.svg` lists the messages `openssl s_client -tls1_3 -msg`
+  logged against `example.com` (key exchange `X25519MLKEM768`). It replaced
+  `ssl.jpg`, which drew RSA key transport — the client encrypting a session key
+  with the server's public key — and TLS 1.3 no longer has that.
+
+Removed with the redraw: `message-structure.jpg`, `3xx.png`,
+`http-cache-types.png` (its shared-cache box was labelled "Browser 1"),
+`staleness.png`, `ssl.jpg`. Still screenshots or third-party images:
+`http-transactions.png`, `http2-transactions.png`, `proxy.png`, `cookies.png`,
+`sub-domain-cookies.png`, `csrf-attack.png`, `basic-auth-in-action.png`, the
+three `moodle-*.png`, `noodle.png`.
+
+The Digest slide's formula was `MD5(HA1:nonce:HA2)`, which is the form
+**without** `qop`; the header under it has `qop=auth`, and its `response` value
+`6629fae4…` is `MD5(HA1:nonce:nc:cnonce:qop:HA2)` (checked in Node with the RFC
+2617 password `Circle Of Life`). The formula now says so.

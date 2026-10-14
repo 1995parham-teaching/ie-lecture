@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <title>Fetching http://ce.aut.ac.ir/~students/ with curl: DNS lookup, TCP handshake, one HTTP request and response, then the close</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 13px; fill: #8d97a8; text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" /></marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#00e5ff" /></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff9100" /></marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#76ff03" /></marker>
+  </defs>
+
+  <rect class="box" x="100" y="14" width="180" height="56" rx="6" />
+  <text x="190" y="34">curl</text>
+  <text class="small mono" x="190" y="56" style="font-size: 12px">172.19.0.1:56520</text>
+  <rect class="box" x="400" y="14" width="160" height="56" rx="6" />
+  <text x="480" y="34">DNS resolver</text>
+  <text class="small" x="480" y="56" style="font-size: 12px">before packet 1</text>
+  <rect class="box" x="700" y="14" width="180" height="56" rx="6" />
+  <text x="790" y="34">ce.aut.ac.ir</text>
+  <text class="small mono" x="790" y="56" style="font-size: 12px">185.211.88.131:80</text>
+
+  <path class="life" d="M190,72 V552" />
+  <path class="life" d="M480,72 V160" />
+  <path class="life" d="M790,72 V552" />
+
+  <text class="label" x="14" y="125" style="font-size: 14px">DNS</text>
+  <text class="label" x="14" y="222" style="font-size: 14px">TCP</text>
+  <text class="label" x="14" y="240" style="font-size: 14px">handshake</text>
+  <text class="label" x="14" y="347" style="font-size: 14px">HTTP</text>
+  <text class="label" x="14" y="487" style="font-size: 14px">close</text>
+  <path class="brace" d="M100,172 h-8 v90 h8" />
+  <path class="brace" d="M100,282 h-8 v120 h8" />
+  <path class="brace" d="M100,422 h-8 v120 h8" />
+
+  <path d="M190,110 L476,110" style="fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 6 5;" marker-end="url(#arrow-cyan)" />
+  <text class="mono cyan" x="335" y="99" style="font-size: 14px">A?  ce.aut.ac.ir</text>
+  <path d="M480,140 L194,140" style="fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 6 5;" marker-end="url(#arrow-cyan)" />
+  <text class="mono cyan" x="335" y="129" style="font-size: 14px">185.211.88.131</text>
+  <path d="M190,192 L786,192" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="181" style="font-size: 14px">SYN</text>
+  <text class="num" x="166" y="192">1</text>
+  <path d="M790,222 L194,222" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="211" style="font-size: 14px">SYN, ACK</text>
+  <text class="num" x="166" y="222">2</text>
+  <path d="M190,252 L786,252" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="241" style="font-size: 14px">ACK</text>
+  <text class="num" x="166" y="252">3</text>
+  <path d="M190,302 L786,302" style="fill: none; stroke: #ff9100; stroke-width: 2;" marker-end="url(#arrow-orange)" />
+  <text class="mono orange" x="490" y="291" style="font-size: 15px">GET /~students/ HTTP/1.1   (85 bytes)</text>
+  <text class="num" x="166" y="302">4</text>
+  <path d="M790,332 L194,332" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="321" style="font-size: 14px">ACK</text>
+  <text class="num" x="166" y="332">5</text>
+  <path d="M790,362 L194,362" style="fill: none; stroke: #76ff03; stroke-width: 2;" marker-end="url(#arrow-green)" />
+  <text class="mono green" x="490" y="351" style="font-size: 15px">HTTP/1.1 301 Moved Permanently   (224 bytes)</text>
+  <text class="num" x="166" y="362">6</text>
+  <path d="M190,392 L786,392" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="381" style="font-size: 14px">ACK</text>
+  <text class="num" x="166" y="392">7</text>
+  <path d="M190,442 L786,442" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="431" style="font-size: 14px">FIN</text>
+  <text class="num" x="166" y="442">8</text>
+  <path d="M790,472 L194,472" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="461" style="font-size: 14px">ACK</text>
+  <text class="num" x="166" y="472">9</text>
+  <path d="M790,502 L194,502" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="491" style="font-size: 14px">FIN</text>
+  <text class="num" x="166" y="502">10</text>
+  <path d="M190,532 L786,532" style="fill: none; stroke: #cfd3da; stroke-width: 2;" marker-end="url(#arrow)" />
+  <text class="mono" x="490" y="521" style="font-size: 14px">ACK</text>
+  <text class="num" x="166" y="532">11</text>
+
+  <text class="small" x="804" y="332" style="text-anchor: start; font-size: 13px">283 ms</text>
+  <text class="small" x="804" y="348" style="text-anchor: start; font-size: 13px">thinking</text>
+
+  <text class="label" x="14" y="580" style="font-size: 13px">Numbers are the tcpdump packet numbers on the next slides. The DNS lookup came first and is not in that capture.</text>
+</svg>

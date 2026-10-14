@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 545">
+  <title>The TLS 1.3 handshake with example.com: one round trip agrees a key, proves the server's identity, and then HTTP travels encrypted</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .secret { fill: rgba(0, 229, 255, 0.07); stroke: #00e5ff; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="70" y="14" width="160" height="44" rx="6" />
+  <text x="150" y="36">client</text>
+  <rect class="box" x="670" y="14" width="160" height="44" rx="6" />
+  <text x="750" y="36">example.com</text>
+
+  <!-- the encrypted part of the conversation -->
+  <rect class="secret" x="140" y="198" width="620" height="290" rx="6" />
+  <text class="small cyan" x="740" y="214" style="text-anchor: end; font-size: 13px" dx="-16">encrypted with the new key</text>
+
+  <path class="life" d="M150,58 V500" />
+  <path class="life" d="M750,58 V500" />
+
+  <!-- client hello -->
+  <text class="code" x="190" y="78"><tspan class="orange">ClientHello</tspan></text>
+  <text class="small" x="190" y="100" style="text-anchor: start">versions, ciphers, <tspan class="yellow">key_share</tspan>, SNI <tspan class="red">example.com</tspan></text>
+  <path class="line" d="M150,116 H746" />
+
+  <!-- server hello -->
+  <text class="code" x="190" y="142"><tspan class="orange">ServerHello</tspan></text>
+  <text class="small" x="190" y="164" style="text-anchor: start">its own <tspan class="yellow">key_share</tspan> — both sides now compute the same key</text>
+  <path class="line" d="M750,180 H154" />
+
+  <!-- the rest of the server flight -->
+  <text class="code" x="190" y="236">EncryptedExtensions</text>
+  <text class="code" x="190" y="258"><tspan class="green">Certificate</tspan> <tspan class="grey" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px">who I am, signed by a CA</tspan></text>
+  <text class="code" x="190" y="280"><tspan class="green">CertificateVerify</tspan> <tspan class="grey" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px">proof I hold that certificate's key</tspan></text>
+  <text class="code" x="190" y="302">Finished</text>
+  <path class="line" d="M750,318 H154" />
+
+  <text class="code" x="190" y="352">Finished</text>
+  <path class="line" d="M150,366 H746" />
+
+  <!-- application data -->
+  <text class="code" x="190" y="404"><tspan class="cyan">GET / HTTP/1.1</tspan> <tspan class="grey" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px">sent as record type 0x17, unreadable on the wire</tspan></text>
+  <path class="line" d="M150,420 H746" />
+  <text class="code" x="190" y="452"><tspan class="cyan">HTTP/1.1 200 OK</tspan></text>
+  <path class="line" d="M750,468 H154" />
+
+  <!-- round trip brace -->
+  <path class="brace" d="M792,116 h10 v202 h-10" />
+  <text class="small" x="812" y="198" style="text-anchor: start">1 round trip</text>
+  <text class="small" x="812" y="218" style="text-anchor: start">before the</text>
+  <text class="small" x="812" y="238" style="text-anchor: start">request</text>
+
+  <text class="label" x="20" y="148" style="font-size: 13px">in the</text>
+  <text class="label" x="20" y="166" style="font-size: 13px">clear</text>
+  <text class="label" x="20" y="320" style="font-size: 13px">sealed</text>
+
+  <text class="label" x="20" y="512" style="font-size: 13px">Handshake messages as openssl s_client -tls1_3 -msg logged them against example.com (key exchange X25519MLKEM768).</text>
+  <text class="label" x="20" y="532" style="font-size: 13px">Every sealed record is type 0x17, as on the Port 443 slide. ChangeCipherSpec, sent only for middlebox compatibility, is left out.</text>
+</svg>

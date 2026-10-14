@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430">
+  <title>A forward proxy sits with the clients and speaks for them; a reverse proxy sits with the servers and speaks for them</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .proxy { fill: rgba(255, 255, 255, 0.06); stroke-width: 2.5; }
+    .zone { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .net { fill: rgba(255, 255, 255, 0.03); stroke: #8d97a8; stroke-width: 1.5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- forward proxy -->
+  <text class="label orange" x="20" y="22" style="font-size: 18px">Forward proxy — works for the clients</text>
+  <rect class="zone" x="20" y="40" width="370" height="150" rx="10" />
+  <text class="small" x="205" y="176">your company, your school</text>
+  <rect class="box" x="40" y="56" width="110" height="44" rx="6" />
+  <text x="95" y="78">client</text>
+  <rect class="box" x="40" y="118" width="110" height="44" rx="6" />
+  <text x="95" y="140">client</text>
+  <rect class="proxy" x="230" y="80" width="140" height="56" rx="8" style="stroke: #ff9100" />
+  <text class="orange" x="300" y="108">proxy</text>
+  <path class="line" d="M152,78 L226,100" />
+  <path class="line" d="M152,140 L226,118" />
+
+  <ellipse class="net" cx="530" cy="108" rx="80" ry="40" />
+  <text class="small" x="530" y="108">Internet</text>
+  <path class="line" d="M372,108 L446,108" />
+
+  <rect class="box" x="700" y="56" width="180" height="44" rx="6" />
+  <text x="790" y="78">any server</text>
+  <rect class="box" x="700" y="118" width="180" height="44" rx="6" />
+  <text x="790" y="140">any server</text>
+  <path class="line" d="M612,100 L696,80" />
+  <path class="line" d="M612,116 L696,138" />
+  <text class="small" x="790" y="182">sees only the proxy</text>
+
+  <!-- reverse proxy -->
+  <text class="label green" x="20" y="232" style="font-size: 18px">Reverse proxy — works for the servers</text>
+  <rect class="box" x="20" y="266" width="110" height="44" rx="6" />
+  <text x="75" y="288">client</text>
+  <rect class="box" x="20" y="328" width="110" height="44" rx="6" />
+  <text x="75" y="350">client</text>
+  <text class="small" x="75" y="392">sees only the proxy</text>
+
+  <ellipse class="net" cx="270" cy="318" rx="80" ry="40" />
+  <text class="small" x="270" y="318">Internet</text>
+  <path class="line" d="M132,288 L190,308" />
+  <path class="line" d="M132,350 L190,328" />
+
+  <rect class="zone" x="400" y="250" width="480" height="164" rx="10" />
+  <text class="small" x="640" y="400">one site: example.com</text>
+  <path class="line" d="M352,318 L426,318" />
+  <rect class="proxy" x="430" y="290" width="150" height="56" rx="8" style="stroke: #76ff03" />
+  <text class="green" x="505" y="318">reverse proxy</text>
+  <rect class="box" x="700" y="262" width="160" height="40" rx="6" />
+  <text x="780" y="282">app server 1</text>
+  <rect class="box" x="700" y="312" width="160" height="40" rx="6" />
+  <text x="780" y="332">app server 2</text>
+  <rect class="box" x="700" y="356" width="160" height="34" rx="6" />
+  <text class="small" x="780" y="373">static files</text>
+  <path class="line" d="M582,308 L696,282" />
+  <path class="line" d="M582,320 L696,332" />
+  <path class="line" d="M582,332 L696,370" />
+</svg>

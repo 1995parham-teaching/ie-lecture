@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460">
+  <title>Two browsers each ask for the same file twice: without a cache all four requests reach the server, with a shared cache one does, with private caches two do</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .proxy { fill: rgba(255, 255, 255, 0.06); stroke: #76ff03; stroke-width: 2.5; }
+    .proxyc { fill: rgba(255, 255, 255, 0.06); stroke: #00e5ff; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="label red" x="20" y="28" style="font-size: 17px">no cache</text>
+  <rect class="box" x="20" y="46" width="120" height="40" rx="6" />
+  <text class="" x="80" y="66" style="font-size: 17px">browser 1</text>
+  <rect class="box" x="20" y="96" width="120" height="40" rx="6" />
+  <text class="" x="80" y="116" style="font-size: 17px">browser 2</text>
+  <rect class="box" x="590" y="66" width="130" height="48" rx="6" />
+  <text class="" x="655" y="90" style="font-size: 18px">server</text>
+  <path class="line" d="M142,63 L586,79" />
+  <path class="line" d="M142,69 L586,85" />
+  <path class="line" d="M142,113 L586,95" />
+  <path class="line" d="M142,119 L586,101" />
+  <text class="red" x="750" y="78" style="text-anchor: start; font-size: 26px; font-weight: bold">4 of 4</text>
+  <text class="small" x="750" y="106" style="text-anchor: start; font-size: 13px">reach the server</text>
+  <text class="small" x="300" y="28" style="text-anchor: start; font-size: 14px">every request travels to the server</text>
+  <path class="dash" d="M20,152 H880" />
+  <text class="label green" x="20" y="168" style="font-size: 17px">shared cache</text>
+  <rect class="box" x="20" y="186" width="120" height="40" rx="6" />
+  <text class="" x="80" y="206" style="font-size: 17px">browser 1</text>
+  <rect class="box" x="20" y="236" width="120" height="40" rx="6" />
+  <text class="" x="80" y="256" style="font-size: 17px">browser 2</text>
+  <rect class="box" x="590" y="206" width="130" height="48" rx="6" />
+  <text class="" x="655" y="230" style="font-size: 18px">server</text>
+  <rect class="proxy" x="300" y="206" width="170" height="48" rx="6" />
+  <text class="green" x="385" y="230" style="font-size: 17px">proxy / CDN</text>
+  <path class="line" d="M142,203 L296,219" />
+  <path class="line" d="M142,209 L296,225" />
+  <path class="line" d="M142,253 L296,235" />
+  <path class="line" d="M142,259 L296,241" />
+  <path class="line" d="M472,230 L586,230" />
+  <text class="green" x="750" y="218" style="text-anchor: start; font-size: 26px; font-weight: bold">1 of 4</text>
+  <text class="small" x="750" y="246" style="text-anchor: start; font-size: 13px">reach the server</text>
+  <text class="small" x="300" y="168" style="text-anchor: start; font-size: 14px">one copy serves every client</text>
+  <path class="dash" d="M20,292 H880" />
+  <text class="label cyan" x="20" y="308" style="font-size: 17px">private cache</text>
+  <rect class="box" x="20" y="326" width="120" height="40" rx="6" />
+  <text class="" x="80" y="346" style="font-size: 17px">browser 1</text>
+  <rect class="box" x="20" y="376" width="120" height="40" rx="6" />
+  <text class="" x="80" y="396" style="font-size: 17px">browser 2</text>
+  <rect class="box" x="590" y="346" width="130" height="48" rx="6" />
+  <text class="" x="655" y="370" style="font-size: 18px">server</text>
+  <rect class="proxyc" x="150" y="326" width="90" height="40" rx="6" />
+  <text class="cyan" x="195" y="346" style="font-size: 15px">cache</text>
+  <rect class="proxyc" x="150" y="376" width="90" height="40" rx="6" />
+  <text class="cyan" x="195" y="396" style="font-size: 15px">cache</text>
+  <path class="line" d="M242,346 L586,362" />
+  <path class="line" d="M242,396 L586,378" />
+  <text class="cyan" x="750" y="358" style="text-anchor: start; font-size: 26px; font-weight: bold">2 of 4</text>
+  <text class="small" x="750" y="386" style="text-anchor: start; font-size: 13px">reach the server</text>
+  <text class="small" x="300" y="308" style="text-anchor: start; font-size: 14px">each browser asks once; the repeat is never sent</text>
+
+  <text class="label" x="20" y="446" style="font-size: 14px">Each browser asks for the same file twice, while the copy is still fresh.</text>
+</svg>

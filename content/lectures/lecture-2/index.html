@@ -134,23 +134,16 @@ topics:
 </section>
 <section>
   <h2>URL</h2>
-  <div class="box">
-    <p>
-      <span class="hl-orange">&lt;protocol(scheme)&gt;</span>
-      :// &lt;user&gt; : &lt;pass&gt; @ &lt;host&gt; : &lt; port&gt; /
-      <span class="hl-green">&lt;path&gt;</span> ?
-      <span class="hl-cyan">&lt;query&gt;</span> #
-      <span class="hl-red">&lt;frag&gt;</span>
-    </p>
-  </div>
+  <img
+    src="./img/url-anatomy.svg"
+    alt="The URL https://user:pass@example.com:8443/ie/index.html?name=Parham#intro split into scheme, user info, host, port, path, query and fragment. What reaches the server is GET /ie/index.html?name=Parham HTTP/1.1 with Host example.com:8443 and the user info as an Authorization header; the fragment #intro is never sent"
+    width="900"
+  />
   <ul>
-    <li>https://aut.ac.ir/page/1/AUT</li>
     <li>
-      https://www.bing.com/search?q=Hello+World&amp;form=QBLH&amp;sp=-1&amp;pq=&amp;sc=0-0&amp;qs=n&amp;sk=&amp;cvid=7F2B496642F94D5F95989756B4FF60EE
+      https://aut.ac.ir/page/1/AUT · file:///home/parham/dotfiles ·
+      ftp://speedtest.tele2.net
     </li>
-    <li>file:///home/parham/Documents/Git/parham/dotfiles</li>
-    <li>https://archive.org/details/texts</li>
-    <li>ftp://speedtest.tele2.net</li>
   </ul>
 </section>
 <section>
@@ -305,13 +298,15 @@ topics:
     </ul>
   </section>
   <section>
-    <ul>
-      <li>
-        Browser creates a TCP connection to the IP address and the &lt;port&gt;
-      </li>
-      <li>Browser sends http requests through the connection</li>
-      <li>Browser gets the response and processes it</li>
-    </ul>
+    <img
+      src="./img/url-in-action.svg"
+      alt="curl fetching http://ce.aut.ac.ir/~students/: a DNS lookup returns 185.211.88.131, then packets 1 to 3 are the TCP handshake SYN, SYN-ACK, ACK; packet 4 is the 85-byte GET /~students/ request, 5 its ACK, 6 the 224-byte 301 Moved Permanently response 283 ms later, 7 its ACK; packets 8 to 11 are FIN, ACK, FIN, ACK closing the connection"
+      width="800"
+    />
+    <p>
+      Then it opens a TCP connection to that IP and port, sends the request, and
+      reads the response.
+    </p>
   </section>
 </section>
 <section>
@@ -496,9 +491,9 @@ sudo tcpdump --interface utun5 --number -n -v 'port 80 and host 185.211.88.131'
     </ul>
   </ul>
   <img
-    src="./img/message-structure.jpg"
-    alt="message-structure"
-    height="400px"
+    src="./img/message-structure.svg"
+    alt="The captured request GET /~students/ HTTP/1.1 with Host, User-Agent and Accept headers, next to the response HTTP/1.1 301 Moved Permanently with Location, Content-Length 98 and Content-Type headers. Each has a start line, header fields, an empty line, and a body; every line ends in CR LF. The request has no body, the response body is 98 bytes"
+    width="900"
   />
 </section>
 <section>
@@ -1109,9 +1104,9 @@ Content-Length: 107
       </p>
     </div>
     <img
-      src="./img/3xx.png"
-      alt="the 3xx family, grouped by whether the method is preserved"
-      style="max-height: 55vh; width: auto; display: block; margin: 0.6em auto"
+      src="./img/redirect-codes.svg"
+      alt="The five redirect codes in a grid. Permanent: 301, where a POST may become GET for historical reasons, and 308, where method and body are kept. Temporary: 302, where a POST may become GET; 303, always GET; and 307, where method and body are kept. 303 has no permanent twin"
+      width="820"
     />
   </section>
   <section>
@@ -2063,40 +2058,16 @@ socket.close(1000, 'Normal closure');
 <section>
   <section>
     <h2>Solution of Stateless Problem: Cookie [RFC 6265]</h2>
-    <ul>
-      <li>
-        Cookie: are information (e.g. unique identifiers) sent by server to user
-        (browser) which are returned back to server
-      </li>
-      <li>How it works</li>
-      <ul>
-        <li>Server asks client to remember the information</li>
-        <ul>
-          <li>
-            <span class="hl-orange">Set-Cookie</span> header in response message
-          </li>
-          <li>
-            <span class="hl-orange">Set-Cookie</span>:
-            <span class="hl-green">&lt;cookie-name&gt;</span>=
-            <span class="hl-cyan">&lt;cookie-value&gt;</span>
-          </li>
-        </ul>
-        <li>Client gives back the information to server in every request</li>
-        <ul>
-          <li>
-            <span class="hl-green">Cookie</span> header in request messages
-          </li>
-          <li>
-            <span class="hl-green">Cookie</span>:
-            <span class="hl-yellow">&lt;cookie-name&gt;</span>=
-            <span class="hl-cyan">&lt;cookie-value&gt;</span>;
-            <span class="hl-yellow">&lt;cookie-name&gt;</span>=
-            <span class="hl-cyan">&lt;cookie-value&gt;</span>
-          </li>
-        </ul>
-        <li>Server customizes responses according to the cookie</li>
-      </ul>
-    </ul>
+    <p>
+      The server asks the browser to remember a value with
+      <span class="hl-orange">Set-Cookie</span>; the browser hands it back on
+      every later request with <span class="hl-green">Cookie</span>.
+    </p>
+    <img
+      src="./img/cookie-flow.svg"
+      alt="The browser requests /cookies/set?name=parham&amp;family=alvani. httpbin.org answers 302 Found with Location /cookies and two Set-Cookie headers, name=parham and family=alvani, both Path=/. The browser stores both in its cookie jar for httpbin.org, follows the redirect, and sends GET /cookies with Cookie: name=parham; family=alvani. The server answers 200 OK with the two cookies in JSON"
+      width="860"
+    />
   </section>
   <section>
     <h2>Two Kinds, One Difference: Lifetime</h2>
@@ -2721,23 +2692,15 @@ Host: example.com:443
   </section>
   <section>
     <h2>Reverse Proxies</h2>
-    <ul>
-      <li>
-        As the name implies, a reverse proxy does the
-        <span class="hl-red">opposite</span> of what a forward proxy does:
-      </li>
-      <li>
-        A forward proxy acts in
-        <span class="hl-orange">behalf of clients</span> (or requesting hosts),
-        a reverse proxy acts in <span class="hl-green">behalf of servers</span>.
-      </li>
-      <li>
-        Forward proxies can hide the
-        <span class="hl-yellow">identities of clients</span> whereas reverse
-        proxies can hide the
-        <span class="hl-violet">identities of servers</span>.
-      </li>
-    </ul>
+    <img
+      src="./img/forward-reverse-proxy.svg"
+      alt="Top: a forward proxy inside a company network takes requests from its clients and sends them over the Internet to any server, which sees only the proxy. Bottom: clients cross the Internet to a reverse proxy at the front of one site, which passes requests to app server 1, app server 2 or static files; the clients see only the proxy"
+      width="860"
+    />
+    <p>
+      A forward proxy hides the <span class="hl-yellow">clients</span>; a
+      reverse proxy hides the <span class="hl-violet">servers</span>.
+    </p>
   </section>
   <section>
     <ul>
@@ -2842,9 +2805,9 @@ X-Forwarded-Proto: https
   </section>
   <section>
     <img
-      src="./img/http-cache-types.png"
-      style="background-color: white"
-      alt="browser cache, proxy cache and gateway cache along one request path"
+      src="./img/cache-types.svg"
+      alt="Two browsers each ask for the same file twice. With no cache all 4 requests reach the server. With a shared cache, a proxy or CDN, only 1 of 4 does. With a private cache in each browser, 2 of 4 do, because each browser's repeat is never sent"
+      width="880"
     />
   </section>
 </section>
@@ -2950,9 +2913,9 @@ Cache-Control: no-cache
   </section>
   <section>
     <img
-      src="./img/staleness.png"
-      style="background-color: white; height: 88vh"
-      alt="the life of a cached response: fresh, then stale, then revalidated"
+      src="./img/cache-staleness.svg"
+      alt="At 0 seconds the cache is empty, forwards GET /doc, and stores the 200 OK with Cache-Control max-age=100 and ETag v1, answering with Age 0. At 10 seconds the copy is fresh and the cache answers by itself with Age 10. At 110 seconds the copy is stale, so the cache asks the server with If-None-Match v1, gets 304 Not Modified, refreshes the copy and answers with Age 0"
+      height="620"
     />
   </section>
   <section>
@@ -3131,22 +3094,12 @@ ETag: abc
       </li>
       <li>Digest: Plain username + Digest of pass</li>
     </ul>
-    <li>Steps are the same</li>
-    <ul>
-      <ol>
-        <li>Client-side app (browser) request resource from server</li>
-        <li>Server refuses with 401 Unauthorized</li>
-        <li>Client-side app ask Username &amp; Password from user</li>
-        <li>Client send Username &amp; Password to server</li>
-        <li>Server authenticates and allows.</li>
-      </ol>
-      <li>
-        Authentication information are sent by
-        <strong class="hl-green">every</strong> request until end of current
-        session
-      </li>
-    </ul>
   </ul>
+  <img
+    src="./img/auth-challenge.svg"
+    alt="The browser asks httpbin.org for /basic-auth/admin/admin and gets 401 Unauthorized with WWW-Authenticate: Basic realm=Fake Realm. It asks the user for a name and password, admin and admin, and repeats the request with Authorization: Basic YWRtaW46YWRtaW4=, the base64 of admin:admin. The server answers 200 OK. From then on every request to that realm carries the Authorization header"
+    width="820"
+  />
 </section>
 <section>
   <section>
@@ -3253,7 +3206,7 @@ WWW-Authenticate: Digest realm="testrealm@host.com",
       <pre><code class="plaintext">
 HA1 = MD5(username:realm:password)
 HA2 = MD5(method:digestURI)
-response = MD5(HA1:nonce:HA2)
+response = MD5(HA1:nonce:nc:cnonce:qop:HA2)
       </code></pre>
       <pre><code class="language-http">
 Authorization: Digest username="Mufasa",
@@ -3461,6 +3414,11 @@ unknown session
         securely between two parties.
       </li>
     </ul>
+    <img
+      src="./img/jwt-anatomy.svg"
+      alt="A JWT is three base64url parts joined by dots. The header decodes to alg HS256, typ JWT. The payload decodes to the claims sub, name Parham Alvani, iat and project. The signature is HMAC-SHA256 of header dot payload with a secret. Header and payload are only encoded, so anyone can read them; only the signature needs the secret"
+      width="860"
+    />
   </section>
   <section>
     <h2>Sample Token</h2>
@@ -3522,9 +3480,9 @@ gWWHu5Ps_F6lbqJRBXkNjEk_-0QdLhN9l2MNjWOcj90
   </section>
   <section>
     <img
-      src="./img/ssl.jpg"
-      style="height: 65vh"
-      alt="HTTP carried inside an encrypted TLS tunnel"
+      src="./img/tls13-handshake.svg"
+      alt="The TLS 1.3 handshake. The client sends ClientHello with versions, ciphers, a key share and the SNI example.com, in the clear. The server answers ServerHello with its own key share, and both sides compute the same key. Encrypted from then on: EncryptedExtensions, Certificate, CertificateVerify and Finished from the server, Finished from the client, then the HTTP request and response as application data records. One round trip before the request"
+      style="height: 80vh; width: auto"
     />
   </section>
   <section class="hands-on">

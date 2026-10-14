@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>The server sets two cookies with Set-Cookie, the browser stores them and sends them back with Cookie on the next request</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .code { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; text-anchor: start; }
+    .num { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 14px; fill: #8d97a8; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .jar { fill: rgba(255, 145, 0, 0.08); stroke: #ff9100; stroke-width: 2; }
+    .life { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 3 6; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="60" y="14" width="160" height="44" rx="6" />
+  <text x="140" y="36">Browser</text>
+  <rect class="box" x="720" y="14" width="160" height="44" rx="6" />
+  <text x="800" y="36">httpbin.org</text>
+  <path class="life" d="M140,58 V232 M140,316 V450" />
+  <path class="life" d="M800,58 V450" />
+
+  <!-- 1: the first request -->
+  <text class="num" x="118" y="96">1</text>
+  <text class="code" x="160" y="86">GET /cookies/set?name=parham&amp;family=alvani</text>
+  <path class="line" d="M140,100 H796" />
+
+  <!-- 2: the server asks the browser to remember -->
+  <text class="num" x="118" y="214">2</text>
+  <text class="code" x="300" y="128">HTTP/1.1 302 FOUND</text>
+  <text class="code" x="300" y="150"><tspan class="grey">Location: /cookies</tspan></text>
+  <text class="code" x="300" y="172"><tspan class="orange">Set-Cookie</tspan>: <tspan class="yellow">name</tspan>=<tspan class="cyan">parham</tspan>; Path=/</text>
+  <text class="code" x="300" y="194"><tspan class="orange">Set-Cookie</tspan>: <tspan class="yellow">family</tspan>=<tspan class="cyan">alvani</tspan>; Path=/</text>
+  <path class="line" d="M800,214 H144" />
+
+  <!-- the jar -->
+  <rect class="jar" x="20" y="232" width="250" height="84" rx="8" />
+  <text class="small" x="145" y="250" style="fill: #ff9100">cookie jar · httpbin.org · /</text>
+  <text class="code" x="40" y="276"><tspan class="yellow">name</tspan>=<tspan class="cyan">parham</tspan></text>
+  <text class="code" x="40" y="300"><tspan class="yellow">family</tspan>=<tspan class="cyan">alvani</tspan></text>
+  <text class="small" x="290" y="274" style="text-anchor: start">the browser stores them and follows Location</text>
+
+  <!-- 3: every later request carries them back -->
+  <text class="num" x="118" y="366">3</text>
+  <text class="code" x="300" y="334">GET /cookies</text>
+  <text class="code" x="300" y="356"><tspan class="green">Cookie</tspan>: <tspan class="yellow">name</tspan>=<tspan class="cyan">parham</tspan>; <tspan class="yellow">family</tspan>=<tspan class="cyan">alvani</tspan></text>
+  <path class="line" d="M140,370 H796" />
+
+  <!-- 4: the server now knows who this is -->
+  <text class="num" x="118" y="430">4</text>
+  <text class="code" x="200" y="408" style="font-size: 14px">200 OK   {"cookies": {"family": "alvani", "name": "parham"}}</text>
+  <path class="line" d="M800,430 H144" />
+</svg>

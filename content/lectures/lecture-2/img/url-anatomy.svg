@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <title>The parts of a URL, and which of them reach the server</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 14px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .url { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 20px; text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .lead { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- the URL, one piece per <text> so each brace lines up whatever the font -->
+  <text class="url orange" x="54" y="40" textLength="60" lengthAdjust="spacingAndGlyphs">https</text>
+  <text class="url grey" x="114" y="40" textLength="36" lengthAdjust="spacingAndGlyphs">://</text>
+  <text class="url grey" x="150" y="40" textLength="108" lengthAdjust="spacingAndGlyphs">user:pass</text>
+  <text class="url grey" x="258" y="40" textLength="12" lengthAdjust="spacingAndGlyphs">@</text>
+  <text class="url yellow" x="270" y="40" textLength="132" lengthAdjust="spacingAndGlyphs">example.com</text>
+  <text class="url grey" x="402" y="40" textLength="12" lengthAdjust="spacingAndGlyphs">:</text>
+  <text class="url violet" x="414" y="40" textLength="48" lengthAdjust="spacingAndGlyphs">8443</text>
+  <text class="url green" x="462" y="40" textLength="168" lengthAdjust="spacingAndGlyphs">/ie/index.html</text>
+  <text class="url cyan" x="630" y="40" textLength="144" lengthAdjust="spacingAndGlyphs">?name=Parham</text>
+  <text class="url red" x="774" y="40" textLength="72" lengthAdjust="spacingAndGlyphs">#intro</text>
+
+  <!-- braces -->
+  <path class="brace" d="M56,58 v8 h56 v-8 M84,66 v14" />
+  <path class="brace" d="M152,58 v8 h104 v-8 M204,66 v56" />
+  <path class="brace" d="M272,58 v8 h128 v-8 M336,66 v14" />
+  <path class="brace" d="M416,58 v8 h44 v-8 M438,66 v56" />
+  <path class="brace" d="M464,58 v8 h164 v-8 M546,66 v14" />
+  <path class="brace" d="M632,58 v8 h140 v-8 M702,66 v56" />
+  <path class="brace" d="M776,58 v8 h68 v-8 M810,66 v14" />
+
+  <!-- upper row of labels -->
+  <text class="orange" x="84" y="96" style="font-size: 17px">scheme</text>
+  <text class="small" x="84" y="116">which protocol</text>
+  <text class="yellow" x="336" y="96" style="font-size: 17px">host</text>
+  <text class="small" x="336" y="116">DNS turns it into an IP</text>
+  <text class="green" x="546" y="96" style="font-size: 17px">path</text>
+  <text class="small" x="546" y="116">which resource</text>
+  <text class="red" x="810" y="96" style="font-size: 17px">fragment</text>
+  <text class="small" x="810" y="116">a spot in the page</text>
+
+  <!-- lower row of labels -->
+  <text class="grey" x="204" y="138" style="font-size: 17px">user info</text>
+  <text class="small" x="204" y="158">credentials — avoid</text>
+  <text class="violet" x="438" y="138" style="font-size: 17px">port</text>
+  <text class="small" x="438" y="158">default 443 for https</text>
+  <text class="cyan" x="702" y="138" style="font-size: 17px">query</text>
+  <text class="small" x="702" y="158">name=value&amp;…</text>
+
+  <path class="dash" d="M20,190 H880" />
+
+  <!-- where each part goes -->
+  <text class="label" x="20" y="218" style="font-size: 15px">what actually reaches the server</text>
+  <rect class="box" x="20" y="236" width="560" height="100" rx="6" />
+  <text class="mono" x="36" y="262" style="text-anchor: start; font-size: 16px">GET <tspan class="green">/ie/index.html</tspan><tspan class="cyan">?name=Parham</tspan> HTTP/1.1</text>
+  <text class="mono" x="36" y="288" style="text-anchor: start; font-size: 16px">Host: <tspan class="yellow">example.com</tspan>:<tspan class="violet">8443</tspan></text>
+  <text class="mono" x="36" y="314" style="text-anchor: start; font-size: 16px">Authorization: Basic <tspan class="grey">dXNlcjpwYXNz</tspan></text>
+
+  <text class="label" x="606" y="250" style="font-size: 15px"><tspan class="orange">https</tspan> picked TLS on the way</text>
+  <text class="label" x="606" y="280" style="font-size: 15px"><tspan class="grey">user:pass</tspan> became a header</text>
+  <text class="label" x="606" y="310" style="font-size: 15px"><tspan class="red">#intro</tspan> was <tspan class="red">never sent</tspan> —</text>
+  <text class="label" x="606" y="332" style="font-size: 15px">the client keeps it</text>
+
+  <text class="label" x="20" y="374" style="font-size: 13px">Parts from new URL() in Node. Request checked with curl and Chrome against a local server; Chrome sends no user info.</text>
+</svg>
