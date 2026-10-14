@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 600">
+  <title>One CGI request: the server starts the script as a new process, passes the request in environment variables and stdin, and turns its stdout into the HTTP response</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .bar { fill: rgba(255, 145, 0, 0.25); stroke: #ff9100; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- lanes -->
+  <rect class="box" x="20" y="16" width="180" height="48" rx="6" />
+  <text x="110" y="40">Browser</text>
+  <rect class="box" x="380" y="16" width="180" height="48" rx="6" />
+  <text x="470" y="40">Web server</text>
+  <rect class="box" x="740" y="16" width="180" height="48" rx="6" />
+  <text class="orange mono" x="830" y="40" style="font-size: 18px">hello.cgi</text>
+  <path class="dash" d="M110,64 L110,580" />
+  <path class="dash" d="M470,64 L470,580" />
+  <path class="dash" d="M830,64 L830,268" />
+
+  <!-- 1. request -->
+  <text class="mono l" x="128" y="104"><tspan class="violet">POST</tspan> /cgi-bin/hello.cgi?<tspan class="cyan">lang=fa</tspan></text>
+  <text class="mono l" x="128" y="128"><tspan class="grey">body:</tspan> <tspan class="yellow">name=ali&amp;age=20</tspan></text>
+  <path class="line" d="M112,150 L468,150" />
+
+  <!-- 2. environment -->
+  <text class="label" x="490" y="104">a <tspan class="orange">new process</tspan> (fork + exec)</text>
+  <text class="label" x="490" y="128">with the request in its environment:</text>
+  <text class="mono l" x="490" y="160">REQUEST_METHOD=<tspan class="violet">POST</tspan></text>
+  <text class="mono l" x="490" y="182">SCRIPT_NAME=/cgi-bin/hello.cgi</text>
+  <text class="mono l" x="490" y="204">QUERY_STRING=<tspan class="cyan">lang=fa</tspan></text>
+  <text class="mono l" x="490" y="226">CONTENT_LENGTH=15</text>
+  <text class="mono l grey" x="490" y="248">…</text>
+  <path class="line" d="M472,270 L818,270" />
+
+  <!-- 3. stdin -->
+  <text class="label" x="490" y="304"><tspan class="green">stdin</tspan> ← the POST body</text>
+  <text class="mono l yellow" x="490" y="328">name=ali&amp;age=20</text>
+  <path class="line" d="M472,348 L818,348" />
+
+  <!-- process lifetime -->
+  <rect class="bar" x="820" y="270" width="20" height="190" />
+  <text class="small red" x="830" y="484">exits</text>
+
+  <!-- 4. stdout -->
+  <text class="label" x="490" y="382"><tspan class="green">stdout</tspan> → headers, blank line, body</text>
+  <text class="mono l" x="490" y="406">Content-Type: text/plain</text>
+  <text class="mono l grey" x="490" y="428">(blank line)</text>
+  <text class="mono l" x="490" y="450">pid=1834 …</text>
+  <path class="line" d="M818,460 L472,460" />
+
+  <!-- 5. response -->
+  <text class="mono l" x="128" y="502"><tspan class="green">HTTP/1.1 200 OK</tspan></text>
+  <text class="mono l" x="128" y="524">Content-Type: text/plain</text>
+  <text class="mono l" x="128" y="546">Content-Length: 279</text>
+  <path class="line" d="M468,566 L112,566" />
+  <text class="label" x="490" y="524">the server adds the status line,</text>
+  <text class="label" x="490" y="546">Date and Content-Length</text>
+</svg>

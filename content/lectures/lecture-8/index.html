@@ -83,21 +83,24 @@ topics:
       <span class="hl-green">configuration</span>
     </li>
     <li>
-      Information is passed from external software to the web server as the
-      output on stdout
-    </li>
-    <ul>
-      <li>
-        HTTP response is the
-        <span class="hl-yellow">output of the external program</span> on the
-        server machine
-      </li>
-    </ul>
-    <li>
-      Information can passed from the web server to the executable program
-      according to HTTP request method
+      HTTP response is the
+      <span class="hl-yellow">output of the external program</span> on the
+      server machine
     </li>
   </ul>
+</section>
+<section>
+  <h2>One CGI Request</h2>
+  <figure>
+    <img
+      src="./img/cgi-flow.svg"
+      alt="A sequence between browser, web server and hello.cgi. The browser sends POST /cgi-bin/hello.cgi?lang=fa with body name=ali&amp;age=20. The server starts hello.cgi as a new process with REQUEST_METHOD=POST, SCRIPT_NAME=/cgi-bin/hello.cgi, QUERY_STRING=lang=fa and CONTENT_LENGTH=15 in its environment, and writes the body to its stdin. The script writes Content-Type: text/plain, a blank line and the body to stdout, then exits. The server adds the status line, Date and Content-Length and sends HTTP/1.1 200 OK to the browser."
+      width="800"
+    />
+    <figcaption>
+      In: environment variables and stdin. Out: stdout. A real run.
+    </figcaption>
+  </figure>
 </section>
 <section>
   <h2>CGI Example: Server Config</h2>
@@ -232,6 +235,13 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
 <section>
   <section>
     <h2>CGI Environment Variables</h2>
+    <img
+      src="./img/cgi-url-env.svg"
+      alt="The request GET /cgi-bin/hello.cgi/a/b?x=1&amp;y=2 split into SCRIPT_NAME=/cgi-bin/hello.cgi, PATH_INFO=/a/b and QUERY_STRING=x=1&amp;y=2"
+      width="900"
+    />
+  </section>
+  <section>
     <table>
       <tr>
         <td>CONTENT_TYPE</td>
@@ -438,33 +448,45 @@ input1=val1&amp;input2=val2&amp; ... &amp;inputN=valN
   </ul>
 </section>
 <section>
-  <h2>Server Side Scripting Benefits</h2>
-  <ul>
-    <li>How does server side scripting solve CGI problems?</li>
+  <section>
+    <h2>Server Side Scripting Benefits</h2>
     <ul>
-      <li>We don’t need to generate whole HTML by code</li>
+      <li>How does server side scripting solve CGI problems?</li>
       <ul>
-        <li>Only dynamic parts are coded</li>
-      </ul>
-      <li>A process is not created per request</li>
-      <ul>
-        <li>All requests are processed by the interpreter</li>
+        <li>We don’t need to generate whole HTML by code</li>
         <ul>
-          <li>Which is implemented as a library for web server process</li>
+          <li>Only dynamic parts are coded</li>
         </ul>
-        <li>Each request = A thread</li>
+        <li>A process is not created per request</li>
         <ul>
+          <li>All requests are processed by the interpreter</li>
+          <ul>
+            <li>Which is implemented as a library for web server process</li>
+          </ul>
           <li>
-            Low creation &amp; termination &amp; inter-communication overhead
+            Each request is served by an existing worker (process or thread)
           </li>
+          <ul>
+            <li>
+              Low creation &amp; termination &amp; inter-communication overhead
+            </li>
+          </ul>
         </ul>
-      </ul>
-      <li>The run-time environment control the code</li>
-      <ul>
-        <li>More secure execution</li>
+        <li>The run-time environment control the code</li>
+        <ul>
+          <li>More secure execution</li>
+        </ul>
       </ul>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <h2>CGI vs. Server Module</h2>
+    <img
+      src="./img/cgi-vs-module.svg"
+      alt="Left, CGI: three requests start three hello.cgi processes, pids 1671, 1678 and 1681, and each one exits, so the start-up cost is paid on every request. Right, a server module such as mod_php: the same three requests go to one long-lived server worker with the PHP interpreter loaded once and reused."
+      width="900"
+    />
+  </section>
 </section>
 <section>
   <h2>Major differences w.r.t client side programming</h2>

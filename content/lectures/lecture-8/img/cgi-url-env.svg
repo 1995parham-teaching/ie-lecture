@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300">
+  <title>How a CGI server splits the request URL into SCRIPT_NAME, PATH_INFO and QUERY_STRING</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+
+  <!-- each part has its own x so the braces below line up: 26px Menlo is about 16px per character -->
+  <rect class="box" x="70" y="30" width="760" height="64" rx="6" />
+  <text class="mono" x="100" y="62" style="font-size: 26px; text-anchor: start"><tspan class="grey">GET</tspan><tspan class="orange" x="165">/cgi-bin/hello.cgi</tspan><tspan class="green" x="451">/a/b</tspan><tspan class="grey" x="515">?</tspan><tspan class="cyan" x="531">x=1&amp;y=2</tspan></text>
+
+  <!-- braces under each part: "GET " = 4 chars, script = 18, path = 4, "?" = 1, query = 7 -->
+  <path class="brace" d="M165,106 L165,116 L449,116 L449,106 M307,116 L307,140" />
+  <path class="brace" d="M453,106 L453,116 L513,116 L513,106 M483,116 L483,186" />
+  <path class="brace" d="M533,106 L533,116 L642,116 L642,106 M587,116 L587,136 L760,136 L760,236" />
+
+  <text class="mono orange" x="260" y="160" style="font-size: 20px">SCRIPT_NAME=/cgi-bin/hello.cgi</text>
+  <text class="small" x="260" y="186">which program to run</text>
+  <text class="mono green" x="483" y="210" style="font-size: 20px">PATH_INFO=/a/b</text>
+  <text class="small" x="483" y="236">extra path after the script name</text>
+  <text class="mono cyan" x="760" y="260" style="font-size: 20px">QUERY_STRING=x=1&amp;y=2</text>
+  <text class="small" x="760" y="286">everything after ?</text>
+</svg>
