@@ -5,7 +5,7 @@ indices): `0` Introduction · `1` JavaScript Basic · `2` JavaScript & DOM & CSS
 `3` Event Handling · `4` Web Applications · `5` Summary.
 
 The middle of the deck is a full run through the concurrency model: event loop →
-zero delays → never blocking → Promise → `async`/`await` → the same chain →
+zero delays → non-blocking I/O → Promise → `async`/`await` → the same chain →
 errors → waiting in parallel. Then optional chaining, nullish coalescing and
 modules. That run is the modern core of the lecture; the OOP/prototype material
 before it is the legacy half.
@@ -21,6 +21,16 @@ before it is the legacy half.
 - `Event.type` values are **case-sensitive** and lowercase (`"click"`, not
   `"Click"`).
 - Private class fields (`#x`) are **ES2022**.
+- The Event Loop slides say **task queue** and **task**, not "message queue",
+  to match `event-loop.svg` and the HTML spec.
+- The "Non-blocking I/O" slide (it was "Never Blocking") says that the event
+  loop does not block on I/O, but that synchronous code (a busy loop,
+  `alert()`) does. Both samples were run in Node 20: a 10 ms interval ticked
+  21 times while `loadUsers()` fetched from jsonplaceholder (~250 ms), and a
+  0 ms timer queued before the 3 s busy loop fired after 3000 ms.
+- The `new Person(...)` sample's constructor sets `this.name = { first, last }`
+  and the other fields, so `farewell()` works. Run in Node with a stub
+  `alert`: it prints "Tammi has left the building. Bye for now!".
 - `document.applets` was removed from the DOM; it is gone from the deck.
 - The library-graveyard slide (jQuery, Prototype, MooTools…) is deliberate
   historical framing, not a recommendation.
@@ -62,7 +72,9 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 ## Cautions
 
 - `innerHTML` was replaced with `textContent` wherever the sample was only
-  setting text. Keep it that way — lecture 11 teaches that `innerHTML` with
+  setting text. The Zero Delays live demo uses `el.append(text, <br>)` (text
+  nodes); headless Chrome renders the same five lines in the same order as the
+  old `innerHTML +=` version. Keep it that way — lecture 11 teaches that `innerHTML` with
   untrusted input is the XSS vector.
 - A `document.write` demo was removed. `document.write` after page load wipes the
   document; do not reintroduce it, even as a joke.

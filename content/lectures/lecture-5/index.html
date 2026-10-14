@@ -916,7 +916,7 @@ window.alert("name is "+ book.name +", price is "+ book.price);
       </li>
     </ul>
     <pre><code class="lang-javascript">
-// Person is our portotype
+// Person is our prototype
 let Person = {
   _name: "",
   _family: "",
@@ -969,7 +969,10 @@ console.log(p1.name, p1.family);
     </ul>
     <pre><code class="lang-javascript">
 function Person(first, last, age, gender, interests) {
-  // property and method definitions
+  this.name = { first, last };
+  this.age = age;
+  this.gender = gender;
+  this.interests = interests;
 }
 
 let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
@@ -1271,22 +1274,23 @@ function myFunction() {
         which usually resembles:
       </li>
       <pre><code class="lang-javascript">
-while (queue.waitForMessage()) {
-  queue.processNextMessage()
+while (taskQueue.waitForTask()) {
+  taskQueue.runNextTask()
 }
       </code></pre>
       <li>
-        queue.waitForMessage() waits synchronously for a message to arrive (if
-        one is not already available and waiting to be handled).
+        <code>taskQueue.waitForTask()</code> waits synchronously for a task to
+        arrive in the <span class="hl-orange">task queue</span> (if one is not
+        already available and waiting to be handled).
       </li>
     </ul>
   </section>
   <section>
     <ul>
       <li>
-        Each message is processed
-        <span class="hl-orange">completely</span> before any other message is
-        processed.
+        Each task is run
+        <span class="hl-orange">to completion</span> before any other task is
+        run.
       </li>
       <li>
         This offers some nice properties when
@@ -1297,10 +1301,9 @@ while (queue.waitForMessage()) {
         can modify data the function manipulates).
       </li>
       <li>
-        A <span class="hl-red">downside</span> of this model is that if a
-        message takes <span class="hl-violet">too long to complete</span>, the
-        web application is unable to process user interactions like click or
-        scroll.
+        A <span class="hl-red">downside</span> of this model is that if a task
+        takes <span class="hl-violet">too long to complete</span>, the web
+        application is unable to process user interactions like click or scroll.
       </li>
     </ul>
   </section>
@@ -1320,20 +1323,21 @@ while (queue.waitForMessage()) {
     <script>
       (function () {
         let el = document.getElementById("event-loop");
+        let print = (text) => el.append(text, document.createElement("br"));
 
-        el.innerHTML += "this is the start<br />";
+        print("this is the start");
 
         setTimeout(function cb() {
-          el.innerHTML += "Callback 1: this is a msg from call back<br />";
+          print("Callback 1: this is a msg from call back");
         }); // has a default time value of 0
 
-        el.innerHTML += "this is just a message <br />";
+        print("this is just a message");
 
         setTimeout(function cb1() {
-          el.innerHTML += "Callback 2: this is a msg from call back<br />";
+          print("Callback 2: this is a msg from call back");
         }, 0);
 
-        el.innerHTML += "this is the end<br />";
+        print("this is the end");
       })();
     </script>
   </section>
@@ -1341,20 +1345,22 @@ while (queue.waitForMessage()) {
     <pre><code class="lang-javascript">
 (function () {
   let el = document.getElementById("event-loop");
+  // append() adds text nodes, so nothing is parsed as HTML
+  let print = (text) =&gt; el.append(text, document.createElement("br"));
 
-  el.innerHTML += "this is the start&lt;br /&gt;";
+  print("this is the start");
 
   setTimeout(function cb() {
-    el.innerHTML += "Callback 1: this is a msg from call back&lt;br /&gt;";
+    print("Callback 1: this is a msg from call back");
   }); // has a default time value of 0
 
-  el.innerHTML += "this is just a message &lt;br /&gt;";
+  print("this is just a message");
 
   setTimeout(function cb1() {
-    el.innerHTML += "Callback 2: this is a msg from call back&lt;br /&gt;";
+    print("Callback 2: this is a msg from call back");
   }, 0);
 
-  el.innerHTML += "this is the end&lt;br /&gt;";
+  print("this is the end");
 })();
     </code></pre>
   </section>
@@ -1366,18 +1372,32 @@ while (queue.waitForMessage()) {
     />
   </section>
   <section>
-    <h2>Never Blocking</h2>
+    <h2>Non-blocking I/O</h2>
     <ul>
       <li>
-        A very interesting property of the event loop model is that JavaScript,
-        unlike a lot of other languages, never blocks.
-      </li>
-      <li>
-        Handling I/O is typically performed via events and callbacks, so when
-        the application is waiting for an IndexedDB query to return or an XHR
-        request to return, it can still process other things like user input.
+        The event loop does <span class="hl-green">not block on I/O</span>: a
+        <code>fetch</code> or a timer is handed to the browser, and its callback
+        joins a queue when the result is ready. Meanwhile the page still handles
+        clicks and input.
       </li>
     </ul>
+    <pre><code class="lang-javascript">
+async function loadUsers() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  return res.json(); // other tasks ran while we waited
+}
+    </code></pre>
+    <ul>
+      <li>
+        Your own code <span class="hl-red">does block</span>: a long synchronous
+        loop or <code>alert()</code> holds the only thread, and nothing else
+        runs (no clicks, no rendering) until it returns.
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+const end = Date.now() + 3000;
+while (Date.now() &lt; end) {} // the page is frozen for 3 s
+    </code></pre>
   </section>
 </section>
 <section>
