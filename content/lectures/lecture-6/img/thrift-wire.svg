@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450">
+  <title>client.add(1, 1) on the wire: 30 bytes with TBinaryProtocol, 12 bytes with TCompactProtocol</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="start violet" x="20" y="24" style="font-size: 20px">TBinaryProtocol · 30 bytes</text>
+  <text class="small end" x="880" y="24" style="font-size: 15px">fixed-width integers, 4-byte lengths</text>
+  <rect class="box" x="20" y="50" width="120.1" height="36" rx="4" />
+  <text class="mono " x="80.05" y="68" style="font-size: 15px">80 01 00 01</text>
+  <text class="small" x="80.05" y="102" style="font-size: 13px">version 1 · CALL</text>
+  <rect class="box" x="146.1" y="50" width="120.1" height="36" rx="4" />
+  <text class="mono " x="206.15" y="68" style="font-size: 15px">00 00 00 03</text>
+  <text class="small" x="206.15" y="102" style="font-size: 13px">name length 3</text>
+  <rect class="good" x="272.2" y="50" width="92.8" height="36" rx="4" />
+  <text class="mono green" x="318.6" y="68" style="font-size: 15px">61 64 64</text>
+  <text class="small" x="318.6" y="102" style="font-size: 13px">"add"</text>
+  <rect class="box" x="371" y="50" width="120.1" height="36" rx="4" />
+  <text class="mono " x="431.05" y="68" style="font-size: 15px">00 00 00 00</text>
+  <text class="small" x="431.05" y="102" style="font-size: 13px">seqid 0</text>
+  <text class="label" x="20" y="142" style="font-size: 15px">args</text>
+  <rect class="hot" x="64" y="126" width="38.2" height="36" rx="4" />
+  <text class="mono orange" x="83.1" y="144" style="font-size: 15px">08</text>
+  <text class="small" x="83.1" y="178" style="font-size: 13px">i32</text>
+  <rect class="hot" x="108.2" y="126" width="65.5" height="36" rx="4" />
+  <text class="mono yellow" x="140.95" y="144" style="font-size: 15px">00 01</text>
+  <text class="small" x="140.95" y="178" style="font-size: 13px">field 1</text>
+  <rect class="cool" x="179.7" y="126" width="120.1" height="36" rx="4" />
+  <text class="mono cyan" x="239.75" y="144" style="font-size: 15px">00 00 00 01</text>
+  <text class="small" x="239.75" y="178" style="font-size: 13px">= 1</text>
+  <rect class="hot" x="305.8" y="126" width="38.2" height="36" rx="4" />
+  <text class="mono orange" x="324.9" y="144" style="font-size: 15px">08</text>
+  <text class="small" x="324.9" y="178" style="font-size: 13px">i32</text>
+  <rect class="hot" x="350" y="126" width="65.5" height="36" rx="4" />
+  <text class="mono yellow" x="382.75" y="144" style="font-size: 15px">00 02</text>
+  <text class="small" x="382.75" y="178" style="font-size: 13px">field 2</text>
+  <rect class="cool" x="421.5" y="126" width="120.1" height="36" rx="4" />
+  <text class="mono cyan" x="481.55" y="144" style="font-size: 15px">00 00 00 01</text>
+  <text class="small" x="481.55" y="178" style="font-size: 13px">= 1</text>
+  <rect class="box" x="547.6" y="126" width="38.2" height="36" rx="4" />
+  <text class="mono " x="566.7" y="144" style="font-size: 15px">00</text>
+  <text class="small" x="566.7" y="178" style="font-size: 13px">STOP</text>
+  <text class="start green" x="20" y="238" style="font-size: 20px">TCompactProtocol · 12 bytes</text>
+  <text class="small end" x="880" y="238" style="font-size: 15px">varints, and field ids as a delta from the last one</text>
+  <rect class="box" x="20" y="264" width="74" height="36" rx="4" />
+  <text class="mono " x="57" y="282" style="font-size: 15px">82</text>
+  <text class="small" x="57" y="316" style="font-size: 13px">protocol id</text>
+  <rect class="box" x="100" y="264" width="74" height="36" rx="4" />
+  <text class="mono " x="137" y="282" style="font-size: 15px">21</text>
+  <text class="small" x="137" y="316" style="font-size: 13px">v1 · CALL</text>
+  <rect class="box" x="180" y="264" width="74" height="36" rx="4" />
+  <text class="mono " x="217" y="282" style="font-size: 15px">00</text>
+  <text class="small" x="217" y="316" style="font-size: 13px">seqid 0</text>
+  <rect class="box" x="260" y="264" width="74" height="36" rx="4" />
+  <text class="mono " x="297" y="282" style="font-size: 15px">03</text>
+  <text class="small" x="297" y="316" style="font-size: 13px">length 3</text>
+  <rect class="good" x="340" y="264" width="92.8" height="36" rx="4" />
+  <text class="mono green" x="386.4" y="282" style="font-size: 15px">61 64 64</text>
+  <text class="small" x="386.4" y="316" style="font-size: 13px">"add"</text>
+  <rect class="hot" x="438.8" y="264" width="74" height="36" rx="4" />
+  <text class="mono orange" x="475.8" y="282" style="font-size: 15px">15</text>
+  <text class="small" x="475.8" y="316" style="font-size: 13px">+1 · i32</text>
+  <rect class="cool" x="518.8" y="264" width="74" height="36" rx="4" />
+  <text class="mono cyan" x="555.8" y="282" style="font-size: 15px">02</text>
+  <text class="small" x="555.8" y="316" style="font-size: 13px">= 1</text>
+  <rect class="hot" x="598.8" y="264" width="74" height="36" rx="4" />
+  <text class="mono orange" x="635.8" y="282" style="font-size: 15px">15</text>
+  <text class="small" x="635.8" y="316" style="font-size: 13px">+1 · i32</text>
+  <rect class="cool" x="678.8" y="264" width="74" height="36" rx="4" />
+  <text class="mono cyan" x="715.8" y="282" style="font-size: 15px">02</text>
+  <text class="small" x="715.8" y="316" style="font-size: 13px">= 1</text>
+  <rect class="box" x="758.8" y="264" width="74" height="36" rx="4" />
+  <text class="mono " x="795.8" y="282" style="font-size: 15px">00</text>
+  <text class="small" x="795.8" y="316" style="font-size: 13px">STOP</text>
+  <text class="label" x="20" y="360" style="font-size: 16px">15 = 0001 0101: the high nibble is the field-id delta (+1), the low nibble the type (5 = i32)</text>
+  <text class="label" x="20" y="388" style="font-size: 16px">02 is 1 in zigzag encoding, which keeps small negative numbers small too (−1 → 01)</text>
+  <text class="label" x="20" y="424" style="font-size: 16px">Both name the field by its number, never by "num1": the same idea as Protocol Buffers</text>
+</svg>

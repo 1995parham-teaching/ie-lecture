@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>The Thrift stack: the Python client goes down through the generated client, a protocol and a transport; the Java server comes back up through a transport, a protocol and the generated processor to the handler, all driven by TSimpleServer</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text x="185" y="24" style="font-size: 22px">Python client</text>
+  <text x="715" y="24" style="font-size: 22px">Java server</text>
+  <rect class="box" x="30" y="60" width="310" height="62" rx="6" />
+  <rect class="box" x="560" y="60" width="310" height="62" rx="6" />
+  <text class="mono yellow" x="185" y="91" style="font-size: 17px">client.add(1, 1)</text>
+  <text class="mono yellow" x="715" y="91" style="font-size: 17px">CalculatorHandler.add()</text>
+  <text class="yellow" x="450" y="91" style="font-size: 18px">your code</text>
+  <rect class="box" x="30" y="144" width="310" height="62" rx="6" />
+  <rect class="box" x="560" y="144" width="310" height="62" rx="6" />
+  <text class="mono orange" x="185" y="175" style="font-size: 17px">Calculator.Client</text>
+  <text class="mono orange" x="715" y="175" style="font-size: 17px">Calculator.Processor</text>
+  <text class="orange" x="450" y="167" style="font-size: 18px">generated</text>
+  <rect class="box" x="30" y="228" width="310" height="62" rx="6" />
+  <rect class="box" x="560" y="228" width="310" height="62" rx="6" />
+  <text class="mono violet" x="185" y="259" style="font-size: 17px">TBinaryProtocol</text>
+  <text class="mono violet" x="715" y="259" style="font-size: 17px">TBinaryProtocol</text>
+  <text class="violet" x="450" y="259" style="font-size: 18px">protocol</text>
+  <rect class="box" x="30" y="312" width="310" height="76" rx="6" />
+  <rect class="box" x="560" y="312" width="310" height="76" rx="6" />
+  <text class="mono cyan" x="185" y="338" style="font-size: 17px">TBufferedTransport(</text>
+  <text class="mono cyan" x="185" y="362" style="font-size: 17px">TSocket('localhost', 9090))</text>
+  <text class="mono cyan" x="715" y="350" style="font-size: 17px">TServerSocket(9090)</text>
+  <text class="cyan" x="450" y="350" style="font-size: 18px">transport</text>
+  <rect class="dash" x="550" y="132" width="330" height="268" rx="10" />
+  <text class="green end" x="876" y="418" style="font-size: 15px">TSimpleServer: accepts, then runs these three</text>
+  <text class="small" x="450" y="195" style="font-size: 14px">from the .thrift</text>
+  <path class="line" d="M14,70 L14,448 L892,448 L892,70" />
+  <text class="small" x="450" y="434" style="font-size: 15px">TCP: 30 bytes for add(1, 1)</text>
+</svg>

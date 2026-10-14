@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <title>The Course message as Protocol Buffers puts it on the wire: 48 bytes of tag, length and value, with field numbers instead of names</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <text class="mono" x="450" y="22" style="font-size: 16px">Course { name: "IE", teacher: "Parham Alvani", students: [ … ], capacity: 30 }</text>
+  <text class="label" x="30" y="58">1 · name</text>
+  <rect class="hot" x="30" y="76" width="46" height="40" rx="4" />
+  <text class="mono orange" x="53" y="96" style="font-size: 18px">0a</text>
+  <rect class="box" x="76" y="76" width="46" height="40" rx="4" />
+  <text class="mono" x="99" y="96" style="font-size: 18px">02</text>
+  <rect class="good" x="122" y="76" width="70" height="40" rx="4" />
+  <text class="mono green" x="157" y="96" style="font-size: 18px">"IE"</text>
+  <text class="small" x="157" y="130" style="font-size: 14px">2 bytes</text>
+  <text class="label" x="222" y="58">2 · teacher</text>
+  <rect class="hot" x="222" y="76" width="46" height="40" rx="4" />
+  <text class="mono orange" x="245" y="96" style="font-size: 18px">12</text>
+  <rect class="box" x="268" y="76" width="46" height="40" rx="4" />
+  <text class="mono" x="291" y="96" style="font-size: 18px">0d</text>
+  <rect class="good" x="314" y="76" width="200" height="40" rx="4" />
+  <text class="mono green" x="414" y="96" style="font-size: 18px">"Parham Alvani"</text>
+  <text class="small" x="414" y="130" style="font-size: 14px">13 bytes (0x0d)</text>
+  <text class="label" x="30" y="172">3 · students[0] — an embedded Student, 25 bytes (0x19)</text>
+  <rect class="hot" x="30" y="190" width="46" height="40" rx="4" />
+  <text class="mono orange" x="53" y="210" style="font-size: 18px">1a</text>
+  <rect class="box" x="76" y="190" width="46" height="40" rx="4" />
+  <text class="mono" x="99" y="210" style="font-size: 18px">19</text>
+  <rect class="hot" x="132" y="190" width="46" height="40" rx="4" />
+  <text class="mono orange" x="155" y="210" style="font-size: 18px">0a</text>
+  <rect class="box" x="178" y="190" width="46" height="40" rx="4" />
+  <text class="mono" x="201" y="210" style="font-size: 18px">06</text>
+  <rect class="good" x="224" y="190" width="96" height="40" rx="4" />
+  <text class="mono green" x="272" y="210" style="font-size: 18px">"Parham"</text>
+  <rect class="hot" x="330" y="190" width="46" height="40" rx="4" />
+  <text class="mono orange" x="353" y="210" style="font-size: 18px">12</text>
+  <rect class="box" x="376" y="190" width="46" height="40" rx="4" />
+  <text class="mono" x="399" y="210" style="font-size: 18px">06</text>
+  <rect class="good" x="422" y="190" width="96" height="40" rx="4" />
+  <text class="mono green" x="470" y="210" style="font-size: 18px">"Alvani"</text>
+  <rect class="hot" x="528" y="190" width="46" height="40" rx="4" />
+  <text class="mono orange" x="551" y="210" style="font-size: 18px">1a</text>
+  <rect class="box" x="574" y="190" width="46" height="40" rx="4" />
+  <text class="mono" x="597" y="210" style="font-size: 18px">07</text>
+  <rect class="good" x="620" y="190" width="108" height="40" rx="4" />
+  <text class="mono green" x="674" y="210" style="font-size: 18px">"9231058"</text>
+  <rect class="dash" x="126" y="182" width="608" height="56" rx="8" />
+  <text class="label" x="752" y="172">4 · capacity</text>
+  <rect class="hot" x="752" y="190" width="46" height="40" rx="4" />
+  <text class="mono orange" x="775" y="210" style="font-size: 18px">20</text>
+  <rect class="cool" x="798" y="190" width="46" height="40" rx="4" />
+  <text class="mono cyan" x="821" y="210" style="font-size: 18px">1e</text>
+  <text class="small" x="821" y="244" style="font-size: 14px">= 30</text>
+  <text class="label" x="30" y="262" style="font-size: 16px">no names anywhere: only field numbers, lengths and values</text>
+  <text class="label" x="30" y="300" style="font-size: 18px">Each tag byte is  (field number &lt;&lt; 3) | wire type</text>
+  <text class="mono orange" x="60" y="340" style="font-size: 18px">0x1a</text>
+  <text class="grey" x="110" y="340" style="font-size: 18px">=</text>
+  <text class="mono yellow start" x="140" y="340" style="font-size: 18px">00011</text>
+  <text class="mono cyan start" x="200" y="340" style="font-size: 18px">010</text>
+  <text class="grey" x="260" y="340" style="font-size: 18px">→</text>
+  <text class="yellow start" x="290" y="340" style="font-size: 18px">field 3</text>
+  <text class="cyan start" x="370" y="340" style="font-size: 18px">wire type 2 = LEN: a length follows</text>
+  <text class="mono orange" x="60" y="384" style="font-size: 18px">0x20</text>
+  <text class="grey" x="110" y="384" style="font-size: 18px">=</text>
+  <text class="mono yellow start" x="140" y="384" style="font-size: 18px">00100</text>
+  <text class="mono cyan start" x="200" y="384" style="font-size: 18px">000</text>
+  <text class="grey" x="260" y="384" style="font-size: 18px">→</text>
+  <text class="yellow start" x="290" y="384" style="font-size: 18px">field 4</text>
+  <text class="cyan start" x="370" y="384" style="font-size: 18px">wire type 0 = VARINT: the value follows</text>
+  <text class="label" x="30" y="420" style="font-size: 18px">The same Course, encoded three ways (measured; JSON minified)</text>
+  <text class="end" x="130" y="458" style="font-size: 18px">JSON</text>
+  <rect x="145" y="446" width="415.8" height="24" rx="3" fill="#cfd3da" fill-opacity="0.35" stroke="#cfd3da" stroke-width="2" />
+  <text class="mono start" x="570.8" y="458" style="font-size: 17px">126 B</text>
+  <text class="small start" x="632.8" y="458" style="font-size: 15px">names and quotes in every message</text>
+  <text class="end" x="130" y="494" style="font-size: 18px">CBOR</text>
+  <rect x="145" y="482" width="326.7" height="24" rx="3" fill="#ee82ee" fill-opacity="0.35" stroke="#ee82ee" stroke-width="2" />
+  <text class="mono start" x="481.7" y="494" style="font-size: 17px">99 B</text>
+  <text class="small start" x="543.7" y="494" style="font-size: 15px">binary, but still carries the names</text>
+  <text class="end" x="130" y="530" style="font-size: 18px">Protobuf</text>
+  <rect x="145" y="518" width="158.4" height="24" rx="3" fill="#76ff03" fill-opacity="0.35" stroke="#76ff03" stroke-width="2" />
+  <text class="mono start" x="313.4" y="530" style="font-size: 17px">48 B</text>
+  <text class="small start" x="375.4" y="530" style="font-size: 15px">numbers instead of names</text>
+</svg>

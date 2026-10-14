@@ -1170,6 +1170,23 @@ public class CalculatorHandler implements Calculator.Iface {
   </code></pre>
 </section>
 <section>
+  <h2>The Stack</h2>
+  <img
+    src="./img/thrift-stack.svg"
+    alt="Python client on the left, Java server on the right, in four matching layers: your code (client.add(1, 1) and CalculatorHandler.add()), generated code (Calculator.Client and Calculator.Processor), protocol (TBinaryProtocol on both sides) and transport (TBufferedTransport over TSocket to localhost 9090, and TServerSocket(9090)). TSimpleServer wraps the server's transport, protocol and processor. The call goes down the client stack, over TCP as 30 bytes, and up the server stack"
+    width="880"
+  />
+</section>
+<section>
+  <h2>On the Wire</h2>
+  <img
+    src="./img/thrift-wire.svg"
+    alt="client.add(1, 1) encoded. TBinaryProtocol, 30 bytes: 80 01 00 01 (version 1, CALL), 00 00 00 03 (name length), 61 64 64 (add), 00 00 00 00 (seqid), then 08 00 01 00 00 00 01 (i32 field 1 = 1), 08 00 02 00 00 00 01 (i32 field 2 = 1), 00 (STOP). TCompactProtocol, 12 bytes: 82 21 00 03 61 64 64 15 02 15 02 00"
+    width="880"
+  />
+  <p>Swap one class on each side and the same call is 2.5× smaller.</p>
+</section>
+<section>
   <section>
     <h2>gRPC</h2>
     <ul>
@@ -1232,6 +1249,30 @@ service Registration {
         rolling upgrades possible
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>On the Wire</h2>
+    <img
+      src="./img/protobuf-wire.svg"
+      alt="The Course message encoded by protoc, 48 bytes: 0a 02 IE for field 1, 12 0d Parham Alvani for field 2, 1a 19 then an embedded Student (0a 06 Parham, 12 06 Alvani, 1a 07 9231058) for field 3, and 20 1e for field 4, capacity 30. A tag byte is the field number shifted left by three, ORed with the wire type: 0x1a is field 3 with wire type 2 (LEN), 0x20 is field 4 with wire type 0 (VARINT). The same Course is 126 bytes as minified JSON, 99 as CBOR and 48 as Protocol Buffers"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>One Call over HTTP/2</h2>
+    <img
+      src="./img/grpc-http2.svg"
+      alt="GetCourse as HTTP/2 frames on stream 1. Client to server: HEADERS with :method POST, :scheme http, :path /course.Registration/GetCourse, content-type application/grpc and te trailers; DATA of 9 bytes: a 00 compression flag, a 4-byte length 4, and 0a 02 49 45. Server to client: HEADERS with :status 200; DATA of 53 bytes: flag, length 48, and the Course; then trailer HEADERS with grpc-status 0 and END_STREAM"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Four Kinds of RPC</h2>
+    <img
+      src="./img/grpc-streaming.svg"
+      alt="Unary GetCourse: one CourseRequest, one Course. Server streaming ListStudents: one CourseRequest, then a stream of Student messages. Client streaming Enroll: a stream of Student messages, then one Course. Bidirectional Watch: CourseRequest and Course messages flow both ways on the same call"
+      width="860"
+    />
   </section>
   <section>
     <h2>Compared to JSON over ReST</h2>

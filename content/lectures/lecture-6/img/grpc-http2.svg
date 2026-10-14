@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540">
+  <title>One unary gRPC call, GetCourse, as the HTTP/2 frames on stream 1: request HEADERS and DATA, then response HEADERS, DATA and trailers with grpc-status 0</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .end { text-anchor: end; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .hot { fill: rgba(255, 145, 0, 0.14); stroke: #ff9100; stroke-width: 2; }
+    .cool { fill: rgba(0, 229, 255, 0.10); stroke: #00e5ff; stroke-width: 2; }
+    .good { fill: rgba(118, 255, 3, 0.10); stroke: #76ff03; stroke-width: 2; }
+    .bad { fill: rgba(255, 82, 82, 0.12); stroke: #ff5252; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .plain { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="10" width="100" height="40" rx="6" />
+  <text x="60" y="30">client</text>
+  <rect class="box" x="790" y="10" width="100" height="40" rx="6" />
+  <text x="840" y="30">server</text>
+  <path class="dash" d="M60,50 L60,530" />
+  <path class="dash" d="M840,50 L840,530" />
+  <rect class="box" x="130" y="66" width="640" height="100" rx="6" />
+  <text class="mono start orange" x="142" y="84" style="font-size: 16px">HEADERS</text>
+  <text class="small end" x="758" y="84" style="font-size: 14px">stream 1 · END_HEADERS</text>
+  <path class="plain" d="M60,116.0 L126,116.0" />
+  <path class="line" d="M770,116.0 L838,116.0" />
+  <text class="mono" x="146" y="110" style="text-anchor: start; font-size: 15px"><tspan class="yellow">:method</tspan> <tspan class="green">POST</tspan></text>
+  <text class="mono" x="330" y="110" style="text-anchor: start; font-size: 15px"><tspan class="yellow">:scheme</tspan> <tspan class="green">http</tspan></text>
+  <text class="mono" x="490" y="110" style="text-anchor: start; font-size: 15px"><tspan class="yellow">te:</tspan> <tspan class="green">trailers</tspan></text>
+  <text class="mono" x="146" y="132" style="text-anchor: start; font-size: 15px"><tspan class="yellow">:path</tspan> <tspan class="cyan">/course.Registration/GetCourse</tspan></text>
+  <text class="mono" x="146" y="154" style="text-anchor: start; font-size: 15px"><tspan class="yellow">content-type:</tspan> <tspan class="green">application/grpc</tspan></text>
+  <rect class="box" x="130" y="180" width="640" height="96" rx="6" />
+  <text class="mono start orange" x="142" y="198" style="font-size: 16px">DATA</text>
+  <text class="small end" x="758" y="198" style="font-size: 14px">stream 1 · END_STREAM · 9 bytes</text>
+  <path class="plain" d="M60,228.0 L126,228.0" />
+  <path class="line" d="M770,228.0 L838,228.0" />
+  <rect class="box" x="146" y="214" width="110" height="30" rx="4" />
+  <text class="mono" x="201" y="229" style="font-size: 15px">00</text>
+  <text class="small" x="201" y="258" style="font-size: 13px">not compressed</text>
+  <rect class="hot" x="262" y="214" width="130" height="30" rx="4" />
+  <text class="mono" x="327" y="229" style="font-size: 15px">00 00 00 04</text>
+  <text class="small" x="327" y="258" style="font-size: 13px">length = 4</text>
+  <rect class="good" x="398" y="214" width="130" height="30" rx="4" />
+  <text class="mono" x="463" y="229" style="font-size: 15px">0a 02 49 45</text>
+  <text class="small" x="463" y="258" style="font-size: 13px">CourseRequest{name:"IE"}</text>
+  <rect class="box" x="130" y="290" width="640" height="56" rx="6" />
+  <text class="mono start cyan" x="142" y="308" style="font-size: 16px">HEADERS</text>
+  <text class="small end" x="758" y="308" style="font-size: 14px">stream 1 · END_HEADERS</text>
+  <path class="plain" d="M840,318.0 L774,318.0" />
+  <path class="line" d="M130,318.0 L62,318.0" />
+  <text class="mono" x="146" y="330" style="text-anchor: start; font-size: 15px"><tspan class="yellow">:status</tspan> <tspan class="green">200</tspan></text>
+  <text class="mono" x="330" y="330" style="text-anchor: start; font-size: 15px"><tspan class="yellow">content-type:</tspan> <tspan class="green">application/grpc</tspan></text>
+  <text class="small start" x="146" y="330" style="font-size: 13px"></text>
+  <rect class="box" x="130" y="360" width="640" height="96" rx="6" />
+  <text class="mono start cyan" x="142" y="378" style="font-size: 16px">DATA</text>
+  <text class="small end" x="758" y="378" style="font-size: 14px">stream 1 · 53 bytes</text>
+  <path class="plain" d="M840,408.0 L774,408.0" />
+  <path class="line" d="M130,408.0 L62,408.0" />
+  <rect class="box" x="146" y="394" width="110" height="30" rx="4" />
+  <text class="mono" x="201" y="409" style="font-size: 15px">00</text>
+  <text class="small" x="201" y="438" style="font-size: 13px">not compressed</text>
+  <rect class="hot" x="262" y="394" width="130" height="30" rx="4" />
+  <text class="mono" x="327" y="409" style="font-size: 15px">00 00 00 30</text>
+  <text class="small" x="327" y="438" style="font-size: 13px">length = 48</text>
+  <rect class="good" x="398" y="394" width="300" height="30" rx="4" />
+  <text class="mono" x="548" y="409" style="font-size: 15px">0a 02 49 45 12 0d 50 61 …</text>
+  <text class="small" x="548" y="438" style="font-size: 13px">the 48-byte Course from the last slide</text>
+  <rect class="box" x="130" y="470" width="640" height="56" rx="6" />
+  <text class="mono start cyan" x="142" y="488" style="font-size: 16px">HEADERS (trailers)</text>
+  <text class="small end" x="758" y="488" style="font-size: 14px">stream 1 · END_STREAM</text>
+  <path class="plain" d="M840,498.0 L774,498.0" />
+  <path class="line" d="M130,498.0 L62,498.0" />
+  <text class="mono" x="146" y="510" style="text-anchor: start; font-size: 15px"><tspan class="yellow">grpc-status:</tspan> <tspan class="green">0</tspan></text>
+  <text class="small start" x="300" y="510" style="font-size: 14px">OK: the outcome of the call travels after the body</text>
+</svg>
