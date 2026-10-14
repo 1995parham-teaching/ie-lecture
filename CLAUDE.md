@@ -112,14 +112,11 @@ layout, a protocol exchange or anything with steps, draw it — and keep the
 prose next to it to a sentence or two. When editing an existing text-heavy
 slide, consider whether a diagram should replace the text.
 
-**Diagrams.** A deck's `img/` holds the exported SVG/PNG; the matching `diag/`
-holds the editable draw.io source. Edit the `.drawio` and re-export — never
-hand-patch the exported file, or the two drift apart.
-
-Hand-written SVGs in `img/` (no draw.io source) are their own source. Draw them
-for the league background — light strokes, transparent fill — with the
-`$highlights` colours as literal hex, because an `<img>` SVG cannot see the
-deck's CSS. Render one (`rsvg-convert -b '#2b2b2b'`) before and after an edit:
+**Diagrams** are hand-written SVGs in the deck's `img/`, and each file is its
+own source. There is no draw.io in this repo: do not add `.drawio` files or
+diagram exports. Edit the SVG directly. Draw them for the league background —
+light strokes, transparent fill — with the `$highlights` colours as literal
+hex, because an `<img>` SVG cannot see the deck's CSS. Render one (`rsvg-convert -b '#2b2b2b'`) before and after an edit:
 text that overflows a box is not reported anywhere.
 
 `content/lectures/lecture-3/img/*.svg` is the reference style: `viewBox`, a
