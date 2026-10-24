@@ -1,6 +1,6 @@
 # Lecture 3 — HTML
 
-105 slides (plus the generated title slide), 15 vertical stacks. Topics (TOC indices): `0` Introduction ·
+109 slides (plus the generated title slide), 15 vertical stacks. Topics (TOC indices): `0` Introduction ·
 `1` HTML · `2` Body · `3` Semantic Tags · `4` Head · `5` HTML in Practice.
 
 The element tour ("Main root", "Content sectioning", "Text content", "Inline
@@ -39,6 +39,7 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 | `dom-tree.svg`        | Nested Tags — the Hello World page as a tree   |
 | `url-resolution.svg`  | `<a>` — how each `href` resolves               |
 | `form-get-post.svg`   | Forms — the same fields sent by GET and POST   |
+| `form-same-name.svg`  | Forms — checkboxes sharing a name, `multiple`  |
 | `semantic-layout.svg` | Semantic Tags Example                          |
 
 - `dom-tree.svg` matches what Chrome builds for the Hello World sample: the
@@ -48,6 +49,12 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 - `form-get-post.svg` shows a real request captured from headless Chrome
   submitting to a local socket server (other headers left out). If the
   fields change, capture again.
+- `form-same-name.svg` is captured the same way: `skills=html&skills=js&skills=go`
+  (GET and POST bodies alike), `colors=r&colors=b` for `<select multiple>`,
+  and a form whose only filled field is `q=x` sends just `?q=x` (an unchecked
+  box and an empty multiple select add nothing). The server slide's Go output
+  is from `go run`; the PHP claim is from `parse_str` (last value wins without
+  `[]`).
 - `example.png` and `summary.png` are still the old screenshots.
 
 ## Cautions

@@ -1407,6 +1407,48 @@ Please enter your message</textarea>
   <section>
     <ul>
       <li>
+        Checkboxes of one group can share the same
+        <code class="hl-yellow">name</code>
+      </li>
+      <ul>
+        <li>
+          Each checked box sends its own
+          <span class="hl-orange">name</span>=<span class="hl-green"
+            >value</span
+          >
+          pair, so the name <strong class="hl-red">repeats</strong>
+        </li>
+        <li>The pairs come in document order</li>
+        <li>Unchecked boxes send nothing, not even the name</li>
+      </ul>
+    </ul>
+    <form action="https://httpbin.org/get" method="get">
+      <fieldset>
+        <legend><em>Web Development Skills</em></legend>
+        <label
+          ><input type="checkbox" name="skills" value="html" checked />
+          HTML</label
+        >
+        <label><input type="checkbox" name="skills" value="css" /> CSS</label>
+        <label
+          ><input type="checkbox" name="skills" value="js" checked /> JS</label
+        >
+        <label
+          ><input type="checkbox" name="skills" value="go" checked /> Go</label
+        >
+        <input type="submit" value="Submit" />
+      </fieldset>
+    </form>
+    <pre><code class="lang-html">
+&lt;input type="checkbox" name="skills" value="html" checked /&gt;
+&lt;input type="checkbox" name="skills" value="css" /&gt;
+&lt;input type="checkbox" name="skills" value="js" checked /&gt;
+&lt;input type="checkbox" name="skills" value="go" checked /&gt;
+    </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
         <code class="hl-yellow">type</code>=<strong class="hl-green"
           >"radio"</strong
         >
@@ -1456,7 +1498,10 @@ Please enter your message</textarea>
   </section>
   <section>
     <ul>
-      <li>Select Boxes has the same functionality of radio buttons</li>
+      <li>
+        Select Boxes has the same functionality of radio buttons (unless
+        <code class="hl-violet">multiple</code> is set)
+      </li>
       <li>Created by:</li>
       <ul>
         <li>
@@ -1506,6 +1551,95 @@ Please enter your message</textarea>
   &lt;input type="submit" value="Submit" /&gt;
 &lt;/form&gt;
     </code></pre>
+  </section>
+  <section>
+    <ul>
+      <li>
+        With the <code class="hl-violet">multiple</code> attribute, the user can
+        select more than one option
+      </li>
+      <ul>
+        <li>
+          <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>-click, or <kbd>Shift</kbd>-click for a
+          range
+        </li>
+        <li>
+          It is shown as a list box;
+          <code class="hl-yellow">size</code> sets the number of visible rows
+        </li>
+        <li>
+          <code class="hl-yellow">selected</code> on an
+          <code class="hl-orange">option</code> selects it by default
+        </li>
+      </ul>
+      <li>
+        Each selected option sends its own
+        <span class="hl-orange">name</span>=<span class="hl-green">value</span>
+        pair, the same as checkboxes with one name
+      </li>
+    </ul>
+    <form action="https://httpbin.org/get" method="get">
+      Select colors:
+      <select name="colors" multiple size="3">
+        <option value="r" selected>Red</option>
+        <option value="g">Green</option>
+        <option value="b" selected>Blue</option>
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+    <pre><code class="lang-html">
+&lt;select name="colors" multiple size="3"&gt;
+  &lt;option value="r" selected&gt;Red&lt;/option&gt;
+  &lt;option value="g"&gt;Green&lt;/option&gt;
+  &lt;option value="b" selected&gt;Blue&lt;/option&gt;
+&lt;/select&gt;
+    </code></pre>
+  </section>
+  <section>
+    <figure>
+      <img
+        src="./img/form-same-name.svg"
+        alt="Checkboxes named skills with html, js and go checked and css unchecked: Chrome sends GET /get?skills=html&amp;skills=js&amp;skills=go. A select named colors with the multiple attribute and Red (r) and Blue (b) selected: Chrome sends GET /get?colors=r&amp;colors=b. When nothing is checked or selected, the name is not in the request at all"
+        width="900"
+      />
+    </figure>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The server gets <strong class="hl-orange">one name</strong> with
+        <strong class="hl-green">many values</strong>, so it must ask for a list
+      </li>
+    </ul>
+    <pre><code class="lang-go">
+package main
+
+import (
+	"fmt"
+	"net/url"
+)
+
+func main() {
+	q, _ := url.ParseQuery("skills=html&amp;skills=js&amp;skills=go")
+
+	fmt.Println(q.Get("skills")) // only the first value
+	fmt.Println(q["skills"])     // all the values
+}
+    </code></pre>
+    <pre><code class="lang-plaintext">
+html
+[html js go]
+    </code></pre>
+    <ul>
+      <li>
+        PHP keeps only the <em class="hl-red">last</em> value (<code>go</code>),
+        unless the name ends with <code>[]</code>:
+        <code class="hl-yellow">name="skills[]"</code>
+      </li>
+      <li>
+        No value at all means nothing was checked — or the field was never sent
+      </li>
+    </ul>
   </section>
   <section>
     <ul>

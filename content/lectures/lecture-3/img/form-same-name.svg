@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>Many values, one name: checked checkboxes and selected options repeat the same key</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 14px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .start { text-anchor: start; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .tick { fill: none; stroke: #76ff03; stroke-width: 2.5; }
+    .cb { fill: none; stroke: #cfd3da; stroke-width: 2; }
+    .sel { fill: rgba(0, 229, 255, 0.18); stroke: #00e5ff; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- checkboxes -->
+  <rect class="box" x="20" y="20" width="290" height="180" rx="6" />
+  <text class="mono start" x="36" y="44" style="font-size: 14px"><tspan class="orange">checkbox</tspan> <tspan class="yellow">name</tspan><tspan class="grey">=</tspan><tspan class="green">"skills"</tspan></text>
+  <rect class="cb" x="40" y="69" width="16" height="16" rx="2" />
+  <path class="tick" d="M43,77 L47,82 L54,72" />
+  <text class="mono start green" x="70" y="78" style="font-size: 16px">html</text>
+  <rect class="cb" x="40" y="99" width="16" height="16" rx="2" />
+  <text class="mono start grey" x="70" y="108" style="font-size: 16px">css</text>
+  <rect class="cb" x="40" y="129" width="16" height="16" rx="2" />
+  <path class="tick" d="M43,137 L47,142 L54,132" />
+  <text class="mono start green" x="70" y="138" style="font-size: 16px">js</text>
+  <rect class="cb" x="40" y="159" width="16" height="16" rx="2" />
+  <path class="tick" d="M43,167 L47,172 L54,162" />
+  <text class="mono start green" x="70" y="168" style="font-size: 16px">go</text>
+
+  <path class="line" d="M312,110 L378,110" />
+  <rect class="box" x="380" y="72" width="500" height="76" rx="6" />
+  <text class="mono start" x="396" y="94" style="font-size: 15px"><tspan class="cyan">GET</tspan> /get?<tspan class="yellow">skills</tspan>=<tspan class="green">html</tspan>&amp;<tspan class="yellow">skills</tspan>=<tspan class="green">js</tspan>&amp;<tspan class="yellow">skills</tspan>=<tspan class="green">go</tspan></text>
+  <text class="mono start grey" x="396" y="118" style="font-size: 15px">HTTP/1.1</text>
+  <text class="label" x="380" y="166">one pair per checked box, in document order; css is unchecked, so it is not sent</text>
+
+  <!-- select multiple -->
+  <rect class="box" x="20" y="220" width="290" height="150" rx="6" />
+  <text class="mono start" x="36" y="244" style="font-size: 14px"><tspan class="orange">&lt;select</tspan> <tspan class="yellow">name</tspan><tspan class="grey">=</tspan><tspan class="green">"colors"</tspan> <tspan class="violet">multiple</tspan><tspan class="orange">&gt;</tspan></text>
+  <rect class="sel" x="36" y="264" width="258" height="28" rx="3" />
+  <text class="mono start" x="48" y="279" style="font-size: 16px"><tspan class="green">r</tspan>  Red</text>
+  <text class="mono start grey" x="48" y="309" style="font-size: 16px">g  Green</text>
+  <rect class="sel" x="36" y="324" width="258" height="28" rx="3" />
+  <text class="mono start" x="48" y="339" style="font-size: 16px"><tspan class="green">b</tspan>  Blue</text>
+
+  <path class="line" d="M312,295 L378,295" />
+  <rect class="box" x="380" y="257" width="500" height="76" rx="6" />
+  <text class="mono start" x="396" y="279" style="font-size: 15px"><tspan class="cyan">GET</tspan> /get?<tspan class="yellow">colors</tspan>=<tspan class="green">r</tspan>&amp;<tspan class="yellow">colors</tspan>=<tspan class="green">b</tspan> <tspan class="grey">HTTP/1.1</tspan></text>
+  <text class="label" x="396" y="309" style="font-size: 13px">Ctrl/Cmd-click picks more than one option</text>
+  <text class="label" x="380" y="351">one pair per selected option, and it is the value attribute, not the text</text>
+
+  <!-- nothing chosen -->
+  <rect class="dash" x="20" y="392" width="860" height="56" rx="6" />
+  <text class="label" x="36" y="410" style="font-size: 15px; fill: #eeeeee">Nothing checked, nothing selected → the name is not in the request at all</text>
+  <text class="label" x="36" y="432" style="font-size: 13px">a text field q=x, one unchecked box and an empty multiple select send only</text>
+  <text class="mono start" x="620" y="420" style="font-size: 15px"><tspan class="cyan">GET</tspan> /get?<tspan class="yellow">q</tspan>=<tspan class="green">x</tspan></text>
+
+  <text class="label" x="20" y="478" style="font-size: 13px">Captured from Chrome submitting to a local server; the other request headers are not shown.</text>
+</svg>
