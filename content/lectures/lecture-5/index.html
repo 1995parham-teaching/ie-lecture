@@ -2706,6 +2706,10 @@ function replaceNewP() {
     </li>
     <ul>
       <li>
+        The server <strong class="hl-red">must</strong> validate again, because
+        a client can send any request
+      </li>
+      <li>
         In client side we check
         <em class="hl-green">format</em> (pattern/syntax)
       </li>
@@ -2743,19 +2747,56 @@ function replaceNewP() {
         The value of selected <code class="hl-orange">option</code> is given by
         <code class="hl-green">SelectObject.value</code>
       </li>
+      <li>
+        With <code class="hl-violet">multiple</code>,
+        <code class="hl-green">.value</code> is only the
+        <em class="hl-red">first</em> one: use
+        <code class="hl-green">.selectedOptions</code>
+      </li>
     </ul>
     <li>
       For <code class="hl-orange">checkbox</code> and
       <code class="hl-orange">radio</code>
     </li>
     <ul>
-      <li>Enumerate all options (children)</li>
+      <li>
+        They are separate inputs that share one
+        <code class="hl-yellow">name</code>:
+        <code class="hl-green">document.getElementsByName(name)</code>
+      </li>
       <li><code class="hl-green">.checked == true</code> is selected</li>
       <li>
-        The value of the selected child is given by its
+        The value of the selected one is given by its
         <code class="hl-green">.value</code>
       </li>
     </ul>
+  </ul>
+</section>
+<section>
+  <h2>Reading Many Values</h2>
+  <pre><code class="lang-javascript">
+const form = document.forms.profile;
+
+// &lt;select name="colors" multiple&gt;, Red (r) and Blue (b) selected
+form.colors.value; // "r", only the first
+Array.from(form.colors.selectedOptions, (o) =&gt; o.value); // ["r", "b"]
+
+// checkboxes named "os", Linux and Mac checked
+new FormData(form).getAll("os"); // ["Linux", "Mac"]
+new FormData(form).get("os"); // "Linux", only the first
+
+// radio buttons named "grade": the checked one
+form.elements.grade.value; // "M"
+
+// the same pairs the browser sends on submit
+new URLSearchParams(new FormData(form)).toString();
+// "colors=r&amp;colors=b&amp;os=Linux&amp;os=Mac&amp;grade=M"
+  </code></pre>
+  <ul>
+    <li>
+      <code class="hl-green">FormData</code> collects the form the way the
+      browser does, so one name can have many values
+    </li>
   </ul>
 </section>
 <section>
@@ -2816,32 +2857,37 @@ document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
       <input
         type="button"
         value="Find OS"
-        onclick="findOS('osSelect', 'osSelectOut')"
+        onclick="findOS(this.form, 'osSelectOut')"
       />
     </form>
     <span id="osSelectOut" style="font-size: 15pt"> </span>
 
     <script>
-      function findOS(inputCheckBoxs, Outputdiv) {
-        let boxes = document.getElementsByName(inputCheckBoxs);
-        let outputMessage = "Ok, you are master in ";
-        for (let i = 0; i < boxes.length; i++) {
-          if (boxes[i].checked) outputMessage += " " + boxes[i].value + ", ";
+      function findOS(form, outputID) {
+        const systems = new FormData(form).getAll("osSelect");
+        const output = document.getElementById(outputID);
+        if (systems.length === 0) {
+          output.textContent = "Select at least one OS";
+        } else {
+          output.textContent = "Ok, you are master in " + systems.join(", ");
         }
-        document.getElementById(Outputdiv).innerHTML = outputMessage;
       }
     </script>
   </section>
   <section>
     <pre><code class="lang-javascript">
-function findOS(inputCheckBoxs, Outputdiv) {
-  let boxes = document.getElementsByName(inputCheckBoxs);
-  let outputMessage = "Ok, you are master in ";
-  for (let i = 0; i &lt; boxes.length; i++) {
-    if (boxes[i].checked) outputMessage += " " + boxes[i].value + ", ";
+function findOS(form, outputID) {
+  const systems = new FormData(form).getAll("osSelect");
+  const output = document.getElementById(outputID);
+  if (systems.length === 0) {
+    output.textContent = "Select at least one OS";
+  } else {
+    output.textContent = "Ok, you are master in " + systems.join(", ");
   }
-  document.getElementById(Outputdiv).innerHTML = outputMessage;
 }
+    </code></pre>
+    <pre><code class="lang-html">
+&lt;input type="button" value="Find OS" onclick="findOS(this.form, 'osSelectOut')" /&gt;
     </code></pre>
   </section>
 </section>
@@ -3043,10 +3089,46 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
 </section>
 <section>
   <h2>HTML Validator</h2>
-  <form>
-    <label for="age">age: </label><input name="age" type="number" /><br />
-    <label for="email">email: </label><input name="email" type="email" /><br />
+  <ul>
+    <li>
+      The browser checks <code class="hl-yellow">type</code>,
+      <code class="hl-yellow">required</code>,
+      <code class="hl-yellow">min</code> /
+      <code class="hl-yellow">max</code> and
+      <code class="hl-yellow">pattern</code> before it submits
+    </li>
+    <li>JavaScript can read and extend the same checks</li>
+    <ul>
+      <li>
+        <code class="hl-green">form.checkValidity()</code>,
+        <code class="hl-green">input.validity</code>,
+        <code class="hl-green">input.validationMessage</code>
+      </li>
+      <li>
+        <code class="hl-green">input.setCustomValidity("...")</code> for a rule
+        HTML cannot say, e.g. the two passwords must match
+      </li>
+    </ul>
+  </ul>
+  <form id="validator-form">
+    <label for="age">age: </label
+    ><input id="age" name="age" type="number" min="18" required /><br />
+    <label for="email">email: </label
+    ><input id="email" name="email" type="email" required /><br />
+    <input type="submit" value="Submit" />
   </form>
+  <p id="validator-out" style="font-size: 0.7em"></p>
+  <script>
+    document
+      .getElementById("validator-form")
+      .addEventListener("submit", (event) => {
+        // the browser only fires submit once every check has passed
+        event.preventDefault();
+        document.getElementById("validator-out").textContent =
+          "Valid, the browser would send: " +
+          new URLSearchParams(new FormData(event.target));
+      });
+  </script>
 </section>
 <section>
   <section>

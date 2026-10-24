@@ -1,6 +1,6 @@
 # Lecture 5 — JavaScript
 
-215 slides, 44 vertical stacks — the deck with the most slides. Topics (TOC
+216 slides, 44 vertical stacks — the deck with the most slides. Topics (TOC
 indices): `0` Introduction · `1` JavaScript Basic · `2` JavaScript & DOM & CSS ·
 `3` Event Handling · `4` Web Applications · `5` Summary.
 
@@ -32,6 +32,14 @@ before it is the legacy half.
   and the other fields, so `farewell()` works. Run in Node with a stub
   `alert`: it prints "Tammi has left the building. Bye for now!".
 - `document.applets` was removed from the DOM; it is gone from the deck.
+- Form reading was checked in headless Chrome: `select.value` with `multiple`
+  is only the first selected option (`selectedOptions` has all);
+  `FormData.getAll(name)` returns every checked box sharing a name, `get` only
+  the first; for radios `form.elements[name].value` is the checked one (for
+  checkboxes it is `""`). The "Reading Many Values" comments are that run.
+- The HTML Validator demo and `findOS` were run from the built deck: an invalid
+  submit fires no `submit` event; a valid one is stopped by
+  `preventDefault()` and prints `age=20&email=a%40b.co`, so the deck stays.
 - The library-graveyard slide (jQuery, Prototype, MooTools…) is deliberate
   historical framing, not a recommendation.
 
