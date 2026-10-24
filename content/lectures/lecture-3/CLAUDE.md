@@ -59,7 +59,7 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 
 ## Cautions
 
-- Every HTML sample is inside `<pre><code class="language-html">`, so `<` and `>`
+- Every HTML sample is inside `<pre><code class="lang-html">` (this deck uses the `lang-` prefix throughout; keep to it), so `<` and `>`
   must be escaped as `&lt;` / `&gt;`. This deck is the easiest place in the repo
   to get that wrong, because the subject _is_ markup.
 - Figures use `<figure>` / `<figcaption>` rather than a bare `<img>` plus a
