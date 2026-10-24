@@ -159,7 +159,4 @@ fix makes the decks inconsistent. Raise them first.
 - **`<ul>` nested directly inside `<ul>`**, ~511 places across 15 decks. Invalid
   HTML (a `ul` may contain only `li`), but every browser renders it. Notable
   because lecture 3 teaches HTML.
-- **Dimension attributes with units**, e.g. `height="250px"`. `width`/`height`
-  take a bare integer; browsers salvage the rest. Remaining in `lecture-4` (2);
-  `lecture-2` has none left.
 - **`cors` and `lecture-8`** declare `topics` but render no TOC slides.

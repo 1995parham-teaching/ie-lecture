@@ -3,13 +3,15 @@ index: 4
 title: CSS
 topics:
   - Introduction
-  - Style Types
+  - Adding CSS
   - Selectors
-  - Cascading
-  - Box-Model
-  - Layout Design
-  - Miscellaneous
-  - CSS Tools
+  - Cascade
+  - Box Model
+  - Layout
+  - Responsive Design
+  - Modern CSS
+  - Real-World Examples
+  - Tools
 ---
 
 <section>
@@ -19,737 +21,594 @@ topics:
   <div class="toc" data-selected="0"></div>
 </section>
 <section>
-  <h2>Introduction</h2>
+  <h2>Why CSS?</h2>
   <ul>
-    <li>HTML: Structure of web pages; moreover</li>
-    <ul>
-      <li>HTML elements have a default presentation</li>
-      <li>
-        Some elements and attributes are used for presentation (physical
-        formatting)
-      </li>
-    </ul>
-
-    <pre><code class="lang-html">&lt;em&gt;&lt;font size=10 color=red&gt; test &lt;/font&gt;&lt;/em&gt;</code></pre>
-    <li>No reusability</li>
-    <ul>
-      <li>Tremendous repeated formatting tags</li>
-    </ul>
-    <li>Structure and Formatting mixed up mess</li>
+    <li>
+      HTML describes <strong class="hl-orange">structure</strong>: headings,
+      paragraphs, lists, forms
+    </li>
+    <li>In the 90s, presentation was written into the HTML itself</li>
   </ul>
-</section>
-<section>
-  <h2>Introduction (Contd.)</h2>
+  <pre><code class="lang-html">
+&lt;!-- 1996 style: &lt;center&gt; and &lt;font&gt; are obsolete in HTML today --&gt;
+&lt;center&gt;&lt;font size="7" color="red"&gt;Welcome&lt;/font&gt;&lt;/center&gt;
+  </code></pre>
   <ul>
-    <li>(in HTML) Separation between</li>
+    <li>
+      <strong class="hl-green">CSS</strong> (Cascading Style Sheets) moves
+      presentation out of the HTML
+    </li>
     <ul>
-      <li>Content &amp; Structure</li>
-      <li>Presentation</li>
-    </ul>
-    <li>Content &amp; Structure are specified by HTML tags</li>
-    <ul>
+      <li>One stylesheet styles every page of a site, and is cached once</li>
       <li>
-        Cascading Style Sheet (CSS) defines the presentation and style of web
-        pages
+        The same HTML can look different on a phone, on paper or in dark mode
       </li>
-      <ul>
-        <li>How elements are presented in web pages!!</li>
-        <li>Override the default presentation of elements</li>
-        <ul>
-          <li>
-            CSS is optional, if presentation is not specified, browser uses its
-            own default presentation for HTML elements
-          </li>
-        </ul>
-      </ul>
+      <li>Without CSS, the browser uses its own default styles</li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>Introduction (Contd.)</h2>
+  <h2>A Short History</h2>
   <ul>
     <li>Proposed by Håkon Wium Lie at CERN in 1994</li>
-    <li>A W3C standard for controlling the visual presentation of web pages</li>
+    <li>CSS1 (1996), CSS2 (1998), CSS 2.1 (2011)</li>
     <li>
-      CSS1 and CSS2 were single documents. From CSS3 onward the language is
-      split into <em class="hl-orange">modules</em> that version independently —
-      so there is no such thing as <q class="hl-red">CSS4</q>
+      After 2.1, the language is split into
+      <em class="hl-orange">modules</em> (Selectors, Flexbox, Grid, Color, …),
+      each with its own level
     </li>
-    <li>Uses a different syntax than HTML/XHTML</li>
     <ul>
-      <li>A different language</li>
-    </ul>
-    <li>Works with the common visual browsers</li>
-    <li>
-      Greatly simplifies visual design, site management and content maintenance
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>Introduction (Contd.)</h2>
-  <ul>
-    <li>Advantages</li>
-    <ul>
-      <li>Reuse styling rules in multiple pages</li>
-      <ul>
-        <li>Make easier site management</li>
-        <li>Saves time</li>
-      </ul>
-      <li>More control over layout</li>
-      <li>Styles + JavaScript dynamic presentation</li>
-      <li>Multiple presentation of the same content</li>
-      <li>Media dependent presentation</li>
+      <li>
+        So there is no <q class="hl-red">CSS3</q> or
+        <q class="hl-red">CSS4</q> release: browsers ship features one at a time
+      </li>
+      <li>
+        Before you use a feature, check that it is
+        <strong class="hl-green">Baseline</strong> (works in every major
+        browser) on MDN, or look it up on caniuse.com
+      </li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>CSS Styles</h2>
-  <ul>
-    <li>Styles are defined by rules</li>
-    <ul>
-      <li>Selector + Declaration block (property + value)</li>
-    </ul>
-    <li>General structure of style rules</li>
-  </ul>
-  <pre><code class="lang-css">
-selector1, ..., selectorN {
-  property1: value1, ..., valueN;
-  property2: value1, ..., valueN;
-  ...
-  /* this is comment */
-}
-  </code></pre>
+  <h2>Anatomy of a Rule</h2>
   <img
-    src="./img/css-structure.gif"
-    alt="a CSS rule labelled: selector, property, value, declaration"
+    src="./img/rule-anatomy.svg"
+    alt="The rule h1, .title { color: #ff9100; font-size: 2rem; } labelled. h1 is a type selector and .title a class selector; together they are the selector list. Everything between the braces is the declaration block. color: #ff9100; is one declaration, color is the property and #ff9100 the value. The rule styles every h1 and every element with class title. A declaration the browser does not understand is skipped and the rest of the rule still applies."
+    width="880"
   />
-</section>
-<section>
-  <h2>Selectors</h2>
-  <ul>
-    <li>Tag based</li>
-    <li>Class based</li>
-    <li>ID based</li>
-    <li>DOM tree based</li>
-    <li>Attribute based</li>
-    <li>…</li>
-    <li>We will discuss later in more details</li>
-  </ul>
-</section>
-<section>
-  <h2>Sample Properties</h2>
-  <ul>
-    <li>Font:</li>
-    <ul>
-      <li>font-family</li>
-      <li>font-size</li>
-      <li>font-style</li>
-    </ul>
-    <li>Text:</li>
-    <ul>
-      <li>text-align</li>
-      <li>color</li>
-      <li>letter-spacing</li>
-      <li>word-spacing</li>
-    </ul>
-    <li>Background:</li>
-    <ul>
-      <li>background-color</li>
-      <li>background-image</li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>Sample Properties (Contd.)</h2>
-  <ul>
-    <li>Table</li>
-    <ul>
-      <li>spacing</li>
-      <li>color</li>
-      <li>alignment</li>
-    </ul>
-    <li>List</li>
-    <ul>
-      <li>style</li>
-      <li>style-image</li>
-    </ul>
-    <li>Box Model</li>
-    <ul>
-      <li>border-color, border-style, border-width</li>
-      <li>width, ...</li>
-      <li>background-color, ...</li>
-    </ul>
-    <li>Position: bottom, left, right, ...</li>
-  </ul>
 </section>
 <section>
   <h2>Values</h2>
   <ul>
-    <li>Values depend on property</li>
-    <li>Predefined keywords</li>
-    <ul>
-      <li>left, right, italic, none, ...</li>
-    </ul>
-    <li>Color</li>
-    <ul>
-      <li>red, green, blue, ...</li>
-      <li>
-        #<span class="hl-red">XX</span><span class="hl-green">YY</span
-        ><span class="hl-cyan">ZZ</span> where 00 &lt;= XX,YY,ZZ &lt;=FF
-      </li>
-      <li>
-        rgb(<span class="hl-red">XX</span>, <span class="hl-green">YY</span>,
-        <span class="hl-cyan">ZZ</span>) where 0 &lt;= XX,YY,ZZ &lt;=255
-      </li>
-      <li>...</li>
-    </ul>
-    <li>Size &amp; Length &amp; Font-size &amp; ...</li>
-    <ul>
-      <li>Absolute: cm, in, mm, pt, px, …</li>
-      <li>
-        Relative: %, em, ex, rem, vw, vh, vmin, vmax, … (we discuss later)
-      </li>
-    </ul>
+    <li>
+      Keywords: <code>left</code>, <code>bold</code>, <code>none</code>,
+      <code>auto</code>, …
+    </li>
+    <li>
+      Colors: the same orange in four notations (the third is half transparent)
+    </li>
   </ul>
+  <pre><code class="lang-css">
+color: #ff9100;               /* hex: rr gg bb */
+color: rgb(255 145 0);        /* red green blue, 0 to 255 */
+color: rgb(255 145 0 / 50%);  /* ... and 50% opacity */
+color: hsl(34 100% 50%);      /* hue, saturation, lightness */
+  </code></pre>
+  <ul>
+    <li>
+      <code class="hl-green">oklch()</code> is the modern choice for palettes:
+      equal steps in lightness look equal to the eye
+    </li>
+    <li>
+      Lengths: <code>px</code>, <code>rem</code>, <code>%</code>,
+      <code>vw</code>, … (in Responsive Design)
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Properties You Will Use Every Day</h2>
+  <table style="font-size: 0.75em">
+    <tbody>
+      <tr>
+        <td>Text</td>
+        <td>
+          <code>color</code>, <code>font-family</code>, <code>font-size</code>,
+          <code>font-weight</code>, <code>line-height</code>,
+          <code>text-align</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Box</td>
+        <td>
+          <code>width</code>, <code>height</code>, <code>margin</code>,
+          <code>padding</code>, <code>border</code>, <code>border-radius</code>,
+          <code>background</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Layout</td>
+        <td>
+          <code>display</code>, <code>position</code>, <code>flex</code>,
+          <code>grid-template-columns</code>, <code>gap</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Motion</td>
+        <td>
+          <code>transition</code>, <code>animation</code>,
+          <code>transform</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pre><code class="lang-css">
+body {
+  font-family: system-ui, sans-serif; /* the operating system's own font */
+  line-height: 1.5;
+  color: #222;
+}
+  </code></pre>
 </section>
 <section>
   <div class="toc" data-selected="1"></div>
 </section>
 <section>
-  <h2>Inline Styles</h2>
+  <h2>Three Ways to Add CSS</h2>
+  <pre><code class="lang-html">
+&lt;!-- 1. External: one file for the whole site (use this) --&gt;
+&lt;link rel="stylesheet" href="style.css" /&gt;
+
+&lt;!-- 2. Internal: rules for this page only --&gt;
+&lt;style&gt;
+  h1 { color: #ff9100; }
+&lt;/style&gt;
+
+&lt;!-- 3. Inline: one element, no selector --&gt;
+&lt;h1 style="color: #ff9100"&gt;Hello&lt;/h1&gt;
+  </code></pre>
   <ul>
-    <li>Add styles to each tag within HTML file</li>
-    <ul>
-      <li>Used to format a single HTML element</li>
-      <li>Selector is implicitly specified</li>
-      <li>Style is given as an attribute</li>
-    </ul>
-    <pre><code class="lang-html">
-&lt;h1 style="color:red; font-family: sans-serif"&gt;Test Heading 1&lt;/h1&gt;
-    </code></pre>
-    <li>Element based</li>
-    <ul>
-      <li>Hard to update</li>
-      <li>Violates structure-style separation</li>
-      <li>(Only for) styling exceptional element</li>
-    </ul>
+    <li>External sheets are cached and shared by every page</li>
+    <li>
+      Inline styles are for one-off exceptions, or values set by JavaScript
+    </li>
+    <li>
+      <code>type="text/css"</code> is the default: old code writes it, you do
+      not need to
+    </li>
   </ul>
 </section>
 <section>
-  <h2>Internal (embed) Styles</h2>
+  <h2>Print Styles</h2>
   <ul>
-    <li>A style is used in the entire HTML file</li>
     <li>
-      Used to control style of elements (e.g. all h1) in a single web page
+      A stylesheet can apply to one <em class="hl-orange">media type</em>:
+      <code>screen</code>, <code>print</code> or <code>all</code>
     </li>
   </ul>
   <pre><code class="lang-html">
-&lt;head&gt;
-  &lt;style type="text/css"&gt;
-  h1 {
-    color: red;
-    font-family: sans-serif;
-  }
-  &lt;/style&gt;
-&lt;/head&gt;
+&lt;link rel="stylesheet" href="print.css" media="print" /&gt;
   </code></pre>
-</section>
-<section>
-  <h2>External Styles</h2>
-  <ul>
-    <li>A text file containing style rules</li>
-    <li>Used to control style in multiple web pages</li>
-    <li>Example</li>
-    <ul>
-      <li>A text document with <code>.css</code> extension contains</li>
-      <pre><code class="lang-css">
-h1, h2, h3, h4, h5, h6 {
-  color: #FF0000;
-  font-family: sans-serif;
+  <pre><code class="lang-css">
+/* or inside any stylesheet */
+@media print {
+  nav, video, .ads { display: none; }
+  a[href]::after { content: " (" attr(href) ")"; }
 }
-      </code></pre>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>External Styles (Contd.)</h2>
+  </code></pre>
   <ul>
     <li>
-      External style file is used in HTML web page through linking it to the web
-      page
+      Try it: <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>P</kbd> on any page, or
+      emulate print in DevTools
     </li>
   </ul>
-  <pre><code class="lang-html">
-&lt;head&gt;
-  &lt;title&gt;External CSS&lt;/title&gt;
-  &lt;link href="external_css.css" rel="stylesheet" type="text/css" /&gt;
-&lt;/head&gt;
-  </code></pre>
-</section>
-<section>
-  <h2>External Styles Advantages</h2>
-  <ul>
-    <li>Avoid repeating styles for each page</li>
-    <ul>
-      <li>It is easier to update whole site</li>
-    </ul>
-    <li>CSS can be cached independent of HTML</li>
-    <li>Different style sheets can be attached to the same document</li>
-    <ul>
-      <li>Personalized &amp; Customization &amp; Media dependent</li>
-    </ul>
-    <li>A style sheet can import and use styles from other style sheets</li>
-  </ul>
-</section>
-<section>
-  <h2>Media Depended Presentation</h2>
-  <ul>
-    <li>Web page presentation can be depended on media</li>
-    <li>Available media types</li>
-    <pre><code class="lang-html">
-&lt;style type="text/css" media="screen"&gt;
-&lt;link rel="stylesheet" href="style.css" media="all"&gt;
-    </code></pre>
-    <ul>
-      <li>all</li>
-      <li>screen</li>
-      <li>print</li>
-      <li>...</li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>Media Depended Presentation</h2>
-  <img src="./img/media-css-1.png" alt="the same page styled for screen" />
-  <img src="./img/media-css-2.png" alt="the same page styled for print" />
-</section>
-<section>
-  <h2>Media Depended Presentation</h2>
-  <img
-    src="./img/media-css-3.png"
-    alt="one document, three media-dependent presentations"
-  />
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
 </section>
 <section>
-  <h2>CSS Selectors</h2>
-  <ul>
-    <li>*: universal selector (all elements)</li>
-    <li>HTML Tags</li>
-    <li>Attribute based</li>
-    <ul>
-      <li>Special attributes</li>
-      <ul>
-        <li>Class based: per-class style</li>
-        <li>ID based: per-element styles</li>
-        <li>In combination with tag names</li>
-      </ul>
-      <li>In general attribute name, value, ...</li>
-    </ul>
-    <li>DOM tree based</li>
-    <ul>
-      <li>Child &amp; Descendant, Sibling, ...</li>
-    </ul>
-    <li>Pseudo-class &amp; Pseudo-element</li>
-  </ul>
-</section>
-<section>
+  <h2>Basic Selectors</h2>
+  <table style="font-size: 0.65em">
+    <tbody>
+      <tr>
+        <td><code>*</code></td>
+        <td>every element</td>
+        <td><code>[disabled]</code></td>
+        <td>has the attribute</td>
+      </tr>
+      <tr>
+        <td><code>p</code></td>
+        <td>every <code>&lt;p&gt;</code></td>
+        <td><code>[type="email"]</code></td>
+        <td>attribute equals</td>
+      </tr>
+      <tr>
+        <td><code>.note</code></td>
+        <td>every element with <code>class="note"</code></td>
+        <td><code>a[href^="https:"]</code></td>
+        <td>attribute starts with</td>
+      </tr>
+      <tr>
+        <td><code>p.note</code></td>
+        <td>a <code>&lt;p&gt;</code> with that class</td>
+        <td><code>a[href$=".pdf"]</code></td>
+        <td>attribute ends with</td>
+      </tr>
+      <tr>
+        <td><code>.note.warning</code></td>
+        <td>both classes at once</td>
+        <td><code>[class*="icon"]</code></td>
+        <td>attribute contains</td>
+      </tr>
+      <tr>
+        <td><code>#main</code></td>
+        <td>the element with <code>id="main"</code></td>
+        <td><code>h1, h2</code></td>
+        <td>selector list: either one</td>
+      </tr>
+    </tbody>
+  </table>
   <ul>
     <li>
-      We may not need all these selectors at the beginning; however, they are
-      powerful tools that simplify complex CSS rules
+      Style with <strong class="hl-green">classes</strong>; keep ids for links
+      (<code>#section</code>) and JavaScript, because an id is hard to override
+      (see Cascade)
     </li>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>Element Selector</h2>
-    <pre><code class="lang-html">
-&lt;head&gt;
-  &lt;style type="text/css"&gt;
-    * {color: blue}
-    h1 {text-decoration: underline}
-    p {font-style: italic}
-  &lt;/style&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-  &lt;h1&gt; Testing Element Selector &lt;/h1&gt;
-  &lt;p&gt; This is a paragraph &lt;/p&gt;
-&lt;/body&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/element-selector.png"
-      alt="the element selector example as rendered"
-    />
-  </section>
+  <h2>Classes and Attributes</h2>
+  <style>
+    .sd-attr .note {
+      border-left: 4px solid #00e5ff;
+      padding-left: 8px;
+    }
+    .sd-attr .note.warning {
+      border-left-color: #ff9100;
+    }
+    .sd-attr a[href^="https:"] {
+      color: #76ff03;
+    }
+    .sd-attr a[href$=".pdf"] {
+      color: #ff5252;
+    }
+  </style>
+  <pre><code class="lang-css">
+.note { border-left: 4px solid #00e5ff; padding-left: 8px; }
+.note.warning { border-left-color: #ff9100; }
+a[href^="https:"] { color: #76ff03; }
+a[href$=".pdf"] { color: #ff5252; }
+  </code></pre>
+  <pre><code class="lang-html">
+&lt;p class="note"&gt;A note&lt;/p&gt;
+&lt;p class="note warning"&gt;A warning: two classes&lt;/p&gt;
+&lt;a href="https://developer.mozilla.org"&gt;MDN&lt;/a&gt;
+&lt;a href="/syllabus.pdf"&gt;Syllabus&lt;/a&gt;
+  </code></pre>
+  <div class="sd-attr" style="text-align: left; font-size: 0.8em">
+    <p class="note">A note</p>
+    <p class="note warning">A warning: two classes</p>
+    <a href="https://developer.mozilla.org">MDN</a>
+    <a href="/syllabus.pdf">Syllabus</a>
+  </div>
 </section>
 <section>
-  <section>
-    <h2><code class="hl-yellow">id</code> Selector</h2>
-    <ul>
-      <li>Assign ID to elements</li>
-      <pre><code class="lang-html">
-&lt;h2 id="blue_heading"&gt; This is blue heading &lt;/h2&gt;
-&lt;h2 id="red_heading"&gt; This is red heading &lt;/h2&gt;
-      </code></pre>
-      <li>Define style for each ID</li>
+  <h2>Combinators</h2>
+  <style>
+    .sd-comb h2 {
+      font-size: 1em;
+      text-transform: none;
+      margin: 0;
+    }
+    .sd-comb p {
+      margin: 0;
+    }
+    .sd-comb article p {
+      color: #00e5ff;
+    }
+    .sd-comb article > p {
+      font-weight: bold;
+    }
+    .sd-comb h2 + p {
+      color: #ff9100;
+    }
+    .sd-comb h2 ~ p {
+      font-style: italic;
+    }
+  </style>
+  <div style="display: flex; gap: 24px; align-items: center">
+    <div style="flex: 1.4">
       <pre><code class="lang-css">
-#blue_heading {color:blue;}
-#red_heading {color:red;}
+/* descendant: any depth */
+article p { color: #00e5ff; }
+/* child: direct only */
+article &gt; p { font-weight: bold; }
+/* the next sibling */
+h2 + p { color: #ff9100; }
+/* every later sibling */
+h2 ~ p { font-style: italic; }
       </code></pre>
-    </ul>
-  </section>
-  <section>
-    <img
-      src="./img/id-selector.png"
-      alt="the id selector example as rendered"
-    />
-  </section>
-</section>
-<section>
-  <section>
-    <h2><code class="hl-yellow">class</code> Selector</h2>
-    <ul>
-      <li>Assign class to element</li>
       <pre><code class="lang-html">
-&lt;h3 class="blue_heading"&gt; This is blue heading 1&lt;/h3&gt;
-&lt;h3 class="red_heading"&gt; This is red heading 1&lt;/h3&gt;
-&lt;h3 class="blue_heading"&gt; This is blue heading 2&lt;/h3&gt;
-&lt;h3 class="red_heading"&gt; This is red heading 2&lt;/h3&gt;
+&lt;article&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;
+  &lt;p&gt;First paragraph&lt;/p&gt;
+  &lt;p&gt;Second paragraph&lt;/p&gt;
+  &lt;div&gt;&lt;p&gt;Nested paragraph&lt;/p&gt;&lt;/div&gt;
+&lt;/article&gt;
       </code></pre>
-      <li>Define style of each class</li>
-      <pre><code class="lang-css">
-.blue_heading {color:blue;}
-.red_heading {color:red;}
-      </code></pre>
-    </ul>
-  </section>
-  <section>
-    <img
-      src="./img/class-selector.png"
-      alt="the class selector example as rendered"
-    />
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Combined Element &amp; Class Selector</h2>
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  .all {color: blue;}
-  h2.all {color: red;}
-  h3.all {color: black;}
-&lt;/style&gt;
-
-&lt;h1 class="all"&gt; Heading 1 &lt;/h1&gt;
-&lt;h2 class="all"&gt; Heading 2 &lt;/h2&gt;
-&lt;h3 class="all"&gt; Heading 3 &lt;/h3&gt;
-&lt;h4 class="all"&gt; Heading 4 &lt;/h4&gt;
-&lt;h5 class="all"&gt; Heading 5 &lt;/h5&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/class-element-selector.png"
-      alt="the combined element and class selector example as rendered"
-    />
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Multiple Classes</h2>
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  .red {color:red;}
-  .bold {font-weight:bold;}
-&lt;/style&gt;
-
-&lt;body&gt;
-  &lt;p class="red"&gt; This is a red paragraph &lt;/p&gt;
-  &lt;p class="bold"&gt; This is a bold paragraph &lt;/p&gt;
-  &lt;p class="red bold"&gt; This is a red-bold paragraph &lt;/p&gt;
-&lt;/body&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/multiple-class-selector.png"
-      alt="a paragraph carrying two classes at once, as rendered"
-    />
-  </section>
-</section>
-<section>
-  <section>
-    <h2>
-      <code class="hl-orange">&lt;div&gt;</code> and
-      <code class="hl-orange">&lt;span&gt;</code> in CSS
-    </h2>
-    <ul>
-      <li>HTML:</li>
-      <pre><code class="lang-html">
-&lt;div class="green_color"&gt;
-This is a green div. But, &lt;span id="red_color"&gt; this is red &lt;/span&gt; using span.
-&lt;/div&gt;
-      </code></pre>
-      <li>CSS</li>
-      <pre><code class="lang-css">
-.green_color {
-  color:green;
-  font-weight:bold;
-}
-#red_color {color:red;}
-      </code></pre>
-    </ul>
-  </section>
-  <section>
-    <img src="./img/div-span.png" alt="a green div containing a red span" />
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Attribute Selector</h2>
-    <pre><code class="lang-html">
-&lt;p&gt; A paragraph without "id" attribute &lt;/p&gt;
-&lt;p myid="test1"&gt; A paragraph with id=test1 &lt;/p&gt;
-&lt;p myid="test2"&gt; A paragraph with id=test2 &lt;/p&gt;
-&lt;p myid="test3"&gt; A paragraph with id=test3 &lt;/p&gt;
-    </code></pre>
-    <pre><code class="lang-css">
-p[myid] {color:red}
-p[myid="test3"] {color:blue}
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/attribute-selector.png"
-      alt="the attribute selector example as rendered"
-    />
-  </section>
-</section>
-<section>
-  <h2>Pseudo-Classes</h2>
+    </div>
+    <div class="sd-comb" style="flex: 1; text-align: left; font-size: 0.8em">
+      <article>
+        <h2>Title</h2>
+        <p>First paragraph</p>
+        <p>Second paragraph</p>
+        <div><p>Nested paragraph</p></div>
+      </article>
+    </div>
+  </div>
   <ul>
-    <li>HTML elements have states</li>
-    <ul>
-      <li>(Almost) all elements: mouse over, clicked, ...</li>
-      <li>&lt;a&gt;: Normal (Unvisited), Visited, ...</li>
-    </ul>
-    <li>Pseudo-classes are used to style the states</li>
-    <ul>
-      <li>active, first-child, last-child, ...</li>
-    </ul>
-    <li>E.g.</li>
-    <pre><code class="lang-css">
-a:link {color:#FF0000}
-a:visited {color:#00FF00}
-p:hover {color:#FF00FF} 
-a:active {color:#FFFFFF} 
-    </code></pre>
-    <pre><code class="lang-css">
-/* Selects any &lt;p&gt; that is the first element
-   among its siblings */
-p:first-child {
-  color: lime;
-}
-    </code></pre>
+    <li>
+      The first paragraph matches <code>article p</code> and
+      <code>h2 + p</code>, which tie in specificity, so the later rule wins:
+      orange
+    </li>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>Pseudo-Elements</h2>
+  <h2>Pseudo-Classes: States</h2>
+  <ul>
+    <li>
+      A pseudo-class (one colon) selects an element in a
+      <em class="hl-orange">state</em>
+    </li>
     <ul>
-      <li>lets you style a specific part of the selected element(s).</li>
-      <li>first-letter (in heading &amp; paragraph)</li>
-      <pre><code class="lang-css">
-p::first-letter {font-size: 200%;}
-    </code></pre>
-      <li>first-line (in paragraph)</li>
-      <pre><code class="lang-css">
-p::first-line {color: red;}
-    </code></pre>
-      <li>selection</li>
-      <pre><code class="lang-css">
-/* The ::selection selector matches the portion of
-  an element that is selected by a user. */
-::selection {font-size: 2em;}
-    </code></pre>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>before &amp; after</li>
-      <ul>
-        <li>
-          Mainly used with
-          <code class="lang-css">{ content: url(something); }</code>
-          to insert an object before &amp; after and element
-        </li>
-      </ul>
-      <pre><code class="lang-css">
-.google::after{
-  content: url("google_logo.gif");
-}
-      </code></pre>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Pseudo-Classes/Elements (Contd.)</h2>
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  p code:first-child {color: blue;}
-  p::first-letter {font-size: 200%;}
-  p::first-line {color: red;}
-  .google::after{content:url("google_logo.gif");}
-&lt;/style&gt;
-
-&lt;p&gt;
-  This is the first &lt;code&gt; code &lt;/code&gt;,
-  this is second &lt;code&gt; code &lt;/code&gt;. &lt;br /&gt;
-  &lt;span class="google"&gt;Google&lt;/span&gt;
-  is a big company.
-&lt;/p&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/peseudo.png"
-      alt="first-letter, first-line and ::after applied to a paragraph"
-    />
-  </section>
-  <section>
-    <pre><code class="lang-css">
-::selection {
-  color: #fff;
-  background: #FF5E99;
-  text-shadow: none;
-}
-    </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>DOM based: Child Selector</h2>
-    <ul>
-      <li>When we want to select elements which are inside other elements</li>
       <li>
-        To select a (direct) child of parent parent &gt; child {property:
-        value;}
+        User: <code>:hover</code>, <code>:active</code>,
+        <code>:focus-visible</code> (keyboard focus)
+      </li>
+      <li>
+        Structure: <code>:first-child</code>, <code>:last-child</code>,
+        <code>:nth-child(odd)</code>, <code>:nth-child(3n + 1)</code>
+      </li>
+      <li>
+        Forms: <code>:checked</code>, <code>:disabled</code>,
+        <code>:required</code>, <code>:user-invalid</code>
       </li>
     </ul>
-
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  ol {color: red;}
-  ol &gt; li {color: blue;}
-&lt;/style&gt;
-
-&lt;ol&gt;
-  &lt;li&gt; Item 1 &lt;/li&gt;
-  &lt;ul&gt; &lt;li&gt; Nested 1&lt;/li&gt; &lt;/ul&gt;
-  &lt;li&gt; Item 2 &lt;/li&gt;
-  &lt;dl&gt; &lt;dt&gt; def: &lt;/dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
-  &lt;/dl&gt;
-&lt;/ol&gt;
-  </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/child-selector.png"
-      alt="the child selector example, styling only direct children"
-    />
-  </section>
+  </ul>
+  <style>
+    .sd-pc table {
+      margin: 0;
+    }
+    .sd-pc tr:nth-child(even) {
+      background: rgb(255 255 255 / 12%);
+    }
+    .sd-pc input {
+      font-size: 0.8em;
+      border: 3px solid #8d97a8;
+      padding: 4px;
+    }
+    .sd-pc input:focus-visible {
+      outline: 3px solid #00e5ff;
+    }
+    .sd-pc input:user-invalid {
+      border-color: #ff5252;
+    }
+  </style>
+  <div style="display: flex; gap: 24px; align-items: center">
+    <pre style="flex: 1.3"><code class="lang-css">
+tr:nth-child(even) { background: rgb(255 255 255 / 12%); }
+input:focus-visible { outline: 3px solid #00e5ff; }
+/* only after the user has edited the field */
+input:user-invalid { border-color: #ff5252; }
+    </code></pre>
+    <div class="sd-pc" style="flex: 1; font-size: 0.7em">
+      <table>
+        <tbody>
+          <tr>
+            <td>row 1</td>
+          </tr>
+          <tr>
+            <td>row 2</td>
+          </tr>
+          <tr>
+            <td>row 3</td>
+          </tr>
+          <tr>
+            <td>row 4</td>
+          </tr>
+        </tbody>
+      </table>
+      <input type="email" required placeholder="type an email" />
+    </div>
+  </div>
 </section>
 <section>
-  <section>
-    <h2>DOM based: Descendant Selector</h2>
-    <ul>
-      <li>To select descendant of a tag tag descendant {property: value;}</li>
-    </ul>
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  ol {color: red;}
-  ol li {color: blue;}
-&lt;/style&gt;
+  <h2><code>:is()</code>, <code>:where()</code>, <code>:not()</code></h2>
+  <pre><code class="lang-css">
+/* instead of h1 a, h2 a, h3 a */
+:is(h1, h2, h3) a { color: inherit; }
 
-&lt;ol&gt;
-  &lt;li&gt; Item 1 &lt;/li&gt;
-  &lt;ul&gt; &lt;li&gt; Nested 1&lt;/li&gt; &lt;/ul&gt;
-  &lt;li&gt; Item 2 &lt;/li&gt;
-  &lt;dl&gt; &lt;dt&gt; def: &lt;/dt&gt; &lt;dd&gt; Definition &lt;/dd&gt;
-  &lt;/dl&gt;
-&lt;/ol&gt;
+/* the same matching, but zero specificity: easy to override */
+:where(ul, ol) { padding-left: 1.5rem; }
+
+/* everything except */
+button:not(:disabled):hover { background: #ff9100; }
   </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/descendant-selector.png"
-      alt="the descendant selector example, styling children at any depth"
-    />
-  </section>
-</section>
-<section>
-  <h2>DOM based: Sibling Selector</h2>
   <ul>
-    <li>When we want to select elements which are next to other elements</li>
-    <li>To select tag2 which is immediate successive sibling of tag1</li>
-    <pre><code class="lang-css">
-tag1 + tag2 {property: value;}
-    </code></pre>
-    <li>To select tag2 which is a successive sibling of tag1</li>
-    <pre><code class="lang-css">
-tag1 ~ tag2 {property: value;}
-    </code></pre>
+    <li>
+      <code class="hl-green">:is()</code> counts as its
+      <em>most specific</em> argument
+    </li>
+    <li>
+      <code class="hl-green">:where()</code> always counts as
+      <strong class="hl-orange">0</strong>: good for defaults in a library
+    </li>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>DOM based: Sibling Selector</h2>
-    <pre><code class="lang-css">
-h2+p {color:red;}
-h3~p {color:green;}
-  </code></pre>
+  <h2><code>:has()</code>: the Parent Selector</h2>
+  <ul>
+    <li>Select an element by what it <em class="hl-orange">contains</em></li>
+  </ul>
+  <pre><code class="lang-css">
+label:has(input:checked) { background: rgb(118 255 3 / 25%); }
 
-    <pre><code class="lang-html">
-&lt;h2&gt; Heading 2 &lt;/h2&gt;
-&lt;p&gt; Next sibling of h2 &lt;/p&gt;
-&lt;p&gt; Another sibling of h2 &lt;/p&gt;
+.card:has(img) { display: grid; grid-template-columns: 120px 1fr; }
 
-&lt;h3&gt; Heading 3 &lt;/h3&gt;
-&lt;p&gt; Next sibling of h3 &lt;/p&gt;
-&lt;p&gt; Another sibling of h3 &lt;/p&gt;
+form:has(:user-invalid) button { opacity: 0.5; }
   </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/sibling-selector.png"
-      alt="the sibling selector example as rendered"
-    />
-  </section>
+  <style>
+    .sd-has label {
+      display: block;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    .sd-has label:has(input:checked) {
+      background: rgb(118 255 3 / 25%);
+    }
+  </style>
+  <div
+    class="sd-has"
+    style="font-size: 0.8em; text-align: left; width: 50%; margin: auto"
+  >
+    <label><input type="checkbox" /> HTML</label>
+    <label><input type="checkbox" checked /> CSS</label>
+    <label><input type="checkbox" /> JavaScript</label>
+  </div>
+  <ul>
+    <li>
+      Until <code>:has()</code>, this needed JavaScript; now it works in every
+      major browser
+    </li>
+  </ul>
 </section>
 <section>
-  <h2>CSS Selectors Summary</h2>
+  <h2>Pseudo-Elements</h2>
   <ul>
-    <li>*: universal selector (all elements)</li>
-    <li>HTML Tags: h1, …, h6, p, li, table, tr, …</li>
-    <li>Class: .</li>
-    <li>ID: #</li>
-    <li>General attribute: []</li>
-    <li>Child: &gt;</li>
-    <li>Descendant: (space)</li>
-    <li>Sibling: + ~</li>
-    <li>Pseudo-class: :active, :hover, :first-child, …</li>
-    <li>Pseudo-element: ::before, ::after, ::first-line, ::first-letter, …</li>
+    <li>
+      A pseudo-element (two colons) styles a
+      <em class="hl-orange">part</em> of an element:
+      <code>::first-letter</code>, <code>::first-line</code>,
+      <code>::marker</code>, <code>::placeholder</code>,
+      <code>::selection</code>
+    </li>
+    <li>
+      <code>::before</code> and <code>::after</code> insert content, and need
+      <code>content</code>
+    </li>
   </ul>
+  <style>
+    .sd-pe .required::after {
+      content: " *";
+      color: #ff5252;
+    }
+    .sd-pe a[href^="http"]::after {
+      content: " ↗";
+    }
+    .sd-pe li::marker {
+      color: #ff9100;
+    }
+    .sd-pe p::first-letter {
+      font-size: 2em;
+      color: #00e5ff;
+    }
+  </style>
+  <div style="display: flex; gap: 24px; align-items: center">
+    <pre style="flex: 1.3"><code class="lang-css">
+.required::after { content: " *"; color: #ff5252; }
+a[href^="http"]::after { content: " ↗"; }
+li::marker { color: #ff9100; }
+p::first-letter { font-size: 2em; color: #00e5ff; }
+    </code></pre>
+    <div class="sd-pe" style="flex: 1; text-align: left; font-size: 0.7em">
+      <label class="required">Email</label><br />
+      <a href="https://developer.mozilla.org">MDN</a>
+      <ul>
+        <li>one</li>
+        <li>two</li>
+      </ul>
+      <p>Drop caps are back.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>Selectors Summary</h2>
+  <table style="font-size: 0.7em">
+    <tbody>
+      <tr>
+        <td>Type, class, id</td>
+        <td><code>p</code>, <code>.note</code>, <code>#main</code></td>
+      </tr>
+      <tr>
+        <td>Attribute</td>
+        <td>
+          <code>[type="email"]</code>, <code>[href^="https:"]</code>,
+          <code>[href$=".pdf"]</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Combinators</td>
+        <td>
+          descendant (space), child <code>&gt;</code>, siblings <code>+</code>
+          <code>~</code>, list <code>,</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Pseudo-classes</td>
+        <td>
+          <code>:hover</code>, <code>:focus-visible</code>,
+          <code>:nth-child()</code>, <code>:checked</code>,
+          <code>:user-invalid</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Logic</td>
+        <td>
+          <code>:is()</code>, <code>:where()</code>, <code>:not()</code>,
+          <code>:has()</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Pseudo-elements</td>
+        <td>
+          <code>::before</code>, <code>::after</code>, <code>::marker</code>,
+          <code>::first-letter</code>, <code>::selection</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
+</section>
+<section>
+  <h2>Conflicting Rules</h2>
+  <ul>
+    <li>Several rules can set the same property on the same element</li>
+  </ul>
+  <pre><code class="lang-css">
+/* style.css */
+p { color: red; }
+
+/* &lt;style&gt; in the page */
+p { color: blue; }
+  </code></pre>
+  <ul>
+    <li>
+      The <strong class="hl-orange">cascade</strong> picks one value, by
+      comparing in order:
+    </li>
+    <ol>
+      <li>
+        Origin and importance (browser, user, author, <code>!important</code>)
+      </li>
+      <li>The <code>style=""</code> attribute</li>
+      <li>Cascade layers (<code>@layer</code>)</li>
+      <li>Specificity of the selector</li>
+      <li>Order of appearance: the later one wins</li>
+    </ol>
+  </ul>
 </section>
 <section>
   <h2>Cascading</h2>
@@ -758,95 +617,6 @@ h3~p {color:green;}
     alt="Where a declaration comes from, weakest first, as a staircase: browser default, user (the reader's sheet), external sheets 1 to n from link, internal sheets 1 and 2 from style, inline style attribute. Origin is compared before anything else: browser, then user, then author, the page. Among the author's sheets, specificity decides first, then document order, so a style placed before a link loses to it. Inline style beats every selector. !important turns the origins round: a user !important beats the page, and an author !important beats style."
     width="880"
   />
-</section>
-<section>
-  <section>
-    <h2>Cascading (Contd.)</h2>
-    <p>test.css</p>
-    <pre><code class="lang-css">
-p {
-  font-style: italic;
-}
-    </code></pre>
-    <p>index.html</p>
-    <pre><code class="lang-html">
-&lt;head&gt;
-  &lt;link href="test.css"
-   rel="stylesheet"
-   type="text/css" /&gt;
-  &lt;style type="text/css"&gt;
-    p {color: blue;}
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;p&gt; Test Text 1&lt;/p&gt;
-  &lt;p style="font-weight: bold;"&gt; Test Text 2 &lt;/p&gt;
-&lt;/body&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/cascading-example-1.png"
-      alt="external and internal styles combining on one paragraph"
-    />
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Inheritance</h2>
-    <ul>
-      <li>HTML document is interpreted as a tree</li>
-      <ul>
-        <li>DOM tree</li>
-      </ul>
-      <li>Children inherit some styles from their parent</li>
-      <ul>
-        <li>Not all properties, e.g. border</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <pre><code class="lang-css">
-p {font-style: italic;}
-code {color: red;}
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/cascading-example-2.png"
-      alt="a child inheriting font-style from its parent"
-    />
-  </section>
-</section>
-<section>
-  <h2>Conflicting Styles &amp; Overriding</h2>
-  <ul>
-    <li>
-      What happen if multiple style rules specify different values for the same
-      property of an element?
-    </li>
-    <ul>
-      <ul>
-        <li>
-          External style:
-          <pre><code class="lang-css">p {color: red}</code></pre>
-        </li>
-        <li>
-          Internal style:
-          <pre><code class="lang-css">p {color: blue}</code></pre>
-        </li>
-      </ul>
-      <li>They are conflicting</li>
-    </ul>
-    <li>What is the final rule?</li>
-    <ul>
-      <li>It depends on</li>
-      <ul>
-        <li>Rule types, order, …</li>
-      </ul>
-      <li>Specified by the overriding algorithm</li>
-    </ul>
-  </ul>
 </section>
 <section>
   <h2>Overriding</h2>
@@ -868,60 +638,141 @@ code {color: red;}
   />
 </section>
 <section>
-  <section>
-    <h2>Overriding (Contd.)</h2>
-    <pre><code class="lang-html">
-&lt;style type="text/css"&gt;
-  p {
-    color: red;
-  }
-  p.c {
-    color: blue;
-  }
-  p#i {
-    color: green;
-  }
-&lt;/style&gt;
-
-&lt;p class="c" id="i" style="color: black"&gt;This is test&lt;/p&gt;
-&lt;p class="c" id="i"&gt;This is test&lt;/p&gt;
-&lt;p class="c"&gt;This is test&lt;/p&gt;
-&lt;p&gt;This is test&lt;/p&gt;
-    </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/overriding-example.png"
-      alt="four paragraphs, each won by a different specificity"
-    />
-  </section>
+  <h2>Specificity in Practice</h2>
+  <style>
+    .sd-spec p {
+      color: #ff5252;
+      margin: 4px 0;
+    }
+    .sd-spec p.c {
+      color: #00e5ff;
+    }
+    .sd-spec p#sd-spec-i {
+      color: #76ff03;
+    }
+  </style>
+  <div style="display: flex; gap: 24px; align-items: center">
+    <div style="flex: 1.4">
+      <pre><code class="lang-css">
+p   { color: red; }
+p.c { color: blue; }
+p#i { color: green; }
+      </code></pre>
+      <pre><code class="lang-html">
+&lt;p class="c" id="i"&gt;the id wins&lt;/p&gt;
+&lt;p class="c" style="color: white"&gt;style="" wins&lt;/p&gt;
+&lt;p class="c"&gt;the class wins&lt;/p&gt;
+&lt;p&gt;only the type matches&lt;/p&gt;
+      </code></pre>
+    </div>
+    <div class="sd-spec" style="flex: 1; text-align: left; font-size: 0.8em">
+      <p class="c" id="sd-spec-i">the id wins</p>
+      <p class="c" style="color: white">style="" wins</p>
+      <p class="c">the class wins</p>
+      <p>only the type matches</p>
+    </div>
+  </div>
 </section>
 <section>
-  <section>
-    <h2>Overriding (Contd.)</h2>
+  <h2><code>!important</code></h2>
+  <style>
+    .sd-imp p {
+      color: #00e5ff !important;
+    }
+  </style>
+  <pre><code class="lang-html">
+&lt;style&gt;
+  p { color: #00e5ff !important; }
+&lt;/style&gt;
+&lt;p style="color: red"&gt;Still cyan&lt;/p&gt;
+  </code></pre>
+  <div class="sd-imp"><p style="color: red">Still cyan</p></div>
+  <ul>
+    <li>
+      <code>!important</code> beats <code>style=""</code>, and only another
+      <code>!important</code> can beat it
+    </li>
+    <li>
+      Treat it as a <strong class="hl-red">last resort</strong>: lower the
+      specificity or use a layer instead
+    </li>
+    <li>
+      An inherited value never wins, even if it was <code>!important</code>: a
+      rule on the element itself beats it
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Cascade Layers</h2>
+  <ul>
+    <li>
+      <code class="hl-green">@layer</code> sets the order of whole groups of
+      rules, so a later layer wins <em class="hl-orange">whatever</em> the
+      specificity
+    </li>
+  </ul>
+  <pre><code class="lang-css">
+@layer reset, framework, components;  /* the order is set here */
+
+@import url("bootstrap.css") layer(framework);
+
+@layer components {
+  .link { color: #76ff03; }   /* wins */
+}
+@layer framework {
+  #nav a { color: #ff5252; }  /* an id, but in an earlier layer */
+}
+  </code></pre>
+  <ul>
+    <li>Rules outside any layer beat every layer</li>
+    <li>
+      No more <code>!important</code> wars with a framework: put it in a low
+      layer
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Inheritance</h2>
+  <ul>
+    <li>Some properties pass from parent to child, others do not</li>
     <ul>
-      <li>To prevent overriding, add <code>!important</code></li>
       <li>
-        Be careful: inherited properties are overridden even if they are
-        important
+        Inherited: <code>color</code>, <code>font-*</code>,
+        <code>line-height</code>, <code>text-align</code>,
+        <code>visibility</code>
+      </li>
+      <li>
+        Not inherited: <code>margin</code>, <code>padding</code>,
+        <code>border</code>, <code>background</code>, <code>width</code>,
+        <code>display</code>
       </li>
     </ul>
-    <pre><code class="lang-html">
-&lt;style&gt;
-h1{font-style: italic;
-color: blue !important}
-&lt;/style&gt;
-
-&lt;h1&gt; Heading 1 &lt;/h1&gt;
-&lt;h1 style="font-style: normal;color: red"&gt;Heading 1&lt;/h1&gt;
+    <li>
+      Keywords for any property: <code>inherit</code>, <code>initial</code>,
+      <code>unset</code>, <code>revert</code>
+    </li>
+  </ul>
+  <style>
+    .sd-inh .parent {
+      color: #00e5ff;
+      border: 2px solid #ff9100;
+      padding: 8px;
+    }
+    .sd-inh .parent p {
+      margin: 0;
+    }
+  </style>
+  <div style="display: flex; gap: 24px; align-items: center">
+    <pre style="flex: 1.2"><code class="lang-css">
+.parent { color: #00e5ff; border: 2px solid #ff9100; }
     </code></pre>
-  </section>
-  <section>
-    <img
-      src="./img/important-example.png"
-      alt="an !important declaration beating an inline style"
-    />
-  </section>
+    <div class="sd-inh" style="flex: 1; font-size: 0.7em; text-align: left">
+      <div class="parent">
+        parent
+        <p>child: gets the color, not the border</p>
+      </div>
+    </div>
+  </div>
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
@@ -940,103 +791,54 @@ color: blue !important}
   />
 </section>
 <section>
-  <h2>CSS Box Model Properties</h2>
+  <h2><code>box-sizing: border-box</code></h2>
   <ul>
-    <li>Borders</li>
-    <ul>
-      <li>Color, Width, Style, ...</li>
-      <li>Individual or altogether</li>
-    </ul>
-    <li>Spaces (Padding &amp; Margins)</li>
-    <ul>
-      <li>Individual or altogether</li>
-    </ul>
-    <li>Content</li>
-    <ul>
-      <li>Dimensions</li>
-      <li>Background</li>
-      <ul>
-        <li>Color</li>
-        <li>Image</li>
-      </ul>
-    </ul>
+    <li>
+      By default, <code>width</code> is the content only: padding and border are
+      added on top
+    </li>
+    <li>
+      With <code class="hl-green">border-box</code>, <code>width</code> is the
+      visible box: a 200px box stays 200px
+    </li>
   </ul>
-</section>
-<section>
-  <section>
-    <h2>CSS Box Model (Contd.)</h2>
-    <ul>
-      <li>Border</li>
-      <ul>
-        <li>
-          <code>border-left</code>, <code>border-right</code>,
-          <code>border-bottom</code>, <code>border-top</code>
-        </li>
-        <li><code>border</code>: All borders</li>
-      </ul>
-      <li>Padding</li>
-      <ul>
-        <li>
-          <code>padding-left</code> , <code>padding-right</code> ,
-          <code>padding-top</code> , <code>padding-bottom</code>
-        </li>
-        <li><code>padding</code>: All padding</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Margin</li>
-      <ul>
-        <li>
-          <code>margin-left</code> , <code>margin-right</code> ,
-          <code>margin-top</code>, <code>margin-bottom</code>
-        </li>
-        <li><code>margin</code>: All margins</li>
-        <li>
-          Centering block elements:
-          <pre><code class="lang-css">margin-left: auto; margin-right: auto;</code></pre>
-        </li>
-      </ul>
-      <li>Content (dimensions)</li>
-      <ul>
-        <li>
-          <code>width</code>, <code>height</code>, <code>max-width</code>, …
-        </li>
-      </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <h2>CSS Box Model (Contd.)</h2>
   <pre><code class="lang-css">
-.demo.one {
-  border-style:solid;
-  border-width:3px;
-  border-color:black;
-  margin-left:0.5cm;
-  padding-left:3cm;
-  margin-right:3cm;
-  padding-right:0.5cm;
+/* the first lines of almost every modern stylesheet */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
   </code></pre>
-  <pre><code class="lang-html">
-This is the &lt;span class="demo one"&gt;first box&lt;/span&gt;, and this is the
-&lt;span class="demo one"&gt;second box&lt;/span&gt;
+</section>
+<section>
+  <h2>Shorthands and Logical Properties</h2>
+  <pre><code class="lang-css">
+margin: 10px;                 /* all four sides */
+margin: 10px 20px;            /* top and bottom, left and right */
+margin: 10px 20px 30px 40px;  /* top right bottom left: clockwise */
+
+margin-inline: auto;          /* center a block that has a width */
+padding-block: 1rem;          /* top and bottom */
+border-inline-start: 4px solid #ff9100;
   </code></pre>
+  <ul>
+    <li>
+      <em class="hl-orange">inline</em> follows the text direction,
+      <em class="hl-orange">block</em> the line stacking: one stylesheet works
+      for English and Persian
+    </li>
+  </ul>
   <style>
-    .demo.one {
-      border-style: solid;
-      border-width: 3px;
-      border-color: black;
-      margin-left: 0.5cm;
-      padding-left: 3cm;
-      margin-right: 3cm;
-      padding-right: 0.5cm;
+    .sd-logical div {
+      border-inline-start: 6px solid #ff9100;
+      padding-inline-start: 12px;
+      margin: 6px 0;
+      text-align: start;
     }
   </style>
-  This is the <span class="demo one">first box</span>, and this is the
-  <span class="demo one">second box</span>
+  <div class="sd-logical" style="font-size: 0.8em; width: 60%; margin: auto">
+    <div dir="ltr">In English, the border is on the left</div>
+    <div dir="rtl" lang="fa">در فارسی، حاشیه سمت راست است</div>
+  </div>
 </section>
 <section>
   <h2>Vertical Margin Collapse</h2>
@@ -1050,187 +852,164 @@ This is the &lt;span class="demo one"&gt;first box&lt;/span&gt;, and this is the
     width="860"
   />
 </section>
-<section
-  data-background-image="./img/linux.jpg"
-  data-background-position="center"
->
+<section>
+  <h2>Backgrounds and Decoration</h2>
   <style>
-    p.demo.two {
-      background-color: white;
-      font-size: 3em;
+    .sd-bg {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
     }
-    p#red {
-      width: 50%;
-      border-style: solid;
-      border-width: 8px;
-      border-color: white;
-      background-color: #cf0000;
+    .sd-bg .card {
+      width: 260px;
+      height: 150px;
+      background: linear-gradient(135deg, #ff9100, #ee82ee);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 40%);
+    }
+    .sd-bg .hero {
+      width: 260px;
+      height: 150px;
+      background: url("./img/linux.jpg") center / cover no-repeat;
+      border-radius: 12px;
     }
   </style>
-  <p class="demo two">This is a normal paragraph.</p>
-  <p class="demo two" id="red">This is the red paragraph.</p>
-</section>
-<section>
-  <h2>Content: Background</h2>
   <pre><code class="lang-css">
-body{
-  background-image: url("linux.jpg");
+.card {
+  background: linear-gradient(135deg, #ff9100, #ee82ee);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 40%);
 }
-p {
-  background-color: white;
-  font-size: 3em;
-}
-p#red{
-  width: 50%;
-  border-style: solid;
-  border-width: 8px;
-  border-color: white;
-  background-color: #CF0000;
+.hero {
+  /* image, position / size, repeat */
+  background: url("linux.jpg") center / cover no-repeat;
 }
   </code></pre>
-</section>
-<section>
-  <h2>Content: Background Image</h2>
-  <ul>
-    <li>Background image repetition</li>
-    <ul>
-      <li><code>background-repeat</code></li>
-      <ul>
-        <li><code>repeat (default)</code></li>
-        <li><code>no-repeat</code></li>
-        <li><code>repeat-x</code></li>
-        <li><code>repeat-y</code></li>
-      </ul>
-    </ul>
-    <li>Avoid background image scrolling</li>
-    <ul>
-      <li><code>background-attachment: fixed</code></li>
-    </ul>
-    <li>Background image position</li>
-    <ul>
-      <li>
-        <code
-          >background-position: center center | center top | center bottom |
-          left top | xpos ypos ...</code
-        >
-      </li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>Content: Background Image (Contd.)</h2>
-  <img
-    src="./img/background-image.png"
-    alt="background-repeat, position and attachment compared"
-  />
+  <div class="sd-bg">
+    <div class="card"></div>
+    <div class="hero"></div>
+  </div>
 </section>
 <section>
   <h2>Block vs. Inline</h2>
   <ul>
-    <li>Block-level elements:</li>
-    <ul>
-      <li>The default height is the height of the content</li>
-      <li>The default width is the width of its containing block</li>
-      <li>We can set height &amp; width in CSS</li>
-      <li>Can have inline or block elements as children</li>
-      <li>Flow top to bottom</li>
-      <ul>
-        <li>All block-level elements appear on their own line</li>
-      </ul>
-    </ul>
+    <li>
+      <strong class="hl-orange">Block</strong> (<code>div</code>,
+      <code>p</code>, <code>h1</code>, <code>section</code>, <code>ul</code>):
+      starts a new line, fills the width, takes <code>width</code> and
+      <code>height</code>
+    </li>
+    <li>
+      <strong class="hl-green">Inline</strong> (<code>span</code>,
+      <code>a</code>, <code>strong</code>, <code>code</code>): flows inside a
+      line of text, ignores <code>width</code> and <code>height</code>
+    </li>
   </ul>
-</section>
-<section>
-  <h2>Block vs. Inline (Contd.)</h2>
+  <style>
+    .sd-bi .w {
+      width: 300px;
+      border: 2px solid #ff9100;
+    }
+    .sd-bi p {
+      margin: 8px 0;
+    }
+  </style>
+  <pre><code class="lang-css">
+.w { width: 300px; border: 2px solid #ff9100; }
+  </code></pre>
+  <div class="sd-bi" style="font-size: 0.8em; text-align: left">
+    <p>Text with <span class="w">a span.w</span> keeps flowing in the line.</p>
+    <div class="w">a div.w is 300px wide, on its own line</div>
+  </div>
   <ul>
-    <li>Inline elements:</li>
-    <ul>
-      <li>The height is the height of the content</li>
-      <li>The width is the width of the content</li>
-      <li>We cannot set the height &amp; width in CSS</li>
-      <li class="hl-orange">Can have inline or block elements as children</li>
-      <li>You can't put block elements inside inline elements.</li>
-      <li>Flow left to right</li>
-      <ul>
-        <li>
-          Inline elements appear on the same line unless the line wraps or
-          there’s an explicit line break
-        </li>
-      </ul>
-    </ul>
+    <li><code>display</code> changes the kind of box (next section)</li>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>Block vs. Inline (Contd.)</h2>
-    <style>
-      .demo.three {
-        border-style: solid;
-        border-width: 3px;
-        border-color: black;
-        width: 10cm;
-        height: 5cm;
-        background-color: red;
-      }
-      .demo.four {
-        border-style: solid;
-        border-width: 3px;
-        border-color: black;
-        width: 10cm;
-        height: 5cm;
-      }
-    </style>
-    This is the
-    <div class="demo three">div box</div>
-    , and this is the
-    <span class="demo three">
-      span box that contains
-      <div class="demo four">a div child</div>
-      !!!!!!</span
-    >
-  </section>
-  <section>
-    <pre><code class="lang-css">
-.demo.three {
-  border-style: solid;
-  border-width: 3px;
-  border-color: black;
-  width: 10cm;
-  height: 5cm;
-  background-color: red;
+  <h2>Overflow</h2>
+  <ul>
+    <li>What happens when the content does not fit the box</li>
+    <ul>
+      <li>
+        <code>overflow: visible</code> (default)
+        <code>| hidden | auto | scroll</code>
+      </li>
+      <li><code>auto</code> shows a scrollbar only when it is needed</li>
+    </ul>
+  </ul>
+  <style>
+    .sd-ov .ell {
+      width: 320px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 2px solid #8d97a8;
+      padding: 4px;
+      margin: auto;
+    }
+  </style>
+  <pre><code class="lang-css">
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* cut long text with … */
 }
-.demo.four {
-  border-style: solid;
-  border-width: 3px;
-  border-color: black;
-  width: 10cm;
-  height: 5cm;
-}
-    </code></pre>
-  </section>
+  </code></pre>
+  <div class="sd-ov" style="font-size: 0.8em">
+    <div class="ell">
+      A very long product name that does not fit in its card
+    </div>
+  </div>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
 </section>
 <section>
-  <h2>Layout Design = Element Positioning</h2>
+  <h2>Layout Today</h2>
   <ul>
-    <li>Two positioning schemes</li>
-    <ul>
-      <li>Normal</li>
-      <ul>
-        <li>Block-level elements flow from top to bottom</li>
-        <li>Inline elements flow from left to right</li>
-      </ul>
-      <li>Specific position</li>
-      <ul>
-        <li>Element is taken out from normal flow</li>
-        <li>It is placed in the specified position</li>
-      </ul>
-    </ul>
+    <li>
+      <strong class="hl-orange">Normal flow</strong> first: blocks stack, inline
+      content wraps
+    </li>
+    <li>
+      <strong class="hl-green">Flexbox</strong> for one direction: a nav bar, a
+      row of buttons, centering
+    </li>
+    <li>
+      <strong class="hl-green">Grid</strong> for two directions: the page, a
+      gallery, a form
+    </li>
+    <li>
+      <strong class="hl-cyan">position</strong> for things on top: a sticky
+      header, a badge, a dialog
+    </li>
+    <li>
+      <span class="hl-red">Floats</span>: before flexbox and grid, they were the
+      layout tool; today, only for wrapping text around an image
+    </li>
   </ul>
 </section>
-
+<section>
+  <h2>The <code>display</code> Property</h2>
+  <ul>
+    <li>
+      <code class="hl-green">block</code>, <code class="hl-green">inline</code>:
+      the two kinds of box in normal flow
+    </li>
+    <li>
+      <code class="hl-green">inline-block</code>: sits in a line, but takes
+      <code>width</code> and <code>height</code> (the pre-flexbox trick for rows
+      of boxes)
+    </li>
+    <li>
+      <code class="hl-green">flex</code>, <code class="hl-green">grid</code>:
+      the element lays out its children
+    </li>
+    <li>
+      <code class="hl-green">none</code>: the element is not rendered at all
+    </li>
+  </ul>
+</section>
 <section>
   <section>
     <h2>Specified Positioning</h2>
@@ -1602,11 +1381,17 @@ p.demo.five {
       <ul>
         <li>Positive or negative stack order</li>
         <li>Larger value foreground</li>
+        <li>
+          Only compared inside the same
+          <em class="hl-orange">stacking context</em>: a parent with
+          <code>z-index</code>, <code>opacity</code> below 1 or a
+          <code>transform</code> keeps its children together
+        </li>
       </ul>
     </ul>
   </section>
   <section>
-    <style type="text/css">
+    <style>
       img.demo.seven {
         position: absolute;
         left: 0px;
@@ -1640,73 +1425,42 @@ h1 {
   </section>
 </section>
 <section>
-  <section>
-    <h2>Float Design</h2>
-    <ul>
-      <li>Floating effects</li>
-      <ul>
-        <li>
-          Element is pushed left or right as far as
-          <span class="hl-orange">possible</span> in the row that it would be
-          positioned in when the normal flow is used
-        </li>
-        <ul>
-          <li>
-            Float outer edge touches containing block edge or outer edge of
-            another float elements
-          </li>
-        </ul>
-        <li>Space is reserved for the element</li>
-        <li>
-          <span class="hl-yellow">Content (text)</span> of other elements
-          <span class="hl-cyan">wraps around</span> it
-        </li>
-        <ul>
-          <li>
-            Float elements <span class="hl-green">do not</span> fill a row
-            individually even if are block-level
-          </li>
-          <li>No break before/after block-level elements</li>
-        </ul>
-        <li>Other elements (typically) don’t overlap with floats</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Configured using</li>
-      <ul>
-        <li><code>float: left | right | none</code></li>
-      </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <h2>Vertical Margin Collapse in Float</h2>
+  <h2>Floats</h2>
   <ul>
-    <li>Vertical margins are not collapsed for floats</li>
     <li>
-      In the following <em>float: right</em> box fills the gap and also respects
-      to <em>top</em> box margin
+      A float moves to the left or right, and the text of the following content
+      <em class="hl-cyan">wraps around</em> it
+    </li>
+    <li>
+      A parent with <code class="hl-green">display: flow-root</code> grows to
+      contain its floats (it used to take a <q>clearfix</q> hack)
     </li>
   </ul>
   <style>
-    p.demo.eight {
-      border-style: solid;
-      border-width: 1px;
-      width: 45%;
-      margin-top: 80px;
-      margin-bottom: 40px;
-      height: 80px;
+    .sd-float {
+      display: flow-root;
+      text-align: left;
+      font-size: 0.7em;
+      border: 2px solid #8d97a8;
+      padding: 8px;
     }
-    .demo.float {
-      float: right;
+    .sd-float img {
+      float: left;
+      width: 120px;
+      margin: 0 16px 0 0;
     }
   </style>
-
-  <p class="demo eight" style="width: 100%">Top</p>
-  <p class="demo eight float">float: right; width: 45%;</p>
-  <p class="demo eight">width: 45%;</p>
+  <pre><code class="lang-css">
+img { float: left; width: 120px; margin-inline-end: 16px; }
+.article { display: flow-root; }
+  </code></pre>
+  <div class="sd-float">
+    <img src="./img/linux.jpg" alt="Tux, the Linux mascot" />
+    Tux has been the Linux mascot since 1996. The text of this paragraph wraps
+    around the floated image, and the border of the parent goes around both,
+    because the parent has display: flow-root. Without it, the parent would end
+    after the text and the image would hang out of it.
+  </div>
 </section>
 <section>
   <h2>Clearing around Float Elements</h2>
@@ -1720,197 +1474,6 @@ h1 {
     alt="A left float with a paragraph and a footer after it. Without clear, both blocks run under the float and only their text moves aside; the float hangs out of its parent. With clear both on the footer, the footer starts below the float."
     width="860"
   />
-</section>
-<section>
-  <section>
-    <h2>Sample Application of Float &amp; Clear</h2>
-    <style>
-      .demo.head {
-        border: 3px black solid;
-      }
-      .demo.left {
-        border: 3px red solid;
-        float: left;
-        width: 50%;
-      }
-      .demo.right {
-        border: 3px blue solid;
-        float: right;
-        width: 30%;
-      }
-      .demo.footer {
-        border: 3px green solid;
-      }
-    </style>
-    <div class="demo head" style="text-align: center">
-      <h2>Two Columns with Float</h2>
-      <p>This is header</p>
-    </div>
-    <div class="demo left">
-      <h3>Left Column</h3>
-      <p>This is a paragraph in the left column</p>
-    </div>
-    <div class="demo right">
-      <h3>Right Column</h3>
-      <p>Menu Item 1</p>
-      <p>Menu Item 2</p>
-    </div>
-    <div class="demo footer" style="clear: both">
-      <h3>Footer</h3>
-      <p>This is footer.</p>
-    </div>
-  </section>
-  <section>
-    <div class="demo head" style="text-align: center">
-      <h2>Two Columns with Float</h2>
-      <p>This is header</p>
-    </div>
-    <div class="demo left">
-      <h3>Left Column</h3>
-      <p>This is a paragraph in the left column</p>
-    </div>
-    <div class="demo right">
-      <h3>Right Column</h3>
-      <p>Menu Item 1</p>
-      <p>Menu Item 2</p>
-    </div>
-    <div class="demo footer" style="clear: left">
-      <h3>Footer</h3>
-      <p>This is footer.</p>
-    </div>
-  </section>
-  <section>
-    <div class="demo head" style="text-align: center">
-      <h2>Two Columns with Float</h2>
-      <p>This is header</p>
-    </div>
-    <div class="demo left">
-      <h3>Left Column</h3>
-      <p>This is a paragraph in the left column</p>
-    </div>
-    <div class="demo right">
-      <h3>Right Column</h3>
-      <p>Menu Item 1</p>
-      <p>Menu Item 2</p>
-    </div>
-    <div class="demo footer">
-      <h3>Footer</h3>
-      <p>This is footer.</p>
-    </div>
-  </section>
-</section>
-<section>
-  <style>
-    div.demo.nine {
-      border-radius: 5px;
-      margin: 0 1.5%;
-      width: 45%;
-    }
-  </style>
-  <div>
-    <div
-      class="demo nine"
-      style="float: right; background-color: rgba(242, 161, 22, 0.5)"
-    >
-      float
-    </div>
-    <div class="demo nine" style="background-color: rgba(84, 242, 22, 0.5)">
-      non-float
-    </div>
-  </div>
-  <div>
-    <div
-      class="demo nine"
-      style="float: right; background-color: rgba(242, 161, 22, 0.5)"
-    >
-      float
-    </div>
-    <div
-      class="demo nine"
-      style="
-        width: 100%;
-        text-align: right;
-        background-color: rgba(84, 242, 22, 0.5);
-      "
-    >
-      non-float
-    </div>
-  </div>
-</section>
-<section>
-  <h2>Display Property</h2>
-  <ul>
-    <li>
-      Displaying elements are mainly influenced by the
-      <code class="hl-orange">display</code> property
-    </li>
-    <ul>
-      <li>
-        <code class="hl-green">inline</code>: no break after or before, no
-        width/height
-      </li>
-      <li>
-        <code class="hl-green">block</code>: break after and before, fill a
-        line, width/height are modifiable
-      </li>
-      <li>
-        <code class="hl-green">inline-block</code>: inside is formatted as
-        block-level box, the element formatted as an inline-level box
-      </li>
-      <ul>
-        <li>Are like inline but can have a width and a height</li>
-      </ul>
-      <li><code class="hl-green">flex</code></li>
-      <li><code class="hl-green">grid</code></li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <section>
-    <h2>inline-block Display Example</h2>
-    <style>
-      .demo.inline {
-        display: inline;
-      }
-      .demo.inlineblock {
-        display: inline-block;
-        width: 180px;
-        height: 100px;
-        border-style: solid;
-        border-width: 3px;
-      }
-    </style>
-    <div class="demo inline">1</div>
-    <div class="demo inline">
-      <span>2</span>
-      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
-      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
-      <div class="demo inlineblock">3 4 5 6 7 8 9 0</div>
-    </div>
-  </section>
-  <section>
-    <pre><code class="lang-css">
-.demo.inline {
-  display: inline;
-}
-.demo.inlineblock {
-  display: inline-block;
-  width: 180px;
-  height: 100px;
-  border-style: solid;
-  border-width: 3px;
-}
-    </code></pre>
-    <pre><code class="lang-html">
-&lt;div class="demo inline"&gt;1&lt;/div&gt;
-&lt;div class="demo inline"&gt;
-  &lt;span&gt;2&lt;/span&gt;
-  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
-  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
-  &lt;div class="demo inlineblock"&gt;3 4 5 6 7 8 9 0&lt;/div&gt;
-&lt;/div&gt;
-    </code></pre>
-  </section>
 </section>
 <section>
   <h2>flexbox overview</h2>
@@ -1998,7 +1561,7 @@ h1 {
     </p>
     <div style="background-color: gray">
       <img
-        width="350px"
+        width="350"
         src="./img/flex-align-items.svg"
         alt="Flex align items"
       />
@@ -2196,7 +1759,7 @@ h1 {
       </div>
 
       <div>
-        <img width="850px" src="./img/flex-wrap.svg" alt="Flex Wrap" />
+        <img width="850" src="./img/flex-wrap.svg" alt="Flex Wrap" />
       </div>
     </div>
 
@@ -2490,24 +2053,27 @@ h1 {
 
   <p>Instead of using</p>
 
-  <pre>
-    <code class="lang-css">
-      .item{
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: 300px;
-      }
-    </code>
-  </pre>
+  <pre><code class="lang-css">
+.item {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 300px;
+}
+  </code></pre>
 
   <p>You can use <span class="hl-green">flex property</span></p>
-  <pre>
-    <code class="lang-css">
-      .item{
-        flex: 1 1 300px; /* flex-grow flex-shrink flex-basis */
-      }
-    </code>
-  </pre>
+  <pre><code class="lang-css">
+.item {
+  flex: 1 1 300px; /* flex-grow flex-shrink flex-basis */
+}
+  </code></pre>
+  <ul>
+    <li>
+      Common values: <code>flex: 1</code> (= <code>1 1 0%</code>, share the
+      space equally), <code>flex: auto</code> (= <code>1 1 auto</code>),
+      <code>flex: none</code> (= <code>0 0 auto</code>, keep the size)
+    </li>
+  </ul>
 </section>
 
 <section>
@@ -2572,7 +2138,6 @@ h1 {
     </div>
   </section>
 </section>
-
 <section>
   <h2>Grid</h2>
   <ul>
@@ -2689,133 +2254,42 @@ h1 {
 
   <img src="./img/flex-vs-grid.png" alt="Flex vs Grid" />
 </section>
+<section>
+  <h2>Centering</h2>
+  <ul>
+    <li>The classic question, now two lines</li>
+  </ul>
+  <pre><code class="lang-css">
+.parent {
+  display: grid;
+  place-items: center;
+}
 
+/* or, with flexbox */
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  </code></pre>
+  <div
+    style="
+      display: grid;
+      place-items: center;
+      height: 120px;
+      width: 50%;
+      margin: auto;
+      border: 2px dashed #8d97a8;
+    "
+  >
+    <div style="padding: 8px 16px; background: #ff9100; color: black">
+      centered
+    </div>
+  </div>
+</section>
 <section>
   <div class="toc" data-selected="6"></div>
 </section>
-<section>
-  <section>
-    <h2>Custom Properties</h2>
-    <ul>
-      <li>
-        CSS has <span class="hl-green">variables</span>, and unlike a
-        preprocessor's they live in the browser
-      </li>
-      <li>They cascade and inherit, like any other property</li>
-    </ul>
-    <pre>
-      <code class="lang-css">
-        :root {
-          --brand: #ff9100;
-          --gap: 16px;
-        }
-
-        .button {
-          background: var(--brand);
-          padding: var(--gap);
-        }
-      </code>
-    </pre>
-  </section>
-  <section>
-    <h2>Why It Matters</h2>
-    <ul>
-      <li>
-        A variable can be redefined for a subtree, so one declaration
-        <em class="hl-cyan">re-themes</em> everything below it
-      </li>
-      <li>
-        It can be read and written from JavaScript, which a preprocessor
-        variable never can
-      </li>
-    </ul>
-    <pre>
-      <code class="lang-css">
-        .dark {
-          --brand: #ffcc00;
-        }
-      </code>
-    </pre>
-    <pre>
-      <code class="lang-javascript">
-        element.style.setProperty("--brand", "#00e5ff");
-      </code>
-    </pre>
-  </section>
-  <section>
-    <h2>Sizing Without Breakpoints</h2>
-    <ul>
-      <li>
-        <code class="hl-green">clamp(min, preferred, max)</code> picks the
-        preferred value, but never leaves the bounds
-      </li>
-    </ul>
-    <pre>
-      <code class="lang-css">
-        h1 {
-          font-size: clamp(1.5rem, 4vw, 3rem);
-        }
-      </code>
-    </pre>
-    <ul>
-      <li>
-        The heading grows with the viewport, stays readable on a phone, and
-        stops growing on a projector
-      </li>
-      <li>
-        <code class="hl-orange">min()</code> and
-        <code class="hl-orange">max()</code> work the same way
-      </li>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Element Sizing</h2>
-    <ul>
-      <li>Absolute values (Useful?!)</li>
-      <dl>
-        <dt><code>cm</code></dt>
-        <dd>centimeters</dd>
-
-        <dt><code>mm</code></dt>
-        <dd>millimeters</dd>
-
-        <dt><code>in</code></dt>
-        <dd>inches (1in = 96px = 2.54cm)</dd>
-
-        <dt><code>px</code></dt>
-        <dd>pixels (1px = 1/96th of 1in)</dd>
-
-        <dt><code>pt</code></dt>
-        <dd>points (1pt = 1/72th of 1in)</dd>
-      </dl>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Relative values</li>
-      <dl>
-        <dt>em</dt>
-        <dd>Relative to the font-size of the element</dd>
-        <dt>rem</dt>
-        <dd>Relative to font-size of the root element</dd>
-        <dt>vw / vh</dt>
-        <dd>Relative to 1% of the width / height of the viewport</dd>
-        <dt>vmin / vmax</dt>
-        <dd>Relative to 1% of viewport's smaller / larger dimension</dd>
-        <dt>%</dt>
-        <dd>Relative to the parent element</dd>
-        <dt>fr</dt>
-        <dd>
-          Fr is a fractional unit and 1fr is for 1 part of the available space.
-          (CSS Grid Layout)
-        </dd>
-      </dl>
-    </ul>
-  </section>
-</section>
-
 <section>
   <h2>Responsive Design</h2>
 
@@ -2836,68 +2310,153 @@ h1 {
     <img src="./img/responsive-design.jpg" alt="Responsive Design" />
   </section>
 </section>
-
 <section>
-  <section>
-    <h2>Media Query</h2>
-    <p>Apply a block of CSS properties only if a certain condition is true</p>
-
-    <pre>
-      <code class="lang-css">
-      @media mediatype and (media-feature) {
-         /* Styles */
-      }
-      </code>
-    </pre>
-  </section>
-
-  <section>
-    <h2>Media Types</h2>
-    <p>Defines the <span class="hl-green">category of device</span></p>
-    <ul>
-      <li>all: All devices</li>
-      <li>print: Print preview mode</li>
-      <li>Screen: Devices with screens</li>
-      <li>Speech: Screen readers</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Media Feature</h2>
-    <p>
-      Describe a specific
-      <span class="hl-green">characteristic of the browser</span>
-    </p>
-
-    <ul>
-      <li>width</li>
-      <li>height</li>
-      <li>orientation</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Logical Operators</h2>
-    <p>Create more complex media queries using logical operators</p>
-
-    <ul>
-      <li>and</li>
-      <li>not</li>
-      <li>, (comma)</li>
-    </ul>
-
-    <pre>
-      <code class="lang-css">
-        @media screen and (media-feature) and (media-feature) {...}
-
-        @media screen and (media-feature), print and (media-feature) {...}
-
-        @media not screen and (media-feature)
-      </code>
-    </pre>
-  </section>
+  <h2>The Viewport Meta Tag</h2>
+  <pre><code class="lang-html">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+  </code></pre>
+  <ul>
+    <li>
+      Without it, a phone lays the page out
+      <strong class="hl-red">980px wide</strong> and shrinks it to fit: tiny
+      text, and your media queries never match
+    </li>
+    <li>
+      With it, the layout width is the device width: the first line of every
+      responsive page
+    </li>
+  </ul>
 </section>
+<section>
+  <h2>Units</h2>
+  <table style="font-size: 0.65em">
+    <tbody>
+      <tr>
+        <td><code>px</code></td>
+        <td>borders, shadows, small fixed sizes</td>
+      </tr>
+      <tr>
+        <td><code>rem</code></td>
+        <td>
+          font sizes and spacing: the root font size (16px by default), so it
+          follows the user's font setting
+        </td>
+      </tr>
+      <tr>
+        <td><code>em</code></td>
+        <td>the element's own font size</td>
+      </tr>
+      <tr>
+        <td><code>%</code></td>
+        <td>a share of the parent (for <code>width</code>)</td>
+      </tr>
+      <tr>
+        <td><code>vw</code> / <code>vh</code></td>
+        <td>1% of the viewport width / height</td>
+      </tr>
+      <tr>
+        <td><code>dvh</code></td>
+        <td>
+          like <code>vh</code>, but follows the phone's address bar as it hides
+        </td>
+      </tr>
+      <tr>
+        <td><code>ch</code></td>
+        <td>
+          the width of <q>0</q>: <code>max-width: 65ch</code> keeps lines
+          readable
+        </td>
+      </tr>
+      <tr>
+        <td><code>fr</code></td>
+        <td>a share of the leftover space in a grid</td>
+      </tr>
+      <tr>
+        <td>
+          <code>cm</code>, <code>mm</code>, <code>in</code>, <code>pt</code>
+        </td>
+        <td>physical units, only meaningful on paper (1in = 96px)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>Media Queries</h2>
+  <ul>
+    <li>Apply a block of rules only when a condition is true</li>
+  </ul>
+  <pre><code class="lang-css">
+@media (width &lt;= 600px) { ... }          /* range syntax */
+@media (max-width: 600px) { ... }        /* the same, older syntax */
+@media (600px &lt; width &lt; 1000px) { ... }
 
+@media (orientation: landscape) { ... }
+@media (hover: hover) and (pointer: fine) { ... }  /* a mouse */
+@media print, (width &gt;= 1200px) { ... }           /* comma = or */
+  </code></pre>
+  <ul>
+    <li>
+      Media types today: <code>all</code>, <code>screen</code>,
+      <code>print</code>; the others (<code>tv</code>, <code>handheld</code>,
+      <code>speech</code>, …) are deprecated
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Mobile First</h2>
+  <ul>
+    <li>
+      Write the small-screen layout first, then
+      <em class="hl-green">add</em> columns as the screen grows
+    </li>
+  </ul>
+  <pre><code class="lang-css">
+.cards {
+  display: grid;
+  gap: 1rem;  /* one column on a phone */
+}
+
+@media (width &gt;= 600px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (width &gt;= 1000px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Responsive Design approaches</h2>
+
+  <div style="background-color: #ecf0f1">
+    <img
+      width="70%"
+      src="./img/responsive-design-approaches.png"
+      alt="Responsive design approaches"
+    />
+  </div>
+</section>
+<section>
+  <h2>User Preferences</h2>
+  <ul>
+    <li>Media queries can also ask what the user has set in the system</li>
+  </ul>
+  <pre><code class="lang-css">
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #121212; --text: #eeeeee; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none; transition: none; }
+}
+  </code></pre>
+  <ul>
+    <li>
+      DevTools → Rendering emulates both, so you can test without changing your
+      system settings
+    </li>
+  </ul>
+</section>
 <section>
   <h2>Media Query Examples</h2>
   <section>
@@ -3213,225 +2772,1499 @@ h1 {
     </pre>
   </section>
 </section>
-
 <section>
-  <h2>Responsive Design approaches</h2>
-
-  <div style="background-color: #ecf0f1">
-    <img
-      width="70%"
-      src="./img/responsive-design-approaches.png"
-      alt="Responsive design approaches"
-    />
-  </div>
-</section>
-
-<section>
-  <h2>CSS Functions</h2>
-  <ul>
-    <li>CSS functions are used as a value for various CSS properties, e.g.,</li>
-    <ul>
-      <li>
-        Color: <code>rgb()</code>, <code>hsl()</code>, <code>oklch()</code>, …
-      </li>
-      <li>Content: <code>url()</code>, <code>image()</code>, …</li>
-      <li>
-        Variables &amp; Calculation: <code>var()</code>, <code>calc()</code>, …
-      </li>
-      <li>
-        Transformation: <code>scale()</code>, <code>translate()</code>,
-        <code>rotate()</code>, …
-      </li>
-      <li>Repeat: <code>repeat()</code></li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>CSS Variables</h2>
+  <h2>Responsive Images</h2>
   <pre><code class="lang-css">
-:root {
-  --blue: #1e90ff;
-  --white: #ffffff;
-}
+img, video { max-width: 100%; height: auto; }  /* never wider than the column */
 
-body { background-color: var(--blue); }
-
-h2 { border-bottom: 2px solid var(--blue); }
-
-.container {
-  color: var(--blue);
-  background-color: var(--white);
-  padding: 15px;
-}
-
-button {
-  background-color: var(--white);
-  color: var(--blue);
-  border: 1px solid var(--blue);
-  padding: 5px;
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;   /* fill the box, crop the rest */
 }
   </code></pre>
+  <style>
+    .sd-img {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      font-size: 0.6em;
+    }
+    .sd-img img {
+      width: 300px;
+      aspect-ratio: 16 / 9;
+      margin: 0;
+      border: 2px solid #8d97a8;
+    }
+  </style>
+  <div class="sd-img">
+    <figure>
+      <img
+        src="./img/linux.jpg"
+        alt="Tux stretched to 16 by 9"
+        style="object-fit: fill"
+      />
+      <figcaption>
+        <code>object-fit: fill</code> (default): stretched
+      </figcaption>
+    </figure>
+    <figure>
+      <img
+        src="./img/linux.jpg"
+        alt="Tux cropped to 16 by 9"
+        style="object-fit: cover"
+      />
+      <figcaption><code>object-fit: cover</code>: cropped</figcaption>
+    </figure>
+  </div>
 </section>
 <section>
-  <section>
-    <h2>CSS Animations</h2>
-    <pre><code class="lang-css">
-/* The animation code */
-@keyframes example {
-  0%   {background-color:red; left:0px; top:0px;}
-  25%  {background-color:yellow; left:200px; top:0px;}
-  50%  {background-color:blue; left:200px; top:200px;}
-  75%  {background-color:green; left:0px; top:200px;}
-  100% {background-color:red; left:0px; top:0px;}
-}
-
-/* The element to apply the animation to */
-#the-animation {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  background-color: red;
-  animation-name: example;
-  animation-duration: 4s;
-}
-    </code></pre>
-  </section>
-  <section>
-    <style>
-      /* The animation code */
-      @keyframes moving {
-        0% {
-          background-color: red;
-          left: 0px;
-          top: 0px;
-        }
-        25% {
-          background-color: yellow;
-          left: 200px;
-          top: 0px;
-        }
-        50% {
-          background-color: blue;
-          left: 200px;
-          top: 200px;
-        }
-        75% {
-          background-color: green;
-          left: 0px;
-          top: 200px;
-        }
-        100% {
-          background-color: red;
-          left: 0px;
-          top: 0px;
-        }
-      }
-
-      @keyframes rotating {
-        0% {
-          transform: rotate(0deg);
-        }
-        25% {
-          transform: rotate(30deg);
-        }
-        50% {
-          transform: rotate(60deg);
-        }
-        75% {
-          transform: rotate(90deg);
-        }
-        100% {
-          transform: rotate(120deg);
-        }
-      }
-
-      /* The element to apply the animation to */
-      #the-moving-animation {
-        width: 100px;
-        height: 100px;
-        position: relative;
-        background-color: red;
-        animation-name: moving;
-        animation-duration: 4s;
-      }
-
-      #the-rotating-animation {
-        width: 100px;
-        height: 100px;
-        position: relative;
-        background-color: orange;
-        animation-name: rotating;
-        animation-duration: 4s;
-      }
-    </style>
-
-    <div style="display: flex; justify-content: space-evenly">
-      <div id="the-moving-animation"></div>
-      <div id="the-rotating-animation"></div>
-    </div>
-  </section>
-</section>
-<section>
-  <h2>Hidden Elements</h2>
+  <h2>Sizing Without Breakpoints</h2>
   <ul>
     <li>
-      <code>visibility:hidden</code> hides the element but it still
-      <em class="hl-orange">keeps its space</em>, whereas
+      <code class="hl-green">clamp(min, preferred, max)</code> picks the
+      preferred value, but never leaves the bounds
     </li>
-    <li><code>display:none</code> It is hidden and takes no space</li>
   </ul>
+  <pre>
+      <code class="lang-css">
+        h1 {
+          font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+      </code>
+    </pre>
+  <ul>
+    <li>
+      The heading grows with the viewport, stays readable on a phone, and stops
+      growing on a projector
+    </li>
+    <li>
+      <code class="hl-orange">min()</code> and
+      <code class="hl-orange">max()</code> work the same way
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Container Queries</h2>
+  <ul>
+    <li>
+      A component should react to the space <em class="hl-orange">it</em> has,
+      not to the size of the screen
+    </li>
+  </ul>
+  <style>
+    .sd-cq .wrap {
+      container-type: inline-size;
+      border: 2px dashed #8d97a8;
+      padding: 8px;
+    }
+    .sd-cq .card {
+      display: grid;
+      gap: 8px;
+      text-align: left;
+    }
+    .sd-cq .card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      margin: 0;
+    }
+    @container (width > 400px) {
+      .sd-cq .card {
+        grid-template-columns: 160px 1fr;
+      }
+    }
+  </style>
+  <pre><code class="lang-css">
+.wrap { container-type: inline-size; }
+.card { display: grid; gap: 8px; }
+
+@container (width &gt; 400px) {
+  .card { grid-template-columns: 160px 1fr; }
+}
+  </code></pre>
+  <div
+    class="sd-cq"
+    style="display: flex; gap: 24px; justify-content: center; align-items: start; font-size: 0.55em"
+  >
+    <div class="wrap" style="width: 200px">
+      <div class="card">
+        <img src="./img/linux.jpg" alt="Tux" />
+        <span>the same card in a narrow box</span>
+      </div>
+    </div>
+    <div class="wrap" style="width: 440px">
+      <div class="card">
+        <img src="./img/linux.jpg" alt="Tux" />
+        <span>the same card in a wide box: two columns</span>
+      </div>
+    </div>
+  </div>
 </section>
 <section>
   <div class="toc" data-selected="7"></div>
 </section>
 <section>
-  <h2>CSS Tools</h2>
-  <ul>
-    <li>Validation</li>
+  <section>
+    <h2>Custom Properties</h2>
     <ul>
-      <li>W3C validator</li>
-      <li>Firefox add-ons</li>
-      <li>Chrome “inspect element”</li>
+      <li>
+        CSS has <span class="hl-green">variables</span>, and unlike a
+        preprocessor's they live in the browser
+      </li>
+      <li>They cascade and inherit, like any other property</li>
     </ul>
-    <li>On the fly CSS modification</li>
+    <pre>
+      <code class="lang-css">
+        :root {
+          --brand: #ff9100;
+          --gap: 16px;
+        }
+
+        .button {
+          background: var(--brand);
+          padding: var(--gap);
+        }
+      </code>
+    </pre>
+  </section>
+  <section>
+    <h2>Why It Matters</h2>
     <ul>
-      <li>Firefox Web Developer CSS Editor</li>
-      <li>Chrome “inspect element”</li>
+      <li>
+        A variable can be redefined for a subtree, so one declaration
+        <em class="hl-cyan">re-themes</em> everything below it
+      </li>
+      <li>
+        It can be read and written from JavaScript, which a preprocessor
+        variable never can
+      </li>
+    </ul>
+    <pre>
+      <code class="lang-css">
+        .dark {
+          --brand: #ffcc00;
+        }
+      </code>
+    </pre>
+    <pre>
+      <code class="lang-javascript">
+        element.style.setProperty("--brand", "#00e5ff");
+      </code>
+    </pre>
+  </section>
+</section>
+<section>
+  <h2>Nesting</h2>
+  <pre><code class="lang-css">
+.card {
+  padding: 1rem;
+
+  h2 { margin: 0; }                         /* .card h2 */
+  &amp;:hover { outline: 2px solid #ff9100; }  /* .card:hover */
+  .dark &amp; { background: #222; }            /* .dark .card */
+
+  @media (width &gt;= 600px) {
+    padding: 2rem;
+  }
+}
+  </code></pre>
+  <ul>
+    <li>
+      <code class="hl-green">&amp;</code> is the parent selector; it is needed
+      when the nested part is not a separate descendant
+    </li>
+    <li>
+      Native in every major browser: one of the main reasons people used Sass
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Modern Color</h2>
+  <pre><code class="lang-css">
+:root {
+  color-scheme: light dark;  /* also gives inputs and scrollbars a dark look */
+  --brand: oklch(72% 0.19 55);
+}
+
+body {
+  background: light-dark(#ffffff, #121212);
+  color: light-dark(#222222, #eeeeee);
+}
+
+.button:hover {
+  background: color-mix(in oklch, var(--brand), black 20%);
+}
+  </code></pre>
+  <ul>
+    <li>
+      <code class="hl-green">light-dark()</code> picks the first value in light
+      mode, the second in dark mode
+    </li>
+    <li>
+      <code class="hl-green">color-mix()</code>: a darker or lighter shade
+      without a second variable
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>CSS Functions</h2>
+  <ul>
+    <li>
+      Math: <code>calc()</code>, <code>min()</code>, <code>max()</code>,
+      <code>clamp()</code>
+    </li>
+    <li>Variables: <code>var(--name, fallback)</code></li>
+    <li>
+      Color: <code>rgb()</code>, <code>hsl()</code>, <code>oklch()</code>,
+      <code>color-mix()</code>, <code>light-dark()</code>
+    </li>
+    <li>
+      Images: <code>url()</code>, <code>linear-gradient()</code>,
+      <code>radial-gradient()</code>
+    </li>
+    <li>
+      Transforms: <code>translate()</code>, <code>rotate()</code>,
+      <code>scale()</code>
+    </li>
+    <li>Grid: <code>repeat()</code>, <code>minmax()</code></li>
+  </ul>
+  <pre><code class="lang-css">
+.sidebar { width: calc(100% - 2 * var(--gap)); }
+  </code></pre>
+</section>
+<section>
+  <h2>Transitions</h2>
+  <ul>
+    <li>Animate the change between two states, e.g. on hover</li>
+  </ul>
+  <style>
+    .sd-tr button {
+      font-size: 0.8em;
+      padding: 12px 24px;
+      border: 0;
+      border-radius: 8px;
+      background-color: #00e5ff;
+      color: black;
+      transition:
+        background-color 200ms ease,
+        transform 200ms ease;
+    }
+    .sd-tr button:hover {
+      background-color: #ff9100;
+      transform: translateY(-4px);
+    }
+  </style>
+  <pre><code class="lang-css">
+.button {
+  background-color: #00e5ff;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+.button:hover {
+  background-color: #ff9100;
+  transform: translateY(-4px);
+}
+  </code></pre>
+  <div class="sd-tr"><button type="button">Hover me</button></div>
+</section>
+<section>
+  <h2>Animations</h2>
+  <style>
+    @keyframes sd-slide {
+      to {
+        transform: translateX(260px);
+        background-color: #00e5ff;
+      }
+    }
+    @keyframes sd-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .sd-an {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+    }
+    .sd-an .slide,
+    .sd-an .spin {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+    }
+    .sd-an .slide {
+      background-color: #ff9100;
+      animation: sd-slide 2s ease-in-out infinite alternate;
+    }
+    .sd-an .spin {
+      background-color: #ee82ee;
+      animation: sd-spin 3s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sd-an .slide,
+      .sd-an .spin {
+        animation: none;
+      }
+    }
+  </style>
+  <pre><code class="lang-css">
+@keyframes slide {
+  to { transform: translateX(260px); background-color: #00e5ff; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.slide { animation: slide 2s ease-in-out infinite alternate; }
+.spin  { animation: spin 3s linear infinite; }
+  </code></pre>
+  <div style="width: 440px; margin: 0 auto 40px">
+    <div class="sd-an" style="justify-content: space-between">
+      <div class="slide"></div>
+      <div class="spin"></div>
+    </div>
+  </div>
+  <ul>
+    <li>
+      Animate <code>transform</code> and <code>opacity</code>: changing
+      <code>left</code> or <code>width</code> makes the browser redo the layout
+      on every frame
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Hiding Elements</h2>
+  <table style="font-size: 0.7em">
+    <tbody>
+      <tr>
+        <td><code>display: none</code></td>
+        <td>not rendered, takes no space, not read by screen readers</td>
+      </tr>
+      <tr>
+        <td><code>hidden</code> attribute</td>
+        <td>the same, from HTML</td>
+      </tr>
+      <tr>
+        <td><code>visibility: hidden</code></td>
+        <td>invisible, keeps its space</td>
+      </tr>
+      <tr>
+        <td><code>opacity: 0</code></td>
+        <td>invisible, keeps its space, can still be clicked</td>
+      </tr>
+    </tbody>
+  </table>
+  <pre><code class="lang-css">
+/* hidden on screen, still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+  </code></pre>
+</section>
+<section>
+  <h2>On the Way</h2>
+  <ul>
+    <li>
+      Already in every major browser and covered above: <code>:has()</code>,
+      <code>@container</code>, nesting, <code>@layer</code>,
+      <code>light-dark()</code>
+    </li>
+    <li>
+      <code class="hl-green">subgrid</code>: a child lines its own items up on
+      the parent's grid tracks
+    </li>
+    <li>Newer; check Baseline before you rely on them:</li>
+    <ul>
+      <li>Anchor positioning: place a tooltip next to its button in CSS</li>
+      <li>View transitions: animate between two pages or two states</li>
+      <li>Scroll-driven animations: tie an animation to the scroll position</li>
+      <li><code>@scope</code>: limit rules to one part of the page</li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>What is Next?!</h2>
-  <ul>
-    <li>
-      CSS is not versioned any more — each
-      <em class="hl-orange">module</em> has its own level, and browsers ship
-      them one at a time
-    </li>
-    <li>Worth knowing, all supported across browsers today:</li>
+  <div class="toc" data-selected="8"></div>
+</section>
+<section>
+  <section>
+    <h2>Real-World Examples</h2>
     <ul>
       <li>
-        <code class="hl-green">:has()</code> — style a parent from its children,
-        the long-awaited "parent selector"
+        Components you see on every site, built with the CSS from this lecture
       </li>
       <li>
-        <code class="hl-green">@container</code> — respond to the size of the
-        <em>container</em> rather than the viewport, which is what components
-        actually need
+        Each slide shows the CSS, the HTML, and the
+        <em class="hl-orange">live result</em> in a light frame
       </li>
       <li>
-        <code class="hl-green">&amp;</code> nesting — write nested rules without
-        a preprocessor
-      </li>
-      <li>
-        <code class="hl-green">@layer</code> — decide which stylesheet wins
-        without escalating specificity
-      </li>
-      <li>
-        <code class="hl-green">subgrid</code> — let a child line up on its
-        parent's grid tracks
+        The frame is real HTML: hover, click, type, and inspect it with DevTools
       </li>
     </ul>
+
+    <style>
+      .sd-rw {
+        background: #f8fafc;
+        color: #1f2328;
+        font:
+          18px/1.4 system-ui,
+          sans-serif;
+        letter-spacing: normal;
+        text-transform: none;
+        text-align: left;
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .sd-rw.sd-rw :where(*) {
+        all: revert;
+      }
+    </style>
+  </section>
+  <section>
+    <h2>Navigation Bar</h2>
+    <style>
+      .sd-nav.sd-nav {
+        .nav {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 12px 20px;
+          border-radius: 8px;
+          background: #1f2937;
+        }
+        .nav a {
+          color: #d1d5db;
+          text-decoration: none;
+        }
+        .nav a:hover,
+        .nav a[aria-current="page"] {
+          color: white;
+        }
+        .nav .logo {
+          margin-inline-end: auto;
+          font-weight: 700;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #1f2937;
+}
+.nav a {
+  color: #d1d5db;
+  text-decoration: none;
+}
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: white;
+}
+.nav .logo {
+  margin-inline-end: auto;
+  font-weight: 700;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw" style="margin-bottom: 16px">
+          <nav class="nav">
+            <a class="logo" href="#">AUT Shop</a>
+            <a href="#" aria-current="page">Home</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+          </nav>
+        </div>
+        <div class="sd-rw sd-nav">
+          <nav class="nav">
+            <a class="logo" href="#">AUT Shop</a>
+            <a href="#" aria-current="page">Home</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+          </nav>
+        </div>
+        <pre><code class="lang-html">
+&lt;nav class="nav"&gt;
+  &lt;a class="logo" href="#"&gt;AUT Shop&lt;/a&gt;
+  &lt;a href="#" aria-current="page"&gt;Home&lt;/a&gt;
+  &lt;a href="#"&gt;Products&lt;/a&gt;
+  &lt;a href="#"&gt;About&lt;/a&gt;
+&lt;/nav&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      Top: the same HTML with no CSS. The auto margin pushes the other links to
+      the end.
+    </p>
+  </section>
+  <section>
+    <h2>Buttons</h2>
+    <style>
+      .sd-btn.sd-btn {
+        .btn {
+          --c: #2563eb;
+          font: inherit;
+          padding: 8px 16px;
+          border: 2px solid var(--c);
+          border-radius: 6px;
+          background: var(--c);
+          color: white;
+          cursor: pointer;
+        }
+        .btn:hover:not(:disabled) {
+          filter: brightness(0.85);
+        }
+        .btn:focus-visible {
+          outline: 3px solid #93c5fd;
+          outline-offset: 2px;
+        }
+        .btn.danger {
+          --c: #dc2626;
+        }
+        .btn.outline {
+          background: transparent;
+          color: var(--c);
+        }
+        .btn:disabled {
+          opacity: 0.5;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.btn {
+  --c: #2563eb;
+  font: inherit;
+  padding: 8px 16px;
+  border: 2px solid var(--c);
+  border-radius: 6px;
+  background: var(--c);
+  color: white;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) {
+  filter: brightness(0.85);
+}
+.btn:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+.btn.danger { --c: #dc2626; }
+.btn.outline {
+  background: transparent;
+  color: var(--c);
+}
+.btn:disabled { opacity: 0.5; }
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-btn">
+          <button class="btn">Save</button>
+          <button class="btn outline">Cancel</button>
+          <button class="btn danger">Delete</button>
+          <button class="btn" disabled>Sending…</button>
+        </div>
+        <pre><code class="lang-html">
+&lt;button class="btn"&gt;Save&lt;/button&gt;
+&lt;button class="btn outline"&gt;Cancel&lt;/button&gt;
+&lt;button class="btn danger"&gt;Delete&lt;/button&gt;
+&lt;button class="btn" disabled&gt;Sending…&lt;/button&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      A variant only changes <code>--c</code>. Hover them, and press
+      <kbd>Tab</kbd> to see the focus ring.
+    </p>
+  </section>
+  <section>
+    <h2>Card</h2>
+    <style>
+      .sd-card.sd-card {
+        .card {
+          width: 260px;
+          overflow: hidden;
+          border-radius: 12px;
+          background: white;
+          box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+        }
+        .card img {
+          display: block;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          object-fit: cover;
+        }
+        .card .body {
+          padding: 12px 16px;
+        }
+        .card h3 {
+          margin: 0;
+          font-size: 1.1em;
+        }
+        .card p {
+          margin: 4px 0 8px;
+          color: #555;
+        }
+        .tag {
+          padding: 2px 10px;
+          border-radius: 999px;
+          background: #e0f2fe;
+          color: #0369a1;
+          font-size: 0.8em;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.card {
+  width: 260px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+.card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.card .body { padding: 12px 16px; }
+.card h3 { margin: 0; font-size: 1.1em; }
+.card p { margin: 4px 0 8px; color: #555; }
+.tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.8em;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-card">
+          <article class="card">
+            <img src="./img/linux.jpg" alt="Tux" />
+            <div class="body">
+              <h3>Intro to Linux</h3>
+              <p>Six weeks, every Sunday.</p>
+              <span class="tag">Beginner</span>
+            </div>
+          </article>
+        </div>
+        <pre><code class="lang-html">
+&lt;article class="card"&gt;
+  &lt;img src="./img/linux.jpg" alt="Tux"&gt;
+  &lt;div class="body"&gt;
+    &lt;h3&gt;Intro to Linux&lt;/h3&gt;
+    &lt;p&gt;Six weeks, every Sunday.&lt;/p&gt;
+    &lt;span class="tag"&gt;Beginner&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>overflow: hidden</code> clips the image to the rounded corners.
+    </p>
+  </section>
+  <section>
+    <h2>Product Grid</h2>
+    <style>
+      .sd-grid.sd-grid {
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+          gap: 12px;
+        }
+        .grid > div {
+          padding: 16px 8px;
+          border-radius: 8px;
+          background: #ede9fe;
+          text-align: center;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1; min-width: 0">
+        <pre><code class="lang-css">
+.grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+}
+.grid &gt; div {
+  padding: 16px 8px;
+  border-radius: 8px;
+  background: #ede9fe;
+  text-align: center;
+}
+</code></pre>
+        <pre><code class="lang-html">
+&lt;div class="grid"&gt;
+  &lt;div&gt;Mouse&lt;/div&gt;
+  &lt;div&gt;Keyboard&lt;/div&gt;
+  &lt;div&gt;Monitor&lt;/div&gt;
+  &lt;div&gt;Webcam&lt;/div&gt;
+  &lt;div&gt;Headset&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+      <div style="flex: 1.3; min-width: 0">
+        <div class="sd-rw sd-grid" style="width: 240px; margin: 0 auto 12px">
+          <div class="grid">
+            <div>Mouse</div>
+            <div>Keyboard</div>
+            <div>Monitor</div>
+            <div>Webcam</div>
+            <div>Headset</div>
+          </div>
+        </div>
+        <div class="sd-rw sd-grid" style="width: 440px; margin: 0 auto 12px">
+          <div class="grid">
+            <div>Mouse</div>
+            <div>Keyboard</div>
+            <div>Monitor</div>
+            <div>Webcam</div>
+            <div>Headset</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      No media query: the same rule gives two columns in a narrow box and four
+      in a wide one.
+    </p>
+  </section>
+  <section>
+    <h2>Page Layout</h2>
+    <style>
+      .sd-layout.sd-layout {
+        .wrap {
+          container-type: inline-size;
+        }
+        .page {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .page > * {
+          padding: 4px 8px;
+          background: #e5e7eb;
+        }
+        @container (width > 360px) {
+          .page {
+            grid-template-columns: 110px 1fr;
+            grid-template-areas:
+              "header header"
+              "nav    main"
+              "footer footer";
+          }
+          header {
+            grid-area: header;
+          }
+          nav {
+            grid-area: nav;
+          }
+          main {
+            grid-area: main;
+          }
+          footer {
+            grid-area: footer;
+          }
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1; min-width: 0">
+        <pre><code class="lang-css">
+.wrap { container-type: inline-size; }
+.page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+.page &gt; * {
+  padding: 4px 8px;
+  background: #e5e7eb;
+}
+@container (width &gt; 360px) {
+  .page {
+    grid-template-columns: 110px 1fr;
+    grid-template-areas:
+      "header header"
+      "nav    main"
+      "footer footer";
+  }
+  header { grid-area: header; }
+  nav    { grid-area: nav; }
+  main   { grid-area: main; }
+  footer { grid-area: footer; }
+}
+</code></pre>
+      </div>
+      <div style="flex: 1.25; min-width: 0">
+        <div class="sd-rw sd-layout" style="width: 200px; margin: 0 auto 12px">
+          <div class="wrap">
+            <div class="page">
+              <header>Header</header>
+              <nav>Nav</nav>
+              <main>Main</main>
+              <footer>Footer</footer>
+            </div>
+          </div>
+        </div>
+        <div class="sd-rw sd-layout" style="width: 420px; margin: 0 auto 12px">
+          <div class="wrap">
+            <div class="page">
+              <header>Header</header>
+              <nav>Nav</nav>
+              <main>Main</main>
+              <footer>Footer</footer>
+            </div>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="wrap"&gt;
+  &lt;div class="page"&gt;
+    &lt;header&gt;Header&lt;/header&gt;
+    &lt;nav&gt;Nav&lt;/nav&gt;
+    &lt;main&gt;Main&lt;/main&gt;
+    &lt;footer&gt;Footer&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>grid-template-areas</code> draws the layout as text. Narrow: one
+      column in source order.
+    </p>
+  </section>
+  <section>
+    <h2>Form Field</h2>
+    <style>
+      .sd-form.sd-form {
+        .field {
+          display: grid;
+          gap: 4px;
+          margin-bottom: 12px;
+        }
+        .field input {
+          font: inherit;
+          padding: 6px 10px;
+          border: 1px solid #9ca3af;
+          border-radius: 6px;
+        }
+        .field input:focus {
+          outline: none;
+          border-color: #2563eb;
+          box-shadow: 0 0 0 3px #bfdbfe;
+        }
+        .field .error {
+          display: none;
+          color: #dc2626;
+        }
+        .field input:invalid:not(:placeholder-shown) {
+          border-color: #dc2626;
+        }
+        .field:has(:invalid:not(:placeholder-shown)) .error {
+          display: block;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.field { display: grid; gap: 4px; margin-bottom: 12px; }
+.field input {
+  font: inherit;
+  padding: 6px 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+}
+.field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #bfdbfe;
+}
+.field .error { display: none; color: #dc2626; }
+.field input:invalid:not(:placeholder-shown) {
+  border-color: #dc2626;
+}
+.field:has(:invalid:not(:placeholder-shown)) .error {
+  display: block;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-form">
+          <label class="field">
+            Name
+            <input placeholder="Your name" />
+          </label>
+          <label class="field">
+            Email
+            <input type="email" value="parham@" placeholder="you@aut.ac.ir" />
+            <span class="error">Enter a valid email</span>
+          </label>
+        </div>
+        <pre><code class="lang-html">
+&lt;label class="field"&gt;
+  Name
+  &lt;input placeholder="Your name"&gt;
+&lt;/label&gt;
+&lt;label class="field"&gt;
+  Email
+  &lt;input type="email" value="parham@"
+         placeholder="you@aut.ac.ir"&gt;
+  &lt;span class="error"&gt;Enter a valid email&lt;/span&gt;
+&lt;/label&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>:not(:placeholder-shown)</code> keeps an empty field from showing
+      the error. Fix the email and the error goes away.
+    </p>
+  </section>
+  <section>
+    <h2>Toggle Switch</h2>
+    <style>
+      .sd-switch.sd-switch {
+        label {
+          display: flex;
+          gap: 8px;
+          margin: 4px 0;
+        }
+        .switch {
+          appearance: none;
+          position: relative;
+          width: 44px;
+          height: 24px;
+          border-radius: 999px;
+          background: #d1d5db;
+          transition: background 200ms;
+        }
+        .switch::before {
+          content: "";
+          position: absolute;
+          inset: 3px auto 3px 3px;
+          width: 18px;
+          border-radius: 50%;
+          background: white;
+          transition: translate 200ms;
+        }
+        .switch:checked {
+          background: #16a34a;
+        }
+        .switch:checked::before {
+          translate: 20px;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1; min-width: 0">
+        <pre><code class="lang-css">
+label { display: flex; gap: 8px; margin: 4px 0; }
+.switch {
+  appearance: none;
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #d1d5db;
+  transition: background 200ms;
+}
+.switch::before {
+  content: "";
+  position: absolute;
+  inset: 3px auto 3px 3px;
+  width: 18px;
+  border-radius: 50%;
+  background: white;
+  transition: translate 200ms;
+}
+.switch:checked { background: #16a34a; }
+.switch:checked::before { translate: 20px; }
+</code></pre>
+      </div>
+      <div style="flex: 1.1; min-width: 0">
+        <div class="sd-rw sd-switch">
+          <label> <input type="checkbox" class="switch" /> Wi-Fi </label>
+          <label> <input type="checkbox" class="switch" checked /> Dark </label>
+        </div>
+        <pre><code class="lang-html">
+&lt;label&gt;
+  &lt;input type="checkbox" class="switch"&gt; Wi-Fi
+&lt;/label&gt;
+&lt;label&gt;
+  &lt;input type="checkbox" class="switch" checked&gt; Dark
+&lt;/label&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      A real checkbox, so it still works with the keyboard and in a form. Click
+      them.
+    </p>
+  </section>
+  <section>
+    <h2>Alerts</h2>
+    <style>
+      .sd-alert.sd-alert {
+        .alert {
+          --tone: #2563eb;
+          margin-bottom: 8px;
+          padding: 10px 14px;
+          border-inline-start: 4px solid var(--tone);
+          border-radius: 4px;
+          background: color-mix(in srgb, var(--tone) 12%, white);
+        }
+        .alert strong {
+          color: var(--tone);
+        }
+        .alert.success {
+          --tone: #16a34a;
+        }
+        .alert.warning {
+          --tone: #d97706;
+        }
+        .alert.error {
+          --tone: #dc2626;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.alert {
+  --tone: #2563eb;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-inline-start: 4px solid var(--tone);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--tone) 12%, white);
+}
+.alert strong { color: var(--tone); }
+.alert.success { --tone: #16a34a; }
+.alert.warning { --tone: #d97706; }
+.alert.error   { --tone: #dc2626; }
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-alert">
+          <div class="alert"><strong>Note:</strong> Class starts at 7:45.</div>
+          <div class="alert warning">
+            <strong>Warning:</strong> The deadline is tomorrow.
+          </div>
+          <div class="alert error">
+            <strong>Error:</strong> The upload failed.
+          </div>
+          <div class="alert success">
+            <strong>Saved:</strong> Your grade was recorded.
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre><code class="lang-html">
+&lt;div class="alert"&gt;&lt;strong&gt;Note:&lt;/strong&gt; Class starts at 7:45.&lt;/div&gt;
+&lt;div class="alert warning"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; The deadline is tomorrow.&lt;/div&gt;
+&lt;div class="alert error"&gt;&lt;strong&gt;Error:&lt;/strong&gt; The upload failed.&lt;/div&gt;
+&lt;div class="alert success"&gt;&lt;strong&gt;Saved:&lt;/strong&gt; Your grade was recorded.&lt;/div&gt;
+</code></pre>
+    <p style="font-size: 0.6em">
+      One custom property per variant; <code>color-mix()</code> derives the
+      light background from it.
+    </p>
+  </section>
+  <section>
+    <h2>Data Table</h2>
+    <style>
+      .sd-table.sd-table {
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th,
+        td {
+          padding: 6px 12px;
+          text-align: start;
+        }
+        thead th {
+          background: #1f2937;
+          color: white;
+        }
+        tbody tr:nth-child(even) {
+          background: #e5e7eb;
+        }
+        tbody tr:hover {
+          background: #fef3c7;
+        }
+        .num {
+          text-align: end;
+          font-variant-numeric: tabular-nums;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 6px 12px;
+  text-align: start;
+}
+thead th {
+  background: #1f2937;
+  color: white;
+}
+tbody tr:nth-child(even) { background: #e5e7eb; }
+tbody tr:hover { background: #fef3c7; }
+.num {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th class="num">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sara</td>
+                <td class="num">19.25</td>
+              </tr>
+              <tr>
+                <td>Reza</td>
+                <td class="num">8.5</td>
+              </tr>
+              <tr>
+                <td>Mina</td>
+                <td class="num">17</td>
+              </tr>
+              <tr>
+                <td>Ali</td>
+                <td class="num">11.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <pre><code class="lang-html">
+&lt;table&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Student&lt;/th&gt;&lt;th class="num"&gt;Grade&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Sara&lt;/td&gt;&lt;td class="num"&gt;19.25&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Reza&lt;/td&gt;&lt;td class="num"&gt;8.5&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Mina&lt;/td&gt;&lt;td class="num"&gt;17&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Ali&lt;/td&gt;&lt;td class="num"&gt;11.75&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+    <p style="font-size: 0.6em">
+      Numbers align at the end and every digit has the same width. Hover a row.
+    </p>
+  </section>
+  <section>
+    <h2>Chat Bubbles</h2>
+    <style>
+      .sd-chat.sd-chat {
+        .chat {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .msg {
+          align-self: flex-start;
+          max-width: 70%;
+          margin: 0;
+          padding: 8px 12px;
+          border-radius: 16px 16px 16px 4px;
+          background: #e5e7eb;
+        }
+        .msg.me {
+          align-self: flex-end;
+          border-radius: 16px 16px 4px 16px;
+          background: #2563eb;
+          color: white;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.msg {
+  align-self: flex-start;
+  max-width: 70%;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 16px 16px 16px 4px;
+  background: #e5e7eb;
+}
+.msg.me {
+  align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
+  background: #2563eb;
+  color: white;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-chat">
+          <div class="chat">
+            <p class="msg">Are the CSS slides online?</p>
+            <p class="msg me">Yes, on the course site.</p>
+            <p class="msg me">The examples are live.</p>
+            <p class="msg">Thanks!</p>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="chat"&gt;
+  &lt;p class="msg"&gt;Are the CSS slides online?&lt;/p&gt;
+  &lt;p class="msg me"&gt;Yes, on the course site.&lt;/p&gt;
+  &lt;p class="msg me"&gt;The examples are live.&lt;/p&gt;
+  &lt;p class="msg"&gt;Thanks!&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>align-self</code> moves one item to the other side of the column.
+    </p>
+  </section>
+  <section>
+    <h2>Breadcrumbs</h2>
+    <style>
+      .sd-crumbs.sd-crumbs {
+        .crumbs {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        .crumbs li + li::before {
+          content: "›";
+          margin-inline-end: 8px;
+          color: #9ca3af;
+        }
+        .crumbs a {
+          color: #2563eb;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.crumbs li + li::before {
+  content: "›";
+  margin-inline-end: 8px;
+  color: #9ca3af;
+}
+.crumbs a { color: #2563eb; }
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-crumbs">
+          <nav aria-label="Breadcrumb">
+            <ol class="crumbs">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Courses</a></li>
+              <li><a href="#">IE</a></li>
+              <li aria-current="page">Lecture 4</li>
+            </ol>
+          </nav>
+        </div>
+        <pre><code class="lang-html">
+&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol class="crumbs"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Courses&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;IE&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Lecture 4&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      The separators are not in the HTML: <code>li + li::before</code> adds one
+      before every item except the first.
+    </p>
+  </section>
+  <section>
+    <h2>Notification Badge</h2>
+    <style>
+      .sd-badge.sd-badge {
+        .icon {
+          position: relative;
+          display: inline-block;
+          font-size: 32px;
+        }
+        .badge {
+          position: absolute;
+          top: -4px;
+          inset-inline-end: -10px;
+          min-width: 20px;
+          padding: 0 6px;
+          border-radius: 999px;
+          background: #dc2626;
+          color: white;
+          font-size: 13px;
+          line-height: 20px;
+          text-align: center;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.icon {
+  position: relative;
+  display: inline-block;
+  font-size: 32px;
+}
+.badge {
+  position: absolute;
+  top: -4px;
+  inset-inline-end: -10px;
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: white;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-badge">
+          <span class="icon"
+            >🔔
+            <span class="badge">3</span>
+          </span>
+          <span class="icon"
+            >📧
+            <span class="badge">12</span>
+          </span>
+        </div>
+        <pre><code class="lang-html">
+&lt;span class="icon"&gt;🔔
+  &lt;span class="badge"&gt;3&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class="icon"&gt;📧
+  &lt;span class="badge"&gt;12&lt;/span&gt;
+&lt;/span&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      The badge is absolute inside a relative parent, so it moves with the icon.
+    </p>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="9"></div>
+</section>
+<section>
+  <h2>Browser DevTools</h2>
+  <ul>
+    <li>
+      <kbd>F12</kbd> or <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd>, then
+      the <em class="hl-orange">Elements</em> panel
+    </li>
+    <ul>
+      <li>
+        <strong>Styles</strong>: every rule that matches, in cascade order; a
+        crossed-out declaration lost; edit values live
+      </li>
+      <li><strong>Computed</strong>: the final value, and which rule set it</li>
+      <li>The box model drawn with real numbers</li>
+      <li>
+        <code>flex</code> and <code>grid</code> badges draw the tracks over the
+        page
+      </li>
+    </ul>
+    <li>
+      Device toolbar (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>): try
+      phone sizes
+    </li>
+    <li>Rendering: emulate print, dark mode, reduced motion</li>
+  </ul>
+</section>
+<section>
+  <h2>CSS Tools</h2>
+  <ul>
+    <li>
+      Reference:
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">MDN</a> (with
+      Baseline status) and <a href="https://caniuse.com">caniuse.com</a>
+    </li>
+    <li>
+      Format and lint: Prettier, Stylelint; the
+      <a href="https://jigsaw.w3.org/css-validator/">W3C CSS validator</a>
+    </li>
+    <li>
+      Preprocessors: Sass gave CSS variables and nesting years before browsers
+      did; most of that is native now
+    </li>
+    <li>
+      Vendor prefixes (<code>-webkit-</code>, <code>-moz-</code>): needed for
+      new features in the past; Autoprefixer adds the few still required
+    </li>
+    <li>
+      Frameworks: Tailwind (utility classes), Bootstrap (ready components); they
+      are easier to use once you know the CSS under them
+    </li>
+  </ul>
+</section>
+<section class="hands-on">
+  <h2>Let's write some code</h2>
+  <ul>
+    <li>A card grid: one column on a phone, three on a laptop</li>
+    <li>Cards that switch layout with a container query</li>
+    <li>
+      Dark mode with <code>color-scheme</code> and <code>light-dark()</code>
+    </li>
   </ul>
 </section>
 <section>

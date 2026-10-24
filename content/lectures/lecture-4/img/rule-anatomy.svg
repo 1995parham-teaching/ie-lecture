@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 410">
+  <title>A CSS rule: selector list, declaration block, declarations of property and value</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 26px; text-anchor: start; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .brace { fill: none; stroke: #8d97a8; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+
+  <!-- selector labels -->
+  <text class="orange" x="290" y="40" style="font-size: 17px; text-anchor: end">type selector</text>
+  <path class="line" d="M276,52 L276,80" />
+  <text class="orange" x="340" y="40" style="font-size: 17px; text-anchor: start">class selector</text>
+  <path class="line" d="M372,52 L372,80" />
+
+  <!-- line 1: h1, .title { -->
+  <text class="mono orange" x="260" y="100" textLength="32" lengthAdjust="spacingAndGlyphs">h1</text>
+  <text class="mono grey" x="292" y="100" textLength="16" lengthAdjust="spacingAndGlyphs">,</text>
+  <text class="mono orange" x="324" y="100" textLength="96" lengthAdjust="spacingAndGlyphs">.title</text>
+  <text class="mono grey" x="436" y="100" textLength="16" lengthAdjust="spacingAndGlyphs">{</text>
+
+  <!-- line 2: color: #ff9100; -->
+  <text class="mono cyan" x="292" y="160" textLength="80" lengthAdjust="spacingAndGlyphs">color</text>
+  <text class="mono grey" x="372" y="160" textLength="16" lengthAdjust="spacingAndGlyphs">:</text>
+  <text class="mono green" x="404" y="160" textLength="112" lengthAdjust="spacingAndGlyphs">#ff9100</text>
+  <text class="mono grey" x="516" y="160" textLength="16" lengthAdjust="spacingAndGlyphs">;</text>
+  <text class="cyan" x="332" y="190" style="font-size: 16px">property</text>
+  <text class="green" x="460" y="190" style="font-size: 16px">value</text>
+
+  <!-- line 3: font-size: 2rem; -->
+  <text class="mono cyan" x="292" y="230" textLength="144" lengthAdjust="spacingAndGlyphs">font-size</text>
+  <text class="mono grey" x="436" y="230" textLength="16" lengthAdjust="spacingAndGlyphs">:</text>
+  <text class="mono green" x="468" y="230" textLength="64" lengthAdjust="spacingAndGlyphs">2rem</text>
+  <text class="mono grey" x="532" y="230" textLength="16" lengthAdjust="spacingAndGlyphs">;</text>
+
+  <!-- line 4: } -->
+  <text class="mono grey" x="260" y="290" textLength="16" lengthAdjust="spacingAndGlyphs">}</text>
+
+  <!-- declaration bracket -->
+  <path class="brace" d="M560,144 H570 V176 H560" />
+  <text class="yellow" x="582" y="160" style="font-size: 17px; text-anchor: start">declaration</text>
+
+  <!-- declaration block brace -->
+  <path class="brace" d="M710,82 H722 V308 H710" />
+  <text class="yellow" x="734" y="195" style="font-size: 17px; text-anchor: start">declaration</text>
+  <text class="yellow" x="734" y="217" style="font-size: 17px; text-anchor: start">block</text>
+
+  <!-- selector list brace -->
+  <path class="brace" d="M244,82 H232 V118 H244" />
+  <text class="orange" x="222" y="100" style="font-size: 17px; text-anchor: end">selector list</text>
+
+  <path class="dash" d="M40,336 H860" />
+  <text class="label" x="40" y="362">The rule styles every h1 and every element with class="title".</text>
+  <text class="label" x="40" y="390">A declaration the browser does not understand is skipped; the rest of the rule still applies.</text>
+</svg>
