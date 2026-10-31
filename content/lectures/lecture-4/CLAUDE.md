@@ -1,6 +1,6 @@
 # Lecture 4 — CSS
 
-141 slides, 16 vertical stacks. Topics (TOC indices): `0` Introduction ·
+150 slides, 17 vertical stacks. Topics (TOC indices): `0` Introduction ·
 `1` Adding CSS · `2` Selectors · `3` Cascade · `4` Box Model · `5` Layout ·
 `6` Responsive Design · `7` Modern CSS · `8` Real-World Examples · `9` Tools.
 
@@ -77,6 +77,33 @@ switch, alerts, data table, chat bubbles, breadcrumbs, notification badge.
   `opacity: 0.5`.
 - `:not(:placeholder-shown)` (not `:user-invalid`) is used on the form slide
   so the prefilled invalid email shows its error without interaction.
+
+## Flexbox Patterns
+
+A vertical stack at the end of the Layout flexbox slides, just before Grid. It is
+built exactly like Real-World Examples (CSS, HTML, live `.sd-rw` frame, doubled
+`.sd-f*` scope, and the same "edit both sides" rule). It reuses the `.sd-rw` frame
+style from the Real-World intro slide, which applies to the whole deck. The
+patterns are: centring, search box, `flex: 1` vs `flex: auto`, equal-height cards,
+sticky footer, wrapping tags, `min-width: 0` truncation, and a sidebar that wraps
+without a media query.
+
+Measured in headless Chromium (Playwright) at 1280×934:
+
+- Search: the input is 152px in the 240px frame and 312px in the 400px one; the
+  button stays 88px in both.
+- `flex: 1` gives three 129px items ("Course materials" wraps onto two lines);
+  `flex: auto` gives 105 / 192 / 90.
+- Cards: both are 151px tall and both buttons sit at y = 124.
+- Sticky footer: in the 220px page, `main` is 138px and the footer starts at 195.
+- Tags: three lines in the 220px frame, two in the 420px one.
+- Truncation: without `min-width: 0` the name is 199px and the size ends 17px
+  past the 256px box; with it the name is 175px and shows the ellipsis. The
+  ellipsis is on a `<b>` _inside_ the flex item on purpose. If the item itself
+  has `overflow: hidden`, its automatic minimum is already 0 and the bug does
+  not show.
+- Sidebar: wraps into two 240px rows in the 240px frame; in the 420px frame it
+  is one line, 116 + 296.
 
 ## Diagrams
 

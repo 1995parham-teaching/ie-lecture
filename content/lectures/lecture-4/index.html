@@ -2139,6 +2139,627 @@ img { float: left; width: 120px; margin-inline-end: 16px; }
   </section>
 </section>
 <section>
+  <section>
+    <h2>Flexbox Patterns</h2>
+    <ul>
+      <li>Small layouts you build with flexbox again and again</li>
+      <li>
+        Each slide shows the CSS, the HTML, and the
+        <em class="hl-orange">live result</em> in a light frame
+      </li>
+      <li>Where width matters, the same HTML is shown in two frames</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Centering Anything</h2>
+    <style>
+      .sd-fcenter.sd-fcenter {
+        .empty {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          height: 180px;
+          border: 2px dashed #94a3b8;
+          border-radius: 8px;
+          color: #64748b;
+        }
+        .empty strong {
+          font-size: 1.4em;
+          color: #1f2328;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 180px;
+  border: 2px dashed #94a3b8;
+  border-radius: 8px;
+  color: #64748b;
+}
+.empty strong {
+  font-size: 1.4em;
+  color: #1f2328;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fcenter">
+          <div class="empty">
+            <strong>No messages</strong>
+            <span>Your inbox is empty.</span>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="empty"&gt;
+  &lt;strong&gt;No messages&lt;/strong&gt;
+  &lt;span&gt;Your inbox is empty.&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>justify-content</code> centres on the main axis (here vertical),
+      <code>align-items</code> on the cross axis. Nobody needs to know the
+      height of the text.
+    </p>
+  </section>
+  <section>
+    <h2>Search Box</h2>
+    <style>
+      .sd-fsearch.sd-fsearch {
+        .search {
+          display: flex;
+        }
+        .search input {
+          flex: 1;
+          min-width: 0;
+          font: inherit;
+          padding: 8px 12px;
+          border: 2px solid #2563eb;
+          border-radius: 6px 0 0 6px;
+        }
+        .search button {
+          flex: none;
+          font: inherit;
+          padding: 8px 16px;
+          border: 0;
+          border-radius: 0 6px 6px 0;
+          background: #2563eb;
+          color: white;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.search {
+  display: flex;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  padding: 8px 12px;
+  border: 2px solid #2563eb;
+  border-radius: 6px 0 0 6px;
+}
+.search button {
+  flex: none;
+  font: inherit;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 0 6px 6px 0;
+  background: #2563eb;
+  color: white;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fsearch" style="width: 240px; margin: 0 auto 12px">
+          <form class="search">
+            <input type="search" placeholder="Search" />
+            <button>Search</button>
+          </form>
+        </div>
+        <div class="sd-rw sd-fsearch" style="width: 400px; margin: 0 auto 12px">
+          <form class="search">
+            <input type="search" placeholder="Search" />
+            <button>Search</button>
+          </form>
+        </div>
+        <pre><code class="lang-html">
+&lt;form class="search"&gt;
+  &lt;input type="search" placeholder="Search"&gt;
+  &lt;button&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      The button keeps its size (<code>flex: none</code>); the input takes
+      whatever is left, in both frames.
+    </p>
+  </section>
+  <section>
+    <h2>flex: 1 vs. flex: auto</h2>
+    <style>
+      .sd-fgrow.sd-fgrow {
+        .row {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 12px;
+        }
+        .row div {
+          padding: 8px;
+          border-radius: 6px;
+          background: #fde68a;
+          text-align: center;
+        }
+        .equal div {
+          flex: 1;
+        }
+        .content div {
+          flex: auto;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.row div {
+  padding: 8px;
+  border-radius: 6px;
+  background: #fde68a;
+  text-align: center;
+}
+.equal div { flex: 1; }
+.content div { flex: auto; }
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fgrow">
+          <div class="row equal">
+            <div>Home</div>
+            <div>Course materials</div>
+            <div>FAQ</div>
+          </div>
+          <div class="row content">
+            <div>Home</div>
+            <div>Course materials</div>
+            <div>FAQ</div>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="row equal"&gt;
+  &lt;div&gt;Home&lt;/div&gt;
+  &lt;div&gt;Course materials&lt;/div&gt;
+  &lt;div&gt;FAQ&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row content"&gt;
+  &lt;div&gt;Home&lt;/div&gt;
+  &lt;div&gt;Course materials&lt;/div&gt;
+  &lt;div&gt;FAQ&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>flex: 1</code> starts every item from 0 and shares all the space:
+      equal columns. <code>flex: auto</code> starts from the content size and
+      shares only the leftover: longer text, wider item.
+    </p>
+  </section>
+  <section>
+    <h2>Equal-Height Cards</h2>
+    <style>
+      .sd-fcards.sd-fcards {
+        .cards {
+          display: flex;
+          gap: 12px;
+        }
+        .cards article {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          padding: 12px;
+          border-radius: 8px;
+          background: white;
+          box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+        }
+        .cards h3 {
+          margin: 0 0 4px;
+        }
+        .cards p {
+          margin: 0 0 12px;
+        }
+        .cards button {
+          margin-top: auto;
+          font: inherit;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.cards {
+  display: flex;
+  gap: 12px;
+}
+.cards article {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+.cards h3 { margin: 0 0 4px; }
+.cards p { margin: 0 0 12px; }
+.cards button {
+  margin-top: auto;
+  font: inherit;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fcards">
+          <div class="cards">
+            <article>
+              <h3>Free</h3>
+              <p>Slides.</p>
+              <button>Start</button>
+            </article>
+            <article>
+              <h3>Pro</h3>
+              <p>Slides, videos and graded homework.</p>
+              <button>Buy</button>
+            </article>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="cards"&gt;
+  &lt;article&gt;
+    &lt;h3&gt;Free&lt;/h3&gt;
+    &lt;p&gt;Slides.&lt;/p&gt;
+    &lt;button&gt;Start&lt;/button&gt;
+  &lt;/article&gt;
+  &lt;article&gt;
+    &lt;h3&gt;Pro&lt;/h3&gt;
+    &lt;p&gt;Slides, videos and graded homework.&lt;/p&gt;
+    &lt;button&gt;Buy&lt;/button&gt;
+  &lt;/article&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      The row stretches both cards to the same height. Inside each card (a
+      column), <code>margin-top: auto</code> eats the free space, so the buttons
+      line up at the bottom.
+    </p>
+  </section>
+  <section>
+    <h2>Sticky Footer</h2>
+    <style>
+      .sd-fpage.sd-fpage {
+        .page {
+          display: flex;
+          flex-direction: column;
+          /* a real page: min-height: 100dvh */
+          height: 220px;
+        }
+        .page main {
+          flex: 1;
+          padding: 8px;
+        }
+        .page header,
+        .page footer {
+          padding: 8px;
+          background: #1f2937;
+          color: white;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.page {
+  display: flex;
+  flex-direction: column;
+  /* a real page: min-height: 100dvh */
+  height: 220px;
+}
+.page main {
+  flex: 1;
+  padding: 8px;
+}
+.page header,
+.page footer {
+  padding: 8px;
+  background: #1f2937;
+  color: white;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fpage">
+          <div class="page">
+            <header>AUT Shop</header>
+            <main>Short page.</main>
+            <footer>© 2026</footer>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="page"&gt;
+  &lt;header&gt;AUT Shop&lt;/header&gt;
+  &lt;main&gt;Short page.&lt;/main&gt;
+  &lt;footer&gt;© 2026&lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      <code>main</code> grows to fill the column, so the footer stays at the
+      bottom even when the page has almost no content.
+    </p>
+  </section>
+  <section>
+    <h2>Wrapping Tags</h2>
+    <style>
+      .sd-ftags.sd-ftags {
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          padding: 0;
+          list-style: none;
+        }
+        .tags li {
+          padding: 4px 12px;
+          border-radius: 999px;
+          background: #e0f2fe;
+          color: #0369a1;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-ftags" style="width: 220px; margin: 0 auto 12px">
+          <ul class="tags">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>HTTP</li>
+            <li>Go</li>
+            <li>REST</li>
+          </ul>
+        </div>
+        <div class="sd-rw sd-ftags" style="width: 420px; margin: 0 auto 12px">
+          <ul class="tags">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>HTTP</li>
+            <li>Go</li>
+            <li>REST</li>
+          </ul>
+        </div>
+        <pre><code class="lang-html">
+&lt;ul class="tags"&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+  &lt;li&gt;HTTP&lt;/li&gt;
+  &lt;li&gt;Go&lt;/li&gt;
+  &lt;li&gt;REST&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      Same HTML, two widths. <code>flex-wrap</code> starts a new line when the
+      tags run out of room, and <code>gap</code> spaces the rows and the
+      columns.
+    </p>
+  </section>
+  <section>
+    <h2>Truncating Text: min-width: 0</h2>
+    <style>
+      .sd-ftrunc.sd-ftrunc {
+        .file {
+          display: flex;
+          gap: 12px;
+          width: 240px;
+          margin-bottom: 8px;
+          padding: 8px;
+          border-radius: 6px;
+          background: #e2e8f0;
+        }
+        .file b {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .file.fixed .info {
+          min-width: 0;
+        }
+        .file .size {
+          flex: none;
+          margin-inline-start: auto;
+          color: #64748b;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.file {
+  display: flex;
+  gap: 12px;
+  width: 240px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #e2e8f0;
+}
+.file b {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file.fixed .info { min-width: 0; }
+.file .size {
+  flex: none;
+  margin-inline-start: auto;
+  color: #64748b;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-ftrunc">
+          <div class="file">
+            <div class="info">
+              <b>lecture-4-css-final.pdf</b>
+              <small>Uploaded today</small>
+            </div>
+            <span class="size">2.1 MB</span>
+          </div>
+          <div class="file fixed">
+            <div class="info">
+              <b>lecture-4-css-final.pdf</b>
+              <small>Uploaded today</small>
+            </div>
+            <span class="size">2.1 MB</span>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="file"&gt;
+  &lt;div class="info"&gt;
+    &lt;b&gt;lecture-4-css-final.pdf&lt;/b&gt;
+    &lt;small&gt;Uploaded today&lt;/small&gt;
+  &lt;/div&gt;
+  &lt;span class="size"&gt;2.1 MB&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="file fixed"&gt;
+  &lt;div class="info"&gt;
+    &lt;b&gt;lecture-4-css-final.pdf&lt;/b&gt;
+    &lt;small&gt;Uploaded today&lt;/small&gt;
+  &lt;/div&gt;
+  &lt;span class="size"&gt;2.1 MB&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      A flex item will not shrink below its content (<code>min-width: auto</code
+      >), so in the first row <code>.info</code> pushes the size out of the box.
+      <code>min-width: 0</code> lets it shrink, and the ellipsis appears.
+    </p>
+  </section>
+  <section>
+    <h2>Sidebar Without a Media Query</h2>
+    <style>
+      .sd-fside.sd-fside {
+        .layout {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .layout aside {
+          flex: 1 1 100px;
+          padding: 8px;
+          background: #ede9fe;
+        }
+        .layout main {
+          flex: 999 1 180px;
+          padding: 8px;
+          background: #dcfce7;
+        }
+      }
+    </style>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.15; min-width: 0">
+        <pre><code class="lang-css">
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.layout aside {
+  flex: 1 1 100px;
+  padding: 8px;
+  background: #ede9fe;
+}
+.layout main {
+  flex: 999 1 180px;
+  padding: 8px;
+  background: #dcfce7;
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <div class="sd-rw sd-fside" style="width: 240px; margin: 0 auto 12px">
+          <div class="layout">
+            <aside>Sidebar</aside>
+            <main>Content</main>
+          </div>
+        </div>
+        <div class="sd-rw sd-fside" style="width: 420px; margin: 0 auto 12px">
+          <div class="layout">
+            <aside>Sidebar</aside>
+            <main>Content</main>
+          </div>
+        </div>
+        <pre><code class="lang-html">
+&lt;div class="layout"&gt;
+  &lt;aside&gt;Sidebar&lt;/aside&gt;
+  &lt;main&gt;Content&lt;/main&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+    </div>
+    <p style="font-size: 0.6em">
+      When both bases fit (100 + 8 + 180), they share a line and
+      <code>main</code> takes almost all the extra (999 to 1). When they do not,
+      the line wraps and each item fills the width.
+    </p>
+  </section>
+</section>
+<section>
   <h2>Grid</h2>
   <ul>
     <li><span class="hl-orange">Two</span>-dimensional layout model</li>
