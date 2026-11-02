@@ -78,6 +78,28 @@ switch, alerts, data table, chat bubbles, breadcrumbs, notification badge.
 - `:not(:placeholder-shown)` (not `:user-invalid`) is used on the form slide
   so the prefilled invalid email shows its error without interaction.
 
+## Table Layouts (before Grid)
+
+The Grid intro is now a vertical stack: the intro, then "Before Grid: Table
+Layouts" (history), "A Page in 2001" (a table layout), "Table Tricks" (1px
+border, spacer GIF, full-window centring) and "The Same Page with Grid"
+(`grid-template-areas`, one column under 300px).
+
+- The live renders are `<iframe srcdoc>`, not `.sd-rw`: `all: revert` would
+  also revert presentational attributes (`bgcolor`, `width`), which are
+  author-level hints. The srcdoc is the shown code plus only
+  `body { margin: 0; background: #fff }`; the grid frames prepend the shown CSS
+  in a `<style>`. Same "edit both sides" rule as Real-World Examples.
+- srcdoc documents are always standards mode. The centring trick needs quirks
+  mode (no doctype, as pages of the time had): in Chromium 1248 at 800×600 the
+  table is 584px tall in quirks mode and 24px with a doctype. The slide says so.
+- Measured: table page content 280 × 148; border trick 79 × 63; grid page
+  `110px 230px` in the 340px frame (120px tall) and one 240px column in the
+  240px frame (136px tall).
+- Facts checked: Grid shipped in Chrome 57, Firefox 52 and Safari 10.1 in March
+  2017 (MDN browser-compat-data); the HTML spec sentence "Tables must not be
+  used as layout aids." is quoted from the tables section.
+
 ## Flexbox Patterns
 
 A vertical stack at the end of the Layout flexbox slides, just before Grid. It is

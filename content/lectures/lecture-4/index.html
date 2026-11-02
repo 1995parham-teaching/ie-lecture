@@ -2760,24 +2760,269 @@ img { float: left; width: 120px; margin-inline-end: 16px; }
   </section>
 </section>
 <section>
-  <h2>Grid</h2>
-  <ul>
-    <li><span class="hl-orange">Two</span>-dimensional layout model</li>
+  <section>
+    <h2>Grid</h2>
+    <ul>
+      <li><span class="hl-orange">Two</span>-dimensional layout model</li>
+      <ul>
+        <li>
+          Divides a page into major regions, defines the relationship in terms
+          of size, position, and layer, between parts
+        </li>
+      </ul>
+      <li>Grid vs. Tables</li>
+      <ul>
+        <li>Like tables, enables to align elements into columns and rows</li>
+        <li>However, many more layouts are possible</li>
+        <li>
+          E.g., child elements could position themselves so they actually
+          overlap
+        </li>
+      </ul>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Before Grid: Table Layouts</h2>
     <ul>
       <li>
-        Divides a page into major regions, defines the relationship in terms of
-        size, position, and layer, between parts
+        Late 1990s to mid 2000s: CSS support was weak, so whole pages were laid
+        out with <code>&lt;table&gt;</code>
       </li>
-    </ul>
-    <li>Grid vs. Tables</li>
-    <ul>
-      <li>Like tables, enables to align elements into columns and rows</li>
-      <li>However, many more layouts are possible</li>
       <li>
-        E.g., child elements could position themselves so they actually overlap
+        Every column was a <code>&lt;td&gt;</code>, every gap a spacer image,
+        every colour an attribute; tables were nested inside tables
+      </li>
+      <li>Why it ended:</li>
+      <ul>
+        <li>
+          A table means <em>data</em>: screen readers read the page as rows and
+          columns
+        </li>
+        <li>
+          Layout lived in every HTML file: a redesign meant editing them all
+        </li>
+        <li>A table cannot rearrange itself for a phone</li>
+      </ul>
+      <li>
+        2003: <a href="https://csszengarden.com">CSS Zen Garden</a>, one HTML
+        file and hundreds of designs in CSS only
+      </li>
+      <li>
+        Then float layouts, Flexbox, and in March 2017 Grid in Chrome, Firefox
+        and Safari
+      </li>
+      <li>
+        HTML today: <q>Tables must not be used as layout aids.</q> (<a
+          href="https://html.spec.whatwg.org/multipage/tables.html#the-table-element"
+          >spec</a
+        >)
       </li>
     </ul>
-  </ul>
+  </section>
+  <section>
+    <h2>A Page in 2001</h2>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 2; min-width: 0">
+        <pre><code class="lang-html">
+&lt;table width="100%" border="0" cellpadding="8" cellspacing="0"&gt;
+  &lt;tr&gt;
+    &lt;td colspan="2" bgcolor="#003366"&gt;
+      &lt;font color="white" size="5"&gt;&lt;b&gt;AUT Shop&lt;/b&gt;&lt;/font&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td width="110" valign="top" bgcolor="#cccccc"&gt;
+      &lt;a href="#"&gt;Home&lt;/a&gt;&lt;br&gt;
+      &lt;a href="#"&gt;Products&lt;/a&gt;&lt;br&gt;
+      &lt;a href="#"&gt;About&lt;/a&gt;
+    &lt;/td&gt;
+    &lt;td valign="top"&gt;Welcome to our shop!&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td colspan="2" align="center" bgcolor="#eeeeee"&gt;
+      &lt;font size="2"&gt;&amp;copy; 2001 AUT Shop&lt;/font&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <iframe
+          title="Table layout"
+          srcdoc='&lt;style&gt;body{margin:0;background:#fff}&lt;/style&gt;&lt;table width="100%" border="0" cellpadding="8" cellspacing="0"&gt;
+  &lt;tr&gt;
+    &lt;td colspan="2" bgcolor="#003366"&gt;
+      &lt;font color="white" size="5"&gt;&lt;b&gt;AUT Shop&lt;/b&gt;&lt;/font&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td width="110" valign="top" bgcolor="#cccccc"&gt;
+      &lt;a href="#"&gt;Home&lt;/a&gt;&lt;br&gt;
+      &lt;a href="#"&gt;Products&lt;/a&gt;&lt;br&gt;
+      &lt;a href="#"&gt;About&lt;/a&gt;
+    &lt;/td&gt;
+    &lt;td valign="top"&gt;Welcome to our shop!&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td colspan="2" align="center" bgcolor="#eeeeee"&gt;
+      &lt;font size="2"&gt;&amp;copy; 2001 AUT Shop&lt;/font&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;'
+          style="width: 280px; height: 148px; border: 0; border-radius: 8px; background: #fff; display: block; margin: 0 auto 12px; padding: 0px; box-sizing: content-box"
+        ></iframe>
+        <p style="font-size: 0.6em">
+          The live page above is the code on the left, unchanged. No CSS: the
+          layout, colours and fonts are all attributes and tags.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Table Tricks</h2>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.5; min-width: 0">
+        <pre><code class="lang-html">
+&lt;!-- A 1px border: a black table shows through the gaps --&gt;
+&lt;table bgcolor="black" cellspacing="1" cellpadding="6"&gt;
+  &lt;tr&gt;&lt;td bgcolor="white"&gt;Username&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td bgcolor="white"&gt;Password&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!-- A gap: an invisible 1×1 image stretched to 40px --&gt;
+&lt;img src="spacer.gif" width="40" height="1"&gt;
+
+&lt;!-- Centre: one cell as big as the window (quirks mode) --&gt;
+&lt;table width="100%" height="100%"&gt;
+  &lt;tr&gt;&lt;td align="center" valign="middle"&gt;Welcome&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <iframe
+          title="1px border trick"
+          srcdoc='&lt;style&gt;body{margin:0;background:#fff}&lt;/style&gt;&lt;!-- A 1px border: a black table shows through the gaps --&gt;
+&lt;table bgcolor="black" cellspacing="1" cellpadding="6"&gt;
+  &lt;tr&gt;&lt;td bgcolor="white"&gt;Username&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td bgcolor="white"&gt;Password&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;'
+          style="width: 79px; height: 63px; border: 0; border-radius: 8px; background: #fff; display: block; margin: 0 auto 12px; padding: 12px; box-sizing: content-box"
+        ></iframe>
+        <p style="font-size: 0.6em">
+          Live: the first trick. CSS does each in one line:
+          <code>border: 1px solid</code>, <code>margin</code>, and
+          <code>place-items: center</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>The Same Page with Grid</h2>
+    <div style="display: flex; gap: 24px; align-items: center">
+      <div style="flex: 1.5; min-width: 0">
+        <pre><code class="lang-css">
+.page {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-areas:
+    "header header"
+    "nav    main"
+    "footer footer";
+}
+.page &gt; * { padding: 8px; }
+header { grid-area: header; background: #036; color: #fff; }
+nav    { grid-area: nav; background: #ccc; }
+main   { grid-area: main; }
+footer { grid-area: footer; background: #eee; }
+
+@media (width &lt; 300px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "nav" "main" "footer";
+  }
+}
+</code></pre>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <pre><code class="lang-html">
+&lt;div class="page"&gt;
+  &lt;header&gt;&lt;b&gt;AUT Shop&lt;/b&gt;&lt;/header&gt;
+  &lt;nav&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;Products&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;main&gt;Welcome to our shop!&lt;/main&gt;
+  &lt;footer&gt;&amp;copy; 2026 AUT Shop&lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+        <iframe
+          title="Grid layout, wide"
+          srcdoc='&lt;style&gt;body{margin:0;background:#fff}&lt;/style&gt;&lt;style&gt;.page {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-areas:
+    "header header"
+    "nav    main"
+    "footer footer";
+}
+.page &gt; * { padding: 8px; }
+header { grid-area: header; background: #036; color: #fff; }
+nav    { grid-area: nav; background: #ccc; }
+main   { grid-area: main; }
+footer { grid-area: footer; background: #eee; }
+
+@media (width &lt; 300px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "nav" "main" "footer";
+  }
+}&lt;/style&gt;&lt;div class="page"&gt;
+  &lt;header&gt;&lt;b&gt;AUT Shop&lt;/b&gt;&lt;/header&gt;
+  &lt;nav&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;Products&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;main&gt;Welcome to our shop!&lt;/main&gt;
+  &lt;footer&gt;&amp;copy; 2026 AUT Shop&lt;/footer&gt;
+&lt;/div&gt;'
+          style="width: 340px; height: 120px; border: 0; border-radius: 8px; background: #fff; display: block; margin: 0 auto 12px; padding: 0px; box-sizing: content-box"
+        ></iframe>
+        <iframe
+          title="Grid layout, narrow"
+          srcdoc='&lt;style&gt;body{margin:0;background:#fff}&lt;/style&gt;&lt;style&gt;.page {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-areas:
+    "header header"
+    "nav    main"
+    "footer footer";
+}
+.page &gt; * { padding: 8px; }
+header { grid-area: header; background: #036; color: #fff; }
+nav    { grid-area: nav; background: #ccc; }
+main   { grid-area: main; }
+footer { grid-area: footer; background: #eee; }
+
+@media (width &lt; 300px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "nav" "main" "footer";
+  }
+}&lt;/style&gt;&lt;div class="page"&gt;
+  &lt;header&gt;&lt;b&gt;AUT Shop&lt;/b&gt;&lt;/header&gt;
+  &lt;nav&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;Products&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;main&gt;Welcome to our shop!&lt;/main&gt;
+  &lt;footer&gt;&amp;copy; 2026 AUT Shop&lt;/footer&gt;
+&lt;/div&gt;'
+          style="width: 240px; height: 136px; border: 0; border-radius: 8px; background: #fff; display: block; margin: 0 auto 12px; padding: 0px; box-sizing: content-box"
+        ></iframe>
+      </div>
+    </div>
+  </section>
 </section>
 
 <section>
