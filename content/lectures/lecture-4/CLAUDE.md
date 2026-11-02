@@ -143,6 +143,8 @@ Hand-written SVGs in `img/`, drawn for the league background (see the root
 | `flex-axes.svg`       | FlexBox Axes (replaced `flex-axises.png`)             |
 | `justify-content.svg` | justify-content (replaced the two `flex-justify-*`)   |
 | `grid-lines.svg`      | Grid Lines — new sub-slide after Placing Items        |
+| `fr-share.svg`        | How fr Is Shared — sub-slide after Defining a Grid    |
+| `auto-fit.svg`        | auto-fit at Three Widths — after Repeating Tracks     |
 | `cascading.svg`       | Cascading — browser, user, link, style, `style=""`    |
 | `rule-anatomy.svg`    | Anatomy of a Rule (replaced `css-structure.gif`)      |
 
@@ -170,6 +172,13 @@ If you change one, measure again:
 - `grid-lines.svg`: `200px 1fr 1fr`, `gap: 16px`, 760px wide → tracks 200, 264,
   264; `.hero { grid-column: 1 / 3 }` spans 0–480 and item 2 auto-places into
   the third track of row 1.
+- `fr-share.svg`: 760px wide, `gap: 16px`. `200px 1fr 1fr` gives tracks
+  200, 264, 264 (528 left over, 2 fr); `200px 1fr 2fr` gives 200, 176, 352.
+- `auto-fit.svg`: `repeat(auto-fit, minmax(200px, 1fr))`, `gap: 16px`, four
+  28px items, drawn at 0.85×. 380px gives one 380px column; 600px two 292px;
+  860px four 203px. (Not drawn: with only three items at 860px, `auto-fit`
+  collapses the empty fourth track and gives 276px columns, while `auto-fill`
+  keeps it and stays at 203px.)
 
 The generator scripts were throwaway; edit the SVG directly and re-render it.
 

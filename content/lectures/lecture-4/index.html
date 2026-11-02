@@ -3053,6 +3053,18 @@ footer { grid-area: footer; background: #eee; }
     </ul>
   </section>
   <section>
+    <h2>How fr Is Shared</h2>
+    <img
+      src="./img/fr-share.svg"
+      alt="A 760px grid with a 16px gap. Step 1: the 200px column and two 16px gaps are taken out, leaving 528px. Step 2: 200px 1fr 1fr splits 528px into two fr, 264px each. Step 3: 200px 1fr 2fr splits it into three fr, so 1fr is 176px and 2fr is 352px."
+      width="860"
+    />
+    <p style="font-size: 0.7em">
+      Fixed sizes and gaps first; the <span class="hl-green">fr</span> tracks
+      share whatever is left.
+    </p>
+  </section>
+  <section>
     <h2>Repeating Tracks</h2>
     <pre>
       <code class="lang-css">
@@ -3078,6 +3090,18 @@ footer { grid-area: footer; background: #eee; }
     <ul>
       <li>Fit as many 200px columns as possible, then share what is left</li>
     </ul>
+  </section>
+  <section>
+    <h2>auto-fit at Three Widths</h2>
+    <img
+      src="./img/auto-fit.svg"
+      alt="repeat(auto-fit, minmax(200px, 1fr)) with a 16px gap and four items. At 380px: one 380px column, because two would need 416px. At 600px: two 292px columns, because three would need 632px. At 860px: four 203px columns, because four need 848px and five would need 1064px."
+      width="860"
+    />
+    <p style="font-size: 0.7em">
+      The same CSS: as many 200px columns as fit, then
+      <span class="hl-green">1fr</span> stretches them to fill the row.
+    </p>
   </section>
   <section>
     <h2>Placing Items</h2>

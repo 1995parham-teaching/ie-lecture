@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 406">
+  <title>How fr shares the leftover space of a 760px grid</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .fixed { fill: rgba(141, 151, 168, 0.25); stroke: #8d97a8; stroke-width: 2; }
+    .left { fill: rgba(255, 145, 0, 0.12); stroke: #ff9100; stroke-width: 2; stroke-dasharray: 6 5; }
+    .fr1 { fill: rgba(118, 255, 3, 0.16); stroke: #76ff03; stroke-width: 2; }
+    .fr2 { fill: rgba(0, 229, 255, 0.16); stroke: #00e5ff; stroke-width: 2; }
+    .gap { fill: none; stroke: #ff5252; stroke-width: 1.5; stroke-dasharray: 2 3; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .thin { fill: none; stroke: #8d97a8; stroke-width: 1.5; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; } .red { fill: #ff5252; }
+  </style>
+
+  <text class="mono start" x="70" y="40" style="font-size: 18px">Step 1: take out the fixed column and the gaps</text>
+  <rect class="fixed" x="70" y="66" width="200" height="44" rx="3" />
+  <text class="mono" x="170" y="88" style="font-size: 17px">200px</text>
+  <rect class="gap" x="270" y="66" width="16" height="44" />
+  <rect class="left" x="286" y="66" width="528" height="44" rx="3" />
+  <rect class="gap" x="814" y="66" width="16" height="44" />
+  <text class="orange" x="550" y="88" style="font-size: 18px">left over: 760 − 200 − 16 − 16 = 528px</text>
+  <path class="thin" d="M70,122 V130 H830 V122" />
+  <text class="mono small" x="450.0" y="146" style="font-size: 15px">container: 760px, gap: 16px</text>
+  <text class="mono start" x="70" y="186" style="font-size: 18px">Step 2: <tspan class="green">200px 1fr 1fr</tspan></text>
+  <text class="small" x="830" y="186" style="text-anchor: end">528 ÷ 2 fr = 264px per fr</text>
+  <rect class="fixed" x="70" y="212" width="200" height="44" rx="3" />
+  <text class="mono" x="170.0" y="234" style="font-size: 17px">200px</text>
+  <rect class="gap" x="270" y="212" width="16" height="44" />
+  <rect class="fr1" x="286" y="212" width="264" height="44" rx="3" />
+  <text class="mono" x="418.0" y="234" style="font-size: 17px">1fr = 264px</text>
+  <rect class="gap" x="550" y="212" width="16" height="44" />
+  <rect class="fr1" x="566" y="212" width="264" height="44" rx="3" />
+  <text class="mono" x="698.0" y="234" style="font-size: 17px">1fr = 264px</text>
+  <text class="mono start" x="70" y="306" style="font-size: 18px">Step 3: <tspan class="green">200px 1fr 2fr</tspan></text>
+  <text class="small" x="830" y="306" style="text-anchor: end">528 ÷ 3 fr = 176px per fr</text>
+  <rect class="fixed" x="70" y="332" width="200" height="44" rx="3" />
+  <text class="mono" x="170.0" y="354" style="font-size: 17px">200px</text>
+  <rect class="gap" x="270" y="332" width="16" height="44" />
+  <rect class="fr1" x="286" y="332" width="176" height="44" rx="3" />
+  <text class="mono" x="374.0" y="354" style="font-size: 17px">1fr = 176px</text>
+  <rect class="gap" x="462" y="332" width="16" height="44" />
+  <rect class="fr2" x="478" y="332" width="352" height="44" rx="3" />
+  <text class="mono" x="654.0" y="354" style="font-size: 17px">2fr = 352px</text>
+</svg>
