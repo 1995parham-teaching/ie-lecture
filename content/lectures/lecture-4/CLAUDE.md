@@ -75,6 +75,13 @@ switch, alerts, data table, chat bubbles, breadcrumbs, notification badge.
   flush right; `li + li::before` gives `›` on all but the first crumb; the
   badge sits 4px above and 10px past its icon; the disabled button is at
   `opacity: 0.5`.
+- The Alerts slide has a fifth, Persian alert (`dir="rtl" lang="fa"`). The CSS
+  is unchanged: `border-inline-start` puts the 4px bar on the right (measured:
+  `border-right-width` 4px, left 0). The `.sd-rw` frame uses
+  `text-align: start`, not `left`, so RTL text in any frame aligns right; for
+  the LTR examples the two are the same. In the HTML code block the Persian
+  line is shown in bidi order, the way an editor shows it, so `:` and `.`
+  appear on the left of the Persian words.
 - `:not(:placeholder-shown)` (not `:user-invalid`) is used on the form slide
   so the prefilled invalid email shows its error without interaction.
 

@@ -4110,7 +4110,7 @@ body {
           sans-serif;
         letter-spacing: normal;
         text-transform: none;
-        text-align: left;
+        text-align: start;
         border-radius: 8px;
         padding: 16px;
       }
@@ -4744,7 +4744,7 @@ label { display: flex; gap: 8px; margin: 4px 0; }
       }
     </style>
     <div style="display: flex; gap: 24px; align-items: center">
-      <div style="flex: 1.15; min-width: 0">
+      <div style="flex: 1.25; min-width: 0">
         <pre><code class="lang-css">
 .alert {
   --tone: #2563eb;
@@ -4772,6 +4772,9 @@ label { display: flex; gap: 8px; margin: 4px 0; }
           <div class="alert success">
             <strong>Saved:</strong> Your grade was recorded.
           </div>
+          <div class="alert" dir="rtl" lang="fa">
+            <strong>توجه:</strong> کلاس ساعت ۷:۴۵ شروع می‌شود.
+          </div>
         </div>
       </div>
     </div>
@@ -4780,10 +4783,13 @@ label { display: flex; gap: 8px; margin: 4px 0; }
 &lt;div class="alert warning"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; The deadline is tomorrow.&lt;/div&gt;
 &lt;div class="alert error"&gt;&lt;strong&gt;Error:&lt;/strong&gt; The upload failed.&lt;/div&gt;
 &lt;div class="alert success"&gt;&lt;strong&gt;Saved:&lt;/strong&gt; Your grade was recorded.&lt;/div&gt;
+&lt;div class="alert" dir="rtl" lang="fa"&gt;&lt;strong&gt;توجه:&lt;/strong&gt; کلاس ساعت ۷:۴۵ شروع می‌شود.&lt;/div&gt;
 </code></pre>
     <p style="font-size: 0.6em">
       One custom property per variant; <code>color-mix()</code> derives the
-      light background from it.
+      light background from it. With <code>dir="rtl"</code>,
+      <code>border-inline-start</code> moves the bar to the right: no extra CSS
+      for Persian.
     </p>
   </section>
   <section>
