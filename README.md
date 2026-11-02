@@ -57,14 +57,11 @@ rest depend on the term.
 
 - **1** — Introduction (1 session)
 - **2** — HTTP (4 sessions)
-  - [![YouTube Video Views](https://img.shields.io/youtube/views/Lo9bkJir4q8?style=for-the-badge&logo=youtube)](https://youtu.be/Lo9bkJir4q8?si=H5AVYPwCHRHT4HPL)
 - **3** — HTML
 - **4** — CSS
 - **5** — JavaScript
 - **6** — JSON, Thrift and gRPC
-- **7** — Go Programming (4 sessions), including an HTTP server built on
-  `net/http` (2 sessions)
-  - [![YouTube Video Views](https://img.shields.io/youtube/views/B7rmPliSPew?style=for-the-badge&logo=youtube)](https://youtu.be/B7rmPliSPew?si=g-70-GmP8bENLzjz)
+- **7** — Go Programming (4 sessions), including an HTTP server built on `net/http` (2 sessions)
 - **9** — Web Application Architectures
 - **10** — Virtualization
 - **11** — Web Security (2 sessions)
