@@ -26,8 +26,8 @@
   <text class="mono" x="181.5" y="138.7" style="font-size: 15px">3</text>
   <rect class="fr1" x="20.0" y="164.2" width="323.0" height="23.8" rx="3" />
   <text class="mono" x="181.5" y="176.1" style="font-size: 15px">4</text>
-  <text class="green start" x="20" y="214.0" style="font-size: 17px">1 column of 380px</text>
-  <text class="small start" x="20" y="236.0" style="font-size: 15px">a 2nd column needs 2×200 + 16 = 416px</text>
+  <text class="green start" x="20" y="214.0" style="font-size: 17px">1 column: 380 ÷ 1 = 380px</text>
+  <text class="small start" x="20" y="236.0" style="font-size: 15px">2 columns need 2×200 + 16 = 416px > 380</text>
   <text class="mono start" x="373.0" y="30" style="font-size: 18px">container <tspan class="orange">600px</tspan></text>
   <rect class="dash" x="369.0" y="48" width="518.0" height="69.2" rx="4" />
   <rect class="fr1" x="373.0" y="52.0" width="248.2" height="23.8" rx="3" />
@@ -38,8 +38,8 @@
   <text class="mono" x="497.1" y="101.3" style="font-size: 15px">3</text>
   <rect class="fr1" x="634.8" y="89.4" width="248.2" height="23.8" rx="3" />
   <text class="mono" x="758.9" y="101.3" style="font-size: 15px">4</text>
-  <text class="green start" x="373.0" y="139.2" style="font-size: 17px">2 columns of 292px</text>
-  <text class="small start" x="373.0" y="161.2" style="font-size: 15px">a 3rd column needs 3×200 + 2×16 = 632px</text>
+  <text class="green start" x="373.0" y="139.2" style="font-size: 17px">2 columns: (600 − 16) ÷ 2 = 292px</text>
+  <text class="small start" x="373.0" y="161.2" style="font-size: 15px">3 columns need 3×200 + 2×16 = 632px > 600</text>
   <text class="mono start" x="20" y="282.0" style="font-size: 18px">container <tspan class="orange">860px</tspan></text>
   <rect class="dash" x="16" y="300.0" width="739.0" height="31.8" rx="4" />
   <rect class="fr1" x="20.0" y="304.0" width="172.5" height="23.8" rx="3" />
@@ -50,6 +50,6 @@
   <text class="mono" x="478.6" y="315.9" style="font-size: 15px">3</text>
   <rect class="fr1" x="578.4" y="304.0" width="172.5" height="23.8" rx="3" />
   <text class="mono" x="664.7" y="315.9" style="font-size: 15px">4</text>
-  <text class="green start" x="20" y="353.8" style="font-size: 17px">4 columns of 203px</text>
-  <text class="small start" x="20" y="375.8" style="font-size: 15px">4×200 + 3×16 = 848px fits; a 5th needs 1064px</text>
+  <text class="green start" x="20" y="353.8" style="font-size: 17px">4 columns: (860 − 3×16) ÷ 4 = 203px</text>
+  <text class="small start" x="20" y="375.8" style="font-size: 15px">4 need 4×200 + 3×16 = 848px ≤ 860; 5 need 1064px > 860</text>
 </svg>

@@ -3095,13 +3095,20 @@ footer { grid-area: footer; background: #eee; }
     <h2>auto-fit at Three Widths</h2>
     <img
       src="./img/auto-fit.svg"
-      alt="repeat(auto-fit, minmax(200px, 1fr)) with a 16px gap and four items. At 380px: one 380px column, because two would need 416px. At 600px: two 292px columns, because three would need 632px. At 860px: four 203px columns, because four need 848px and five would need 1064px."
-      width="860"
+      alt="repeat(auto-fit, minmax(200px, 1fr)) with a 16px gap and four items. At 380px: one 380px column, because two would need 416px. At 600px: two columns of (600 - 16) / 2 = 292px, because three would need 632px. At 860px: four columns of (860 - 48) / 4 = 203px, because four need 848px and five would need 1064px."
+      width="780"
     />
-    <p style="font-size: 0.7em">
-      The same CSS: as many 200px columns as fit, then
-      <span class="hl-green">1fr</span> stretches them to fill the row.
-    </p>
+    <ol style="font-size: 0.65em">
+      <li>
+        <span class="hl-orange">Count</span> with the 200px minimum: the largest
+        <code>n</code> where
+        <code>n × 200 + (n − 1) × 16 ≤ width</code>
+      </li>
+      <li>
+        <span class="hl-green">Stretch</span> with <code>1fr</code>: each column
+        is <code>(width − (n − 1) × 16) ÷ n</code>
+      </li>
+    </ol>
   </section>
   <section>
     <h2>Placing Items</h2>
