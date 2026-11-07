@@ -4,6 +4,7 @@ title: JavaScript
 topics:
   - Introduction
   - JavaScript Basic
+  - Modern JavaScript
   - JavaScript & DOM & CSS
   - Event Handling
   - Web Applications
@@ -17,315 +18,156 @@ topics:
   <div class="toc" data-selected="0"></div>
 </section>
 <section>
-  <h2>Introduction (Why JavaScript?)</h2>
+  <h2>Why JavaScript?</h2>
   <ul>
-    <li>HTML + CSS create <em class="hl-orange">Static</em> webpages</li>
-    <li>We need</li>
+    <li>HTML + CSS create <em class="hl-orange">static</em> pages</li>
+    <li>We need code in the page to</li>
     <ul>
-      <li>interact with user (event handling)</li>
-      <li>check input data (input validation)</li>
-      <li>...</li>
-      <li>Programming in web pages</li>
+      <li>react to the user (event handling)</li>
+      <li>check input before it is sent (validation)</li>
+      <li>fetch new data without a reload</li>
     </ul>
-    <li>Solution: <em>Client Side</em> scripting (why not server-side?)</li>
+    <li>Solution: <em>client-side</em> scripting (why not server-side?)</li>
     <ul>
-      <li>JavaScript</li>
-      <li>TypeScript, Dart, CoffeeScript, ...</li>
-      <ul>
-        <li>(mostly) transcompiled into JavaScript</li>
-      </ul>
+      <li>JavaScript is the only language every browser runs</li>
+      <li>TypeScript, Dart, ... are compiled into JavaScript</li>
     </ul>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>What is JavaScript?</h2>
+  <h2>What is JavaScript?</h2>
+  <ul>
+    <li>
+      A <em class="hl-orange">prototype-based</em>,
+      <em class="hl-green">client-side</em>,
+      <em class="hl-cyan">scripting</em> language
+    </li>
     <ul>
       <li>
-        JavaScript is an <em class="hl-orange">prototype-based</em>,
-        <em class="hl-green">client-side</em>, and
-        <em class="hl-cyan">scripting</em> languages to make web pages dynamic
+        Prototype-based: objects inherit from other objects, not from classes
       </li>
-    </ul>
-  </section>
-  <section>
-    <ul>
+      <li>Client-side: the browser runs it</li>
       <li>
-        <a href="https://en.wikipedia.org/wiki/Prototype-based_programming"
-          >Prototype-based</a
-        >: <span class="hl-red">NOT</span>
-        <a href="https://en.wikipedia.org/wiki/Class-based_programming"
-          >class-based</a
-        >
-      </li>
-      <ul>
-        <li>
-          Uses generalized objects, which can then be cloned and extended.
-        </li>
-        <li>
-          Using fruit as an example, a "fruit" object would represent the
-          properties and functionality of fruit in general. A "banana" object
-          would be cloned from the "fruit" object and general properties
-          specific to bananas would be appended.
-        </li>
-        <li>
-          Each individual "banana" object would be cloned from the generic
-          "banana" object.
-        </li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Client-side: Run by client side program (the web browser)</li>
-      <li>
-        Scripting: no separate build step — you ship source, and the browser
-        takes it from there. (Modern engines still compile it, just
-        <em class="hl-orange">just-in-time</em> as it runs)
+        Scripting: you ship the source; the engine compiles it
+        <em class="hl-orange">just-in-time</em>
       </li>
     </ul>
-  </section>
-  <section>
-    <ul>
-      <li>
-        Additional facts about JS:
-        <ul>
-          <li>JavaScript is not related to Java.</li>
-          <li>Its standard name is ECMAScript (Stable version: ES2026)</li>
-          <li>
-            Sever side and other applications (e.g.,
-            <a
-              href="https://gitlab.gnome.org/GNOME/gjs/-/blob/master/doc/Home.md"
-              >GNOME Shell</a
-            >) are not discussed here.
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </section>
+    <li>JavaScript is not related to Java</li>
+    <li>
+      Its standard is <em class="hl-yellow">ECMAScript</em>: a new edition every
+      June (the latest is ES2026)
+    </li>
+    <li>Server-side JavaScript (Node.js) is not discussed here</li>
+  </ul>
 </section>
 <section>
-  <section>
-    <h2>What is JavaScript in Web?</h2>
-    <ul>
-      <li>JavaScript is a part of HTML document</li>
-      <ul>
-        <li>Web browser reads, interprets, and runs it</li>
-      </ul>
-      <li>JavaScript can</li>
-      <ul>
-        <li>put dynamic text into an HTML page</li>
-        <li>react to events</li>
-        <li>read and write HTML elements</li>
-        <li>validate input data</li>
-        <li>access to cookies</li>
-        <li>access to browser data (history, ...)</li>
-        <li>read HTTP headers</li>
-        <li>...</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>JavaScript scope is limited to the browser window is written in</li>
-      <ul>
-        <li>
-          Scripts run in a <em class="hl-orange">sandbox</em> in which they can
-          only perform Web-related actions
-        </li>
-        <li>
-          We can't access files or other system resources using JavaScript
-        </li>
-      </ul>
-    </ul>
-  </section>
+  <h2>What Can JavaScript Do in a Page?</h2>
+  <ul>
+    <li>Read and change HTML elements and their styles</li>
+    <li>React to events: clicks, keys, form submits</li>
+    <li>Validate input data</li>
+    <li>Send HTTP requests and read the responses</li>
+    <li>Store small data in the browser (cookies, storage)</li>
+    <li>
+      It runs in a <em class="hl-orange">sandbox</em>: no access to your files
+      or other programs
+    </li>
+  </ul>
 </section>
 <section>
-  <section>
-    <h2>How to Add JavaScript to HTML?</h2>
-    <ul class="l1">
-      <li>Embed JavaScript into HTML</li>
-      <pre><code class="lang-html">
+  <h2>How to Add JavaScript to HTML?</h2>
+  <ul>
+    <li>Embed it, or link to a file</li>
+    <pre><code class="lang-html">
 &lt;script&gt;
-// JavaScript code goes here...
+  console.log("Hello World");
 &lt;/script&gt;
-      </code></pre>
-      <li>Link to external JavaScript</li>
-      <pre><code class="lang-html">
-&lt;script src="external.js" defer&gt;&lt;/script&gt;
-      </code></pre>
-      <li>
-        JavaScript code can be put in both
-        <span class="hl-orange">head</span> and
-        <span class="hl-green">body</span>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <ul>
-        <li>
-          Browser reads the HTML file, when it reaches to JavaScript code, it
-          runs the code, except functions that should be called and the
-          <span class="hl-cyan">deferred</span>
-          scripts
-        </li>
-        <li>
-          <span class="hl-cyan">defer</span> specifies that the script is
-          executed when the page has finished parsing.
-        </li>
-        <li>
-          You can use <span class="hl-orange">integrity</span> attribute to
-          verify resource. (Specially when we fetch them from a CDN)
-        </li>
-      </ul>
-    </ul>
-  </section>
+
+&lt;script src="app.js" defer&gt;&lt;/script&gt;
+    </code></pre>
+    <li>
+      The browser runs a script when the parser reaches it, so the elements
+      after it do not exist yet
+    </li>
+    <li>
+      <code class="hl-cyan">defer</code>: run the script after the whole page is
+      parsed
+    </li>
+    <li>
+      <code class="hl-orange">integrity</code>: a hash, so the browser rejects a
+      changed file (important for scripts from a CDN)
+    </li>
+  </ul>
 </section>
 <section>
   <div class="toc" data-selected="1"></div>
 </section>
 <section>
-  <h2>JavaScript Programming Language</h2>
-  <ul>
-    <li>
-      Focus on JavaScript as a general programming language, not a web scripting
-      language
-    </li>
-    <li>What do we need to learn?</li>
-    <ul>
-      <li>Language basic syntax</li>
-      <li>Language type: functional, OO, ...</li>
-      <li>Operations</li>
-      <li>Execution flow control</li>
-      <li>Input/output</li>
-      <li>Libraries</li>
-      <li>???</li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>Hello World</h2>
-  <pre><code class="lang-javascript">
-console.log('Hello World')
-  </code></pre>
-</section>
-<section>
   <section>
-    <h2>JavaScript Syntax</h2>
+    <h2>Syntax</h2>
     <ul>
-      <li>Syntax is very similar to C/Java/C++ (But with some differences)</li>
-      <li>Semicolon is required between multiple statements in a line</li>
-      <ul>
-        <li>
-          If a single statement in line, in most cases, semicolon is optional
-        </li>
-      </ul>
-      <li>There is not any <code class="hl-cyan">main</code> function</li>
+      <li>Very similar to C/Java (with some differences)</li>
+      <li>There is no <code class="hl-cyan">main</code> function</li>
       <li>
-        Functions are defined by <code class="hl-orange">function</code> (and
-        also arrows)
+        Semicolons are optional at the end of a line (most code uses them)
       </li>
-    </ul>
-  </section>
-  <section>
-    <ul>
       <li>
         Variables are declared with
         <code class="hl-green">const</code>, <code class="hl-green">let</code>,
-        or the legacy
-        <code class="hl-red">var</code>
+        or the legacy <code class="hl-red">var</code>
       </li>
       <ul>
         <li>
-          Reach for <code class="hl-green">const</code> first, and
+          Use <code class="hl-green">const</code> first, and
           <code class="hl-green">let</code> only when you must reassign
         </li>
-        <li>
-          <code class="hl-red">var</code> is what you will meet in old code —
-          the examples below use it to show why it was replaced
-        </li>
-        <li>The keyword is not optional; leaving it out makes a global</li>
+        <li><code class="hl-red">var</code> is what you meet in old code</li>
       </ul>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        The keyword is not optional: without it, the assignment makes (or
+        overwrites) a <em class="hl-red">global</em> variable
+      </li>
       <pre><code class="lang-javascript">
 i = j = 0;
-function f(){
+function f() {
   let i;
-  i = j = 10;
+  i = j = 10; // i is local, j is the global
 }
 f();
-//i = 0, j = 10
+// i = 0, j = 10
       </code></pre>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>It is Not Recommended to declare a variable without keyword.</li>
-      <li>It can accidently overwrite an existing global variable.</li>
-      <li>
-        Scope of the variables declared without keyword become global
-        irrespective of where it is declared.
-      </li>
-      <li>Global variables can be accessed from anywhere in the web page.</li>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li><code class="hl-red">var</code> has a function scope</li>
-      <li><code class="hl-green">let</code> has a block scope</li>
+      <li>Strict mode (later) turns this mistake into an error</li>
     </ul>
   </section>
 </section>
 <section>
   <section>
-    <h2>JavaScript Basic: Variables</h2>
+    <h2>Types</h2>
     <ul>
-      <li>No type is given in variable declaration</li>
-      <ul>
-        <li>Similar to other scripting (interpreted) languages</li>
-        <li>Type is identified by value</li>
-        <li>Type of variable can <em class="hl-orange">be changed</em></li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Two main types</li>
-      <ul>
-        <li>
-          Primitive: Number, String, Boolean, BigInt, Symbol, Undefined, and
-          Null
-          <ul>
-            <li>They are <em class="hl-yellow">immutable</em></li>
-            <pre><code class="lang-javascript">
+      <li>
+        No type in the declaration: the <em class="hl-orange">value</em> has the
+        type, and a variable can hold another type later
+      </li>
+      <li>
+        <em class="hl-yellow">Primitives</em>: number, string, boolean, bigint,
+        symbol, undefined, null. They are <em>immutable</em>
+      </li>
+      <pre><code class="lang-javascript">
 let x = "abc";
-x[0]='Z';
-// does NOT work!!!
-            </code></pre>
-          </ul>
-        </li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <ul>
-        <li>
-          Objects: e.g., <code> w = window;</code>
-          <ul>
-            <li>Wrapper objects for primitives, String for string</li>
-            <ul>
-              <li>
-                When we treat a primitive value like it was an object (i.e. by
-                accessing properties and methods), JavaScript creates, under the
-                hood, a wrapper to wrap this value and expose it as an object.
-              </li>
-            </ul>
-            <li>Arrays are some special objects</li>
-            <li>Objects are <em class="hl-green">mutable</em></li>
-          </ul>
-        </li>
-      </ul>
+x[0] = "Z"; // ignored: x is still "abc"
+      </code></pre>
+      <li>
+        <em class="hl-green">Objects</em>: everything else (arrays, functions,
+        <code>window</code>). They are <em>mutable</em>
+      </li>
+      <li>
+        Arguments are passed <em class="hl-cyan">by sharing</em>: the function
+        gets the same value, not a copy
+      </li>
     </ul>
   </section>
   <section>
@@ -347,10 +189,7 @@ console.log(n);  // 1
 mutateNumber(n);
 console.log(n);  // 1
     </code></pre>
-    <p>
-      both arrays and numbers are passed by sharing. Whereas arrays are mutable,
-      numbers are not.
-    </p>
+    <p>Both are passed by sharing. The array is mutable, the number is not.</p>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -363,14 +202,14 @@ mutateArray(A);
 console.log(A);  // [1]
     </code></pre>
     <p>
-      Here we are no longer mutating the array; we are now binding the name A to
-      a new array.
+      Here we do not mutate the array; we bind the local name
+      <code>A</code> to a new array.
     </p>
   </section>
   <section>
     <p>
-      Objects <span class="hl-green">can</span> have properties and methods
-      while primitive values <span class="hl-red">can’t</span>
+      Objects <span class="hl-green">can</span> have properties and methods,
+      primitive values <span class="hl-red">can not</span>
     </p>
     <pre><code class="lang-javascript">
 const name = 'Darth Vader';
@@ -382,463 +221,204 @@ name.tellTheTruth = () =&gt; {
 console.log(name.alignment); // undefined
 name.tellTheTruth(); // Uncaught TypeError: name.tellTheTruth is not a function
     </code></pre>
-  </section>
-  <section>
     <ul>
       <li>
-        A wrapper object is disposed
-        <span class="hl-yellow">right after</span> a single use.
+        <code>name.length</code> works because JavaScript wraps the string in a
+        temporary <em class="hl-yellow">wrapper object</em>, then throws it away
+        with everything you put on it
       </li>
-      <li>
-        When you interact with a primitive value like it was an object (by
-        calling a method or reading a property from it), JavaScript creates a
-        wrapper object on the fly.
-      </li>
-      <li>
-        Due to this auto-disposal mechanism, properties and methods injected
-        into wrapper objects are immediately lost.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-const name = new String('Darth Vader');
-name.alignment = 'Lawful evil';
-name.tellTheTruth = () =&gt; {
-  console.log('Luke, I am your father!');
-};
-
-console.log(name.alignment);
-name.tellTheTruth();
-    </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>JavaScript Basic: Variables Scope</h2>
-    <ul>
-      <li>
-        By default (either <code class="hl-orange">var</code> or not) scope is
-        either <em class="hl-yellow">global</em> or
-        <em class="hl-green">function</em>
-      </li>
-      <ul>
-        <li>
-          Variables defined in a block (other than functions) are accessible
-          outside the block
-        </li>
-        <pre><code class="lang-javascript">
-function f() {
-  while(true) {
-     var x = 20;
-  }
-  // x = 20 here
-}
-        </code></pre>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>
-        From ECMA 2015, <code class="hl-orange">let</code> and
-        <code class="hl-green">const</code> can be used to define
-        <em class="hl-cyan">block</em> scope
-      </li>
-      <pre><code class="lang-javascript">
-function f() {
-  while(true) {
-    let x = 20;
-  }
-  // x is not accessible here
-}
-      </code></pre>
     </ul>
   </section>
 </section>
 <section>
-  <h2>JavaScript Basic: Operators</h2>
+  <h2>Scope</h2>
   <ul>
-    <li>Arithmetic: <code> + - * / % **</code></li>
-    <ul>
-      <li>String concatenation: <code>+</code></li>
-      <li>Power: <code>**</code></li>
-    </ul>
+    <li>
+      <code class="hl-red">var</code> is
+      <em class="hl-yellow">function</em> scoped;
+      <code class="hl-green">let</code> and
+      <code class="hl-green">const</code> are
+      <em class="hl-cyan">block</em> scoped (ES2015)
+    </li>
+  </ul>
+  <pre><code class="lang-javascript">
+function f() {
+  if (true) {
+    var a = 20;
+    let b = 30;
+  }
+  console.log(a);        // 20: var ignores the block
+  console.log(typeof b); // "undefined": let stays in the block
+}
+  </code></pre>
+</section>
+<section>
+  <h2>Operators &amp; Control Flow</h2>
+  <ul>
+    <li>
+      Arithmetic: <code>+ - * / % **</code> (<code>+</code> also joins strings)
+    </li>
     <li>Assignment: <code>= += -= *= /= %= ++ --</code></li>
-    <li>Comparison: <code>== === != !== &gt; &gt;= &lt; &lt;= </code></li>
+    <li>Comparison: <code>== === != !== &gt; &gt;= &lt; &lt;=</code></li>
     <ul>
       <li>
-        2 <code>==</code> "2" returns true, 2 <code>===</code> "2" returns false
-      </li>
-      <li>
-        2 <code>!=</code> "2" returns false, 2 <code>!==</code> "2" returns true
+        <code>2 == "2"</code> is <code>true</code> (it converts),
+        <code>2 === "2"</code> is <code>false</code>. Use
+        <code class="hl-green">===</code>
       </li>
     </ul>
     <li>Logical: <code>&amp;&amp; || !</code></li>
-    <li>Comments: <code>// /* */</code></li>
-  </ul>
-</section>
-<section>
-  <h2>JavaScript Basic: Conditional Statements &amp; Loops</h2>
-  <ul>
-    <li>Conditional statements (the same as C)</li>
-    <ul>
-      <li><code>if</code>-<code>else</code></li>
-      <li><code>switch</code>-<code>case</code></li>
-      <li>Ternary operator <code>? :</code></li>
-    </ul>
-    <li>Loops (the same as C)</li>
-    <ul>
-      <li><code>while</code></li>
-      <li><code>for</code></li>
-      <li><code>do</code>-<code>while</code></li>
-      <li><code>break</code> and <code>continue</code></li>
-    </ul>
+    <li>
+      <code>if</code>/<code>else</code>, <code>switch</code>, <code>? :</code>,
+      <code>while</code>, <code>for</code>, <code>do</code>-<code>while</code>,
+      <code>break</code>, <code>continue</code>: the same as C
+    </li>
   </ul>
 </section>
 <section>
   <section>
-    <h2>JavaScript Basic: Functions</h2>
-    <ul>
-      <li>Function definition</li>
-      <pre><code class="lang-javascript">
-function name(input1, input2, ...){
-  ...
-  return result;
-}
-    </code></pre>
-      <li>No output type, no input arguments type</li>
-      <li>Function call: <code> retVal = name(input1, input2, ...);</code></li>
-      <ul>
-        <li>Input argument are called by value for primitive types</li>
-        <li>Call by reference for objects</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
+    <h2>Functions</h2>
     <pre><code class="lang-javascript">
-function changeMe(value) {
-  value = 10;
-}
-
-function changePropertyInMe(value) {
-  value.x = 20;
-}
-
-point = { x: 10, y: 10, toString: () =&gt; console.log(`(${this.x}, ${this.y})`) };
-console.log(point);
-
-changeMe(point);
-console.log(point);
-
-changePropertyInMe(point);
-console.log(point);
-    </code></pre>
-  </section>
-  <section>
-    <ul>
-      <li>
-        Function assignment:
-        <code>object.onclick = func;</code>
-      </li>
-      <li>Function in Function definition is allowed</li>
-      <li>
-        Function declarations are <span class="hl-red">not</span> part of the
-        regular top-to-bottom flow of control (JavaScript Hoisting)
-      </li>
-      <pre><code class="lang-javascript">
-square(5);
+console.log(square(5)); // 25
 
 function square(y) {
   return y * y;
 }
-      </code></pre>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>JavaScript Basic: Functions (Contd.)</h2>
+    </code></pre>
     <ul>
-      <li>Function as a value</li>
-      <pre><code class="lang-javascript">
-let f = function (input1, input2, ...) {
-    ...
-    return result;
-}
-    </code></pre>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Arrow Functions</li>
-      <pre><code class="lang-javascript">
-let f = (input1, input2, ...) =&gt; {
-  ...
-  return result;
-}
-    </code></pre>
-      <pre><code>
-let sq = x =&gt; x * x
-    </code></pre>
-      <pre><code>
-let f = () =&gt; 0
-    </code></pre>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>JavaScript Basic: Input &amp; Output</h2>
-    <ul>
-      <li>To prompt a dialog to user and get input</li>
-      <pre><code class="lang-javascript">
-let input = prompt("Please enter your name");
-    </code></pre>
-      <input
-        type="button"
-        value="Run"
-        onclick="let input = prompt('Please enter your name');"
-      />
-      <ul>
-        <li><code>window.prompt</code> returns <em>string</em></li>
-        <ul>
-          <li>
-            To convert string to integer:
-            <pre><code class="lang-javascript">i = Number.parseInt("10");</code></pre>
-          </li>
-          <li>
-            To convert string to float:
-            <pre><code class="lang-javascript">f = Number.parseFloat("20.2");</code></pre>
-          </li>
-        </ul>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>To get confirmation from user</li>
-      <pre><code class="lang-javascript">
-let question = confirm("Do you want to continue?");
-      </code></pre>
-      <input
-        type="button"
-        value="Run"
-        onclick="let question = confirm('Do you want to continue?');"
-      />
-      <ul>
-        <li><code>window.confirm</code> returns a boolean</li>
-        <ul>
-          <li>Ok: <code>true</code></li>
-          <li>Cancel: <code>false</code></li>
-        </ul>
-      </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>JavaScript Basic: Input &amp; Output</h2>
-    <ul>
-      <li>To show a message in an alert window</li>
-      <pre><code class="lang-javascript">
-window.alert("We study 'Internet Engineering'");
-    </code></pre>
-      <input
-        type="button"
-        value="Run"
-        onclick="window.alert('We study \'Internet Engineering\'');"
-      />
+      <li>No parameter types, no return type</li>
       <li>
-        Object <code>document</code> has a
-        <code class="hl-red">write</code> method — do
-        <strong class="hl-red">not</strong> use it
+        Declarations are <em class="hl-orange">hoisted</em>: you can call a
+        function before the line that defines it
       </li>
-      <pre><code class="lang-javascript">
-document.write("A sample message");
-    </code></pre>
-      <ul>
-        <li>
-          Called after the page has loaded it implicitly calls
-          <code>document.open()</code>, which
-          <strong class="hl-red">erases the whole document</strong> — including
-          this slide deck. There is no Run button here for that reason
-        </li>
-        <li>
-          Use <code class="hl-green">textContent</code> or
-          <code class="hl-green">insertAdjacentHTML</code> instead
-        </li>
-      </ul>
+      <li>A function can be defined inside another function</li>
     </ul>
   </section>
   <section>
-    <ul>
-      <li>Most objects have <code>innerHTML</code> attribute</li>
-      <pre><code class="lang-html">
-&lt;span id="testbox"&gt;This is my innerHTML&lt;/span&gt;
+    <h2>Functions are Values</h2>
+    <pre><code class="lang-javascript">
+const add = function (a, b) {
+  return a + b;
+};
 
-&lt;script&gt;
-document.getElementById("testbox").innerHTML = "This is box";
-&lt;/script&gt;
+// arrow function
+const add2 = (a, b) =&gt; {
+  return a + b;
+};
+
+// one expression: no braces, no return
+const sq = (x) =&gt; x * x;
+const zero = () =&gt; 0;
+
+// pass a function to another function
+[1, 2, 3].map(sq); // [1, 4, 9]
     </code></pre>
-      <span
-        id="testbox"
-        style="border-width: 1px; padding: 10px; border-style: solid"
-        >This is my innerHTML</span
-      >
-      <input
-        type="button"
-        value="Run"
-        onclick="document.getElementById('testbox').innerHTML = 'This is box';"
-      />
-    </ul>
   </section>
+</section>
+<section>
+  <h2>Input &amp; Output</h2>
+  <ul>
+    <li>Dialogs (they block the page until the user answers)</li>
+    <pre><code class="lang-javascript">
+let input = prompt("Please enter your name"); // a string, or null
+let ok = confirm("Do you want to continue?"); // true or false
+alert("We study 'Internet Engineering'");
+    </code></pre>
+    <input
+      type="button"
+      value="prompt"
+      onclick="let input = prompt('Please enter your name');"
+    />
+    <input
+      type="button"
+      value="confirm"
+      onclick="let ok = confirm('Do you want to continue?');"
+    />
+    <input
+      type="button"
+      value="alert"
+      onclick="alert('We study \'Internet Engineering\'');"
+    />
+    <li>
+      <code>prompt</code> returns a string: <code>Number.parseInt("10")</code>,
+      <code>Number.parseFloat("20.2")</code>
+    </li>
+    <li>
+      <code>console.log()</code> for the developer; the DOM (later) for the user
+    </li>
+    <li>
+      <code class="hl-red">document.write</code>:
+      <strong class="hl-red">do not use it</strong>. After the page loads, it
+      erases the whole document
+    </li>
+  </ul>
 </section>
 <section>
   <section>
     <h2>Arrays</h2>
     <ul>
-      <li>
-        Neither the length of a JavaScript array nor the types of its elements
-        are fixed
-      </li>
-      <li>Data can be stored at non-contiguous locations in the array</li>
-      <li>
-        Setting or accessing via
-        <span class="hl-orange">non-integers</span> using bracket notation (or
-        dot notation) will not set or retrieve an element from the array list
-        itself, but will set or access a variable associated with that array's
-        object property collection.
-      </li>
+      <li>Neither the length nor the element types are fixed</li>
     </ul>
-  </section>
-  <section>
     <pre><code class="lang-javascript">
-// a literal
-let a = [1, 2, 3];
+const a = [1, 2, 3];              // a literal
+const b = new Array(10, 20, 30);  // the same with the constructor
+const mixed = [1, "two", { three: 3 }];
 
-// the same thing with the Array constructor
-let b = new Array(10, 20, 30);
-
-// empty, then filled at arbitrary indices — the gaps are "holes"
-let c = new Array();
+const c = [];
 c[10] = "HTML";
 c[120] = "JS";
-console.log(c.length); // 121
+console.log(c.length); // 121: the gaps are "holes"
     </code></pre>
   </section>
   <section>
-    <ul>
-      <li>
-        Methods: <code>concat</code>, <code>shift</code>, <code>unshift</code>,
-        <code>sort</code>, <code>reverse</code>, <code>indexOf</code>, ...
-      </li>
-    </ul>
     <pre><code class="lang-javascript">
 let friends = ["Saman", "Sepehr", "Hessam"];
 friends.length // 3
 friends.push("Ali") // 4
 friends.concat("Ali") // ["Saman", "Sepehr", "Hessam", "Ali", "Ali"]
 let last = friends.pop() // "Ali"
-last // "Ali"
 friends.map(i =&gt; i.toUpperCase()) // ["SAMAN", "SEPEHR", "HESSAM"]
 friends.filter(i =&gt; i.startsWith("S")) // ["Saman", "Sepehr"]
-    </code></pre>
-    <pre><code class="lang-javascript">
+
 let num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 num.reduce((sum, i) =&gt; sum + i, 0) // 45
-    </code></pre>
-  </section>
-  <section>
-    <ul>
-      <li>for/of - looping over iterable objects</li>
-    </ul>
-    <pre><code class="lang-javascript">
-for (let friend of friends) {
-  console.log(friend)
-}
-    </code></pre>
-  </section>
-  <section>
-    <ul>
-      <li>Also there are typed arrays</li>
-      <ul>
-        <li>The contents are initialized to 0.</li>
-        <li>
-          You can reference elements in the array using the object's methods, or
-          using standard array index syntax (that is, using bracket notation).
-        </li>
-        <li>Fix-sized</li>
-      </ul>
-    </ul>
-    <pre><code class="lang-javascript">
-// From a length
-let uint8 = new Uint8Array(2);
-uint8[0] = 42;
-console.log(uint8[0]); // 42
-console.log(uint8.length); // 2
-console.log(uint8.BYTES_PER_ELEMENT); // 1
 
-uint8[2] = 1;
-console.log(uint8[2]); // undefined
-console.log(uint8.length) // 2
+// for/of: loop over the values
+for (const friend of friends) {
+  console.log(friend);
+}
     </code></pre>
   </section>
 </section>
 <section>
-  <section>
-    <h2>Sample Libraries: Math, Number &amp; Date Objects</h2>
-    <ul>
-      <li>Math:</li>
-      <code>abs</code
-      >,
-      <code>sin</code
-      >,
-      <code>asin</code
-      >,
-      <code>ceil</code
-      >,
-      <code>floor</code
-      >,
-      <code>log</code
-      >,
-      <code>exp</code
-      >,
-      <code>pow</code
-      >,
-      <code>random</code
-      >, ...
-      <li>Number:</li>
-      <pre><code class="lang-javascript">
-let num = 1.1;
-num.toExponential() // '1.1e0'
-num.toFixed() // '1'
-    </code></pre>
-      <li>Date:</li>
-      <pre><code class="lang-javascript">
-let d = new Date();
-d.toString(); // "Thu Nov 05 2020 09:50:38 GMT+0330 (Iran Standard Time)"
-    </code></pre>
-    </ul>
-  </section>
-  <section>
-    <span id="dateres"> </span>
-    <script type="text/javascript">
-      d = new Date();
-      res = document.getElementById("dateres");
-      res.innerHTML = d.toString();
-    </script>
-    <code>d.</code>set/get <code>FullYear</code>, <code>Month</code>,
-    <code>Date</code>, <code>Hours</code>, <code>Minutes</code>,
-    <code>Seconds</code>
-  </section>
+  <h2>Math, Number &amp; Date</h2>
+  <pre><code class="lang-javascript">
+Math.max(3, 7)          // 7
+Math.floor(2.7)         // 2
+Math.random()           // 0 &lt;= x &lt; 1
+(3.14159).toFixed(2)    // "3.14"
+(1.1).toExponential()   // "1.1e+0"
+Number("12px")          // NaN
+Number.parseInt("12px") // 12
+
+const d = new Date();
+d.toString();
+d.getFullYear(); // also Month, Date, Hours, ... and the set... methods
+  </code></pre>
+  <p>
+    <code>d.toString()</code> in this browser, now:
+    <span id="dateres" class="hl-green"></span>
+  </p>
+  <script>
+    document.getElementById("dateres").textContent = new Date().toString();
+  </script>
 </section>
 <section>
   <h2>Object</h2>
   <ul>
     <li>
-      An object is a collection of variables (fields) and functions (methods)
+      An object is a collection of properties: values (fields) and functions
+      (methods)
     </li>
   </ul>
   <pre><code class="lang-javascript">
@@ -846,64 +426,38 @@ let book = {
   name: "OOP in JS",
   price: 100,
   publish: 2020,
-  getPrice: function(){
+  getPrice() {
     return this.price;
-  }
+  },
 };
 
-book.setPrice = function (x){this.price=x;};
+book.setPrice = function (x) { this.price = x; };
 book.setPrice(1000);
-window.alert("name is "+ book.name +", price is "+ book.getPrice());
+console.log(`name is ${book.name}, price is ${book.getPrice()}`);
+delete book.publish;
   </code></pre>
 </section>
 <section>
-  <h2>Object (Cont.)</h2>
-  <ul>
-    <li>
-      Creating an (empty) object by the <code>Object</code> object and
-      <code>new</code>
-    </li>
-  </ul>
-  <pre><code class="lang-javascript">
-let book = new Object();
-book.name = "OOP in JS";
-book.price = 100;
-book.publish = 2020;
-book.getPrice = function() { return this.price; };
-book.setPrice = function(x) { this.price=x; };
-book.setPrice(1000);
-window.alert("name is "+ book.name +", price is "+ book.getPrice());
-  </code></pre>
-</section>
-<section>
-  <h2>Object Accessors</h2>
-  <ul>
-    <li>
-      To control to access to object's fields use getter and setter
-      <ul>
-        <li>The fields are not protected/private (like Java)</li>
-      </ul>
-    </li>
-  </ul>
+  <h2>Getters &amp; Setters</h2>
   <pre><code class="lang-javascript">
 let book = {
   name: "OOP in JS",
   _price: 0,
-  get price(){
+  get price() {
     return this._price + "$";
   },
-  set price(val){
-    if (val &lt; 0)
-      window.alert("Invalid price");
+  set price(val) {
+    if (val &lt; 0) {
+      console.log("Invalid price");
+      return;
+    }
     this._price = val;
-  }
+  },
 };
 
-book.price = 1000;
-window.alert("name is "+ book.name +", price is "+ book.price);
-book.price = -100;
-book._price = -100;
-window.alert("name is "+ book.name +", price is "+ book.price);
+book.price = 1000;  // price is 1000$
+book.price = -100;  // "Invalid price", still 1000$
+book._price = -100; // price is -100$: the field is not private
   </code></pre>
 </section>
 <section>
@@ -911,8 +465,8 @@ window.alert("name is "+ book.name +", price is "+ book.price);
     <h2>Prototype</h2>
     <ul>
       <li>
-        <code class="hl-orange">Object.create()</code>: creates a new object,
-        using an existing object as the prototype of the newly created object.
+        <code class="hl-orange">Object.create(proto)</code>: a new object that
+        uses <code>proto</code> as its prototype
       </li>
     </ul>
     <pre><code class="lang-javascript">
@@ -921,21 +475,10 @@ let Person = {
   _name: "",
   _family: "",
 
-  get name() {
-    return this._name;
-  },
-
-  get family() {
-    return this._family;
-  },
-
-  set name(name) {
-    this._name = name;
-  },
-
-  set family(family) {
-    this._family = family;
-  },
+  get name() { return this._name; },
+  get family() { return this._family; },
+  set name(name) { this._name = name; },
+  set family(family) { this._family = family; },
 };
 
 // p1 is an instance based on Person prototype
@@ -960,13 +503,7 @@ console.log(p1.name, p1.family);
     </figure>
   </section>
   <section>
-    <ul>
-      <li>
-        In our code we define the constructor, then we create an instance object
-        from the constructor, then we add a new method to the constructor's
-        prototype:
-      </li>
-    </ul>
+    <h2>Constructor Functions</h2>
     <pre><code class="lang-javascript">
 function Person(first, last, age, gender, interests) {
   this.name = { first, last };
@@ -980,126 +517,77 @@ let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'k
 Person.prototype.farewell = function() {
   alert(this.name.first + ' has left the building. Bye for now!');
 };
-  </code></pre>
+    </code></pre>
     <ul>
       <li>
-        But the farewell() method is still available on the person1 object
-        instance — its members have been automatically updated to include the
-        newly defined farewell() method.
+        <code class="hl-green">new Person(...)</code> makes an object linked to
+        <code class="hl-orange">Person.prototype</code>, then runs
+        <code>Person</code> with <code class="hl-yellow">this</code> = the new
+        object
+      </li>
+      <li>
+        <code>person1.farewell()</code> works, although we added it after
+        <code>person1</code> was made
       </li>
     </ul>
   </section>
 </section>
 <section>
   <section>
-    <h2>OOP: Instantiating Multiple Objects</h2>
+    <h2>Classes</h2>
     <ul>
       <li>
-        To be more OOP-like, we need
-        <ul>
-          <li>Differentiation between class and object</li>
-          <li>Instantiating via constructor</li>
-        </ul>
-      </li>
-      <li>
-        Traditional/Base/Conceptual/Common approach:
-        <ul>
-          <li>A function is also a type of object</li>
-          <li>Functions are used to define objects as the constructor</li>
-          <li>
-            Inheritance is
-            <a
-              href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance"
-              >implemented</a
-            >
-            by <code class="hl-orange">prototype</code> property of the function
-          </li>
-        </ul>
+        <code class="hl-green">class</code> (ES2015) is new syntax for the same
+        prototypes: <code>typeof Student</code> is <code>"function"</code>
       </li>
     </ul>
+    <pre><code class="lang-javascript">
+class Student {
+  constructor(name, id) {
+    this.name = name;
+    this.id = id;
+  }
+
+  // a method: no "function" keyword
+  toString() {
+    return `${this.name}: ${this.id}`;
+  }
+}
+
+const s = new Student("Parham Alvani", "9231058");
+console.log(`${s}`); // Parham Alvani: 9231058
+    </code></pre>
   </section>
   <section>
+    <h2>Inheritance</h2>
+    <pre><code class="lang-javascript">
+class Bachelor extends Student {
+  constructor(name, id, average) {
+    super(name, id); // the parent's constructor
+    this.average = average;
+  }
+
+  static betterThan(a, b) {
+    return a.average &gt;= b.average;
+  }
+}
+
+const b1 = new Bachelor("Parham Alvani", "9231058", 18);
+const b2 = new Bachelor("Sepehr Sabour", "9231011", 17);
+
+console.log(`${b1}`);                     // Parham Alvani: 9231058
+console.log(Bachelor.betterThan(b1, b2)); // true
+    </code></pre>
+  </section>
+  <section>
+    <h2>Fields &amp; Private Members</h2>
     <ul>
       <li>
-        Easier/New (ECMA 2015) approach:
-        <ul>
-          <li>
-            No new concept, syntactical sugar over JavaScript's existing
-            prototype-based inheritance
-          </li>
-          <li>
-            <a
-              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
-              >Classes</a
-            >
-            are defined by <code class="hl-green">class</code>, which is a
-            special function
-          </li>
-          <li>
-            Common OOP terminologies: <code class="hl-yellow">extends</code>,
-            <code class="hl-yellow">super</code>, ...
-          </li>
-          <li>
-            Since <span class="hl-yellow">ES2022</span> a class body may also
-            declare <em class="hl-green">fields</em> directly, not just methods
-          </li>
-        </ul>
+        Prefix the name with <code class="hl-green">#</code> (ES2022, supported
+        everywhere)
       </li>
     </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Objects</h2>
-    <ul>
-      <li>
-        Object instantiation:
-        <code class="hl-green">new</code>
-      </li>
-      <li>
-        <strong class="hl-yellow">property</strong> deletion:
-        <code class="hl-green">delete</code>
-      </li>
-      <li>Access to properties/methods: <code>.</code></li>
-      <li>This object: <code class="hl-orange">this</code></li>
-      <ul>
-        <li>Needed to access properties in methods</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <h2>What does <code class="hl-green">new Foo(...)</code> do?</h2>
-    <ol>
-      <li>
-        A new object is created, inheriting from
-        <code class="hl-orange">Foo.prototype</code>
-      </li>
-      <li>
-        The constructor function <code class="hl-orange">Foo</code> is called
-        with the specified arguments, and with
-        <code class="hl-yellow">this</code> bound to the newly created object.
-      </li>
-    </ol>
-  </section>
-  <section>
-    <h2>ECMA 2015</h2>
-    <ul>
-      <li>Class definition: <code class="hl-orange">class</code></li>
-      <li>Properties declaration (optional)</li>
-      <li>
-        Method declaration: function definition
-        <strong class="hl-red">without</strong>
-        <code class="hl-cyan">function</code>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>
-        Private members: prefix the name with
-        <code class="hl-green">#</code> (ES2022, supported everywhere)
-      </li>
-      <pre><code class="lang-javascript">
+    <pre><code class="lang-javascript">
 class Student {
   name;              // public field
   #id;               // private field — not reachable from outside
@@ -1120,134 +608,34 @@ class Student {
 
 const s = new Student("Parham", "9231058");
 s.#id; // SyntaxError: Private field '#id' must be declared in an enclosing class
-      </code></pre>
+    </code></pre>
+    <ul>
       <li>There is no <code class="hl-red">protected</code> in JavaScript</li>
-      <li>Static method: <code>static</code></li>
-      <li>
-        At Constructor:
-        <ul>
-          <li>This class: <code class="hl-orange">constructor</code></li>
-          <li>Parent: <code class="hl-orange">super</code></li>
-        </ul>
-      </li>
     </ul>
   </section>
 </section>
 <section>
-  <section>
-    <h2>Objects Example</h2>
-    <pre><code class="lang-javascript">
-function Student(name, id){
-  window.alert("I am going to create a new student");
-  this.name = name;
-  this.id = id;
-  this.toString = function(){
-    return `${this.name}: ${this.id}`;
-  }
-}
-
-let st1 = new Student("Parham Alvani", "9231058");
-console.log(st1);
-    </code></pre>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-class Student {
-  constructor(name, id){
-    window.alert("I am going to create a new student");
-    this.name = name;
-    this.id = id;
-  }
-  toString() {
-    return `${this.name}: ${this.id}`;
-  }
-}
-
-let st1 = new Student("Parham Alvani", "9231058");
-console.log(st1);
-    </code></pre>
-  </section>
-</section>
-<section>
-  <h2>Objects Example</h2>
+  <h2>Strict Mode</h2>
+  <ul>
+    <li>
+      <code class="hl-orange">"use strict";</code> at the top of a script or a
+      function turns silent mistakes into errors
+    </li>
+    <ul>
+      <li>a variable without a declaration</li>
+      <li>two parameters with the same name</li>
+      <li>a write to a read-only property</li>
+    </ul>
+    <li>Modules and classes are <em class="hl-green">always</em> strict</li>
+  </ul>
   <pre><code class="lang-javascript">
-class Bachelor extends Student {
-  constructor(name, id){
-    super(name, id);
-    this.average = function() {
-      return 20;
-    }
-  }
-
-  isPass(){
-    return 'Pass';
-  }
-
-  static betterThan(a, b){
-    return a.average() &gt;= b.average();
-  }
-}
-
-bc1 = new Bachelor("Parham Alvani", "9231058");
-console.log(bc1.average());
-
-bc2 = new Bachelor("Sepehr Sabour", "9231011");
-console.log(bc2.average());
-
-console.log(Bachelor.betterThan(bc1, bc2));
-  </code></pre>
-</section>
-<section>
-  <section>
-    <h2>Use Strict</h2>
-    <ul>
-      <li>
-        The <code class="hl-orange">"use strict"</code> directive was new in
-        ECMAScript version 5.
-      </li>
-      <li>
-        It is not a statement, but a literal expression, ignored by earlier
-        versions of JavaScript.
-      </li>
-      <li>Strict mode makes it easier to write "secure" JavaScript.</li>
-      <li>
-        Strict mode changes previously accepted "bad syntax" into real errors.
-      </li>
-      <li>
-        Strict mode is declared by adding
-        <code class="hl-orange">"use strict"</code>; to the beginning of a
-        <strong class="hl-green">script</strong> or a
-        <strong class="hl-yellow">function</strong>.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Not Allowed in Strict Mode</h2>
-    <ul>
-      <li>Using a variable, without declaring it, is not allowed.</li>
-      <li>Deleting a variable (or object) is not allowed.</li>
-      <li>Deleting a function is not allowed.</li>
-      <li>
-        Duplicating a <em class="hl-green">parameter name</em> is not allowed.
-      </li>
-      <li>Octal numeric literals are not allowed.</li>
-      <li>Writing to a get-only property is not allowed.</li>
-      <li>
-        Keywords reserved for future JavaScript versions can
-        <em class="hl-red">NOT</em> be used as variable names in strict mode.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
 "use strict";
 myFunction();
 
 function myFunction() {
-  y = 3.14;   // This will also cause an error because y is not declared
+  y = 3.14; // ReferenceError: y is not defined
 }
-    </code></pre>
-  </section>
+  </code></pre>
 </section>
 <section>
   <section>
@@ -1268,58 +656,48 @@ function myFunction() {
   </section>
   <section>
     <h2>Event Loop</h2>
-    <ul>
-      <li>
-        The event loop got its name because of how it's usually implemented,
-        which usually resembles:
-      </li>
-      <pre><code class="lang-javascript">
+    <pre><code class="lang-javascript">
 while (taskQueue.waitForTask()) {
   taskQueue.runNextTask()
 }
-      </code></pre>
-      <li>
-        <code>taskQueue.waitForTask()</code> waits synchronously for a task to
-        arrive in the <span class="hl-orange">task queue</span> (if one is not
-        already available and waiting to be handled).
-      </li>
-    </ul>
-  </section>
-  <section>
+    </code></pre>
     <ul>
       <li>
-        Each task is run
-        <span class="hl-orange">to completion</span> before any other task is
-        run.
+        Each task runs <span class="hl-orange">to completion</span> before the
+        next one starts
       </li>
       <li>
-        This offers some nice properties when
-        <span class="hl-yellow">reasoning</span> about your program, including
-        the fact that whenever a function runs, it cannot be
-        <span class="hl-green">pre-empted</span> and will run
-        <span class="hl-cyan">entirely</span> before any other code runs (and
-        can modify data the function manipulates).
+        <span class="hl-green">Good</span>: a function is never interrupted in
+        the middle, so no other code changes its data
       </li>
       <li>
-        A <span class="hl-red">downside</span> of this model is that if a task
-        takes <span class="hl-violet">too long to complete</span>, the web
-        application is unable to process user interactions like click or scroll.
+        <span class="hl-red">Bad</span>: a task that takes
+        <span class="hl-violet">too long</span> freezes the page: no clicks, no
+        scroll
       </li>
     </ul>
   </section>
   <section>
     <h2>Zero Delays</h2>
-    <ul>
-      <li>
-        Zero delay doesn't actually mean the call back will fire-off after zero
-        milliseconds.
-      </li>
-      <li>
-        Calling setTimeout with a delay of 0 (zero) milliseconds doesn't execute
-        the callback function after the given interval.
-      </li>
-    </ul>
-    <p id="event-loop"></p>
+    <pre><code class="lang-javascript">
+let el = document.getElementById("event-loop");
+let print = (text) =&gt; el.append(text, document.createElement("br"));
+
+print("this is the start");
+
+setTimeout(function cb() {
+  print("Callback 1: this is a msg from call back");
+}); // has a default time value of 0
+
+print("this is just a message");
+
+setTimeout(function cb1() {
+  print("Callback 2: this is a msg from call back");
+}, 0);
+
+print("this is the end");
+    </code></pre>
+    <p id="event-loop" style="font-size: 0.6em"></p>
     <script>
       (function () {
         let el = document.getElementById("event-loop");
@@ -1340,29 +718,6 @@ while (taskQueue.waitForTask()) {
         print("this is the end");
       })();
     </script>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-(function () {
-  let el = document.getElementById("event-loop");
-  // append() adds text nodes, so nothing is parsed as HTML
-  let print = (text) =&gt; el.append(text, document.createElement("br"));
-
-  print("this is the start");
-
-  setTimeout(function cb() {
-    print("Callback 1: this is a msg from call back");
-  }); // has a default time value of 0
-
-  print("this is just a message");
-
-  setTimeout(function cb1() {
-    print("Callback 2: this is a msg from call back");
-  }, 0);
-
-  print("this is the end");
-})();
-    </code></pre>
   </section>
   <section>
     <img
@@ -1405,44 +760,20 @@ while (Date.now() &lt; end) {} // the page is frozen for 3 s
     <h2>Promise</h2>
     <ul>
       <li>
-        The <strong class="hl-orange">Promise</strong> object represents the
-        eventual completion (or failure) of an
-        <em class="hl-cyan">asynchronous</em> operation and its resulting value.
+        A <strong class="hl-orange">Promise</strong> is the future result of an
+        <em class="hl-cyan">asynchronous</em> operation
       </li>
-      <li>
-        A <code class="hl-orange">Promise</code> is in one of these states:
-      </li>
+      <li>It is in one of three states:</li>
       <ul>
+        <li><em class="hl-yellow">pending</em>: not finished yet</li>
+        <li><em class="hl-green">fulfilled</em>: finished with a value</li>
         <li>
-          <em class="hl-yellow">pending</em>: initial state, neither fulfilled
-          nor rejected.
-        </li>
-        <li>
-          <em class="hl-green">fulfilled</em>: meaning that the operation was
-          completed successfully.
-        </li>
-        <li>
-          <em class="hl-red">rejected</em>: meaning that the operation failed.
+          <em class="hl-red">rejected</em>: failed with a reason (an error)
         </li>
       </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
       <li>
-        A pending promise can either be fulfilled with a value or rejected with
-        a reason (error).
-      </li>
-      <li>
-        When either of these options happens, the associated handlers queued up
-        by a promise's then method are called.
-      </li>
-      <li>
-        The <code class="hl-orange">.then()</code> method takes up to two
-        arguments; the first argument is a callback function for the
-        <em class="hl-green">resolved case</em> of the promise, and the second
-        argument is a callback function for the
-        <em class="hl-red">rejected case</em>.
+        <code class="hl-green">.then(f)</code> runs <code>f</code> on the value;
+        <code class="hl-red">.catch(f)</code> runs <code>f</code> on the error
       </li>
     </ul>
   </section>
@@ -1477,7 +808,6 @@ longCalculation(1)
   })
   .then((result) =&gt; {
     console.log(`3rd promise: ${result}`);
-    return;
   });
     </code></pre>
   </section>
@@ -1485,24 +815,6 @@ longCalculation(1)
 <section>
   <section>
     <h2>async / await</h2>
-    <ul>
-      <li>
-        Chaining <code class="hl-orange">then</code> reads backwards once there
-        are more than two steps
-      </li>
-      <li>
-        <code class="hl-green">async</code> and
-        <code class="hl-green">await</code> let you write the
-        <em class="hl-cyan">same</em> promises as if they were sequential code
-      </li>
-      <li>
-        <code class="hl-yellow">await</code> pauses only the function it is in,
-        never the browser
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>The Same Chain</h2>
     <pre><code class="lang-javascript">
 async function run() {
   const first = await longCalculation(1);
@@ -1516,6 +828,13 @@ async function run() {
 }
     </code></pre>
     <ul>
+      <li>
+        The <em class="hl-cyan">same</em> promises, written like sequential code
+      </li>
+      <li>
+        <code class="hl-yellow">await</code> pauses only this function, never
+        the browser
+      </li>
       <li>
         An <code class="hl-green">async</code> function
         <strong>always</strong> returns a promise
@@ -1575,6 +894,110 @@ const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
 </section>
 <section>
   <section>
+    <h2>Modules</h2>
+    <ul>
+      <li>
+        Scripts share one global scope, so every name can collide with every
+        other file
+      </li>
+      <li>
+        A <span class="hl-green">module</span> has its own scope, and states
+        what it exposes and what it needs
+      </li>
+    </ul>
+    <pre><code class="lang-javascript">
+// calculation.js
+export const timeout = 300;
+
+export function longCalculation(id) {
+  return new Promise((resolve) =&gt;
+    setTimeout(() =&gt; resolve(`resolved-${id}`), timeout),
+  );
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Importing</h2>
+    <pre><code class="lang-javascript">
+// main.js
+import { longCalculation, timeout } from "./calculation.js";
+import config from "./config.json" with { type: "json" }; // ES2025
+
+console.log(await longCalculation(1), timeout);
+    </code></pre>
+    <ul>
+      <li>
+        In the browser a module needs
+        <code class="hl-yellow">type="module"</code>
+      </li>
+      <li>
+        Modules are deferred by default, and
+        <code class="hl-green">await</code> works at the top level
+      </li>
+    </ul>
+    <pre><code class="lang-html">
+&lt;script type="module" src="main.js"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+<section>
+  <div class="toc" data-selected="2"></div>
+</section>
+<section>
+  <h2>A New Edition Every Year</h2>
+  <table style="font-size: 0.7em">
+    <tr>
+      <td><code class="hl-yellow">ES2020</code></td>
+      <td><code>?.</code> <code>??</code> <code>BigInt</code></td>
+    </tr>
+    <tr>
+      <td><code class="hl-yellow">ES2022</code></td>
+      <td>
+        class fields and <code>#private</code>, top-level <code>await</code>,
+        <code>.at()</code>, <code>Object.hasOwn</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code class="hl-yellow">ES2023</code></td>
+      <td>
+        <code>toSorted</code> <code>toReversed</code> <code>with</code>
+        <code>findLast</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code class="hl-yellow">ES2024</code></td>
+      <td><code>Object.groupBy</code>, <code>Promise.withResolvers</code></td>
+    </tr>
+    <tr>
+      <td><code class="hl-yellow">ES2025</code></td>
+      <td>
+        <code>Set</code> methods, iterator helpers, JSON modules,
+        <code>Promise.try</code>, <code>RegExp.escape</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code class="hl-green">ES2026</code></td>
+      <td>
+        <code>Map.getOrInsert</code>, <code>Math.sumPrecise</code>,
+        <code>Error.isError</code>, Base64, <code>Iterator.concat</code>,
+        <code>Array.fromAsync</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code class="hl-orange">ES2027</code></td>
+      <td>
+        <code>Temporal</code>, <code>using</code> (finished, in the next
+        edition)
+      </td>
+    </tr>
+  </table>
+  <p style="font-size: 0.6em">
+    A proposal joins the next June edition when it reaches
+    <em>stage 4</em> at TC39. Every sample in this part was run in Chrome 157.
+  </p>
+</section>
+<section>
+  <section>
     <h2>Optional Chaining</h2>
     <ul>
       <li>
@@ -1615,70 +1038,130 @@ count ?? 10; // 0, the value we actually have
   </section>
 </section>
 <section>
-  <section>
-    <h2>Modules</h2>
-    <ul>
-      <li>
-        Scripts share one global scope, so every name can collide with every
-        other file
-      </li>
-      <li>
-        A <span class="hl-green">module</span> has its own scope, and states
-        what it exposes and what it needs
-      </li>
-    </ul>
-    <pre><code class="lang-javascript">
-// calculation.js
-export const timeout = 300;
+  <h2>Arrays Without Mutation</h2>
+  <pre><code class="lang-javascript">
+const scores = [17, 12, 19, 15];
 
-export function longCalculation(id) {
-  return new Promise((resolve) =&gt;
-    setTimeout(() =&gt; resolve(`resolved-${id}`), timeout),
-  );
-}
-    </code></pre>
-  </section>
-  <section>
-    <h2>Importing</h2>
-    <pre><code class="lang-javascript">
-// main.js
-import { longCalculation, timeout } from "./calculation.js";
+scores.at(-1);                   // 15: negative counts from the end
+scores.toSorted((a, b) =&gt; a - b); // [12, 15, 17, 19]
+scores.toReversed();             // [15, 19, 12, 17]
+scores.with(1, 20);              // [17, 20, 19, 15]
+scores;                          // [17, 12, 19, 15]: unchanged
+scores.findLast((s) =&gt; s &lt; 16);  // 15
 
-console.log(await longCalculation(1), timeout);
-    </code></pre>
-    <ul>
-      <li>
-        In the browser a module needs
-        <code class="hl-yellow">type="module"</code>
-      </li>
-      <li>
-        Modules are deferred by default, and
-        <code class="hl-green">await</code> works at the top level
-      </li>
-    </ul>
-    <pre><code class="lang-html">
-&lt;script type="module" src="main.js"&gt;&lt;/script&gt;
-    </code></pre>
-  </section>
+const students = [
+  { name: "Sara", grade: "A" },
+  { name: "Reza", grade: "B" },
+  { name: "Nima", grade: "A" },
+];
+Object.groupBy(students, (s) =&gt; s.grade);
+// { A: [Sara, Nima], B: [Reza] }
+  </code></pre>
+  <ul>
+    <li>
+      <code class="hl-red">sort</code> and
+      <code class="hl-red">reverse</code> change the array; the
+      <code class="hl-green">to...</code> versions return a copy
+    </li>
+  </ul>
 </section>
 <section>
-  <div class="toc" data-selected="2"></div>
+  <h2>Sets &amp; Iterators</h2>
+  <pre><code class="lang-javascript">
+const frontend = new Set(["js", "css", "html"]);
+const backend = new Set(["js", "go", "sql"]);
+
+frontend.union(backend);        // {js, css, html, go, sql}
+frontend.intersection(backend); // {js}
+frontend.difference(backend);   // {css, html}
+
+// an endless generator: 1, 2, 3, ...
+function* naturals() {
+  let n = 1;
+  while (true) yield n++;
+}
+
+naturals()
+  .filter((n) =&gt; n % 2 === 0)
+  .map((n) =&gt; n * n)
+  .take(3)
+  .toArray(); // [4, 16, 36]
+  </code></pre>
+  <ul>
+    <li>
+      Iterator helpers are <em class="hl-cyan">lazy</em>: they compute only the
+      values that <code>take</code> asks for
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>ES2026</h2>
+  <pre><code class="lang-javascript">
+// Map upsert: read the value, or insert a default first
+const counts = new Map();
+for (const word of ["go", "js", "go"]) {
+  counts.set(word, counts.getOrInsert(word, 0) + 1);
+}
+counts; // Map { "go" =&gt; 2, "js" =&gt; 1 }
+
+[1e20, 0.1, -1e20].reduce((a, b) =&gt; a + b); // 0
+Math.sumPrecise([1e20, 0.1, -1e20]);        // 0.1
+
+Error.isError(new TypeError("x"));     // true
+Error.isError({ message: "fake" });    // false
+
+const bytes = new TextEncoder().encode("Hi!");
+bytes.toBase64();                // "SGkh"
+bytes.toHex();                   // "486921"
+Uint8Array.fromBase64("SGkh");   // the same 3 bytes
+
+Iterator.concat([1, 2], new Set([3])).toArray(); // [1, 2, 3]
+  </code></pre>
+</section>
+<section>
+  <h2>Coming in ES2027</h2>
+  <pre><code class="lang-javascript">
+// Temporal: dates without the Date bugs
+const day = Temporal.PlainDate.from("2026-11-07");
+day.add({ days: 30 }).toString();  // "2026-12-07"
+day.dayOfWeek;                     // 6 (Saturday; Monday is 1)
+day.until("2027-01-01").days;      // 55
+
+const lecture = Temporal.ZonedDateTime.from("2026-11-07T07:45[Asia/Tehran]");
+lecture.withTimeZone("Europe/Berlin").toString();
+// "2026-11-07T05:15:00+01:00[Europe/Berlin]"
+
+// using: clean up at the end of the block, also on an error
+{
+  using res = { [Symbol.dispose]() { console.log("closed"); } };
+  console.log("working");
+} // prints "working", then "closed"
+  </code></pre>
+  <ul>
+    <li>
+      Both are finished, and Chrome runs them. Check
+      <a href="https://caniuse.com/temporal">caniuse</a> before you depend on
+      them in every browser
+    </li>
+  </ul>
+</section>
+<section>
+  <div class="toc" data-selected="3"></div>
 </section>
 <section>
   <h2>JavaScript in Web</h2>
   <ul>
-    <li>Basic functionality of JS in Web: <em>Dynamic pages</em></li>
+    <li>The main job of JS in the web: <em>dynamic pages</em></li>
     <ul>
       <li>Create and delete HTML elements</li>
-      <li>Modify HTML element contents</li>
-      <li>Modify element's styles</li>
+      <li>Change their content and their styles</li>
     </ul>
     <li>Question: How to access HTML elements from JavaScript?</li>
     <li>Answer: <em>DOM</em></li>
     <ul>
-      <li>Web browser parses HTML document</li>
-      <li>Output is a data-structure called "DOM"</li>
-      <li>Browser provides <em>API</em> to access the DOM</li>
+      <li>The browser parses the HTML document</li>
+      <li>The output is a tree of objects called the "DOM"</li>
+      <li>The browser gives an <em>API</em> to read and change the DOM</li>
     </ul>
   </ul>
 </section>
@@ -1687,32 +1170,24 @@ console.log(await longCalculation(1), timeout);
     <h2>DOM</h2>
     <ul>
       <li>
-        Document Object Model (DOM) is the output of parsing HTML file by
-        browser
+        Document Object Model: each HTML element is an
+        <em>object</em> in a tree that follows the tag hierarchy
       </li>
-      <ul>
-        <li>HTML document is represented by DOM in browser</li>
-      </ul>
-      <li>Each HTML element is represented by an <em>object</em></li>
-      <ul>
-        <li>
-          However, there are other objects (called BOM) that are not
-          corresponding to HTML elements; e.g., <code>window</code> is the
-          browser window
-        </li>
-      </ul>
-      <li>A tree of object corresponding to HTML tag hierarchy</li>
       <li>Each object has</li>
       <ul>
         <li>
-          Properties corresponding to
-          <em class="hl-orange">HTML properties</em> (not all properties)
+          properties for the <em class="hl-orange">HTML attributes</em> (not all
+          of them)
         </li>
         <li>
-          Methods corresponding to <em class="hl-green">events</em> and
-          <em class="hl-yellow">actions</em>
+          methods and handlers for <em class="hl-green">actions</em> and
+          <em class="hl-yellow">events</em>
         </li>
       </ul>
+      <li>
+        Other objects (the BOM) belong to the browser and have no tag; e.g.,
+        <code>window</code> is the browser window
+      </li>
     </ul>
   </section>
   <section>
@@ -1724,162 +1199,53 @@ console.log(await longCalculation(1), timeout);
   </section>
 </section>
 <section>
-  <h2>DOM &amp; JavaScript</h2>
-  <ul>
-    <li>JavaScript is powerful in web since it accesses to DOM</li>
-    <ul>
-      <li>JavaScript + DOM = Dynamic HTML</li>
-    </ul>
-    <li><em class="hl-green">Read</em> access in order to</li>
-    <ul>
-      <li>Check properties (conditional reaction)</li>
-      <li>Validate inputs</li>
-      <li>Handle events</li>
-    </ul>
-    <li>
-      <em class="hl-orange">Write</em> access in order to
-      <ul>
-        <li>Modify content</li>
-        <li>Modify styles</li>
-        <li>Add/Remove objects to/from DOM</li>
-      </ul>
-    </li>
-  </ul>
-</section>
-<section>
-  <h2>DOM Object Access by Name</h2>
-  <pre><code class="lang-html">
-&lt;form name="nametest"&gt;
-&lt;input name="output" type="text" value="Default Text"&gt;
-&lt;/form&gt;
-  </code></pre>
-
-  <form name="nametest">
-    <input name="output" type="text" value="Default Text" />
-  </form>
-
-  <pre><code class="lang-javascript">
-document.nametest.output.value='New Value';
-  </code></pre>
-  <form>
-    <input
-      type="button"
-      value="Run"
-      onclick="document.nametest.output.value='New Value';"
-    />
-  </form>
-
-  <ul>
-    <li>We need to assign a name to all parents &amp; children</li>
-    <!--
-    <ul>
-      <li>
-        Children are <em>not</em> directly accessible by
-        <code>document.childname</code>
-      </li>
-    </ul>
-    -->
-    <li>Is not really useful and practical</li>
-  </ul>
-</section>
-<section>
   <section>
-    <h2>DOM Object Access</h2>
+    <h2>Finding Elements</h2>
+    <table style="font-size: 0.75em">
+      <tr>
+        <td><code class="hl-orange">querySelector("css")</code></td>
+        <td>the first match, or <code>null</code></td>
+      </tr>
+      <tr>
+        <td><code class="hl-orange">querySelectorAll("css")</code></td>
+        <td>a static <code class="hl-green">NodeList</code> of all matches</td>
+      </tr>
+      <tr>
+        <td><code>document.getElementById("id")</code></td>
+        <td>the element with that id, or <code>null</code></td>
+      </tr>
+      <tr>
+        <td><code>getElementsByClassName</code>, <code>...ByTagName</code></td>
+        <td>a <em>live</em> <code class="hl-green">HTMLCollection</code></td>
+      </tr>
+    </table>
     <ul>
       <li>
-        <code>
-          <span class="hl-cyan">element</span>.<span class="hl-orange"
-            >getElementById</span
-          ><span class="hl-yellow">("id")</span>
-        </code>
+        Call them on <code>document</code>, or on an element to search only its
+        sub-tree (<code>getElementById</code> is only on <code>document</code>)
       </li>
-      <ul>
-        <li>
-          returns <span class="hl-green">the object</span> with given
-          <span class="hl-yellow">"id"</span> in <em>sub-tree</em> rooted at
-          <span class="hl-cyan">element</span>
-        </li>
-      </ul>
       <li>
-        <code
-          ><span class="hl-cyan">element</span>.<span class="hl-orange"
-            >getElementsByClassName</span
-          ><span class="hl-yellow">("classname")</span>
-        </code>
+        The element <em>must</em> already exist: the browser reads the HTML file
+        top to bottom
       </li>
-      <ul>
-        <li>
-          returns a live <span class="hl-green">HTMLCollection</span> of the
-          elements whose class is <span class="hl-yellow">"classname"</span> in
-          the <em>sub-tree</em> rooted at
-          <span class="hl-cyan">element</span>
-        </li>
-      </ul>
-      <li>
-        <code>
-          <span class="hl-cyan">element</span>.<span class="hl-orange"
-            >getElementsByTagName</span
-          ><span class="hl-yellow">("tagname")</span>
-        </code>
-      </li>
-      <ul>
-        <li>
-          returns a live <span class="hl-green">HTMLCollection</span> of the
-          elements whose tag is <span class="hl-yellow">"tagname"</span> in the
-          <em>sub-tree</em> rooted at
-          <span class="hl-cyan">element</span>
-        </li>
-      </ul>
-      <li>
-        <code
-          ><span class="hl-cyan">element</span>.<span class="hl-orange"
-            >getElementsByName</span
-          ><span class="hl-yellow">("name")</span></code
-        >
-      </li>
-      <ul>
-        <li>
-          returns a live <span class="hl-green">NodeList</span> of the elements
-          whose name is <span class="hl-yellow">"name"</span> in the
-          <em>sub-tree</em> rooted at <span class="hl-cyan">element</span>
-        </li>
-      </ul>
     </ul>
   </section>
   <section>
     <ul>
-      <li>
-        <code
-          ><span class="hl-cyan">element</span>.<span class="hl-orange"
-            >querySelector</span
-          ><span class="hl-yellow">("CSS Selector")</span></code
-        >
-      </li>
-      <ul>
-        <li>
-          returns <span class="hl-green">the first</span> element matches the
-          <span class="hl-yellow">CSS selector</span> in
-          <em>sub-tree</em> rooted at <span class="hl-cyan">element</span>
-        </li>
-      </ul>
-      <li>
-        <span class="hl-cyan">Element</span> <em>must</em> already exist — the
-        browser reads the HTML file top to bottom
-      </li>
       <li>
         <code class="hl-red">HTMLCollection</code> and
         <code class="hl-red">NodeList</code> are
         <strong class="hl-red">not arrays</strong>: no <code>map</code>, no
         <code>filter</code>. Convert first
       </li>
-      <pre><code class="lang-javascript">
+    </ul>
+    <pre><code class="lang-javascript">
 const items = Array.from(document.getElementsByClassName("testbox"));
 items.map((el) =&gt; el.textContent);
 
 // querySelectorAll returns a NodeList, which does have forEach
 document.querySelectorAll(".testbox").forEach((el) =&gt; console.log(el));
-      </code></pre>
-    </ul>
+    </code></pre>
   </section>
 </section>
 <section>
@@ -1894,96 +1260,80 @@ document.querySelectorAll(".testbox").forEach((el) =&gt; console.log(el));
 &lt;div class="testbox"&gt;
   </code></pre>
 
-  <pre><code>
-document.getElementById("box1").innerHTML="I am the new message"
+  <pre><code class="lang-javascript">
+document.querySelector("#box1").textContent = "I am the new message";
   </code></pre>
   <input
     type="button"
     value="Run"
-    onclick="document.getElementById('box1').innerHTML='I am the new message'"
+    onclick="document.querySelector('#box1').textContent = 'I am the new message';"
   />
 
   <pre><code class="lang-javascript">
 let da = document.getElementsByClassName("testbox");
-da[0].innerHTML="I am another new message";
+da[0].textContent = "I am another new message";
   </code></pre>
   <input
     type="button"
     value="Run"
     onclick="let da = document.getElementsByClassName('testbox');
-    da[0].innerHTML='I am another new message';"
+    da[0].textContent = 'I am another new message';"
   />
 </section>
 <section>
+  <h2>Element Properties</h2>
+  <table style="font-size: 0.75em">
+    <tr>
+      <td><code class="hl-green">el.textContent</code></td>
+      <td>the text; safe for user input</td>
+    </tr>
+    <tr>
+      <td><code class="hl-red">el.innerHTML</code></td>
+      <td>
+        parses the string as HTML and replaces all children. Never with user
+        input (XSS, lecture 11)
+      </td>
+    </tr>
+    <tr>
+      <td><code>el.classList.add("x")</code></td>
+      <td>
+        also <code>remove</code>, <code>toggle</code>, <code>contains</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>el.style.backgroundColor</code></td>
+      <td>the inline style</td>
+    </tr>
+    <tr>
+      <td><code>el.value</code></td>
+      <td>the value of a form field</td>
+    </tr>
+    <tr>
+      <td><code>el.children</code>, <code>el.parentElement</code></td>
+      <td>move through the tree</td>
+    </tr>
+  </table>
+</section>
+<section>
   <section>
-    <h2>Samples of DOM Object's Properties</h2>
+    <h2>CSS &amp; JavaScript</h2>
     <ul>
-      <li><span class="hl-orange">Element</span>.<code>innerHTML</code></li>
-      <ul>
-        <li>HTML or XML markup contained within the element</li>
-        <li>
-          Setting the value of innerHTML
-          <strong class="hl-yellow">removes</strong> all of the element's
-          descendants and replaces them with nodes constructed by parsing the
-          HTML given in the value.
-        </li>
-      </ul>
-      <li><span class="hl-orange">Element</span>.<code>className</code></li>
-      <ul>
-        <li>Is a String representing the class of the element.</li>
-        <pre><code class="lang-javascript">
-document.getElementById("My_Element").className += " My_Class";
-        </code></pre>
-      </ul>
-      <li><span class="hl-green">ParentNode</span>.<code>children</code></li>
-      <ul>
-        <li>Array of children elements</li>
-      </ul>
-      <li><span class="hl-cyan">ChildNode</span>.<code>parentNode</code></li>
-      <ul>
-        <li>The parent of element</li>
-      </ul>
+      <li>Each element has a <code>style</code> object</li>
+      <li>
+        CSS property names become camelCase:
+        <code>background-color</code> → <code>backgroundColor</code>
+      </li>
+      <code>element.style.backgroundColor = "red";</code>
+      <li>
+        A better way: keep the styles in CSS and change the class with
+        <code>classList</code>
+      </li>
     </ul>
   </section>
   <section>
-    <ul>
-      <li><span class="hl-violet">HTMLElement</span>.<code>style</code></li>
-      <ul>
-        <li>The styling rules of element</li>
-      </ul>
-      <li><span class="hl-violet">HTMLElement</span>.<code>value</code></li>
-      <ul>
-        <li>The value of input elements</li>
-      </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <h2>CSS &amp; JavaScript</h2>
-  <ul>
-    <li>
-      (Most) objects (document's children) have <code>style</code> property
-    </li>
-    <li>
-      CSS style properties of each object are the properties of
-      <code>style</code>
-    </li>
-    <li>
-      CSS and DOM use different name (syntax) for the same style. E.g.,
-      Background color:
-    </li>
-    <ul>
-      <li>In CSS: <code>background-color</code></li>
-      <li>In DOM: <code>backgroundColor</code></li>
-    </ul>
-    <li>To access a CSS style property in JavaScript:</li>
-    <code>object.style.PropertyNameInDOM</code>
-  </ul>
-</section>
-<section>
-  <h2>CSS &amp; JavaScript Example</h2>
-  <div style="width: 10px; height: 10px" id="colorBox"></div>
-  <pre><code class="lang-javascript">
+    <h2>CSS &amp; JavaScript Example</h2>
+    <div style="width: 10px; height: 10px" id="colorBox"></div>
+    <pre><code class="lang-javascript">
 let color;
 index = prompt("Enter 1 for blue, 2 for red, 3 for green");
 switch(parseInt(index)) {
@@ -1999,198 +1349,78 @@ switch(parseInt(index)) {
 
 document.getElementById("colorBox").style.backgroundColor = color;
     </code></pre>
-  <input type="button" value="Run" onclick="changeColor();" />
-  <script>
-    function changeColor() {
-      let color;
-      index = prompt("Enter 1 for blue, 2 for red, 3 for green");
-      switch (parseInt(index)) {
-        case 1:
-          color = "blue";
-          break;
-        case 2:
-          color = "red";
-          break;
-        case 3:
-          color = "green";
-          break;
-        default:
-          color = "black";
-          break;
-      }
+    <input type="button" value="Run" onclick="changeColor();" />
+    <script>
+      function changeColor() {
+        let color;
+        index = prompt("Enter 1 for blue, 2 for red, 3 for green");
+        switch (parseInt(index)) {
+          case 1:
+            color = "blue";
+            break;
+          case 2:
+            color = "red";
+            break;
+          case 3:
+            color = "green";
+            break;
+          default:
+            color = "black";
+            break;
+        }
 
-      document.getElementById("colorBox").style.backgroundColor = color;
-    }
-  </script>
+        document.getElementById("colorBox").style.backgroundColor = color;
+      }
+    </script>
+  </section>
 </section>
 <section>
-  <div class="toc" data-selected="3"></div>
+  <div class="toc" data-selected="4"></div>
 </section>
 <section>
   <h2>Events</h2>
   <ul>
-    <li>Okay, JS can make page dynamic</li>
-    <li>But, why would a page be dynamic?</li>
-    <li>Because some <em class="hl-orange">events</em> happened in the page</li>
+    <li>
+      Why would a page change? Because an
+      <em class="hl-orange">event</em> happened
+    </li>
     <ul>
-      <li>Client does something; e.g., click on button</li>
-      <li>There is a periodical update; e.g., check for new emails</li>
-      <li>New content is received from server; e.g., chat message</li>
+      <li>The user does something; e.g., clicks a button</li>
+      <li>A timer fires; e.g., check for new emails</li>
+      <li>New data comes from the server; e.g., a chat message</li>
     </ul>
     <li>
-      Who does know what happened? <strong class="hl-yellow">Browser</strong>
+      The <strong class="hl-yellow">browser</strong> knows what happened, and
+      calls the functions that are registered for that event
     </li>
     <li>
-      Browser runs a JS code for each event (which is usually an empty function)
+      So JS has to <em class="hl-green">register</em> a function (a
+      <em>handler</em>) for the event
     </li>
-    <li>How does browser know which function should be called?</li>
-    <ul>
-      <li>
-        JS has to <em class="hl-green">register</em> itself for the event!
-      </li>
-    </ul>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>Events &amp; Their Handling (in more details)</h2>
-    <ul>
-      <li>There are many predefined events in browsers</li>
-      <ul>
-        <li>Mouse click</li>
-        <li>Key press</li>
-        <li>...</li>
-      </ul>
-      <li>
-        These events occur on an <em>element</em>: e.g., mouse click on a button
-      </li>
-      <ul>
-        <li>Not all elements have all events</li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>DOM Objects have event handler methods</li>
-      <ul>
-        <li>Event handler is called by browser when event occur on object</li>
-        <ul>
-          <li>
-            E.g., <code>onclick</code> is called when object (html element) is
-            clicked
-          </li>
-        </ul>
-        <li>Most event handlers are empty by default</li>
-      </ul>
-    </ul>
-  </section>
-</section>
-<section>
-  <h2>Event Handling in JavaScripts</h2>
-  <ul>
-    <li>To do somethings when an event occurs</li>
-    <ul>
-      <li>The event handling</li>
-    </ul>
-    <li>Override the corresponding event handler</li>
-    <li>In HTML, using element attribute</li>
-    <pre><code class="lang-html">
-&lt;tag onclick="// JavaScript code, or a call to function()"&gt;
-    </code></pre>
-    <li>In JavaScript, using DOM object</li>
-    <pre><code class="lang-javascript">
-object.onclick=function
-    </code></pre>
-  </ul>
-</section>
-<section>
-  <h2>Sample Events</h2>
-  <table style="font-size: 0.57em">
-    <thead>
-      <tr>
-        <th style="width: 30%">Event</th>
-        <th style="width: 70%">Occurs when...</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>onabort</td>
-        <td>a user aborts page loading</td>
-      </tr>
-      <tr>
-        <td>onblur</td>
-        <td>a user leaves an object</td>
-      </tr>
-      <tr>
-        <td>onchange</td>
-        <td>a user changes the value of an object</td>
-      </tr>
-      <tr>
-        <td>onclick</td>
-        <td>a user clicks on an object</td>
-      </tr>
-      <tr>
-        <td>ondblclick</td>
-        <td>a user double-clicks on an object</td>
-      </tr>
-      <tr>
-        <td>onfocus</td>
-        <td>a user makes an object active</td>
-      </tr>
-      <tr>
-        <td>onkeydown</td>
-        <td>a keyboard key is on its way down</td>
-      </tr>
-      <tr>
-        <td>onkeypress</td>
-        <td>a keyboard key is pressed</td>
-      </tr>
-      <tr>
-        <td>onkeyup</td>
-        <td>a keyboard key is released</td>
-      </tr>
-      <tr>
-        <td>onload</td>
-        <td>a page is finished loading.</td>
-      </tr>
-      <tr>
-        <td>onmousedown</td>
-        <td>a user presses a mouse-button</td>
-      </tr>
-      <tr>
-        <td>onmousemove</td>
-        <td>a cursor moves on an object</td>
-      </tr>
-      <tr>
-        <td>onmouseover</td>
-        <td>a cursor moves over an object</td>
-      </tr>
-      <tr>
-        <td>onmouseout</td>
-        <td>a cursor moves off an object</td>
-      </tr>
-      <tr>
-        <td>onmouseup</td>
-        <td>a user releases a mouse-button</td>
-      </tr>
-      <tr>
-        <td>onreset</td>
-        <td>a user resets a form</td>
-      </tr>
-      <tr>
-        <td>onselect</td>
-        <td>a user selects content on a page</td>
-      </tr>
-      <tr>
-        <td>onsubmit</td>
-        <td>a user submits a form</td>
-      </tr>
-      <tr>
-        <td>onunload</td>
-        <td>a user closes a page</td>
-      </tr>
-    </tbody>
-  </table>
+  <h2>Registering a Handler</h2>
+  <pre><code class="lang-html">
+&lt;!-- 1. an HTML attribute --&gt;
+&lt;button onclick="hello()"&gt;Hi&lt;/button&gt;
+  </code></pre>
+  <pre><code class="lang-javascript">
+// 2. a DOM property: only one handler
+button.onclick = hello;
+
+// 3. addEventListener: many handlers, and you can remove them
+button.addEventListener("click", hello);
+button.removeEventListener("click", hello);
+  </code></pre>
+  <p>Some common events (the attribute is <code>on</code> + the name):</p>
+  <p style="font-size: 0.7em">
+    <code>click</code> <code>dblclick</code> <code>mouseover</code>
+    <code>mouseout</code> <code>keydown</code> <code>keyup</code>
+    <code>input</code> <code>change</code> <code>focus</code> <code>blur</code>
+    <code>submit</code> <code>DOMContentLoaded</code>
+    <code>load</code>
+  </p>
 </section>
 <section>
   <h2>JavaScript Event Handling Example</h2>
@@ -2199,8 +1429,8 @@ object.onclick=function
   id="clickbtn"
   type="button"
   value="click"
-  onmouseover="document.getElementById('msg').innerHTML='Click Here'"
-  onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
+  onmouseover="document.getElementById('msg').textContent='Click Here'"
+  onmouseout="document.getElementById('msg').textContent='Outside! Clicks are ignored'"
   onmousedown="mouseDown()"
 /&gt;
 &lt;div id="msg" style="width: 50%"&gt;&lt;/div&gt;
@@ -2208,7 +1438,7 @@ object.onclick=function
   let counter = 0;
   function mouseDown() {
     counter++;
-    document.getElementById("msg").innerHTML = "A new click";
+    document.getElementById("msg").textContent = "A new click";
   }
 
   function mouseUp() {
@@ -2221,8 +1451,8 @@ object.onclick=function
     id="clickbtn"
     type="button"
     value="click"
-    onmouseover="document.getElementById('msg').innerHTML='Click Here'"
-    onmouseout="document.getElementById('msg').innerHTML='Outside! Clicks are ignored'"
+    onmouseover="document.getElementById('msg').textContent='Click Here'"
+    onmouseout="document.getElementById('msg').textContent='Outside! Clicks are ignored'"
     onmousedown="mouseDown()"
   />
   <div id="msg" style="width: 50%"></div>
@@ -2230,7 +1460,7 @@ object.onclick=function
     let counter = 0;
     function mouseDown() {
       counter++;
-      document.getElementById("msg").innerHTML = "A new click";
+      document.getElementById("msg").textContent = "A new click";
     }
 
     function mouseUp() {
@@ -2263,51 +1493,15 @@ function setBgColor(color) {
       </script>
       <button onclick="setBgColor('red')">Red</button>
       <button onclick="setBgColor('green')">Green</button>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li id="change-my-color-2">
-        <em class="hl-orange">Find out</em> the required information (specially
-        when the handler is registered in JS)
-      </li>
-      <pre><code class="lang-html">
-color: &lt;input type="text" id="color" /&gt;
-&lt;button id="set"&gt;set&lt;/button&gt;
-    </code></pre>
-      <pre><code class="lang-javascript">
-function setBgColor2() {
-  document.getElementById('change-my-color-2').style.backgroundColor =
-  document.getElementById("color").value;
-}
-document.getElementById("set").onclick = setBgColor2;
-    </code></pre>
-
-      color:
-      <input type="text" id="color" />
-      <button id="set">set</button>
-
-      <script type="text/javascript">
-        function setBgColor2() {
-          document.getElementById("change-my-color-2").style.backgroundColor =
-            document.getElementById("color").value;
-        }
-        document.getElementById("set").onclick = setBgColor2;
-      </script>
-    </ul>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>How to Pass Inputs to Event Handlers (Cont.)?</h2>
-    <ul>
       <li>
-        Use <code class="hl-orange"><em>this</em></code> only when the handler
-        is registered in JS
+        When it is registered in JS, the handler
+        <em class="hl-orange">finds</em> the data itself: from
+        <code>this</code>, the event, or other elements
       </li>
     </ul>
   </section>
   <section>
+    <h2><code class="hl-orange">this</code> in a Handler</h2>
     <pre><code class="lang-javascript">
 function setBgColor3() {
   window.alert("this = " + this);
@@ -2354,58 +1548,26 @@ this.innerHTML;"&gt;Green&lt;/button&gt;
   </section>
 </section>
 <section>
-  <h2>Dynamic Event Handler Registration</h2>
-  <ul>
-    <li>Remark, event handlers can be registered by JavaScript</li>
-    <pre><code class="lang-javascript">
-object.onclick = function
-    </code></pre>
-    <li>Other methods to dynamically register event handlers</li>
-    <ul>
-      <li>Assign multiple event handlers</li>
-      <li>Reset event handler to default</li>
-    </ul>
-    <li>Add event handler</li>
-    <pre><code class="lang-javascript">
-object.addEventListener(eventName, function)
-    </code></pre>
-    <li>Remove event handler</li>
-    <pre><code class="lang-javascript">
-object.removeEventListener(eventName, function)
-    </code></pre>
-  </ul>
-</section>
-<section>
   <h2>Dynamic Event Handler Example</h2>
-  <pre><code class="lang-html">
-&lt;button onclick="AddEventHandler();"&gt;
-  Add a 'click' event listener to the blue button
-&lt;/button&gt;
+  <pre><code class="lang-javascript">
+function blueClick1() {
+  alert("You have clicked on me!!!");
+}
 
-&lt;button onclick="RemoveEventHandler();"&gt;Remove the event listener&lt;/button&gt;
+function blueClick2() {
+  alert("Yahoooo!!!!");
+}
 
-&lt;button id="blueButton" style="background-color: #0077ff"&gt;Big Blue Button&lt;/button&gt;
+function AddEventHandler() {
+  let blueButton = document.getElementById("blueButton");
+  blueButton.addEventListener("click", blueClick1);
+  blueButton.addEventListener("click", blueClick2);
+}
 
-&lt;script type="text/javascript"&gt;
-  function blueClick1() {
-    alert("You have clicked on me!!!");
-  }
-
-  function blueClick2() {
-    alert("Yahoooo!!!!");
-  }
-
-  function AddEventHandler() {
-    let blueButton = document.getElementById("blueButton");
-    blueButton.addEventListener("click", blueClick1);
-    blueButton.addEventListener("click", blueClick2);
-  }
-
-  function RemoveEventHandler() {
-    let blueButton = document.getElementById("blueButton");
-    blueButton.removeEventListener("click", blueClick1);
-  }
-&lt;/script&gt;
+function RemoveEventHandler() {
+  let blueButton = document.getElementById("blueButton");
+  blueButton.removeEventListener("click", blueClick1);
+}
   </code></pre>
   <button onclick="AddEventHandler ();">
     Add a 'click' event listener to the blue button
@@ -2521,104 +1683,62 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
     </script>
   </section>
   <section>
-    <h3>HTML Attribute</h3>
-    <pre><code class="lang-html">
-&lt;button onclick="alert('Hello world!')"&gt;
-    </code></pre>
-    <p>
-      The JavaScript code in the attribute is passed the Event object via the
-      <code class="hl-orange">event</code> parameter.
-    </p>
-    <h3>DOM element properties</h3>
-    <pre><code class="lang-javascript">
-// Assuming myButton is a button element
-myButton.onclick = function(event){alert('Hello world')}
-    </code></pre>
-    <p>
-      The function can be defined to take an
-      <code class="hl-green">event</code> parameter.
-    </p>
-  </section>
-  <section>
-    <ul>
-      <li>
-        The Event interface represents an event which takes place in the DOM.
-      </li>
-      <li>
-        <code class="hl-orange">Event.target</code> A reference to the target to
-        which the event was originally dispatched.
-      </li>
-      <li>
-        <code class="hl-green">Event.type</code> The name of the event.
-        <strong class="hl-red">Case-sensitive</strong> —
-        <code>addEventListener("Click", …)</code> never fires.
-      </li>
-    </ul>
-  </section>
-  <section>
     <img
       src="./img/event-flow.svg"
       alt="A click on button#click-btn-1 travels from window through document, html, body and div#parent down to the button in the capture phase, reaches the target, then bubbles back up to window. Capture listeners need addEventListener with true; bubble is the default. The parent handler runs during bubbling with this as div#parent and event.target as the button. Calling event.stopPropagation in the button handler means the parent never hears the click"
       width="860"
     />
   </section>
+  <section>
+    <h2>
+      <code class="hl-green">event.target</code> vs.
+      <code class="hl-orange">this</code>
+    </h2>
+    <ul>
+      <li>
+        <code class="hl-green">event.target</code>: the element where the event
+        happened (the button you clicked)
+      </li>
+      <li>
+        <code class="hl-orange">this</code> (and
+        <code>event.currentTarget</code>): the element the listener is attached
+        to (the parent, during bubbling)
+      </li>
+      <li>
+        <code class="hl-yellow">event.type</code>: the name of the event.
+        <strong class="hl-red">Case-sensitive</strong> —
+        <code>addEventListener("Click", …)</code> never fires
+      </li>
+      <li>
+        In an HTML attribute, the event object is in a variable named
+        <code>event</code>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
-  <h2>
-    <code class="hl-green">event.target</code> vs.
-    <code class="hl-orange">this</code>
-  </h2>
-  <ul>
-    <li>
-      There is a difference between <span class="hl-orange">this</span> and
-      <span class="hl-green">event.target</span>, and quite a
-      <strong class="hl-yellow">significant</strong> one.
-    </li>
-    <li>
-      <span class="hl-orange">this</span> always refers to the DOM element the
-      listener was attached to
-    </li>
-    <li>
-      <span class="hl-green">event.target</span> is the actual DOM element that
-      was clicked
-    </li>
-  </ul>
-</section>
-<section>
-  <div class="toc" data-selected="4"></div>
+  <div class="toc" data-selected="5"></div>
 </section>
 <section>
   <section>
     <h2>Application 1: Dynamic Element Generation</h2>
+    <pre><code class="lang-javascript">
+const p = document.createElement("p");
+p.textContent = "I am a new paragraph";
+p.setAttribute("id", "newp1"); // or: p.id = "newp1"
+
+parent.append(p);        // add as the last child
+parent.prepend(p);       // move it to be the first child
+p.replaceWith(other);    // put another node in its place
+other.remove();          // delete it from the page
+    </code></pre>
     <ul>
-      <li>Add/Remove objects to/from DOM using JavaScript</li>
-      <li>Create an element</li>
-      <pre><code class="lang-javascript">
-document.createElement(tagName)
-    </code></pre>
-      <li>Set or Get attribute</li>
-      <pre><code class="lang-javascript">
-element.getAttribute(name)
-element.setAttribute(name, value)
-    </code></pre>
+      <li>
+        In old code: <code>appendChild</code>, <code>insertBefore</code>,
+        <code>replaceChild</code>, <code>removeChild</code> on the parent
+      </li>
     </ul>
   </section>
-  <section>
-    <ul>
-      <li>Append &amp; Insert the new element as a child of parent</li>
-      <pre><code class="lang-javascript">
-parent.appendChild(child)
-parent.insertBefore(newChild, existingChild)
-      </code></pre>
-      <li>To delete or replace child</li>
-      <pre><code class="lang-javascript">
-parent.removeChild(child)
-parent.replaceChild(newChild, oldChild)
-      </code></pre>
-    </ul>
-  </section>
-</section>
-<section>
   <section>
     <h2>Content Generation Example</h2>
     <script type="text/javascript">
@@ -2628,20 +1748,19 @@ parent.replaceChild(newChild, oldChild)
         let parent = document.getElementById("main");
         let newp = document.createElement("p");
         newp.id = "newp" + id;
-        newp.innerHTML = "I am new paragraph";
-        parent.appendChild(newp);
+        newp.textContent = "I am new paragraph";
+        parent.append(newp);
       }
 
       let replace = 0;
       function replaceNewP() {
         replace++;
         if (replace <= id) {
-          let parent = document.getElementById("main");
           let newp = document.getElementById("newp" + replace);
           let newer = document.createElement("span");
           newer.style.borderStyle = "solid";
-          newer.innerHTML = "I replace the new paragraph";
-          parent.replaceChild(newer, newp);
+          newer.textContent = "I replace the new paragraph";
+          newp.replaceWith(newer);
         } else {
           replace = id;
         }
@@ -2667,8 +1786,8 @@ function addNewP() {
   let parent = document.getElementById("main");
   let newp = document.createElement("p");
   newp.id = "newp" + id;
-  newp.innerHTML = "I am new paragraph";
-  parent.appendChild(newp);
+  newp.textContent = "I am new paragraph";
+  parent.append(newp);
 }
     </code></pre>
     <pre><code class="lang-javascript">
@@ -2676,12 +1795,11 @@ let replace = 0;
 function replaceNewP() {
   replace++;
   if (replace &lt;= id) {
-    let parent = document.getElementById("main");
     let newp = document.getElementById("newp" + replace);
     let newer = document.createElement("span");
     newer.style.borderStyle = "solid";
-    newer.innerHTML = "I replace the new paragraph";
-    parent.replaceChild(newer, newp);
+    newer.textContent = "I replace the new paragraph";
+    newp.replaceWith(newer);
   } else {
     replace = id;
   }
@@ -2711,12 +1829,9 @@ function replaceNewP() {
       </li>
       <li>
         In client side we check
-        <em class="hl-green">format</em> (pattern/syntax)
+        <em class="hl-green">format</em> (pattern/syntax), e.g. a date pattern
+        or a password length
       </li>
-      <ul>
-        <li>Checking format, e.g., Date or Time pattern</li>
-        <li>Checking length, e.g. Password length</li>
-      </ul>
     </ul>
     <li>Steps:</li>
     <ol>
@@ -2801,140 +1916,36 @@ new URLSearchParams(new FormData(form)).toString();
 </section>
 <section>
   <section>
-    <form>
-      <textarea rows="3" cols="20" id="txtID"> </textarea><br />
-      <input type="button" value="Convert" id="btnID" />
-    </form>
-    <p style="font-size: 0.7em">
-      Output will be here:<br />
-      <span id="outID"> </span>
-    </p>
-
-    <script type="text/javascript">
-      function upperCaseArea(textareaID, outputID) {
-        return () => {
-          let textareaObject = document.getElementById(textareaID);
-          let content = textareaObject.value.toUpperCase();
-          let outputObject = document.getElementById(outputID);
-          // textContent, not innerHTML — the input came from the user
-          outputObject.textContent = content;
-        };
-      }
-
-      document.getElementById("btnID").onclick = upperCaseArea(
-        "txtID",
-        "outID",
-      );
-    </script>
-  </section>
-  <section>
+    <h2>Regular Expressions</h2>
     <pre><code class="lang-javascript">
-function upperCaseArea(textareaID, outputID) {
-  return () =&gt; {
-    let textareaObject = document.getElementById(textareaID);
-    let content = textareaObject.value.toUpperCase();
-    let outputObject = document.getElementById(outputID);
-
-    // textContent, not innerHTML: the input came from the user and must
-    // never be parsed as markup. See the Web Security lecture.
-    outputObject.textContent = content;
-  };
-}
-
-document.getElementById("btnID").onclick = upperCaseArea("txtID", "outID");
+/^\d{4}$/.test("2026");     // true or false
+"a1b22".match(/\d+/g);       // ["1", "22"]
     </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>JavaScript Form Validation Example</h2>
-    <form>
-      <input type="checkbox" name="osSelect" value="Linux" /> Linux,
-      <input type="checkbox" name="osSelect" value="Windows" /> Windows,
-      <input type="checkbox" name="osSelect" value="Mac" /> Mac,
-      <input type="checkbox" name="osSelect" value="Unix" /> Unix
-      <br />
-      <input
-        type="button"
-        value="Find OS"
-        onclick="findOS(this.form, 'osSelectOut')"
-      />
-    </form>
-    <span id="osSelectOut" style="font-size: 15pt"> </span>
-
-    <script>
-      function findOS(form, outputID) {
-        const systems = new FormData(form).getAll("osSelect");
-        const output = document.getElementById(outputID);
-        if (systems.length === 0) {
-          output.textContent = "Select at least one OS";
-        } else {
-          output.textContent = "Ok, you are master in " + systems.join(", ");
-        }
-      }
-    </script>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-function findOS(form, outputID) {
-  const systems = new FormData(form).getAll("osSelect");
-  const output = document.getElementById(outputID);
-  if (systems.length === 0) {
-    output.textContent = "Select at least one OS";
-  } else {
-    output.textContent = "Ok, you are master in " + systems.join(", ");
-  }
-}
-    </code></pre>
-    <pre><code class="lang-html">
-&lt;input type="button" value="Find OS" onclick="findOS(this.form, 'osSelectOut')" /&gt;
-    </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>Form Validation by Regular Expression</h2>
-    <pre><code class="lang-javascript">
-reg_expr = /expression/;
-
-// The test() method executes a search for a match between a regular expression and a specified string.
-// Returns true or false.
-reg_expr.test(string)
-
-// The match method retrieves the matches when matching a string against a regular expression.
-string.match(reg_expr)
-  </code></pre>
-  </section>
-  <section>
-    <table>
+    <table style="font-size: 0.8em">
       <tr>
         <td><code>c*</code></td>
         <td>&ge; 0 of c</td>
         <td><code>c+</code></td>
         <td>&ge; 1 of c</td>
       </tr>
-
       <tr>
         <td><code>c?</code></td>
         <td>0 or 1 of c</td>
         <td><code>c{x}</code></td>
         <td>x times of c</td>
       </tr>
-
       <tr>
         <td><code>.</code></td>
         <td>A char (no new line)</td>
         <td><code>c1|c2</code></td>
         <td>c1 or c2</td>
       </tr>
-
       <tr>
-        <td><code>[]</code></td>
-        <td>Any combination of given characters</td>
-        <td><code>[^]</code></td>
-        <td>Any string without the given characters</td>
+        <td><code>[abc]</code></td>
+        <td>One of the given characters</td>
+        <td><code>[^abc]</code></td>
+        <td>One character that is not given</td>
       </tr>
-
       <tr>
         <td><code>\d</code></td>
         <td>A digit</td>
@@ -3040,28 +2051,19 @@ document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
   <section>
     <h2><code>Event.preventDefault</code></h2>
     <p>
-      The Event interface's preventDefault() method tells the user agent that if
-      the event does not get explicitly handled, its default action should not
-      be taken as it normally would be.
+      Stop the browser's <em class="hl-orange">default action</em> for the
+      event: submit a form, follow a link, toggle a checkbox
     </p>
-  </section>
-  <section>
-    <p>Toggling a checkbox is the default action of clicking on a checkbox.</p>
     <pre><code class="lang-javascript">
-document.querySelector("#id-checkbox").addEventListener("click", function(event) {
-  document.getElementById("output-box").innerHTML += "Sorry! &lt;code&gt;preventDefault()&lt;/code&gt; won't let you check this!&lt;br&gt;";
-  event.preventDefault();
+const box = document.querySelector("#id-checkbox");
+
+box.addEventListener("click", (event) =&gt; {
+  event.preventDefault(); // the box does not toggle
+  document.getElementById("output-box").append(
+    "Sorry! preventDefault() won't let you check this!",
+    document.createElement("br"),
+  );
 });
-    </code></pre>
-    <pre><code class="lang-html">
-&lt;p&gt;Please click on the checkbox control.&lt;/p&gt;
-
-&lt;form&gt;
-  &lt;label for="id-checkbox"&gt;Checkbox:&lt;/label&gt;
-  &lt;input type="checkbox" id="id-checkbox"/&gt;
-&lt;/form&gt;
-
-&lt;div id="output-box"&gt;&lt;/div&gt;
     </code></pre>
   </section>
   <section>
@@ -3075,15 +2077,17 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
     <div id="output-box"></div>
 
     <script>
-      document.querySelector("#id-checkbox").addEventListener(
-        "click",
-        function (event) {
-          document.getElementById("output-box").innerHTML +=
-            "Sorry! <code>preventDefault()</code> won't let you check this!<br>";
+      document
+        .querySelector("#id-checkbox")
+        .addEventListener("click", (event) => {
           event.preventDefault();
-        },
-        false,
-      );
+          document
+            .getElementById("output-box")
+            .append(
+              "Sorry! preventDefault() won't let you check this!",
+              document.createElement("br"),
+            );
+        });
     </script>
   </section>
 </section>
@@ -3133,276 +2137,132 @@ document.querySelector("#id-checkbox").addEventListener("click", function(event)
 <section>
   <section>
     <h2>Application 3: Working with Document</h2>
-    <ul>
-      <li>
-        <code class="hl-orange">document</code> object is created by browser for
-        each HTML page (document) that is viewed
-      </li>
-      <li>
-        Its properties provide useful information to read/write about the HTML
-        document
-      </li>
-    </ul>
-  </section>
-  <section>
     <table>
       <tr>
+        <td><code>forms</code>, <code>images</code>, <code>links</code></td>
+        <td>Collections of these elements</td>
+      </tr>
+      <tr>
+        <td><code>body</code>, <code>head</code></td>
         <td>
-          <code>anchors</code>, <code>forms</code>, <code>images</code>,
-          <code>links</code>, <code>scripts</code>
+          The <code>&lt;body&gt;</code> and <code>&lt;head&gt;</code> elements
         </td>
-        <td>Array of different types of HTML elements</td>
       </tr>
       <tr>
-        <td><code>body</code></td>
-        <td>The object corresponding to <code>&lt;body&gt;</code></td>
+        <td><code>title</code>, <code>dir</code></td>
+        <td>The title and the direction of the document</td>
       </tr>
       <tr>
-        <td><code>dir</code></td>
-        <td>Document direction</td>
-      </tr>
-      <tr>
-        <td><code>title</code></td>
-        <td>Title of the document</td>
-      </tr>
-      <tr>
-        <td>
-          <code>cookie</code>, <code>location</code>, <code>domain</code>, ...
-        </td>
+        <td><code>URL</code>, <code>referrer</code>, <code>cookie</code></td>
         <td>Information about HTTP</td>
       </tr>
     </table>
   </section>
-</section>
-<section>
-  <h2>Document Object Example</h2>
-  <table id="http-info"></table>
-  <script>
-    document.getElementById("http-info").innerHTML =
-      "<tr><td><code>referrer</code></td>" +
-      `<td>${document.referrer}</td></tr>` +
-      "<tr><td><code>URL</code></td>" +
-      `<td>${document.URL}</td></td>` +
-      "<tr><td><code>location.protocol: </code></td>" +
-      `<td>${document.location.protocol}</td></tr>` +
-      "<tr><td><code>domain: </code></td>" +
-      `<td>${document.domain}</td></tr>` +
-      "<tr><td><code>location.pathname: </code></td>" +
-      `<td>${document.location.pathname}</td></tr>`;
-  </script>
+  <section>
+    <h2>Document Object Example</h2>
+    <table id="http-info"></table>
+    <script>
+      (function () {
+        const rows = [
+          ["referrer", document.referrer],
+          ["URL", document.URL],
+          ["location.protocol", document.location.protocol],
+          ["location.pathname", document.location.pathname],
+        ];
+        const table = document.getElementById("http-info");
+        for (const [name, value] of rows) {
+          const tr = table.insertRow();
+          const key = document.createElement("code");
+          key.textContent = name;
+          tr.insertCell().append(key);
+          tr.insertCell().textContent = value;
+        }
+      })();
+    </script>
 
-  <form>
-    <input type="button" value="Change Sides" id="change_dir" />
-  </form>
-  <p>من یک متن فارسی هستم</p>
-  <script type="text/javascript">
-    var the_button = document.getElementById("change_dir");
-    the_button.onclick = function () {
-      document.dir = document.dir != "ltr" ? "ltr" : "rtl";
-    };
-  </script>
-</section>
-<section>
-  <h2>Application 4: Working with Browser</h2>
-  <ul>
-    <li>
-      The <code class="hl-orange">window</code> objects provide useful
-      properties and methods to work with browser window
-    </li>
-    <ul>
-      <li>Properties to access browser window size</li>
-      <li>Methods &amp; properties to work browser history</li>
-      <li>Method to open/close/change browser window</li>
-      <li>Method to run periodic functions</li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <section>
-    <h2>window Object</h2>
-    <ul>
-      <li>
-        The <code>window</code> object is created for each window/tab that
-        appears on the screen
-      </li>
-      <li>Major properties</li>
-    </ul>
+    <form>
+      <input type="button" value="Change Sides" id="change_dir" />
+    </form>
+    <p>من یک متن فارسی هستم</p>
+    <script type="text/javascript">
+      document.getElementById("change_dir").onclick = function () {
+        document.dir = document.dir === "rtl" ? "ltr" : "rtl";
+      };
+    </script>
   </section>
+</section>
+<section>
   <section>
-    <table>
+    <h2>Application 4: Working with Browser</h2>
+    <table style="font-size: 0.8em">
       <tr>
-        <td><code>document</code></td>
-        <td>This is the <code>document</code> object (that we have seen)</td>
+        <td><code>window</code></td>
+        <td>
+          The global object, one per tab:
+          <code>alert</code> is really <code>window.alert</code>
+        </td>
+      </tr>
+      <tr>
+        <td><code>location</code></td>
+        <td>The URL; set it to go to another page</td>
       </tr>
       <tr>
         <td><code>history</code></td>
         <td>
-          Provides information on the browser history of the current window;
-          method to go forward and backward in the history
+          <code>back()</code>, <code>forward()</code>, <code>length</code>
         </td>
       </tr>
       <tr>
-        <td>*<code>Height</code> *<code>Width</code></td>
-        <td>Height &amp; width of window or screen</td>
+        <td><code>innerWidth</code>, <code>screen</code></td>
+        <td>The size of the window and the screen</td>
       </tr>
       <tr>
-        <td><code>location</code></td>
-        <td>URL of the window</td>
+        <td><code>setTimeout</code>, <code>setInterval</code></td>
+        <td>Run a function later, or again and again</td>
       </tr>
     </table>
   </section>
-</section>
-<section>
-  <section name="window-properties">
+  <section>
     <h2>window Properties</h2>
-    <script type="text/javascript">
-      let tooSmall = 0;
-      let content;
-
-      window.onresize = function () {
-        console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
-        console.log(`small: ${tooSmall}`);
-
-        if (
-          tooSmall == 0 &&
-          (window.innerHeight < 250 || window.innerWidth < 500)
-        ) {
-          tooSmall = 1;
-          let el = document.getElementsByName("window-properties")[0];
-          if (el != null) {
-            content = el.innerHTML;
-            el.innerHTML = "";
-
-            msg = document.createElement("h1");
-            msg.innerHTML = "The window is too small, please resize!!!";
-            el.appendChild(msg);
-          }
-        }
-
-        if (
-          tooSmall == 1 &&
-          window.innerHeight >= 250 &&
-          window.innerWidth >= 500
-        ) {
-          tooSmall = 0;
-          document.getElementsByName("window-properties")[0].innerHTML =
-            content;
-        }
-      };
-    </script>
+    <table id="dimension">
+      <tr>
+        <td><code>screen.height</code>:</td>
+        <td></td>
+        <td><code>screen.width</code>:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>innerHeight</code>:</td>
+        <td></td>
+        <td><code>innerWidth</code>:</td>
+        <td></td>
+      </tr>
+    </table>
     <ul>
-      <li>Window Size (in pixel)</li>
-      <li>Please resize to see what happens</li>
-      <table id="dimension">
-        <tr>
-          <td><code>screen.height</code>:</td>
-          <td></td>
-          <td><code>screen.width</code>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><code>screen.availHeight</code>:</td>
-          <td></td>
-          <td><code>screen.availWidth</code>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><code>outerHeight</code>:</td>
-          <td></td>
-          <td><code>outerWidth</code>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><code>innerHeight</code>:</td>
-          <td></td>
-          <td><code>innerWidth</code>:</td>
-          <td></td>
-        </tr>
-      </table>
       <li>
-        Zoom in/out decreases/increases height/width because it makes pixels
-        bigger/smaller
+        Zoom in/out decreases/increases <code>innerWidth</code> because it makes
+        the CSS pixels bigger/smaller
       </li>
-
       <li>History length: <span id="history"></span></li>
       <li>Location: <span id="location" style="font-size: 0.8em"></span></li>
     </ul>
     <script type="text/javascript">
-      let t = document.getElementById("dimension");
-      t.children[0].children[0].children[1].innerHTML = window.screen.height;
-      t.children[0].children[0].children[3].innerHTML = window.screen.width;
-
-      t.children[0].children[1].children[1].innerHTML =
-        window.screen.availHeight;
-      t.children[0].children[1].children[3].innerHTML =
-        window.screen.availWidth;
-
-      t.children[0].children[2].children[1].innerHTML = window.outerHeight;
-      t.children[0].children[2].children[3].innerHTML = window.outerWidth;
-
-      t.children[0].children[3].children[1].innerHTML = window.innerHeight;
-      t.children[0].children[3].children[3].innerHTML = window.innerWidth;
-
-      document.getElementById("history").innerHTML = window.history.length;
-      document.getElementById("location").innerHTML = window.location;
+      (function () {
+        const cells = document.querySelectorAll(
+          "#dimension td:nth-child(even)",
+        );
+        const show = () => {
+          cells[0].textContent = screen.height;
+          cells[1].textContent = screen.width;
+          cells[2].textContent = window.innerHeight;
+          cells[3].textContent = window.innerWidth;
+        };
+        show();
+        window.addEventListener("resize", show);
+        document.getElementById("history").textContent = history.length;
+        document.getElementById("location").textContent = location.href;
+      })();
     </script>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-let tooSmall = 0;
-let content;
-
-window.onresize = function () {
-  console.log(`new window ${window.innerWidth} x ${window.innerHeight}`);
-  console.log(`small: ${tooSmall}`);
-
-  if (
-    tooSmall == 0 &amp;&amp;
-    (window.innerHeight &lt; 250 || window.innerWidth &lt; 500)
-  ) {
-    tooSmall = 1;
-    let el = document.getElementsByName("window-properties")[0];
-    if (el != null) {
-      content = el.innerHTML;
-      el.innerHTML = "";
-
-      msg = document.createElement("h1");
-      msg.innerHTML = "The window is too small, please resize!!!";
-      el.appendChild(msg);
-    }
-  }
-
-  if (
-    tooSmall == 1 &amp;&amp;
-    window.innerHeight &gt;= 250 &amp;&amp;
-    window.innerWidth &gt;= 500
-  ) {
-    tooSmall = 0;
-    document.getElementsByName(
-      "window-properties"
-    )[0].innerHTML = content;
-  }
-};
-    </code></pre>
-  </section>
-</section>
-<section>
-  <section>
-    <h2>window Object Methods</h2>
-    <table>
-      <tr>
-        <td><code>forward()</code>, <code>back()</code></td>
-        <td>One time forward or back in history</td>
-      </tr>
-      <tr>
-        <td><code>stop()</code>, <code>close()</code></td>
-        <td>Stop page loading or close it</td>
-      </tr>
-      <tr>
-        <td><code>open()</code></td>
-        <td>Create new window</td>
-      </tr>
-    </table>
   </section>
   <section>
     <p>Alert "Hello" every 3 seconds (3000 milliseconds)</p>
@@ -3429,64 +2289,24 @@ clearInterval(hello)
       };
     </script>
   </section>
-  <section>
-    <p>Alert "Hello" after 3 seconds (3000 milliseconds)</p>
-    <pre><code class="lang-javascript">
-let hello = setTimeout(() =&gt; alert("Hello"), 3000);
-clearTimeout(hello)
-    </code></pre>
-    <button id="tSet">Set</button>
-    <button id="tClear">Clear</button>
-
-    <script>
-      let helloT = -1;
-
-      document.getElementById("tSet").onclick = () => {
-        helloT = setTimeout(() => {
-          alert("Hello");
-          helloT = -1;
-        }, 3000);
-      };
-
-      document.getElementById("tClear").onclick = () => {
-        if (helloT == -1) {
-          alert("please start the interval");
-        }
-        clearTimeout(helloT);
-        helloT = -1;
-      };
-    </script>
-  </section>
 </section>
 <section>
   <h2>navigator Object</h2>
   <ul>
-    <li>Checking browser software</li>
-    <li><code>navigator</code></li>
-    <ul>
-      <li>Properties to read browser characteristic</li>
-    </ul>
+    <li>Information about the browser itself</li>
   </ul>
   <table>
     <tr>
-      <td><code>appCodeName</code>:</td>
-      <td id="appCodeName"></td>
-    </tr>
-    <tr>
-      <td><code>appName</code>:</td>
-      <td id="appName"></td>
-    </tr>
-    <tr>
-      <td><code>appVersion</code>:</td>
-      <td id="appVersion"></td>
-    </tr>
-    <tr>
       <td><code>language</code>:</td>
-      <td id="language"></td>
+      <td id="nav-language"></td>
     </tr>
     <tr>
-      <td><code>platform</code>:</td>
-      <td id="platform"></td>
+      <td><code>cookieEnabled</code>:</td>
+      <td id="nav-cookieEnabled"></td>
+    </tr>
+    <tr>
+      <td><code>onLine</code>:</td>
+      <td id="nav-onLine"></td>
     </tr>
     <tr>
       <td>
@@ -3496,205 +2316,86 @@ clearTimeout(hello)
           ></code
         >:
       </td>
-      <td id="userAgent"></td>
+      <td id="nav-userAgent" style="font-size: 0.7em"></td>
     </tr>
   </table>
   <script type="text/javascript">
-    document.getElementById("appCodeName").innerHTML = navigator.appCodeName;
-    document.getElementById("appName").innerHTML = navigator.appName;
-    document.getElementById("appVersion").innerHTML = navigator.appVersion;
-    document.getElementById("language").innerHTML = navigator.language;
-    document.getElementById("platform").innerHTML = navigator.platform;
-    document.getElementById("userAgent").innerHTML = navigator.userAgent;
+    for (const key of ["language", "cookieEnabled", "onLine", "userAgent"]) {
+      document.getElementById("nav-" + key).textContent = navigator[key];
+    }
   </script>
 </section>
 <section>
-  <section>
-    <h2>Application 5: JavaScript Access to Cookies</h2>
-    <ul>
-      <li>Saving client preferences</li>
-      <li>Remark: Cookie is a solution for HTTP statelessness problem</li>
-      <ul>
-        <li>Server sets cookies on first connection: name=value</li>
-        <li>Client returns back the cookies in subsequent communications</li>
-        <li>Server knows who the client is and provides its state</li>
-      </ul>
-      <li>
-        Cookies can be used by JavaScript as small storage in
-        <em class="hl-orange">client side!</em>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>because browser</li>
-      <ul>
-        <li>stores &amp; loads them automatically</li>
-        <li>provides API to access them by JS</li>
-      </ul>
-      <li>
-        <em>Note</em>: disrespect of originator, cookies
-        <span class="hl-green">are sent</span> to server automatically!
-      </li>
-    </ul>
-  </section>
-</section>
-<section>
-  <h2>JavaScript Access to Cookies</h2>
+  <h2>Application 5: Cookies</h2>
+  <pre><code class="lang-javascript">
+// add or replace one cookie
+document.cookie = "theme=dark; max-age=31536000; path=/";
+
+// read: all the cookies of this page in one string
+document.cookie; // "theme=dark; lang=fa"
+  </code></pre>
   <ul>
     <li>
-      All cookies (set by server or JS itself) are accessible by JavaScript
+      The browser sends the cookies to the server
+      <span class="hl-green">with every request</span>, also the ones JS set
     </li>
-    <ul>
-      <li>
-        Except the cookies with
-        <code class="hl-orange">httpOnly</code> attribute
-      </li>
-    </ul>
-    <li>Extremely easy approach to read or write cookies</li>
-    <ul>
-      <li>
-        Cookies are saved in <code class="hl-green">document.cookie</code> as a
-        string
-      </li>
-      <li>
-        To add a cookie, set "name=value" string in
-        <code class="hl-green">document.cookie</code>
-      </li>
-      <li>
-        To read a cookie, parse <code class="hl-green">document.cookie</code>
-      </li>
-    </ul>
     <li>
-      <em>Note</em>: Chrome by default ignores cookies set by
-      <em>file</em> schema.
+      JS can not see cookies with the
+      <code class="hl-orange">HttpOnly</code> attribute: this protects session
+      cookies from XSS
     </li>
+    <li>For data only the page needs, use Web Storage</li>
   </ul>
 </section>
 <section>
-  <section>
-    <h2>Local Storage</h2>
-    <ul>
-      <li>
-        The <code class="hl-green">window.localStorage</code> object stores the
-        data with no expiration date.
-      </li>
-      <li>
-        Name/value pairs are always stored as strings.
-        <span class="hl-orange">Remember</span> to convert them to another
-        format when needed
-      </li>
-    </ul>
-    <pre><code class="lang-javascript">
-// store
+  <h2>Web Storage</h2>
+  <pre><code class="lang-javascript">
 localStorage.setItem("lastname", "Smith");
-
-// retrieve
-document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-
-// remove
+localStorage.getItem("lastname"); // "Smith"
 localStorage.removeItem("lastname");
+
+// only strings: convert objects yourself
+localStorage.setItem("user", JSON.stringify({ name: "Sara" }));
+JSON.parse(localStorage.getItem("user")).name; // "Sara"
   </code></pre>
-  </section>
-  <section>
-    <h2>Session Storage</h2>
-    <ul>
-      <li>
-        The <code class="hl-green">window.sessionStorage</code> object is equal
-        to the localStorage object, except that it stores the data for only one
-        session.
-      </li>
-      <li>
-        The data is deleted when the user closes the specific browser tab.
-      </li>
-    </ul>
-  </section>
+  <ul>
+    <li>
+      <code class="hl-green">localStorage</code>: no expiration date, one store
+      per origin
+    </li>
+    <li>
+      <code class="hl-green">sessionStorage</code>: the same API, deleted when
+      the user closes the tab
+    </li>
+    <li>It is <em class="hl-red">not</em> sent to the server</li>
+  </ul>
 </section>
 <section>
   <section>
     <h2>Application 6: Fetch</h2>
     <ul>
       <li>
-        The <code class="hl-orange">Fetch API</code> provides a JavaScript
-        interface for accessing and manipulating parts of the
-        <code class="hl-green">HTTP pipeline</code>, such as requests and
-        responses.
+        <code class="hl-orange">fetch(url, options)</code> sends an HTTP request
+        and returns a <code class="hl-green">Promise</code> of the
+        <em class="hl-yellow">Response</em>
       </li>
       <li>
-        It also provides a global <code class="hl-yellow">fetch()</code> method
-        that provides an easy, logical way to fetch resources
-        <strong class="hl-violet">asynchronously</strong>
-        across the network.
+        It resolves for every HTTP answer, also 404 and 500: check
+        <code class="hl-green">response.ok</code> (status 200–299)
+      </li>
+      <li>
+        It rejects with a <code class="hl-red">TypeError</code> only when there
+        is no answer: a network error, or a CORS block
       </li>
     </ul>
-  </section>
-  <section>
-    <ul>
-      <li>
-        The <code class="hl-orange">fetch()</code> method takes one mandatory
-        argument, the path to the resource you want to fetch.
-      </li>
-      <li>
-        It returns a <code class="hl-green">Promise</code> that resolves to the
-        <em class="hl-yellow">Response</em> to that request, whether it is
-        successful or not.
-      </li>
-    </ul>
-  </section>
-  <section>
     <pre><code class="lang-javascript">
-fetch('http://example.com/movies.json')
-  .then(response =&gt; response.json())
-  .then(data =&gt; console.log(data));
+const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+if (!response.ok) {
+  throw new Error(`HTTP ${response.status}`);
+}
+const user = await response.json(); // the body, parsed
+console.log(user.name); // "Leanne Graham"
     </code></pre>
-    <ul>
-      <li>
-        Here we are fetching a JSON file across the network and printing it to
-        the console.
-      </li>
-      <li>
-        The simplest use of fetch() takes one argument — the path to the
-        resource you want to fetch — and returns a promise containing the
-        response (a Response object).
-      </li>
-      <ul>
-        <li>This is just an HTTP response, not the actual JSON.</li>
-        <li>
-          To extract the JSON body content from the response, we use the json()
-          method (defined on the Body mixin, which is implemented by both the
-          Request and Response objects.)
-        </li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <pre><code class="lang-javascript">
-fetch('flowers.jpg')
-  .then(response =&gt; {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.blob();
-  })
-  .then(myBlob =&gt; {
-    myImage.src = URL.createObjectURL(myBlob);
-  })
-  .catch(error =&gt; {
-    console.error('There has been a problem with your fetch operation:', error);
-  });
-    </code></pre>
-    <ul>
-      <li>A fetch() promise will reject with a TypeError when</li>
-      <ul>
-        <li>a network error is encountered</li>
-        <li>CORS is misconfigured</li>
-      </ul>
-      <li>
-        The ok read-only property of the Response interface contains a Boolean
-        stating whether the response was successful (status in the range
-        200-299) or not.
-      </li>
-    </ul>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -3708,7 +2409,7 @@ function swapiExec() {
         ).textContent = JSON.stringify(data))
     )
     .catch(
-      (err) =>
+      (err) =&gt;
         (document.getElementById("swapi-result").textContent =
           `could not reach the web service: ${err.message}`)
     );
@@ -3735,97 +2436,37 @@ function swapiExec() {
   </section>
   <section>
     <script>
-      function wikiSWLogo() {
-        fetch(
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/330px-Star_Wars_Logo.svg.png",
-        )
-          .then((resp) => resp.blob())
-          .then((content) => {
-            let img = document.createElement("img");
-            img.src = URL.createObjectURL(content);
-            document
-              .querySelector("section.present > section.present")
-              .appendChild(img);
-          })
-          .catch((err) => {
-            let msg = document.createElement("p");
-            msg.textContent = `could not reach Wikimedia: ${err.message}`;
-            document
-              .querySelector("section.present > section.present")
-              .appendChild(msg);
-          });
-      }
-    </script>
-    <pre><code class="lang-javascript">
-function wikiSWLogo() {
-  fetch(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/330px-Star_Wars_Logo.svg.png"
-  )
-    .then((resp) =&gt; resp.blob())
-    .then((content) =&gt; {
-      let img = document.createElement("img");
-      img.src = URL.createObjectURL(content);
-      document
-        .querySelector("section.present &gt; section.present")
-        .appendChild(img);
-    })
-    .catch((err) =&gt; {
-      let msg = document.createElement("p");
-      msg.textContent = `could not reach Wikimedia: ${err.message}`;
-      document
-        .querySelector("section.present &gt; section.present")
-        .appendChild(msg);
-    });
-}
-    </code></pre>
-    <button onclick="wikiSWLogo()">Logo!</button><br />
-  </section>
-  <section>
-    <script>
       function fetchWithErr(url) {
+        const out = document.getElementById("errMessage");
+        const print = (text) => out.append(text, document.createElement("br"));
         fetch(url)
           .then((response) => {
             if (!response.ok) {
-              throw new Error(
-                "Network response was not ok, " + response.status,
-              );
+              throw new Error(`HTTP status ${response.status}`);
             }
             return response.text();
           })
-          .then((content) => {
-            document.getElementById("errMessage").innerHTML +=
-              `Success: <code class="hl-orange">${content}</code><br />`;
-          })
-          .catch((error) => {
-            document.getElementById("errMessage").innerHTML +=
-              `There has been a problem with your fetch operation: <code class="hl-red">${error}</code> <br />`;
-          });
+          .then((content) => print(`Success: ${content}`))
+          .catch((error) => print(`Failed: ${error}`));
       }
     </script>
     <pre><code class="lang-javascript">
 function fetchWithErr(url) {
+  const out = document.getElementById("errMessage");
+  const print = (text) =&gt; out.append(text, document.createElement("br"));
+
   fetch(url)
     .then((response) =&gt; {
       if (!response.ok) {
-        throw new Error(
-          "Network response was not ok, " + response.status
-        );
+        throw new Error(`HTTP status ${response.status}`);
       }
       return response.text();
     })
-    .then((content) =&gt; {
-      document.getElementById(
-        "errMessage"
-      ).innerHTML += `Success: &lt;code class="hl-orange"&gt;${content}&lt;/code&gt;&lt;br /&gt;`;
-    })
-    .catch((error) =&gt; {
-      document.getElementById(
-        "errMessage"
-      ).innerHTML += `There has been a problem with your fetch operation: &lt;code class="hl-red"&gt;${error}&lt;/code&gt; &lt;br /&gt;`;
-    });
+    .then((content) =&gt; print(`Success: ${content}`))
+    .catch((error) =&gt; print(`Failed: ${error}`));
 }
     </code></pre>
-    <div id="errMessage"></div>
+    <div id="errMessage" style="font-size: 0.6em"></div>
     <button onclick="fetchWithErr('https://httpbin.org/status/403')">
       403
     </button>
@@ -3834,76 +2475,65 @@ function fetchWithErr(url) {
   </section>
 </section>
 <section>
-  <section>
-    <h2>JavaScript in Action with an Email Client</h2>
-    <ul>
-      <li>Add new item per new received email</li>
-      <ul>
-        <li>
-          <code>document.createElement(), <var>parent.</var>appendChild()</code>
-        </li>
-      </ul>
-      <li>Check email format when composing</li>
-      <ul>
-        <li>
-          <code><var>regex</var>.test(<var>input</var>.value())</code>
-        </li>
-      </ul>
-      <li>Information about HTTP (e.g., HTTP or HTTPS?)</li>
-      <ul>
-        <li>
-          <code
-            >document.<var>property corresponding to HTTP headers</var></code
-          >
-        </li>
-      </ul>
-      <li>Hide some elements when browser window is small</li>
-      <ul>
-        <li><code>window.<var>*</var>.height/width</code></li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <ul>
-      <li>Do something periodically (e.g., checking emails)</li>
-      <ul>
-        <li><code>window.setInterval()</code></li>
-      </ul>
-      <li>Redirect to other pages</li>
-      <ul>
-        <li><code>window.location</code></li>
-      </ul>
-      <li>Check browser software (e.g., to recommend better one)</li>
-      <ul>
-        <li><code>navigator.userAgent/appVersion/...</code></li>
-      </ul>
-      <li>Save client preferences (e.g., remember me, theme, ...)</li>
-      <ul>
-        <li><code>document.cookie</code></li>
-      </ul>
-    </ul>
-  </section>
+  <h2>JavaScript in Action with an Email Client</h2>
+  <table style="font-size: 0.75em">
+    <tr>
+      <td>Show each new email</td>
+      <td><code>createElement</code>, <code>append</code></td>
+    </tr>
+    <tr>
+      <td>Check the address when composing</td>
+      <td><code>/regex/.test(input.value)</code></td>
+    </tr>
+    <tr>
+      <td>Check for new emails every minute</td>
+      <td><code>setInterval</code> + <code>fetch</code></td>
+    </tr>
+    <tr>
+      <td>Hide the side panel on a small window</td>
+      <td><code>window.innerWidth</code> (or a CSS media query)</td>
+    </tr>
+    <tr>
+      <td>Go to another page</td>
+      <td><code>location.href = ...</code></td>
+    </tr>
+    <tr>
+      <td>Remember the theme</td>
+      <td><code>localStorage</code></td>
+    </tr>
+    <tr>
+      <td>Stay logged in</td>
+      <td>a session cookie (set by the server, <code>HttpOnly</code>)</td>
+    </tr>
+  </table>
 </section>
 <section>
-  <div class="toc" data-selected="5"></div>
+  <div class="toc" data-selected="6"></div>
 </section>
 <section>
   <h2>Debugging 🐛</h2>
   <ul>
-    <li>Use the DOM tab to find methods &amp; properties</li>
     <li>
-      Basic debugging via console,
-      <code>console.log()/info()/warn()/error()</code>
+      Browser DevTools (F12): <em>Elements</em> shows the live DOM,
+      <em>Console</em> runs code, <em>Network</em> shows the requests
     </li>
-    <li>Advanced debugging via real debuggers; e.g., FireFox debugger</li>
+    <li><code>console.log()/info()/warn()/error()/table()</code></li>
+    <li>
+      <em>Sources</em>: breakpoints, or a
+      <code class="hl-orange">debugger;</code>
+      statement in the code
+    </li>
     <li>Best Practices</li>
     <ul>
-      <li>Avoid Global Variables</li>
-      <li>Always Declare Local Variables</li>
-      <li>Beware of Automatic Type Conversions</li>
-      <li>Use === Comparison</li>
+      <li>
+        <code>const</code> and <code>let</code>, never a global by accident
+      </li>
+      <li>Use <code>===</code></li>
+      <li>Beware of automatic type conversions</li>
+      <li>
+        <code>textContent</code>, not <code>innerHTML</code>, for user data
+      </li>
     </ul>
-    <li>Use powerful IDEs for development</li>
   </ul>
 </section>
 <section>
@@ -3917,11 +2547,9 @@ function fetchWithErr(url) {
       </li>
     </ul>
     <li>
-      JavaScript is <span class="hl-red">not</span> totally platform independent
+      Browsers do not all support the newest features at the same time: check
+      <a href="https://caniuse.com">caniuse</a>
     </li>
-    <ul>
-      <li>Expect different browsers to behave differently</li>
-    </ul>
     <li><span class="hl-orange">this</span> is a bit confusing!</li>
     <ul>
       <li>
@@ -3936,44 +2564,22 @@ function fetchWithErr(url) {
 <section>
   <h2>What next?!</h2>
   <ul>
-    <li>JavaScript Libraries</li>
-    <ul>
-      <li>To make life easier</li>
-      <li>D3, Lodash, Zod, TanStack Query, ...</li>
-    </ul>
-    <li>JavaScript Frameworks</li>
-    <ul>
-      <li>To make life easier even more</li>
-      <li>React, Vue, Svelte, Angular, Solid, ...</li>
-      <li>and on top of them: Next.js, Nuxt, SvelteKit, Astro</li>
-    </ul>
-    <li>JavaScript server-side programming!!!</li>
-    <ul>
-      <li>Runtimes: Node.js, Deno, Bun</li>
-      <li>Servers: Express, Fastify, Hono, Socket.IO</li>
-    </ul>
-  </ul>
-</section>
-<section>
-  <h2>What next?!</h2>
-  <ul>
-    <li>Other languages: TypeScript</li>
-    <ul>
-      <li>Object oriented</li>
-      <li>Static typing</li>
-      <li>Supports modules and interfaces</li>
-      <li>Transpiled into JavaScript</li>
-      <li>Safe in complex large applications</li>
-    </ul>
-    <li>Other languages: C, C++, ... 😱</li>
-    <ul>
-      <li>
-        Set of tool-chains (compiler, library, VM, ...) to run other languages
-        in client side
-      </li>
-      <li>asm.js and WebAssembly</li>
-      <li>High performance</li>
-    </ul>
+    <li>Libraries: D3, Lodash, Zod, TanStack Query, ...</li>
+    <li>
+      Frameworks: React, Vue, Svelte, Angular, Solid, ... and on top of them
+      Next.js, Nuxt, SvelteKit, Astro
+    </li>
+    <li>
+      Server-side: Node.js, Deno, Bun with Express, Fastify, Hono, Socket.IO
+    </li>
+    <li>
+      <em class="hl-green">TypeScript</em>: JavaScript with static types,
+      compiled into JavaScript. Safer in large applications
+    </li>
+    <li>
+      <em class="hl-cyan">WebAssembly</em>: run C, C++, Rust, Go, ... in the
+      browser at near-native speed
+    </li>
   </ul>
 </section>
 <section>
@@ -3987,16 +2593,21 @@ function fetchWithErr(url) {
       </a>
     </li>
     <li>
-      <a
-        href="https://programmingwithmosh.com/javascript/javascript-wrapper-objects/"
-        >JavaScript: Wrapper objects
-      </a>
+      <a href="https://developer.mozilla.org/en-US/docs/Glossary/Primitive"
+        >MDN: Primitive (and its wrapper objects)</a
+      >
     </li>
     <li>
       <a
         href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/get-started/ch1.md#whats-in-an-interpretation"
         >What's in an Interpretation?
       </a>
+    </li>
+    <li>
+      <a
+        href="https://github.com/tc39/proposals/blob/main/finished-proposals.md"
+        >TC39: Finished Proposals</a
+      >
     </li>
   </ul>
 </section>

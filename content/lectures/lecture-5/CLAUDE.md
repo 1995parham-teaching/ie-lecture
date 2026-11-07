@@ -1,14 +1,60 @@
 # Lecture 5 — JavaScript
 
-216 slides, 44 vertical stacks — the deck with the most slides. Topics (TOC
-indices): `0` Introduction · `1` JavaScript Basic · `2` JavaScript & DOM & CSS ·
-`3` Event Handling · `4` Web Applications · `5` Summary.
+108 slides in 66 horizontal positions. It was cut from 216 on 2026-11-06,
+when the user asked for the deck to be "short and useful" and to cover the
+newest JavaScript features. Topics (TOC indices): `0` Introduction · `1`
+JavaScript Basic · `2` Modern JavaScript · `3` JavaScript & DOM & CSS · `4`
+Event Handling · `5` Web Applications · `6` Summary. It is taught in four
+sessions (IE S11–S14): `#/2`–`#/15`, `#/16`–`#/31`, `#/32`–`#/45`,
+`#/46`–`#/66`.
 
 The middle of the deck is a full run through the concurrency model: event loop →
-zero delays → non-blocking I/O → Promise → `async`/`await` → the same chain →
-errors → waiting in parallel. Then optional chaining, nullish coalescing and
-modules. That run is the modern core of the lecture; the OOP/prototype material
-before it is the legacy half.
+zero delays → non-blocking I/O → Promise → `async`/`await` → errors → waiting in
+parallel → modules. Topic 2 then tours the editions ES2020–ES2027 (`?.`, `??`,
+`toSorted`, `Object.groupBy`, `Set` methods, iterator helpers, the ES2026
+additions, Temporal and `using`).
+
+## What the cut removed, and why
+
+Do not bring these back without a reason; each was a duplicate, legacy, or
+wrong:
+
+- Slides that repeated the next slide in prose (wrapper disposal, "Events &
+  their handling in more details", "DOM & JavaScript", the `var` scope
+  one-liner, "JavaScript Programming Language" checklist).
+- Legacy APIs: `new Object()`, `new String()`, form access by `name`
+  (`document.nametest.output`), typed arrays, the 19-row `on*` event table
+  (it listed `onkeypress` and `onunload` and said `onabort` was page loading),
+  `navigator.appCodeName/appName/appVersion/platform`, `window.stop/close/open`,
+  `document.domain`, the `window.onresize` hack that rewrote a slide.
+- The `changeMe`/`changePropertyInMe` sample, whose arrow `toString` read
+  `this`, and the bullet "call by value for primitives, by reference for
+  objects", which contradicted the pass-by-sharing slides.
+- Demos that taught nothing new: the uppercase textarea, Find OS (repeated
+  `FormData.getAll`), the Star Wars logo blob fetch, a second "What next".
+- Errors fixed on the way: `element.getElementById` (it exists only on
+  `document`), `(1.1).toExponential()` is `"1.1e+0"` not `'1.1e0'`,
+  `input.value()` on the email slide, a `while(true)` scope sample that never
+  ended, a setter that warned but still stored a negative price.
+
+## Modern JavaScript (topic 2)
+
+The edition of each feature comes from TC39's
+[finished proposals](https://github.com/tc39/proposals/blob/main/finished-proposals.md)
+(read 2026-11-06), not from blog posts — several blogs wrongly put Temporal in
+ES2026. ES2026: Upsert (`getOrInsert`), `Iterator.concat`, `Uint8Array`
+Base64/hex, `Math.sumPrecise`, `Error.isError`, `Array.fromAsync`, JSON.parse
+source text. Temporal and Explicit Resource Management (`using`) are stage 4
+with edition 2027, so the slide says "Coming in ES2027".
+
+Every sample in topic 2, and every changed sample elsewhere, was run in
+headless Chrome 157 (Node 20 lacks most of these). Notable outputs:
+`Math.sumPrecise([0.1, 0.2])` is still `0.30000000000000004` (it is exact for
+the doubles, so it is a bad demo); the slide uses `[1e20, 0.1, -1e20]` →
+`0.1` vs `reduce` → `0`. `Temporal.PlainDate.from("2026-11-07").dayOfWeek` is
+`6` (Monday is 1); `until("2027-01-01").days` is `55`. 07:45 Tehran is
+`2026-11-07T05:15:00+01:00[Europe/Berlin]`. When a new edition ships each June,
+update the table on `#/26`.
 
 ## Facts worth not re-deriving
 
@@ -31,17 +77,20 @@ before it is the legacy half.
 - The `new Person(...)` sample's constructor sets `this.name = { first, last }`
   and the other fields, so `farewell()` works. Run in Node with a stub
   `alert`: it prints "Tammi has left the building. Bye for now!".
+- The live demos were clicked in headless Chrome after the cut: the fetch
+  error slide prints `Failed: Error: HTTP status 403`, a UUID, and
+  `Failed: TypeError: Failed to fetch` (unsplash, CORS); SWAPI returns Luke
+  Skywalker; `preventDefault` keeps the checkbox unchecked. They all write with
+  `append`/`textContent` now.
 - `document.applets` was removed from the DOM; it is gone from the deck.
 - Form reading was checked in headless Chrome: `select.value` with `multiple`
   is only the first selected option (`selectedOptions` has all);
   `FormData.getAll(name)` returns every checked box sharing a name, `get` only
   the first; for radios `form.elements[name].value` is the checked one (for
   checkboxes it is `""`). The "Reading Many Values" comments are that run.
-- The HTML Validator demo and `findOS` were run from the built deck: an invalid
-  submit fires no `submit` event; a valid one is stopped by
-  `preventDefault()` and prints `age=20&email=a%40b.co`, so the deck stays.
-- The library-graveyard slide (jQuery, Prototype, MooTools…) is deliberate
-  historical framing, not a recommendation.
+- The HTML Validator demo was run from the built deck: an invalid submit fires
+  no `submit` event; a valid one is stopped by `preventDefault()` and prints
+  `age=20&email=a%40b.co`, so the deck stays.
 
 ## Diagrams
 
