@@ -34,7 +34,7 @@
   <!-- call stack blocks -->
   <text class="label" x="30" y="156" style="font-size: 14px">call stack</text>
   <rect class="box" x="30" y="170" width="460" height="56" rx="6" />
-  <text class="mono" x="260" y="198" style="font-size: 17px">task 1: the whole IIFE</text>
+  <text class="mono" x="260" y="198" style="font-size: 17px">task 1: the whole script</text>
   <rect class="box" x="560" y="170" width="140" height="56" rx="6" />
   <text class="mono orange" x="630" y="198" style="font-size: 17px">cb</text>
   <rect class="box" x="730" y="170" width="140" height="56" rx="6" />

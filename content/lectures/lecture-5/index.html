@@ -13,9 +13,26 @@ topics:
 
 <section>
   <div class="toc"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        The whole JavaScript lecture in seven topics; four sessions (S11 to
+        S14). Today: Introduction and JavaScript Basic.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <div class="toc" data-selected="0"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        HTML gives structure, CSS gives looks; today we add the third layer,
+        <strong>behaviour</strong>. Ask the class: why did the web need a
+        programming language at all?
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Why JavaScript?</h2>
@@ -33,6 +50,35 @@ topics:
       <li>TypeScript, Dart, ... are compiled into JavaScript</li>
     </ul>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        A static page looks the same until the next full reload. A menu that
+        opens, an "email is invalid" message, a list that updates:
+        <strong>all need code inside the browser</strong>.
+      </li>
+      <li>
+        Why not the server? A round trip costs tens to hundreds of ms plus a
+        reload; a check in the browser is instant.
+      </li>
+      <li>
+        <strong
+          >Client-side validation is for user experience; server-side validation
+          is for security.</strong
+        >
+        The server checks again, because a user can bypass the client.
+      </li>
+      <li>
+        The browser runs only JavaScript (plus WebAssembly), so TypeScript and
+        others are <em>transpiled</em>: source in one language turned into
+        source in another.
+      </li>
+      <li>
+        If asked about WebAssembly: a compile target for C/Rust/Go; it runs next
+        to JavaScript and still needs JavaScript to touch the DOM.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -60,6 +106,31 @@ topics:
       </li>
       <li>This lecture is about JavaScript in the browser</li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Prototype-based</strong>: there are only objects. Make a
+          generic <code>fruit</code>, link <code>banana</code> to it; a missing
+          property is looked up in <code>fruit</code>. That walk is the
+          <em>prototype chain</em>. <code>class</code> (2015) is only nicer
+          syntax on top (S12).
+        </li>
+        <li>
+          <strong>Scripting</strong> describes the workflow, not speed: you ship
+          the text, and the engine JIT-compiles the hot functions. Compare C or
+          Go: compile first, ship a binary.
+        </li>
+        <li>
+          The name was a Netscape marketing move in 1995. Java and JavaScript
+          share C-like syntax and nothing else.
+        </li>
+        <li>
+          Standard: ECMA-262, "ECMAScript". A new edition every June since 2015
+          (ES2015 = ES6). ES2026 was approved on 30 June 2026; tour of new
+          editions at the end of S12 (<code>#/26</code>).
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Engine and Runtime</h2>
@@ -68,6 +139,33 @@ topics:
       alt="Two runtimes side by side. Chrome holds the V8 engine (parse, bytecode, JIT machine code; heap, call stack, garbage collector; only ECMAScript such as Array, Promise and JSON), the host APIs document, window, fetch, setTimeout, localStorage, alert and addEventListener, and an event loop from the HTML standard. Node.js holds the same V8 engine, the host APIs fs, http, process, Buffer, fetch, setTimeout and require, and an event loop from libuv. document does not exist in Node.js, and fs does not exist in the browser"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>The engine</strong> runs the language only: numbers, strings,
+          arrays, promises. It cannot draw a button or open a file.
+        </li>
+        <li>
+          <strong>The runtime</strong> = engine + host. The host gives extra
+          objects, the <em>host APIs</em>. Like one car engine in a car (wheels)
+          or a boat (propeller).
+        </li>
+        <li>
+          Point at the yellow boxes: same V8 in Chrome and Node.js. Blue boxes:
+          <code>document</code> only in the browser, <code>fs</code> only in
+          Node (checked: <code>typeof document</code> is
+          <code>"undefined"</code> in Node).
+        </li>
+        <li>
+          Orange box: the event loop belongs to the host, not the engine (S12).
+          <code>setTimeout</code> is not part of the language either.
+        </li>
+        <li>
+          If asked: <code>console.log</code> is a host API too; both hosts give
+          it.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Where JavaScript Runs</h2>
@@ -121,6 +219,32 @@ topics:
         then compiles the hot functions to machine code
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Three big browser engines</strong>: V8 (Google), SpiderMonkey
+          (Mozilla), JavaScriptCore (Apple). Edge, Opera, Brave are Chromium, so
+          V8.
+        </li>
+        <li>
+          Down the table: Node.js put V8 on the server in 2009; Bun uses
+          JavaScriptCore. VS Code is a web page in Electron. React Native uses
+          Hermes, a small engine from Meta. Cloudflare runs each edge function
+          in a V8 <em>isolate</em>, a light sandbox.
+        </li>
+        <li>
+          JIT: V8 starts at once by interpreting bytecode, then compiles
+          functions that run many times. Fast start, fast hot code.
+        </li>
+        <li>
+          <strong>One language, learned once, runs in all these places.</strong>
+        </li>
+        <li>
+          If asked "which engine is fastest?": they are close; for a page, the
+          browser APIs matter more.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -136,6 +260,33 @@ topics:
       or other programs
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Each item is a later part of this deck: DOM and events in S13;
+        validation, HTTP and storage in S14.
+      </li>
+      <li>
+        You open pages from strangers all day, so
+        <strong>the browser assumes every script is hostile</strong>. The
+        sandbox is a locked room: no <code>~/Documents</code>, no raw sockets,
+        no processes.
+      </li>
+      <li>
+        Dangerous APIs (camera, location, notifications) need the user's
+        permission. A file is read only if the user picks it.
+      </li>
+      <li>
+        <strong>Same-origin policy</strong>: a script from one site cannot read
+        another site's page.
+      </li>
+      <li>
+        If asked about uploads: only a file chosen in
+        <code>&lt;input type="file"&gt;</code> or dropped on the page; the
+        script never browses paths.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -161,6 +312,33 @@ topics:
         a changed file (important for scripts from a CDN)
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Inline for a few lines; an external file for more: cached, shared, and
+          the HTML stays readable.
+        </li>
+        <li>
+          Two details: <code>&lt;script src&gt;</code> still needs
+          <code>&lt;/script&gt;</code>, and with <code>src</code> set, code
+          between the tags is ignored.
+        </li>
+        <li>
+          <strong>A plain script blocks the parser</strong>: stop, download,
+          run, continue. <code>defer</code>, <code>async</code> and
+          <code>type="module"</code> change this (next two slides).
+        </li>
+        <li>
+          <code>integrity</code> is Subresource Integrity: a hash of the file; a
+          different file is refused.
+          <strong>TLS protects the pipe; SRI protects the content.</strong>
+        </li>
+        <li>
+          Ask the class: open DevTools now (F12, Console) and paste every sample
+          there for the rest of the session.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>&lt;script&gt; in head or body?</h2>
@@ -191,6 +369,32 @@ topics:
         <code>type="module"</code>: download early, run after the page is parsed
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >The browser builds the page as it reads, top to bottom.</strong
+          >
+          The head script runs before the parser reaches <code>&lt;p&gt;</code>,
+          so <code>getElementById</code> returns <code>null</code> (checked in
+          Chrome 157).
+        </li>
+        <li>
+          "Scripts at the end of body" was the old advice: it works, but the
+          download starts late.
+        </li>
+        <li>
+          Modern answer:
+          <strong>in <code>&lt;head&gt;</code> with <code>defer</code></strong
+          >. Download early, while parsing; run when the page is complete.
+        </li>
+        <li>
+          If asked about <code>DOMContentLoaded</code>: the event when HTML is
+          fully parsed; <code>defer</code> gives the same result without extra
+          code.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>defer and async</h2>
@@ -210,10 +414,48 @@ topics:
       </li>
       <li>They need <code>src</code>: an inline plain script ignores them</li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          One row at a time. Green = parsing, blue = download, orange = run.
+        </li>
+        <li>
+          Plain: the green bar stops for download and run. <code>defer</code>:
+          never stops; runs after parsing, before <code>DOMContentLoaded</code>,
+          in HTML order. <code>async</code>: runs the moment it arrives; the
+          first to arrive runs first. <code>module</code>: like
+          <code>defer</code>.
+        </li>
+        <li>
+          <strong>Use <code>defer</code> for your own code</strong> (order
+          matters); <code>async</code> only for scripts that depend on nothing,
+          like analytics.
+        </li>
+        <li>
+          Tested in Chrome 157: a 100 ms <code>async</code> file ran before a
+          600 ms one that came first; two <code>defer</code> files kept HTML
+          order. On an inline script both are ignored.
+        </li>
+        <li>
+          If asked: <code>&lt;script type="module" async&gt;</code> runs when it
+          and its imports are ready.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
   <div class="toc" data-selected="1"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Now forget the browser for a while: JavaScript as a language (syntax,
+        types, operators, functions, I/O, standard library). Watch for its
+        surprises: <strong>type conversion</strong>, <code>this</code>, and the
+        event loop.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -237,6 +479,28 @@ topics:
         <li><code class="hl-red">var</code> is what you meet in old code</li>
       </ul>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          No <code>main</code>:
+          <strong
+            >top-level statements run top to bottom as soon as the script
+            loads</strong
+          >.
+        </li>
+        <li>
+          Missing semicolons are added by
+          <em>automatic semicolon insertion</em> (ASI). Classic trap:
+          <code>return</code> alone on a line, <code>{ … }</code> on the next,
+          returns <code>undefined</code>.
+        </li>
+        <li>
+          <code>const</code> means the name always points at the same value; an
+          object or array behind it can still change. <code>let</code> only to
+          reassign, such as a loop counter.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <ul>
@@ -255,6 +519,26 @@ f();
       </code></pre>
       <li>Strict mode (later) turns this mistake into an error</li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Walk it: line 1 creates <strong>two globals</strong>,
+          <code>i</code> and <code>j</code>. In <code>f</code>,
+          <code>let i</code> is local, so <code>i = 10</code> stays inside.
+          <code>j</code> has no local, so <code>j = 10</code> overwrites the
+          global. Result <code>i = 0</code>, <code>j = 10</code> (checked).
+        </li>
+        <li>
+          <strong>All scripts on a page share one global scope</strong>,
+          third-party ones too. A stray <code>count = 0</code> can overwrite
+          someone else's <code>count</code>, with no error.
+        </li>
+        <li>
+          Strict mode (S12, <code>#/20</code>) makes it a
+          <code>ReferenceError</code>; modules are strict automatically.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -282,6 +566,39 @@ x[0] = "Z"; // ignored: x is still "abc"
         gets the same value, not a copy
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Dynamically typed: the value carries the type.</strong> A
+          variable is a label you can move:
+          <code>let v = 5; v = "five";</code> is legal. TypeScript adds static
+          types back.
+        </li>
+        <li>
+          Seven primitives. Number is a 64-bit float, no int:
+          <code>0.1 + 0.2</code> is <code>0.30000000000000004</code>. BigInt:
+          <code>10n</code>. <code>undefined</code> = never assigned;
+          <code>null</code> = deliberately empty.
+        </li>
+        <li>
+          Immutable: <code>x[0] = "Z"</code> does nothing;
+          <code>toUpperCase()</code> returns a new string. Everything else is an
+          object.
+        </li>
+        <li>
+          Watch out: in strict mode or a module, <code>x[0] = "Z"</code> throws
+          <code
+            >TypeError: Cannot assign to read only property '0' of string
+            'abc'</code
+          >
+          (Node 20).
+        </li>
+        <li>
+          If asked: <code>typeof null</code> is <code>"object"</code>, an old
+          bug kept for compatibility.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -303,6 +620,29 @@ mutateNumber(n);
 console.log(n);  // 1
     </code></pre>
     <p>Both are passed by sharing. The array is mutable, the number is not.</p>
+    <aside class="notes">
+      <p>The most important slide of the hour: go slowly.</p>
+      <ul>
+        <li>
+          <strong>Pass by sharing</strong>: the parameter gets a copy of the
+          caller's <em>reference</em> (an address of the value). Both point at
+          the same thing.
+        </li>
+        <li>
+          <code>A[0] = 0</code> follows the reference and changes the one shared
+          array: caller sees <code>[0]</code>.
+        </li>
+        <li>
+          <code>n = 0</code> cannot change the number <code>1</code>; it only
+          points the local <code>n</code> elsewhere. Caller still has
+          <code>1</code>.
+        </li>
+        <li>
+          The difference is not how they are passed:
+          <strong>arrays have insides you can change; numbers do not</strong>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -318,6 +658,28 @@ console.log(A);  // [1]
       Here we do not mutate the array; we bind the local name
       <code>A</code> to a new array.
     </p>
+    <aside class="notes">
+      <ul>
+        <li>
+          This proves it is <strong>not call by reference</strong>.
+          <code>A = [0]</code> points the <em>local</em> <code>A</code> at a new
+          array; the caller keeps <code>[1]</code> (checked). In C++
+          <code>int&amp;</code>, the caller would change.
+        </li>
+        <li>
+          Rule:
+          <strong
+            >change something <em>through</em> a parameter, the caller sees it;
+            assign a new value <em>to</em> it, the caller never does.</strong
+          >
+        </li>
+        <li>
+          Watch out: <code>A = [1];</code> has no <code>let</code>, so alone it
+          makes a global (the <code>#/8/1</code> pattern). Pasted after the
+          previous slide it only reassigns.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <p>
@@ -341,6 +703,33 @@ name.tellTheTruth(); // Uncaught TypeError: name.tellTheTruth is not a function
         with everything you put on it
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          How does <code>"abc".length</code> work?
+          <strong>Wrapper objects</strong>: for one expression the engine wraps
+          the string in a temporary <code>String</code>, reads the property,
+          throws it away.
+        </li>
+        <li>
+          So <code>name.alignment = …</code> goes on a wrapper that is gone; the
+          next line gets a new wrapper: <code>undefined</code>. No
+          <code>tellTheTruth</code>, so the call throws.
+        </li>
+        <li>
+          <code>Number</code>, <code>Boolean</code>, <code>BigInt</code>,
+          <code>Symbol</code> have wrappers; <code>null</code> and
+          <code>undefined</code> do not, so <code>null.x</code> throws.
+        </li>
+        <li>
+          Watch out: in strict code the first assignment already throws
+          <code
+            >TypeError: Cannot create property 'alignment' on string 'Darth
+            Vader'</code
+          >.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Boxing: Java and JavaScript</h2>
@@ -373,6 +762,36 @@ new Boolean(false) ? "yes" : "no"; // "yes": every object is truthy
         Never write <code>new Number()</code> or <code>new Boolean()</code>
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Boxing</strong> = a primitive put inside an object (a coin in
+          a small box); unboxing takes it out. Both languages do it
+          automatically, for different reasons.
+        </li>
+        <li>
+          Java: a <code>List</code> holds only objects, so
+          <code>add(5)</code> autoboxes; <code>+ 1</code> unboxes. The box
+          stays. <code>a == b</code> compares boxes: <code>false</code> for
+          1000. Use <code>equals</code> (OpenJDK 27: <code>6</code>,
+          <code>false</code>, <code>true</code>).
+        </li>
+        <li>
+          JavaScript: arrays hold primitives directly.
+          <strong>It boxes only for a dot</strong>, then throws the box away.
+          <code>Object("abc")</code> keeps one; <code>+</code> unboxes with
+          <code>valueOf()</code>.
+        </li>
+        <li>
+          Last line: <strong>every object is truthy</strong>, even a box with
+          <code>false</code> inside, so <code>"yes"</code>. Never box by hand.
+        </li>
+        <li>
+          If asked why <code>Integer</code> 100 <code>==</code> 100 is
+          <code>true</code>: Java caches −128 to 127. Never depend on it.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -396,6 +815,35 @@ function f() {
   console.log(typeof b); // "undefined": let stays in the block
 }
   </code></pre>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>Function scope</strong>: a <code>var</code> is visible in the
+        whole function, even outside its <code>if</code>.
+        <strong>Block scope</strong>: <code>let</code>/<code>const</code> live
+        only in the nearest <code>{ … }</code>, like C and Java.
+      </li>
+      <li>
+        We use <code>typeof b</code> because reading <code>b</code> directly
+        throws <code>ReferenceError: b is not defined</code>.
+      </li>
+      <li>
+        Classic bug:
+        <code
+          >for (var i = 0; i &lt; 3; i++) setTimeout(() =&gt;
+          console.log(i))</code
+        >
+        prints <code>3 3 3</code>; with <code>let</code>, each iteration has its
+        own <code>i</code>: <code>0 1 2</code>.
+      </li>
+      <li>
+        If asked: <code>let</code>/<code>const</code> are hoisted but in the
+        <em>temporal dead zone</em>:
+        <code>console.log(z); let z = 1;</code> throws
+        <code>ReferenceError: Cannot access 'z' before initialization</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Operators &amp; Control Flow</h2>
@@ -419,6 +867,32 @@ function f() {
       <code>break</code>, <code>continue</code>: the same as C
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <code>==</code> is loose (converts first), <code>===</code> is strict.
+        Surprises: <code>null == undefined</code> and
+        <code>[] == false</code> are both <code>true</code>.
+        <strong>Always use <code>===</code> and <code>!==</code>.</strong>
+      </li>
+      <li>
+        <code>+</code> has two jobs: <code>"2" + 2</code> is <code>"22"</code>,
+        but <code>"5" - 2</code> is <code>3</code>. <code>2 ** 10</code> is
+        <code>1024</code>.
+      </li>
+      <li>
+        <strong>Truthiness</strong>: falsy are <code>false</code>,
+        <code>0</code>, <code>-0</code>, <code>0n</code>, <code>""</code>,
+        <code>null</code>, <code>undefined</code>, <code>NaN</code>. Everything
+        else is true, including <code>[]</code> and <code>{}</code>.
+      </li>
+      <li>
+        <code>switch</code> compares with <code>===</code>;
+        <code>&amp;&amp;</code> and <code>||</code> return an operand, not
+        always a boolean (S12, <code>??</code>).
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -438,6 +912,29 @@ function square(y) {
       </li>
       <li>A function can be defined inside another function</li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          No types, and no check on the number of arguments: missing ones are
+          <code>undefined</code>, extra ones ignored. No
+          <code>return</code> gives <code>undefined</code>.
+        </li>
+        <li>
+          <strong>Hoisting</strong>: the engine registers every function
+          declaration before running the scope, so <code>square(5)</code> works
+          early: <code>25</code>. Only declarations; a function in a
+          <code>const</code> is not (next slide).
+        </li>
+        <li>
+          An inner function sees the outer function's variables: a
+          <strong>closure</strong>. You will use one in S14.
+        </li>
+        <li>
+          Watch out: "by value or by reference?" Answer with <code>#/9/1</code>:
+          by sharing, for every type.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Functions are Values</h2>
@@ -458,6 +955,31 @@ const zero = () =&gt; 0;
 // pass a function to another function
 [1, 2, 3].map(sq); // [1, 4, 9]
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          A function expression is a value in a variable; calling
+          <code>add</code> before its line throws
+          <code>ReferenceError</code> (temporal dead zone).
+        </li>
+        <li>
+          Arrows:
+          <strong
+            >one expression without braces is returned automatically</strong
+          >
+          (<code>sq(4)</code> is <code>16</code>, <code>zero()</code> is
+          <code>0</code>); with braces you need <code>return</code>. Arrows have
+          no own <code>this</code>, so not as methods (S12).
+        </li>
+        <li>
+          <code>map</code> calls the function on each element:
+          <code>[1, 4, 9]</code>. We pass <code>sq</code>,
+          <strong>not <code>sq()</code></strong
+          >; S13's <code>button.onclick = hello</code> is the same rule. A
+          common bug.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -497,6 +1019,34 @@ alert("We study 'Internet Engineering'");
       erases the whole document
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Click <em>prompt</em>: <strong>modal</strong> = the whole page is frozen
+        until you answer. It returns a string, or <code>null</code> on Cancel.
+      </li>
+      <li>
+        So convert first: <code>"3" + 1</code> is <code>"31"</code>.
+        <code>parseInt</code> reads until the first non-digit:
+        <code>parseInt("10px")</code> is <code>10</code>,
+        <code>parseInt("abc")</code> is <code>NaN</code>.
+      </li>
+      <li>
+        <em>confirm</em> returns a boolean, straight into an <code>if</code>.
+        All three are <code>window.prompt</code> etc.; <code>window</code> is
+        the global object.
+      </li>
+      <li>
+        Real sites use <code>console.log</code> for the developer and the DOM
+        (S13) for the user. Never <code>document.write</code>: after load it
+        starts a new, empty document.
+      </li>
+      <li>
+        Watch out: present from the main window, not speaker view. Do not try
+        <code>document.write</code> in this tab: it wipes the deck.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -514,6 +1064,26 @@ c[10] = "HTML";
 c[120] = "JS";
 console.log(c.length); // 121: the gaps are "holes"
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>An array is an object</strong>: integer keys are the elements,
+          <code>length</code> is the largest index + 1. It grows and can mix
+          types.
+        </li>
+        <li>
+          <code>c[120]</code> makes <code>length</code> 121 (checked in Chrome).
+          The gaps are <em>holes</em>: missing slots. <code>c[5]</code> reads
+          <code>undefined</code>, but <code>5 in c</code> is <code>false</code>;
+          <code>forEach</code> and <code>map</code> skip holes.
+        </li>
+        <li>
+          Watch out: <code>new Array(3)</code> with one number is an empty array
+          of length 3 (<code>[ &lt;3 empty items&gt; ]</code>). That is why
+          everyone uses literals.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -533,6 +1103,37 @@ for (const friend of friends) {
   console.log(friend);
 }
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          Walk the lines in order; each depends on the one before (comments
+          match a Chrome run).
+        </li>
+        <li>
+          Split to remember:
+          <strong
+            ><code>push</code>/<code>pop</code> change the array;
+            <code>map</code>, <code>filter</code>, <code>concat</code> return
+            new arrays</strong
+          >. <code>push</code> returns the new length;
+          <code>concat</code> leaves <code>friends</code> alone;
+          <code>pop</code> brings it back to three names.
+        </li>
+        <li>
+          <code>reduce</code> folds the array into one value, <code>45</code>;
+          the next slide draws it.
+        </li>
+        <li>
+          <code>for…of</code> walks values of any iterable. Do not use
+          <code>for…in</code> on arrays: it walks keys, as strings.
+        </li>
+        <li>
+          If asked about <code>sort</code>: without a comparator it sorts as
+          strings, <code>[1, 2, 10].sort()</code> is <code>[1, 10, 2]</code>.
+          Use <code>(a, b) =&gt; a - b</code>; <code>toSorted</code> in S12.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>How reduce Works</h2>
@@ -541,6 +1142,28 @@ for (const friend of friends) {
       alt="[5, 10, 20].reduce((sum, x) => sum + x, 0). The initial value 0 and the element 5 go into call 1, which returns 5. 5 and 10 go into call 2, which returns 15. 15 and 20 go into call 3, which returns 35, the result. Each call gets the sum so far and the next element, and what it returns becomes the sum for the next call"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            ><code>reduce</code> turns a whole array into one value.</strong
+          >
+          Follow the arrows left to right.
+        </li>
+        <li>
+          The pink <code>0</code> is the initial value. Call 1: <code>0</code> +
+          <code>5</code> = <code>5</code>;
+          <strong
+            >that <code>5</code> becomes the <code>sum</code> of call 2</strong
+          >: <code>15</code>; call 3: <code>35</code>, the result (checked in
+          Node).
+        </li>
+        <li>
+          Like a running total on a shop receipt. The first parameter is the
+          <em>accumulator</em>; the second is the current element.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>More reduce</h2>
@@ -565,6 +1188,27 @@ words.reduce((count, w) =&gt; {
         empty array is safe
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Without an initial value the first element is the start: same
+          <code>35</code>.
+          <strong>An empty array then throws <code>TypeError</code></strong
+          >; with <code>0</code> it simply gives <code>0</code> (checked in
+          Node).
+        </li>
+        <li>
+          The result can be any type: in the word count the accumulator is an
+          object. <code>??</code> gives <code>0</code> the first time a word
+          appears (S12). Result <code>{ js: 3, css: 1, html: 1 }</code>.
+        </li>
+        <li>"Many values in, one value out": think of <code>reduce</code>.</li>
+        <li>
+          If asked: not faster than a loop; for long logic a
+          <code>for…of</code> loop reads better.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -589,6 +1233,33 @@ d.getFullYear(); // also Month, Date, Hours, ... and the set... methods
   <script>
     document.getElementById("dateres").textContent = new Date().toString();
   </script>
+  <aside class="notes">
+    <ul>
+      <li>
+        <code>Math</code> is a plain object of functions and constants; never
+        <code>new</code> it. <code>random()</code> is in <code>[0, 1)</code>.
+        <code>Math.floor(-1.5)</code> is <code>-2</code>: floor always rounds
+        down.
+      </li>
+      <li>
+        Number methods return <strong>strings</strong>.
+        <code>Number("12px")</code> is strict (<code>NaN</code>);
+        <code>parseInt</code> is forgiving (<code>12</code>). Checked in Chrome
+        157.
+      </li>
+      <li>
+        Two Date traps: <strong>months start at 0</strong> (November is
+        <code>10</code>), and <code>getDate()</code> is day of month but
+        <code>getDay()</code> is day of week (Saturday 7 Nov 2026 gives
+        <code>6</code>). Its replacement, <code>Temporal</code>, is at the end
+        of S12.
+      </li>
+      <li>
+        Watch out: the live line is set when the deck loads, so its minutes may
+        be behind.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Object</h2>
@@ -613,6 +1284,31 @@ book.setPrice(1000);
 console.log(`name is ${book.name}, price is ${book.getPrice()}`);
 delete book.publish;
   </code></pre>
+  <aside class="notes">
+    <ul>
+      <li>
+        An <strong>object literal</strong> <code>{ key: value }</code> is the
+        everyday way to make an object. No class is needed.
+      </li>
+      <li>
+        A method is a property whose value is a function. Objects are open: we
+        add <code>setPrice</code> later and it works.
+      </li>
+      <li>
+        <code>this</code> is the object before the dot at call time. The log
+        prints <code>name is OOP in JS, price is 1000</code>.
+      </li>
+      <li>
+        <code>delete</code> removes the property. After it,
+        <code>Object.keys(book)</code> is
+        <code>name, price, getPrice, setPrice</code>.
+      </li>
+      <li>
+        If asked: <code>const g = book.getPrice; g()</code> gives
+        <code>undefined</code>, because no object is before the dot.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Getters &amp; Setters</h2>
@@ -636,6 +1332,28 @@ book.price = 1000;  // price is 1000$
 book.price = -100;  // "Invalid price", still 1000$
 book._price = -100; // price is -100$: the field is not private
   </code></pre>
+  <aside class="notes">
+    <ul>
+      <li>
+        A <strong>getter</strong> and a <strong>setter</strong> look like a
+        field, but reading or writing runs a function. The data lives in
+        <code>_price</code>.
+      </li>
+      <li>
+        <code>book.price = 1000</code> goes through the setter; reading gives
+        <code>1000$</code>.
+      </li>
+      <li>
+        <code>book.price = -100</code> logs "Invalid price" and stops: still
+        <code>1000$</code>.
+      </li>
+      <li>
+        <code>book._price = -100</code> <strong>skips the setter</strong>. The
+        underscore is only a habit; nothing enforces it. Real privacy:
+        <code>#</code> fields (<code>#/19/2</code>).
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -666,6 +1384,29 @@ p1.family = "Alvani";
 
 console.log(p1.name, p1.family);
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>No classes here.</strong> <code>Person</code> is a plain
+          object used as a template.
+        </li>
+        <li>
+          <code>Object.create(Person)</code> gives an empty <code>p1</code> with
+          a hidden link to <code>Person</code>, its <strong>prototype</strong>.
+        </li>
+        <li>
+          <code>p1.name = "Parham"</code>: <code>p1</code> has no
+          <code>name</code>, so the setter on <code>Person</code> runs with
+          <code>this</code> = <code>p1</code>. Output:
+          <code>Parham Alvani</code>.
+        </li>
+        <li>
+          <code>Object.keys(p1)</code> is <code>_name, _family</code>;
+          <code>Person._name</code> stays <code>""</code>. Each object holds its
+          own data and shares behaviour.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <figure>
@@ -678,6 +1419,27 @@ console.log(p1.name, p1.family);
         Prototypes are how JavaScript objects inherit features from one another.
       </figcaption>
     </figure>
+    <aside class="notes">
+      <ul>
+        <li>
+          Read each row left to right:
+          <strong>that is the lookup order</strong>. Object first, then each
+          prototype, until <code>null</code>.
+        </li>
+        <li>
+          At <code>null</code> the answer is
+          <code>undefined</code> (<code>person1.nope</code>).
+        </li>
+        <li>
+          Every object has <code>toString</code> because it lives on
+          <code>Object.prototype</code>, at the end of every chain.
+        </li>
+        <li>
+          A <strong>write goes on the object itself</strong>, unless a setter is
+          found on the way (last slide).
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Constructor Functions</h2>
@@ -707,6 +1469,25 @@ Person.prototype.farewell = function() {
         <code>person1</code> was made
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>Before 2015 this was how to make many objects of one shape.</li>
+        <li>
+          <strong><code>new</code> does three things</strong>: makes an empty
+          object linked to <code>Person.prototype</code>, runs
+          <code>Person</code> with <code>this</code> = it, returns it.
+        </li>
+        <li>
+          <code>farewell</code> was added after <code>person1</code>, but works:
+          the lookup follows the link at call time. It prints
+          <code>Tammi has left the building. Bye for now!</code>
+        </li>
+        <li>
+          If asked: if the constructor returns an object, that object is the
+          result; <code>new Foo() instanceof Foo</code> is then false.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -734,6 +1515,27 @@ class Student {
 const s = new Student("Parham Alvani", "9231058");
 console.log(`${s}`); // Parham Alvani: 9231058
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            ><code>class</code> is new syntax for the same prototypes.</strong
+          >
+          Methods live on <code>Student.prototype</code>, one shared copy.
+        </li>
+        <li>
+          <code>`${s}`</code> turns <code>s</code> into a string, so it calls
+          <code>toString</code>.
+        </li>
+        <li>
+          What <code>class</code> adds: you cannot call it without
+          <code>new</code> (<code
+            >TypeError: Class constructor A cannot be invoked without
+            'new'</code
+          >); the body is always strict.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Inheritance</h2>
@@ -755,6 +1557,28 @@ const b2 = new Bachelor("Sepehr Sabour", "9231011", 17);
 console.log(`${b1}`);                     // Parham Alvani: 9231058
 console.log(Bachelor.betterThan(b1, b2)); // true
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong><code>extends</code></strong> links
+          <code>Bachelor.prototype</code> to <code>Student.prototype</code>, so
+          <code>b1</code> gets <code>toString</code>.
+        </li>
+        <li>
+          <code>super(name, id)</code> calls the parent constructor. Call it
+          before you touch <code>this</code>.
+        </li>
+        <li>
+          <code>static</code> puts the method on the class:
+          <code>Bachelor.betterThan(b1, b2)</code> works,
+          <code>b1.betterThan</code> is <code>undefined</code>.
+        </li>
+        <li>
+          <code>Object.keys(b1)</code> is <code>name, id, average</code>: data
+          per object, behaviour shared.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Fields &amp; Private Members</h2>
@@ -789,6 +1613,31 @@ s.#id; // SyntaxError: Private field '#id' must be declared in an enclosing clas
     <ul>
       <li>There is no <code class="hl-red">protected</code> in JavaScript</li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          The real fix for <code>_price</code>:
+          <strong
+            >a <code>#</code> name is private, and the language enforces
+            it.</strong
+          >
+        </li>
+        <li>
+          <code>s.#id</code> outside is a <code>SyntaxError</code> when the
+          script is read, before any line runs.
+        </li>
+        <li>
+          Checked: <code>.id</code> is <code>9231058</code> (seven characters);
+          with <code>"12"</code> it is <code>invalid</code>.
+          <code>JSON.stringify(s)</code> is <code>{"name":"Parham"}</code>.
+        </li>
+        <li>
+          Watch out: pasting the whole slide stops on the
+          <code>SyntaxError</code>, so <code>s</code> is never made. And the
+          Chrome console allows <code>#</code> access for debugging.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -813,6 +1662,31 @@ function myFunction() {
   y = 3.14; // ReferenceError: y is not defined
 }
   </code></pre>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>Strict mode makes bugs loud.</strong> It is a string so old
+        engines just ignore it. It must be the first statement.
+      </li>
+      <li>
+        <code>y = 3.14</code> gives
+        <code>ReferenceError: y is not defined</code>; without strict it makes a
+        global <code>y</code>.
+      </li>
+      <li>
+        <code>function f(a, a) {}</code> gives
+        <code
+          >SyntaxError: Duplicate parameter name not allowed in this
+          context</code
+        >.
+      </li>
+      <li>
+        Hoisting: <code>myFunction()</code> runs before its definition; the
+        error comes from <code>y</code>. Modules and class bodies are always
+        strict.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -833,6 +1707,24 @@ function myFunction() {
         the queues and runs them, one at a time
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          The most important part of today.
+          <strong>Your JavaScript runs on one thread.</strong> Two pieces of
+          your code never run at once.
+        </li>
+        <li>
+          <strong>The browser does the waiting</strong> on its own threads, then
+          puts a callback in a queue.
+        </li>
+        <li>The event loop takes callbacks from the queue one by one.</li>
+        <li>
+          Picture: one cashier and a line of customers. The kitchen cooks in the
+          back; a ready order joins the line.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
@@ -840,6 +1732,28 @@ function myFunction() {
       alt="Function calls form frames on the call stack; objects live in the heap. The stack calls Web APIs such as setTimeout, fetch and addEventListener, which wait outside JavaScript. When a timer fires, a click happens or I/O is done, a callback joins the task queue. Settled promises put their reactions on the microtask queue. The event loop takes the oldest task and runs it until the stack is empty, then runs every microtask, then renders if needed, and repeats"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          Walk the diagram in a circle: <strong>stack</strong> (what runs now),
+          <strong>heap</strong> (objects), <strong>Web APIs</strong> (waiting
+          outside your thread).
+        </li>
+        <li>
+          A ready timer, click or I/O puts its callback in the
+          <strong>task queue</strong>.
+        </li>
+        <li>
+          Promise callbacks go to a separate <strong>microtask queue</strong>,
+          emptied completely after each task. Then maybe a repaint.
+        </li>
+        <li>
+          If asked "why two queues?": promise reactions run before the next
+          timer. <code>setTimeout</code> + <code>Promise.resolve().then</code> +
+          <code>console.log</code> prints <em>sync, microtask, timeout</em>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>One Turn of the Loop</h2>
@@ -848,6 +1762,28 @@ function myFunction() {
       alt="Three boxes in a loop. 1: run one task, the oldest in the task queue, until the call stack is empty. 2: run all microtasks, also the ones queued while they run. 3: render if a frame is due: requestAnimationFrame, style, layout, paint. Then repeat; if the task queue is empty, wait for a task. A frame is due about every 16.7 ms on a 60 Hz screen, so a task longer than 50 ms makes the page stutter, and endless microtasks freeze it"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          The last diagram showed the parts; this one shows
+          <strong>the order</strong>.
+        </li>
+        <li>
+          One turn: <strong>one task</strong> to completion, then
+          <strong>all microtasks</strong> (new ones too), then
+          <strong>maybe a render</strong>.
+        </li>
+        <li>
+          A frame is due about every 16.7 ms.
+          <strong>The screen cannot change while your code runs.</strong> A task
+          over 50 ms is a "long task".
+        </li>
+        <li>
+          If asked: <code>requestAnimationFrame</code> means "run this just
+          before the next paint"; the demo at <code>#/21/14</code> uses it.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Event Loop</h2>
@@ -877,6 +1813,26 @@ while (true) {
         scroll
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          The same three steps as <strong>pseudocode</strong>: not runnable, the
+          names are made up.
+        </li>
+        <li>
+          The outer loop takes <strong>one</strong> task; the inner
+          <code>while</code> empties the <strong>whole</strong> microtask queue.
+        </li>
+        <li>
+          <strong>Run to completion</strong>: no other code changes your data
+          halfway. No data races, no locks, unlike threads in Java or Go.
+        </li>
+        <li>
+          The price: while one task runs, nothing else runs, not even the
+          render. Live demo at the end of this stack.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Tasks and Microtasks</h2>
@@ -908,6 +1864,33 @@ while (true) {
         <td>a microtask that always adds a new one never lets a task run</td>
       </tr>
     </table>
+    <aside class="notes">
+      <ul>
+        <li>
+          The rule:
+          <strong
+            >promise work is a microtask; everything else here is a
+            task.</strong
+          >
+        </li>
+        <li>
+          <strong>The whole <code>&lt;script&gt;</code> is one task</strong>, so
+          nothing else runs until its last line.
+        </li>
+        <li>
+          Code after <code>await</code> is a microtask, because
+          <code>await</code> is built on promises.
+        </li>
+        <li>
+          Opposite dangers: one long task blocks for a while; a microtask that
+          keeps adding microtasks blocks forever.
+        </li>
+        <li>
+          If asked: <code>queueMicrotask</code> puts a function straight in the
+          microtask queue. The quiz uses it.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Step by Step</h2>
@@ -916,6 +1899,26 @@ while (true) {
       alt="Step 1 of 5. Code: console.log A; setTimeout of a callback that logs B with 0 ms; Promise.resolve().then of a callback that logs C; console.log D. Line 1 prints A. setTimeout gives the callback to a browser timer, and after 0 ms the timer puts the callback in the task queue"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          Ask the class first: <em>what will this print?</em> Most say A B C D.
+        </li>
+        <li>
+          Same layout for all five pictures: code left, stack and browser right,
+          queues and console below.
+        </li>
+        <li>
+          Line 1 prints <strong>A</strong>.
+          <strong><code>setTimeout</code> does not run the callback</strong>: it
+          gives it to the browser timer and returns.
+        </li>
+        <li>
+          After 0 ms the callback goes into the task queue. It only
+          <em>waits</em> there.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Step by Step</h2>
@@ -924,6 +1927,20 @@ while (true) {
       alt="Step 2 of 5. The promise is already fulfilled, so then() puts the C callback directly in the microtask queue. The B callback waits in the task queue. Nothing runs them yet"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>Promise.resolve()</code> is <strong>already fulfilled</strong>,
+          so <code>then</code> puts its callback straight in the microtask
+          queue.
+        </li>
+        <li>Now one callback waits in each queue.</li>
+        <li>
+          <strong>Neither runs yet</strong>: the script is the current task, and
+          a task is never interrupted.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Step by Step</h2>
@@ -932,6 +1949,19 @@ while (true) {
       alt="Step 3 of 5. Line 4 prints D, so the console shows A D. The script ends and the call stack is empty: the first task is complete. Two callbacks wait, one in each queue"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          Line 4 prints <strong>D</strong>, right after A. B and C were written
+          before D, but D comes first.
+        </li>
+        <li><strong>Synchronous code always finishes first.</strong></li>
+        <li>
+          The script ends, the stack is empty: the first task is complete.
+        </li>
+        <li>Ask the class: <em>which queue goes first?</em></li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Step by Step</h2>
@@ -940,6 +1970,21 @@ while (true) {
       alt="Step 4 of 5. Before the next task, the event loop runs every microtask. C prints, so the console shows A D C, and the microtask queue is empty"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          After each task, <strong>all microtasks run</strong>. C prints:
+          <code>A D C</code>.
+        </li>
+        <li>B was queued before C, but that does not matter.</li>
+        <li>
+          <strong
+            >The microtask queue always has priority over the task
+            queue.</strong
+          >
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Step by Step</h2>
@@ -948,6 +1993,21 @@ while (true) {
       alt="Step 5 of 5. Only now does the loop take the oldest task: B prints last, so the console shows A D C B, although its delay was 0 ms"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          Now the next turn takes the oldest task: <strong>B</strong>. Final:
+          <code>A D C B</code> (run in Chrome 157 and Node).
+        </li>
+        <li>
+          The lesson:
+          <strong
+            >current script, then all microtasks, then the next task.</strong
+          >
+        </li>
+        <li>A delay of 0 does not mean "now"; it means "in a later task".</li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Your Turn: What Does It Print?</h2>
@@ -972,6 +2032,30 @@ console.log(7);
         <code>await</code>), then the microtasks in order, then the task
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Give one minute; ask two or three students before you press the right
+          arrow (the answer is a fragment).
+        </li>
+        <li>
+          Script first: <code>1</code>, then the async function
+          <strong>starts at once</strong> and prints <code>4</code>;
+          <code>await</code> makes the rest (<code>5</code>) a microtask. Then
+          <code>7</code>.
+        </li>
+        <li>
+          Microtasks in queue order: <code>3</code>, <code>5</code>,
+          <code>6</code>. Then the task: <code>2</code>. Answer
+          <code>1 4 7 3 5 6 2</code>.
+        </li>
+        <li>
+          Watch out: the common wrong answer puts <code>4</code> after
+          <code>7</code>. Only the part after the first <code>await</code> is
+          delayed.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Zero Delays</h2>
@@ -1014,13 +2098,55 @@ print("this is the end");
         print("this is the end");
       })();
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          Point at the live output first: both callbacks print after "the end".
+        </li>
+        <li>
+          <strong
+            ><code>setTimeout(cb, 0)</code> means "queue <code>cb</code> after
+            at least 0 ms"</strong
+          >. It runs only when the stack is empty.
+        </li>
+        <li>
+          <strong>The delay is a minimum, never a promise.</strong> No delay is
+          the same as <code>0</code>.
+        </li>
+        <li>
+          Watch out: the demo ran when the deck loaded. If the paragraph is
+          empty, paste the code into the console.
+        </li>
+        <li>
+          If asked: nested timers wait at least 4 ms after a few levels;
+          background tabs slow timers to about once a second.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
       src="./img/zero-delay.svg"
-      alt="A timeline. Task 1, the whole IIFE, runs first: it prints this is the start, starts a 0 ms timer for cb, prints this is just a message, starts a 0 ms timer for cb1 and prints this is the end. Only when the stack is empty does the event loop run cb, which prints Callback 1, and then cb1, which prints Callback 2"
+      alt="A timeline. Task 1, the whole script, runs first: it prints this is the start, starts a 0 ms timer for cb, prints this is just a message, starts a 0 ms timer for cb1 and prints this is the end. Only when the stack is empty does the event loop run cb, which prints Callback 1, and then cb1, which prints Callback 2"
       width="880"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          The same story as a picture.
+          <strong>The first task is the whole script</strong>; nothing
+          interrupts it.
+        </li>
+        <li>
+          Each timer callback is a new, separate task that waits in the queue.
+        </li>
+        <li>
+          Ask the class:
+          <em>what if the script ran a 3-second loop at the end?</em> The
+          callbacks wait the full 3 seconds, although their delay is 0.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Non-blocking I/O</h2>
@@ -1049,6 +2175,26 @@ async function loadUsers() {
 const end = Date.now() + 3000;
 while (Date.now() &lt; end) {} // the page is frozen for 3 s
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>I/O does not block.</strong> In C, <code>read()</code> stops
+          the thread; here the function steps aside and the loop handles clicks.
+        </li>
+        <li>
+          A real run: a 10 ms timer ticked 21 times while
+          <code>loadUsers()</code> waited about 250 ms.
+        </li>
+        <li>
+          <strong>But your own code does block.</strong> A busy loop or
+          <code>alert</code> holds the only thread, even the screen update.
+        </li>
+        <li>
+          "JavaScript never blocks" is true for the I/O APIs, not for every line
+          you write.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Try It: Block the Loop</h2>
@@ -1094,6 +2240,28 @@ block.addEventListener("click", () =&gt; {
         second thread with its own event loop and no DOM
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Let the class watch the counter: one number per frame, about 60 a
+          second. <code>requestAnimationFrame</code> calls
+          <code>tick</code> before each paint.
+        </li>
+        <li>
+          Click the button: the counter stops for two seconds. The handler is
+          one task, so <strong>the render never comes</strong>. Longest gap in a
+          headless run: 1983 ms.
+        </li>
+        <li>
+          Fix for heavy work: a <strong>Web Worker</strong>, a second thread
+          with its own loop, no DOM; it sends the result as a message.
+        </li>
+        <li>
+          Watch out: the deck freezes too, arrow keys do nothing for 2 s. Say it
+          before you click.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1117,6 +2285,27 @@ block.addEventListener("click", () =&gt; {
         <code class="hl-red">.catch(f)</code> runs <code>f</code> on the error
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          A
+          <strong>promise stands for a result that is not ready yet.</strong>
+          Like a coffee-shop receipt: you hold it now, the coffee comes later.
+        </li>
+        <li>
+          It starts pending and settles <strong>exactly once</strong>, then
+          never changes.
+        </li>
+        <li>
+          You do not wait for a promise; you attach the next step with
+          <code>.then</code> and <code>.catch</code>.
+        </li>
+        <li>
+          <code>fetch</code> returns a promise, and so does every
+          <code>async</code> function.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
@@ -1124,6 +2313,30 @@ block.addEventListener("click", () =&gt; {
       alt="A promise starts pending. resolve(value) makes it fulfilled; reject(reason) or a throw makes it rejected. Fulfilled and rejected are settled and never change again. A fulfilled promise runs .then(onFulfilled), a rejected one runs .catch(onRejected), and each of them returns a new pending promise: a handler that returns v fulfils it with v, a handler that throws e rejects it with e"
       width="880"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          The key part is the right side:
+          <strong
+            ><code>then</code> and <code>catch</code> return a new
+            promise.</strong
+          >
+        </li>
+        <li>
+          It is fulfilled with what your handler returns, or rejected if it
+          throws. <strong>This makes chains possible.</strong>
+        </li>
+        <li>
+          A <code>catch</code> at the end can turn an error back into a normal
+          value. If a handler returns a promise, the chain waits for it.
+        </li>
+        <li>
+          If asked: prefer one <code>.catch</code> at the end;
+          <code>then(ok, err)</code> does not catch an error thrown in
+          <code>ok</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -1151,6 +2364,24 @@ longCalculation(1)
     console.log(`3rd promise: ${result}`);
   });
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>new Promise((resolve, reject) =&gt; …)</code> turns callback
+          code into a promise. The function runs at once; a timer stands in for
+          a slow network call.
+        </li>
+        <li>
+          Each step waits 300 ms: <code>1st promise: resolved-1</code>,
+          <code>2nd promise: resolved-2</code>,
+          <code>3rd promise: resolved-3</code>. About 900 ms in total.
+        </li>
+        <li>
+          <strong>The <code>return</code> is essential.</strong> Forget it, and
+          the next <code>then</code> runs at once with <code>undefined</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1181,6 +2412,30 @@ async function run() {
         <strong>always</strong> returns a promise
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          Line for line the same chain, but
+          <strong>it reads top to bottom like normal code</strong>.
+        </li>
+        <li>
+          <strong
+            ><code>await p</code> pauses this function until
+            <code>p</code> settles.</strong
+          >
+          The function leaves the stack; the loop keeps running. It looks
+          blocking, but it is not.
+        </li>
+        <li>
+          <code>async function one() { return 1 }</code> returns a promise of
+          <code>1</code>, not <code>1</code>.
+        </li>
+        <li>
+          The slide only defines <code>run</code>; call <code>run()</code> to
+          see the three lines.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Errors</h2>
@@ -1203,6 +2458,31 @@ async function load() {
   }
 }
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >When an awaited promise rejects, <code>await</code> throws at that
+            line.</strong
+          >
+          One <code>try/catch</code> handles network failures and your own
+          <code>throw</code>.
+        </li>
+        <li>
+          <code>fetch</code> rejects only when there is no answer (offline, DNS,
+          CORS). A 404 or 500 is an answer with
+          <code>response.ok === false</code>, so we check <code>ok</code>.
+        </li>
+        <li>
+          <code>response.json()</code> reads the body, so it needs its own
+          <code>await</code>. S14 returns to this with live buttons.
+        </li>
+        <li>
+          Watch out: this is code, not a live demo. swapi.dev is behind
+          CloudFront and has been flaky.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Waiting in Parallel</h2>
@@ -1224,6 +2504,28 @@ const b = await longCalculation(2);
 // 300ms: both are already running
 const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          First form: <code>longCalculation(2)</code> is not even called until
+          the first result is back: 300 + 300 ms.
+        </li>
+        <li>
+          Second form: <strong>both calls start at once</strong>; the timers run
+          together outside your thread.
+        </li>
+        <li>
+          <strong><code>Promise.all</code></strong> gives results in input
+          order; it rejects as soon as one input rejects.
+          <code>Promise.allSettled</code> waits for all.
+        </li>
+        <li>
+          Watch out: top-level <code>await</code> works only in a module or the
+          DevTools console; in a classic script it is a
+          <code>SyntaxError</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
@@ -1231,6 +2533,23 @@ const [c, d] = await Promise.all([longCalculation(3), longCalculation(4)]);
       alt="Two awaits in a row: longCalculation(1) runs from 0 to 300 ms, then longCalculation(2) from 300 to 600 ms, so a and b are ready at 600 ms. With Promise.all, longCalculation(3) and longCalculation(4) both run from 0 to 300 ms, so c and d are ready at 300 ms. Measured in Node: 603 ms and 301 ms"
       width="880"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >Top bars are end to end; bottom bars are side by side.</strong
+          >
+        </li>
+        <li>The numbers are a real Node measurement: 603 ms and 301 ms.</li>
+        <li>
+          Rule:
+          <em
+            >if the second call does not need the first result, do not await the
+            first one first.</em
+          >
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1256,6 +2575,22 @@ export function longCalculation(id) {
   );
 }
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          Remember S11's accidental globals and "already declared" errors:
+          classic scripts share one namespace.
+        </li>
+        <li>
+          A <strong>module is a file with its own top-level scope</strong>.
+        </li>
+        <li>
+          Nothing leaves without <code>export</code>, nothing enters without
+          <code>import</code>. Dependencies become explicit, like Go packages or
+          Python modules.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Importing</h2>
@@ -1279,10 +2614,41 @@ console.log(await longCalculation(1), timeout);
     <pre><code class="lang-html">
 &lt;script type="module" src="main.js"&gt;&lt;/script&gt;
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>import { a, b } from "./file.js"</code> pulls named exports. The
+          path is a relative URL, with <code>.js</code>.
+        </li>
+        <li>
+          <strong>JSON modules</strong> (ES2025):
+          <code>with { type: "json" }</code> is an import attribute, so a server
+          cannot trick the browser into running a script.
+        </li>
+        <li>
+          <code>type="module"</code>: deferred, always strict, own scope, runs
+          only once. Top-level <code>await</code> works.
+        </li>
+        <li>
+          Watch out: modules are fetched with CORS, so
+          <code>file://</code> fails in Chrome. Serve over HTTP, e.g.
+          <code>python3 -m http.server</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Topic 2, <strong>Modern JavaScript</strong>: everything so far has
+        worked for years; now the newest parts of the language, up to this
+        June's edition.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>A New Edition Every Year</h2>
@@ -1336,6 +2702,32 @@ console.log(await longCalculation(1), timeout);
     A proposal joins the next June edition when it reaches
     <em>stage 4</em> at TC39. Every sample in this part was run in Chrome 157.
   </p>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>TC39</strong> is the committee that changes JavaScript. Each
+        feature is a proposal that moves through stages 0 to 4.
+      </li>
+      <li>
+        <strong>Stage 4 = finished</strong>: tests and two shipping
+        implementations. Each June, ECMA publishes the edition with that year's
+        stage-4 proposals.
+      </li>
+      <li>
+        ES2026 was approved on 30 June 2026. Temporal and
+        <code>using</code> reached stage 4 after that, so they are ES2027,
+        though Chrome has them.
+      </li>
+      <li>
+        Do not memorise years; the year only tells how careful to be with old
+        browsers.
+      </li>
+      <li>
+        If asked: the official list is TC39's <em>finished proposals</em> page
+        on GitHub.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -1357,6 +2749,26 @@ const city1 = user &amp;&amp; user.address &amp;&amp; user.address.city;
 // after
 const city2 = user?.address?.city;
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong><code>a?.b</code></strong
+          >: if <code>a</code> is <code>null</code> or <code>undefined</code>,
+          the result is <code>undefined</code> and the rest is skipped.
+        </li>
+        <li>
+          Also for calls <code>obj.method?.()</code> and indexes
+          <code>arr?.[0]</code>. ES2020, in every current browser.
+        </li>
+        <li>
+          Watch out: with <code>user = { address: null }</code>, the
+          <code>&amp;&amp;</code> line gives <code>null</code>, the
+          <code>?.</code> line <code>undefined</code>. An undeclared
+          <code>user</code> still throws <code>ReferenceError</code>. Do not use
+          <code>?.</code> everywhere; it hides bugs.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Nullish Coalescing</h2>
@@ -1376,6 +2788,28 @@ const count = 0;
 count || 10; // 10, almost certainly a bug
 count ?? 10; // 0, the value we actually have
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>||</code> treats <code>0</code>, <code>""</code> and
+          <code>false</code> as missing, so
+          <strong>a real <code>0</code> is replaced</strong>.
+        </li>
+        <li>
+          <strong><code>??</code></strong> uses the default only for
+          <code>null</code> and <code>undefined</code>, called "nullish".
+        </li>
+        <li>
+          Checked: <code>"" || "d"</code> is <code>"d"</code>,
+          <code>"" ?? "d"</code> is <code>""</code>,
+          <code>false ?? "d"</code> is <code>false</code>.
+        </li>
+        <li>
+          Rule: <strong>use <code>??</code> for defaults</strong>, e.g.
+          <code>user?.settings?.volume ?? 50</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1405,6 +2839,31 @@ Object.groupBy(students, (s) =&gt; s.grade);
       <code class="hl-green">to...</code> versions return a copy
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <code>sort</code> and <code>reverse</code>
+        <strong>change the array in place</strong> and return the same array
+        (<code>a === b</code> is <code>true</code>). In React, the page then
+        does not update.
+      </li>
+      <li>
+        ES2023 <code>toSorted</code>, <code>toReversed</code>, <code>with</code>
+        <strong>return a copy</strong>. <code>at(-1)</code> replaces
+        <code>scores[scores.length - 1]</code>; <code>findLast</code> searches
+        from the end.
+      </li>
+      <li>
+        <strong><code>Object.groupBy</code></strong> (ES2024) replaces the
+        grouping loop everyone wrote by hand.
+      </li>
+      <li>
+        Watch out: <code>toSorted()</code> with no comparator sorts as strings:
+        <code>[1, 2, 10]</code> gives <code>[1, 10, 2]</code>.
+        <code>with</code> past the end throws <code>RangeError</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Sets &amp; Iterators</h2>
@@ -1434,6 +2893,25 @@ naturals()
       values that <code>take</code> asks for
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        ES2025: <strong><code>Set</code> finally has set maths</strong>: union,
+        intersection, difference, and checks like <code>isSubsetOf</code>.
+      </li>
+      <li>
+        <code>naturals</code> is a <strong>generator</strong>: a
+        <code>function*</code> that hands out values one at a time with
+        <code>yield</code>, forever.
+      </li>
+      <li>
+        <strong>Iterator helpers are lazy</strong>: each step asks for one value
+        only when needed. The generator produced only 6 numbers to give
+        <code>[4, 16, 36]</code>.
+      </li>
+      <li>Lazy matters for big data, streams and lines of a large file.</li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>ES2026</h2>
@@ -1458,6 +2936,30 @@ Uint8Array.fromBase64("SGkh");   // the same 3 bytes
 
 Iterator.concat([1, 2], new Set([3])).toArray(); // [1, 2, 3]
   </code></pre>
+  <aside class="notes">
+    <ul>
+      <li>The edition of June 2026, the newest standard.</li>
+      <li>
+        <strong><code>getOrInsert</code></strong> ("upsert") replaces
+        <code>map.set(w, (map.get(w) ?? 0) + 1)</code>.
+      </li>
+      <li>
+        <strong><code>Math.sumPrecise</code></strong> keeps the
+        <code>0.1</code> that a normal sum loses. It does not fix
+        <code>0.1 + 0.2</code>: still <code>0.30000000000000004</code>.
+      </li>
+      <li>
+        <code>Error.isError</code> works across frames, where
+        <code>instanceof Error</code> fails. Base64/hex on bytes replaces
+        <code>btoa</code> (Latin-1 only). <code>Iterator.concat</code> joins
+        iterables lazily.
+      </li>
+      <li>
+        If asked: Base64 writes any bytes with 64 safe letters, for JSON, URLs,
+        <code>data:</code> URLs, HTTP Basic auth (S05).
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Coming in ES2027</h2>
@@ -1485,9 +2987,40 @@ lecture.withTimeZone("Europe/Berlin").toString();
       them in every browser
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>Temporal replaces <code>Date</code>.</strong>
+        <code>Date</code> traps: months start at 0, it is mutable, and 31
+        January set to February gives 3 March.
+      </li>
+      <li>
+        Temporal values never change (<code>add</code> returns a new date),
+        months start at 1, and <code>2026-01-31</code> plus one month is
+        <code>2026-02-28</code>. The zone line: 07:45 Tehran is 05:15 Berlin.
+      </li>
+      <li>
+        <strong><code>using</code></strong> guarantees clean-up when the block
+        ends, also on an error, through <code>[Symbol.dispose]()</code>. Like
+        <code>defer</code> in Go or <code>with</code> in Python.
+      </li>
+      <li>
+        Watch out: finished is not everywhere. Chrome 157 runs both; Safari
+        Temporal support was not confirmed. Check caniuse or use a polyfill.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <div class="toc" data-selected="3"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Topic 3: so far JS ran on its own. Now we
+        <strong>connect it to the page</strong> it lives in.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>JavaScript in Web</h2>
@@ -1505,6 +3038,23 @@ lecture.withTimeZone("Europe/Berlin").toString();
       <li>The browser gives an <em>API</em> to read and change the DOM</li>
     </ul>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Every interactive thing a page does is one of these writes: create,
+        delete, change.
+      </li>
+      <li>
+        <strong>JS never touches the HTML text.</strong> The browser already
+        parsed it into objects; the script changes those objects and the browser
+        draws again.
+      </li>
+      <li>
+        The file on the server does not change. View Source shows the original
+        HTML; DevTools Elements shows the live tree.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -1530,6 +3080,33 @@ lecture.withTimeZone("Europe/Berlin").toString();
         <code>window</code> is the browser window
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          "Model" means object model: a <code>&lt;p&gt;</code> becomes an
+          <code>HTMLParagraphElement</code> object. Nesting becomes parent/child
+          links. <strong>The root is <code>document</code>.</strong>
+        </li>
+        <li>
+          Properties mirror attributes: <code>input.value</code>,
+          <code>a.href</code>. "Not all": <code>class</code> becomes
+          <code>className</code> (reserved word).
+        </li>
+        <li>
+          Methods are actions: <code>focus()</code>, <code>click()</code>,
+          <code>remove()</code>.
+        </li>
+        <li>
+          BOM = Browser Object Model: <code>window</code>,
+          <code>navigator</code>, <code>screen</code>, <code>history</code>,
+          <code>location</code>.
+        </li>
+        <li>
+          If asked "is the DOM the same as the HTML?": No. The parser fixes
+          errors (adds <code>&lt;tbody&gt;</code>), and scripts change it later.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
@@ -1537,6 +3114,23 @@ lecture.withTimeZone("Europe/Berlin").toString();
       alt="The window object, the global object, holds two things. The DOM: document, then html, which has head with title and body with h1, p and form, one object per node of the page. The BOM: navigator, location, history, screen and localStorage, which belong to the browser and have no HTML tag"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          Left side is the page, right side is the browser.
+          <strong>The window owns exactly one document.</strong>
+        </li>
+        <li>
+          Every tag is one object on the left. The right side has no tags; S14
+          uses <code>navigator</code>, <code>location</code>,
+          <code>history</code>, <code>localStorage</code>.
+        </li>
+        <li>
+          Open DevTools → Elements on this deck and expand a few nodes: the same
+          shape.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1570,6 +3164,35 @@ lecture.withTimeZone("Europe/Berlin").toString();
         top to bottom
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Lead with <code>querySelector</code></strong
+          >: any CSS selector from lecture 4. One method replaces the old
+          family.
+        </li>
+        <li>
+          An id is unique, so <code>getElementById</code> returns one element or
+          <code>null</code>. Class/tag match many, so they return a collection.
+        </li>
+        <li>
+          Live vs static: a live collection is a view, a static list is a
+          snapshot. Console demo: add one more <code>.testbox</code>; the live
+          result grows 1 → 2, the <code>querySelectorAll</code> result stays at
+          1.
+        </li>
+        <li>
+          "Must already exist": a script in <code>&lt;head&gt;</code> looking
+          for <code>#box1</code> gets <code>null</code>. That is why we use
+          <code>defer</code> (S11).
+        </li>
+        <li>
+          Watch out: <code>document.body.getElementById</code> is
+          <code>undefined</code>. Inside an element, use
+          <code>el.querySelector("#id")</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <ul>
@@ -1587,6 +3210,26 @@ items.map((el) =&gt; el.textContent);
 // querySelectorAll returns a NodeList, which does have forEach
 document.querySelectorAll(".testbox").forEach((el) =&gt; console.log(el));
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          They have <code>length</code> and <code>[i]</code>, so they look like
+          arrays. <strong>They are array-like, not arrays.</strong>
+        </li>
+        <li>
+          Checked: <code>HTMLCollection</code> has no <code>map</code> (<code
+            >typeof</code
+          >
+          is <code>undefined</code>); <code>NodeList</code> has
+          <code>forEach</code>.
+        </li>
+        <li>
+          <code>Array.from(...)</code> or spread
+          <code>[...collection]</code> gives a real array, then every S11 array
+          method works.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1620,6 +3263,20 @@ da[0].textContent = "I am another new message";
     onclick="let da = document.getElementsByClassName('testbox');
     da[0].textContent = 'I am another new message';"
   />
+  <aside class="notes">
+    <ul>
+      <li>
+        Click both Run buttons. The first finds <strong>one element</strong> by
+        id and replaces its text.
+      </li>
+      <li>
+        The second gets <strong>a collection</strong>, so it must pick an item:
+        <code>da[0]</code> is the first <code>.testbox</code> (there is only one
+        in this deck).
+      </li>
+      <li>Both use <code>textContent</code>; the next slide says why.</li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Element Properties</h2>
@@ -1654,6 +3311,31 @@ da[0].textContent = "I am another new message";
       <td>move through the tree</td>
     </tr>
   </table>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong><code>innerHTML</code> is a parser.</strong>
+        <code>"&lt;b&gt;hi&lt;/b&gt;"</code> becomes a real
+        <code>&lt;b&gt;</code>. If the string comes from a user, their markup
+        runs in your page (e.g. <code>&lt;img onerror=…&gt;</code>): that is
+        <strong>XSS</strong>, lecture 11. For plain text, use
+        <code>textContent</code>.
+      </li>
+      <li>
+        <code>classList</code> changes one class without touching the others
+        (old way: <code>className += " x"</code>, with the leading space).
+      </li>
+      <li>
+        <code>style</code> is the inline style; it wins in the cascade (S09).
+        But reading it returns only inline values; use
+        <code>getComputedStyle(el)</code> for the real value.
+      </li>
+      <li>
+        <code>value</code> is always a string, even for
+        <code>type="number"</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -1670,6 +3352,24 @@ da[0].textContent = "I am another new message";
         <code>classList</code>
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          The rule: drop each hyphen and capitalise the next letter. Why?
+          <code>style.background-color</code> would be a subtraction.
+        </li>
+        <li>
+          <code>font-size</code> → <code>fontSize</code>, <code>z-index</code> →
+          <code>zIndex</code>.
+        </li>
+        <li>
+          <strong>The last bullet is the real advice</strong>:
+          <code>.error { … }</code> in the stylesheet, only
+          <code>el.classList.add("error")</code> in JS. Look in CSS, logic in
+          JS.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>CSS &amp; JavaScript Example</h2>
@@ -1713,10 +3413,41 @@ document.getElementById("colorBox").style.backgroundColor = color;
         document.getElementById("colorBox").style.backgroundColor = color;
       }
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>prompt</code> always returns a string, or <code>null</code> on
+          Cancel, so <code>parseInt</code> turns <code>"2"</code> into
+          <code>2</code>. <code>switch</code> compares with <code>===</code>.
+        </li>
+        <li>
+          <strong>Each <code>case</code> needs a <code>break</code></strong
+          >, or it falls through to the next case.
+        </li>
+        <li>
+          Demo: enter 2 → red. Cancel → <code>parseInt(null)</code> is
+          <code>NaN</code> → <code>default</code> → black. Point at the box; it
+          is only 10 px.
+        </li>
+        <li>
+          Watch out: <code>index = prompt(…)</code> has no <code>let</code>, so
+          it silently creates the global <code>window.index</code> (the
+          accidental global from S11).
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Topic 4: we can change the page. Now: <strong>when</strong> should we
+        change it? When something happens.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Events</h2>
@@ -1739,6 +3470,27 @@ document.getElementById("colorBox").style.backgroundColor = color;
       <em>handler</em>) for the event
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        This is the <strong>event-driven model</strong>. Your code does not loop
+        asking "was there a click?". The browser calls the function you
+        registered.
+      </li>
+      <li>
+        Example: like leaving your phone number at a shop; they call you when
+        the order is ready.
+      </li>
+      <li>
+        Link to S12: the event goes into the task queue; the handler runs when
+        the call stack is empty.
+      </li>
+      <li>
+        No handler? The browser's default actions still happen (a link
+        navigates). <code>preventDefault</code> (S14) cancels them.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Registering a Handler</h2>
@@ -1762,6 +3514,35 @@ button.removeEventListener("click", hello);
     <code>submit</code> <code>DOMContentLoaded</code>
     <code>load</code>
   </p>
+  <aside class="notes">
+    <ul>
+      <li>Attribute: a string of JS; the browser wraps it in a function.</li>
+      <li>
+        Property: assign a <strong>function reference, no parentheses</strong>.
+        <code>button.onclick = hello()</code> calls it now and stores
+        <code>undefined</code>: the most common beginner bug. One slot: a second
+        assignment replaces the first.
+      </li>
+      <li>
+        <code>addEventListener</code> keeps a list. The name has no
+        <code>on</code>: <code>"click"</code>.
+        <code>removeEventListener</code> needs the
+        <strong>same function object</strong>, so an inline anonymous function
+        can never be removed.
+      </li>
+      <li>
+        Events by group: mouse, keyboard, form (<code>input</code> every
+        keystroke, <code>change</code> on commit, <code>blur</code> is a good
+        moment to validate), page (<code>DOMContentLoaded</code> = HTML parsed,
+        <code>load</code> = images too).
+      </li>
+      <li>
+        If asked which to use: <code>addEventListener</code>. A strict CSP
+        blocks inline <code>on…</code> attributes (lecture 11).
+        <code>{ once: true }</code> removes it after one call.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>JavaScript Event Handling Example</h2>
@@ -1809,6 +3590,26 @@ button.removeEventListener("click", hello);
     }
     document.getElementById("clickbtn").onmouseup = mouseUp;
   </script>
+  <aside class="notes">
+    <ul>
+      <li>
+        Demo: hover → "Click Here"; move away → "Outside! Clicks are ignored";
+        press → "A new click"; release → alert
+        <code>Total # of clicks = 1</code> (the double space is really in the
+        string).
+      </li>
+      <li>
+        <strong>Point out the mix</strong>: three handlers are HTML attributes,
+        <code>onmouseup</code> is set from JS without parentheses. Both styles
+        fill the same slot.
+      </li>
+      <li>
+        Watch out: <code>counter</code> is a global shared with the propagation
+        demo (<code>#/45/2</code>). Reload before class, or use it as a lesson
+        on globals.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -1840,6 +3641,25 @@ function setBgColor(color) {
         <code>this</code>, the event, or other elements
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>The attribute string is code</strong>, so you can call the
+          function with any arguments. Click Red, then Green: the bullet line
+          changes colour.
+        </li>
+        <li>One function, two behaviours; the argument chooses.</li>
+        <li>
+          With <code>onclick = setBgColor</code> you pass a reference, so no
+          arguments; the browser passes only the event object.
+        </li>
+        <li>
+          So the handler finds the data when it runs: <code>this</code> (next
+          slide), the event (<code>#/45</code>), or another element, e.g.
+          <code>document.querySelector("#color").value</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2><code class="hl-orange">this</code> in a Handler</h2>
@@ -1864,6 +3684,33 @@ this.innerHTML;"&gt;Green&lt;/button&gt;
 &lt;button onclick="setBgColor3();"&gt;Black&lt;/button&gt;
 &lt;button onclick="setBgColor3.bind(this)();"&gt;Black&lt;/button&gt;
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >One function serves all buttons; <code>this</code> tells it which
+            button was pressed.</strong
+          >
+          Each label is its colour.
+        </li>
+        <li>
+          Red and Blue: registered as <code>onclick</code>, called as a method
+          of the button, so <code>this</code> is the button. Green: inside
+          attribute code, <code>this</code> is also the element.
+        </li>
+        <li>
+          Ask the class: what does the first Black do? Then: it calls
+          <code>setBgColor3()</code> as a plain call, no object before the dot,
+          so <code>this</code> is <code>window</code> (or
+          <code>undefined</code> in strict mode).
+        </li>
+        <li>
+          <code>bind(this)</code> makes a copy with <code>this</code> fixed to
+          the button; the final <code>()</code> calls it.
+          <code>setBgColor3.call(this)</code> does it in one step.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <button id="r">Red</button>
@@ -1886,6 +3733,31 @@ this.innerHTML;"&gt;Green&lt;/button&gt;
     </button>
     <button onclick="setBgColor3();">Black</button>
     <button onclick="setBgColor3.bind(this)();">Black</button>
+    <aside class="notes">
+      <ul>
+        <li>
+          Click in order. Red: alert
+          <code>this = [object HTMLButtonElement]</code>, turns red. Blue: same,
+          blue.
+        </li>
+        <li>Green: no alert (it does not use the function), turns green.</li>
+        <li>
+          First Black: alert <code>this = [object Window]</code>, nothing
+          changes. Console:
+          <code
+            >TypeError: Cannot read properties of undefined (reading
+            'toLowerCase')</code
+          >. Second Black: alert shows the button, turns black.
+        </li>
+        <li>
+          Watch out: the error names <code>toLowerCase</code>, not
+          <code>style</code>, because the right-hand side is evaluated first.
+          The Green code on the previous slide has no
+          <code>.toLowerCase()</code> but the live button has it; both work (CSS
+          colour names are case-insensitive).
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -1938,6 +3810,27 @@ function RemoveEventHandler() {
       blueButton.removeEventListener("click", blueClick1);
     }
   </script>
+  <aside class="notes">
+    <ul>
+      <li>
+        Steps: Big Blue first → nothing. Add, then Big Blue → two alerts, in
+        registration order.
+      </li>
+      <li>
+        Add again, then Big Blue → still two alerts:
+        <strong>the same function for the same event is added only once</strong
+        >.
+      </li>
+      <li>
+        Remove, then Big Blue → only "Yahoooo!!!!".
+        <code>blueClick2</code> stays until you reload.
+      </li>
+      <li>
+        This is what <code>onclick</code> cannot do: two independent handlers,
+        and remove one while the other stays.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -1964,6 +3857,28 @@ function RemoveEventHandler() {
         </li>
       </ul>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >A click on a button inside a <code>&lt;div&gt;</code> is also a
+            click on the div, <code>&lt;body&gt;</code> and
+            <code>&lt;html&gt;</code>.</strong
+          >
+          Innermost first: this is <strong>bubbling</strong>, like a bubble
+          rising in water.
+        </li>
+        <li>
+          All handlers get the <strong>same event object</strong> (type, target,
+          mouse position, key), so they can even pass data through it.
+        </li>
+        <li>
+          <code>stopPropagation()</code> = "I handled it, do not tell my
+          ancestors". Different from <code>preventDefault()</code>, which
+          cancels the browser's default action (S14).
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-html">
@@ -1994,6 +3909,21 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
   );
 });
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            >The child writes a custom property on the event object; the same
+            object bubbles up, so the parent reads it.</strong
+          >
+        </li>
+        <li>
+          <code>??</code> is nullish coalescing (S12): if
+          <code>event.message</code> is <code>undefined</code>, show the
+          fallback. That happens when the click did not pass through the child.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <div id="parent" style="border: solid">
@@ -2022,6 +3952,32 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
         );
       });
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          Reload first: <code>counter</code> is shared with <code>#/42</code>.
+        </li>
+        <li>
+          Click the button: "child handler", then "child message that is added
+          into event: You have clicked me 1 times".
+        </li>
+        <li>
+          Click the parent text: only "…: use clickme button". The event started
+          at the div and never passed the child.
+        </li>
+        <li>
+          Show <code>stopPropagation</code> in the console:
+          <code
+            >document.getElementById("click-btn-1").addEventListener("click",
+            (e) =&gt; e.stopPropagation())</code
+          >, click again: child alert, no parent alert.
+        </li>
+        <li>
+          Watch out: ad-hoc properties on an event are a teaching trick. Real
+          code uses <code>new CustomEvent("name", { detail: … })</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <img
@@ -2029,6 +3985,27 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
       alt="A click on button#click-btn-1 travels from window through document, html, body and div#parent down to the button in the capture phase, reaches the target, then bubbles back up to window. Capture listeners need addEventListener with true; bubble is the default. The parent handler runs during bubbling with this as div#parent and event.target as the button. Calling event.stopPropagation in the button handler means the parent never hears the click"
       width="860"
     />
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Three phases</strong>: capture (window down to the button;
+          only listeners added with <code>true</code> or
+          <code>{ capture: true }</code>), target, bubble (back up).
+        </li>
+        <li>
+          Ordinary listeners and every <code>on…</code> property run in the
+          bubble phase. That is why the parent heard the click.
+        </li>
+        <li>
+          The path is fixed when the event starts; siblings are never involved.
+          <code>stopPropagation()</code> cuts off the rest of the path.
+        </li>
+        <li>
+          If asked "does capture matter?": rarely; it lets an ancestor see the
+          event before any child.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>
@@ -2055,10 +4032,57 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
         <code>event</code>
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          On the <code>#parent</code> listener,
+          <strong
+            ><code>this</code> (= <code>event.currentTarget</code>) is always
+            the div; <code>event.target</code> is where the click began.</strong
+          >
+          Checked: button click → <code>parent / click-btn-1 / parent</code>;
+          text click → <code>parent / parent / parent</code>.
+        </li>
+        <li>
+          This makes <strong>event delegation</strong> possible: one listener on
+          a <code>&lt;ul&gt;</code> serves every <code>&lt;li&gt;</code>, even
+          ones added later.
+        </li>
+        <li>
+          <code>"Click"</code> registers for an event that never happens, and
+          nothing warns you.
+        </li>
+        <li>
+          In an attribute the browser wraps your code in
+          <code>function (event) { … }</code>, so the name must be exactly
+          <code>event</code>. In your own functions use any name, e.g.
+          <code>e</code>.
+        </li>
+        <li>
+          Watch out: an arrow listener takes <code>this</code> from outside
+          (<code>window</code>); use <code>event.currentTarget</code>. No demo
+          on the slide; paste
+          <code
+            >document.getElementById("parent").addEventListener("click",
+            function (e) { console.log(this.id, e.target.id); })</code
+          >
+          on <code>#/45/2</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Topic 5, <strong>Web Applications</strong>: we know the DOM and events,
+        so now six things real pages do with them. The last one talks to a
+        server.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -2079,6 +4103,33 @@ other.remove();          // delete it from the page
         <code>replaceChild</code>, <code>removeChild</code> on the parent
       </li>
     </ul>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>createElement</code> makes a <strong>detached</strong> element:
+          it is in memory, not on the page yet.
+        </li>
+        <li>
+          <code>textContent</code> sets text with no HTML parsing.
+          <code>setAttribute</code> works for any attribute; standard ones also
+          have a property, like <code>p.id</code>.
+        </li>
+        <li>
+          <code>append</code> = last child, <code>prepend</code> = first child.
+          The modern methods do not need the parent.
+        </li>
+        <li>
+          Watch out: appending an element that is already on the page
+          <strong>moves</strong> it. It does not copy. That is why the
+          <code>prepend</code> line moves <code>p</code>. To copy, use
+          <code>cloneNode(true)</code>.
+        </li>
+        <li>
+          If asked: the old API (<code>appendChild</code>,
+          <code>removeChild</code>, …) is called on the parent. It still works.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Content Generation Example</h2>
@@ -2118,6 +4169,21 @@ other.remove();          // delete it from the page
         onclick="replaceNewP();"
       />
     </form>
+    <aside class="notes">
+      <ul>
+        <li>Click Add twice: two "I am new paragraph" lines appear.</li>
+        <li>
+          Click Replace: the first line becomes a bordered "I replace the new
+          paragraph"; the second stays. Click again for the second. A third
+          Replace does nothing until you Add again.
+        </li>
+        <li>
+          Ask the class: why is the replacement inline? A
+          <code>&lt;span&gt;</code> is inline; the <code>&lt;p&gt;</code> was a
+          block.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -2146,6 +4212,24 @@ function replaceNewP() {
   }
 }
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong>Two counters</strong>: <code>id</code> counts paragraphs
+          created (<code>newp1</code>, <code>newp2</code>, …), so we can find
+          each one later.
+        </li>
+        <li>
+          <code>replace</code> counts replacements. The <code>if</code> stops it
+          from getting ahead of <code>id</code>; when nothing is left, it goes
+          back to <code>id</code>.
+        </li>
+        <li>
+          <code>style.borderStyle</code> is the camelCase rule from last
+          session.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2181,6 +4265,23 @@ function replaceNewP() {
       <li>Don't allow to submit if there is an error</li>
     </ol>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>Client-side validation is for the user's comfort</strong>:
+        instant feedback, no wait for the server.
+      </li>
+      <li>
+        It is not security: the user controls the browser. They can turn off JS,
+        edit the page in DevTools, or send the POST with <code>curl</code>. So
+        the server checks everything again.
+      </li>
+      <li>
+        Why "format only"? The client does not know server facts: it can check a
+        username looks valid, not that it is still free.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Form Validation in JavaScript</h2>
@@ -2227,6 +4328,23 @@ function replaceNewP() {
       </li>
     </ul>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong><code>.value</code> is always a string</strong>, even for
+        numbers. Convert with <code>Number(...)</code> before you compare.
+      </li>
+      <li>
+        A multi-select gives only the first chosen option in
+        <code>.value</code>; use <code>.selectedOptions</code>.
+      </li>
+      <li>
+        A checkbox or radio group is many separate inputs with one
+        <code>name</code>. Look at <code>.checked</code> (true or false) on
+        each.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Reading Many Values</h2>
@@ -2254,6 +4372,28 @@ new URLSearchParams(new FormData(form)).toString();
       browser does, so one name can have many values
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong><code>FormData</code></strong> collects the form exactly like
+        the browser does on submit.
+      </li>
+      <li>
+        One name can have many values: <code>getAll</code> for checkboxes and
+        multi-selects; <code>get</code> gives only the first.
+      </li>
+      <li>
+        <code>URLSearchParams</code> gives the exact POST body:
+        <code>colors=r&amp;colors=b&amp;…</code>. A repeated name is how HTML
+        sends many values (lecture 2).
+      </li>
+      <li>
+        Watch out: no live form here; the comments are a real headless-Chrome
+        run. For a checkbox group, <code>form.elements[name].value</code> is
+        <code>""</code>, so use <code>getAll</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -2300,6 +4440,28 @@ new URLSearchParams(new FormData(form)).toString();
         <td>End match</td>
       </tr>
     </table>
+    <aside class="notes">
+      <ul>
+        <li>
+          A <strong>regular expression</strong> is a small pattern language for
+          text, written between slashes. For validation use
+          <code>test</code> (yes/no).
+        </li>
+        <li>
+          <code>match</code> with the <code>g</code> flag returns all matches;
+          with no match it returns <code>null</code>.
+        </li>
+        <li>
+          A quantifier applies only to the <strong>one item before it</strong>:
+          <code>ab*</code> is <code>a</code> then any number of <code>b</code>.
+          <code>[abc]</code> is one character; add <code>+</code> for more. Also
+          <code>{x,y}</code>, <code>\w</code>, <code>\s</code>.
+        </li>
+        <li>
+          Watch out: a literal dot needs <code>\.</code> (emails, IP addresses).
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -2318,6 +4480,36 @@ let anywhere = /ab*c+d{3}z/;
 // To match Date format:
 let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          Read the pattern: <code>a</code>, any <code>b</code>, at least one
+          <code>c</code>, exactly three <code>d</code>, <code>z</code>.
+          <code>"acz"</code> fails: no <code>ddd</code>.
+        </li>
+        <li>
+          <code>^</code> and <code>$</code> = start and end of the string.
+          Without them, the pattern can match anywhere, so the
+          <code>ff</code> prefix still passes.
+        </li>
+        <li>
+          <strong
+            >A validation regex almost always needs <code>^</code> and
+            <code>$</code>.</strong
+          >
+        </li>
+        <li>
+          Date regex: escape <code>/</code> as <code>\/</code>.
+          <code>2026/11/10</code> passes; <code>2026-11-10</code> and
+          <code>2026/111/1</code> fail.
+        </li>
+        <li>
+          If asked: <code>2026/13/45</code> passes. It checks format, not
+          meaning; check ranges in code or use
+          <code>&lt;input type="date"&gt;</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2368,6 +4560,25 @@ let dateRegex = /^\d{4}\/\d{1,2}\/\d{1,2}$/
       }
       document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          Try three cases: <code>abc</code>/<code>abc</code> (too short),
+          <code>abcdef</code>/<code>abcdeg</code> (do not match),
+          <code>abcdef</code>/<code>abcdef</code> (Valid).
+        </li>
+        <li>
+          The handler is on the form's
+          <strong><code>submit</code></strong> event, not the button's click, so
+          Enter in a field runs it too.
+        </li>
+        <li>
+          Watch out: this demo always calls <code>preventDefault()</code> so the
+          deck stays on screen. The next slide is the real pattern. Say this, or
+          someone asks why "Valid" did not submit.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -2386,6 +4597,25 @@ function checkpassword(event) {
 }
 document.getElementsByName("passwordform")[0].onsubmit = checkpassword;
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          On submit the browser runs the handler, then does the default action:
+          POST to <code>action</code>.
+        </li>
+        <li>
+          It skips the POST only if the handler called
+          <code>preventDefault()</code>. So:
+          <strong>block on error, do nothing when valid</strong>.
+        </li>
+        <li>On success httpbin.org would echo the fields back as JSON.</li>
+        <li>
+          If asked: <code>return false</code> works in <code>onsubmit</code>,
+          but <code>preventDefault()</code> works everywhere, also with
+          <code>addEventListener</code>.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2406,6 +4636,24 @@ box.addEventListener("click", (event) =&gt; {
   );
 });
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          Many events come with a built-in browser action: a link navigates, a
+          submit posts, a checkbox toggles, a key types.
+        </li>
+        <li>
+          <code>preventDefault()</code> cancels that action. It does
+          <strong>not</strong> stop propagation; that is
+          <code>stopPropagation()</code>.
+          <strong>The two are independent.</strong>
+        </li>
+        <li>
+          The message is added with <code>append</code>, so it is text, not
+          HTML.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <p>Please click on the checkbox control.</p>
@@ -2430,6 +4678,19 @@ box.addEventListener("click", (event) =&gt; {
             );
         });
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          Click the box a few times: a "Sorry!" line each time, and the box
+          stays unticked.
+        </li>
+        <li>
+          Then click the word "Checkbox:".
+          <strong>The label passes the click on</strong> to the checkbox, so it
+          is prevented too.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2474,6 +4735,28 @@ box.addEventListener("click", (event) =&gt; {
           new URLSearchParams(new FormData(event.target));
       });
   </script>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong>HTML input types give validation for free.</strong> Submit
+        empty: a bubble, and <code>submit</code> does not fire at all.
+      </li>
+      <li>
+        Enter <code>17</code> and a valid email: still blocked, "Value must be
+        greater than or equal to 18."
+      </li>
+      <li>
+        Enter <code>20</code> and <code>a@b.co</code>: prints
+        <code>age=20&amp;email=a%40b.co</code>. <code>%40</code> is
+        <code>@</code>, URL-encoded (lecture 2).
+      </li>
+      <li>
+        JS is still needed for rules HTML cannot say (passwords match): use
+        <code>setCustomValidity</code>, and the browser shows your message in
+        the same bubble.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -2498,6 +4781,27 @@ box.addEventListener("click", (event) =&gt; {
         <td>Information about HTTP</td>
       </tr>
     </table>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong><code>document</code></strong> is the root of the DOM tree,
+          and holds information about the whole page.
+        </li>
+        <li>
+          <code>document.forms[0]</code> is the first form;
+          <code>document.forms.passwordform</code> is the one with that name.
+        </li>
+        <li>
+          Assign to <code>document.title</code> and the tab title changes.
+          <code>dir</code> is <code>ltr</code> or <code>rtl</code>.
+        </li>
+        <li>
+          <code>referrer</code> is the page you came from: the
+          <code>Referer</code> header. <code>cookie</code> comes in Application
+          5.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>Document Object Example</h2>
@@ -2530,6 +4834,28 @@ box.addEventListener("click", (event) =&gt; {
         document.dir = document.dir === "rtl" ? "ltr" : "rtl";
       };
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>referrer</code> is empty if you opened the deck directly. On the
+          published deck expect <code>https:</code> and
+          <code>/ie-lecture/lectures/lecture-5/</code>.
+        </li>
+        <li>
+          The table uses <code>insertRow</code> and <code>textContent</code>, so
+          a strange URL cannot inject HTML.
+        </li>
+        <li>
+          Click Change Sides: with
+          <strong><code>rtl</code> the whole page flips</strong>. Persian sites
+          use <code>&lt;html dir="rtl"&gt;</code>.
+        </li>
+        <li>
+          Watch out: click again to restore <code>ltr</code> before moving on.
+          The URL row was captured at load, so it shows the hash you opened on.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2562,6 +4888,31 @@ box.addEventListener("click", (event) =&gt; {
         <td>Run a function later, or again and again</td>
       </tr>
     </table>
+    <aside class="notes">
+      <ul>
+        <li>
+          <strong
+            ><code>document</code> is the page; <code>window</code> is the
+            tab</strong
+          >
+          that shows it.
+        </li>
+        <li>
+          <code>window</code> is the global object: every global is a property
+          of it, so <code>alert</code> = <code>window.alert</code>.
+        </li>
+        <li>
+          Each tab (and each <code>&lt;iframe&gt;</code>) has its own
+          <code>window</code>; two tabs do not share variables, so they need
+          storage.
+        </li>
+        <li>
+          <code>location.href = "…"</code> navigates,
+          <code>location.reload()</code> reloads, <code>history.back()</code> is
+          the Back button.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <h2>window Properties</h2>
@@ -2604,6 +4955,26 @@ box.addEventListener("click", (event) =&gt; {
         document.getElementById("location").textContent = location.href;
       })();
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          Read the numbers aloud. <code>screen</code> is the monitor;
+          <code>inner…</code> is only the page area.
+        </li>
+        <li>
+          Zoom in with Ctrl/Cmd +: <code>innerWidth</code> drops, because each
+          <strong>CSS pixel gets bigger</strong>.
+        </li>
+        <li>
+          Resize the window: the numbers update live (a
+          <code>resize</code> listener).
+        </li>
+        <li>
+          To hide things on a small window, real pages use
+          <strong>CSS media queries</strong>, not JS.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <p>Alert "Hello" every 3 seconds (3000 milliseconds)</p>
@@ -2629,6 +5000,25 @@ clearInterval(hello)
         helloInt = -1;
       };
     </script>
+    <aside class="notes">
+      <ul>
+        <li>
+          <code>setInterval(fn, ms)</code> repeats until cancelled. It returns
+          an id; <strong>keeping the id is the only way to stop it</strong> with
+          <code>clearInterval</code>.
+        </li>
+        <li>Click Set, let it alert twice, click Clear.</li>
+        <li>
+          The callback waits in the event loop's task queue, so the delay is a
+          minimum, not a guarantee. <code>setTimeout</code> is the one-shot
+          version.
+        </li>
+        <li>
+          Watch out: click Set exactly once. Two Sets start two intervals, and
+          Clear stops only the last one.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2665,6 +5055,28 @@ clearInterval(hello)
       document.getElementById("nav-" + key).textContent = navigator[key];
     }
   </script>
+  <aside class="notes">
+    <ul>
+      <li>
+        <strong
+          ><code>navigator</code> is about the browser, not the page.</strong
+        >
+        <code>language</code> can pick a default language;
+        <code>onLine</code> is whether the browser thinks it has a network.
+      </li>
+      <li>
+        Read <code>userAgent</code>: it starts with <code>Mozilla/5.0</code>,
+        and a Mac says <code>Intel Mac OS X 10_15_7</code> even on Apple
+        silicon. These parts are frozen so old sites keep working (the WebAIM
+        link tells the story).
+      </li>
+      <li>
+        Watch out: present it as history. Detecting the browser by user agent is
+        unreliable; <strong>check for the feature</strong>:
+        <code>if ("geolocation" in navigator)</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Application 5: Cookies</h2>
@@ -2687,6 +5099,33 @@ document.cookie; // "theme=dark; lang=fa"
     </li>
     <li>For data only the page needs, use Web Storage</li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Recall: server sends <code>Set-Cookie</code>, browser sends
+        <code>Cookie</code> back. New today:
+        <strong>JS can read and write cookies too</strong>.
+      </li>
+      <li>
+        The API is strange: assigning sets <strong>one</strong> cookie, the
+        others stay. <code>"lang=; max-age=0"</code> deletes <code>lang</code>.
+        Reading gives only <code>name=value</code> pairs; split on
+        <code>"; "</code>.
+      </li>
+      <li>
+        <code>HttpOnly</code> cookies are set by the server and invisible to JS.
+        <strong>XSS</strong> (someone else's script in your page) cannot steal
+        what JS cannot read.
+      </li>
+      <li>Every cookie travels on every request, about 4 KB each.</li>
+      <li>
+        Watch out: the pair order is not fixed (the run gave
+        <code>lang=fa; theme=dark</code>). Cookies do nothing on a
+        double-clicked local file in Chrome; serve over
+        <code>http://localhost</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Web Storage</h2>
@@ -2710,6 +5149,27 @@ JSON.parse(localStorage.getItem("user")).name; // "Sara"
     </li>
     <li>It is <em class="hl-red">not</em> sent to the server</li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        <code>localStorage</code>: a key/value store per
+        <strong>origin</strong> (scheme + host + port), a few MB, never sent to
+        the server, survives restarts.
+      </li>
+      <li>
+        <strong>Strings only</strong>: <code>setItem("n", 1)</code> reads back
+        as <code>"1"</code>. Use <code>JSON.stringify</code> /
+        <code>JSON.parse</code> for objects (next session is JSON). A missing
+        key gives <code>null</code>.
+      </li>
+      <li><code>sessionStorage</code>: same API, this tab only.</li>
+      <li>
+        Board summary: cookie = sent to server, ~4 KB, can be
+        <code>HttpOnly</code>; <code>localStorage</code> = client, persistent;
+        <code>sessionStorage</code> = client, this tab.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <section>
@@ -2737,6 +5197,35 @@ if (!response.ok) {
 const user = await response.json(); // the body, parsed
 console.log(user.name); // "Leanne Graham"
     </code></pre>
+    <aside class="notes">
+      <ul>
+        <li>
+          This is how a page talks to a server
+          <strong>without reloading</strong>. Method, headers, status, body from
+          lectures 1–2 become JS objects.
+        </li>
+        <li>
+          <strong
+            >A 404 or 500 is still an answer: the promise resolves.</strong
+          >
+          Check <code>response.ok</code> and <code>throw</code> yourself. It
+          rejects only when there is no usable answer.
+        </li>
+        <li>
+          Two steps: the first <code>await</code> ends when headers arrive;
+          <code>response.json()</code> reads and parses the body (also
+          <code>.text()</code>, <code>.blob()</code>). Prints
+          <code>Leanne Graham</code>.
+        </li>
+        <li>
+          POST:
+          <code
+            >fetch(url, { method: "POST", headers: {"Content-Type":
+            "application/json"}, body: JSON.stringify(data) })</code
+          >.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <pre><code class="lang-javascript">
@@ -2774,6 +5263,28 @@ function swapiExec() {
       }
     </script>
     <button onclick="swapiExec()">Fetch</button>
+    <aside class="notes">
+      <ul>
+        <li>
+          SWAPI is a public REST API about Star Wars. Click Fetch:
+          <code>{"name":"Luke Skywalker","height":"172","mass":"77",…</code>.
+        </li>
+        <li>
+          Point at the shape: strings, and arrays of URLs (<code>films</code>,
+          <code>vehicles</code>) that link to other resources.
+          <strong>That is REST.</strong>
+        </li>
+        <li>
+          Written with <code>textContent</code>, so nothing from the network is
+          read as HTML.
+        </li>
+        <li>
+          Watch out: the line is clipped with no scrollbar; show it in DevTools
+          → Network → Preview. If swapi.dev is blocked at AUT, the
+          <code>.catch</code> prints the error.
+        </li>
+      </ul>
+    </aside>
   </section>
   <section>
     <script>
@@ -2813,6 +5324,31 @@ function fetchWithErr(url) {
     </button>
     <button onclick="fetchWithErr('https://httpbin.org/uuid')">UUID</button>
     <button onclick="fetchWithErr('https://unsplash.com')">CORS</button>
+    <aside class="notes">
+      <ul>
+        <li>
+          403: <code>Failed: Error: HTTP status 403</code>. The server answered,
+          so the promise resolved;
+          <strong>our own <code>throw</code></strong> made the error.
+        </li>
+        <li>UUID: <code>Success: {"uuid": "…"}</code>, new each time.</li>
+        <li>
+          CORS: <code>Failed: TypeError: Failed to fetch</code>. This time
+          <strong><code>fetch</code> itself rejected</strong>: unsplash.com
+          sends no <code>Access-Control-Allow-Origin</code>, so the browser
+          hides the response. Show the Console error and the Network tab (the
+          request did go out).
+        </li>
+        <li>
+          <strong>The browser enforces CORS</strong>, to protect the user's data
+          on other sites. It is not a server firewall.
+        </li>
+        <li>
+          Watch out: lines appear in arrival order, not click order. Firefox and
+          Safari word the <code>TypeError</code> differently.
+        </li>
+      </ul>
+    </aside>
   </section>
 </section>
 <section>
@@ -2847,9 +5383,38 @@ function fetchWithErr(url) {
       <td>a session cookie (set by the server, <code>HttpOnly</code>)</td>
     </tr>
   </table>
+  <aside class="notes">
+    <ul>
+      <li>
+        Recap with an app students use every day: Gmail. Name the Application
+        for each row: inbox = 1, To: check = 2, polling = 4 + 6, theme and login
+        = 5.
+      </li>
+      <li>
+        <strong>Polling</strong> = asking the server again and again; modern
+        clients let the server push (WebSockets, Server-Sent Events).
+      </li>
+      <li>
+        Stress the last two rows:
+        <strong
+          >the theme is in <code>localStorage</code>, but "stay logged in" is an
+          <code>HttpOnly</code> cookie</strong
+        >
+        set by the server, and JS never touches it.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <div class="toc" data-selected="6"></div>
+  <aside class="notes">
+    <ul>
+      <li>
+        Topic 6, <strong>Summary</strong>: that completes JavaScript on the
+        client. Now some advice, and where to go next.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Debugging 🐛</h2>
@@ -2876,6 +5441,26 @@ function fetchWithErr(url) {
       </li>
     </ul>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Press F12 and show the four panels live. In Elements, a selected node is
+        <code>$0</code> in the console. Network: we used it for the CORS button.
+      </li>
+      <li>
+        Sources: click a line number for a <strong>breakpoint</strong>, or write
+        <code>debugger;</code>. Step through and look at variables. Try
+        <code>console.table</code> on the swapi result.
+      </li>
+      <li>
+        Each best practice had an example: an undeclared variable becomes a
+        global; <code>"1" == 1</code> is <code>true</code> but
+        <code>"1" === 1</code> is <code>false</code>, because
+        <code>==</code> converts types; <code>textContent</code> kept the CORS
+        output safe.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>Warnings ⚠️</h2>
@@ -2901,6 +5486,25 @@ function fetchWithErr(url) {
       </li>
     </ul>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Today browser differences are mostly about the
+        <strong>newest features</strong>: <code>Temporal</code> and
+        <code>using</code> run in Chrome, not everywhere. Check MDN
+        compatibility tables or caniuse.
+      </li>
+      <li>
+        <code>this</code>: the Black button with <code>setBgColor3()</code> was
+        a plain call, so <code>this</code> was <code>window</code>.
+      </li>
+      <li>
+        Rule to leave with:
+        <strong>in event handlers, use <code>event.currentTarget</code></strong
+        >, and forget about <code>this</code>.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>What next?!</h2>
@@ -2922,6 +5526,28 @@ function fetchWithErr(url) {
       browser at near-native speed
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        A <strong>library</strong> is code you call (D3 charts, Zod checks
+        <code>fetch</code> data). A <strong>framework</strong> calls your code:
+        it re-renders the DOM from your state, so no more
+        <code>createElement</code> by hand.
+      </li>
+      <li>
+        Server-side JS has no DOM, but files and sockets. In this course the
+        server side is Go (lecture 7).
+      </li>
+      <li>
+        TypeScript: types are checked at build time, then erased; plain JS runs
+        in the browser.
+      </li>
+      <li>
+        WebAssembly: a compact binary format at near-native speed; to reach the
+        DOM it calls into JS.
+      </li>
+    </ul>
+  </aside>
 </section>
 <section>
   <h2>References 📚</h2>
@@ -2951,4 +5577,16 @@ function fetchWithErr(url) {
       >
     </li>
   </ul>
+  <aside class="notes">
+    <ul>
+      <li>
+        Point students to <strong>MDN</strong> as the reference for everything
+        in this lecture.
+      </li>
+      <li>
+        The TC39 list is where new features appear, with the edition each one
+        joins.
+      </li>
+    </ul>
+  </aside>
 </section>

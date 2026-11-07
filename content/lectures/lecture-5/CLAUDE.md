@@ -18,6 +18,14 @@ parallel → modules. Topic 2 then tours the editions ES2020–ES2027 (`?.`, `??
 `toSorted`, `Object.groupBy`, `Set` methods, iterator helpers, the ES2026
 additions, Temporal and `using`).
 
+## Speaker notes
+
+Every slide has an `<aside class="notes">` (press `s` for the speaker view),
+added on 2026-11-07 at the user's request. They are short versions of the
+session notes in `~/org/Teaching/Internet Engineering Sessions/` (IE S11–S14),
+which stay the full source. A new or changed slide needs its aside too, and the
+matching session note entry.
+
 ## What the cut removed, and why
 
 Do not bring these back without a reason; each was a duplicate, legacy, or
