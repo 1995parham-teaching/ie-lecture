@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>How the browser loads a classic script, a defer script, an async script and a module</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect x="30" y="20" width="26" height="14" style="fill:#76ff03;fill-opacity:0.7" /><text class="label" x="64" y="28">HTML parsing</text>
+  <rect x="230" y="20" width="26" height="8" style="fill:#00e5ff" /><text class="label" x="264" y="28">fetch the script</text>
+  <rect x="440" y="20" width="26" height="14" style="fill:#ff9100" /><text class="label" x="474" y="28">run the script</text>
+  <path class="dash" d="M650,20 V36" style="stroke:#ee82ee" /><text class="label" x="662" y="28">DOMContentLoaded</text>
+  <text class="mono start" x="30" y="97" style="font-size: 16px">&lt;script&gt;</text>
+  <rect x="200" y="90" width="124" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="510" y="90" width="186" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="324" y="112" width="136" height="8" style="fill:#00e5ff" />
+  <rect x="460" y="90" width="50" height="14" style="fill:#ff9100" />
+  <path class="dash" d="M696,76 V130" style="stroke:#ee82ee" />
+  <text class="small start" x="324" y="140" style="font-size: 14px">parser waits for fetch and run</text>
+  <text class="mono start" x="30" y="187" style="font-size: 16px">&lt;script defer&gt;</text>
+  <rect x="200" y="180" width="372" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="324" y="202" width="136" height="8" style="fill:#00e5ff" />
+  <rect x="572" y="180" width="50" height="14" style="fill:#ff9100" />
+  <path class="dash" d="M622,166 V220" style="stroke:#ee82ee" />
+  <text class="small start" x="324" y="230" style="font-size: 14px">runs after parsing, in order</text>
+  <text class="mono start" x="30" y="277" style="font-size: 16px">&lt;script async&gt;</text>
+  <rect x="200" y="270" width="260" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="510" y="270" width="112" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="324" y="292" width="136" height="8" style="fill:#00e5ff" />
+  <rect x="460" y="270" width="50" height="14" style="fill:#ff9100" />
+  <path class="dash" d="M622,256 V310" style="stroke:#ee82ee" />
+  <text class="small start" x="324" y="320" style="font-size: 14px">runs when it arrives, any order</text>
+  <text class="mono start" x="30" y="367" style="font-size: 16px">type="module"</text>
+  <rect x="200" y="360" width="372" height="14" style="fill:#76ff03;fill-opacity:0.7" />
+  <rect x="324" y="382" width="136" height="8" style="fill:#00e5ff" />
+  <rect x="572" y="360" width="50" height="14" style="fill:#ff9100" />
+  <path class="dash" d="M622,346 V400" style="stroke:#ee82ee" />
+  <text class="small start" x="324" y="410" style="font-size: 14px">deferred by default</text>
+  <path class="line" d="M200,440 H850" /><text class="small" x="850" y="458" style="font-size: 14px; text-anchor: end">time</text>
+</svg>

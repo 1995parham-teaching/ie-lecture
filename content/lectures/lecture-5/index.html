@@ -35,30 +35,93 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>What is JavaScript?</h2>
-  <ul>
-    <li>
-      A <em class="hl-orange">prototype-based</em>,
-      <em class="hl-green">client-side</em>,
-      <em class="hl-cyan">scripting</em> language
-    </li>
+  <section>
+    <h2>What is JavaScript?</h2>
     <ul>
       <li>
-        Prototype-based: objects inherit from other objects, not from classes
+        A <em class="hl-orange">prototype-based</em>,
+        <em class="hl-green">client-side</em>,
+        <em class="hl-cyan">scripting</em> language
       </li>
-      <li>Client-side: the browser runs it</li>
+      <ul>
+        <li>
+          Prototype-based: objects inherit from other objects, not from classes
+        </li>
+        <li>Client-side: it was made for the browser, its main home today</li>
+        <li>
+          Scripting: you ship the source; the engine compiles it
+          <em class="hl-orange">just-in-time</em>
+        </li>
+      </ul>
+      <li>JavaScript is not related to Java</li>
       <li>
-        Scripting: you ship the source; the engine compiles it
-        <em class="hl-orange">just-in-time</em>
+        Its standard is <em class="hl-yellow">ECMAScript</em>: a new edition
+        every June (the latest is ES2026)
+      </li>
+      <li>This lecture is about JavaScript in the browser</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Engine and Runtime</h2>
+    <img
+      src="./img/runtime.svg"
+      alt="Two runtimes side by side. Chrome holds the V8 engine (parse, bytecode, JIT machine code; heap, call stack, garbage collector; only ECMAScript such as Array, Promise and JSON), the host APIs document, window, fetch, setTimeout, localStorage, alert and addEventListener, and an event loop from the HTML standard. Node.js holds the same V8 engine, the host APIs fs, http, process, Buffer, fetch, setTimeout and require, and an event loop from libuv. document does not exist in Node.js, and fs does not exist in the browser"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Where JavaScript Runs</h2>
+    <table style="font-size: 0.6em">
+      <tr>
+        <th>Use case</th>
+        <th>Runtime</th>
+        <th>Engine</th>
+      </tr>
+      <tr>
+        <td>Web pages</td>
+        <td>Chrome, Edge / Firefox / Safari</td>
+        <td>
+          <span class="hl-yellow">V8</span> /
+          <span class="hl-orange">SpiderMonkey</span> /
+          <span class="hl-cyan">JavaScriptCore</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Servers and CLI tools</td>
+        <td>Node.js, Deno / Bun</td>
+        <td>
+          <span class="hl-yellow">V8</span> /
+          <span class="hl-cyan">JavaScriptCore</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Desktop apps (VS Code, Discord)</td>
+        <td>Electron: Chromium + Node.js</td>
+        <td><span class="hl-yellow">V8</span></td>
+      </tr>
+      <tr>
+        <td>Mobile apps</td>
+        <td>React Native</td>
+        <td><span class="hl-green">Hermes</span></td>
+      </tr>
+      <tr>
+        <td>Edge functions</td>
+        <td>Cloudflare Workers</td>
+        <td><span class="hl-yellow">V8</span> isolates</td>
+      </tr>
+      <tr>
+        <td>Scripts for Google Docs and Sheets</td>
+        <td>Google Apps Script</td>
+        <td><span class="hl-yellow">V8</span></td>
+      </tr>
+    </table>
+    <ul>
+      <li>
+        <em class="hl-orange">Just-in-time</em>: V8 first interprets bytecode,
+        then compiles the hot functions to machine code
       </li>
     </ul>
-    <li>JavaScript is not related to Java</li>
-    <li>
-      Its standard is <em class="hl-yellow">ECMAScript</em>: a new edition every
-      June (the latest is ES2026)
-    </li>
-    <li>Server-side JavaScript (Node.js) is not discussed here</li>
-  </ul>
+  </section>
 </section>
 <section>
   <h2>What Can JavaScript Do in a Page?</h2>
@@ -75,29 +138,79 @@ topics:
   </ul>
 </section>
 <section>
-  <h2>How to Add JavaScript to HTML?</h2>
-  <ul>
-    <li>Embed it, or link to a file</li>
-    <pre><code class="lang-html">
+  <section>
+    <h2>How to Add JavaScript to HTML?</h2>
+    <ul>
+      <li>Embed it, or link to a file</li>
+      <pre><code class="lang-html">
 &lt;script&gt;
   console.log("Hello World");
 &lt;/script&gt;
 
+&lt;script src="app.js"&gt;&lt;/script&gt;
 &lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;script src="analytics.js" async&gt;&lt;/script&gt;
+&lt;script src="main.js" type="module"&gt;&lt;/script&gt;
     </code></pre>
-    <li>
-      The browser runs a script when the parser reaches it, so the elements
-      after it do not exist yet
-    </li>
-    <li>
-      <code class="hl-cyan">defer</code>: run the script after the whole page is
-      parsed
-    </li>
-    <li>
-      <code class="hl-orange">integrity</code>: a hash, so the browser rejects a
-      changed file (important for scripts from a CDN)
-    </li>
-  </ul>
+      <li>
+        The browser runs a plain script when the parser reaches it, so the
+        elements after it do not exist yet
+      </li>
+      <li>
+        <code class="hl-orange">integrity</code>: a hash, so the browser rejects
+        a changed file (important for scripts from a CDN)
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>&lt;script&gt; in head or body?</h2>
+    <pre><code class="lang-html">
+&lt;head&gt;
+  &lt;script&gt;
+    document.getElementById("para"); // null: the body is not parsed yet
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="para"&gt;Hello&lt;/p&gt;
+  &lt;script&gt;
+    document.getElementById("para"); // &lt;p id="para"&gt;
+  &lt;/script&gt;
+&lt;/body&gt;
+    </code></pre>
+    <ul>
+      <li>
+        <span class="hl-red">In head</span>: it runs before the body exists, and
+        the page stays blank while the file downloads
+      </li>
+      <li>
+        <span class="hl-orange">At the end of body</span>: the elements exist,
+        but the download starts late (the old way)
+      </li>
+      <li>
+        <span class="hl-green">Today</span>: in head with <code>defer</code> or
+        <code>type="module"</code>: download early, run after the page is parsed
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>defer and async</h2>
+    <img
+      src="./img/script-loading.svg"
+      alt="Four timelines. A plain script stops HTML parsing while the browser fetches and runs it, so DOMContentLoaded comes last. A defer script is fetched while parsing continues and runs after parsing, just before DOMContentLoaded. An async script is fetched while parsing continues and runs as soon as it arrives, which pauses the parser. A module script behaves like defer"
+      width="760"
+    />
+    <ul style="font-size: 0.8em">
+      <li>
+        <code class="hl-cyan">defer</code>: runs in document order, before
+        <code>DOMContentLoaded</code>. Use it for your app
+      </li>
+      <li>
+        <code class="hl-orange">async</code>: the first to arrive runs first.
+        Use it for independent scripts (analytics, ads)
+      </li>
+      <li>They need <code>src</code>: an inline plain script ignores them</li>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="1"></div>
@@ -226,6 +339,38 @@ name.tellTheTruth(); // Uncaught TypeError: name.tellTheTruth is not a function
         <code>name.length</code> works because JavaScript wraps the string in a
         temporary <em class="hl-yellow">wrapper object</em>, then throws it away
         with everything you put on it
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Boxing: Java and JavaScript</h2>
+    <pre><code class="lang-java">
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+list.add(5);             // autoboxing: int → Integer
+int x = list.get(0) + 1; // unboxing: Integer → int, x is 6
+
+Integer a = 1000, b = 1000;
+boolean same = a == b;      // false: two Integer objects
+boolean equal = a.equals(b); // true
+    </code></pre>
+    <pre><code class="lang-javascript">
+"abc".length;         // 3: a String box is made, then thrown away
+(5).toFixed(2);       // "5.00": the same with a Number box
+typeof Object("abc"); // "object": a box you keep
+Object("abc") + "d";  // "abcd": unboxing with valueOf()
+new Boolean(false) ? "yes" : "no"; // "yes": every object is truthy
+    </code></pre>
+    <ul style="font-size: 0.8em">
+      <li>
+        <span class="hl-orange">Java</span> boxes a primitive when it goes where
+        an object is expected (collections, generics), and the box stays
+      </li>
+      <li>
+        <span class="hl-yellow">JavaScript</span> boxes it only to read a
+        property or call a method, and the box is temporary
+      </li>
+      <li>
+        Never write <code>new Number()</code> or <code>new Boolean()</code>
       </li>
     </ul>
   </section>
@@ -388,6 +533,38 @@ for (const friend of friends) {
   console.log(friend);
 }
     </code></pre>
+  </section>
+  <section>
+    <h2>How reduce Works</h2>
+    <img
+      src="./img/reduce.svg"
+      alt="[5, 10, 20].reduce((sum, x) => sum + x, 0). The initial value 0 and the element 5 go into call 1, which returns 5. 5 and 10 go into call 2, which returns 15. 15 and 20 go into call 3, which returns 35, the result. Each call gets the sum so far and the next element, and what it returns becomes the sum for the next call"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>More reduce</h2>
+    <pre><code class="lang-javascript">
+// no initial value: the first element is the start
+[5, 10, 20].reduce((sum, x) =&gt; sum + x); // 35
+
+// TypeError: Reduce of empty array with no initial value
+[].reduce((sum, x) =&gt; sum + x);
+[].reduce((sum, x) =&gt; sum + x, 0); // 0
+
+// the result can be any type: count the words
+const words = ["js", "css", "js", "html", "js"];
+words.reduce((count, w) =&gt; {
+  count[w] = (count[w] ?? 0) + 1;
+  return count;
+}, {}); // { js: 3, css: 1, html: 1 }
+    </code></pre>
+    <ul>
+      <li>
+        Always give the <span class="hl-violet">initial value</span>; then an
+        empty array is safe
+      </li>
+    </ul>
   </section>
 </section>
 <section>
@@ -640,12 +817,22 @@ function myFunction() {
 <section>
   <section>
     <h2>Concurrency model and the event loop</h2>
-    <p>
-      JavaScript has a concurrency model based on an
-      <strong class="hl-orange">event loop</strong>, which is responsible for
-      executing the code, collecting and processing events, and executing queued
-      sub-tasks.
-    </p>
+    <ul>
+      <li>
+        JavaScript runs on <span class="hl-orange">one thread</span> with
+        <span class="hl-orange">one call stack</span>: only one function runs at
+        a time
+      </li>
+      <li>
+        The <span class="hl-cyan">browser</span> does the waiting on other
+        threads: timers, network, user input
+      </li>
+      <li>When a wait is over, the browser puts a callback in a queue</li>
+      <li>
+        The <strong class="hl-yellow">event loop</strong> takes callbacks from
+        the queues and runs them, one at a time
+      </li>
+    </ul>
   </section>
   <section>
     <img
@@ -655,10 +842,24 @@ function myFunction() {
     />
   </section>
   <section>
+    <h2>One Turn of the Loop</h2>
+    <img
+      src="./img/event-loop-turn.svg"
+      alt="Three boxes in a loop. 1: run one task, the oldest in the task queue, until the call stack is empty. 2: run all microtasks, also the ones queued while they run. 3: render if a frame is due: requestAnimationFrame, style, layout, paint. Then repeat; if the task queue is empty, wait for a task. A frame is due about every 16.7 ms on a 60 Hz screen, so a task longer than 50 ms makes the page stutter, and endless microtasks freeze it"
+      width="860"
+    />
+  </section>
+  <section>
     <h2>Event Loop</h2>
     <pre><code class="lang-javascript">
-while (taskQueue.waitForTask()) {
-  taskQueue.runNextTask()
+// pseudocode: what the browser does
+while (true) {
+  const task = taskQueue.takeOldest(); // waits if the queue is empty
+  run(task);                           // to completion
+  while (microtaskQueue.length &gt; 0) {
+    run(microtaskQueue.takeOldest());  // all of them
+  }
+  if (frameIsDue()) render();          // rAF, style, layout, paint
 }
     </code></pre>
     <ul>
@@ -674,6 +875,101 @@ while (taskQueue.waitForTask()) {
         <span class="hl-red">Bad</span>: a task that takes
         <span class="hl-violet">too long</span> freezes the page: no clicks, no
         scroll
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Tasks and Microtasks</h2>
+    <table style="font-size: 0.65em">
+      <tr>
+        <th></th>
+        <th class="hl-orange">Task</th>
+        <th class="hl-green">Microtask</th>
+      </tr>
+      <tr>
+        <td>Made by</td>
+        <td>
+          a <code>&lt;script&gt;</code>, <code>setTimeout</code>,
+          <code>setInterval</code>, events (click, key, load)
+        </td>
+        <td>
+          <code>.then</code> / <code>.catch</code> / <code>.finally</code>, the
+          code after <code>await</code>, <code>queueMicrotask</code>
+        </td>
+      </tr>
+      <tr>
+        <td>Runs</td>
+        <td>one in each turn of the loop</td>
+        <td>all of them, after each task, before rendering</td>
+      </tr>
+      <tr>
+        <td>Danger</td>
+        <td>a long task stops rendering and input</td>
+        <td>a microtask that always adds a new one never lets a task run</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2>Step by Step</h2>
+    <img
+      src="./img/event-loop-step-1.svg"
+      alt="Step 1 of 5. Code: console.log A; setTimeout of a callback that logs B with 0 ms; Promise.resolve().then of a callback that logs C; console.log D. Line 1 prints A. setTimeout gives the callback to a browser timer, and after 0 ms the timer puts the callback in the task queue"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Step by Step</h2>
+    <img
+      src="./img/event-loop-step-2.svg"
+      alt="Step 2 of 5. The promise is already fulfilled, so then() puts the C callback directly in the microtask queue. The B callback waits in the task queue. Nothing runs them yet"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Step by Step</h2>
+    <img
+      src="./img/event-loop-step-3.svg"
+      alt="Step 3 of 5. Line 4 prints D, so the console shows A D. The script ends and the call stack is empty: the first task is complete. Two callbacks wait, one in each queue"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Step by Step</h2>
+    <img
+      src="./img/event-loop-step-4.svg"
+      alt="Step 4 of 5. Before the next task, the event loop runs every microtask. C prints, so the console shows A D C, and the microtask queue is empty"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Step by Step</h2>
+    <img
+      src="./img/event-loop-step-5.svg"
+      alt="Step 5 of 5. Only now does the loop take the oldest task: B prints last, so the console shows A D C B, although its delay was 0 ms"
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Your Turn: What Does It Print?</h2>
+    <pre><code class="lang-javascript">
+console.log(1);
+setTimeout(() =&gt; console.log(2));
+queueMicrotask(() =&gt; console.log(3));
+(async () =&gt; {
+  console.log(4);
+  await null;
+  console.log(5);
+})();
+Promise.resolve().then(() =&gt; console.log(6));
+console.log(7);
+    </code></pre>
+    <ul class="fragment">
+      <li>
+        <code class="hl-yellow">1 4 7 3 5 6 2</code>
+      </li>
+      <li>
+        The script first (an async function runs until its first
+        <code>await</code>), then the microtasks in order, then the task
       </li>
     </ul>
   </section>
@@ -753,6 +1049,51 @@ async function loadUsers() {
 const end = Date.now() + 3000;
 while (Date.now() &lt; end) {} // the page is frozen for 3 s
     </code></pre>
+  </section>
+  <section>
+    <h2>Try It: Block the Loop</h2>
+    <pre><code class="lang-javascript">
+const frames = document.getElementById("frames");
+const block = document.getElementById("block");
+let n = 0;
+function tick() {
+  frames.textContent = ++n; // one frame, one number
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+block.addEventListener("click", () =&gt; {
+  const end = Date.now() + 2000;
+  while (Date.now() &lt; end) {} // no frame can render
+});
+    </code></pre>
+    <p>
+      Frames: <span id="frames" class="hl-green">0</span>
+      <button id="block">Block for 2 s</button>
+    </p>
+    <script>
+      (function () {
+        const frames = document.getElementById("frames");
+        const block = document.getElementById("block");
+        let n = 0;
+        function tick() {
+          frames.textContent = ++n;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        block.addEventListener("click", () => {
+          const end = Date.now() + 2000;
+          while (Date.now() < end) {}
+        });
+      })();
+    </script>
+    <ul>
+      <li>
+        Heavy work belongs in a <span class="hl-cyan">Web Worker</span>: a
+        second thread with its own event loop and no DOM
+      </li>
+    </ul>
   </section>
 </section>
 <section>

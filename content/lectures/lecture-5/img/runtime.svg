@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>A runtime is an engine plus host APIs: the same V8 engine in Chrome and in Node.js</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <rect class="dash" x="30" y="40" width="400" height="330" rx="10" />
+  <text x="230" y="22">Chrome (a browser)</text>
+  <rect class="box" x="50" y="60" width="360" height="120" rx="8" style="stroke:#ffcc00" />
+  <text class="yellow" x="230" y="84">V8 engine</text>
+  <text class="small" x="230" y="114" style="font-size: 15px">parse → bytecode → JIT machine code</text>
+  <text class="small" x="230" y="140" style="font-size: 15px">heap, call stack, garbage collector</text>
+  <text class="small" x="230" y="164" style="font-size: 14px">only ECMAScript: Array, Promise, JSON, …</text>
+  <rect class="box" x="50" y="196" width="360" height="100" rx="8" style="stroke:#00e5ff" />
+  <text class="cyan" x="230" y="218" style="font-size: 17px">host APIs</text>
+  <text class="mono" x="230" y="246" style="font-size: 14px">document, window, fetch, setTimeout</text>
+  <text class="mono" x="230" y="270" style="font-size: 14px">localStorage, alert, addEventListener</text>
+  <rect class="box" x="50" y="312" width="360" height="42" rx="8" style="stroke:#ff9100" />
+  <text class="orange" x="230" y="333" style="font-size: 16px">event loop: HTML standard</text>
+  <rect class="dash" x="470" y="40" width="400" height="330" rx="10" />
+  <text x="670" y="22">Node.js (a server)</text>
+  <rect class="box" x="490" y="60" width="360" height="120" rx="8" style="stroke:#ffcc00" />
+  <text class="yellow" x="670" y="84">V8 engine</text>
+  <text class="small" x="670" y="114" style="font-size: 15px">parse → bytecode → JIT machine code</text>
+  <text class="small" x="670" y="140" style="font-size: 15px">heap, call stack, garbage collector</text>
+  <text class="small" x="670" y="164" style="font-size: 14px">only ECMAScript: Array, Promise, JSON, …</text>
+  <rect class="box" x="490" y="196" width="360" height="100" rx="8" style="stroke:#00e5ff" />
+  <text class="cyan" x="670" y="218" style="font-size: 17px">host APIs</text>
+  <text class="mono" x="670" y="246" style="font-size: 14px">fs, http, process, Buffer</text>
+  <text class="mono" x="670" y="270" style="font-size: 14px">fetch, setTimeout, require</text>
+  <rect class="box" x="490" y="312" width="360" height="42" rx="8" style="stroke:#ff9100" />
+  <text class="orange" x="670" y="333" style="font-size: 16px">event loop: libuv</text>
+  <text class="small" x="450" y="400" style="font-size: 16px">The engine runs the language; the host gives it a way to talk to the world.</text>
+  <text class="small" x="450" y="424" style="font-size: 16px"><tspan class="mono">document</tspan> does not exist in Node.js, and <tspan class="mono">fs</tspan> does not exist in the browser.</text>
+</svg>

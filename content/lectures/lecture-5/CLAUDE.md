@@ -1,8 +1,12 @@
 # Lecture 5 — JavaScript
 
-108 slides in 66 horizontal positions. It was cut from 216 on 2026-11-06,
+124 slides in 66 horizontal positions. It was cut from 216 on 2026-11-06,
 when the user asked for the deck to be "short and useful" and to cover the
-newest JavaScript features. Topics (TOC indices): `0` Introduction · `1`
+newest JavaScript features. On 2026-11-07 the user said "short" meant
+removing duplicates, not depth, and asked for more: 16 vertical slides were
+added (engines and runtimes, `<script>` head/body, `defer`/`async`, boxing in
+Java vs JavaScript, `reduce`, and the event loop). Add new material as
+vertical slides so the session ranges below stay valid. Topics (TOC indices): `0` Introduction · `1`
 JavaScript Basic · `2` Modern JavaScript · `3` JavaScript & DOM & CSS · `4`
 Event Handling · `5` Web Applications · `6` Summary. It is taught in four
 sessions (IE S11–S14): `#/2`–`#/15`, `#/16`–`#/31`, `#/32`–`#/45`,
@@ -58,6 +62,25 @@ update the table on `#/26`.
 
 ## Facts worth not re-deriving
 
+- **Script loading** was measured in headless Chrome 157 with a local server
+  that delays each file: two `async` files (600 ms, then 100 ms in HTML order)
+  ran fast-first; two `defer` files ran in HTML order, before
+  `DOMContentLoaded`, after the end-of-body inline script; an inline module ran
+  after the `defer` files; `defer` on an inline classic script is ignored (it
+  ran in `<head>` with `document.body` null); a head script got `null` from
+  `getElementById("para")` and an end-of-body script got the element.
+- **Boxing slide**: the Java sample was run in OpenJDK 27 (Homebrew,
+  `/opt/homebrew/opt/openjdk/bin/java Box.java`): `6`, `1000 == 1000` `false`,
+  `equals` `true`, `100 == 100` `true` (the −128..127 cache), unboxing `null`
+  throws `NullPointerException`. The JS lines were run in Node.
+- **Event-loop quiz** (`1 4 7 3 5 6 2`) and the walkthrough order (`A D C B`)
+  were run in Node and in Chrome 157. The "Block the Loop" demo was run in
+  Chrome: during the 2 s busy loop no frame rendered (longest
+  `requestAnimationFrame` gap 1983 ms).
+- **`reduce` slides** were run in Node: `35`, `35` without an initial value,
+  `TypeError: Reduce of empty array with no initial value`, `0`, and
+  `{ js: 3, css: 1, html: 1 }`.
+
 - **Five snippets used to be `SyntaxError`s** — `let a` declared three times and
   `let m` twice in the same scope. Any sample that redeclares a `let` in one
   scope does not run. Paste new samples into a console before adding them.
@@ -97,15 +120,28 @@ update the table on `#/26`.
 Hand-written SVGs in `img/`, drawn for the league background (see the root
 `CLAUDE.md`). They have no draw.io source:
 
-| File                  | Slide                                                     |
-| --------------------- | --------------------------------------------------------- |
-| `prototype-chain.svg` | Prototype — `Object.create` and `new` chains, name lookup |
-| `event-loop.svg`      | Concurrency model — stack, heap, Web APIs, both queues    |
-| `zero-delay.svg`      | Zero Delays — timeline of the `setTimeout` sample         |
-| `promise-states.svg`  | Promise — pending / fulfilled / rejected and chaining     |
-| `await-parallel.svg`  | Waiting in Parallel — two `await`s vs `Promise.all`       |
-| `dom-structure.svg`   | DOM — `window` holding the DOM tree and the BOM objects   |
-| `event-flow.svg`      | Event Propagation — capture, target, bubble for the demo  |
+| File                    | Slide                                                     |
+| ----------------------- | --------------------------------------------------------- |
+| `prototype-chain.svg`   | Prototype — `Object.create` and `new` chains, name lookup |
+| `event-loop.svg`        | Concurrency model — stack, heap, Web APIs, both queues    |
+| `zero-delay.svg`        | Zero Delays — timeline of the `setTimeout` sample         |
+| `promise-states.svg`    | Promise — pending / fulfilled / rejected and chaining     |
+| `await-parallel.svg`    | Waiting in Parallel — two `await`s vs `Promise.all`       |
+| `dom-structure.svg`     | DOM — `window` holding the DOM tree and the BOM objects   |
+| `event-flow.svg`        | Event Propagation — capture, target, bubble for the demo  |
+| `runtime.svg`           | Engine and Runtime — same V8 in Chrome and Node.js        |
+| `script-loading.svg`    | defer and async — four loading timelines                  |
+| `reduce.svg`            | How reduce Works — `[5, 10, 20]` to `35`                  |
+| `event-loop-turn.svg`   | One Turn of the Loop — task, microtasks, render           |
+| `event-loop-step-*.svg` | Step by Step — five snapshots of the A/B/C/D sample       |
+
+The five step diagrams, `event-loop-turn.svg`, `script-loading.svg`,
+`reduce.svg` and `runtime.svg` were written by a Python script, but each SVG is
+its own source: edit the SVG. Their facts: the step order is the Node/Chrome
+run above; `script-loading.svg` is a schematic of the HTML standard (the bar
+lengths are not measurements), and its order claims are the Chrome run above;
+16.7 ms is one frame at 60 Hz and 50 ms is the Long Tasks API threshold;
+`runtime.svg` was checked with `typeof document` (`"undefined"`) in Node.
 
 - `prototype-chain.svg`: every link was checked with `Object.getPrototypeOf`
   in Node, for both the `Object.create(Person)` and the `new Person` samples.

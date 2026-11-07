@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <title>Event loop walkthrough, step 5 of 5</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .start { text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+  </defs>
+  <text class="label" x="20" y="22">Step 5 of 5</text>
+  <text class="label" x="20" y="52">Code</text>
+  <rect class="box" x="20" y="66" width="470" height="170" rx="8" />
+  <text class="mono start grey" x="38" y="100" style="font-size: 15px">console.log(&quot;A&quot;);</text>
+  <rect x="28" y="123" width="454" height="30" rx="4" style="fill:#ff9100;fill-opacity:0.18;stroke:#ff9100;stroke-width:1.5" />
+  <text class="mono start" x="38" y="138" style="font-size: 15px">setTimeout(() =&gt; console.log(&quot;B&quot;), 0);</text>
+  <text class="mono start grey" x="38" y="176" style="font-size: 15px">Promise.resolve().then(() =&gt; console.log(&quot;C&quot;));</text>
+  <text class="mono start grey" x="38" y="214" style="font-size: 15px">console.log(&quot;D&quot;);</text>
+  <text class="label" x="510" y="52">Call stack</text>
+  <rect class="box" x="510" y="66" width="180" height="170" rx="8" />
+  <rect class="box" x="522" y="182" width="156" height="42" rx="5" />
+  <text class="mono orange" x="600" y="203" style="font-size: 14px">() =&gt; log(&quot;B&quot;)</text>
+  <text class="label" x="710" y="52">Web APIs</text>
+  <rect class="box" x="710" y="66" width="170" height="170" rx="8" />
+  <text class="label" x="20" y="276">Task queue</text>
+  <rect class="box" x="160" y="256" width="720" height="44" rx="8" />
+  <text class="small" x="520" y="279" style="font-size: 14px">empty</text>
+  <text class="label" x="20" y="338">Microtask queue</text>
+  <rect class="box" x="160" y="318" width="720" height="44" rx="8" />
+  <text class="small" x="520" y="341" style="font-size: 14px">empty</text>
+  <text class="label" x="20" y="400">Console</text>
+  <rect class="box" x="160" y="380" width="720" height="44" rx="8" />
+  <text class="mono start yellow" x="176" y="403" style="font-size: 18px">A D C B</text>
+  <text x="450" y="470" style="font-size: 18px">Only now does the loop take the oldest task: B prints last,</text>
+  <text x="450" y="500" style="font-size: 18px">although its delay was 0 ms.</text>
+</svg>
