@@ -1152,6 +1152,14 @@ longCalculation(1)
   });
     </code></pre>
   </section>
+  <section>
+    <h2>The Chain on the Event Loop</h2>
+    <img
+      src="./img/promise-flow.svg"
+      alt="The then chain as tasks and microtasks over time. At 0 ms the script task calls longCalculation(1), which starts timer 1, and registers the three then handlers; no microtask runs. At 300 ms the timer 1 callback is a task that resolves p1 with resolved-1; then the microtask then #1 logs 1st promise and calls longCalculation(2), which starts timer 2 and returns p2. At 600 ms the timer 2 task resolves p2; a first microtask lets p2 settle the promise of then #1, and a second microtask runs then #2, which logs 2nd promise and starts timer 3. At 900 ms the timer 3 task resolves p3; one microtask settles the promise of then #2, and then #3 logs 3rd promise. A promise returned from a then handler costs one extra microtask. Measured in Node 20 at 302, 604 and 906 ms, and in the same order in Chrome 157"
+      width="880"
+    />
+  </section>
 </section>
 <section>
   <section>
@@ -1181,6 +1189,14 @@ async function run() {
         <strong>always</strong> returns a promise
       </li>
     </ul>
+  </section>
+  <section>
+    <h2>run() on the Event Loop</h2>
+    <img
+      src="./img/async-flow.svg"
+      alt="The async run function as tasks and microtasks over time. At 0 ms the script task starts run(), which calls longCalculation(1), starting timer 1, and pauses at await; run() returns a promise and no microtask runs. At 300 ms the timer 1 task resolves the promise with resolved-1, and one microtask resumes run(): first is resolved-1, it logs 1st promise, calls longCalculation(2) and pauses again. At 600 ms the same happens for timer 2. At 900 ms the timer 3 task is followed by one microtask that resumes run(), logs 3rd promise and returns, which fulfils the promise of run(). Between timers the call stack is empty, so the page stays live. Measured in Node 20 at 303, 604 and 905 ms, and in the same order in Chrome 157"
+      width="880"
+    />
   </section>
   <section>
     <h2>Errors</h2>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <title>The longCalculation then() chain as tasks and microtasks</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-size: 16px; fill: #b0b4bc; text-anchor: start; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 13px; }
+    .head { font-size: 18px; fill: #ffcc00; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .task { fill: rgba(255, 145, 0, 0.10); stroke: #ff9100; stroke-width: 2; }
+    .micro { fill: rgba(118, 255, 3, 0.08); stroke: #76ff03; stroke-width: 2; }
+    .adopt { fill: none; stroke: #76ff03; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .timer { fill: rgba(0, 229, 255, 0.12); stroke: #00e5ff; stroke-width: 1.5; }
+    .lane { fill: none; stroke: #5a606b; stroke-width: 1; stroke-dasharray: 2 6; }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <text class="label orange" x="20" y="110" style="fill: inherit">Task</text>
+  <text class="label green" x="20" y="240" style="fill: inherit">Microtasks</text>
+  <text class="label cyan" x="20" y="350" style="fill: inherit">Browser timer</text>
+  <text class="label yellow" x="20" y="420" style="fill: inherit">Console</text>
+  <text class="head" x="245.0" y="38">0 ms</text>
+  <text class="head" x="430.0" y="38">300 ms</text>
+  <text class="head" x="615.0" y="38">600 ms</text>
+  <text class="head" x="800.0" y="38">900 ms</text>
+  <line class="lane" x1="20" y1="165" x2="885" y2="165" />
+  <line class="lane" x1="20" y1="320" x2="885" y2="320" />
+  <line class="lane" x1="20" y1="380" x2="885" y2="380" />
+  <rect class="task" x="160" y="60" width="170" height="100" rx="6" />
+  <text class="mono orange" x="245.0" y="84.5" style="font-weight: bold">script</text>
+  <text class="mono" x="245.0" y="101.5">longCalculation(1)</text>
+  <text class="mono" x="245.0" y="118.5">→ timer 1 starts</text>
+  <text class="mono" x="245.0" y="135.5">3 × .then: wait</text>
+  <text class="mono grey" x="245.0" y="240">(none)</text>
+  <rect class="task" x="345" y="60" width="170" height="100" rx="6" />
+  <text class="mono orange" x="430.0" y="101.5" style="font-weight: bold">timer 1 callback</text>
+  <text class="mono" x="430.0" y="118.5">resolve("resolved-1")</text>
+  <rect class="task" x="530" y="60" width="170" height="100" rx="6" />
+  <text class="mono orange" x="615.0" y="101.5" style="font-weight: bold">timer 2 callback</text>
+  <text class="mono" x="615.0" y="118.5">resolve("resolved-2")</text>
+  <rect class="task" x="715" y="60" width="170" height="100" rx="6" />
+  <text class="mono orange" x="800.0" y="101.5" style="font-weight: bold">timer 3 callback</text>
+  <text class="mono" x="800.0" y="118.5">resolve("resolved-3")</text>
+  <rect class="micro" x="345" y="172" width="170" height="82" rx="6" />
+  <text class="mono green" x="430.0" y="187.5" style="font-weight: bold">then #1</text>
+  <text class="mono" x="430.0" y="204.5">log 1st promise</text>
+  <text class="mono" x="430.0" y="221.5">longCalculation(2)</text>
+  <text class="mono" x="430.0" y="238.5">→ returns p2</text>
+  <rect class="adopt" x="530" y="172" width="170" height="64" rx="6" />
+  <text class="mono grey" x="615.0" y="195.5" style="font-weight: bold">p2 settles the</text>
+  <text class="mono" x="615.0" y="212.5">promise of then #1</text>
+  <rect class="micro" x="530" y="244" width="170" height="72" rx="6" />
+  <text class="mono green" x="615.0" y="254.5" style="font-weight: bold">then #2</text>
+  <text class="mono" x="615.0" y="271.5">log 2nd promise</text>
+  <text class="mono" x="615.0" y="288.5">longCalculation(3)</text>
+  <text class="mono" x="615.0" y="305.5">→ returns p3</text>
+  <rect class="adopt" x="715" y="172" width="170" height="64" rx="6" />
+  <text class="mono grey" x="800.0" y="195.5" style="font-weight: bold">p3 settles the</text>
+  <text class="mono" x="800.0" y="212.5">promise of then #2</text>
+  <rect class="micro" x="715" y="244" width="170" height="50" rx="6" />
+  <text class="mono green" x="800.0" y="260.5" style="font-weight: bold">then #3</text>
+  <text class="mono" x="800.0" y="277.5">log 3rd promise</text>
+  <rect class="timer" x="235.0" y="336" width="181.0" height="28" rx="5" />
+  <text class="mono cyan" x="327.5" y="350">timer 1 · 300 ms</text>
+  <rect class="timer" x="420.0" y="336" width="181.0" height="28" rx="5" />
+  <text class="mono cyan" x="512.5" y="350">timer 2 · 300 ms</text>
+  <rect class="timer" x="605.0" y="336" width="181.0" height="28" rx="5" />
+  <text class="mono cyan" x="697.5" y="350">timer 3 · 300 ms</text>
+  <text class="mono yellow" x="430.0" y="410">1st promise:</text>
+  <text class="mono yellow" x="430.0" y="428">resolved-1</text>
+  <text class="mono yellow" x="615.0" y="410">2nd promise:</text>
+  <text class="mono yellow" x="615.0" y="428">resolved-2</text>
+  <text class="mono yellow" x="800.0" y="410">3rd promise:</text>
+  <text class="mono yellow" x="800.0" y="428">resolved-3</text>
+  <text class="" x="450" y="478" style="font-size: 17px">Each task runs, then every microtask it queued. A promise returned from</text>
+  <text class="" x="450" y="502" style="font-size: 17px">a then() handler costs one extra microtask (dashed) to pass its value on.</text>
+  <text class="label" x="450" y="536" style="text-anchor: middle">Measured: Node 20 302 / 604 / 906 ms, Chrome 157 the same order</text>
+</svg>

@@ -1,6 +1,6 @@
 # Lecture 5 — JavaScript
 
-124 slides in 66 horizontal positions. It was cut from 216 on 2026-11-06,
+126 slides in 66 horizontal positions. It was cut from 216 on 2026-11-06,
 when the user asked for the deck to be "short and useful" and to cover the
 newest JavaScript features. On 2026-11-07 the user said "short" meant
 removing duplicates, not depth, and asked for more: 16 vertical slides were
@@ -120,20 +120,22 @@ update the table on `#/26`.
 Hand-written SVGs in `img/`, drawn for the league background (see the root
 `CLAUDE.md`). They have no draw.io source:
 
-| File                    | Slide                                                     |
-| ----------------------- | --------------------------------------------------------- |
-| `prototype-chain.svg`   | Prototype — `Object.create` and `new` chains, name lookup |
-| `event-loop.svg`        | Concurrency model — stack, heap, Web APIs, both queues    |
-| `zero-delay.svg`        | Zero Delays — timeline of the `setTimeout` sample         |
-| `promise-states.svg`    | Promise — pending / fulfilled / rejected and chaining     |
-| `await-parallel.svg`    | Waiting in Parallel — two `await`s vs `Promise.all`       |
-| `dom-structure.svg`     | DOM — `window` holding the DOM tree and the BOM objects   |
-| `event-flow.svg`        | Event Propagation — capture, target, bubble for the demo  |
-| `runtime.svg`           | Engine and Runtime — same V8 in Chrome and Node.js        |
-| `script-loading.svg`    | defer and async — four loading timelines                  |
-| `reduce.svg`            | How reduce Works — `[5, 10, 20]` to `35`                  |
-| `event-loop-turn.svg`   | One Turn of the Loop — task, microtasks, render           |
-| `event-loop-step-*.svg` | Step by Step — five snapshots of the A/B/C/D sample       |
+| File                    | Slide                                                        |
+| ----------------------- | ------------------------------------------------------------ |
+| `prototype-chain.svg`   | Prototype — `Object.create` and `new` chains, name lookup    |
+| `event-loop.svg`        | Concurrency model — stack, heap, Web APIs, both queues       |
+| `zero-delay.svg`        | Zero Delays — timeline of the `setTimeout` sample            |
+| `promise-states.svg`    | Promise — pending / fulfilled / rejected and chaining        |
+| `await-parallel.svg`    | Waiting in Parallel — two `await`s vs `Promise.all`          |
+| `dom-structure.svg`     | DOM — `window` holding the DOM tree and the BOM objects      |
+| `event-flow.svg`        | Event Propagation — capture, target, bubble for the demo     |
+| `runtime.svg`           | Engine and Runtime — same V8 in Chrome and Node.js           |
+| `script-loading.svg`    | defer and async — four loading timelines                     |
+| `reduce.svg`            | How reduce Works — `[5, 10, 20]` to `35`                     |
+| `event-loop-turn.svg`   | One Turn of the Loop — task, microtasks, render              |
+| `event-loop-step-*.svg` | Step by Step — five snapshots of the A/B/C/D sample          |
+| `promise-flow.svg`      | The Chain on the Event Loop — `then` chain, tasks/microtasks |
+| `async-flow.svg`        | run() on the Event Loop — `async` run, tasks/microtasks      |
 
 The five step diagrams, `event-loop-turn.svg`, `script-loading.svg`,
 `reduce.svg` and `runtime.svg` were written by a Python script, but each SVG is
@@ -158,6 +160,14 @@ lengths are not measurements), and its order claims are the Chrome run above;
   `#parent` / `#click-btn-1` markup with a capture and a bubble listener on
   every ancestor; `stopPropagation()` at the button stopped every listener
   above it.
+- `promise-flow.svg` and `async-flow.svg` were traced in Node 20 and headless
+  Chrome 157 (same order) by logging each handler and counting
+  `queueMicrotask` ticks after each timer task. Node timings: 302/604/906 ms
+  (`then`) and 303/604/905 ms (`async`). In the `then` chain, `then #2` and
+  `then #3` run as the **second** microtask after their timer, because the
+  promise returned from the previous handler needs one microtask to settle the
+  `then` promise (the dashed box). A resume after `await` is the **first**
+  microtask. Both were written by a Python script; edit the SVG.
 - `dom-structure.svg` replaced an OmniGraffle export (no source in the repo).
   `prototype-chain.svg`, `promise-states.svg` and `event-flow.svg` replaced
   `prototype.png`, `promises.png` and `eventflow.png`.
