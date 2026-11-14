@@ -2082,12 +2082,15 @@ document.getElementById("parent").addEventListener("click", (event) =&gt; {
     <pre><code class="lang-javascript">
 const p = document.createElement("p");
 p.textContent = "I am a new paragraph";
-p.setAttribute("id", "newp1"); // or: p.id = "newp1"
+p.id = "newp1";         // same as p.setAttribute("id", "newp1")
 
-parent.append(p);        // add as the last child
-parent.prepend(p);       // move it to be the first child
-p.replaceWith(other);    // put another node in its place
-other.remove();          // delete it from the page
+parent.append(p);       // p becomes the last child of parent
+parent.prepend(p);      // p is already on the page: this MOVES it to first
+
+const span = document.createElement("span");
+span.textContent = "I take its place";
+p.replaceWith(span);    // span goes where p was; p leaves the page
+span.remove();          // span leaves the page too
     </code></pre>
     <ul>
       <li>
