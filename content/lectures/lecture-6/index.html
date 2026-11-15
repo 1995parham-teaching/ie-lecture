@@ -24,14 +24,12 @@ topics:
       <li>JavaScript reacts to user events</li>
     </ul>
     <li>
-      However, most web <span class="hl-orange">applications</span> needs data
-      from server after the page is loaded
+      However, most web <span class="hl-orange">applications</span> need data
+      from the server after the page is loaded
     </li>
     <ul>
       <li>A common (standard) format to exchange data</li>
-      <li>
-        A mechanism to communication: <code class="hl-yellow">fetch</code>
-      </li>
+      <li>A mechanism to communicate: <code class="hl-yellow">fetch</code></li>
     </ul>
     <li>(Almost) always the data is structured</li>
   </ul>
@@ -41,13 +39,13 @@ topics:
     <h2>Introduction (Contd.)</h2>
     <ul>
       <li>
-        In general (not only in web) to
+        In general (not only on the web), to
         <strong class="hl-yellow">store</strong> or
         <strong class="hl-violet">transport</strong> data, we need a common
         format, to specify the structure of data; e.g.,
       </li>
       <ul>
-        <li>Documents: PDF, DOCx, PPTx, ...</li>
+        <li>Documents: PDF, DOCX, PPTX, ...</li>
         <li>Objects: Java Object Serialization/Deserialization</li>
       </ul>
     </ul>
@@ -62,7 +60,7 @@ topics:
           </li>
           <ul>
             <li>Difficult to develop &amp; debug</li>
-            <li>machine depended</li>
+            <li>Needs a tool to read it</li>
             <li>...</li>
           </ul>
           <li><em class="hl-green">Text</em> format (similar to text files)</li>
@@ -78,7 +76,7 @@ topics:
 </section>
 <section>
   <section>
-    <h2>Introduction (Cont.)</h2>
+    <h2>Introduction (Contd.)</h2>
     <ul>
       <li>Example: Data structure of a class</li>
       <ul>
@@ -170,7 +168,9 @@ Alvani
       >cript <span class="hl-cyan">O</span>bject
       <span class="hl-violet">N</span>otation
     </li>
-    <li>Data is represented as a JS (POD) object</li>
+    <li>
+      Data is written as a plain JavaScript object: values only, no methods
+    </li>
     <li>Standards: RFC 8259, ECMA-404</li>
   </ul>
   <pre><code class="lang-json">
@@ -241,7 +241,7 @@ null
   </section>
 </section>
 <section>
-  <h2>Why to Study JSON: Benefits</h2>
+  <h2>Why Study JSON: Benefits</h2>
   <ul>
     <li>Simplify data sharing &amp; transport</li>
     <ul>
@@ -256,7 +256,7 @@ null
     <ul>
       <li>To validate, to present, …</li>
     </ul>
-    <li>In web application, data separation from HTML</li>
+    <li>In web applications, data is kept separate from HTML</li>
     <ul>
       <li>E.g., table structure by HTML, table data by JSON</li>
     </ul>
@@ -268,7 +268,7 @@ null
 <section>
   <h2>Documentation &amp; Validation</h2>
   <ul>
-    <li>Assume that application A exchange data with application B</li>
+    <li>Assume that application A exchanges data with application B</li>
     <li>How does A's developer document the data format?</li>
     <ul>
       <li>How does the receiver know the structure of the data?</li>
@@ -287,27 +287,29 @@ null
     <ul>
       <li>Syntax rules</li>
       <ul>
-        <li>E.g., all keys must be double quoted in JSON</li>
+        <li>E.g., all keys must be double-quoted in JSON</li>
       </ul>
-      <li>Error makes the parser fails to parse the file</li>
+      <li>An error makes the parser fail to parse the file</li>
     </ul>
     <li>Semantics (structure)</li>
     <ul>
-      <li>Application specific rules</li>
+      <li>Application-specific rules</li>
       <ul>
-        <li>E.g. student must have ID</li>
+        <li>E.g., a student must have an ID</li>
       </ul>
-      <li>Error makes the application fails</li>
+      <li>An error makes the application fail</li>
     </ul>
   </ul>
 </section>
 <section>
-  <h2>How to Validate structure?</h2>
+  <h2>How to Validate Structure?</h2>
   <ul>
-    <li>Application specific programs need to check structure of data</li>
+    <li>
+      Application-specific programs need to check the structure of the data
+    </li>
     <ul>
-      <li>Different applications needs different programs</li>
-      <li>Change in data structure needs code modification</li>
+      <li>Different applications need different programs</li>
+      <li>A change in the data structure needs code changes</li>
     </ul>
     <li>General validator + reference document</li>
     <ul>
@@ -325,21 +327,20 @@ null
   />
 </section>
 <section>
-  <h2>The Reference Documents Usage</h2>
+  <h2>Uses of the Reference Document</h2>
   <ul>
-    <li>The Reference document is the answer of</li>
+    <li>The reference document gives us</li>
     <ul>
       <li>
-        <span class="hl-orange">Documentation</span>: It describes the structure
-        of data which is human readable
+        <span class="hl-orange">Documentation</span>: it describes the structure
+        of the data, and people can read it
       </li>
       <li>
-        <span class="hl-yellow">Interaction</span>: The description is machine
-        readable
+        <span class="hl-yellow">Interaction</span>: programs can read it too
       </li>
       <li>
-        <span class="hl-green">Validation</span>: There are validators to
-        validate the data based on it
+        <span class="hl-green">Validation</span>: validators check the data
+        against it
       </li>
     </ul>
   </ul>
