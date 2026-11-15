@@ -1,11 +1,11 @@
 # Lecture 6 — JSON, Thrift and gRPC
 
-74 slides, 6 vertical stacks. Topics (TOC indices): `0` Introduction ·
+61 slides, 6 vertical stacks. Topics (TOC indices): `0` Introduction ·
 `1` Documentation & Validation · `2` Processing (using JavaScript) ·
 `3` Thrift & gRPC · `4` Conclusion.
 
-Arc: JSON syntax → why it needs a schema → JSON Schema in depth (string,
-numeric, object, array, `$id`, annotations) → a validator → a parser example →
+Arc: JSON syntax → why it needs a schema → JSON Schema (one keyword table,
+objects in depth, a schema for the Course, a real validator run) → a parser example →
 Thrift (definition file, Python client, Java server, handler, the stack, the
 wire) → gRPC (service definition, field numbers, protobuf on the wire, one call
 over HTTP/2, the four kinds of RPC) → gRPC compared to JSON over REST.
@@ -15,8 +15,19 @@ python, thrift. Each one has to be valid in its own right.
 
 ## Facts worth not re-deriving
 
-- The JSON Schema example **is valid**. Its indentation looks wrong on the
-  slide, which invites a "fix" — it was parsed and confirmed correct. Leave it.
+- The JSON Schema stack (`#/15`) was cut from 20 slides to 7 on 2026-11-15:
+  the user found the keyword-by-keyword slides "too much". The keywords are one
+  table now; do not bring back a slide per keyword. The Product example was
+  replaced by a schema for the deck's own Course (`#/5/2`).
+- Every schema result on `#/15/3`–`#/15/5` is a real run of Python
+  `jsonschema` 4.26.0 (`Draft202012Validator`, Python 3.11): the four address
+  instances (each also run without `additionalProperties: false` — only the
+  `city` row changes), the `#/5/2` Course passing the Course schema, and the
+  rejected Course's four errors in `iter_errors` order. The output on `#/15/5`
+  comes from exactly the two Python lines on that slide. If you change the
+  schema or an instance, re-run it.
+- `format` is an annotation by default in 2020-12: `"not-an-email"` passes
+  `{"format": "email"}` unless a format checker is passed (checked).
 - "Semantics", not "Symantec" — that typo was in the deck.
 - The instructor attribution is **Parham Alvani**.
 - Protobuf **field numbers** are the wire identity: renaming a field is safe,
