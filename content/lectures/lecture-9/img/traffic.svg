@@ -36,7 +36,7 @@
   <rect class="box" x="620" y="236" width="140" height="48" rx="6" /><text x="690" y="260" style="font-size: 16px">Payment</text>
   <path class="line" d="M378,260 L282,260" style="stroke: #00e5ff" />
   <path class="line" d="M522,260 L618,260" style="stroke: #00e5ff" />
-  <path class="line" d="M450,286 C450,330 690,330 690,288" style="stroke: #00e5ff" />
+  <path class="line" d="M210,286 C210,330 690,330 690,288" style="stroke: #00e5ff" />
 
   <text class="orange l" x="610" y="144" style="font-size: 15px">North-South</text>
   <text class="small l" x="610" y="166" style="font-size: 14px">REST · GraphQL · WebSocket</text>

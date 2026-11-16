@@ -44,13 +44,13 @@ topics:
       </ul>
       <li>View (the user interface)</li>
       <ul>
-        <li>Show the results from model or controller</li>
+        <li>Shows the results from the model or the controller</li>
       </ul>
     </ul>
   </section>
   <section>
     <ul>
-      <li>Controller (of states sequences)</li>
+      <li>Controller (of state sequences)</li>
       <ul>
         <li>Handles events/requests affecting model or view</li>
         <ul>
@@ -61,23 +61,48 @@ topics:
           <li>Tells the model what to do</li>
         </ul>
       </ul>
-      <li>Examples: MS Excel</li>
+      <li>Examples</li>
+      <ul>
+        <li>MS Excel</li>
+        <li>
+          Your lecture 7 Go server: the <em class="hl-cyan">handler</em> is the
+          C, the <code>Student</code> struct is the <em class="hl-green">M</em>,
+          and the JSON encoding is the
+          <em class="hl-orange">V</em>
+        </li>
+      </ul>
     </ul>
   </section>
 </section>
 <section>
   <section>
     <h2>MVC Interactions?!</h2>
-    <img src="./img/mvc-1.png" alt="mvc-1" />
+    <img
+      src="./img/mvc-classic.svg"
+      alt="Classic MVC, with Excel as the example. 1: the user types 5 into cell B2 on the view. 2: the view passes the call to the controller. 3: the controller manipulates the model: set B2 to 5, recompute C1 = B2 * 2. 4: the model fires a change event, B2 and C1 changed, which the view observes, so the grid redraws. The model never calls the view by name."
+      width="820"
+    />
   </section>
   <section>
-    <img src="./img/mvc-2.gif" alt="mvc-2" />
+    <img
+      src="./img/mvc-mediator.svg"
+      alt="The controller as mediator, as in Java Swing. A user action on the view goes to the controller, which updates a model property (person.setName). The model reports the property change to the controller, which updates the view component (nameLabel.setText). There is no line between the model and the view: every message goes through the controller."
+      width="860"
+    />
   </section>
   <section>
-    <img src="./img/mvc-3.png" alt="mvc-3" />
+    <img
+      src="./img/mvc-cycle.svg"
+      alt="MVC as a one-way loop. The user uses the controller (POST /students), the controller manipulates the model (insert a row), the model updates the view (render the list), and the user sees the view (HTML or JSON). On the web the controller is the handler, the model is the data and rules, and the view is a template or JSON."
+      width="860"
+    />
   </section>
   <section>
-    <img src="./img/mvc-4.png" alt="mvc-4" />
+    <img
+      src="./img/mvc-full.svg"
+      alt="MVC with every arrow. The user clicks Save on the view, and the event is passed to the controller. The controller updates the model, and may update the view directly, for example to grey out Save while saving. The model signals changes to both the view and the controller. The view queries the model to redraw; it reads but never writes."
+      width="860"
+    />
   </section>
 </section>
 <section>
@@ -100,41 +125,30 @@ topics:
     <ul>
       <li>The Model-View-ViewModel pattern</li>
       <ul>
-        <li>The view model is a value converter</li>
+        <li>The view model is a value converter</li>
         <li>
-          Responsible for exposing (converting) the data objects from the model
+          Responsible for exposing (converting) the data objects from the model
           in such a way that objects are easily managed and presented.
         </li>
       </ul>
     </ul>
   </section>
   <section>
-    <img src="./img/mvvm.png" alt="mvvm" />
+    <img
+      src="./img/mvvm.svg"
+      alt="MVVM with real values. The model holds birthDate 2004-03-01 and balanceCents 125000. The view model converts them to age 22, balanceText $1,250.00 and canWithdraw true. The view shows Age 22, Balance $1,250.00 and an enabled Withdraw button, and contains only bindings. The view sends UI events to the view model and receives data and property-changed events from it; the view model reads and updates the model and hears its change events. The view never touches the model."
+      width="900"
+    />
   </section>
 </section>
 <section>
   <h2>The Patterns in Web Applications</h2>
-  <ul>
-    <li>Example: MVC for whole (client + server)</li>
-    <ul>
-      <li>Model</li>
-      <ul>
-        <li>Database tables (persistent data)</li>
-        <li>Session information (current state data)</li>
-        <li>Server-side processing</li>
-      </ul>
-      <li>View</li>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-      </ul>
-      <li>Controller</li>
-      <ul>
-        <li>Client-side scripting</li>
-        <li>Part of processing by server side scripting</li>
-      </ul>
-    </ul>
-  </ul>
+  <p>Example: one MVC for the whole app (client + server)</p>
+  <img
+    src="./img/mvc-web.svg"
+    alt="One MVC across a whole web app. In the browser: the view is HTML for structure and CSS for looks, and part 1 of the controller is client-side script, such as a click handler that calls fetch. On the server: part 2 of the controller is the server-side script that routes the request, and the model is the server-side processing, the session and the database tables. Because the controller is split across the network, the fit is loose; modern apps apply the pattern on each side separately."
+    width="820"
+  />
 </section>
 <section>
   <h2>Design Pattern in Modern Apps</h2>
@@ -148,10 +162,14 @@ topics:
       <li>AngularJS 1.x: MVC (end of life since January 2022)</li>
       <li>Angular 2+: component based, close to MVVM</li>
       <li>
-        React: MVVM (It's more like MVVM and the mostly feature equivalent Vue
-        officially declares itself as MVVM.)
+        React: a view library with
+        <em class="hl-orange">one-way</em> data flow (state → view, events →
+        setters), no two-way binding
       </li>
-      <li>Vue: MVVM</li>
+      <li>
+        Vue: "not strictly associated with the MVVM pattern", but "partly
+        inspired by it" (Vue 2 guide)
+      </li>
     </ul>
     <li>Server side frameworks</li>
     <ul>
@@ -178,13 +196,14 @@ topics:
     <li>These layers are purely abstractions</li>
     <ul>
       <li>
-        <strong class="hl-red">Not</strong> correspond to physical distribution
+        They do <strong class="hl-red">not</strong> correspond to physical
+        distribution
       </li>
       <ul>
         <li>All layers may or may not be on the same machine</li>
       </ul>
       <li>
-        Physical layering is referred as
+        Physical layering is referred to as
         <em class="hl-yellow">multi-tier</em> architecture
       </li>
     </ul>
@@ -199,8 +218,124 @@ topics:
   />
 </section>
 <section>
-  <h2>Multilayer Architecture</h2>
-  <img src="./img/multi-layer.png" alt="multi-layer" />
+  <section>
+    <h2>Multilayer Architecture</h2>
+    <img
+      src="./img/multi-layer.svg"
+      alt="Three layers of an online shop. Presentation, for input and output: web pages, a mobile JSON API and an admin panel. Business logic, the rules: users, orders and payment. Data, storage behind an API: an SQL database, a cache, file storage and a message queue. Calls go down one layer at a time and results come back up."
+      width="860"
+    />
+  </section>
+  <section>
+    <h2>Your Lecture 7 Server, Layered</h2>
+    <p>
+      The same <code>net/http</code> server as
+      <a
+        href="https://github.com/1995parham-teaching/go-lecture/tree/main/httpserver"
+        >go-lecture/httpserver</a
+      >, now with students. The handler never sees SQL; the data layer is an
+      <em class="hl-cyan">interface</em>.
+    </p>
+    <img
+      src="./img/layered-server.svg"
+      alt="curl sends GET /students/9531 to StudentHandler.Get, the presentation layer, which parses the id, calls the service and writes JSON. It calls StudentService.Find, the business layer, whose rule is that the id must be positive. That calls the StudentStore interface, the data layer, with Get(id int64) (Student, error). MemStore implements the interface today; a PostgresStore could implement it later. Nothing above the interface imports a database package. The answers are 200 with the student, or 404 student not found."
+      width="780"
+    />
+  </section>
+  <section>
+    <h3>Data Layer: an Interface</h3>
+    <pre><code class="lang-go">type Student struct {
+  ID        int64  `json:"id"`
+  FirstName string `json:"first_name"`
+  LastName  string `json:"last_name"`
+}
+
+// data layer: the layers above see only this interface
+type StudentStore interface {
+  Get(id int64) (Student, error)
+}
+
+var ErrNotFound = errors.New("student not found")
+
+// MemStore is one implementation; a PostgresStore would be another
+type MemStore map[int64]Student
+
+func (m MemStore) Get(id int64) (Student, error) {
+  s, ok := m[id]
+  if !ok {
+    return Student{}, ErrNotFound
+  }
+  return s, nil
+}</code></pre>
+  </section>
+  <section>
+    <h3>Business Layer, and the Wiring</h3>
+    <pre><code class="lang-go">// business layer: the rules, written against the interface
+type StudentService struct{ Store StudentStore }
+
+var ErrBadID = errors.New("student id must be positive")
+
+func (s StudentService) Find(id int64) (Student, error) {
+  if id &lt;= 0 {
+    return Student{}, ErrBadID
+  }
+  return s.Store.Get(id)
+}
+
+func main() {
+  store := MemStore{
+    9531: {ID: 9531, FirstName: "Linus", LastName: "Torvalds"},
+  }
+  h := StudentHandler{Svc: StudentService{Store: store}}
+
+  mux := http.NewServeMux()
+  mux.HandleFunc("GET /students/{id}", h.Get)
+  log.Fatal(http.ListenAndServe("127.0.0.1:1373", mux))
+}</code></pre>
+  </section>
+  <section>
+    <h3>Presentation Layer: the Handler</h3>
+    <pre><code class="lang-go">// presentation layer: HTTP in, JSON out; no SQL, no rules
+type StudentHandler struct{ Svc StudentService }
+
+func (h StudentHandler) Get(w http.ResponseWriter, r *http.Request) {
+  id, err := strconv.ParseInt(r.PathValue("id"), 10, 64)
+  if err != nil {
+    http.Error(w, "bad id", http.StatusBadRequest)
+    return
+  }
+  s, err := h.Svc.Find(id)
+  switch {
+  case errors.Is(err, ErrNotFound):
+    http.Error(w, err.Error(), http.StatusNotFound)
+    return
+  case err != nil:
+    http.Error(w, err.Error(), http.StatusBadRequest)
+    return
+  }
+  w.Header().Set("Content-Type", "application/json")
+  _ = json.NewEncoder(w).Encode(s)
+}</code></pre>
+  </section>
+  <section class="hands-on">
+    <h3>Run It</h3>
+    <pre><code class="lang-plaintext">$ curl -i localhost:1373/students/9531
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Mon, 16 Nov 2026 01:16:20 GMT
+Content-Length: 56
+
+{"id":9531,"first_name":"Linus","last_name":"Torvalds"}
+$ curl -s -w '%{http_code}\n' localhost:1373/students/42
+student not found
+404
+$ curl -s -w '%{http_code}\n' localhost:1373/students/0
+student id must be positive
+400
+$ curl -s -w '%{http_code}\n' localhost:1373/students/abc
+bad id
+400</code></pre>
+  </section>
 </section>
 <section>
   <h2>Presentation Layer</h2>
@@ -211,17 +346,17 @@ topics:
       <li>Web-Based</li>
     </ul>
     <li>
-      Displays information (processing output) which are get from the business
+      Displays information (processing output) that it gets from the business
       logic layer
     </li>
     <li>
-      Gets user’s requests and pass them (with required data) to the business
-      logic layer
+      Gets the user’s requests and passes them (with required data) to the
+      business logic layer
     </li>
     <li>
-      Note that the user interface of web applications can be made up
+      Note that the user interface of web applications can be made up of
       <span class="hl-orange">client side</span> &amp;
-      <span class="hl-green">server side</span> codes
+      <span class="hl-green">server side</span> code
     </li>
     <li>What is this layer in Gmail?</li>
   </ul>
@@ -232,7 +367,7 @@ topics:
     <li>The work that the application needs to do</li>
     <li>Receives requests from presentation layer</li>
     <li>Fetches required data from data layer</li>
-    <li>Process the request &amp; data</li>
+    <li>Processes the request &amp; data</li>
     <li>Output is sent back to the presentation layer</li>
     <li>What does this layer do in Gmail?</li>
   </ul>
@@ -243,7 +378,7 @@ topics:
     <li>Provides data access interface to business logic</li>
     <ul>
       <li>Hide data storage details</li>
-      <li>Hide heterogeneity of underlining systems</li>
+      <li>Hide heterogeneity of underlying systems</li>
     </ul>
     <li>Communicating with data store systems</li>
     <ul>
@@ -258,7 +393,8 @@ topics:
   <h2>Traditional Multi-layer Web App</h2>
   <p>
     Server-side rendering: the server builds the HTML. Example:
-    <a href="https://github.com/9231058/TMail">TMail</a> (PHP).
+    <a href="https://github.com/9231058/TMail">TMail</a>, a PHP (Laravel) mail
+    app, last updated in 2016.
   </p>
   <img
     src="./img/ssr.svg"
@@ -270,13 +406,14 @@ topics:
   <h2>Modern Multi-layer Web App</h2>
   <p>
     Client-side rendering: the browser builds the HTML. Example:
-    <a href="https://github.com/1995parham-teaching/say-hello">say-hello</a>
-    (React).
+    <a href="https://github.com/1995parham-teaching/say-hello">say-hello</a>, a
+    Go (Fiber) API serving a React app made with Create React App (deprecated
+    since February 2025).
   </p>
   <img
     src="./img/csr.svg"
     alt="Client-side rendering: GET / returns an empty shell with a script tag; the browser then fetches /app.js, and the script fetches /api/inbox, which the server answers with JSON from the database. The browser builds the list itself, after three requests."
-    width="760"
+    width="720"
   />
 </section>
 <section>
@@ -320,7 +457,7 @@ topics:
     </ul>
     <li>Fault tolerance</li>
     <ul>
-      <li>If a part of business logic is failed?</li>
+      <li>What if one part of the business logic fails?</li>
     </ul>
     <li>Upgrade</li>
     <ul>
@@ -362,10 +499,6 @@ topics:
   />
 </section>
 <section>
-  <h2>Microservices Architecture</h2>
-  <img src="./img/micro.png" alt="microservices architecture" />
-</section>
-<section>
   <h2>The Four Tiers of a Microservice Application</h2>
   <img
     src="./img/four-tiers.svg"
@@ -374,32 +507,63 @@ topics:
   />
 </section>
 <section>
-  <h2>What Makes Microservices Challenging?</h2>
-  <ul>
-    <li>
-      <em class="hl-orange">Scoping and identifying microservices</em> requires
-      substantial domain knowledge.
-    </li>
-    <li>
-      The right <em class="hl-green">boundaries and contracts</em> between
-      services are difficult to identify and, once you've established them, can
-      be time-consuming to change.
-    </li>
-    <li>
-      Microservices are <em class="hl-cyan">distributed systems</em> and
-      therefore require different assumptions to be made about state,
-      consistency, and network reliability.
-    </li>
-    <li>
-      By distributing system components across networks, and increasing
-      technical heterogeneity, microservices introduce
-      <em class="hl-yellow">new modes of failure</em>.
-    </li>
-    <li>
-      It's more challenging to understand and verify what should happen in
-      normal operation.
-    </li>
-  </ul>
+  <section>
+    <h2>What Makes Microservices Challenging?</h2>
+    <ul>
+      <li>
+        <em class="hl-orange">Scoping and identifying microservices</em>
+        requires substantial domain knowledge.
+      </li>
+      <li>
+        The right <em class="hl-green">boundaries and contracts</em> between
+        services are difficult to identify and, once you've established them,
+        can be time-consuming to change.
+      </li>
+      <li>
+        Microservices are <em class="hl-cyan">distributed systems</em> and
+        therefore require different assumptions to be made about state,
+        consistency, and network reliability.
+      </li>
+      <li>
+        By distributing system components across networks, and increasing
+        technical heterogeneity, microservices introduce
+        <em class="hl-yellow">new modes of failure</em>.
+      </li>
+      <li>
+        It's more challenging to understand and verify what should happen in
+        normal operation.
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>When Not to Use Microservices</h2>
+    <ul>
+      <li>
+        <a href="https://martinfowler.com/bliki/MonolithFirst.html"
+          >Monolith First</a
+        >
+        (Fowler, 2015):
+      </li>
+      <ul>
+        <li>
+          "Almost all the successful microservice stories have started with a
+          monolith that got too big and was broken up."
+        </li>
+        <li>
+          Systems built as microservices from scratch mostly ended up in
+          <em class="hl-red">serious trouble</em>.
+        </li>
+      </ul>
+      <li>
+        Small team, new product, boundaries not clear yet: start with a
+        <strong class="hl-green">well-layered monolith</strong>
+      </li>
+      <li>
+        Split out a service when one part must
+        <em class="hl-orange">scale, fail or deploy</em> on its own
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section>
@@ -435,42 +599,20 @@ topics:
     </ul>
   </section>
   <section>
-    <h2>Consistency</h2>
-    <ul>
-      <li>
-        Consistency ensures that a transaction can only bring the system from
-        one valid state to another
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Isolation</h2>
-    <ul>
-      <li>Transactions are often executed concurrently</li>
-      <li>
-        Isolation ensures that concurrent execution of transactions leaves the
-        system in the same state that would have been obtained if the
-        transactions were executed sequentially.
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h2>Durability</h2>
-    <ul>
-      <li>
-        Durability guarantees that once a transaction has been committed, it
-        will remain committed even in the case of a system failure (e.g., power
-        outage or crash).
-      </li>
-    </ul>
+    <h2>ACID on a Bank Transfer</h2>
+    <img
+      src="./img/acid-transfer.svg"
+      alt="A transfer of 100 from account A (500) to account B (200): BEGIN, subtract 100 from A, add 100 to B, COMMIT, with CHECK balance >= 0; afterwards A = 400, B = 300. Atomicity: a crash after the first UPDATE leaves A = 500, B = 200 after restart. Consistency: transferring 600 from A is rejected with CHECK constraint failed. Isolation: two withdrawals of 100 from A = 400 at once end at A = 200; without isolation both read 400 and A ends at 300. Durability: after COMMIT returns, a power cut still leaves A = 400, B = 300."
+      width="860"
+    />
   </section>
   <section>
     <h2>A Real Story 🔥</h2>
     <ul>
-      <li>There was a micro-service architectured IoT Platform - 2018</li>
+      <li>An IoT platform built from microservices, 2018</li>
       <li>
-        Users can create project and each project must be created on 3 different
-        services:
+        Users can create projects, and each project must be created on 3
+        different services:
         <ul>
           <li>API gateway</li>
           <li>X</li>
@@ -478,19 +620,21 @@ topics:
         </ul>
       </li>
       <li>
-        Requests are handled by API gateway and then it calls X and Y services
-        to create a new project on these services too. (can you tell why this
-        approach is <strong class="hl-red">not</strong> right?)
+        Requests are handled by the API gateway, which then calls X and Y to
+        create the new project there too. (Can you tell why this approach is
+        <strong class="hl-red">not</strong> right?)
       </li>
       <li>
-        Sometimes service X fail to create project and sometimes Y service isn't
-        available to handle/response the request.
+        Sometimes service X fails to create the project, and sometimes service Y
+        is not available to answer the request.
       </li>
       <li>
-        We don't know service Y
-        <em class="hl-orange">is slow, or it is not working</em>
+        We cannot tell whether service Y
+        <em class="hl-orange">is slow or not working</em>
       </li>
-      <li>In each of these cases system goes into unrecoverable state</li>
+      <li>
+        In each of these cases the system goes into an unrecoverable state
+      </li>
     </ul>
   </section>
   <section>
@@ -501,13 +645,21 @@ topics:
       width="860"
     />
   </section>
+  <section>
+    <h2>Fixing It: Outbox and Idempotent Consumers</h2>
+    <img
+      src="./img/outbox.svg"
+      alt="The fix. The API gateway saves project p-42 as pending and an outbox row project.created in one local transaction, so both are saved or neither. A relay publishes project.created with id p-42 to a broker, which delivers it to X and Y. Each runs INSERT p-42 ON CONFLICT DO NOTHING. If Y is down, the event waits and is delivered when Y is back; if X gets it twice, the second insert does nothing; without an ack the broker redelivers. Result: gateway, X and Y all have the project, Y a little later. Saga: if Y refuses p-42 for good, it publishes project.failed and X and the gateway delete p-42 as a compensating step."
+      width="860"
+    />
+  </section>
 </section>
 <section>
   <section>
     <h2>CAP Theorem</h2>
     <p>
-      Impossible for a distributed data store to simultaneously provide more
-      than two out of the following three guarantees:
+      During a network <em class="hl-yellow">partition</em>, a distributed data
+      store must choose between consistency and availability:
     </p>
     <ul>
       <li>
@@ -520,11 +672,19 @@ topics:
         recent write
       </li>
       <li>
-        <em class="hl-yellow">Partition tolerance</em>: The system continues to
-        operate despite an arbitrary number of messages being dropped (or
-        delayed) by the network between nodes
+        <em class="hl-yellow">Partition</em>: an arbitrary number of messages
+        between nodes are dropped (or delayed) by the network. Networks do
+        partition, so this is not optional.
       </li>
     </ul>
+    <p>
+      "Pick 2 of 3" is the popular form;
+      <a
+        href="https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/"
+        >Brewer (2012)</a
+      >
+      calls it misleading. With no partition, a system can be both.
+    </p>
   </section>
   <section>
     <h2>CAP During a Partition</h2>
@@ -535,29 +695,32 @@ topics:
     />
   </section>
   <section>
-    <h2>Mongo DB (CP)</h2>
-    <img src="./img/mongodb.webp" alt="MongoDB replica set" />
+    <h2>MongoDB (CP)</h2>
+    <img
+      src="./img/mongodb-replica.svg"
+      alt="A MongoDB replica set. The application inserts with write concern majority into the primary, the only member that takes writes; it stores BSON documents in WiredTiger. Two secondaries copy the primary's oplog. All members exchange heartbeats every 2 seconds. The write is acknowledged after 2 of 3 members have it. If the primary is lost, the others need a majority to elect a new one, and until then there are no writes."
+      width="740"
+    />
     <ul>
       <li>
-        MongoDB is a NoSQL database that stores data in one or more Primary
-        nodes in the form of JSON files.
+        A replica set has exactly <em class="hl-green">one primary</em>, which
+        takes every write; the secondaries replicate it.
       </li>
       <li>
-        The replica set nodes in the system send a heartbeat (ping) to every
-        other node to keep track if other replicas or primary nodes are alive or
-        dead.
+        Data is stored as <em class="hl-cyan">BSON</em> documents (binary JSON)
+        in the WiredTiger storage engine.
       </li>
     </ul>
   </section>
   <section>
     <ul>
       <li>
-        If a Primary node becomes inaccessible, then one of the secondary nodes
-        needs to <em class="hl-yellow">become the primary node</em>.
+        If the primary node becomes inaccessible, then one of the secondary
+        nodes needs to <em class="hl-yellow">become the primary node</em>.
       </li>
       <ul>
         <li>
-          <strong class="hl-orange">Till</strong> a new primary is elected from
+          <strong class="hl-orange">Until</strong> a new primary is elected from
           amongst the secondary nodes, the system remains
           <em class="hl-red">unavailable</em> to the user to make any new write
           query.
@@ -569,33 +732,34 @@ topics:
           <strong class="hl-material">partition</strong>.
         </li>
       </ul>
+      <li>
+        CP only with write concern <code>majority</code> (the default since 5.0)
+        and reads from the primary; a read from a secondary may be stale.
+      </li>
     </ul>
   </section>
   <section>
     <h2>Cassandra (AP)</h2>
     <ul>
       <li>
-        Cassandra is a peer-to-peer system. It consists of multiple nodes in the
-        system. And each node can accept a read or write request from the user.
+        Cassandra is a peer-to-peer system of many nodes, and each node can
+        accept a read or write request from the user.
       </li>
       <li>Cassandra maintains multiple replicas of data in separate nodes</li>
       <li>
-        A situation can occur where a partition occurs and the replica
-        <em class="hl-red">does not</em>
-        get an updated copy of the data.
+        During a partition a replica may <em class="hl-red">not</em> get the
+        update: it stays available, but its data is inconsistent.
       </li>
-      <ul>
-        <li>
-          In such a situation the replica nodes will still be available to the
-          user but the data will be inconsistent.
-        </li>
-      </ul>
       <li>
-        All updates will reach all the replicas
-        <strong class="hl-orange">eventually</strong>. But in the meantime, it
-        allows <em class="hl-yellow">divergent</em> versions of the same data to
-        exist temporarily. <strong class="hl-green">Until</strong> we update
-        them to the consistent state.
+        All updates reach all the replicas
+        <strong class="hl-orange">eventually</strong>; meanwhile,
+        <em class="hl-yellow">divergent</em> versions of the same data can
+        exist.
+      </li>
+      <li>
+        Consistency is <em class="hl-green">tunable per query</em>: with 3
+        replicas, <code>QUORUM</code> (2 of 3) writes and reads overlap, so a
+        read sees the latest write.
       </li>
     </ul>
   </section>
@@ -624,8 +788,14 @@ topics:
     <img
       src="./img/rpc-shared.svg"
       alt="Shared resource: System 1 writes order 42 into a shared database and System 2 reads it; they never talk to each other, and the table schema is their contract. RPC: System 1 calls Payment.Charge(42, 50) as if it were local; the client stub marshals the arguments onto the network, the server stub unmarshals them and calls the procedure, and the result comes back the same way."
-      width="860"
+      width="760"
     />
+    <p>
+      Between microservices a shared database is an
+      <strong class="hl-red">anti-pattern</strong>: each service owns its data
+      (<em class="hl-green">database per service</em>) and others reach it only
+      through its API.
+    </p>
   </section>
   <section>
     <h2>Synchronous versus asynchronous</h2>
@@ -655,27 +825,11 @@ topics:
 <section>
   <section>
     <h2>Asynchronous Messages</h2>
-    <ul>
-      <li>More flexible</li>
-      <li>
-        By announcing <strong class="hl-orange">events</strong>, you make it
-        easy to extend the system to handle new requirements, because services
-        no longer need to have knowledge of their downstream consumers.
-      </li>
-      <li>
-        Asynchronous messaging typically requires a
-        <em class="hl-green">communication broker</em>
-      </li>
-      <ul>
-        <li>
-          An independent system component that receives events and distributes
-          them to event consumers.
-        </li>
-      </ul>
-    </ul>
-  </section>
-  <section>
-    <h3>Routing by subject</h3>
+    <p>
+      By announcing <strong class="hl-orange">events</strong>, services no
+      longer need to know their downstream consumers, so the system is easy to
+      extend. The broker routes each event by its subject.
+    </p>
     <img
       src="./img/pubsub-subjects.svg"
       alt="A publisher sends PUB foo to the broker. The broker delivers MSG foo to the subscriber on foo and to the subscriber on foo and bar; the subscriber on bar alone receives nothing. The publisher does not know who, if anyone, is subscribed."
@@ -685,20 +839,63 @@ topics:
   <section>
     <h3>Solutions</h3>
     <ul>
-      <li>EMQ (MQTT) in erlang</li>
-      <li>VerneMQ (MQTT) in erlang</li>
-      <li>RabbitMQ (AMQP) in erlang</li>
-      <li>NATS (NATS) in golang</li>
+      <li>
+        EMQX (MQTT), in Erlang — Business Source License 1.1 since 5.9 (2025)
+      </li>
+      <li>
+        VerneMQ (MQTT), in Erlang — open source; the binary packages need a paid
+        subscription for production use
+      </li>
+      <li>RabbitMQ (AMQP), in Erlang</li>
+      <li>NATS (NATS), in Go</li>
+      <li>
+        Apache Kafka (its own protocol, a distributed log), in Java and Scala
+      </li>
       <li>etc.</li>
     </ul>
   </section>
   <section>
     <h3>Quality of Service</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Guarantee</th>
+          <th>MQTT</th>
+          <th>Lost?</th>
+          <th>Duplicated?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>at-most-once (fire and forget)</td>
+          <td>QoS 0</td>
+          <td class="hl-red">maybe</td>
+          <td class="hl-green">never</td>
+        </tr>
+        <tr>
+          <td>at-least-once</td>
+          <td>QoS 1</td>
+          <td class="hl-green">never</td>
+          <td class="hl-red">maybe</td>
+        </tr>
+        <tr>
+          <td>exactly-once</td>
+          <td>QoS 2</td>
+          <td class="hl-green">never</td>
+          <td class="hl-green">never</td>
+        </tr>
+      </tbody>
+    </table>
     <ul>
-      <li>Fire and Forget</li>
-      <li>at-least-once Delivery</li>
-      <li>exactly-once Delivery</li>
-      <li>etc.</li>
+      <li>
+        At-least-once means the consumer must be
+        <strong class="hl-orange">idempotent</strong>: handling a message twice
+        has the same effect as once.
+      </li>
+      <li>
+        MQTT's exactly-once holds <em class="hl-yellow">per hop</em> (client ↔
+        broker), not end to end.
+      </li>
     </ul>
   </section>
   <section>
@@ -709,6 +906,37 @@ topics:
       <li>Connections per Second</li>
     </ul>
   </section>
+</section>
+<section>
+  <h2>REST</h2>
+  <ul>
+    <li>
+      <em class="hl-orange">RE</em>presentational
+      <em class="hl-orange">S</em>tate <em class="hl-orange">T</em>ransfer: an
+      architectural style (Fielding, 2000), not a protocol
+    </li>
+    <li>
+      <em class="hl-green">Resources</em> are named by URLs:
+      <code>/students/9531</code>
+    </li>
+    <li>
+      The <em class="hl-cyan">standard HTTP methods</em> act on them:
+      <code>GET</code> reads, <code>POST</code> creates,
+      <code>PUT</code> replaces, <code>DELETE</code> removes
+    </li>
+    <li>
+      The server sends a <em class="hl-yellow">representation</em> of the
+      resource, usually JSON
+    </li>
+    <li>
+      <em class="hl-red">Stateless</em>: each request carries everything the
+      server needs
+    </li>
+    <li>
+      Example: <code>GET /students/9531</code> → <code>200</code> and the
+      student as JSON (the layered server)
+    </li>
+  </ul>
 </section>
 <section>
   <section>
@@ -761,6 +989,31 @@ topics:
       >
         https://en.wikipedia.org/wiki/Model-view-controller
       </a>
+    </li>
+    <li>
+      M. Bruce and P. A. Pereira,
+      <a href="https://www.manning.com/books/microservices-in-action"
+        ><em>Microservices in Action</em></a
+      >, Manning, 2018
+    </li>
+    <li>
+      J. Lewis and M. Fowler,
+      <a href="https://martinfowler.com/articles/microservices.html"
+        >Microservices</a
+      >, 2014
+    </li>
+    <li>
+      M. Fowler,
+      <a href="https://martinfowler.com/bliki/MonolithFirst.html"
+        >Monolith First</a
+      >, 2015
+    </li>
+    <li>
+      E. Brewer,
+      <a
+        href="https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/"
+        >CAP Twelve Years Later: How the "Rules" Have Changed</a
+      >, InfoQ, 2012
     </li>
   </ul>
 </section>

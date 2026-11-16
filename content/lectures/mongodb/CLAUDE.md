@@ -15,6 +15,8 @@ embed or reference → CRUD → aggregation pipeline → transactions → Mongoo
 **CAP is introduced in lecture 9**, which also places MongoDB as CP and
 Cassandra as AP. This deck repeats CAP; the two statements must agree.
 
+Both decks state CAP as "during a partition, choose consistency or availability". Lecture 9 used to say "no more than two of the three", which Brewer ("CAP Twelve Years Later", 2012) calls misleading; it was reworded on 16 November 2026 to match this deck, whose wording did not need to change. Lecture 9 also says MongoDB is CP only with `w: "majority"` (the default since 5.0) and primary reads.
+
 ## Facts worth not re-deriving
 
 - The CRUD slide runs on `db.students` throughout; the aggregation slide and

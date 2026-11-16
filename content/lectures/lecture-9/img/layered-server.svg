@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <title>The lecture 7 style Go server in three layers: StudentHandler (presentation) calls StudentService (business), which calls the StudentStore interface (data); MemStore implements it today and a PostgresStore could replace it without changing the layers above</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .r { text-anchor: end; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .note { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="impl" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#2b2b2b" stroke="#00e5ff" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="22" width="150" height="76" rx="6" />
+  <text x="95" y="60">curl</text>
+  <path class="line" d="M172,46 L326,46" />
+  <path class="line" d="M326,74 L172,74" />
+  <text class="mono l" x="20" y="128" style="font-size: 13px">GET /students/9531</text>
+  <text class="mono l" x="20" y="152" style="font-size: 13px"><tspan class="green">200</tspan> {"id":9531,…}</text>
+  <text class="mono l" x="20" y="176" style="font-size: 13px"><tspan class="red">404</tspan> student not found</text>
+
+  <rect class="box" x="330" y="20" width="340" height="80" rx="6" style="stroke: #ff9100" />
+  <text class="mono" x="500" y="46" style="font-size: 17px">StudentHandler.Get</text>
+  <text class="small" x="500" y="76" style="font-size: 14px">parse the id · call the service · write JSON</text>
+  <text class="orange l" x="690" y="60" style="font-size: 18px">presentation</text>
+
+  <path class="line" d="M500,102 L500,146" />
+  <text class="small l" x="512" y="124" style="font-size: 14px">calls</text>
+
+  <rect class="box" x="330" y="150" width="340" height="80" rx="6" style="stroke: #76ff03" />
+  <text class="mono" x="500" y="176" style="font-size: 17px">StudentService.Find</text>
+  <text class="small" x="500" y="206" style="font-size: 14px">rule: the id must be positive</text>
+  <text class="green l" x="690" y="190" style="font-size: 18px">business</text>
+
+  <path class="line" d="M500,232 L500,276" />
+  <text class="small l" x="512" y="254" style="font-size: 14px">calls</text>
+
+  <rect x="330" y="280" width="340" height="80" rx="6" style="fill: rgba(0, 229, 255, 0.06); stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 8 5" />
+  <text class="small" x="500" y="298" style="font-size: 13px">«interface»</text>
+  <text class="mono" x="500" y="318" style="font-size: 17px">StudentStore</text>
+  <text class="mono small" x="500" y="344" style="font-size: 13px">Get(id int64) (Student, error)</text>
+  <text class="cyan l" x="690" y="320" style="font-size: 18px">data</text>
+
+  <rect class="box" x="220" y="410" width="200" height="48" rx="6" />
+  <text class="mono" x="320" y="434" style="font-size: 16px">MemStore</text>
+  <rect class="dash" x="580" y="410" width="200" height="48" rx="6" />
+  <text class="mono grey" x="680" y="434" style="font-size: 16px">PostgresStore</text>
+  <path d="M340,408 L430,364" style="fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 5 4; marker-end: url(#impl)" />
+  <path d="M660,408 L570,364" style="fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 5 4; marker-end: url(#impl)" />
+  <text class="small" x="500" y="400" style="font-size: 14px">implement</text>
+  <text class="small" x="320" y="476" style="font-size: 13px">used today</text>
+  <text class="small" x="680" y="476" style="font-size: 13px">swap in later</text>
+
+  <text class="small l" x="20" y="300" style="font-size: 14px">Nothing above the</text>
+  <text class="small l" x="20" y="322" style="font-size: 14px">interface imports a</text>
+  <text class="small l" x="20" y="344" style="font-size: 14px">database package.</text>
+</svg>

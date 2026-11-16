@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>ACID on one bank transfer of 100 from A (500) to B (200): atomicity undoes a half-done transfer after a crash, consistency rejects a transfer that would make A negative, isolation stops two concurrent withdrawals from losing an update, durability keeps a committed transfer after a power cut</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .r { text-anchor: end; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .note { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="impl" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#2b2b2b" stroke="#00e5ff" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="16" width="560" height="128" rx="6" />
+  <text class="mono l" x="40" y="40" style="font-size: 14px">BEGIN;</text>
+  <text class="mono l" x="40" y="64" style="font-size: 14px">UPDATE accounts SET balance = balance - 100 WHERE id = 'A';</text>
+  <text class="mono l" x="40" y="88" style="font-size: 14px">UPDATE accounts SET balance = balance + 100 WHERE id = 'B';</text>
+  <text class="mono l" x="40" y="112" style="font-size: 14px">COMMIT;</text>
+  <text class="small mono l" x="40" y="134" style="font-size: 12px">CHECK (balance &gt;= 0)</text>
+
+  <text class="small" x="740" y="40" style="font-size: 15px">before</text>
+  <text class="mono" x="740" y="64" style="font-size: 16px">A = 500, B = 200</text>
+  <path class="line" d="M740,78 L740,100" />
+  <text class="small" x="740" y="112" style="font-size: 15px">after COMMIT</text>
+  <text class="mono" x="740" y="134" style="font-size: 16px">A = 400, B = 300</text>
+
+  <text class="small l" x="90" y="170" style="font-size: 14px">what happens</text>
+  <text class="small l" x="520" y="170" style="font-size: 14px">what the database guarantees</text>
+
+  <rect class="box" x="20" y="184" width="860" height="62" rx="6" />
+  <text class="orange" x="52" y="215" style="font-size: 30px">A</text>
+  <text class="l" x="90" y="215" style="font-size: 16px">crash after the first UPDATE</text>
+  <text class="l" x="520" y="204" style="font-size: 16px">restart: <tspan class="mono">A = 500, B = 200</tspan></text>
+  <text class="small l" x="520" y="228" style="font-size: 14px">all or nothing: the half-done work is undone</text>
+
+  <rect class="box" x="20" y="254" width="860" height="62" rx="6" />
+  <text class="green" x="52" y="285" style="font-size: 30px">C</text>
+  <text class="l" x="90" y="285" style="font-size: 16px">transfer 600 from A</text>
+  <text class="l" x="520" y="274" style="font-size: 16px">rejected: <tspan class="mono red">CHECK constraint failed</tspan></text>
+  <text class="small l" x="520" y="298" style="font-size: 14px">valid state to valid state; A stays 400</text>
+
+  <rect class="box" x="20" y="324" width="860" height="62" rx="6" />
+  <text class="cyan" x="52" y="355" style="font-size: 30px">I</text>
+  <text class="l" x="90" y="344" style="font-size: 16px">two withdrawals of 100 from A = 400,</text>
+  <text class="l" x="90" y="368" style="font-size: 16px">at the same time</text>
+  <text class="l" x="520" y="344" style="font-size: 16px">one after the other: <tspan class="mono">A = 200</tspan></text>
+  <text class="small l" x="520" y="368" style="font-size: 14px">without isolation both read 400: <tspan class="mono red">A = 300</tspan></text>
+
+  <rect class="box" x="20" y="394" width="860" height="62" rx="6" />
+  <text class="red" x="52" y="425" style="font-size: 30px">D</text>
+  <text class="l" x="90" y="425" style="font-size: 16px">COMMIT returned, then the power goes off</text>
+  <text class="l" x="520" y="414" style="font-size: 16px">restart: <tspan class="mono">A = 400, B = 300</tspan></text>
+  <text class="small l" x="520" y="438" style="font-size: 14px">committed means written to disk (the log)</text>
+</svg>

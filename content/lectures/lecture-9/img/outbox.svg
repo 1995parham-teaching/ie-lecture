@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470">
+  <title>The fix for the real story: the gateway saves the project and an outbox event in one local transaction; a relay publishes project.created p-42 to a broker; X and Y create the project idempotently, keyed by its ID, so a redelivery is harmless and a down service catches up later; if Y refuses for good, a saga compensation undoes the other steps</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .r { text-anchor: end; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .note { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="impl" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#2b2b2b" stroke="#00e5ff" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="20" width="350" height="190" rx="8" />
+  <text class="l" x="40" y="46" style="font-size: 18px">API gateway</text>
+  <rect class="dash" x="36" y="64" width="318" height="96" rx="6" />
+  <text class="small l" x="50" y="82" style="font-size: 13px">one local transaction</text>
+  <text class="mono l" x="50" y="108" style="font-size: 13px">INSERT project p-42 (pending)</text>
+  <text class="mono l" x="50" y="136" style="font-size: 13px">INSERT outbox project.created</text>
+  <text class="small l" x="40" y="186" style="font-size: 14px">both rows are saved, or neither</text>
+
+  <path class="line" d="M372,116 L466,116" />
+  <text class="small" x="420" y="98" style="font-size: 13px">relay</text>
+  <text class="small" x="420" y="136" style="font-size: 13px">publishes</text>
+  <rect class="box" x="470" y="86" width="130" height="60" rx="6" style="stroke: #ff9100" />
+  <text x="535" y="116" style="font-size: 18px">broker</text>
+
+  <path class="line" d="M602,104 L656,62" />
+  <path class="line" d="M602,128 L656,170" />
+  <text class="mono small" x="535" y="166" style="font-size: 12px">project.created</text>
+  <text class="mono small" x="535" y="184" style="font-size: 12px">{"id": "p-42"}</text>
+
+  <rect class="box" x="660" y="20" width="220" height="84" rx="6" />
+  <text class="l" x="676" y="42" style="font-size: 18px">X</text>
+  <text class="mono l" x="676" y="66" style="font-size: 12px">INSERT p-42</text>
+  <text class="mono l" x="676" y="86" style="font-size: 12px">ON CONFLICT DO NOTHING</text>
+  <rect class="box" x="660" y="128" width="220" height="84" rx="6" />
+  <text class="l" x="676" y="150" style="font-size: 18px">Y <tspan class="small" style="font-size: 13px">(down for a while)</tspan></text>
+  <text class="mono l" x="676" y="174" style="font-size: 12px">INSERT p-42</text>
+  <text class="mono l" x="676" y="194" style="font-size: 12px">ON CONFLICT DO NOTHING</text>
+
+  <text class="l" x="40" y="250" style="font-size: 16px"><tspan class="yellow">Y is down:</tspan> the event waits in the broker and is delivered when Y is back.</text>
+  <text class="l" x="40" y="280" style="font-size: 16px"><tspan class="yellow">X gets it twice</tspan> (at-least-once): the second INSERT finds p-42 and does nothing.</text>
+  <text class="l" x="40" y="310" style="font-size: 16px"><tspan class="yellow">No ack, no loss:</tspan> the broker redelivers until each service says "done".</text>
+
+  <rect x="20" y="334" width="860" height="56" rx="8" style="fill: rgba(118, 255, 3, 0.08); stroke: #76ff03; stroke-width: 2" />
+  <text x="450" y="362" style="font-size: 18px">Result: gateway <tspan class="green">✓</tspan> · X <tspan class="green">✓</tspan> · Y <tspan class="green">✓</tspan> (Y a little later): they converge.</text>
+
+  <rect x="20" y="402" width="860" height="56" rx="8" style="fill: rgba(255, 255, 255, 0.04); stroke: #8d97a8; stroke-width: 1.5" />
+  <text class="l" x="40" y="422" style="font-size: 15px"><tspan class="orange">Saga:</tspan> if Y refuses p-42 for good, it publishes <tspan class="mono">project.failed</tspan>;</text>
+  <text class="small l" x="40" y="444" style="font-size: 14px">X and the gateway run a compensating step (delete p-42), so every service agrees again.</text>
+</svg>

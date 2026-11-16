@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440">
+  <title>One MVC over a whole web app: in the browser, the view is HTML and CSS and part of the controller is client-side script; on the server, the rest of the controller is server-side script and the model is the processing, the session and the database tables</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .r { text-anchor: end; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .note { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="impl" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#2b2b2b" stroke="#00e5ff" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="dash" x="20" y="20" width="370" height="330" rx="12" />
+  <text class="l" x="40" y="46" style="font-size: 18px">Browser</text>
+  <rect class="dash" x="510" y="20" width="370" height="330" rx="12" />
+  <text class="l" x="530" y="46" style="font-size: 18px">Server</text>
+
+  <rect class="box" x="44" y="76" width="322" height="110" rx="6" style="stroke: #ff9100" />
+  <text class="orange l" x="62" y="104">View</text>
+  <text class="l" x="62" y="136" style="font-size: 16px">HTML (structure)</text>
+  <text class="l" x="62" y="164" style="font-size: 16px">CSS (looks)</text>
+
+  <rect class="box" x="44" y="210" width="322" height="116" rx="6" style="stroke: #00e5ff" />
+  <text class="cyan l" x="62" y="238">Controller, part 1</text>
+  <text class="l" x="62" y="270" style="font-size: 16px">client-side script</text>
+  <text class="small l mono" x="62" y="300" style="font-size: 13px">button.onclick → fetch(…)</text>
+
+  <rect class="box" x="534" y="76" width="322" height="96" rx="6" style="stroke: #00e5ff" />
+  <text class="cyan l" x="552" y="104">Controller, part 2</text>
+  <text class="l" x="552" y="136" style="font-size: 16px">server-side script that</text>
+  <text class="l" x="552" y="158" style="font-size: 16px">routes the request</text>
+
+  <rect class="box" x="534" y="196" width="322" height="130" rx="6" style="stroke: #76ff03" />
+  <text class="green l" x="552" y="224">Model</text>
+  <text class="l" x="552" y="254" style="font-size: 16px">server-side processing</text>
+  <text class="l" x="552" y="280" style="font-size: 16px">session (current state)</text>
+  <text class="l" x="552" y="306" style="font-size: 16px">database tables</text>
+
+  <path class="line" d="M392,140 L506,140" />
+  <text class="small" x="450" y="124" style="font-size: 14px">request</text>
+  <path class="line" d="M506,170 L392,170" />
+  <text class="small" x="450" y="188" style="font-size: 14px">HTML</text>
+  <path class="line" d="M700,174 L700,194" />
+
+  <text x="450" y="384" style="font-size: 17px">The controller is <tspan class="red">split</tspan> across the network, so the fit is loose.</text>
+  <text class="small" x="450" y="414" style="font-size: 15px">Modern apps apply the pattern on each side separately (next slide).</text>
+</svg>

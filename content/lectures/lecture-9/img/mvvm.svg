@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 400">
+  <title>MVVM: the view binds to a view model that converts the model's raw data, birthDate and balanceCents, into screen-ready properties, age, balanceText and canWithdraw; the view never touches the model</title>
+  <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 20px; fill: #eeeeee; text-anchor: middle; dominant-baseline: middle; }
+    .small { font-size: 16px; fill: #b0b4bc; }
+    .mono { font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 15px; }
+    .l { text-anchor: start; }
+    .r { text-anchor: end; }
+    .box { fill: rgba(255, 255, 255, 0.06); stroke: #cfd3da; stroke-width: 2; }
+    .dash { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; }
+    .line { fill: none; stroke: #cfd3da; stroke-width: 2; marker-end: url(#arrow); }
+    .note { fill: none; stroke: #8d97a8; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    .orange { fill: #ff9100; } .green { fill: #76ff03; } .cyan { fill: #00e5ff; }
+    .red { fill: #ff5252; } .violet { fill: #ee82ee; } .yellow { fill: #ffcc00; } .grey { fill: #8d97a8; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cfd3da" />
+    </marker>
+    <marker id="impl" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#2b2b2b" stroke="#00e5ff" stroke-width="1.5" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="20" width="230" height="280" rx="8" style="stroke: #ff9100" />
+  <text class="orange" x="135" y="50">View</text>
+  <text class="small" x="135" y="76" style="font-size: 14px">what the user sees</text>
+  <text class="l" x="44" y="128" style="font-size: 17px">Age: 22</text>
+  <text class="l" x="44" y="168" style="font-size: 17px">Balance: $1,250.00</text>
+  <rect x="44" y="200" width="130" height="38" rx="6" style="fill: rgba(118, 255, 3, 0.12); stroke: #76ff03; stroke-width: 1.5" />
+  <text x="109" y="219" style="font-size: 16px">Withdraw</text>
+  <text class="small l" x="44" y="268" style="font-size: 13px">no logic, only bindings</text>
+
+  <rect class="box" x="405" y="20" width="230" height="280" rx="8" style="stroke: #00e5ff" />
+  <text class="cyan" x="520" y="50">ViewModel</text>
+  <text class="small" x="520" y="76" style="font-size: 14px">data shaped for the screen</text>
+  <text class="mono l" x="422" y="128" style="font-size: 13px">age: 22</text>
+  <text class="mono l" x="422" y="168" style="font-size: 13px">balanceText: "$1,250.00"</text>
+  <text class="mono l" x="422" y="219" style="font-size: 13px">canWithdraw: true</text>
+  <text class="small l" x="422" y="268" style="font-size: 13px">testable without any UI</text>
+
+  <rect class="box" x="790" y="20" width="230" height="280" rx="8" style="stroke: #76ff03" />
+  <text class="green" x="905" y="50">Model</text>
+  <text class="small" x="905" y="76" style="font-size: 14px">raw data and rules</text>
+  <text class="mono l" x="810" y="128" style="font-size: 13px">birthDate: 2004-03-01</text>
+  <text class="mono l" x="810" y="168" style="font-size: 13px">balanceCents: 125000</text>
+
+  <text x="327" y="108" style="font-size: 14px">UI events</text>
+  <path class="note" d="M252,122 L401,122" />
+  <text x="327" y="168" style="font-size: 14px">property changed</text>
+  <path class="note" d="M403,182 L254,182" />
+  <text x="327" y="228" style="font-size: 14px">data, by binding</text>
+  <path class="line" d="M403,242 L254,242" />
+
+  <text x="712" y="108" style="font-size: 14px">update</text>
+  <path class="line" d="M637,122 L786,122" />
+  <text x="712" y="168" style="font-size: 14px">read</text>
+  <path class="line" d="M788,182 L639,182" />
+  <text x="712" y="228" style="font-size: 14px">model changed</text>
+  <path class="note" d="M788,242 L639,242" />
+
+  <text class="small" x="520" y="340" style="font-size: 15px">dashed = notification (event) · solid = data</text>
+  <text x="520" y="372" style="font-size: 17px">The view talks only to the view model; it <tspan class="red">never</tspan> touches the model.</text>
+</svg>
