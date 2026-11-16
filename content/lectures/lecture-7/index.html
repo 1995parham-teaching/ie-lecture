@@ -33,13 +33,13 @@ topics:
 </section>
 <section>
   <div class="toc" data-selected="0"></div>
-  <img src="img/history.png" alt="gopher-riding-rex" style="height: 10%" />
+  <img src="img/history.png" alt="gopher-riding-rex" style="height: 300px" />
 </section>
 <section>
   <p><em>Go is</em></p>
   <ul>
     <li>Modern</li>
-    <li>Generic Purpose</li>
+    <li>General-purpose</li>
     <li>Open Source</li>
   </ul>
   <p><em>Programming Language</em></p>
@@ -74,11 +74,15 @@ topics:
       <em class="hl-green">the verbosity of error handling</em> in Go 1.x had
       drawn considerable criticism.
     </li>
+    <li>
+      Generics <strong class="hl-orange">→ added in Go 1.18 (2022)</strong>;
+      error handling is still explicit, by choice.
+    </li>
   </ul>
 </section>
 <section>
   <div class="toc" data-selected="1"></div>
-  <img src="img/advantages.png" alt="gopher-rocks" style="height: 10%" />
+  <img src="img/advantages.png" alt="gopher-rocks" style="height: 300px" />
 </section>
 <section>
   <section>
@@ -113,13 +117,16 @@ void allocate_forever(void) {
   a[0] = 10;
 }
     </code></pre>
-    <h3><em class="hl-yellow">structural typing</em></h3>
-    <pre><code class="lang-c">
-struct student {
-  int  id;
-  char surname[255];
-  char forename[255];
-};
+    <h3><em class="hl-yellow">structural typing</em> (in Go)</h3>
+    <pre><code class="lang-go">
+type Shape interface{ Area() float64 }
+
+// Square never mentions Shape
+type Square struct{ Side float64 }
+
+func (s Square) Area() float64 { return s.Side * s.Side }
+
+var sh Shape = Square{Side: 3} // compiles: Square has Area()
     </code></pre>
   </section>
 </section>
@@ -133,6 +140,12 @@ struct student {
         which means that the binary files produced can be easily transferred to
         other machines with the same OS.
       </li>
+      <li>
+        Fully static only for a pure-Go Linux build (<code>CGO_ENABLED=0</code>,
+        <code>file</code>: "statically linked"); a macOS binary still links
+        <code>libSystem</code> (<code>otool -L</code>), because macOS requires
+        it.
+      </li>
     </ul>
   </section>
   <section>
@@ -141,7 +154,9 @@ struct student {
 #define students_foreach_loop(stds, element) \
     struct students_el *element ## _el = stds-&gt;head; \
     const struct student *element = element ## _el-&gt;student; \
-    for (; element ## _el != NULL; element ## _el = element ## _el-&gt;next, element = element ## _el ? element ## _el-&gt;student : NULL)
+    for (; element ## _el != NULL; \
+         element ## _el = element ## _el-&gt;next, \
+         element = element ## _el ? element ## _el-&gt;student : NULL)
 
   students_foreach_loop(stds, el) {
     fprintf(fp, "Name: %s\n", el-&gt;name);
@@ -208,7 +223,7 @@ struct student {
 </section>
 <section>
   <div class="toc" data-selected="2"></div>
-  <img src="img/say-hello.png" alt="teaching-gopher" style="height: 10%" />
+  <img src="img/say-hello.png" alt="teaching-gopher" style="height: 300px" />
 </section>
 <section>
   <pre><code class="lang-go">
@@ -244,8 +259,8 @@ func main() {
     </li>
   </ul>
 </section>
-<section class="hands-on">
-  <section>
+<section>
+  <section class="hands-on">
     <h2>
       <a
         href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/00-hello-world/main.go"
@@ -271,7 +286,9 @@ func main() {
       </li>
     </ul>
     <pre><code class="lang-sh">
-curl https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/00-hello-world/main.go &gt; hello-world.go
+curl \
+  https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/00-hello-world/main.go \
+  &gt; hello-world.go
     </code></pre>
   </section>
   <section>
@@ -338,11 +355,11 @@ var s, t string
     </code></pre>
     <p>Implicitly or explicitly initialized:</p>
     <pre><code class="lang-go">
-var x int                       // x = 0
-var s, t string = "foo", "bar"  // multiple assignment
+var x2 int                        // x2 = 0
+var s2, t2 string = "foo", "bar"  // multiple assignment
 
-var x = 42                      // int
-var s, b = "foo", true          // string, bool
+var y = 42                        // int
+var u, b = "foo", true            // string, bool
     </code></pre>
   </section>
   <section>
@@ -386,11 +403,12 @@ int int8 int16 int32 int64
 uint uint8 uint16 uint32 uint64 uintptr
 float32 float64 complex128 complex64
 bool byte rune string error
+any comparable
     </code></pre>
     <pre><code class="lang-go">
-make len cap new append copy close delete
-complex real imag
-panic recover
+make len cap new append copy close delete clear
+complex real imag min max
+panic recover print println
     </code></pre>
   </section>
   <section>
@@ -418,19 +436,19 @@ continue for import return var
 <section>
   <h2>Calculation</h2>
   <pre><code class="lang-go">
-x := 42
-y := x + 10
-var c = (f - 32) * 5 / 9
+f := 212.0
+c := (f - 32) * 5 / 9
+fmt.Println(c) // 100
 
-var x uint8 = 1 &lt;&lt; 1 | 1 &lt;&lt; 5
-var y uint8 = 1 &lt;&lt; 1 | 1 &lt;&lt; 2
+var x uint8 = 1&lt;&lt;1 | 1&lt;&lt;5
+var y uint8 = 1&lt;&lt;1 | 1&lt;&lt;2
 
 fmt.Printf("%08b\n", x) // "00100010"
 fmt.Printf("%08b\n", y) // "00000110"
 
 fmt.Printf("%08b\n", x&amp;y) // "00000010"
-fmt.Printf("%08b\n", x|y)     // "00100110"
-fmt.Printf("%08b\n", x^y)     // "00100100"
+fmt.Printf("%08b\n", x|y) // "00100110"
+fmt.Printf("%08b\n", x^y) // "00100100"
   </code></pre>
 </section>
 <section class="hands-on">
@@ -458,6 +476,11 @@ fmt.Printf("%08b\n", x^y)     // "00100100"
         a value of type *T
       </li>
       <li>The new function is relatively rarely used.</li>
+      <li>
+        Since Go 1.26 <code>new</code> also takes an expression:
+        <code class="hl-green">p := new(42)</code> is a <code>*int</code>
+        pointing at 42
+      </li>
     </ul>
   </section>
   <section>
@@ -582,8 +605,36 @@ for condition {
     </ul>
     <pre><code class="lang-go">
 for i, num := range numbers { ... }
-for city, pop := range population { ... }
+for city, pop := range population { ... } // a map: next slide
+for i := range 100 { ... }                // Go 1.22: 0, 1, …, 99
     </code></pre>
+  </section>
+  <section>
+    <h2>Maps</h2>
+    <pre><code class="lang-go">
+counts := map[string]int{} // or make(map[string]int)
+
+for _, w := range strings.Fields("go is fun and go is fast") {
+  counts[w]++ // a missing key reads as 0
+}
+fmt.Println(counts["go"], counts["rust"]) // 2 0
+
+n, ok := counts["rust"] // comma-ok: missing, or really 0?
+fmt.Println(n, ok)      // 0 false
+
+delete(counts, "fun")
+fmt.Println(len(counts)) // 4
+
+for word, n := range counts { // a different order on every run
+  fmt.Println(word, n)
+}
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-orange">map[K]V</code> is a hash table; the zero value
+        <code>nil</code> map cannot be written to, so make one first
+      </li>
+    </ul>
   </section>
 </section>
 <section>
@@ -593,6 +644,8 @@ package main
 
 import "fmt"
 
+// this version starts 1, 1, 2, 3, 5, … so F(10) is 89;
+// the textbook F(0) = 0, F(1) = 1 gives F(10) = 55
 func Fibonacci(n int) int {
   if n == 0 || n == 1 {
     return 1
@@ -602,7 +655,7 @@ func Fibonacci(n int) int {
 }
 
 func main() {
-  fmt.Printf("%d\n", Fibonacci(10))
+  fmt.Printf("%d\n", Fibonacci(10)) // 89
 }
   </code></pre>
 </section>
@@ -730,7 +783,7 @@ func main() {
     <pre><code class="lang-go">
 s := "hello, world"
 fmt.Println(len(s)) // 12
-fmt.Println(s[0], s[7]) // 'h' and 'w'
+fmt.Println(s[0], s[7]) // 104 119 ('h' and 'w')
     </code></pre>
   </section>
   <section>
@@ -897,7 +950,8 @@ c := [2]int{1, 3}
 fmt.Println(a == b, a == c, b == c) // "true false false"
 
 d := [3]int{1, 2}
-fmt.Println(a == d) // compile error: cannot compare [2]int == [3]int
+fmt.Println(a == d) // compile error:
+// invalid operation: a == d (mismatched types [2]int and [3]int)
     </code></pre>
     <pre><code class="lang-go">
 // Print the indices and elements.
@@ -996,14 +1050,14 @@ append(s, x)  // append element x to slice s and return new slice
     <pre><code class="lang-plaintext">
 s1: [10 20 30 0 0 0 0 0 0 0], len(s1): 10, cap(s1): 10
 s1: [10 20 30 0 0 0 0 0 0 0 10], len(s1): 11, cap(s1): 20
+range s1: 0:10 1:20 2:30 3:0 4:0 5:0 6:0 7:0 8:0 9:0 10:10
 s2: [10], len(s2): 1, cap(s2): 10
-
 before appending a new variable into s
-address of s is 0x76fb35a2a048
-address of s[0] is 0x76fb35a280a0
+address of s is 0x54640df14060
+address of s[0] is 0x54640df222d0
 after appending a new variable into s
-address of s is 0x76fb35a2a048
-address of s[0] is 0x76fb35a24140
+address of s is 0x54640df14060
+address of s[0] is 0x54640dfcc0a0
     </code></pre>
     <ul>
       <li>
@@ -1077,10 +1131,42 @@ func main() {
       </ul>
     </ul>
   </section>
+  <section>
+    <h2>Struct Tags and JSON</h2>
+    <pre><code class="lang-go">
+type Name struct {
+  Name  string `json:"name,omitempty"`
+  Count *int   `json:"count,omitempty"`
+}
+
+func main() {
+  b, err := json.Marshal(Name{Name: "Parham", Count: new(3)})
+  fmt.Println(string(b), err) // {"name":"Parham","count":3} &lt;nil&gt;
+
+  var absent, zero Name
+  _ = json.Unmarshal([]byte(`{"name":"Ali"}`), &amp;absent)
+  _ = json.Unmarshal([]byte(`{"name":"Ali","count":0}`), &amp;zero)
+
+  fmt.Println(absent.Count == nil) // true:  no "count" key
+  fmt.Println(*zero.Count)         // 0:     "count" was there
+}
+    </code></pre>
+    <ul>
+      <li>
+        The <span class="hl-yellow">tag</span> maps an exported field to a
+        lowercase key; <code>encoding/json</code> cannot see unexported fields
+      </li>
+      <li>
+        <code class="hl-orange">*int</code> tells "absent" (<code>nil</code>)
+        from "0". This is go-lecture's <code>request.Name</code>
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
-  <h2>Methods</h2>
-  <pre><code class="lang-go">
+  <section>
+    <h2>Methods</h2>
+    <pre><code class="lang-go">
 package main
 
 import "fmt"
@@ -1090,28 +1176,46 @@ type Example struct {
   count int
 }
 
-// define a custom type based on go standard types
-type integer int
-
-func (i integer) log() {
-  fmt.Printf("%d\n", i)
-}
-
-// pointer reciever which can change 'example' fields
+// pointer receiver: the method can change e's fields
 func (e *Example) Log() {
   e.count++
   fmt.Printf("%d %s\n", e.count, e.Val)
 }
 
 func main() {
-  var i integer
-  exm := Example{
-    Val:   "Example",
-    count: 10}
-  i.log()
-  exm.Log()
+  exm := Example{Val: "Example", count: 10}
+  exm.Log() // 11 Example
+  exm.Log() // 12 Example: the change stayed
 }
     </code></pre>
+  </section>
+  <section>
+    <h2>Methods on Any Named Type</h2>
+    <pre><code class="lang-go">
+package main
+
+import "fmt"
+
+// a custom type based on a Go standard type
+type integer int
+
+// value receiver: the method gets a copy
+func (i integer) log() {
+  fmt.Printf("%d\n", i)
+}
+
+func main() {
+  var i integer = 7
+  i.log() // 7
+}
+    </code></pre>
+    <ul>
+      <li>
+        Any type you define in your package can have methods, but not
+        <code>int</code> itself or a type from another package
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <section class="hands-on">
@@ -1232,9 +1336,12 @@ Hello
   <h2>Casting Types</h2>
   <ul>
     <li>
-      type conversion: A type conversion is similar to a cast in C. It
-      reinterprets the value as a new type
+      type conversion: <code>T(x)</code> looks like a cast in C, but it
+      <strong class="hl-orange">converts the value</strong>: the
+      <code>int</code> 1 becomes the <code>float32</code> 1, a new bit pattern,
+      not the old bits read as a float
     </li>
+    <li>Go never converts between numeric types implicitly</li>
   </ul>
   <pre><code class="lang-go">
 package main
@@ -1251,16 +1358,17 @@ func main() {
   </code></pre>
 </section>
 <section>
-  <h2>Type Assertion</h2>
-  <ul>
-    <li>
-      type assertion: They
-      <strong class="hl-orange">do not convert</strong> between types; they
-      simply state to the compiler that the underlying value has the specific
-      type.
-    </li>
-  </ul>
-  <pre><code class="lang-go">
+  <section>
+    <h2>Type Assertion</h2>
+    <ul>
+      <li>
+        type assertion: <code>k.(T)</code>
+        <strong class="hl-orange">does not convert</strong>; it checks
+        <strong class="hl-red">at run time</strong> that the interface value
+        <code>k</code> holds a <code>T</code>, and panics if it does not
+      </li>
+    </ul>
+    <pre><code class="lang-go">
 package main
 
 import "fmt"
@@ -1282,6 +1390,69 @@ func main() {
   }
 }
   </code></pre>
+  </section>
+  <section>
+    <h2>Errors Are Values</h2>
+    <pre><code class="lang-go">
+var ErrNotFound = errors.New("not found")
+
+func find(id int) (string, error) {
+  if id != 1 {
+    return "", fmt.Errorf("find %d: %w", id, ErrNotFound)
+  }
+
+  return "parham", nil
+}
+
+func main() {
+  name, err := find(2)
+  if err != nil {
+    fmt.Println(err)                         // find 2: not found
+    fmt.Println(errors.Is(err, ErrNotFound)) // true: Is unwraps %w
+    fmt.Println(err == ErrNotFound)          // false: it is wrapped
+    return
+  }
+
+  fmt.Println(name)
+}
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-cyan">error</code> is an interface with one method,
+        <code>Error() string</code>; <code>nil</code> means success
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2><code>defer</code></h2>
+    <pre><code class="lang-go">
+func main() {
+  f, err := os.Create("/tmp/defer.txt")
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer f.Close() // runs when main returns, on every path
+
+  defer fmt.Println("deferred 1")
+  defer fmt.Println("deferred 2") // last in, first out
+
+  fmt.Fprintln(f, "data")
+  fmt.Println("main is done")
+}
+    </code></pre>
+    <pre><code class="lang-plaintext">
+main is done
+deferred 2
+deferred 1
+    </code></pre>
+    <ul>
+      <li>
+        Clean-up sits next to the code that needs it: open, then
+        <code class="hl-green">defer</code> the close
+      </li>
+    </ul>
+  </section>
 </section>
 <section>
   <div class="toc" data-selected="4"></div>
@@ -1305,15 +1476,15 @@ type Cartesian struct {
   Y float64
 }
 
-func (c *Cartesian) Distance() float64 {
+func (c Cartesian) Distance() float64 {
   return math.Sqrt(c.X*c.X + c.Y*c.Y)
 }
 
-func (c *Cartesian) ImageOnX() float64 {
+func (c Cartesian) ImageOnX() float64 {
   return c.X
 }
 
-func (c *Cartesian) ImageOnY() float64 {
+func (c Cartesian) ImageOnY() float64 {
   return c.Y
 }
     </code></pre>
@@ -1322,107 +1493,66 @@ func (c *Cartesian) ImageOnY() float64 {
   <h2>Create Polar Point Structure</h2>
   <pre><code class="lang-go">
 type Polar struct {
-  R    float64
+  R     float64
   Theta float64
 }
 
-func (p *Polar) Distance() float64 {
+func (p Polar) Distance() float64 {
   return p.R
 }
 
-func (p *Polar) ImageOnX() float64 {
+func (p Polar) ImageOnX() float64 {
   return p.R * math.Cos(p.Theta)
 }
 
-func (p *Polar) ImageOnY() float64 {
+func (p Polar) ImageOnY() float64 {
   return p.R * math.Sin(p.Theta)
 }
     </code></pre>
 </section>
 <section>
+  <h2>Use the Interface</h2>
   <pre><code class="lang-go">
 func main() {
-  p := Polar{
-    R:    1,
-    Theta: math.Pi / 2,
+  points := []Point{
+    Polar{R: 1, Theta: math.Pi / 2},
+    Cartesian{X: 3, Y: 4},
   }
 
-  c := Cartesian{
-    X: 3,
-    Y: 4,
+  for _, pt := range points {
+    fmt.Printf("%T: %g (%g, %g)\n",
+      pt, pt.Distance(), pt.ImageOnX(), pt.ImageOnY())
   }
-
-  fmt.Printf("%g %g\n", p.Distance(), c.Distance())
-  fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
-  fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
 }
-</code></pre>
+  </code></pre>
+  <ul>
+    <li>
+      One loop, two types: each call goes to the method of the value
+      <em class="hl-cyan">inside</em> the interface
+    </li>
+  </ul>
 </section>
 <section>
-  <pre><code class="lang-go">
-package main
-
-import (
-  "fmt"
-  "math"
-)
-
-type Point interface {
-  Distance() float64
-  ImageOnX() float64
-  ImageOnY() float64
-}
-
-type Cartesian struct {
-  X float64
-  Y float64
-}
-
-func (c *Cartesian) Distance() float64 {
-  return math.Sqrt(c.X*c.X + c.Y*c.Y)
-}
-
-func (c *Cartesian) ImageOnX() float64 {
-  return c.X
-}
-
-func (c *Cartesian) ImageOnY() float64 {
-  return c.Y
-}
-
-type Polar struct {
-  R    float64
-  Theta float64
-}
-
-func (p *Polar) Distance() float64 {
-  return p.R
-}
-
-func (p *Polar) ImageOnX() float64 {
-  return p.R * math.Cos(p.Theta)
-}
-
-func (p *Polar) ImageOnY() float64 {
-  return p.R * math.Sin(p.Theta)
-}
-
-func main() {
-  p := Polar{
-    R:    1,
-    Theta: math.Pi / 2,
-  }
-
-  c := Cartesian{
-    X: 3,
-    Y: 4,
-  }
-
-  fmt.Printf("%g %g\n", p.Distance(), c.Distance())
-  fmt.Printf("%g %g\n", c.ImageOnX(), c.ImageOnY())
-  fmt.Printf("%g %g\n", p.ImageOnX(), p.ImageOnY())
-}
-    </code></pre>
+  <h2>Result</h2>
+  <pre><code class="lang-plaintext">
+main.Polar: 1 (6.123233995736757e-17, 1)
+main.Cartesian: 5 (3, 4)
+  </code></pre>
+  <ul>
+    <li>
+      <code>cos(π/2)</code> is not 0: <code>math.Pi</code> is only the nearest
+      <code>float64</code> to π, so never compare floats with
+      <code class="hl-red">==</code>
+    </li>
+    <li>
+      The methods have <span class="hl-green">value receivers</span>, so a plain
+      <code>Cartesian{…}</code> is a <code>Point</code>. With
+      <code>func (c *Cartesian)</code> the same slice does not compile:
+    </li>
+  </ul>
+  <pre><code class="lang-plaintext">
+…: Cartesian does not implement Point (method Distance has pointer receiver)
+  </code></pre>
 </section>
 <section>
   <div class="toc" data-selected="5"></div>
@@ -1682,6 +1812,14 @@ _, _ = w.Write(enc)
       </li>
     </ul>
   </section>
+  <section>
+    <h2>The Life of a <code>ResponseWriter</code></h2>
+    <img
+      src="./img/response-writer.svg"
+      alt="Three phases. 1: w.Header().Set Content-Type application/json only edits a map in memory. 2: w.WriteHeader(201) fixes HTTP/1.1 201 Created and a copy of the headers, one final status per response. 3: two w.Write calls send the body a and b, and the server adds Content-Length 6. Captured with curl: a header set after WriteHeader is not in the response. Writing the body first commits an implicit 200 OK with a sniffed Content-Type text/plain; charset=utf-8, the later WriteHeader(418) is never sent, and the server logs http: superfluous response.WriteHeader call from main.main.func1 (main.go:14)"
+      width="880"
+    />
+  </section>
 </section>
 <section>
   <section>
@@ -1827,23 +1965,48 @@ go run ./httpserver
     </code></pre>
   </section>
   <section>
-    <h2>Result</h2>
+    <h2>Result: GET</h2>
     <pre><code class="lang-sh">
 $ curl -i localhost:1373/hello
 HTTP/1.1 200 OK
 Content-Type: application/json
+Date: Mon, 16 Nov 2026 01:16:10 GMT
 Content-Length: 25
 
 "Hello World from Golang"
 
+$ curl -i 'localhost:1373/hello?hello=IE'
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Mon, 16 Nov 2026 01:16:10 GMT
+Content-Length: 25
+
+"Hello World from Golang"
+
+$ curl -i localhost:1373/hello/parham
+HTTP/1.1 204 No Content
+Date: Mon, 16 Nov 2026 01:16:10 GMT
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-green">204</code>: the handler only logs the name; look
+        at the server side
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Result: POST and DELETE</h2>
+    <pre><code class="lang-sh">
 $ curl -i -X POST -H 'Content-Type: application/json' \
     -d '{"name":"Parham","count":3}' localhost:1373/hello
 HTTP/1.1 200 OK
 Content-Type: application/json
+Date: Mon, 16 Nov 2026 01:16:10 GMT
+Content-Length: 29
 
 "Hello to Parham from Golang"
 
-$ curl -o /dev/null -w '%{http_code}\n' -X DELETE localhost:1373/hello
+$ curl -s -o /dev/null -w '%{http_code}\n' -X DELETE localhost:1373/hello
 405
     </code></pre>
     <ul>
@@ -1856,11 +2019,12 @@ $ curl -o /dev/null -w '%{http_code}\n' -X DELETE localhost:1373/hello
   </section>
   <section>
     <h2>Server Side</h2>
-    <pre><code class="lang-plaintext">
-level=INFO msg="http server listening" addr=0.0.0.0:1373
-level=INFO msg="read hello from query parameter" handler=hello hello=IE
-level=INFO msg="read username from path parameter" handler=hello username=parham
-level=INFO msg="There is a count" handler=hello count=3
+    <pre style="font-size: 0.5em"><code class="lang-plaintext">
+time=2026-11-16T02:16:09.043+01:00 level=INFO msg="http server listening" addr=0.0.0.0:1373
+time=2026-11-16T02:16:10.441+01:00 level=INFO msg="read hello from query parameter" handler=hello hello=IE
+time=2026-11-16T02:16:10.450+01:00 level=INFO msg="read username from path parameter" handler=hello username=parham
+time=2026-11-16T02:16:10.458+01:00 level=INFO msg="There is a count" handler=hello count=3
+time=2026-11-16T02:16:10.471+01:00 level=INFO msg="shutdown requested" cause="interrupt signal received"
     </code></pre>
     <ul>
       <li>
@@ -1871,6 +2035,40 @@ level=INFO msg="There is a count" handler=hello count=3
         <code>handler=hello</code> comes from
         <code>logger.With("handler", "hello")</code> — set once at wiring time,
         attached to every line
+      </li>
+      <li>
+        The last line is Ctrl-C: <code>context.Cause</code> says why the server
+        stopped
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Testing a Handler</h2>
+    <pre><code class="lang-go">
+func TestGet(t *testing.T) {
+  h := handler.Hello{From: "Golang", Logger: slog.New(slog.DiscardHandler)}
+
+  w := httptest.NewRecorder()
+  h.Get(w, httptest.NewRequest("GET", "/hello", nil))
+
+  if got := w.Header().Get("Content-Type"); got != "application/json" {
+    t.Errorf("Content-Type = %q", got)
+  }
+  if w.Code != 200 || w.Body.String() != `"Hello World from Golang"` {
+    t.Errorf("got %d %s", w.Code, w.Body)
+  }
+}
+    </code></pre>
+    <pre><code class="lang-plaintext">
+$ go test ./httpserver/handler
+ok  	github.com/1995parham-teaching/go-lecture/httpserver/handler	0.303s
+    </code></pre>
+    <ul>
+      <li>
+        <code class="hl-orange">httptest.NewRecorder</code> is a
+        <code>ResponseWriter</code> that remembers; no server, no port. Put this
+        in <code>handler/hello_test.go</code> (package
+        <code>handler_test</code>)
       </li>
     </ul>
   </section>
@@ -1908,21 +2106,25 @@ package main
 
 import (
   "fmt"
+  "sync"
   "time"
 )
 
 func f(msg string, delay time.Duration) {
-  for {
+  for range 5 {
     fmt.Println(msg)
     time.Sleep(delay)
   }
 }
 
 func main() {
-  go f("A--", 300*time.Millisecond)
-  go f("-B-", 500*time.Millisecond)
-  go f("--C", 1100*time.Millisecond)
-  time.Sleep(20 * time.Second)
+  var wg sync.WaitGroup
+
+  wg.Go(func() { f("A--", 300*time.Millisecond) })
+  wg.Go(func() { f("-B-", 500*time.Millisecond) })
+  wg.Go(func() { f("--C", 1100*time.Millisecond) })
+
+  wg.Wait() // Go 1.25: wg.Go adds, runs and marks done
 }
   </code></pre>
 </section>
@@ -1943,8 +2145,8 @@ chan&lt;- string  // send-only channel
     <li>A channel is a variable of channel type:</li>
 
     <pre><code class="lang-go">
-var ch chan int
-ch := make(chan int)  // declare and initialize with newly made channel
+var ch chan int       // either: nil until you make it
+ch := make(chan int)  // or: declare and make in one step
     </code></pre>
 
     <li>
@@ -1983,7 +2185,7 @@ x = &lt;-ch  // receive a value from channel ch (and assign to x)
     go f("-B-", 500*time.Millisecond, ch)
     go f("--C", 1100*time.Millisecond, ch)
 
-    for i := 0; i &lt; 100; i++ {
+    for i := range 100 {
       fmt.Println(i, &lt;-ch)
     }
   }
@@ -1996,6 +2198,41 @@ x = &lt;-ch  // receive a value from channel ch (and assign to x)
       alt="A captured run over the first 1.6 seconds. Goroutine A-- sends every 0.3 s, -B- every 0.5 s and --C every 1.1 s, all on the same unbuffered channel ch. main receives one value at a time, numbered 0 to 11 in arrival order. At 0 s all three send at once, so the order of the first three changes from run to run"
       width="880"
     />
+  </section>
+  <section>
+    <h2><code>select</code></h2>
+    <pre><code class="lang-go">
+fast := make(chan string)
+slow := make(chan string)
+
+go func() { time.Sleep(100 * time.Millisecond); fast &lt;- "fast" }()
+go func() { time.Sleep(time.Second); slow &lt;- "slow" }()
+
+for range 3 {
+  select { // waits for whichever case is ready first
+  case msg := &lt;-fast:
+    fmt.Println(msg)
+  case msg := &lt;-slow:
+    fmt.Println(msg)
+  case &lt;-time.After(500 * time.Millisecond):
+    fmt.Println("timeout")
+  }
+}
+    </code></pre>
+    <pre><code class="lang-plaintext">
+fast
+timeout
+slow
+    </code></pre>
+    <ul>
+      <li>
+        More in go-lecture
+        <a
+          href="https://raw.githubusercontent.com/1995parham-teaching/go-lecture/main/21-select/main.go"
+          >21-select</a
+        >
+      </li>
+    </ul>
   </section>
 </section>
 <section>
